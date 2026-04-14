@@ -1,7 +1,7 @@
-"""``hermes debug`` — debug tools for Hermes Agent.
+"""``shadow debug`` — debug tools for SHADOW Agent.
 
 Currently supports:
-    hermes debug share    Upload debug report (system info + logs) to a
+    shadow debug share    Upload debug report (system info + logs) to a
                           paste service and print a shareable URL.
 """
 
@@ -13,7 +13,7 @@ import urllib.request
 from pathlib import Path
 from typing import Optional
 
-from hermes_constants import get_hermes_home
+from shadow_constants import get_shadow_home
 
 
 # ---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ def _upload_paste_rs(content: str) -> str:
         _PASTE_RS_URL, data=data, method="POST",
         headers={
             "Content-Type": "text/plain; charset=utf-8",
-            "User-Agent": "hermes-agent/debug-share",
+            "User-Agent": "shadow-agent/debug-share",
         },
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -53,7 +53,7 @@ def _upload_dpaste_com(content: str, expiry_days: int = 7) -> str:
 
     dpaste.com uses multipart form data.
     """
-    boundary = "----HermesDebugBoundary9f3c"
+    boundary = "----SHADOWDebugBoundary9f3c"
 
     def _field(name: str, value: str) -> str:
         return (
@@ -74,7 +74,7 @@ def _upload_dpaste_com(content: str, expiry_days: int = 7) -> str:
         _DPASTE_COM_URL, data=body, method="POST",
         headers={
             "Content-Type": f"multipart/form-data; boundary={boundary}",
-            "User-Agent": "hermes-agent/debug-share",
+            "User-Agent": "shadow-agent/debug-share",
         },
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -117,13 +117,13 @@ def _resolve_log_path(log_name: str) -> Optional[Path]:
 
     Returns the path if found, or None.
     """
-    from hermes_cli.logs import LOG_FILES
+    from shadow_cli.logs import LOG_FILES
 
     filename = LOG_FILES.get(log_name)
     if not filename:
         return None
 
-    log_dir = get_hermes_home() / "logs"
+    log_dir = get_shadow_home() / "logs"
     primary = log_dir / filename
     if primary.exists() and primary.stat().st_size > 0:
         return primary
@@ -138,7 +138,7 @@ def _resolve_log_path(log_name: str) -> Optional[Path]:
 
 def _read_log_tail(log_name: str, num_lines: int) -> str:
     """Read the last *num_lines* from a log file, or return a placeholder."""
-    from hermes_cli.logs import _read_last_n_lines
+    from shadow_cli.logs import _read_last_n_lines
 
     log_path = _resolve_log_path(log_name)
     if log_path is None:
@@ -185,8 +185,8 @@ def _read_full_log(log_name: str, max_bytes: int = _MAX_LOG_BYTES) -> Optional[s
 # ---------------------------------------------------------------------------
 
 def _capture_dump() -> str:
-    """Run ``hermes dump`` and return its stdout as a string."""
-    from hermes_cli.dump import run_dump
+    """Run ``shadow dump`` and return its stdout as a string."""
+    from shadow_cli.dump import run_dump
 
     class _FakeArgs:
         show_keys = False
@@ -211,7 +211,7 @@ def collect_debug_report(*, log_lines: int = 200, dump_text: str = "") -> str:
     log_lines
         Number of recent lines to include per log file.
     dump_text
-        Pre-captured dump output.  If empty, ``hermes dump`` is run
+        Pre-captured dump output.  If empty, ``shadow dump`` is run
         internally.
 
     Returns the report as a plain-text string ready for upload.
@@ -315,7 +315,7 @@ def run_debug_share(args):
     if failures:
         print(f"\n  (failed to upload: {', '.join(failures)})")
 
-    print(f"\nShare these links with the Hermes team for support.")
+    print(f"\nShare these links with the SHADOW team for support.")
 
 
 def run_debug(args):
@@ -325,7 +325,7 @@ def run_debug(args):
         run_debug_share(args)
     else:
         # Default: show help
-        print("Usage: hermes debug share [--lines N] [--expire N] [--local]")
+        print("Usage: shadow debug share [--lines N] [--expire N] [--local]")
         print()
         print("Commands:")
         print("  share    Upload debug report to a paste service and print URL")

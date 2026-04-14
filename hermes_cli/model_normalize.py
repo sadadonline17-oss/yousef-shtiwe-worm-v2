@@ -178,12 +178,12 @@ def _dots_to_hyphens(model_name: str) -> str:
 
 
 def _normalize_provider_alias(provider_name: str) -> str:
-    """Resolve provider aliases to Hermes' canonical ids."""
+    """Resolve provider aliases to SHADOW' canonical ids."""
     raw = (provider_name or "").strip().lower()
     if not raw:
         return raw
     try:
-        from hermes_cli.models import normalize_provider
+        from shadow_cli.models import normalize_provider
 
         return normalize_provider(raw)
     except Exception:
@@ -303,10 +303,10 @@ def normalize_model_for_provider(model_input: str, target_provider: str) -> str:
             Can be bare (``"claude-sonnet-4.6"``), vendor-prefixed
             (``"anthropic/claude-sonnet-4.6"``), or already in native
             format (``"claude-sonnet-4-6"``).
-        target_provider: The canonical Hermes provider id, e.g.
+        target_provider: The canonical SHADOW provider id, e.g.
             ``"openrouter"``, ``"anthropic"``, ``"copilot"``,
             ``"deepseek"``, ``"custom"``.  Should already be normalised
-            via ``hermes_cli.models.normalize_provider()``.
+            via ``shadow_cli.models.normalize_provider()``.
 
     Returns:
         The model identifier string that the target provider's API

@@ -17,7 +17,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Using Hermes',
+      label: 'Using SHADOW',
       collapsed: true,
       items: [
         'user-guide/cli',
@@ -148,10 +148,10 @@ const sidebars: SidebarsConfig = {
         'guides/daily-briefing-bot',
         'guides/team-telegram-assistant',
         'guides/python-library',
-        'guides/use-mcp-with-hermes',
-        'guides/use-soul-with-hermes',
-        'guides/use-voice-mode-with-hermes',
-        'guides/build-a-hermes-plugin',
+        'guides/use-mcp-with-shadow',
+        'guides/use-soul-with-shadow',
+        'guides/use-voice-mode-with-shadow',
+        'guides/build-a-shadow-plugin',
         'guides/automate-with-cron',
         'guides/automation-templates',
         'guides/cron-troubleshooting',

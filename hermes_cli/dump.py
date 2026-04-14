@@ -1,7 +1,7 @@
 """
-Dump command for hermes CLI.
+Dump command for shadow CLI.
 
-Outputs a compact, plain-text summary of the user's Hermes setup
+Outputs a compact, plain-text summary of the user's SHADOW setup
 that can be copy-pasted into Discord/GitHub/Telegram for support context.
 No ANSI colors, no checkmarks — just data.
 """
@@ -13,8 +13,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-from hermes_cli.config import get_hermes_home, get_env_path, get_project_root, load_config
-from hermes_constants import display_hermes_home
+from shadow_cli.config import get_shadow_home, get_env_path, get_project_root, load_config
+from shadow_constants import display_shadow_home
 
 
 def _get_git_commit(project_root: Path) -> str:
@@ -44,10 +44,10 @@ def _redact(value: str) -> str:
 def _gateway_status() -> str:
     """Return a short gateway status string."""
     if sys.platform.startswith("linux"):
-        from hermes_constants import is_container
+        from shadow_constants import is_container
         if is_container():
             try:
-                from hermes_cli.gateway import find_gateway_pids
+                from shadow_cli.gateway import find_gateway_pids
                 pids = find_gateway_pids()
                 if pids:
                     return f"running (docker, pid {pids[0]})"
@@ -55,10 +55,10 @@ def _gateway_status() -> str:
             except Exception:
                 return "stopped (docker)"
         try:
-            from hermes_cli.gateway import get_service_name
+            from shadow_cli.gateway import get_service_name
             svc = get_service_name()
         except Exception:
-            svc = "hermes-gateway"
+            svc = "shadow-gateway"
         try:
             r = subprocess.run(
                 ["systemctl", "--user", "is-active", svc],
@@ -69,7 +69,7 @@ def _gateway_status() -> str:
             return "unknown"
     elif sys.platform == "darwin":
         try:
-            from hermes_cli.gateway import get_launchd_label
+            from shadow_cli.gateway import get_launchd_label
             r = subprocess.run(
                 ["launchctl", "list", get_launchd_label()],
                 capture_output=True, text=True, timeout=5,
@@ -80,9 +80,9 @@ def _gateway_status() -> str:
     return "N/A"
 
 
-def _count_skills(hermes_home: Path) -> int:
+def _count_skills(shadow_home: Path) -> int:
     """Count installed skills."""
-    skills_dir = hermes_home / "skills"
+    skills_dir = shadow_home / "skills"
     if not skills_dir.is_dir():
         return 0
     count = 0
@@ -98,9 +98,9 @@ def _count_mcp_servers(config: dict) -> int:
     return len(servers)
 
 
-def _cron_summary(hermes_home: Path) -> str:
+def _cron_summary(shadow_home: Path) -> str:
     """Return cron jobs summary."""
-    jobs_file = hermes_home / "cron" / "jobs.json"
+    jobs_file = shadow_home / "cron" / "jobs.json"
     if not jobs_file.exists():
         return "0"
     try:
@@ -163,7 +163,7 @@ def _config_overrides(config: dict) -> dict[str, str]:
     
     Returns a flat dict of dotpath -> value for interesting overrides.
     """
-    from hermes_cli.config import DEFAULT_CONFIG
+    from shadow_cli.config import DEFAULT_CONFIG
 
     overrides = {}
 
@@ -226,10 +226,10 @@ def run_dump(args):
     load_dotenv(get_project_root() / ".env", override=False, encoding="utf-8")
 
     project_root = get_project_root()
-    hermes_home = get_hermes_home()
+    shadow_home = get_shadow_home()
 
     try:
-        from hermes_cli import __version__, __release_date__
+        from shadow_cli import __version__, __release_date__
     except ImportError:
         __version__ = "(unknown)"
         __release_date__ = ""
@@ -245,7 +245,7 @@ def run_dump(args):
 
     # Profile
     try:
-        from hermes_cli.profiles import get_active_profile_name
+        from shadow_cli.profiles import get_active_profile_name
         profile = get_active_profile_name() or "(default)"
     except Exception:
         profile = "(default)"
@@ -265,7 +265,7 @@ def run_dump(args):
     os_info = f"{platform.system()} {platform.release()} {platform.machine()}"
 
     lines = []
-    lines.append("--- hermes dump ---")
+    lines.append("--- shadow dump ---")
     ver_str = f"{__version__}"
     if __release_date__:
         ver_str += f" ({__release_date__})"
@@ -275,7 +275,7 @@ def run_dump(args):
     lines.append(f"python:           {sys.version.split()[0]}")
     lines.append(f"openai_sdk:       {openai_ver}")
     lines.append(f"profile:          {profile}")
-    lines.append(f"hermes_home:      {display_hermes_home()}")
+    lines.append(f"shadow_home:      {display_shadow_home()}")
     lines.append(f"model:            {model}")
     lines.append(f"provider:         {provider}")
     lines.append(f"terminal:         {backend}")
@@ -320,7 +320,7 @@ def run_dump(args):
     lines.append("")
     lines.append("features:")
 
-    toolsets = config.get("toolsets", ["hermes-cli"])
+    toolsets = config.get("toolsets", ["shadow-cli"])
     lines.append(f"  toolsets:           {', '.join(toolsets) if toolsets else '(default)'}")
     lines.append(f"  mcp_servers:        {_count_mcp_servers(config)}")
     lines.append(f"  memory_provider:    {_memory_provider(config)}")
@@ -328,8 +328,8 @@ def run_dump(args):
 
     platforms = _configured_platforms()
     lines.append(f"  platforms:          {', '.join(platforms) if platforms else 'none'}")
-    lines.append(f"  cron_jobs:          {_cron_summary(hermes_home)}")
-    lines.append(f"  skills:             {_count_skills(hermes_home)}")
+    lines.append(f"  cron_jobs:          {_cron_summary(shadow_home)}")
+    lines.append(f"  skills:             {_count_skills(shadow_home)}")
 
     # Config overrides (non-default values)
     overrides = _config_overrides(config)

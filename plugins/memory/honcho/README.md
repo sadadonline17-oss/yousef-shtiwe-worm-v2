@@ -2,7 +2,7 @@
 
 AI-native cross-session user modeling with dialectic Q&A, semantic search, peer cards, and persistent conclusions.
 
-> **Honcho docs:** <https://docs.honcho.dev/v3/guides/integrations/hermes>
+> **Honcho docs:** <https://docs.honcho.dev/v3/guides/integrations/shadow>
 
 ## Requirements
 
@@ -12,14 +12,14 @@ AI-native cross-session user modeling with dialectic Q&A, semantic search, peer 
 ## Setup
 
 ```bash
-hermes honcho setup    # full interactive wizard (cloud or local)
-hermes memory setup    # generic picker, also works
+shadow honcho setup    # full interactive wizard (cloud or local)
+shadow memory setup    # generic picker, also works
 ```
 
 Or manually:
 ```bash
-hermes config set memory.provider honcho
-echo "HONCHO_API_KEY=your-key" >> ~/.hermes/.env
+shadow config set memory.provider honcho
+echo "HONCHO_API_KEY=your-key" >> ~/.shadow/.env
 ```
 
 ## Config Resolution
@@ -28,11 +28,11 @@ Config is read from the first file that exists:
 
 | Priority | Path | Scope |
 |----------|------|-------|
-| 1 | `$HERMES_HOME/honcho.json` | Profile-local (isolated Hermes instances) |
-| 2 | `~/.hermes/honcho.json` | Default profile (shared host blocks) |
+| 1 | `$SHADOW_HOME/honcho.json` | Profile-local (isolated SHADOW instances) |
+| 2 | `~/.shadow/honcho.json` | Default profile (shared host blocks) |
 | 3 | `~/.honcho/config.json` | Global (cross-app interop) |
 
-Host key is derived from the active Hermes profile: `hermes` (default) or `hermes.<profile>`.
+Host key is derived from the active SHADOW profile: `shadow` (default) or `shadow.<profile>`.
 
 ## Tools
 
@@ -93,7 +93,7 @@ Per-profile example -- coder profile observes the user but user doesn't observe 
 
 ```json
 "hosts": {
-  "hermes.coder": {
+  "shadow.coder": {
     "observation": {
       "user": { "observeMe": true, "observeOthers": false },
       "ai":   { "observeMe": true, "observeOthers": true }
@@ -152,7 +152,7 @@ These are read from the root config object, not the host block. Must be set manu
 
 For every key, resolution order is: **host block > root > env var > default**.
 
-Host key derivation: `HERMES_HONCHO_HOST` env > active profile (`hermes.<profile>`) > `"hermes"`.
+Host key derivation: `SHADOW_HONCHO_HOST` env > active profile (`shadow.<profile>`) > `"shadow"`.
 
 ## Environment Variables
 
@@ -161,35 +161,35 @@ Host key derivation: `HERMES_HONCHO_HOST` env > active profile (`hermes.<profile
 | `HONCHO_API_KEY` | `apiKey` |
 | `HONCHO_BASE_URL` | `baseUrl` |
 | `HONCHO_ENVIRONMENT` | `environment` |
-| `HERMES_HONCHO_HOST` | Host key override |
+| `SHADOW_HONCHO_HOST` | Host key override |
 
 ## CLI Commands
 
 | Command | Description |
 |---------|-------------|
-| `hermes honcho setup` | Full interactive setup wizard |
-| `hermes honcho status` | Show resolved config for active profile |
-| `hermes honcho enable` / `disable` | Toggle Honcho for active profile |
-| `hermes honcho mode <mode>` | Change recall or observation mode |
-| `hermes honcho peer --user <name>` | Update user peer name |
-| `hermes honcho peer --ai <name>` | Update AI peer name |
-| `hermes honcho tokens --context <N>` | Set context token budget |
-| `hermes honcho tokens --dialectic <N>` | Set dialectic max chars |
-| `hermes honcho map <name>` | Map current directory to a session name |
-| `hermes honcho sync` | Create host blocks for all Hermes profiles |
+| `shadow honcho setup` | Full interactive setup wizard |
+| `shadow honcho status` | Show resolved config for active profile |
+| `shadow honcho enable` / `disable` | Toggle Honcho for active profile |
+| `shadow honcho mode <mode>` | Change recall or observation mode |
+| `shadow honcho peer --user <name>` | Update user peer name |
+| `shadow honcho peer --ai <name>` | Update AI peer name |
+| `shadow honcho tokens --context <N>` | Set context token budget |
+| `shadow honcho tokens --dialectic <N>` | Set dialectic max chars |
+| `shadow honcho map <name>` | Map current directory to a session name |
+| `shadow honcho sync` | Create host blocks for all SHADOW profiles |
 
 ## Example Config
 
 ```json
 {
   "apiKey": "your-key",
-  "workspace": "hermes",
+  "workspace": "shadow",
   "peerName": "eri",
   "hosts": {
-    "hermes": {
+    "shadow": {
       "enabled": true,
-      "aiPeer": "hermes",
-      "workspace": "hermes",
+      "aiPeer": "shadow",
+      "workspace": "shadow",
       "peerName": "eri",
       "recallMode": "hybrid",
       "observation": {
@@ -202,10 +202,10 @@ Host key derivation: `HERMES_HONCHO_HOST` env > active profile (`hermes.<profile
       "dialecticMaxChars": 600,
       "saveMessages": true
     },
-    "hermes.coder": {
+    "shadow.coder": {
       "enabled": true,
       "aiPeer": "coder",
-      "workspace": "hermes",
+      "workspace": "shadow",
       "peerName": "eri",
       "observation": {
         "user": { "observeMe": true, "observeOthers": false },

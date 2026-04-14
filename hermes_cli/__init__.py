@@ -1,14 +1,14 @@
 """
-Hermes CLI - Unified command-line interface for Hermes Agent.
+SHADOW CLI - Unified command-line interface for SHADOW Agent.
 
 Provides subcommands for:
-- hermes chat          - Interactive chat (same as ./hermes)
-- hermes gateway       - Run gateway in foreground
-- hermes gateway start - Start gateway service
-- hermes gateway stop  - Stop gateway service  
-- hermes setup         - Interactive setup wizard
-- hermes status        - Show status of all components
-- hermes cron          - Manage cron jobs
+- shadow chat          - Interactive chat (same as ./shadow)
+- shadow gateway       - Run gateway in foreground
+- shadow gateway start - Start gateway service
+- shadow gateway stop  - Stop gateway service  
+- shadow setup         - Interactive setup wizard
+- shadow status        - Show status of all components
+- shadow cron          - Manage cron jobs
 """
 
 __version__ = "0.9.0"

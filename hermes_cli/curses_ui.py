@@ -1,13 +1,13 @@
-"""Shared curses-based UI components for Hermes CLI.
+"""Shared curses-based UI components for SHADOW CLI.
 
-Used by `hermes tools` and `hermes skills` for interactive checklists.
+Used by `shadow tools` and `shadow skills` for interactive checklists.
 Provides a curses multi-select with keyboard navigation, plus a
 text-based numbered fallback for terminals without curses support.
 """
 import sys
 from typing import Callable, List, Optional, Set
 
-from hermes_cli.colors import Colors, color
+from shadow_cli.colors import Colors, color
 
 
 def flush_stdin() -> None:

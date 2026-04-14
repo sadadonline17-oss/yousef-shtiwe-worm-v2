@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: "Toolsets Reference"
-description: "Reference for Hermes core, composite, platform, and dynamic toolsets"
+description: "Reference for SHADOW core, composite, platform, and dynamic toolsets"
 ---
 
 # Toolsets Reference
@@ -14,30 +14,30 @@ Every tool belongs to exactly one toolset. When you enable a toolset, all tools 
 
 - **Core** — A single logical group of related tools (e.g., `file` bundles `read_file`, `write_file`, `patch`, `search_files`)
 - **Composite** — Combines multiple core toolsets for a common scenario (e.g., `debugging` bundles file, terminal, and web tools)
-- **Platform** — A complete tool configuration for a specific deployment context (e.g., `hermes-cli` is the default for interactive CLI sessions)
+- **Platform** — A complete tool configuration for a specific deployment context (e.g., `shadow-cli` is the default for interactive CLI sessions)
 
 ## Configuring Toolsets
 
 ### Per-session (CLI)
 
 ```bash
-hermes chat --toolsets web,file,terminal
-hermes chat --toolsets debugging        # composite — expands to file + terminal + web
-hermes chat --toolsets all              # everything
+shadow chat --toolsets web,file,terminal
+shadow chat --toolsets debugging        # composite — expands to file + terminal + web
+shadow chat --toolsets all              # everything
 ```
 
 ### Per-platform (config.yaml)
 
 ```yaml
 toolsets:
-  - hermes-cli          # default for CLI
-  # - hermes-telegram   # override for Telegram gateway
+  - shadow-cli          # default for CLI
+  # - shadow-telegram   # override for Telegram gateway
 ```
 
 ### Interactive management
 
 ```bash
-hermes tools                            # curses UI to enable/disable per platform
+shadow tools                            # curses UI to enable/disable per platform
 ```
 
 Or in-session:
@@ -54,7 +54,7 @@ Or in-session:
 |---------|-------|---------|
 | `browser` | `browser_back`, `browser_click`, `browser_console`, `browser_get_images`, `browser_navigate`, `browser_press`, `browser_scroll`, `browser_snapshot`, `browser_type`, `browser_vision`, `web_search` | Full browser automation. Includes `web_search` as a fallback for quick lookups. |
 | `clarify` | `clarify` | Ask the user a question when the agent needs clarification. |
-| `code_execution` | `execute_code` | Run Python scripts that call Hermes tools programmatically. |
+| `code_execution` | `execute_code` | Run Python scripts that call SHADOW tools programmatically. |
 | `cronjob` | `cronjob` | Schedule and manage recurring tasks. |
 | `delegation` | `delegate_task` | Spawn isolated subagent instances for parallel work. |
 | `file` | `patch`, `read_file`, `search_files`, `write_file` | File reading, writing, searching, and editing. |
@@ -84,32 +84,32 @@ These expand to multiple core toolsets, providing a convenient shorthand for com
 
 ## Platform Toolsets
 
-Platform toolsets define the complete tool configuration for a deployment target. Most messaging platforms use the same set as `hermes-cli`:
+Platform toolsets define the complete tool configuration for a deployment target. Most messaging platforms use the same set as `shadow-cli`:
 
-| Toolset | Differences from `hermes-cli` |
+| Toolset | Differences from `shadow-cli` |
 |---------|-------------------------------|
-| `hermes-cli` | Full toolset — all 36 tools including `clarify`. The default for interactive CLI sessions. |
-| `hermes-acp` | Drops `clarify`, `cronjob`, `image_generate`, `send_message`, `text_to_speech`, homeassistant tools. Focused on coding tasks in IDE context. |
-| `hermes-api-server` | Drops `clarify`, `send_message`, and `text_to_speech`. Adds everything else — suitable for programmatic access where user interaction isn't possible. |
-| `hermes-telegram` | Same as `hermes-cli`. |
-| `hermes-discord` | Same as `hermes-cli`. |
-| `hermes-slack` | Same as `hermes-cli`. |
-| `hermes-whatsapp` | Same as `hermes-cli`. |
-| `hermes-signal` | Same as `hermes-cli`. |
-| `hermes-matrix` | Same as `hermes-cli`. |
-| `hermes-mattermost` | Same as `hermes-cli`. |
-| `hermes-email` | Same as `hermes-cli`. |
-| `hermes-sms` | Same as `hermes-cli`. |
-| `hermes-dingtalk` | Same as `hermes-cli`. |
-| `hermes-feishu` | Same as `hermes-cli`. |
-| `hermes-wecom` | Same as `hermes-cli`. |
-| `hermes-wecom-callback` | WeCom callback toolset — enterprise self-built app messaging (full access). |
-| `hermes-weixin` | Same as `hermes-cli`. |
-| `hermes-bluebubbles` | Same as `hermes-cli`. |
-| `hermes-qqbot` | Same as `hermes-cli`. |
-| `hermes-homeassistant` | Same as `hermes-cli`. |
-| `hermes-webhook` | Same as `hermes-cli`. |
-| `hermes-gateway` | Union of all messaging platform toolsets. Used internally when the gateway needs the broadest possible tool set. |
+| `shadow-cli` | Full toolset — all 36 tools including `clarify`. The default for interactive CLI sessions. |
+| `shadow-acp` | Drops `clarify`, `cronjob`, `image_generate`, `send_message`, `text_to_speech`, homeassistant tools. Focused on coding tasks in IDE context. |
+| `shadow-api-server` | Drops `clarify`, `send_message`, and `text_to_speech`. Adds everything else — suitable for programmatic access where user interaction isn't possible. |
+| `shadow-telegram` | Same as `shadow-cli`. |
+| `shadow-discord` | Same as `shadow-cli`. |
+| `shadow-slack` | Same as `shadow-cli`. |
+| `shadow-whatsapp` | Same as `shadow-cli`. |
+| `shadow-signal` | Same as `shadow-cli`. |
+| `shadow-matrix` | Same as `shadow-cli`. |
+| `shadow-mattermost` | Same as `shadow-cli`. |
+| `shadow-email` | Same as `shadow-cli`. |
+| `shadow-sms` | Same as `shadow-cli`. |
+| `shadow-dingtalk` | Same as `shadow-cli`. |
+| `shadow-feishu` | Same as `shadow-cli`. |
+| `shadow-wecom` | Same as `shadow-cli`. |
+| `shadow-wecom-callback` | WeCom callback toolset — enterprise self-built app messaging (full access). |
+| `shadow-weixin` | Same as `shadow-cli`. |
+| `shadow-bluebubbles` | Same as `shadow-cli`. |
+| `shadow-qqbot` | Same as `shadow-cli`. |
+| `shadow-homeassistant` | Same as `shadow-cli`. |
+| `shadow-webhook` | Same as `shadow-cli`. |
+| `shadow-gateway` | Union of all messaging platform toolsets. Used internally when the gateway needs the broadest possible tool set. |
 
 ## Dynamic Toolsets
 
@@ -138,7 +138,7 @@ Define custom toolsets in `config.yaml` to create project-specific bundles:
 
 ```yaml
 toolsets:
-  - hermes-cli
+  - shadow-cli
 custom_toolsets:
   data-science:
     - file
@@ -152,8 +152,8 @@ custom_toolsets:
 
 - `all` or `*` — expands to every registered toolset (built-in + dynamic + plugin)
 
-## Relationship to `hermes tools`
+## Relationship to `shadow tools`
 
-The `hermes tools` command provides a curses-based UI for toggling individual tools on or off per platform. This operates at the tool level (finer than toolsets) and persists to `config.yaml`. Disabled tools are filtered out even if their toolset is enabled.
+The `shadow tools` command provides a curses-based UI for toggling individual tools on or off per platform. This operates at the tool level (finer than toolsets) and persists to `config.yaml`. Disabled tools are filtered out even if their toolset is enabled.
 
 See also: [Tools Reference](./tools-reference.md) for the complete list of individual tools and their parameters.

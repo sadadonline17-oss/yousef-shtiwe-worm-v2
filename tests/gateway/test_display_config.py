@@ -243,10 +243,10 @@ class TestConfigMigration:
         }
         config_path.write_text(yaml.dump(config))
 
-        monkeypatch.setenv("HERMES_HOME", str(tmp_path))
-        # Re-import to pick up the new HERMES_HOME
+        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        # Re-import to pick up the new SHADOW_HOME
         import importlib
-        import hermes_cli.config as cfg_mod
+        import shadow_cli.config as cfg_mod
         importlib.reload(cfg_mod)
 
         result = cfg_mod.migrate_config(interactive=False, quiet=True)
@@ -270,9 +270,9 @@ class TestConfigMigration:
         }
         config_path.write_text(yaml.dump(config))
 
-        monkeypatch.setenv("HERMES_HOME", str(tmp_path))
+        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
         import importlib
-        import hermes_cli.config as cfg_mod
+        import shadow_cli.config as cfg_mod
         importlib.reload(cfg_mod)
 
         cfg_mod.migrate_config(interactive=False, quiet=True)

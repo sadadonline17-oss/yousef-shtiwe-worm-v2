@@ -1,46 +1,46 @@
 #!/usr/bin/env python3
 """
-Hermes CLI - Main entry point.
+SHADOW CLI - Main entry point.
 
 Usage:
-    hermes                     # Interactive chat (default)
-    hermes chat                # Interactive chat
-    hermes gateway             # Run gateway in foreground
-    hermes gateway start       # Start gateway as service
-    hermes gateway stop        # Stop gateway service
-    hermes gateway status      # Show gateway status
-    hermes gateway install     # Install gateway service
-    hermes gateway uninstall   # Uninstall gateway service
-    hermes setup               # Interactive setup wizard
-    hermes logout              # Clear stored authentication
-    hermes status              # Show status of all components
-    hermes cron                # Manage cron jobs
-    hermes cron list           # List cron jobs
-    hermes cron status         # Check if cron scheduler is running
-    hermes doctor              # Check configuration and dependencies
-    hermes honcho setup                    # Configure Honcho AI memory integration
-    hermes honcho status                   # Show Honcho config and connection status
-    hermes honcho sessions                 # List directory → session name mappings
-    hermes honcho map <name>               # Map current directory to a session name
-    hermes honcho peer                     # Show peer names and dialectic settings
-    hermes honcho peer --user NAME         # Set user peer name
-    hermes honcho peer --ai NAME           # Set AI peer name
-    hermes honcho peer --reasoning LEVEL   # Set dialectic reasoning level
-    hermes honcho mode                     # Show current memory mode
-    hermes honcho mode [hybrid|honcho|local]  # Set memory mode
-    hermes honcho tokens                   # Show token budget settings
-    hermes honcho tokens --context N       # Set session.context() token cap
-    hermes honcho tokens --dialectic N     # Set dialectic result char cap
-    hermes honcho identity                 # Show AI peer identity representation
-    hermes honcho identity <file>          # Seed AI peer identity from a file (SOUL.md etc.)
-    hermes honcho migrate                  # Step-by-step migration guide: OpenClaw native → Hermes + Honcho
-    hermes version             Show version
-    hermes update              Update to latest version
-    hermes uninstall           Uninstall Hermes Agent
-    hermes acp                 Run as an ACP server for editor integration
-    hermes sessions browse     Interactive session picker with search
+    shadow                     # Interactive chat (default)
+    shadow chat                # Interactive chat
+    shadow gateway             # Run gateway in foreground
+    shadow gateway start       # Start gateway as service
+    shadow gateway stop        # Stop gateway service
+    shadow gateway status      # Show gateway status
+    shadow gateway install     # Install gateway service
+    shadow gateway uninstall   # Uninstall gateway service
+    shadow setup               # Interactive setup wizard
+    shadow logout              # Clear stored authentication
+    shadow status              # Show status of all components
+    shadow cron                # Manage cron jobs
+    shadow cron list           # List cron jobs
+    shadow cron status         # Check if cron scheduler is running
+    shadow doctor              # Check configuration and dependencies
+    shadow honcho setup                    # Configure Honcho AI memory integration
+    shadow honcho status                   # Show Honcho config and connection status
+    shadow honcho sessions                 # List directory → session name mappings
+    shadow honcho map <name>               # Map current directory to a session name
+    shadow honcho peer                     # Show peer names and dialectic settings
+    shadow honcho peer --user NAME         # Set user peer name
+    shadow honcho peer --ai NAME           # Set AI peer name
+    shadow honcho peer --reasoning LEVEL   # Set dialectic reasoning level
+    shadow honcho mode                     # Show current memory mode
+    shadow honcho mode [hybrid|honcho|local]  # Set memory mode
+    shadow honcho tokens                   # Show token budget settings
+    shadow honcho tokens --context N       # Set session.context() token cap
+    shadow honcho tokens --dialectic N     # Set dialectic result char cap
+    shadow honcho identity                 # Show AI peer identity representation
+    shadow honcho identity <file>          # Seed AI peer identity from a file (SOUL.md etc.)
+    shadow honcho migrate                  # Step-by-step migration guide: OpenClaw native → SHADOW + Honcho
+    shadow version             Show version
+    shadow update              Update to latest version
+    shadow uninstall           Uninstall SHADOW Agent
+    shadow acp                 Run as an ACP server for editor integration
+    shadow sessions browse     Interactive session picker with search
 
-    hermes claw migrate --dry-run  # Preview migration without changes
+    shadow claw migrate --dry-run  # Preview migration without changes
 """
 
 import argparse
@@ -53,13 +53,13 @@ from typing import Optional
 def _require_tty(command_name: str) -> None:
     """Exit with a clear error if stdin is not a terminal.
 
-    Interactive TUI commands (hermes tools, hermes setup, hermes model) use
+    Interactive TUI commands (shadow tools, shadow setup, shadow model) use
     curses or input() prompts that spin at 100% CPU when stdin is a pipe.
     This guard prevents accidental non-interactive invocation.
     """
     if not sys.stdin.isatty():
         print(
-            f"Error: 'hermes {command_name}' requires an interactive terminal.\n"
+            f"Error: 'shadow {command_name}' requires an interactive terminal.\n"
             f"It cannot be run through a pipe or non-interactive subprocess.\n"
             f"Run it directly in your terminal instead.",
             file=sys.stderr,
@@ -72,16 +72,16 @@ PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # ---------------------------------------------------------------------------
-# Profile override — MUST happen before any hermes module import.
+# Profile override — MUST happen before any shadow module import.
 #
-# Many modules cache HERMES_HOME at import time (module-level constants).
+# Many modules cache SHADOW_HOME at import time (module-level constants).
 # We intercept --profile/-p from sys.argv here and set the env var so that
-# every subsequent ``os.getenv("HERMES_HOME", ...)`` resolves correctly.
+# every subsequent ``os.getenv("SHADOW_HOME", ...)`` resolves correctly.
 # The flag is stripped from sys.argv so argparse never sees it.
-# Falls back to ~/.hermes/active_profile for sticky default.
+# Falls back to ~/.shadow/active_profile for sticky default.
 # ---------------------------------------------------------------------------
 def _apply_profile_override() -> None:
-    """Pre-parse --profile/-p and set HERMES_HOME before module imports."""
+    """Pre-parse --profile/-p and set SHADOW_HOME before module imports."""
     argv = sys.argv[1:]
     profile_name = None
     consume = 0
@@ -97,11 +97,11 @@ def _apply_profile_override() -> None:
             consume = 1
             break
 
-    # 2. If no flag, check active_profile in the hermes root
+    # 2. If no flag, check active_profile in the shadow root
     if profile_name is None:
         try:
-            from hermes_constants import get_default_hermes_root
-            active_path = get_default_hermes_root() / "active_profile"
+            from shadow_constants import get_default_shadow_root
+            active_path = get_default_shadow_root() / "active_profile"
             if active_path.exists():
                 name = active_path.read_text().strip()
                 if name and name != "default":
@@ -110,19 +110,19 @@ def _apply_profile_override() -> None:
         except (UnicodeDecodeError, OSError):
             pass  # corrupted file, skip
 
-    # 3. If we found a profile, resolve and set HERMES_HOME
+    # 3. If we found a profile, resolve and set SHADOW_HOME
     if profile_name is not None:
         try:
-            from hermes_cli.profiles import resolve_profile_env
-            hermes_home = resolve_profile_env(profile_name)
+            from shadow_cli.profiles import resolve_profile_env
+            shadow_home = resolve_profile_env(profile_name)
         except (ValueError, FileNotFoundError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
             sys.exit(1)
         except Exception as exc:
-            # A bug in profiles.py must NEVER prevent hermes from starting
+            # A bug in profiles.py must NEVER prevent shadow from starting
             print(f"Warning: profile override failed ({exc}), using default", file=sys.stderr)
             return
-        os.environ["HERMES_HOME"] = hermes_home
+        os.environ["SHADOW_HOME"] = shadow_home
         # Strip the flag from argv so argparse doesn't choke
         if consume > 0:
             for i, arg in enumerate(argv):
@@ -137,24 +137,24 @@ def _apply_profile_override() -> None:
 
 _apply_profile_override()
 
-# Load .env from ~/.hermes/.env first, then project root as dev fallback.
+# Load .env from ~/.shadow/.env first, then project root as dev fallback.
 # User-managed env files should override stale shell exports on restart.
-from hermes_cli.config import get_hermes_home
-from hermes_cli.env_loader import load_hermes_dotenv
-load_hermes_dotenv(project_env=PROJECT_ROOT / '.env')
+from shadow_cli.config import get_shadow_home
+from shadow_cli.env_loader import load_shadow_dotenv
+load_shadow_dotenv(project_env=PROJECT_ROOT / '.env')
 
-# Initialize centralized file logging early — all `hermes` subcommands
+# Initialize centralized file logging early — all `shadow` subcommands
 # (chat, setup, gateway, config, etc.) write to agent.log + errors.log.
 try:
-    from hermes_logging import setup_logging as _setup_logging
+    from shadow_logging import setup_logging as _setup_logging
     _setup_logging(mode="cli")
 except Exception:
     pass  # best-effort — don't crash the CLI if logging setup fails
 
 # Apply IPv4 preference early, before any HTTP clients are created.
 try:
-    from hermes_cli.config import load_config as _load_config_early
-    from hermes_constants import apply_ipv4_preference as _apply_ipv4
+    from shadow_cli.config import load_config as _load_config_early
+    from shadow_constants import apply_ipv4_preference as _apply_ipv4
     _early_cfg = _load_config_early()
     _net = _early_cfg.get("network", {})
     if isinstance(_net, dict) and _net.get("force_ipv4"):
@@ -167,8 +167,8 @@ import logging
 import time as _time
 from datetime import datetime
 
-from hermes_cli import __version__, __release_date__
-from hermes_constants import OPENROUTER_BASE_URL
+from shadow_cli import __version__, __release_date__
+from shadow_constants import OPENROUTER_BASE_URL
 
 logger = logging.getLogger(__name__)
 
@@ -193,14 +193,14 @@ def _relative_time(ts) -> str:
 
 def _has_any_provider_configured() -> bool:
     """Check if at least one inference provider is usable."""
-    from hermes_cli.config import get_env_path, get_hermes_home, load_config
-    from hermes_cli.auth import get_auth_status
+    from shadow_cli.config import get_env_path, get_shadow_home, load_config
+    from shadow_cli.auth import get_auth_status
 
-    # Determine whether Hermes itself has been explicitly configured (model
+    # Determine whether SHADOW itself has been explicitly configured (model
     # in config that isn't the hardcoded default). Used below to gate external
     # tool credentials (Claude Code, Codex CLI) that shouldn't silently skip
     # the setup wizard on a fresh install.
-    from hermes_cli.config import DEFAULT_CONFIG
+    from shadow_cli.config import DEFAULT_CONFIG
     _DEFAULT_MODEL = DEFAULT_CONFIG.get("model", "")
     cfg = load_config()
     model_cfg = cfg.get("model")
@@ -210,12 +210,12 @@ def _has_any_provider_configured() -> bool:
         _model_name = model_cfg.strip()
     else:
         _model_name = ""
-    _has_hermes_config = _model_name and _model_name != _DEFAULT_MODEL
+    _has_shadow_config = _model_name and _model_name != _DEFAULT_MODEL
 
     # Check env vars (may be set by .env or shell).
     # OPENAI_BASE_URL alone counts — local models (vLLM, llama.cpp, etc.)
     # often don't require an API key.
-    from hermes_cli.auth import PROVIDER_REGISTRY
+    from shadow_cli.auth import PROVIDER_REGISTRY
 
     # Collect all provider env vars
     provider_env_vars = {"OPENROUTER_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "ANTHROPIC_TOKEN", "OPENAI_BASE_URL"}
@@ -252,7 +252,7 @@ def _has_any_provider_configured() -> bool:
         pass
 
     # Check for Nous Portal OAuth credentials
-    auth_file = get_hermes_home() / "auth.json"
+    auth_file = get_shadow_home() / "auth.json"
     if auth_file.exists():
         try:
             import json
@@ -278,9 +278,9 @@ def _has_any_provider_configured() -> bool:
             return True
 
     # Check for Claude Code OAuth credentials (~/.claude/.credentials.json)
-    # Only count these if Hermes has been explicitly configured — Claude Code
-    # being installed doesn't mean the user wants Hermes to use their tokens.
-    if _has_hermes_config:
+    # Only count these if SHADOW has been explicitly configured — Claude Code
+    # being installed doesn't mean the user wants SHADOW to use their tokens.
+    if _has_shadow_config:
         try:
             from agent.anthropic_adapter import read_claude_code_credentials, is_claude_code_token_valid
             creds = read_claude_code_credentials()
@@ -529,7 +529,7 @@ def _session_browse_picker(sessions: list) -> Optional[str]:
 def _resolve_last_cli_session() -> Optional[str]:
     """Look up the most recent CLI session ID from SQLite. Returns None if unavailable."""
     try:
-        from hermes_state import SessionDB
+        from shadow_state import SessionDB
         db = SessionDB()
         sessions = db.search_sessions(source="cli", limit=1)
         db.close()
@@ -567,15 +567,15 @@ def _exec_in_container(container_info: dict, cli_args: list):
     On failure, OSError propagates naturally.
 
     Args:
-        container_info: dict with backend, container_name, exec_user, hermes_bin
-        cli_args: the original CLI arguments (everything after 'hermes')
+        container_info: dict with backend, container_name, exec_user, shadow_bin
+        cli_args: the original CLI arguments (everything after 'shadow')
     """
     import shutil
 
     backend = container_info["backend"]
     container_name = container_info["container_name"]
     exec_user = container_info["exec_user"]
-    hermes_bin = container_info["hermes_bin"]
+    shadow_bin = container_info["shadow_bin"]
 
     runtime = shutil.which(backend)
     if not runtime:
@@ -613,14 +613,14 @@ def _exec_in_container(container_info: dict, cli_args: list):
                     f'    commands = [{{ command = "{runtime}"; options = [ "NOPASSWD" ]; }}];\n'
                     f'  }}];\n'
                     f"\n"
-                    f"Or run: sudo hermes {' '.join(cli_args)}",
+                    f"Or run: sudo shadow {' '.join(cli_args)}",
                     file=sys.stderr,
                 )
                 sys.exit(1)
         else:
             print(
                 f"Error: container '{container_name}' not found via {backend}.\n"
-                f"The container may be running under root. Try: sudo hermes {' '.join(cli_args)}",
+                f"The container may be running under root. Try: sudo shadow {' '.join(cli_args)}",
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -640,7 +640,7 @@ def _exec_in_container(container_info: dict, cli_args: list):
         + tty_flags
         + ["-u", exec_user]
         + env_flags
-        + [container_name, hermes_bin]
+        + [container_name, shadow_bin]
         + cli_args
     )
 
@@ -655,7 +655,7 @@ def _resolve_session_by_name_or_id(name_or_id: str) -> Optional[str]:
     - Falls back to the other method if the first doesn't match.
     """
     try:
-        from hermes_state import SessionDB
+        from shadow_state import SessionDB
         db = SessionDB()
 
         # Try as exact session ID first
@@ -685,7 +685,7 @@ def cmd_chat(args):
                 args.resume = resolved
             else:
                 print(f"No session found matching '{continue_val}'.")
-                print("Use 'hermes sessions list' to see available sessions.")
+                print("Use 'shadow sessions list' to see available sessions.")
                 sys.exit(1)
         else:
             # -c with no argument — continue the most recent session
@@ -708,12 +708,12 @@ def cmd_chat(args):
     # First-run guard: check if any provider is configured before launching
     if not _has_any_provider_configured():
         print()
-        print("It looks like Hermes isn't configured yet -- no API keys or providers found.")
+        print("It looks like SHADOW isn't configured yet -- no API keys or providers found.")
         print()
-        print("  Run:  hermes setup")
+        print("  Run:  shadow setup")
         print()
 
-        from hermes_cli.setup import is_interactive_stdin, print_noninteractive_setup_guidance
+        from shadow_cli.setup import is_interactive_stdin, print_noninteractive_setup_guidance
 
         if not is_interactive_stdin():
             print_noninteractive_setup_guidance(
@@ -729,12 +729,12 @@ def cmd_chat(args):
             cmd_setup(args)
             return
         print()
-        print("You can run 'hermes setup' at any time to configure.")
+        print("You can run 'shadow setup' at any time to configure.")
         sys.exit(1)
 
     # Start update check in background (runs while other init happens)
     try:
-        from hermes_cli.banner import prefetch_update_check
+        from shadow_cli.banner import prefetch_update_check
         prefetch_update_check()
     except Exception:
         pass
@@ -748,11 +748,11 @@ def cmd_chat(args):
 
     # --yolo: bypass all dangerous command approvals
     if getattr(args, "yolo", False):
-        os.environ["HERMES_YOLO_MODE"] = "1"
+        os.environ["SHADOW_YOLO_MODE"] = "1"
 
     # --source: tag session source for filtering (e.g. 'tool' for third-party integrations)
     if getattr(args, "source", None):
-        os.environ["HERMES_SESSION_SOURCE"] = args.source
+        os.environ["SHADOW_SESSION_SOURCE"] = args.source
 
     # Import and run the CLI
     from cli import main as cli_main
@@ -785,7 +785,7 @@ def cmd_chat(args):
 
 def cmd_gateway(args):
     """Gateway management commands."""
-    from hermes_cli.gateway import gateway_command
+    from shadow_cli.gateway import gateway_command
     gateway_command(args)
 
 
@@ -794,7 +794,7 @@ def cmd_whatsapp(args):
     _require_tty("whatsapp")
     import subprocess
     from pathlib import Path
-    from hermes_cli.config import get_env_value, save_env_value
+    from shadow_cli.config import get_env_value, save_env_value
 
     print()
     print("⚕ WhatsApp Setup")
@@ -804,7 +804,7 @@ def cmd_whatsapp(args):
     current_mode = get_env_value("WHATSAPP_MODE") or ""
     if not current_mode:
         print()
-        print("How will you use WhatsApp with Hermes?")
+        print("How will you use WhatsApp with SHADOW?")
         print()
         print("  1. Separate bot number (recommended)")
         print("     People message the bot's number directly — cleanest experience.")
@@ -910,7 +910,7 @@ def cmd_whatsapp(args):
         print("✓ Bridge dependencies already installed")
 
     # ── Step 5: Check for existing session ───────────────────────────────
-    session_dir = get_hermes_home() / "whatsapp" / "session"
+    session_dir = get_shadow_home() / "whatsapp" / "session"
     session_dir.mkdir(parents=True, exist_ok=True)
 
     if (session_dir / "creds.json").exists():
@@ -926,7 +926,7 @@ def cmd_whatsapp(args):
             print("  ✓ Session cleared")
         else:
             print("\n✓ WhatsApp is configured and paired!")
-            print("  Start the gateway with: hermes gateway")
+            print("  Start the gateway with: shadow gateway")
             return
 
     # ── Step 6: QR code pairing ──────────────────────────────────────────
@@ -957,28 +957,28 @@ def cmd_whatsapp(args):
         print()
         if wa_mode == "bot":
             print("  Next steps:")
-            print("    1. Start the gateway:  hermes gateway")
+            print("    1. Start the gateway:  shadow gateway")
             print("    2. Send a message to the bot's WhatsApp number")
             print("    3. The agent will reply automatically")
             print()
-            print("  Tip: Agent responses are prefixed with '⚕ Hermes Agent'")
+            print("  Tip: Agent responses are prefixed with '⚕ SHADOW Agent'")
         else:
             print("  Next steps:")
-            print("    1. Start the gateway:  hermes gateway")
+            print("    1. Start the gateway:  shadow gateway")
             print("    2. Open WhatsApp → Message Yourself")
             print("    3. Type a message — the agent will reply")
             print()
-            print("  Tip: Agent responses are prefixed with '⚕ Hermes Agent'")
+            print("  Tip: Agent responses are prefixed with '⚕ SHADOW Agent'")
             print("  so you can tell them apart from your own messages.")
         print()
-        print("  Or install as a service: hermes gateway install")
+        print("  Or install as a service: shadow gateway install")
     else:
-        print("⚠ Pairing may not have completed. Run 'hermes whatsapp' to try again.")
+        print("⚠ Pairing may not have completed. Run 'shadow whatsapp' to try again.")
 
 
 def cmd_setup(args):
     """Interactive setup wizard."""
-    from hermes_cli.setup import run_setup_wizard
+    from shadow_cli.setup import run_setup_wizard
     run_setup_wizard(args)
 
 
@@ -991,15 +991,15 @@ def cmd_model(args):
 def select_provider_and_model(args=None):
     """Core provider selection + model picking logic.
 
-    Shared by ``cmd_model`` (``hermes model``) and the setup wizard
+    Shared by ``cmd_model`` (``shadow model``) and the setup wizard
     (``setup_model_provider`` in setup.py).  Handles the full flow:
     provider picker, credential prompting, model selection, and config
     persistence.
     """
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         resolve_provider, AuthError, format_auth_error,
     )
-    from hermes_cli.config import get_compatible_custom_providers, load_config, get_env_value
+    from shadow_cli.config import get_compatible_custom_providers, load_config, get_env_value
 
     config = load_config()
     current_model = config.get("model")
@@ -1017,7 +1017,7 @@ def select_provider_and_model(args=None):
 
     effective_provider = (
         config_provider
-        or os.getenv("HERMES_INFERENCE_PROVIDER")
+        or os.getenv("SHADOW_INFERENCE_PROVIDER")
         or "auto"
     )
     try:
@@ -1034,7 +1034,7 @@ def select_provider_and_model(args=None):
     if active == "openrouter" and get_env_value("OPENAI_BASE_URL"):
         active = "custom"
 
-    from hermes_cli.models import CANONICAL_PROVIDERS, _PROVIDER_LABELS
+    from shadow_cli.models import CANONICAL_PROVIDERS, _PROVIDER_LABELS
 
     provider_labels = dict(_PROVIDER_LABELS)  # derive from canonical list
     active_label = provider_labels.get(active, active) if active else "none"
@@ -1144,7 +1144,7 @@ def select_provider_and_model(args=None):
 
     # ── Post-switch cleanup: clear stale OPENAI_BASE_URL ──────────────
     # When the user switches to a named provider (anything except "custom"),
-    # a leftover OPENAI_BASE_URL in ~/.hermes/.env can poison auxiliary
+    # a leftover OPENAI_BASE_URL in ~/.shadow/.env can poison auxiliary
     # clients that use provider:auto. Clear it proactively.  (#5161)
     if selected_provider not in ("custom", "cancel", "remove-custom") \
             and not selected_provider.startswith("custom:"):
@@ -1152,14 +1152,14 @@ def select_provider_and_model(args=None):
 
 
 def _clear_stale_openai_base_url():
-    """Remove OPENAI_BASE_URL from ~/.hermes/.env if the active provider is not 'custom'.
+    """Remove OPENAI_BASE_URL from ~/.shadow/.env if the active provider is not 'custom'.
 
     After a provider switch, a leftover OPENAI_BASE_URL causes auxiliary
     clients (compression, vision, delegation) with provider:auto to route
     requests to the old custom endpoint instead of the newly selected
     provider.  See issue #5161.
     """
-    from hermes_cli.config import get_env_value, save_env_value, load_config
+    from shadow_cli.config import get_env_value, save_env_value, load_config
 
     cfg = load_config()
     model_cfg = cfg.get("model", {})
@@ -1187,7 +1187,7 @@ def _prompt_provider_choice(choices, *, default=0):
     if the user cancels.
     """
     try:
-        from hermes_cli.setup import _curses_prompt_choice
+        from shadow_cli.setup import _curses_prompt_choice
         idx = _curses_prompt_choice("Select provider:", choices, default)
         if idx >= 0:
             print()
@@ -1219,8 +1219,8 @@ def _prompt_provider_choice(choices, *, default=0):
 
 def _model_flow_openrouter(config, current_model=""):
     """OpenRouter provider: ensure API key, then pick model."""
-    from hermes_cli.auth import _prompt_model_selection, _save_model_choice, deactivate_provider
-    from hermes_cli.config import get_env_value, save_env_value
+    from shadow_cli.auth import _prompt_model_selection, _save_model_choice, deactivate_provider
+    from shadow_cli.config import get_env_value, save_env_value
 
     api_key = get_env_value("OPENROUTER_API_KEY")
     if not api_key:
@@ -1240,7 +1240,7 @@ def _model_flow_openrouter(config, current_model=""):
         print("API key saved.")
         print()
 
-    from hermes_cli.models import model_ids, get_pricing_for_provider
+    from shadow_cli.models import model_ids, get_pricing_for_provider
     openrouter_models = model_ids(force_refresh=True)
 
     # Fetch live pricing (non-blocking — returns empty dict on failure)
@@ -1251,7 +1251,7 @@ def _model_flow_openrouter(config, current_model=""):
         _save_model_choice(selected)
 
         # Update config provider and deactivate any OAuth provider
-        from hermes_cli.config import load_config, save_config
+        from shadow_cli.config import load_config, save_config
         cfg = load_config()
         model = cfg.get("model")
         if not isinstance(model, dict):
@@ -1269,14 +1269,14 @@ def _model_flow_openrouter(config, current_model=""):
 
 def _model_flow_nous(config, current_model="", args=None):
     """Nous Portal provider: ensure logged in, then pick model."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         get_provider_auth_state, _prompt_model_selection, _save_model_choice,
         _update_config_for_provider, resolve_nous_runtime_credentials,
         AuthError, format_auth_error,
         _login_nous, PROVIDER_REGISTRY,
     )
-    from hermes_cli.config import get_env_value, save_config, save_env_value
-    from hermes_cli.nous_subscription import (
+    from shadow_cli.config import get_env_value, save_config, save_env_value
+    from shadow_cli.nous_subscription import (
         apply_nous_provider_defaults,
         get_nous_subscription_explainer_lines,
     )
@@ -1313,7 +1313,7 @@ def _model_flow_nous(config, current_model="", args=None):
     # Already logged in — use curated model list (same as OpenRouter defaults).
     # The live /models endpoint returns hundreds of models; the curated list
     # shows only agentic models users recognize from OpenRouter.
-    from hermes_cli.models import (
+    from shadow_cli.models import (
         _PROVIDER_MODELS, get_pricing_for_provider, filter_nous_free_models,
         check_nous_free_tier, partition_nous_models_by_tier,
     )
@@ -1374,7 +1374,7 @@ def _model_flow_nous(config, current_model="", args=None):
     if free_tier and not model_ids:
         print("No free models currently available.")
         if unavailable_models:
-            from hermes_cli.auth import DEFAULT_NOUS_PORTAL_URL
+            from shadow_cli.auth import DEFAULT_NOUS_PORTAL_URL
             _url = (_nous_portal_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
             print(f"Upgrade at {_url} to access paid models.")
         return
@@ -1426,12 +1426,12 @@ def _model_flow_nous(config, current_model="", args=None):
 
 def _model_flow_openai_codex(config, current_model=""):
     """OpenAI Codex provider: ensure logged in, then pick model."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         get_codex_auth_status, _prompt_model_selection, _save_model_choice,
         _update_config_for_provider, _login_openai_codex,
         PROVIDER_REGISTRY, DEFAULT_CODEX_BASE_URL,
     )
-    from hermes_cli.codex_models import get_codex_model_ids
+    from shadow_cli.codex_models import get_codex_model_ids
     import argparse
 
     status = get_codex_auth_status()
@@ -1449,7 +1449,7 @@ def _model_flow_openai_codex(config, current_model=""):
             return
 
     _codex_token = None
-    # Prefer credential pool (where `hermes auth` stores device_code tokens),
+    # Prefer credential pool (where `shadow auth` stores device_code tokens),
     # fall back to legacy provider state.
     try:
         _codex_status = get_codex_auth_status()
@@ -1459,7 +1459,7 @@ def _model_flow_openai_codex(config, current_model=""):
         pass
     if not _codex_token:
         try:
-            from hermes_cli.auth import resolve_codex_runtime_credentials
+            from shadow_cli.auth import resolve_codex_runtime_credentials
             _codex_creds = resolve_codex_runtime_credentials()
             _codex_token = _codex_creds.get("api_key")
         except Exception:
@@ -1485,7 +1485,7 @@ _DEFAULT_QWEN_PORTAL_MODELS = [
 
 def _model_flow_qwen_oauth(_config, current_model=""):
     """Qwen OAuth provider: reuse local Qwen CLI login, then pick model."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         get_qwen_auth_status,
         resolve_qwen_runtime_credentials,
         _prompt_model_selection,
@@ -1493,7 +1493,7 @@ def _model_flow_qwen_oauth(_config, current_model=""):
         _update_config_for_provider,
         DEFAULT_QWEN_BASE_URL,
     )
-    from hermes_cli.models import fetch_api_models
+    from shadow_cli.models import fetch_api_models
 
     status = get_qwen_auth_status()
     if not status.get("logged_in"):
@@ -1533,8 +1533,8 @@ def _model_flow_custom(config):
     Automatically saves the endpoint to ``custom_providers`` in config.yaml
     so it appears in the provider menu on subsequent runs.
     """
-    from hermes_cli.auth import _save_model_choice, deactivate_provider
-    from hermes_cli.config import get_env_value, load_config, save_config
+    from shadow_cli.auth import _save_model_choice, deactivate_provider
+    from shadow_cli.config import get_env_value, load_config, save_config
 
     current_url = get_env_value("OPENAI_BASE_URL") or ""
     current_key = get_env_value("OPENAI_API_KEY") or ""
@@ -1566,7 +1566,7 @@ def _model_flow_custom(config):
 
     effective_key = api_key or current_key
 
-    from hermes_cli.models import probe_api_models
+    from shadow_cli.models import probe_api_models
 
     probe = probe_api_models(effective_key, effective_url)
     if probe.get("used_fallback") and probe.get("resolved_base_url"):
@@ -1585,7 +1585,7 @@ def _model_flow_custom(config):
     else:
         print(
             f"Warning: could not verify this endpoint via {probe.get('probed_url')}. "
-            f"Hermes will still save it."
+            f"SHADOW will still save it."
         )
         if probe.get("suggested_base_url"):
             suggested = probe["suggested_base_url"]
@@ -1674,7 +1674,7 @@ def _model_flow_custom(config):
             _caller_model["api_key"] = effective_key
         _caller_model.pop("api_mode", None)
         config["model"] = _caller_model
-        print("Endpoint saved. Use `/model` in chat or `hermes model` to set a model.")
+        print("Endpoint saved. Use `/model` in chat or `shadow model` to set a model.")
 
     # Auto-save to custom_providers so it appears in the menu next time
     _save_custom_provider(effective_url, effective_key, model_name or "",
@@ -1709,7 +1709,7 @@ def _save_custom_provider(base_url, api_key="", model="", context_length=None,
     model name and context_length but doesn't add a duplicate entry.
     Uses *name* when provided, otherwise auto-generates from the URL.
     """
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
 
     cfg = load_config()
     providers = cfg.get("custom_providers") or []
@@ -1755,7 +1755,7 @@ def _save_custom_provider(base_url, api_key="", model="", context_length=None,
 
 def _remove_custom_provider(config):
     """Let the user remove a saved custom provider from config.yaml."""
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
 
     cfg = load_config()
     providers = cfg.get("custom_providers") or []
@@ -1786,7 +1786,7 @@ def _remove_custom_provider(config):
             title="Select provider to remove:",
         )
         idx = menu.show()
-        from hermes_cli.curses_ui import flush_stdin
+        from shadow_cli.curses_ui import flush_stdin
         flush_stdin()
         print()
     except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):
@@ -1817,9 +1817,9 @@ def _model_flow_named_custom(config, provider_info):
     If a model was previously saved, it is pre-selected in the menu.
     Falls back to the saved model if probing fails.
     """
-    from hermes_cli.auth import _save_model_choice, deactivate_provider
-    from hermes_cli.config import load_config, save_config
-    from hermes_cli.models import fetch_api_models
+    from shadow_cli.auth import _save_model_choice, deactivate_provider
+    from shadow_cli.config import load_config, save_config
+    from shadow_cli.models import fetch_api_models
 
     name = provider_info["name"]
     base_url = provider_info["base_url"]
@@ -1857,7 +1857,7 @@ def _model_flow_named_custom(config, provider_info):
                 title=f"Select model from {name}:",
             )
             idx = menu.show()
-            from hermes_cli.curses_ui import flush_stdin
+            from shadow_cli.curses_ui import flush_stdin
             flush_stdin()
             print()
             if idx is None or idx >= len(models):
@@ -1950,7 +1950,7 @@ def _model_flow_named_custom(config, provider_info):
 
 
 # Curated model lists for direct API-key providers — single source in models.py
-from hermes_cli.models import _PROVIDER_MODELS
+from shadow_cli.models import _PROVIDER_MODELS
 
 
 def _current_reasoning_effort(config) -> str:
@@ -2011,7 +2011,7 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
             title="Select reasoning effort:",
         )
         idx = menu.show()
-        from hermes_cli.curses_ui import flush_stdin
+        from shadow_cli.curses_ui import flush_stdin
         flush_stdin()
         if idx is None:
             return None
@@ -2053,15 +2053,15 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
 
 def _model_flow_copilot(config, current_model=""):
     """GitHub Copilot flow using env vars, gh CLI, or OAuth device code."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         PROVIDER_REGISTRY,
         _prompt_model_selection,
         _save_model_choice,
         deactivate_provider,
         resolve_api_key_provider_credentials,
     )
-    from hermes_cli.config import save_env_value, load_config, save_config
-    from hermes_cli.models import (
+    from shadow_cli.config import save_env_value, load_config, save_config
+    from shadow_cli.models import (
         fetch_api_models,
         fetch_github_model_catalog,
         github_model_reasoning_efforts,
@@ -2098,7 +2098,7 @@ def _model_flow_copilot(config, current_model=""):
 
         if choice == "1":
             try:
-                from hermes_cli.copilot_auth import copilot_device_code_login
+                from shadow_cli.copilot_auth import copilot_device_code_login
                 token = copilot_device_code_login()
                 if token:
                     save_env_value("COPILOT_GITHUB_TOKEN", token)
@@ -2122,7 +2122,7 @@ def _model_flow_copilot(config, current_model=""):
                 return
             # Validate token type
             try:
-                from hermes_cli.copilot_auth import validate_copilot_token
+                from shadow_cli.copilot_auth import validate_copilot_token
                 valid, msg = validate_copilot_token(new_key)
                 if not valid:
                     print(f"  ✗ {msg}")
@@ -2225,7 +2225,7 @@ def _model_flow_copilot(config, current_model=""):
 
 def _model_flow_copilot_acp(config, current_model=""):
     """GitHub Copilot ACP flow using the local Copilot CLI."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         PROVIDER_REGISTRY,
         _prompt_model_selection,
         _save_model_choice,
@@ -2234,11 +2234,11 @@ def _model_flow_copilot_acp(config, current_model=""):
         resolve_api_key_provider_credentials,
         resolve_external_process_provider_credentials,
     )
-    from hermes_cli.models import (
+    from shadow_cli.models import (
         fetch_github_model_catalog,
         normalize_copilot_model_id,
     )
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
 
     del config
 
@@ -2249,9 +2249,9 @@ def _model_flow_copilot_acp(config, current_model=""):
     resolved_command = status.get("resolved_command") or status.get("command") or "copilot"
     effective_base = status.get("base_url") or pconfig.inference_base_url
 
-    print("  GitHub Copilot ACP delegates Hermes turns to `copilot --acp`.")
-    print("  Hermes currently starts its own ACP subprocess for each request.")
-    print("  Hermes uses your selected model as a hint for the Copilot ACP session.")
+    print("  GitHub Copilot ACP delegates SHADOW turns to `copilot --acp`.")
+    print("  SHADOW currently starts its own ACP subprocess for each request.")
+    print("  SHADOW uses your selected model as a hint for the Copilot ACP session.")
     print(f"  Command: {resolved_command}")
     print(f"  Backend marker: {effective_base}")
     print()
@@ -2260,7 +2260,7 @@ def _model_flow_copilot_acp(config, current_model=""):
         creds = resolve_external_process_provider_credentials(provider_id)
     except Exception as exc:
         print(f"  ⚠ {exc}")
-        print("  Set HERMES_COPILOT_ACP_COMMAND or COPILOT_CLI_PATH if Copilot CLI is installed elsewhere.")
+        print("  Set SHADOW_COPILOT_ACP_COMMAND or COPILOT_CLI_PATH if Copilot CLI is installed elsewhere.")
         return
 
     effective_base = creds.get("base_url") or effective_base
@@ -2332,11 +2332,11 @@ def _model_flow_kimi(config, current_model=""):
 
     No manual base URL prompt — endpoint is determined by key prefix.
     """
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         PROVIDER_REGISTRY, KIMI_CODE_BASE_URL, _prompt_model_selection,
         _save_model_choice, deactivate_provider,
     )
-    from hermes_cli.config import get_env_value, save_env_value, load_config, save_config
+    from shadow_cli.config import get_env_value, save_env_value, load_config, save_config
 
     provider_id = "kimi-coding"
     pconfig = PROVIDER_REGISTRY[provider_id]
@@ -2427,12 +2427,12 @@ def _model_flow_kimi(config, current_model=""):
 
 def _model_flow_api_key_provider(config, provider_id, current_model=""):
     """Generic flow for API-key providers (z.ai, MiniMax, OpenCode, etc.)."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         PROVIDER_REGISTRY, _prompt_model_selection, _save_model_choice,
         deactivate_provider,
     )
-    from hermes_cli.config import get_env_value, save_env_value, load_config, save_config
-    from hermes_cli.models import fetch_api_models, opencode_model_api_mode, normalize_opencode_model_id
+    from shadow_cli.config import get_env_value, save_env_value, load_config, save_config
+    from shadow_cli.models import fetch_api_models, opencode_model_api_mode, normalize_opencode_model_id
 
     pconfig = PROVIDER_REGISTRY[provider_id]
     key_env = pconfig.api_key_env_vars[0] if pconfig.api_key_env_vars else ""
@@ -2561,7 +2561,7 @@ def _run_anthropic_oauth_flow(save_env_value):
         read_claude_code_credentials,
         is_claude_code_token_valid,
     )
-    from hermes_cli.config import (
+    from shadow_cli.config import (
         save_anthropic_oauth_token,
         use_anthropic_claude_code_credentials,
     )
@@ -2577,8 +2577,8 @@ def _run_anthropic_oauth_flow(save_env_value):
         ):
             use_anthropic_claude_code_credentials(save_fn=save_env_value)
             print("  ✓ Claude Code credentials linked.")
-            from hermes_constants import display_hermes_home as _dhh_fn
-            print(f"    Hermes will use Claude's credential store directly instead of copying a setup-token into {_dhh_fn()}/.env.")
+            from shadow_constants import display_shadow_home as _dhh_fn
+            print(f"    SHADOW will use Claude's credential store directly instead of copying a setup-token into {_dhh_fn()}/.env.")
             return True
         return False
 
@@ -2623,7 +2623,7 @@ def _run_anthropic_oauth_flow(save_env_value):
         print("    1. Install Claude Code:  npm install -g @anthropic-ai/claude-code")
         print("    2. Run:                  claude setup-token")
         print("    3. Follow the browser prompts to authorize")
-        print("    4. Re-run:               hermes model")
+        print("    4. Re-run:               shadow model")
         print()
         print("  Or paste an existing setup-token now (sk-ant-oat-...):")
         print()
@@ -2643,18 +2643,18 @@ def _run_anthropic_oauth_flow(save_env_value):
 
 def _model_flow_anthropic(config, current_model=""):
     """Flow for Anthropic provider — OAuth subscription, API key, or Claude Code creds."""
-    from hermes_cli.auth import (
+    from shadow_cli.auth import (
         _prompt_model_selection, _save_model_choice,
         deactivate_provider,
     )
-    from hermes_cli.config import (
+    from shadow_cli.config import (
         save_env_value, load_config, save_config,
         save_anthropic_api_key,
     )
-    from hermes_cli.models import _PROVIDER_MODELS
+    from shadow_cli.models import _PROVIDER_MODELS
 
     # Check ALL credential sources
-    from hermes_cli.auth import get_anthropic_key
+    from shadow_cli.auth import get_anthropic_key
     existing_key = get_anthropic_key()
     cc_available = False
     try:
@@ -2746,7 +2746,7 @@ def _model_flow_anthropic(config, current_model=""):
         # Update config with provider — clear base_url since
         # resolve_runtime_provider() always hardcodes Anthropic's URL.
         # Leaving a stale base_url in config can contaminate other
-        # providers if the user switches without running 'hermes model'.
+        # providers if the user switches without running 'shadow model'.
         cfg = load_config()
         model = cfg.get("model")
         if not isinstance(model, dict):
@@ -2763,84 +2763,84 @@ def _model_flow_anthropic(config, current_model=""):
 
 
 def cmd_login(args):
-    """Authenticate Hermes CLI with a provider."""
-    from hermes_cli.auth import login_command
+    """Authenticate SHADOW CLI with a provider."""
+    from shadow_cli.auth import login_command
     login_command(args)
 
 
 def cmd_logout(args):
     """Clear provider authentication."""
-    from hermes_cli.auth import logout_command
+    from shadow_cli.auth import logout_command
     logout_command(args)
 
 
 def cmd_auth(args):
     """Manage pooled credentials."""
-    from hermes_cli.auth_commands import auth_command
+    from shadow_cli.auth_commands import auth_command
     auth_command(args)
 
 
 def cmd_status(args):
     """Show status of all components."""
-    from hermes_cli.status import show_status
+    from shadow_cli.status import show_status
     show_status(args)
 
 
 def cmd_cron(args):
     """Cron job management."""
-    from hermes_cli.cron import cron_command
+    from shadow_cli.cron import cron_command
     cron_command(args)
 
 
 def cmd_webhook(args):
     """Webhook subscription management."""
-    from hermes_cli.webhook import webhook_command
+    from shadow_cli.webhook import webhook_command
     webhook_command(args)
 
 
 def cmd_doctor(args):
     """Check configuration and dependencies."""
-    from hermes_cli.doctor import run_doctor
+    from shadow_cli.doctor import run_doctor
     run_doctor(args)
 
 
 def cmd_dump(args):
     """Dump setup summary for support/debugging."""
-    from hermes_cli.dump import run_dump
+    from shadow_cli.dump import run_dump
     run_dump(args)
 
 
 def cmd_debug(args):
     """Debug tools (share report, etc.)."""
-    from hermes_cli.debug import run_debug
+    from shadow_cli.debug import run_debug
     run_debug(args)
 
 
 def cmd_config(args):
     """Configuration management."""
-    from hermes_cli.config import config_command
+    from shadow_cli.config import config_command
     config_command(args)
 
 
 def cmd_backup(args):
-    """Back up Hermes home directory to a zip file."""
+    """Back up SHADOW home directory to a zip file."""
     if getattr(args, "quick", False):
-        from hermes_cli.backup import run_quick_backup
+        from shadow_cli.backup import run_quick_backup
         run_quick_backup(args)
     else:
-        from hermes_cli.backup import run_backup
+        from shadow_cli.backup import run_backup
         run_backup(args)
 
 
 def cmd_import(args):
-    """Restore a Hermes backup from a zip file."""
-    from hermes_cli.backup import run_import
+    """Restore a SHADOW backup from a zip file."""
+    from shadow_cli.backup import run_import
     run_import(args)
 
 
 def cmd_version(args):
     """Show version."""
-    print(f"Hermes Agent v{__version__} ({__release_date__})")
+    print(f"SHADOW Agent v{__version__} ({__release_date__})")
     print(f"Project: {PROJECT_ROOT}")
     
     # Show Python version
@@ -2855,8 +2855,8 @@ def cmd_version(args):
 
     # Show update status (synchronous — acceptable since user asked for version info)
     try:
-        from hermes_cli.banner import check_for_updates
-        from hermes_cli.config import recommended_update_command
+        from shadow_cli.banner import check_for_updates
+        from shadow_cli.config import recommended_update_command
         behind = check_for_updates()
         if behind and behind > 0:
             commits_word = "commit" if behind == 1 else "commits"
@@ -2871,9 +2871,9 @@ def cmd_version(args):
 
 
 def cmd_uninstall(args):
-    """Uninstall Hermes Agent."""
+    """Uninstall SHADOW Agent."""
     _require_tty("uninstall")
-    from hermes_cli.uninstall import run_uninstall
+    from shadow_cli.uninstall import run_uninstall
     run_uninstall(args)
 
 
@@ -2911,15 +2911,15 @@ def _gateway_prompt(prompt_text: str, default: str = "", timeout: float = 300.0)
     Writes a prompt marker file so the gateway can forward the question to the
     user, then polls for a response file.  Falls back to *default* on timeout.
 
-    Used by ``hermes update --gateway`` so interactive prompts (stash restore,
+    Used by ``shadow update --gateway`` so interactive prompts (stash restore,
     config migration) are forwarded to the messenger instead of being silently
     skipped.
     """
     import json as _json
     import uuid as _uuid
-    from hermes_constants import get_hermes_home
+    from shadow_constants import get_shadow_home
 
-    home = get_hermes_home()
+    home = get_shadow_home()
     prompt_path = home / ".update_prompt.json"
     response_path = home / ".update_response"
 
@@ -2962,7 +2962,7 @@ def _build_web_ui(web_dir: Path, *, fatal: bool = False) -> bool:
     Args:
         web_dir: Path to the ``web/`` source directory.
         fatal: If True, print error guidance and return False on failure
-               instead of a soft warning (used by ``hermes web``).
+               instead of a soft warning (used by ``shadow web``).
 
     Returns True if the build succeeded or was skipped (no package.json).
     """
@@ -2979,14 +2979,14 @@ def _build_web_ui(web_dir: Path, *, fatal: bool = False) -> bool:
     r1 = subprocess.run([npm, "install", "--silent"], cwd=web_dir, capture_output=True)
     if r1.returncode != 0:
         print(f"  {'✗' if fatal else '⚠'} Web UI npm install failed"
-              + ("" if fatal else " (hermes web will not be available)"))
+              + ("" if fatal else " (shadow web will not be available)"))
         if fatal:
             print("  Run manually:  cd web && npm install && npm run build")
         return False
     r2 = subprocess.run([npm, "run", "build"], cwd=web_dir, capture_output=True)
     if r2.returncode != 0:
         print(f"  {'✗' if fatal else '⚠'} Web UI build failed"
-              + ("" if fatal else " (hermes web will not be available)"))
+              + ("" if fatal else " (shadow web will not be available)"))
         if fatal:
             print("  Run manually:  cd web && npm install && npm run build")
         return False
@@ -2995,7 +2995,7 @@ def _build_web_ui(web_dir: Path, *, fatal: bool = False) -> bool:
 
 
 def _update_via_zip(args):
-    """Update Hermes Agent by downloading a ZIP archive.
+    """Update SHADOW Agent by downloading a ZIP archive.
     
     Used on Windows when git file I/O is broken (antivirus, NTFS filter 
     drivers causing 'Invalid argument' errors on file creation).
@@ -3006,12 +3006,12 @@ def _update_via_zip(args):
     from urllib.request import urlretrieve
     
     branch = "main"
-    zip_url = f"https://github.com/NousResearch/hermes-agent/archive/refs/heads/{branch}.zip"
+    zip_url = f"https://github.com/NousResearch/shadow-agent/archive/refs/heads/{branch}.zip"
     
     print("→ Downloading latest version...")
     try:
-        tmp_dir = tempfile.mkdtemp(prefix="hermes-update-")
-        zip_path = os.path.join(tmp_dir, f"hermes-agent-{branch}.zip")
+        tmp_dir = tempfile.mkdtemp(prefix="shadow-update-")
+        zip_path = os.path.join(tmp_dir, f"shadow-agent-{branch}.zip")
         urlretrieve(zip_url, zip_path)
         
         print("→ Extracting...")
@@ -3024,8 +3024,8 @@ def _update_via_zip(args):
                     raise ValueError(f"Zip-slip detected: {member.filename} escapes extraction directory")
             zf.extractall(tmp_dir)
         
-        # GitHub ZIPs extract to hermes-agent-<branch>/
-        extracted = os.path.join(tmp_dir, f"hermes-agent-{branch}")
+        # GitHub ZIPs extract to shadow-agent-<branch>/
+        extracted = os.path.join(tmp_dir, f"shadow-agent-{branch}")
         if not os.path.isdir(extracted):
             # Try to find it
             for d in os.listdir(tmp_dir):
@@ -3141,7 +3141,7 @@ def _stash_local_changes_if_needed(git_cmd: list[str], cwd: Path) -> Optional[st
 
     from datetime import datetime, timezone
 
-    stash_name = datetime.now(timezone.utc).strftime("hermes-update-autostash-%Y%m%d-%H%M%S")
+    stash_name = datetime.now(timezone.utc).strftime("shadow-update-autostash-%Y%m%d-%H%M%S")
     print("→ Local changes detected — stashing before update...")
     subprocess.run(
         git_cmd + ["stash", "push", "--include-untracked", "-m", stash_name],
@@ -3196,7 +3196,7 @@ def _restore_stashed_changes(
         print()
         print("⚠ Local changes were stashed before updating.")
         print("  Restoring them may reapply local customizations onto the updated codebase.")
-        print("  Review the result afterward if Hermes behaves unexpectedly.")
+        print("  Review the result afterward if SHADOW behaves unexpectedly.")
         print("Restore local changes now? [Y/n]")
         if input_fn is not None:
             response = input_fn("Restore local changes now? [Y/n]", "y")
@@ -3243,7 +3243,7 @@ def _restore_stashed_changes(
         print(f"  Stash ref: {stash_ref}")
 
         # Always reset to clean state — leaving conflict markers in source
-        # files makes hermes completely unrunnable (SyntaxError on import).
+        # files makes shadow completely unrunnable (SyntaxError on import).
         # The user's changes are safe in the stash for manual recovery.
         subprocess.run(
             git_cmd + ["reset", "--hard", "HEAD"],
@@ -3259,7 +3259,7 @@ def _restore_stashed_changes(
 
     stash_selector = _resolve_stash_selector(git_cmd, cwd, stash_ref)
     if stash_selector is None:
-        print("⚠ Local changes were restored, but Hermes couldn't find the stash entry to drop.")
+        print("⚠ Local changes were restored, but SHADOW couldn't find the stash entry to drop.")
         print("  The stash was left in place. You can remove it manually after checking the result.")
         _print_stash_cleanup_guidance(stash_ref)
     else:
@@ -3270,7 +3270,7 @@ def _restore_stashed_changes(
             text=True,
         )
         if drop.returncode != 0:
-            print("⚠ Local changes were restored, but Hermes couldn't drop the saved stash entry.")
+            print("⚠ Local changes were restored, but SHADOW couldn't drop the saved stash entry.")
             if drop.stdout.strip():
                 print(drop.stdout.strip())
             if drop.stderr.strip():
@@ -3279,20 +3279,20 @@ def _restore_stashed_changes(
             _print_stash_cleanup_guidance(stash_ref, stash_selector)
 
     print("⚠ Local changes were restored on top of the updated codebase.")
-    print("  Review `git diff` / `git status` if Hermes behaves unexpectedly.")
+    print("  Review `git diff` / `git status` if SHADOW behaves unexpectedly.")
     return True
 
 # =========================================================================
-# Fork detection and upstream management for `hermes update`
+# Fork detection and upstream management for `shadow update`
 # =========================================================================
 
 OFFICIAL_REPO_URLS = {
-    "https://github.com/NousResearch/hermes-agent.git",
-    "git@github.com:NousResearch/hermes-agent.git",
-    "https://github.com/NousResearch/hermes-agent",
-    "git@github.com:NousResearch/hermes-agent",
+    "https://github.com/NousResearch/shadow-agent.git",
+    "git@github.com:NousResearch/shadow-agent.git",
+    "https://github.com/NousResearch/shadow-agent",
+    "git@github.com:NousResearch/shadow-agent",
 }
-OFFICIAL_REPO_URL = "https://github.com/NousResearch/hermes-agent.git"
+OFFICIAL_REPO_URL = "https://github.com/NousResearch/shadow-agent.git"
 SKIP_UPSTREAM_PROMPT_FILE = ".skip_upstream_prompt"
 
 
@@ -3375,15 +3375,15 @@ def _count_commits_between(git_cmd: list[str], cwd: Path, base: str, head: str) 
 
 def _should_skip_upstream_prompt() -> bool:
     """Check if user previously declined to add upstream."""
-    from hermes_constants import get_hermes_home
-    return (get_hermes_home() / SKIP_UPSTREAM_PROMPT_FILE).exists()
+    from shadow_constants import get_shadow_home
+    return (get_shadow_home() / SKIP_UPSTREAM_PROMPT_FILE).exists()
 
 
 def _mark_skip_upstream_prompt():
     """Create marker file to skip future upstream prompts."""
     try:
-        from hermes_constants import get_hermes_home
-        (get_hermes_home() / SKIP_UPSTREAM_PROMPT_FILE).touch()
+        from shadow_constants import get_shadow_home
+        (get_shadow_home() / SKIP_UPSTREAM_PROMPT_FILE).touch()
     except Exception:
         pass
 
@@ -3423,8 +3423,8 @@ def _sync_with_upstream_if_needed(git_cmd: list[str], cwd: Path) -> None:
 
         # Ask user if they want to add upstream
         print()
-        print("ℹ Your fork is not tracking the official Hermes repository.")
-        print("  This means you may miss updates from NousResearch/hermes-agent.")
+        print("ℹ Your fork is not tracking the official SHADOW repository.")
+        print("  This means you may miss updates from NousResearch/shadow-agent.")
         print()
         try:
             response = input("Add official repo as 'upstream' remote? [Y/n]: ").strip().lower()
@@ -3435,13 +3435,13 @@ def _sync_with_upstream_if_needed(git_cmd: list[str], cwd: Path) -> None:
         if response in ("", "y", "yes"):
             print("→ Adding upstream remote...")
             if _add_upstream_remote(git_cmd, cwd):
-                print("  ✓ Added upstream: https://github.com/NousResearch/hermes-agent.git")
+                print("  ✓ Added upstream: https://github.com/NousResearch/shadow-agent.git")
                 has_upstream = True
             else:
                 print("  ✗ Failed to add upstream remote. Skipping upstream sync.")
                 return
         else:
-            print("  Skipped. Run 'git remote add upstream https://github.com/NousResearch/hermes-agent.git' to add later.")
+            print("  Skipped. Run 'git remote add upstream https://github.com/NousResearch/shadow-agent.git' to add later.")
             _mark_skip_upstream_prompt()
             return
 
@@ -3512,12 +3512,12 @@ def _invalidate_update_cache():
     reports a stale "commits behind" count after a successful update.
 
     The git repo is shared across profiles — when one profile runs
-    ``hermes update``, every profile is now current.
+    ``shadow update``, every profile is now current.
     """
     homes = []
     # Default profile home (Docker-aware — uses /opt/data in Docker)
-    from hermes_constants import get_default_hermes_root
-    default_home = get_default_hermes_root()
+    from shadow_constants import get_default_shadow_root
+    default_home = get_default_shadow_root()
     homes.append(default_home)
     # Named profiles under <root>/profiles/
     profiles_root = default_home / "profiles"
@@ -3554,7 +3554,7 @@ def _load_installable_optional_extras() -> list[str]:
         return []
 
     # Parse the [all] group to find which extras it references.
-    # Entries look like "hermes-agent[matrix]" or "package-name[extra]".
+    # Entries look like "shadow-agent[matrix]" or "package-name[extra]".
     all_refs = optional_deps.get("all", [])
     referenced: list[str] = []
     for ref in all_refs:
@@ -3612,19 +3612,19 @@ def _install_python_dependencies_with_optional_fallback(
 
 
 def cmd_update(args):
-    """Update Hermes Agent to the latest version."""
+    """Update SHADOW Agent to the latest version."""
     import shutil
-    from hermes_cli.config import is_managed, managed_error
+    from shadow_cli.config import is_managed, managed_error
 
     if is_managed():
-        managed_error("update Hermes Agent")
+        managed_error("update SHADOW Agent")
         return
 
     gateway_mode = getattr(args, "gateway", False)
     # In gateway mode, use file-based IPC for prompts instead of stdin
     gw_input_fn = (lambda prompt, default="": _gateway_prompt(prompt, default)) if gateway_mode else None
     
-    print("⚕ Updating Hermes Agent...")
+    print("⚕ Updating SHADOW Agent...")
     print()
     
     # Try git-based update first, fall back to ZIP download on Windows
@@ -3637,7 +3637,7 @@ def cmd_update(args):
             use_zip_update = True
         else:
             print("✗ Not a git repository. Please reinstall:")
-            print("  curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash")
+            print("  curl -fsSL https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.sh | bash")
             sys.exit(1)
     
     # On Windows, git can fail with "unable to write loose object file: Invalid argument"
@@ -3799,7 +3799,7 @@ def cmd_update(args):
 
         # Clear stale .pyc bytecode cache — prevents ImportError on gateway
         # restart when updated source references names that didn't exist in
-        # the old bytecode (e.g. get_hermes_home added to hermes_constants).
+        # the old bytecode (e.g. get_shadow_home added to shadow_constants).
         removed = _clear_bytecode_cache(PROJECT_ROOT)
         if removed:
             print(f"  ✓ Cleared {removed} stale __pycache__ director{'y' if removed == 1 else 'ies'}")
@@ -3846,12 +3846,12 @@ def cmd_update(args):
         print("✓ Code updated!")
         
         # After git pull, source files on disk are newer than cached Python
-        # modules in this process.  Reload hermes_constants so that any lazy
+        # modules in this process.  Reload shadow_constants so that any lazy
         # import executed below (skills sync, gateway restart) sees new
-        # attributes like display_hermes_home() added since the last release.
+        # attributes like display_shadow_home() added since the last release.
         try:
             import importlib
-            import hermes_constants as _hc
+            import shadow_constants as _hc
             importlib.reload(_hc)
         except Exception:
             pass  # non-fatal — worst case a lazy import fails gracefully
@@ -3877,7 +3877,7 @@ def cmd_update(args):
 
         # Sync bundled skills to all other profiles
         try:
-            from hermes_cli.profiles import list_profiles, get_active_profile_name, seed_profile_skills
+            from shadow_cli.profiles import list_profiles, get_active_profile_name, seed_profile_skills
             active = get_active_profile_name()
             other_profiles = [p for p in list_profiles() if p.name != active]
             if other_profiles:
@@ -3916,7 +3916,7 @@ def cmd_update(args):
         print()
         print("→ Checking configuration for new options...")
         
-        from hermes_cli.config import (
+        from shadow_cli.config import (
             get_missing_env_vars, get_missing_config_fields, 
             check_config_version, migrate_config
         )
@@ -3941,7 +3941,7 @@ def cmd_update(args):
                 ).strip().lower()
             elif not (sys.stdin.isatty() and sys.stdout.isatty()):
                 print("  ℹ Non-interactive session — skipping config migration prompt.")
-                print("    Run 'hermes config migrate' later to apply any new config/env options.")
+                print("    Run 'shadow config migrate' later to apply any new config/env options.")
                 response = "n"
             else:
                 try:
@@ -3959,10 +3959,10 @@ def cmd_update(args):
                     print()
                     print("✓ Configuration updated!")
                 if gateway_mode and missing_env:
-                    print("  ℹ API keys require manual entry: hermes config migrate")
+                    print("  ℹ API keys require manual entry: shadow config migrate")
             else:
                 print()
-                print("Skipped. Run 'hermes config migrate' later to configure.")
+                print("Skipped. Run 'shadow config migrate' later to configure.")
         else:
             print("  ✓ Configuration is up to date")
         
@@ -3970,9 +3970,9 @@ def cmd_update(args):
         print("✓ Update complete!")
         
         # Write exit code *before* the gateway restart attempt.
-        # When running as ``hermes update --gateway`` (spawned by the gateway's
+        # When running as ``shadow update --gateway`` (spawned by the gateway's
         # /update command), this process lives inside the gateway's systemd
-        # cgroup.  ``systemctl restart hermes-gateway`` kills everything in the
+        # cgroup.  ``systemctl restart shadow-gateway`` kills everything in the
         # cgroup (KillMode=mixed → SIGKILL to remaining processes), including
         # us and the wrapping bash shell.  The shell never reaches its
         # ``printf $status > .update_exit_code`` epilogue, so the exit-code
@@ -3983,7 +3983,7 @@ def cmd_update(args):
         # before we attempt the restart — ensures the new gateway sees it
         # regardless of how we die.
         if gateway_mode:
-            _exit_code_path = get_hermes_home() / ".update_exit_code"
+            _exit_code_path = get_shadow_home() / ".update_exit_code"
             try:
                 _exit_code_path.write_text("0")
             except OSError:
@@ -3993,7 +3993,7 @@ def cmd_update(args):
         # The code update (git pull) is shared across all profiles, so every
         # running gateway needs restarting to pick up the new code.
         try:
-            from hermes_cli.gateway import (
+            from shadow_cli.gateway import (
                 is_macos, supports_systemd_services, _ensure_user_systemd_env,
                 find_gateway_pids,
                 _get_service_pids,
@@ -4004,7 +4004,7 @@ def cmd_update(args):
             killed_pids = set()
 
             # --- Systemd services (Linux) ---
-            # Discover all hermes-gateway* units (default + profiles)
+            # Discover all shadow-gateway* units (default + profiles)
             if supports_systemd_services():
                 try:
                     _ensure_user_systemd_env()
@@ -4014,14 +4014,14 @@ def cmd_update(args):
                 for scope, scope_cmd in [("user", ["systemctl", "--user"]), ("system", ["systemctl"])]:
                     try:
                         result = subprocess.run(
-                            scope_cmd + ["list-units", "hermes-gateway*", "--plain", "--no-legend", "--no-pager"],
+                            scope_cmd + ["list-units", "shadow-gateway*", "--plain", "--no-legend", "--no-pager"],
                             capture_output=True, text=True, timeout=10,
                         )
                         for line in result.stdout.strip().splitlines():
                             parts = line.split()
                             if not parts:
                                 continue
-                            unit = parts[0]  # e.g. hermes-gateway.service or hermes-gateway-coder.service
+                            unit = parts[0]  # e.g. shadow-gateway.service or shadow-gateway-coder.service
                             if not unit.endswith(".service"):
                                 continue
                             svc_name = unit.removesuffix(".service")
@@ -4078,7 +4078,7 @@ def cmd_update(args):
             # --- Launchd services (macOS) ---
             if is_macos():
                 try:
-                    from hermes_cli.gateway import launchd_restart, get_launchd_label, get_launchd_plist_path
+                    from shadow_cli.gateway import launchd_restart, get_launchd_label, get_launchd_plist_path
                     plist_path = get_launchd_plist_path()
                     if plist_path.exists():
                         check = subprocess.run(
@@ -4114,10 +4114,10 @@ def cmd_update(args):
                     print(f"  ✓ Restarted {svc}")
                 if killed_pids:
                     print(f"  → Stopped {len(killed_pids)} manual gateway process(es)")
-                    print("    Restart manually: hermes gateway run")
+                    print("    Restart manually: shadow gateway run")
                     # Also restart for each profile if needed
                     if len(killed_pids) > 1:
-                        print("    (or: hermes -p <profile> gateway run  for each profile)")
+                        print("    (or: shadow -p <profile> gateway run  for each profile)")
 
             if not restarted_services and not killed_pids:
                 # No gateways were running — nothing to do
@@ -4128,7 +4128,7 @@ def cmd_update(args):
         
         print()
         print("Tip: You can now select a provider and model:")
-        print("  hermes model              # Select provider and model")
+        print("  shadow model              # Select provider and model")
         
     except subprocess.CalledProcessError as e:
         if sys.platform == "win32":
@@ -4144,7 +4144,7 @@ def cmd_update(args):
 def _coalesce_session_name_args(argv: list) -> list:
     """Join unquoted multi-word session names after -c/--continue and -r/--resume.
 
-    When a user types ``hermes -c Pokemon Agent Dev`` without quoting the
+    When a user types ``shadow -c Pokemon Agent Dev`` without quoting the
     session name, argparse sees three separate tokens.  This function merges
     them into a single argument so argparse receives
     ``['-c', 'Pokemon Agent Dev']`` instead.
@@ -4184,20 +4184,20 @@ def _coalesce_session_name_args(argv: list) -> list:
 
 def cmd_profile(args):
     """Profile management — create, delete, list, switch, alias."""
-    from hermes_cli.profiles import (
+    from shadow_cli.profiles import (
         list_profiles, create_profile, delete_profile, seed_profile_skills,
         set_active_profile, get_active_profile_name,
         check_alias_collision, create_wrapper_script, remove_wrapper_script,
         _is_wrapper_dir_in_path, _get_wrapper_dir,
     )
-    from hermes_constants import display_hermes_home
+    from shadow_constants import display_shadow_home
 
     action = getattr(args, "profile_action", None)
 
     if action is None:
-        # Bare `hermes profile` — show current profile status
+        # Bare `shadow profile` — show current profile status
         profile_name = get_active_profile_name()
-        dhh = display_hermes_home()
+        dhh = display_shadow_home()
         print(f"\nActive profile: {profile_name}")
         print(f"Path:           {dhh}")
 
@@ -4209,7 +4209,7 @@ def cmd_profile(args):
                 print(f"Gateway:        {'running' if p.gateway_running else 'stopped'}")
                 print(f"Skills:         {p.skill_count} installed")
                 if p.alias_path:
-                    print(f"Alias:          {p.name} → hermes -p {p.name}")
+                    print(f"Alias:          {p.name} → shadow -p {p.name}")
                 break
         print()
         return
@@ -4242,7 +4242,7 @@ def cmd_profile(args):
         try:
             set_active_profile(name)
             if name == "default":
-                print(f"Switched to: default (~/.hermes)")
+                print(f"Switched to: default (~/.shadow)")
             else:
                 print(f"Switched to: {name}")
         except (ValueError, FileNotFoundError) as e:
@@ -4297,8 +4297,8 @@ def cmd_profile(args):
                 collision = check_alias_collision(name)
                 if collision:
                     print(f"\n⚠ Cannot create alias '{name}' — {collision}")
-                    print(f"  Choose a custom alias:  hermes profile alias {name} --name <custom>")
-                    print(f"  Or access via flag:     hermes -p {name} chat")
+                    print(f"  Choose a custom alias:  shadow profile alias {name} --name <custom>")
+                    print(f"  Or access via flag:     shadow -p {name} chat")
                 else:
                     wrapper_path = create_wrapper_script(name)
                     if wrapper_path:
@@ -4343,7 +4343,7 @@ def cmd_profile(args):
 
     elif action == "show":
         name = args.profile_name
-        from hermes_cli.profiles import get_profile_dir, profile_exists, _read_config_model, _check_gateway_running, _count_skills
+        from shadow_cli.profiles import get_profile_dir, profile_exists, _read_config_model, _check_gateway_running, _count_skills
         if not profile_exists(name):
             print(f"Error: Profile '{name}' does not exist.")
             sys.exit(1)
@@ -4370,7 +4370,7 @@ def cmd_profile(args):
         remove = getattr(args, "remove", False)
         custom_name = getattr(args, "alias_name", None)
 
-        from hermes_cli.profiles import profile_exists
+        from shadow_cli.profiles import profile_exists
         if not profile_exists(name):
             print(f"Error: Profile '{name}' does not exist.")
             sys.exit(1)
@@ -4391,13 +4391,13 @@ def cmd_profile(args):
             if wrapper_path:
                 # If custom name, write the profile name into the wrapper
                 if custom_name:
-                    wrapper_path.write_text(f'#!/bin/sh\nexec hermes -p {name} "$@"\n')
+                    wrapper_path.write_text(f'#!/bin/sh\nexec shadow -p {name} "$@"\n')
                 print(f"✓ Alias created: {wrapper_path}")
                 if not _is_wrapper_dir_in_path():
                     print(f"⚠ {_get_wrapper_dir()} is not in your PATH.")
 
     elif action == "rename":
-        from hermes_cli.profiles import rename_profile
+        from shadow_cli.profiles import rename_profile
         try:
             new_dir = rename_profile(args.old_name, args.new_name)
             print(f"\nProfile renamed: {args.old_name} → {args.new_name}")
@@ -4407,7 +4407,7 @@ def cmd_profile(args):
             sys.exit(1)
 
     elif action == "export":
-        from hermes_cli.profiles import export_profile
+        from shadow_cli.profiles import export_profile
         name = args.profile_name
         output = args.output or f"{name}.tar.gz"
         try:
@@ -4418,7 +4418,7 @@ def cmd_profile(args):
             sys.exit(1)
 
     elif action == "import":
-        from hermes_cli.profiles import import_profile
+        from shadow_cli.profiles import import_profile
         try:
             profile_dir = import_profile(args.archive, name=getattr(args, "import_name", None))
             name = profile_dir.name
@@ -4443,13 +4443,13 @@ def cmd_dashboard(args):
         import uvicorn  # noqa: F401
     except ImportError:
         print("Web UI dependencies not installed.")
-        print("Install them with:  pip install hermes-agent[web]")
+        print("Install them with:  pip install shadow-agent[web]")
         sys.exit(1)
 
     if not _build_web_ui(PROJECT_ROOT / "web", fatal=True):
         sys.exit(1)
 
-    from hermes_cli.web_server import start_server
+    from shadow_cli.web_server import start_server
     start_server(
         host=args.host,
         port=args.port,
@@ -4460,7 +4460,7 @@ def cmd_dashboard(args):
 
 def cmd_completion(args, parser=None):
     """Print shell completion script."""
-    from hermes_cli.completion import generate_bash, generate_zsh, generate_fish
+    from shadow_cli.completion import generate_bash, generate_zsh, generate_fish
     shell = getattr(args, "shell", "bash")
     if shell == "zsh":
         print(generate_zsh(parser))
@@ -4471,8 +4471,8 @@ def cmd_completion(args, parser=None):
 
 
 def cmd_logs(args):
-    """View and filter Hermes log files."""
-    from hermes_cli.logs import tail_log, list_logs
+    """View and filter SHADOW log files."""
+    from shadow_cli.logs import tail_log, list_logs
 
     log_name = getattr(args, "log_name", "agent") or "agent"
 
@@ -4492,44 +4492,44 @@ def cmd_logs(args):
 
 
 def main():
-    """Main entry point for hermes CLI."""
+    """Main entry point for shadow CLI."""
     parser = argparse.ArgumentParser(
-        prog="hermes",
-        description="Hermes Agent - AI assistant with tool-calling capabilities",
+        prog="shadow",
+        description="SHADOW Agent - AI assistant with tool-calling capabilities",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-    hermes                        Start interactive chat
-    hermes chat -q "Hello"        Single query mode
-    hermes -c                     Resume the most recent session
-    hermes -c "my project"        Resume a session by name (latest in lineage)
-    hermes --resume <session_id>  Resume a specific session by ID
-    hermes setup                  Run setup wizard
-    hermes logout                 Clear stored authentication
-    hermes auth add <provider>    Add a pooled credential
-    hermes auth list              List pooled credentials
-    hermes auth remove <p> <t>    Remove pooled credential by index, id, or label
-    hermes auth reset <provider>  Clear exhaustion status for a provider
-    hermes model                  Select default model
-    hermes config                 View configuration
-    hermes config edit            Edit config in $EDITOR
-    hermes config set model gpt-4 Set a config value
-    hermes gateway                Run messaging gateway
-    hermes -s hermes-agent-dev,github-auth
-    hermes -w                     Start in isolated git worktree
-    hermes gateway install        Install gateway background service
-    hermes sessions list          List past sessions
-    hermes sessions browse        Interactive session picker
-    hermes sessions rename ID T   Rename/title a session
-    hermes logs                   View agent.log (last 50 lines)
-    hermes logs -f                Follow agent.log in real time
-    hermes logs errors            View errors.log
-    hermes logs --since 1h        Lines from the last hour
-    hermes debug share             Upload debug report for support
-    hermes update                 Update to latest version
+    shadow                        Start interactive chat
+    shadow chat -q "Hello"        Single query mode
+    shadow -c                     Resume the most recent session
+    shadow -c "my project"        Resume a session by name (latest in lineage)
+    shadow --resume <session_id>  Resume a specific session by ID
+    shadow setup                  Run setup wizard
+    shadow logout                 Clear stored authentication
+    shadow auth add <provider>    Add a pooled credential
+    shadow auth list              List pooled credentials
+    shadow auth remove <p> <t>    Remove pooled credential by index, id, or label
+    shadow auth reset <provider>  Clear exhaustion status for a provider
+    shadow model                  Select default model
+    shadow config                 View configuration
+    shadow config edit            Edit config in $EDITOR
+    shadow config set model gpt-4 Set a config value
+    shadow gateway                Run messaging gateway
+    shadow -s shadow-agent-dev,github-auth
+    shadow -w                     Start in isolated git worktree
+    shadow gateway install        Install gateway background service
+    shadow sessions list          List past sessions
+    shadow sessions browse        Interactive session picker
+    shadow sessions rename ID T   Rename/title a session
+    shadow logs                   View agent.log (last 50 lines)
+    shadow logs -f                Follow agent.log in real time
+    shadow logs errors            View errors.log
+    shadow logs --since 1h        Lines from the last hour
+    shadow debug share             Upload debug report for support
+    shadow update                 Update to latest version
 
 For more help on a command:
-    hermes <command> --help
+    shadow <command> --help
 """
     )
     
@@ -4586,7 +4586,7 @@ For more help on a command:
     chat_parser = subparsers.add_parser(
         "chat",
         help="Interactive chat with the agent",
-        description="Start an interactive chat session with Hermes Agent"
+        description="Start an interactive chat session with SHADOW Agent"
     )
     chat_parser.add_argument(
         "-q", "--query",
@@ -4698,7 +4698,7 @@ For more help on a command:
     model_parser.add_argument(
         "--client-id",
         default=None,
-        help="OAuth client id to use for Nous login (default: hermes-cli)"
+        help="OAuth client id to use for Nous login (default: shadow-cli)"
     )
     model_parser.add_argument(
         "--scope",
@@ -4785,8 +4785,8 @@ For more help on a command:
     setup_parser = subparsers.add_parser(
         "setup",
         help="Interactive setup wizard",
-        description="Configure Hermes Agent with an interactive wizard. "
-                    "Run a specific section: hermes setup model|tts|terminal|gateway|tools|agent"
+        description="Configure SHADOW Agent with an interactive wizard. "
+                    "Run a specific section: shadow setup model|tts|terminal|gateway|tools|agent"
     )
     setup_parser.add_argument(
         "section",
@@ -4823,7 +4823,7 @@ For more help on a command:
     login_parser = subparsers.add_parser(
         "login",
         help="Authenticate with an inference provider",
-        description="Run OAuth device authorization flow for Hermes CLI"
+        description="Run OAuth device authorization flow for SHADOW CLI"
     )
     login_parser.add_argument(
         "--provider",
@@ -4842,7 +4842,7 @@ For more help on a command:
     login_parser.add_argument(
         "--client-id",
         default=None,
-        help="OAuth client id to use (default: hermes-cli)"
+        help="OAuth client id to use (default: shadow-cli)"
     )
     login_parser.add_argument(
         "--scope",
@@ -4920,7 +4920,7 @@ For more help on a command:
     status_parser = subparsers.add_parser(
         "status",
         help="Show status of all components",
-        description="Display status of Hermes Agent components"
+        description="Display status of SHADOW Agent components"
     )
     status_parser.add_argument(
         "--all",
@@ -5030,7 +5030,7 @@ For more help on a command:
     doctor_parser = subparsers.add_parser(
         "doctor",
         help="Check configuration and dependencies",
-        description="Diagnose issues with Hermes Agent setup"
+        description="Diagnose issues with SHADOW Agent setup"
     )
     doctor_parser.add_argument(
         "--fix",
@@ -5045,7 +5045,7 @@ For more help on a command:
     dump_parser = subparsers.add_parser(
         "dump",
         help="Dump setup summary for support/debugging",
-        description="Output a compact, plain-text summary of your Hermes setup "
+        description="Output a compact, plain-text summary of your SHADOW setup "
                     "that can be copy-pasted into Discord/GitHub for support context"
     )
     dump_parser.add_argument(
@@ -5061,16 +5061,16 @@ For more help on a command:
     debug_parser = subparsers.add_parser(
         "debug",
         help="Debug tools — upload logs and system info for support",
-        description="Debug utilities for Hermes Agent. Use 'hermes debug share' to "
+        description="Debug utilities for SHADOW Agent. Use 'shadow debug share' to "
                     "upload a debug report (system info + recent logs) to a paste "
                     "service and get a shareable URL.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""\
 Examples:
-    hermes debug share              Upload debug report and print URL
-    hermes debug share --lines 500  Include more log lines
-    hermes debug share --expire 30  Keep paste for 30 days
-    hermes debug share --local      Print report locally (no upload)
+    shadow debug share              Upload debug report and print URL
+    shadow debug share --lines 500  Include more log lines
+    shadow debug share --expire 30  Keep paste for 30 days
+    shadow debug share --local      Print report locally (no upload)
 """,
     )
     debug_sub = debug_parser.add_subparsers(dest="debug_command")
@@ -5097,14 +5097,14 @@ Examples:
     # =========================================================================
     backup_parser = subparsers.add_parser(
         "backup",
-        help="Back up Hermes home directory to a zip file",
-        description="Create a zip archive of your entire Hermes configuration, "
-                    "skills, sessions, and data (excludes the hermes-agent codebase). "
+        help="Back up SHADOW home directory to a zip file",
+        description="Create a zip archive of your entire SHADOW configuration, "
+                    "skills, sessions, and data (excludes the shadow-agent codebase). "
                     "Use --quick for a fast snapshot of just critical state files."
     )
     backup_parser.add_argument(
         "-o", "--output",
-        help="Output path for the zip file (default: ~/hermes-backup-<timestamp>.zip)"
+        help="Output path for the zip file (default: ~/shadow-backup-<timestamp>.zip)"
     )
     backup_parser.add_argument(
         "-q", "--quick",
@@ -5122,9 +5122,9 @@ Examples:
     # =========================================================================
     import_parser = subparsers.add_parser(
         "import",
-        help="Restore a Hermes backup from a zip file",
-        description="Extract a previously created Hermes backup into your "
-                    "Hermes home directory, restoring configuration, skills, "
+        help="Restore a SHADOW backup from a zip file",
+        description="Extract a previously created SHADOW backup into your "
+                    "SHADOW home directory, restoring configuration, skills, "
                     "sessions, and data"
     )
     import_parser.add_argument(
@@ -5144,7 +5144,7 @@ Examples:
     config_parser = subparsers.add_parser(
         "config",
         help="View and edit configuration",
-        description="Manage Hermes Agent configuration"
+        description="Manage SHADOW Agent configuration"
     )
     config_subparsers = config_parser.add_subparsers(dest="config_command")
     
@@ -5196,7 +5196,7 @@ Examples:
     pairing_sub.add_parser("clear-pending", help="Clear all pending codes")
 
     def cmd_pairing(args):
-        from hermes_cli.pairing import pairing_command
+        from shadow_cli.pairing import pairing_command
         pairing_command(args)
 
     pairing_parser.set_defaults(func=cmd_pairing)
@@ -5275,10 +5275,10 @@ Examples:
         # Route 'config' action to skills_config module
         if getattr(args, 'skills_action', None) == 'config':
             _require_tty("skills config")
-            from hermes_cli.skills_config import skills_command as skills_config_command
+            from shadow_cli.skills_config import skills_command as skills_config_command
             skills_config_command(args)
         else:
-            from hermes_cli.skills_hub import skills_command
+            from shadow_cli.skills_hub import skills_command
             skills_command(args)
 
     skills_parser.set_defaults(func=cmd_skills)
@@ -5298,7 +5298,7 @@ Examples:
     )
     plugins_install.add_argument(
         "identifier",
-        help="Git URL or owner/repo shorthand (e.g. anpicasso/hermes-plugin-chrome-profiles)",
+        help="Git URL or owner/repo shorthand (e.g. anpicasso/shadow-plugin-chrome-profiles)",
     )
     plugins_install.add_argument(
         "--force", "-f", action="store_true",
@@ -5328,7 +5328,7 @@ Examples:
     plugins_disable.add_argument("name", help="Plugin name to disable")
 
     def cmd_plugins(args):
-        from hermes_cli.plugins_cmd import plugins_command
+        from shadow_cli.plugins_cmd import plugins_command
         plugins_command(args)
 
     plugins_parser.set_defaults(func=cmd_plugins)
@@ -5374,7 +5374,7 @@ Examples:
     def cmd_memory(args):
         sub = getattr(args, "memory_command", None)
         if sub == "off":
-            from hermes_cli.config import load_config, save_config
+            from shadow_cli.config import load_config, save_config
             config = load_config()
             if not isinstance(config.get("memory"), dict):
                 config["memory"] = {}
@@ -5383,7 +5383,7 @@ Examples:
             print("\n  ✓ Memory provider: built-in only")
             print("  Saved to config.yaml\n")
         else:
-            from hermes_cli.memory_setup import memory_command
+            from shadow_cli.memory_setup import memory_command
             memory_command(args)
 
     memory_parser.set_defaults(func=cmd_memory)
@@ -5398,7 +5398,7 @@ Examples:
             "Enable, disable, or list tools for CLI, Telegram, Discord, etc.\n\n"
             "Built-in toolsets use plain names (e.g. web, memory).\n"
             "MCP tools use server:tool notation (e.g. github:create_issue).\n\n"
-            "Run 'hermes tools' with no subcommand for the interactive configuration UI."
+            "Run 'shadow tools' with no subcommand for the interactive configuration UI."
         ),
     )
     tools_parser.add_argument(
@@ -5408,7 +5408,7 @@ Examples:
     )
     tools_sub = tools_parser.add_subparsers(dest="tools_action")
 
-    # hermes tools list [--platform cli]
+    # shadow tools list [--platform cli]
     tools_list_p = tools_sub.add_parser(
         "list",
         help="Show all tools and their enabled/disabled status",
@@ -5418,7 +5418,7 @@ Examples:
         help="Platform to show (default: cli)",
     )
 
-    # hermes tools disable <name...> [--platform cli]
+    # shadow tools disable <name...> [--platform cli]
     tools_disable_p = tools_sub.add_parser(
         "disable",
         help="Disable toolsets or MCP tools",
@@ -5432,7 +5432,7 @@ Examples:
         help="Platform to apply to (default: cli)",
     )
 
-    # hermes tools enable <name...> [--platform cli]
+    # shadow tools enable <name...> [--platform cli]
     tools_enable_p = tools_sub.add_parser(
         "enable",
         help="Enable toolsets or MCP tools",
@@ -5449,11 +5449,11 @@ Examples:
     def cmd_tools(args):
         action = getattr(args, "tools_action", None)
         if action in ("list", "disable", "enable"):
-            from hermes_cli.tools_config import tools_disable_enable_command
+            from shadow_cli.tools_config import tools_disable_enable_command
             tools_disable_enable_command(args)
         else:
             _require_tty("tools")
-            from hermes_cli.tools_config import tools_command
+            from shadow_cli.tools_config import tools_command
             tools_command(args)
 
     tools_parser.set_defaults(func=cmd_tools)
@@ -5462,19 +5462,19 @@ Examples:
     # =========================================================================
     mcp_parser = subparsers.add_parser(
         "mcp",
-        help="Manage MCP servers and run Hermes as an MCP server",
+        help="Manage MCP servers and run SHADOW as an MCP server",
         description=(
-            "Manage MCP server connections and run Hermes as an MCP server.\n\n"
+            "Manage MCP server connections and run SHADOW as an MCP server.\n\n"
             "MCP servers provide additional tools via the Model Context Protocol.\n"
-            "Use 'hermes mcp add' to connect to a new server, or\n"
-            "'hermes mcp serve' to expose Hermes conversations over MCP."
+            "Use 'shadow mcp add' to connect to a new server, or\n"
+            "'shadow mcp serve' to expose SHADOW conversations over MCP."
         ),
     )
     mcp_sub = mcp_parser.add_subparsers(dest="mcp_action")
 
     mcp_serve_p = mcp_sub.add_parser(
         "serve",
-        help="Run Hermes as an MCP server (expose conversations to other agents)",
+        help="Run SHADOW as an MCP server (expose conversations to other agents)",
     )
     mcp_serve_p.add_argument(
         "-v", "--verbose", action="store_true",
@@ -5502,7 +5502,7 @@ Examples:
     mcp_cfg_p.add_argument("name", help="Server name to configure")
 
     def cmd_mcp(args):
-        from hermes_cli.mcp_config import mcp_command
+        from shadow_cli.mcp_config import mcp_command
         mcp_command(args)
 
     mcp_parser.set_defaults(func=cmd_mcp)
@@ -5558,7 +5558,7 @@ Examples:
     def cmd_sessions(args):
         import json as _json
         try:
-            from hermes_state import SessionDB
+            from shadow_state import SessionDB
             db = SessionDB()
         except Exception as e:
             print(f"Error: Could not open session database: {e}")
@@ -5676,17 +5676,17 @@ Examples:
                 print("Cancelled.")
                 return
 
-            # Launch hermes --resume <id> by replacing the current process
+            # Launch shadow --resume <id> by replacing the current process
             print(f"Resuming session: {selected_id}")
             import shutil
-            hermes_bin = shutil.which("hermes")
-            if hermes_bin:
-                os.execvp(hermes_bin, ["hermes", "--resume", selected_id])
+            shadow_bin = shutil.which("shadow")
+            if shadow_bin:
+                os.execvp(shadow_bin, ["shadow", "--resume", selected_id])
             else:
                 # Fallback: re-invoke via python -m
                 os.execvp(
                     sys.executable,
-                    [sys.executable, "-m", "hermes_cli.main", "--resume", selected_id],
+                    [sys.executable, "-m", "shadow_cli.main", "--resume", selected_id],
                 )
             return  # won't reach here after execvp
 
@@ -5724,7 +5724,7 @@ Examples:
 
     def cmd_insights(args):
         try:
-            from hermes_state import SessionDB
+            from shadow_state import SessionDB
             from agent.insights import InsightsEngine
 
             db = SessionDB()
@@ -5743,14 +5743,14 @@ Examples:
     claw_parser = subparsers.add_parser(
         "claw",
         help="OpenClaw migration tools",
-        description="Migrate settings, memories, skills, and API keys from OpenClaw to Hermes"
+        description="Migrate settings, memories, skills, and API keys from OpenClaw to SHADOW"
     )
     claw_subparsers = claw_parser.add_subparsers(dest="claw_action")
 
     # claw migrate
     claw_migrate = claw_subparsers.add_parser(
         "migrate",
-        help="Migrate from OpenClaw to Hermes",
+        help="Migrate from OpenClaw to SHADOW",
         description="Import settings, memories, skills, and API keys from an OpenClaw installation. "
                     "Always shows a preview before making changes."
     )
@@ -5818,7 +5818,7 @@ Examples:
     )
 
     def cmd_claw(args):
-        from hermes_cli.claw import claw_command
+        from shadow_cli.claw import claw_command
         claw_command(args)
 
     claw_parser.set_defaults(func=cmd_claw)
@@ -5837,7 +5837,7 @@ Examples:
     # =========================================================================
     update_parser = subparsers.add_parser(
         "update",
-        help="Update Hermes Agent to the latest version",
+        help="Update SHADOW Agent to the latest version",
         description="Pull the latest changes from git and reinstall dependencies"
     )
     update_parser.add_argument(
@@ -5851,8 +5851,8 @@ Examples:
     # =========================================================================
     uninstall_parser = subparsers.add_parser(
         "uninstall",
-        help="Uninstall Hermes Agent",
-        description="Remove Hermes Agent from your system. Can keep configs/data for reinstall."
+        help="Uninstall SHADOW Agent",
+        description="Remove SHADOW Agent from your system. Can keep configs/data for reinstall."
     )
     uninstall_parser.add_argument(
         "--full",
@@ -5871,12 +5871,12 @@ Examples:
     # =========================================================================
     acp_parser = subparsers.add_parser(
         "acp",
-        help="Run Hermes Agent as an ACP (Agent Client Protocol) server",
-        description="Start Hermes Agent in ACP mode for editor integration (VS Code, Zed, JetBrains)",
+        help="Run SHADOW Agent as an ACP (Agent Client Protocol) server",
+        description="Start SHADOW Agent in ACP mode for editor integration (VS Code, Zed, JetBrains)",
     )
 
     def cmd_acp(args):
-        """Launch Hermes Agent as an ACP server."""
+        """Launch SHADOW Agent as an ACP server."""
         try:
             from acp_adapter.entry import main as acp_main
             acp_main()
@@ -5892,7 +5892,7 @@ Examples:
     # =========================================================================
     profile_parser = subparsers.add_parser(
         "profile",
-        help="Manage profiles — multiple isolated Hermes instances",
+        help="Manage profiles — multiple isolated SHADOW instances",
     )
     profile_subparsers = profile_parser.add_subparsers(dest="profile_action")
 
@@ -5961,7 +5961,7 @@ Examples:
     dashboard_parser = subparsers.add_parser(
         "dashboard",
         help="Start the web UI dashboard",
-        description="Launch the Hermes Agent web dashboard for managing config, API keys, and sessions",
+        description="Launch the SHADOW Agent web dashboard for managing config, API keys, and sessions",
     )
     dashboard_parser.add_argument("--port", type=int, default=9119, help="Port (default 9119)")
     dashboard_parser.add_argument("--host", default="127.0.0.1", help="Host (default 127.0.0.1)")
@@ -5977,21 +5977,21 @@ Examples:
     # =========================================================================
     logs_parser = subparsers.add_parser(
         "logs",
-        help="View and filter Hermes log files",
+        help="View and filter SHADOW log files",
         description="View, tail, and filter agent.log / errors.log / gateway.log",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""\
 Examples:
-    hermes logs                    Show last 50 lines of agent.log
-    hermes logs -f                 Follow agent.log in real time
-    hermes logs errors             Show last 50 lines of errors.log
-    hermes logs gateway -n 100     Show last 100 lines of gateway.log
-    hermes logs --level WARNING    Only show WARNING and above
-    hermes logs --session abc123   Filter by session ID
-    hermes logs --component tools  Only show tool-related lines
-    hermes logs --since 1h         Lines from the last hour
-    hermes logs --since 30m -f     Follow, starting from 30 min ago
-    hermes logs list               List available log files with sizes
+    shadow logs                    Show last 50 lines of agent.log
+    shadow logs -f                 Follow agent.log in real time
+    shadow logs errors             Show last 50 lines of errors.log
+    shadow logs gateway -n 100     Show last 100 lines of gateway.log
+    shadow logs --level WARNING    Only show WARNING and above
+    shadow logs --session abc123   Filter by session ID
+    shadow logs --component tools  Only show tool-related lines
+    shadow logs --since 1h         Lines from the last hour
+    shadow logs --since 30m -f     Follow, starting from 30 min ago
+    shadow logs list               List available log files with sizes
 """,
     )
     logs_parser.add_argument(
@@ -6029,13 +6029,13 @@ Examples:
     # =========================================================================
     # Pre-process argv so unquoted multi-word session names after -c / -r
     # are merged into a single token before argparse sees them.
-    # e.g. ``hermes -c Pokemon Agent Dev`` → ``hermes -c 'Pokemon Agent Dev'``
+    # e.g. ``shadow -c Pokemon Agent Dev`` → ``shadow -c 'Pokemon Agent Dev'``
     # ── Container-aware routing ────────────────────────────────────────
     # When NixOS container mode is active, route ALL subcommands into
     # the managed container.  This MUST run before parse_args() so that
     # --help, unrecognised flags, and every subcommand are forwarded
     # transparently instead of being intercepted by argparse on the host.
-    from hermes_cli.config import get_container_exec_info
+    from shadow_cli.config import get_container_exec_info
     container_info = get_container_exec_info()
     if container_info:
         _exec_in_container(container_info, sys.argv[1:])

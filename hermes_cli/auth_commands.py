@@ -26,9 +26,9 @@ from agent.credential_pool import (
     list_custom_pool_providers,
     load_pool,
 )
-import hermes_cli.auth as auth_mod
-from hermes_cli.auth import PROVIDER_REGISTRY
-from hermes_constants import OPENROUTER_BASE_URL
+import shadow_cli.auth as auth_mod
+from shadow_cli.auth import PROVIDER_REGISTRY
+from shadow_constants import OPENROUTER_BASE_URL
 
 
 # Providers that support OAuth login in addition to API keys.
@@ -38,7 +38,7 @@ _OAUTH_CAPABLE_PROVIDERS = {"anthropic", "nous", "openai-codex", "qwen-oauth"}
 def _get_custom_provider_names() -> list:
     """Return list of (display_name, pool_key, provider_key) tuples."""
     try:
-        from hermes_cli.config import get_compatible_custom_providers, load_config
+        from shadow_cli.config import get_compatible_custom_providers, load_config
 
         config = load_config()
     except Exception:
@@ -178,7 +178,7 @@ def auth_add_command(args) -> None:
     if provider == "anthropic":
         from agent import anthropic_adapter as anthropic_mod
 
-        creds = anthropic_mod.run_hermes_oauth_login_pure()
+        creds = anthropic_mod.run_shadow_oauth_login_pure()
         if not creds:
             raise SystemExit("Anthropic OAuth login did not return credentials.")
         label = (getattr(args, "label", None) or "").strip() or label_from_token(
@@ -191,7 +191,7 @@ def auth_add_command(args) -> None:
             label=label,
             auth_type=AUTH_TYPE_OAUTH,
             priority=0,
-            source=f"{SOURCE_MANUAL}:hermes_pkce",
+            source=f"{SOURCE_MANUAL}:shadow_pkce",
             access_token=creds["access_token"],
             refresh_token=creds.get("refresh_token"),
             expires_at_ms=creds.get("expires_at_ms"),
@@ -270,7 +270,7 @@ def auth_add_command(args) -> None:
         print(f'Added {provider} OAuth credential #{len(pool.entries())}: "{entry.label}"')
         return
 
-    raise SystemExit(f"`hermes auth add {provider}` is not implemented for auth type {requested_type} yet.")
+    raise SystemExit(f"`shadow auth add {provider}` is not implemented for auth type {requested_type} yet.")
 
 
 def auth_list_command(args) -> None:
@@ -319,16 +319,16 @@ def auth_remove_command(args) -> None:
     if removed.source.startswith("env:"):
         env_var = removed.source[len("env:"):]
         if env_var:
-            from hermes_cli.config import remove_env_value
+            from shadow_cli.config import remove_env_value
             cleared = remove_env_value(env_var)
             if cleared:
                 print(f"Cleared {env_var} from .env")
 
-    # If this was a singleton-seeded credential (OAuth device_code, hermes_pkce),
+    # If this was a singleton-seeded credential (OAuth device_code, shadow_pkce),
     # clear the underlying auth store / credential file so it doesn't get
     # re-seeded on the next load_pool() call.
     elif removed.source == "device_code" and provider in ("openai-codex", "nous"):
-        from hermes_cli.auth import (
+        from shadow_cli.auth import (
             _load_auth_store, _save_auth_store, _auth_store_lock,
         )
         with _auth_store_lock():
@@ -339,19 +339,19 @@ def auth_remove_command(args) -> None:
                 _save_auth_store(auth_store)
                 print(f"Cleared {provider} OAuth tokens from auth store")
 
-    elif removed.source == "hermes_pkce" and provider == "anthropic":
-        from hermes_constants import get_hermes_home
-        oauth_file = get_hermes_home() / ".anthropic_oauth.json"
+    elif removed.source == "shadow_pkce" and provider == "anthropic":
+        from shadow_constants import get_shadow_home
+        oauth_file = get_shadow_home() / ".anthropic_oauth.json"
         if oauth_file.exists():
             oauth_file.unlink()
-            print("Cleared Hermes Anthropic OAuth credentials")
+            print("Cleared SHADOW Anthropic OAuth credentials")
 
     elif removed.source == "claude_code" and provider == "anthropic":
-        from hermes_cli.auth import suppress_credential_source
+        from shadow_cli.auth import suppress_credential_source
         suppress_credential_source(provider, "claude_code")
         print("Suppressed claude_code credential — it will not be re-seeded.")
         print("Note: Claude Code credentials still live in ~/.claude/.credentials.json")
-        print("Run `hermes auth add anthropic` to re-enable if needed.")
+        print("Run `shadow auth add anthropic` to re-enable if needed.")
 
 
 def auth_reset_command(args) -> None:
@@ -362,7 +362,7 @@ def auth_reset_command(args) -> None:
 
 
 def _interactive_auth() -> None:
-    """Interactive credential pool management when `hermes auth` is called bare."""
+    """Interactive credential pool management when `shadow auth` is called bare."""
     # Show current pool status first
     print("Credential Pool Status")
     print("=" * 50)
@@ -512,7 +512,7 @@ def _interactive_strategy() -> None:
         print("Invalid choice.")
         return
 
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
     cfg = load_config()
     pool_strategies = cfg.get("credential_pool_strategies") or {}
     if not isinstance(pool_strategies, dict):

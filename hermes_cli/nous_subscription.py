@@ -6,8 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, Optional, Set
 
-from hermes_cli.auth import get_nous_auth_status
-from hermes_cli.config import get_env_value, load_config
+from shadow_cli.auth import get_nous_auth_status
+from shadow_cli.config import get_env_value, load_config
 from tools.managed_tool_gateway import is_managed_tool_gateway_ready
 from tools.tool_backend_helpers import (
     has_direct_modal_credentials,
@@ -20,7 +20,7 @@ from tools.tool_backend_helpers import (
 
 
 _DEFAULT_PLATFORM_TOOLSETS = {
-    "cli": "hermes-cli",
+    "cli": "shadow-cli",
 }
 
 
@@ -446,12 +446,12 @@ def get_nous_subscription_explainer_lines() -> list[str]:
     return [
         "Nous subscription enables managed web tools, image generation, OpenAI TTS, and browser automation by default.",
         "Those managed tools bill to your Nous subscription. Modal execution is optional and can bill to your subscription too.",
-        "Change these later with: hermes setup tools, hermes setup terminal, or hermes status.",
+        "Change these later with: shadow setup tools, shadow setup terminal, or shadow status.",
     ]
 
 
 def apply_nous_provider_defaults(config: Dict[str, object]) -> set[str]:
-    """Apply provider-level Nous defaults shared by `hermes setup` and `hermes model`."""
+    """Apply provider-level Nous defaults shared by `shadow setup` and `shadow model`."""
     if not managed_nous_tools_enabled():
         return set()
 

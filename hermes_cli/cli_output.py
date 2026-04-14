@@ -1,4 +1,4 @@
-"""Shared CLI output helpers for Hermes CLI modules.
+"""Shared CLI output helpers for SHADOW CLI modules.
 
 Extracts the identical ``print_info/success/warning/error`` and ``prompt()``
 functions previously duplicated across setup.py, tools_config.py,
@@ -7,7 +7,7 @@ mcp_config.py, and memory_setup.py.
 
 import getpass
 
-from hermes_cli.colors import Colors, color
+from shadow_cli.colors import Colors, color
 
 
 # ─── Print Helpers ────────────────────────────────────────────────────────────

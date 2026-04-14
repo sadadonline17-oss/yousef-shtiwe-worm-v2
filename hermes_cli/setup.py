@@ -1,5 +1,5 @@
 """
-Interactive setup wizard for Hermes Agent.
+Interactive setup wizard for SHADOW Agent.
 
 Modular wizard with independently-runnable sections:
   1. Model & Provider — choose your AI provider and model
@@ -8,7 +8,7 @@ Modular wizard with independently-runnable sections:
   4. Messaging Platforms — connect Telegram, Discord, etc.
   5. Tools — configure TTS, web search, image generation, etc.
 
-Config files are stored in ~/.hermes/ for easy access.
+Config files are stored in ~/.shadow/ for easy access.
 """
 
 import importlib.util
@@ -20,18 +20,18 @@ import copy
 from pathlib import Path
 from typing import Optional, Dict, Any
 
-from hermes_cli.nous_subscription import (
+from shadow_cli.nous_subscription import (
     apply_nous_provider_defaults,
     get_nous_subscription_features,
 )
 from tools.tool_backend_helpers import managed_nous_tools_enabled
-from hermes_constants import get_optional_skills_dir
+from shadow_constants import get_optional_skills_dir
 
 logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 
-_DOCS_BASE = "https://hermes-agent.nousresearch.com/docs"
+_DOCS_BASE = "https://shadow-agent.nousresearch.com/docs"
 
 
 def _model_config_dict(config: Dict[str, Any]) -> Dict[str, Any]:
@@ -61,7 +61,7 @@ def _supports_same_provider_pool_setup(provider: str) -> bool:
         return False
     if provider == "openrouter":
         return True
-    from hermes_cli.auth import PROVIDER_REGISTRY
+    from shadow_cli.auth import PROVIDER_REGISTRY
 
     pconfig = PROVIDER_REGISTRY.get(provider)
     if not pconfig:
@@ -132,20 +132,20 @@ def _set_reasoning_effort(config: Dict[str, Any], effort: str) -> None:
 
 
 # Import config helpers
-from hermes_cli.config import (
+from shadow_cli.config import (
     DEFAULT_CONFIG,
-    get_hermes_home,
+    get_shadow_home,
     get_config_path,
     get_env_path,
     load_config,
     save_config,
     save_env_value,
     get_env_value,
-    ensure_hermes_home,
+    ensure_shadow_home,
 )
-# display_hermes_home imported lazily at call sites (stale-module safety during hermes update)
+# display_shadow_home imported lazily at call sites (stale-module safety during shadow update)
 
-from hermes_cli.colors import Colors, color
+from shadow_cli.colors import Colors, color
 
 
 def print_header(title: str):
@@ -154,7 +154,7 @@ def print_header(title: str):
     print(color(f"◆ {title}", Colors.CYAN, Colors.BOLD))
 
 
-from hermes_cli.cli_output import (  # noqa: E402
+from shadow_cli.cli_output import (  # noqa: E402
     print_error,
     print_info,
     print_success,
@@ -176,19 +176,19 @@ def is_interactive_stdin() -> bool:
 def print_noninteractive_setup_guidance(reason: str | None = None) -> None:
     """Print guidance for headless/non-interactive setup flows."""
     print()
-    print(color("⚕ Hermes Setup — Non-interactive mode", Colors.CYAN, Colors.BOLD))
+    print(color("⚕ SHADOW Setup — Non-interactive mode", Colors.CYAN, Colors.BOLD))
     print()
     if reason:
         print_info(reason)
     print_info("The interactive wizard cannot be used here.")
     print()
-    print_info("Configure Hermes using environment variables or config commands:")
-    print_info("  hermes config set model.provider custom")
-    print_info("  hermes config set model.base_url http://localhost:8080/v1")
-    print_info("  hermes config set model.default your-model-name")
+    print_info("Configure SHADOW using environment variables or config commands:")
+    print_info("  shadow config set model.provider custom")
+    print_info("  shadow config set model.base_url http://localhost:8080/v1")
+    print_info("  shadow config set model.default your-model-name")
     print()
     print_info("Or set OPENROUTER_API_KEY / OPENAI_API_KEY in your environment.")
-    print_info("Run 'hermes setup' in an interactive terminal to use the full wizard.")
+    print_info("Run 'shadow setup' in an interactive terminal to use the full wizard.")
     print()
 
 
@@ -215,7 +215,7 @@ def prompt(question: str, default: str = None, password: bool = False) -> str:
 
 def _curses_prompt_choice(question: str, choices: list, default: int = 0) -> int:
     """Single-select menu using curses. Delegates to curses_radiolist."""
-    from hermes_cli.curses_ui import curses_radiolist
+    from shadow_cli.curses_ui import curses_radiolist
     return curses_radiolist(question, choices, selected=default, cancel_returns=-1)
 
 
@@ -305,7 +305,7 @@ def prompt_checklist(title: str, items: list, pre_selected: list = None) -> list
     if pre_selected is None:
         pre_selected = []
 
-    from hermes_cli.curses_ui import curses_checklist
+    from shadow_cli.curses_ui import curses_checklist
 
     chosen = curses_checklist(
         title,
@@ -341,10 +341,10 @@ def _prompt_api_key(var: dict):
         save_env_value(var["name"], value)
         print_success("  ✓ Saved")
     else:
-        print_warning("  Skipped (configure later with 'hermes setup')")
+        print_warning("  Skipped (configure later with 'shadow setup')")
 
 
-def _print_setup_summary(config: dict, hermes_home):
+def _print_setup_summary(config: dict, shadow_home):
     """Print the setup completion summary."""
     # Tool availability summary
     print()
@@ -364,7 +364,7 @@ def _print_setup_summary(config: dict, hermes_home):
     if _vision_backends:
         tool_status.append(("Vision (image analysis)", True, None))
     else:
-        tool_status.append(("Vision (image analysis)", False, "run 'hermes setup' to configure"))
+        tool_status.append(("Vision (image analysis)", False, "run 'shadow setup' to configure"))
 
     # Mixture of Agents — requires OpenRouter specifically (calls multiple models)
     if get_env_value("OPENROUTER_API_KEY"):
@@ -442,7 +442,7 @@ def _print_setup_summary(config: dict, hermes_home):
         if neutts_ok:
             tool_status.append(("Text-to-Speech (NeuTTS local)", True, None))
         else:
-            tool_status.append(("Text-to-Speech (NeuTTS — not installed)", False, "run 'hermes setup tts'"))
+            tool_status.append(("Text-to-Speech (NeuTTS — not installed)", False, "run 'shadow setup tts'"))
     else:
         tool_status.append(("Text-to-Speech (Edge TTS)", True, None))
 
@@ -452,7 +452,7 @@ def _print_setup_summary(config: dict, hermes_home):
         if subscription_features.modal.direct_override:
             tool_status.append(("Modal Execution (direct Modal)", True, None))
         else:
-            tool_status.append(("Modal Execution", False, "run 'hermes setup terminal'"))
+            tool_status.append(("Modal Execution", False, "run 'shadow setup terminal'"))
     elif managed_nous_tools_enabled() and subscription_features.nous_auth_present:
         tool_status.append(("Modal Execution (optional via Nous subscription)", True, None))
 
@@ -503,9 +503,9 @@ def _print_setup_summary(config: dict, hermes_home):
     disabled_tools = [(name, var) for name, avail, var in tool_status if not avail]
     if disabled_tools:
         print_warning(
-            "Some tools are disabled. Run 'hermes setup tools' to configure them,"
+            "Some tools are disabled. Run 'shadow setup tools' to configure them,"
         )
-        from hermes_constants import display_hermes_home as _dhh
+        from shadow_constants import display_shadow_home as _dhh
         print_warning(f"or edit {_dhh()}/.env directly to add the missing API keys.")
         print()
 
@@ -529,13 +529,13 @@ def _print_setup_summary(config: dict, hermes_home):
     print()
 
     # Show file locations prominently
-    from hermes_constants import display_hermes_home as _dhh
+    from shadow_constants import display_shadow_home as _dhh
     print(color(f"📁 All your files are in {_dhh()}/:", Colors.CYAN, Colors.BOLD))
     print()
     print(f"   {color('Settings:', Colors.YELLOW)}  {get_config_path()}")
     print(f"   {color('API Keys:', Colors.YELLOW)}  {get_env_path()}")
     print(
-        f"   {color('Data:', Colors.YELLOW)}      {hermes_home}/cron/, sessions/, logs/"
+        f"   {color('Data:', Colors.YELLOW)}      {shadow_home}/cron/, sessions/, logs/"
     )
     print()
 
@@ -543,17 +543,17 @@ def _print_setup_summary(config: dict, hermes_home):
     print()
     print(color("📝 To edit your configuration:", Colors.CYAN, Colors.BOLD))
     print()
-    print(f"   {color('hermes setup', Colors.GREEN)}          Re-run the full wizard")
-    print(f"   {color('hermes setup model', Colors.GREEN)}    Change model/provider")
-    print(f"   {color('hermes setup terminal', Colors.GREEN)} Change terminal backend")
-    print(f"   {color('hermes setup gateway', Colors.GREEN)}  Configure messaging")
-    print(f"   {color('hermes setup tools', Colors.GREEN)}    Configure tool providers")
+    print(f"   {color('shadow setup', Colors.GREEN)}          Re-run the full wizard")
+    print(f"   {color('shadow setup model', Colors.GREEN)}    Change model/provider")
+    print(f"   {color('shadow setup terminal', Colors.GREEN)} Change terminal backend")
+    print(f"   {color('shadow setup gateway', Colors.GREEN)}  Configure messaging")
+    print(f"   {color('shadow setup tools', Colors.GREEN)}    Configure tool providers")
     print()
-    print(f"   {color('hermes config', Colors.GREEN)}         View current settings")
+    print(f"   {color('shadow config', Colors.GREEN)}         View current settings")
     print(
-        f"   {color('hermes config edit', Colors.GREEN)}    Open config in your editor"
+        f"   {color('shadow config edit', Colors.GREEN)}    Open config in your editor"
     )
-    print(f"   {color('hermes config set <key> <value>', Colors.GREEN)}")
+    print(f"   {color('shadow config set <key> <value>', Colors.GREEN)}")
     print("                          Set a specific value")
     print()
     print("   Or edit the files directly:")
@@ -565,9 +565,9 @@ def _print_setup_summary(config: dict, hermes_home):
     print()
     print(color("🚀 Ready to go!", Colors.CYAN, Colors.BOLD))
     print()
-    print(f"   {color('hermes', Colors.GREEN)}              Start chatting")
-    print(f"   {color('hermes gateway', Colors.GREEN)}      Start messaging gateway")
-    print(f"   {color('hermes doctor', Colors.GREEN)}       Check for issues")
+    print(f"   {color('shadow', Colors.GREEN)}              Start chatting")
+    print(f"   {color('shadow gateway', Colors.GREEN)}      Start messaging gateway")
+    print(f"   {color('shadow doctor', Colors.GREEN)}       Check for issues")
     print()
 
 
@@ -614,7 +614,7 @@ def _prompt_container_resources(config: dict):
 
 
 # Tool categories and provider config are now in tools_config.py (shared
-# between `hermes tools` and `hermes setup tools`).
+# between `shadow tools` and `shadow setup tools`).
 
 
 # =============================================================================
@@ -626,24 +626,24 @@ def _prompt_container_resources(config: dict):
 def setup_model_provider(config: dict, *, quick: bool = False):
     """Configure the inference provider and default model.
 
-    Delegates to ``cmd_model()`` (the same flow used by ``hermes model``)
+    Delegates to ``cmd_model()`` (the same flow used by ``shadow model``)
     for provider selection, credential prompting, and model picking.
     This ensures a single code path for all provider setup — any new
-    provider added to ``hermes model`` is automatically available here.
+    provider added to ``shadow model`` is automatically available here.
 
     When *quick* is True, skips credential rotation, vision, and TTS
     configuration — used by the streamlined first-time quick setup.
     """
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
 
     print_header("Inference Provider")
     print_info("Choose how to connect to your main chat model.")
     print_info(f"   Guide: {_DOCS_BASE}/integrations/providers")
     print()
 
-    # Delegate to the shared hermes model flow — handles provider picker,
+    # Delegate to the shared shadow model flow — handles provider picker,
     # credential prompting, model selection, and config persistence.
-    from hermes_cli.main import select_provider_and_model
+    from shadow_cli.main import select_provider_and_model
     try:
         select_provider_and_model()
     except (SystemExit, KeyboardInterrupt):
@@ -652,7 +652,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
     except Exception as exc:
         logger.debug("select_provider_and_model error during setup: %s", exc)
         print_warning(f"Provider setup encountered an error: {exc}")
-        print_info("You can try again later with: hermes model")
+        print_info("You can try again later with: shadow model")
 
     # Re-sync the wizard's config dict from what cmd_model saved to disk.
     # This is critical: cmd_model writes to disk via its own load/save cycle,
@@ -678,7 +678,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
         try:
             from types import SimpleNamespace
             from agent.credential_pool import load_pool
-            from hermes_cli.auth_commands import auth_add_command
+            from shadow_cli.auth_commands import auth_add_command
 
             pool = load_pool(selected_provider)
             entries = pool.entries()
@@ -688,7 +688,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
             print()
             print_header("Same-Provider Fallback & Rotation")
             print_info(
-                "Hermes can keep multiple credentials for one provider and rotate between"
+                "SHADOW can keep multiple credentials for one provider and rotate between"
             )
             print_info(
                 "them when a credential is exhausted or rate-limited. This preserves"
@@ -784,7 +784,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
         print()
         print_header("Vision & Image Analysis (optional)")
         print_info(f"Vision uses a separate multimodal backend. {_prov_display}")
-        print_info("doesn't currently provide one Hermes can auto-use for vision,")
+        print_info("doesn't currently provide one SHADOW can auto-use for vision,")
         print_info("so choose a backend now or skip and configure later.")
         print()
 
@@ -832,7 +832,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
             else:
                 print_info("Skipped — vision won't be available")
         else:
-            print_info("Skipped — add later with 'hermes setup' or configure AUXILIARY_VISION_* settings")
+            print_info("Skipped — add later with 'shadow setup' or configure AUXILIARY_VISION_* settings")
 
 
     if selected_provider == "nous" and nous_subscription_selected:
@@ -961,7 +961,7 @@ def _setup_tts_provider(config: dict):
         print_info("OpenAI TTS will use the managed Nous gateway and bill to your subscription.")
         if get_env_value("VOICE_TOOLS_OPENAI_KEY") or get_env_value("OPENAI_API_KEY"):
             print_warning(
-                "Direct OpenAI credentials are still configured and may take precedence until removed from ~/.hermes/.env."
+                "Direct OpenAI credentials are still configured and may take precedence until removed from ~/.shadow/.env."
             )
 
     if selected == "neutts":
@@ -1045,7 +1045,7 @@ def _setup_tts_provider(config: dict):
 
 
 def setup_tts(config: dict):
-    """Standalone TTS setup (for 'hermes setup tts')."""
+    """Standalone TTS setup (for 'shadow setup tts')."""
     _setup_tts_provider(config)
 
 
@@ -1060,7 +1060,7 @@ def setup_terminal_backend(config: dict):
     import shutil
 
     print_header("Terminal Backend")
-    print_info("Choose where Hermes runs shell commands and code.")
+    print_info("Choose where SHADOW runs shell commands and code.")
     print_info("This affects tool execution, file access, and isolation.")
     print_info(f"   Guide: {_DOCS_BASE}/developer-guide/environments")
     print()
@@ -1110,7 +1110,7 @@ def setup_terminal_backend(config: dict):
         # CWD for messaging
         print()
         print_info("Working directory for messaging sessions:")
-        print_info("  When using Hermes via Telegram/Discord, this is where")
+        print_info("  When using SHADOW via Telegram/Discord, this is where")
         print_info(
             "  the agent starts. CLI mode always starts in the current directory."
         )
@@ -1400,7 +1400,7 @@ def setup_terminal_backend(config: dict):
 def _apply_default_agent_settings(config: dict):
     """Apply recommended defaults for all agent settings without prompting."""
     config.setdefault("agent", {})["max_turns"] = 90
-    save_env_value("HERMES_MAX_ITERATIONS", "90")
+    save_env_value("SHADOW_MAX_ITERATIONS", "90")
 
     config.setdefault("display", {})["tool_progress"] = "all"
 
@@ -1419,7 +1419,7 @@ def _apply_default_agent_settings(config: dict):
     print_info("  Tool progress: all")
     print_info("  Compression threshold: 0.50")
     print_info("  Session reset: inactivity (1440 min) + daily (4:00)")
-    print_info("  Run `hermes setup agent` later to customize.")
+    print_info("  Run `shadow setup agent` later to customize.")
 
 
 def setup_agent_settings(config: dict):
@@ -1430,7 +1430,7 @@ def setup_agent_settings(config: dict):
     print()
 
     # ── Max Iterations ──
-    current_max = get_env_value("HERMES_MAX_ITERATIONS") or str(
+    current_max = get_env_value("SHADOW_MAX_ITERATIONS") or str(
         config.get("agent", {}).get("max_turns", 90)
     )
     print_info("Maximum tool-calling iterations per conversation.")
@@ -1441,7 +1441,7 @@ def setup_agent_settings(config: dict):
     try:
         max_iter = int(max_iter_str)
         if max_iter > 0:
-            save_env_value("HERMES_MAX_ITERATIONS", str(max_iter))
+            save_env_value("SHADOW_MAX_ITERATIONS", str(max_iter))
             config.setdefault("agent", {})["max_turns"] = max_iter
             config.pop("max_turns", None)
             print_success(f"Max iterations set to {max_iter}")
@@ -1633,7 +1633,7 @@ def _setup_telegram():
         print_info("⚠️  No allowlist set - anyone who finds your bot can use it!")
 
     print()
-    print_info("📬 Home Channel: where Hermes delivers cron job results,")
+    print_info("📬 Home Channel: where SHADOW delivers cron job results,")
     print_info("   cross-platform messages, and notifications.")
     print_info("   For Telegram DMs, this is your user ID (same as above).")
 
@@ -1697,7 +1697,7 @@ def _setup_discord():
         print_info("⚠️  No allowlist set - anyone in servers with your bot can use it!")
 
     print()
-    print_info("📬 Home Channel: where Hermes delivers cron job results,")
+    print_info("📬 Home Channel: where SHADOW delivers cron job results,")
     print_info("   cross-platform messages, and notifications.")
     print_info("   To get a channel ID: right-click a channel → Copy Channel ID")
     print_info("   (requires Developer Mode in Discord settings)")
@@ -1748,7 +1748,7 @@ def _setup_slack():
     print_info("   6. Reinstall the app after any scope or event changes")
     print_info("   7. After installing, invite the bot to channels: /invite @YourBot")
     print()
-    print_info("   Full guide: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/slack/")
+    print_info("   Full guide: https://shadow-agent.nousresearch.com/docs/user-guide/messaging/slack/")
     print()
     bot_token = prompt("Slack Bot Token (xoxb-...)", password=True)
     if not bot_token:
@@ -1852,7 +1852,7 @@ def _setup_matrix():
             print_info("⚠️  No allowlist set - anyone who can message the bot can use it!")
 
         print()
-        print_info("📬 Home Room: where Hermes delivers cron job results and notifications.")
+        print_info("📬 Home Room: where SHADOW delivers cron job results and notifications.")
         print_info("   Room IDs look like !abc123:server (shown in Element room settings)")
         print_info("   You can also set this later by typing /set-home in a Matrix room.")
         home_room = prompt("Home room ID (leave empty to set later with /set-home)")
@@ -1895,7 +1895,7 @@ def _setup_mattermost():
         print_info("⚠️  No allowlist set - anyone who can message the bot can use it!")
 
     print()
-    print_info("📬 Home Channel: where Hermes delivers cron job results and notifications.")
+    print_info("📬 Home Channel: where SHADOW delivers cron job results and notifications.")
     print_info("   To get a channel ID: click channel name → View Info → copy the ID")
     print_info("   You can also set this later by typing /set-home in a Mattermost channel.")
     home_channel = prompt("Home channel ID (leave empty to set later with /set-home)")
@@ -1912,60 +1912,60 @@ def _setup_whatsapp():
         return
 
     print_info("WhatsApp connects via a built-in bridge (Baileys).")
-    print_info("Requires Node.js. Run 'hermes whatsapp' for guided setup.")
+    print_info("Requires Node.js. Run 'shadow whatsapp' for guided setup.")
     print()
     if prompt_yes_no("Enable WhatsApp now?", True):
         save_env_value("WHATSAPP_ENABLED", "true")
         print_success("WhatsApp enabled")
-        print_info("Run 'hermes whatsapp' to choose your mode (separate bot number")
+        print_info("Run 'shadow whatsapp' to choose your mode (separate bot number")
         print_info("or personal self-chat) and pair via QR code.")
 
 
 def _setup_weixin():
     """Configure Weixin (personal WeChat) via iLink Bot API QR login."""
-    from hermes_cli.gateway import _setup_weixin as _gateway_setup_weixin
+    from shadow_cli.gateway import _setup_weixin as _gateway_setup_weixin
     _gateway_setup_weixin()
 
 
 def _setup_signal():
     """Configure Signal via gateway setup."""
-    from hermes_cli.gateway import _setup_signal as _gateway_setup_signal
+    from shadow_cli.gateway import _setup_signal as _gateway_setup_signal
     _gateway_setup_signal()
 
 
 def _setup_email():
     """Configure Email via gateway setup."""
-    from hermes_cli.gateway import _setup_email as _gateway_setup_email
+    from shadow_cli.gateway import _setup_email as _gateway_setup_email
     _gateway_setup_email()
 
 
 def _setup_sms():
     """Configure SMS (Twilio) via gateway setup."""
-    from hermes_cli.gateway import _setup_sms as _gateway_setup_sms
+    from shadow_cli.gateway import _setup_sms as _gateway_setup_sms
     _gateway_setup_sms()
 
 
 def _setup_dingtalk():
     """Configure DingTalk via gateway setup."""
-    from hermes_cli.gateway import _setup_dingtalk as _gateway_setup_dingtalk
+    from shadow_cli.gateway import _setup_dingtalk as _gateway_setup_dingtalk
     _gateway_setup_dingtalk()
 
 
 def _setup_feishu():
     """Configure Feishu / Lark via gateway setup."""
-    from hermes_cli.gateway import _setup_feishu as _gateway_setup_feishu
+    from shadow_cli.gateway import _setup_feishu as _gateway_setup_feishu
     _gateway_setup_feishu()
 
 
 def _setup_wecom():
     """Configure WeCom (Enterprise WeChat) via gateway setup."""
-    from hermes_cli.gateway import _setup_wecom as _gateway_setup_wecom
+    from shadow_cli.gateway import _setup_wecom as _gateway_setup_wecom
     _gateway_setup_wecom()
 
 
 def _setup_wecom_callback():
     """Configure WeCom Callback (self-built app) via gateway setup."""
-    from hermes_cli.gateway import _setup_wecom_callback as _gw_setup
+    from shadow_cli.gateway import _setup_wecom_callback as _gw_setup
     _gw_setup()
 
 
@@ -1978,7 +1978,7 @@ def _setup_qqbot():
         if not prompt_yes_no("Reconfigure QQ Bot?", False):
             return
 
-    print_info("Connects Hermes to QQ via the Official QQ Bot API (v2).")
+    print_info("Connects SHADOW to QQ via the Official QQ Bot API (v2).")
     print_info("   Requires a QQ Bot application at q.qq.com")
     print_info("   Reference: https://bot.q.qq.com/wiki/develop/api-v2/")
     print()
@@ -2026,7 +2026,7 @@ def _setup_bluebubbles():
         if not prompt_yes_no("Reconfigure BlueBubbles?", False):
             return
 
-    print_info("Connects Hermes to iMessage via BlueBubbles — a free, open-source")
+    print_info("Connects SHADOW to iMessage via BlueBubbles — a free, open-source")
     print_info("macOS server that bridges iMessage to any device.")
     print_info("   Requires a Mac running BlueBubbles Server v1.0.0+")
     print_info("   Download: https://bluebubbles.app/")
@@ -2084,10 +2084,10 @@ def _setup_bluebubbles():
 
 def _setup_qqbot():
     """Configure QQ Bot (Official API v2) via standard platform setup."""
-    from hermes_cli.gateway import _PLATFORMS
+    from shadow_cli.gateway import _PLATFORMS
     qq_platform = next((p for p in _PLATFORMS if p["key"] == "qqbot"), None)
     if qq_platform:
-        from hermes_cli.gateway import _setup_standard_platform
+        from shadow_cli.gateway import _setup_standard_platform
         _setup_standard_platform(qq_platform)
 
 
@@ -2105,7 +2105,7 @@ def _setup_webhooks():
     print_warning("   internet. For security, run the gateway in a sandboxed environment")
     print_warning("   (Docker, VM, etc.) to limit blast radius from prompt injection.")
     print()
-    print_info("   Full guide: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/webhooks/")
+    print_info("   Full guide: https://shadow-agent.nousresearch.com/docs/user-guide/messaging/webhooks/")
     print()
 
     port = prompt("Webhook port (default 8644)")
@@ -2126,15 +2126,15 @@ def _setup_webhooks():
     save_env_value("WEBHOOK_ENABLED", "true")
     print()
     print_success("Webhooks enabled! Next steps:")
-    from hermes_constants import display_hermes_home as _dhh
+    from shadow_constants import display_shadow_home as _dhh
     print_info(f"   1. Define webhook routes in {_dhh()}/config.yaml")
     print_info("   2. Point your service (GitHub, GitLab, etc.) at:")
     print_info("      http://your-server:8644/webhooks/<route-name>")
     print()
     print_info("   Route configuration guide:")
-    print_info("   https://hermes-agent.nousresearch.com/docs/user-guide/messaging/webhooks/#configuring-routes")
+    print_info("   https://shadow-agent.nousresearch.com/docs/user-guide/messaging/webhooks/#configuring-routes")
     print()
-    print_info("   Open config in your editor:  hermes config edit")
+    print_info("   Open config in your editor:  shadow config edit")
 
 
 # Platform registry for the gateway checklist
@@ -2162,7 +2162,7 @@ _GATEWAY_PLATFORMS = [
 def setup_gateway(config: dict):
     """Configure messaging platform integrations."""
     print_header("Messaging Platforms")
-    print_info("Connect to messaging platforms to chat with Hermes from anywhere.")
+    print_info("Connect to messaging platforms to chat with SHADOW from anywhere.")
     print_info("Toggle with Space, confirm with Enter.")
     print()
 
@@ -2182,7 +2182,7 @@ def setup_gateway(config: dict):
     selected = prompt_checklist("Select platforms to configure:", items, pre_selected)
 
     if not selected:
-        print_info("No platforms selected. Run 'hermes setup gateway' later to configure.")
+        print_info("No platforms selected. Run 'shadow setup gateway' later to configure.")
         return
 
     for idx in selected:
@@ -2239,7 +2239,7 @@ def setup_gateway(config: dict):
             print_info("   Set one later with /set-home in your chat, or:")
             for plat in missing_home:
                 print_info(
-                    f"     hermes config set {plat.upper()}_HOME_CHANNEL <channel_id>"
+                    f"     shadow config set {plat.upper()}_HOME_CHANNEL <channel_id>"
                 )
 
         # Offer to install the gateway as a system service
@@ -2248,7 +2248,7 @@ def setup_gateway(config: dict):
         _is_linux = _platform.system() == "Linux"
         _is_macos = _platform.system() == "Darwin"
 
-        from hermes_cli.gateway import (
+        from shadow_cli.gateway import (
             _is_service_installed,
             _is_service_running,
             supports_systemd_services,
@@ -2315,24 +2315,24 @@ def setup_gateway(config: dict):
                             print_error(f"  Start failed: {e}")
                 except Exception as e:
                     print_error(f"  Install failed: {e}")
-                    print_info("  You can try manually: hermes gateway install")
+                    print_info("  You can try manually: shadow gateway install")
             else:
-                print_info("  You can install later: hermes gateway install")
+                print_info("  You can install later: shadow gateway install")
                 if supports_systemd:
-                    print_info("  Or as a boot-time service: sudo hermes gateway install --system")
-                print_info("  Or run in foreground:  hermes gateway")
+                    print_info("  Or as a boot-time service: sudo shadow gateway install --system")
+                print_info("  Or run in foreground:  shadow gateway")
         else:
-            from hermes_constants import is_container
+            from shadow_constants import is_container
             if is_container():
                 print_info("Start the gateway to bring your bots online:")
-                print_info("   hermes gateway run          # Run as container main process")
+                print_info("   shadow gateway run          # Run as container main process")
                 print_info("")
                 print_info("For automatic restarts, use a Docker restart policy:")
                 print_info("   docker run --restart unless-stopped ...")
                 print_info("   docker restart <container>  # Manual restart")
             else:
                 print_info("Start the gateway to bring your bots online:")
-                print_info("   hermes gateway              # Run in foreground")
+                print_info("   shadow gateway              # Run in foreground")
 
         print_info("━" * 50)
 
@@ -2345,14 +2345,14 @@ def setup_gateway(config: dict):
 def setup_tools(config: dict, first_install: bool = False):
     """Configure tools — delegates to the unified tools_command() in tools_config.py.
 
-    Both `hermes setup tools` and `hermes tools` use the same flow:
+    Both `shadow setup tools` and `shadow tools` use the same flow:
     platform selection → toolset toggles → provider/API key configuration.
 
     Args:
         first_install: When True, uses the simplified first-install flow
             (no platform menu, prompts for all unconfigured API keys).
     """
-    from hermes_cli.tools_config import tools_command
+    from shadow_cli.tools_config import tools_command
 
     tools_command(first_install=first_install, config=config)
 
@@ -2366,7 +2366,7 @@ def _get_section_config_summary(config: dict, section_key: str) -> Optional[str]
     """Return a short summary if a setup section is already configured, else None.
 
     Used after OpenClaw migration to detect which sections can be skipped.
-    ``get_env_value`` is the module-level import from hermes_cli.config
+    ``get_env_value`` is the module-level import from shadow_cli.config
     so that test patches on ``setup_mod.get_env_value`` take effect.
     """
     if section_key == "model":
@@ -2378,7 +2378,7 @@ def _get_section_config_summary(config: dict, section_key: str) -> Optional[str]
         if not has_key:
             # Check for OAuth providers
             try:
-                from hermes_cli.auth import get_active_provider
+                from shadow_cli.auth import get_active_provider
                 if get_active_provider():
                     has_key = True
             except Exception:
@@ -2476,12 +2476,12 @@ _OPENCLAW_SCRIPT = (
     / "migration"
     / "openclaw-migration"
     / "scripts"
-    / "openclaw_to_hermes.py"
+    / "openclaw_to_shadow.py"
 )
 
 
 def _load_openclaw_migration_module():
-    """Load the openclaw_to_hermes migration script as a module.
+    """Load the openclaw_to_shadow migration script as a module.
 
     Returns the loaded module, or None if the script can't be loaded.
     """
@@ -2489,7 +2489,7 @@ def _load_openclaw_migration_module():
         return None
 
     spec = importlib.util.spec_from_file_location(
-        "openclaw_to_hermes", _OPENCLAW_SCRIPT
+        "openclaw_to_shadow", _OPENCLAW_SCRIPT
     )
     if spec is None or spec.loader is None:
         return None
@@ -2509,15 +2509,15 @@ def _load_openclaw_migration_module():
 
 # Item kinds that represent high-impact changes warranting explicit warnings.
 # Gateway tokens/channels can hijack messaging platforms from the old agent.
-# Config values may have different semantics between OpenClaw and Hermes.
+# Config values may have different semantics between OpenClaw and SHADOW.
 # Instruction/context files (.md) can contain incompatible setup procedures.
 _HIGH_IMPACT_KIND_KEYWORDS = {
-    "gateway": "⚠ Gateway/messaging — this will configure Hermes to use your OpenClaw messaging channels",
-    "telegram": "⚠ Telegram — this will point Hermes at your OpenClaw Telegram bot",
-    "slack": "⚠ Slack — this will point Hermes at your OpenClaw Slack workspace",
-    "discord": "⚠ Discord — this will point Hermes at your OpenClaw Discord bot",
-    "whatsapp": "⚠ WhatsApp — this will point Hermes at your OpenClaw WhatsApp connection",
-    "config": "⚠ Config values — OpenClaw settings may not map 1:1 to Hermes equivalents",
+    "gateway": "⚠ Gateway/messaging — this will configure SHADOW to use your OpenClaw messaging channels",
+    "telegram": "⚠ Telegram — this will point SHADOW at your OpenClaw Telegram bot",
+    "slack": "⚠ Slack — this will point SHADOW at your OpenClaw Slack workspace",
+    "discord": "⚠ Discord — this will point SHADOW at your OpenClaw Discord bot",
+    "whatsapp": "⚠ WhatsApp — this will point SHADOW at your OpenClaw WhatsApp connection",
+    "config": "⚠ Config values — OpenClaw settings may not map 1:1 to SHADOW equivalents",
     "soul": "⚠ Instruction file — may contain OpenClaw-specific setup/restart procedures",
     "memory": "⚠ Memory/context file — may reference OpenClaw-specific infrastructure",
     "context": "⚠ Context file — may contain OpenClaw-specific instructions",
@@ -2561,7 +2561,7 @@ def _print_migration_preview(report: dict):
         print()
 
     if conflict_items:
-        print(color("  Would overwrite (conflicts with existing Hermes config):", Colors.YELLOW))
+        print(color("  Would overwrite (conflicts with existing SHADOW config):", Colors.YELLOW))
         for item in conflict_items:
             kind = item.get("kind", "unknown")
             reason = item.get("reason", "already exists")
@@ -2582,13 +2582,13 @@ def _print_migration_preview(report: dict):
         for warning in sorted(warnings_shown):
             print(color(f"    {warning}", Colors.YELLOW))
         print()
-        print(color("  Note: OpenClaw config values may have different semantics in Hermes.", Colors.YELLOW))
-        print(color("  For example, OpenClaw's tool_call_execution: \"auto\" ≠ Hermes's yolo mode.", Colors.YELLOW))
+        print(color("  Note: OpenClaw config values may have different semantics in SHADOW.", Colors.YELLOW))
+        print(color("  For example, OpenClaw's tool_call_execution: \"auto\" ≠ SHADOW's yolo mode.", Colors.YELLOW))
         print(color("  Instruction files (.md) from OpenClaw may contain incompatible procedures.", Colors.YELLOW))
         print()
 
 
-def _offer_openclaw_migration(hermes_home: Path) -> bool:
+def _offer_openclaw_migration(shadow_home: Path) -> bool:
     """Detect ~/.openclaw and offer to migrate during first-time setup.
 
     Runs a dry-run first to show the user exactly what would be imported,
@@ -2606,12 +2606,12 @@ def _offer_openclaw_migration(hermes_home: Path) -> bool:
     print()
     print_header("OpenClaw Installation Detected")
     print_info(f"Found OpenClaw data at {openclaw_dir}")
-    print_info("Hermes can preview what would be imported before making any changes.")
+    print_info("SHADOW can preview what would be imported before making any changes.")
     print()
 
     if not prompt_yes_no("Would you like to see what can be imported?", default=True):
         print_info(
-            "Skipping migration. You can run it later with: hermes claw migrate --dry-run"
+            "Skipping migration. You can run it later with: shadow claw migrate --dry-run"
         )
         return False
 
@@ -2636,7 +2636,7 @@ def _offer_openclaw_migration(hermes_home: Path) -> bool:
         selected = mod.resolve_selected_options(None, None, preset="full")
         dry_migrator = mod.Migrator(
             source_root=openclaw_dir.resolve(),
-            target_root=hermes_home.resolve(),
+            target_root=shadow_home.resolve(),
             execute=False,  # dry-run — no files modified
             workspace_target=None,
             overwrite=True,  # show everything including conflicts
@@ -2669,22 +2669,22 @@ def _offer_openclaw_migration(hermes_home: Path) -> bool:
     # ── Phase 2: Confirm and execute ──
     if not prompt_yes_no("Proceed with migration?", default=False):
         print_info(
-            "Migration cancelled. You can run it later with: hermes claw migrate"
+            "Migration cancelled. You can run it later with: shadow claw migrate"
         )
         print_info(
             "Use --dry-run to preview again, or --preset minimal for a lighter import."
         )
         return False
 
-    # Execute the migration — overwrite=False so existing Hermes configs are
+    # Execute the migration — overwrite=False so existing SHADOW configs are
     # preserved. The user saw the preview; conflicts are skipped by default.
     try:
         migrator = mod.Migrator(
             source_root=openclaw_dir.resolve(),
-            target_root=hermes_home.resolve(),
+            target_root=shadow_home.resolve(),
             execute=True,
             workspace_target=None,
-            overwrite=False,  # preserve existing Hermes config
+            overwrite=False,  # preserve existing SHADOW config
             migrate_secrets=True,
             output_dir=None,
             selected_options=selected,
@@ -2707,7 +2707,7 @@ def _offer_openclaw_migration(hermes_home: Path) -> bool:
     if migrated:
         print_success(f"Imported {migrated} item(s) from OpenClaw.")
     if conflicts:
-        print_info(f"Skipped {conflicts} item(s) that already exist in Hermes (use hermes claw migrate --overwrite to force).")
+        print_info(f"Skipped {conflicts} item(s) that already exist in SHADOW (use shadow claw migrate --overwrite to force).")
     if skipped:
         print_info(f"Skipped {skipped} item(s) (not found or unchanged).")
     if errors:
@@ -2750,19 +2750,19 @@ def run_setup_wizard(args):
     """Run the interactive setup wizard.
 
     Supports full, quick, and section-specific setup:
-      hermes setup           — full or quick (auto-detected)
-      hermes setup model     — just model/provider
-      hermes setup tts       — just text-to-speech
-      hermes setup terminal  — just terminal backend
-      hermes setup gateway   — just messaging platforms
-      hermes setup tools     — just tool configuration
-      hermes setup agent     — just agent settings
+      shadow setup           — full or quick (auto-detected)
+      shadow setup model     — just model/provider
+      shadow setup tts       — just text-to-speech
+      shadow setup terminal  — just terminal backend
+      shadow setup gateway   — just messaging platforms
+      shadow setup tools     — just tool configuration
+      shadow setup agent     — just agent settings
     """
-    from hermes_cli.config import is_managed, managed_error
+    from shadow_cli.config import is_managed, managed_error
     if is_managed():
         managed_error("run setup wizard")
         return
-    ensure_hermes_home()
+    ensure_shadow_home()
 
     reset_requested = bool(getattr(args, "reset", False))
     if reset_requested:
@@ -2770,7 +2770,7 @@ def run_setup_wizard(args):
         print_success("Configuration reset to defaults.")
 
     config = load_config()
-    hermes_home = get_hermes_home()
+    shadow_home = get_shadow_home()
 
     # Detect non-interactive environments (headless SSH, Docker, CI/CD)
     non_interactive = getattr(args, 'non_interactive', False)
@@ -2795,7 +2795,7 @@ def run_setup_wizard(args):
                         Colors.MAGENTA,
                     )
                 )
-                print(color(f"│     ⚕ Hermes Setup — {label:<34s} │", Colors.MAGENTA))
+                print(color(f"│     ⚕ SHADOW Setup — {label:<34s} │", Colors.MAGENTA))
                 print(
                     color(
                         "└─────────────────────────────────────────────────────────┘",
@@ -2813,7 +2813,7 @@ def run_setup_wizard(args):
         return
 
     # Check if this is an existing installation with a provider configured
-    from hermes_cli.auth import get_active_provider
+    from shadow_cli.auth import get_active_provider
 
     active_provider = get_active_provider()
     is_existing = (
@@ -2831,7 +2831,7 @@ def run_setup_wizard(args):
     )
     print(
         color(
-            "│             ⚕ Hermes Agent Setup Wizard                │", Colors.MAGENTA
+            "│             ⚕ SHADOW Agent Setup Wizard                │", Colors.MAGENTA
         )
     )
     print(
@@ -2842,7 +2842,7 @@ def run_setup_wizard(args):
     )
     print(
         color(
-            "│  Let's configure your Hermes Agent installation.       │", Colors.MAGENTA
+            "│  Let's configure your SHADOW Agent installation.       │", Colors.MAGENTA
         )
     )
     print(
@@ -2863,7 +2863,7 @@ def run_setup_wizard(args):
         # ── Returning User Menu ──
         print()
         print_header("Welcome Back!")
-        print_success("You already have Hermes configured.")
+        print_success("You already have SHADOW configured.")
         print()
 
         menu_choices = [
@@ -2880,13 +2880,13 @@ def run_setup_wizard(args):
 
         if choice == 0:
             # Quick setup
-            _run_quick_setup(config, hermes_home)
+            _run_quick_setup(config, shadow_home)
             return
         elif choice == 1:
             # Full setup — fall through to run all sections
             pass
         elif choice == 7:
-            print_info("Exiting. Run 'hermes setup' again when ready.")
+            print_info("Exiting. Run 'shadow setup' again when ready.")
             return
         elif 2 <= choice <= 6:
             # Individual section — map by key, not by position.
@@ -2898,34 +2898,34 @@ def run_setup_wizard(args):
                 _, label, func = section
                 func(config)
                 save_config(config)
-                _print_setup_summary(config, hermes_home)
+                _print_setup_summary(config, shadow_home)
             return
     else:
         # ── First-Time Setup ──
         print()
 
         # Offer OpenClaw migration before configuration begins
-        migration_ran = _offer_openclaw_migration(hermes_home)
+        migration_ran = _offer_openclaw_migration(shadow_home)
         if migration_ran:
             config = load_config()
 
-        setup_mode = prompt_choice("How would you like to set up Hermes?", [
+        setup_mode = prompt_choice("How would you like to set up SHADOW?", [
             "Quick setup — provider, model & messaging (recommended)",
             "Full setup — configure everything",
         ], 0)
 
         if setup_mode == 0:
-            _run_first_time_quick_setup(config, hermes_home, is_existing)
+            _run_first_time_quick_setup(config, shadow_home, is_existing)
             return
 
     # ── Full Setup — run all sections ──
     print_header("Configuration Location")
     print_info(f"Config file:  {get_config_path()}")
     print_info(f"Secrets file: {get_env_path()}")
-    print_info(f"Data folder:  {hermes_home}")
+    print_info(f"Data folder:  {shadow_home}")
     print_info(f"Install dir:  {PROJECT_ROOT}")
     print()
-    print_info("You can edit these files directly or use 'hermes config edit'")
+    print_info("You can edit these files directly or use 'shadow config edit'")
 
     if migration_ran:
         print()
@@ -2955,20 +2955,20 @@ def run_setup_wizard(args):
 
     # Save and show summary
     save_config(config)
-    _print_setup_summary(config, hermes_home)
+    _print_setup_summary(config, shadow_home)
 
     _offer_launch_chat()
 
 
-def _resolve_hermes_chat_argv() -> Optional[list[str]]:
-    """Resolve argv for launching ``hermes chat`` in a fresh process."""
-    hermes_bin = shutil.which("hermes")
-    if hermes_bin:
-        return [hermes_bin, "chat"]
+def _resolve_shadow_chat_argv() -> Optional[list[str]]:
+    """Resolve argv for launching ``shadow chat`` in a fresh process."""
+    shadow_bin = shutil.which("shadow")
+    if shadow_bin:
+        return [shadow_bin, "chat"]
 
     try:
-        if importlib.util.find_spec("hermes_cli") is not None:
-            return [sys.executable, "-m", "hermes_cli.main", "chat"]
+        if importlib.util.find_spec("shadow_cli") is not None:
+            return [sys.executable, "-m", "shadow_cli.main", "chat"]
     except Exception:
         pass
 
@@ -2978,23 +2978,23 @@ def _resolve_hermes_chat_argv() -> Optional[list[str]]:
 def _offer_launch_chat():
     """Prompt the user to jump straight into chat after setup."""
     print()
-    if not prompt_yes_no("Launch hermes chat now?", True):
+    if not prompt_yes_no("Launch shadow chat now?", True):
         return
 
-    chat_argv = _resolve_hermes_chat_argv()
+    chat_argv = _resolve_shadow_chat_argv()
     if not chat_argv:
-        print_info("Could not relaunch Hermes automatically. Run 'hermes chat' manually.")
+        print_info("Could not relaunch SHADOW automatically. Run 'shadow chat' manually.")
         return
 
     os.execvp(chat_argv[0], chat_argv)
 
 
-def _run_first_time_quick_setup(config: dict, hermes_home, is_existing: bool):
+def _run_first_time_quick_setup(config: dict, shadow_home, is_existing: bool):
     """Streamlined first-time setup: provider + model only.
 
     Applies sensible defaults for TTS (Edge), terminal (local), agent
     settings, and tools — the user can customize later via
-    ``hermes setup <section>``.
+    ``shadow setup <section>``.
     """
     # Step 1: Model & Provider (essential — skips rotation/vision/TTS)
     setup_model_provider(config, quick=True)
@@ -3011,7 +3011,7 @@ def _run_first_time_quick_setup(config: dict, hermes_home, is_existing: bool):
         "Connect a messaging platform? (Telegram, Discord, etc.)",
         [
             "Set up messaging now (recommended)",
-            "Skip — set up later with 'hermes setup gateway'",
+            "Skip — set up later with 'shadow setup gateway'",
         ],
         0,
     )
@@ -3023,19 +3023,19 @@ def _run_first_time_quick_setup(config: dict, hermes_home, is_existing: bool):
     print()
     print_success("Setup complete! You're ready to go.")
     print()
-    print_info("  Configure all settings:    hermes setup")
+    print_info("  Configure all settings:    shadow setup")
     if gateway_choice != 0:
-        print_info("  Connect Telegram/Discord:  hermes setup gateway")
+        print_info("  Connect Telegram/Discord:  shadow setup gateway")
     print()
 
-    _print_setup_summary(config, hermes_home)
+    _print_setup_summary(config, shadow_home)
 
     _offer_launch_chat()
 
 
-def _run_quick_setup(config: dict, hermes_home):
+def _run_quick_setup(config: dict, shadow_home):
     """Quick setup — only configure items that are missing."""
-    from hermes_cli.config import (
+    from shadow_cli.config import (
         get_missing_env_vars,
         get_missing_config_fields,
         check_config_version,
@@ -3064,7 +3064,7 @@ def _run_quick_setup(config: dict, hermes_home):
     if not has_anything_missing:
         print_success("Everything is configured! Nothing to do.")
         print()
-        print_info("Run 'hermes setup' and choose 'Full Setup' to reconfigure,")
+        print_info("Run 'shadow setup' and choose 'Full Setup' to reconfigure,")
         print_info("or pick a specific section from the menu.")
         return
 
@@ -3126,8 +3126,8 @@ def _run_quick_setup(config: dict, hermes_home):
     if missing_messaging:
         print()
         print_header("Messaging Platforms")
-        print_info("Connect Hermes to messaging apps to chat from anywhere.")
-        print_info("You can configure these later with 'hermes setup gateway'.")
+        print_info("Connect SHADOW to messaging apps to chat from anywhere.")
+        print_info("You can configure these later with 'shadow setup gateway'.")
 
         # Group by platform (preserving order)
         platform_order = []
@@ -3196,4 +3196,4 @@ def _run_quick_setup(config: dict, hermes_home):
         save_config(config)
 
     # Jump to summary
-    _print_setup_summary(config, hermes_home)
+    _print_setup_summary(config, shadow_home)

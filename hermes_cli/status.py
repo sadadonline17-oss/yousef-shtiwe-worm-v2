@@ -1,7 +1,7 @@
 """
-Status command for hermes CLI.
+Status command for shadow CLI.
 
-Shows the status of all Hermes Agent components.
+Shows the status of all SHADOW Agent components.
 """
 
 import os
@@ -11,13 +11,13 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 
-from hermes_cli.auth import AuthError, resolve_provider
-from hermes_cli.colors import Colors, color
-from hermes_cli.config import get_env_path, get_env_value, get_hermes_home, load_config
-from hermes_cli.models import provider_label
-from hermes_cli.nous_subscription import get_nous_subscription_features
-from hermes_cli.runtime_provider import resolve_requested_provider
-from hermes_constants import OPENROUTER_MODELS_URL
+from shadow_cli.auth import AuthError, resolve_provider
+from shadow_cli.colors import Colors, color
+from shadow_cli.config import get_env_path, get_env_value, get_shadow_home, load_config
+from shadow_cli.models import provider_label
+from shadow_cli.nous_subscription import get_nous_subscription_features
+from shadow_cli.runtime_provider import resolve_requested_provider
+from shadow_constants import OPENROUTER_MODELS_URL
 from tools.tool_backend_helpers import managed_nous_tools_enabled
 
 def check_mark(ok: bool) -> str:
@@ -79,17 +79,17 @@ def _effective_provider_label() -> str:
     return provider_label(effective)
 
 
-from hermes_constants import is_termux as _is_termux
+from shadow_constants import is_termux as _is_termux
 
 
 def show_status(args):
-    """Show status of all Hermes Agent components."""
+    """Show status of all SHADOW Agent components."""
     show_all = getattr(args, 'all', False)
     deep = getattr(args, 'deep', False)
     
     print()
     print(color("┌─────────────────────────────────────────────────────────┐", Colors.CYAN))
-    print(color("│                 ⚕ Hermes Agent Status                  │", Colors.CYAN))
+    print(color("│                 ⚕ SHADOW Agent Status                  │", Colors.CYAN))
     print(color("└─────────────────────────────────────────────────────────┘", Colors.CYAN))
     
     # =========================================================================
@@ -141,7 +141,7 @@ def show_status(args):
         display = redact_key(value) if not show_all else value
         print(f"  {name:<12}  {check_mark(has_key)} {display}")
 
-    from hermes_cli.auth import get_anthropic_key
+    from shadow_cli.auth import get_anthropic_key
     anthropic_value = get_anthropic_key()
     anthropic_display = redact_key(anthropic_value) if not show_all else anthropic_value
     print(f"  {'Anthropic':<12}  {check_mark(bool(anthropic_value))} {anthropic_display}")
@@ -153,7 +153,7 @@ def show_status(args):
     print(color("◆ Auth Providers", Colors.CYAN, Colors.BOLD))
 
     try:
-        from hermes_cli.auth import get_nous_auth_status, get_codex_auth_status, get_qwen_auth_status
+        from shadow_cli.auth import get_nous_auth_status, get_codex_auth_status, get_qwen_auth_status
         nous_status = get_nous_auth_status()
         codex_status = get_codex_auth_status()
         qwen_status = get_qwen_auth_status()
@@ -165,7 +165,7 @@ def show_status(args):
     nous_logged_in = bool(nous_status.get("logged_in"))
     print(
         f"  {'Nous Portal':<12}  {check_mark(nous_logged_in)} "
-        f"{'logged in' if nous_logged_in else 'not logged in (run: hermes model)'}"
+        f"{'logged in' if nous_logged_in else 'not logged in (run: shadow model)'}"
     )
     if nous_logged_in:
         portal_url = nous_status.get("portal_base_url") or "(unknown)"
@@ -180,7 +180,7 @@ def show_status(args):
     codex_logged_in = bool(codex_status.get("logged_in"))
     print(
         f"  {'OpenAI Codex':<12}  {check_mark(codex_logged_in)} "
-        f"{'logged in' if codex_logged_in else 'not logged in (run: hermes model)'}"
+        f"{'logged in' if codex_logged_in else 'not logged in (run: shadow model)'}"
     )
     codex_auth_file = codex_status.get("auth_store")
     if codex_auth_file:
@@ -250,7 +250,7 @@ def show_status(args):
             if key_val:
                 break
         configured = bool(key_val)
-        label = "configured" if configured else "not configured (run: hermes model)"
+        label = "configured" if configured else "not configured (run: shadow model)"
         print(f"  {pname:<16} {check_mark(configured)} {label}")
 
     # =========================================================================
@@ -262,7 +262,7 @@ def show_status(args):
     terminal_env = os.getenv("TERMINAL_ENV", "")
     if not terminal_env:
         # Fall back to config file value when env var isn't set
-        # (hermes status doesn't go through cli.py's config loading)
+        # (shadow status doesn't go through cli.py's config loading)
         try:
             _cfg = load_config()
             terminal_env = _cfg.get("terminal", {}).get("backend", "local")
@@ -330,7 +330,7 @@ def show_status(args):
     
     if _is_termux():
         try:
-            from hermes_cli.gateway import find_gateway_pids
+            from shadow_cli.gateway import find_gateway_pids
             gateway_pids = find_gateway_pids()
         except Exception:
             gateway_pids = []
@@ -343,15 +343,15 @@ def show_status(args):
                 rendered += ", ..."
             print(f"  PID(s):       {rendered}")
         else:
-            print("  Start with:   hermes gateway")
+            print("  Start with:   shadow gateway")
             print("  Note:         Android may stop background jobs when Termux is suspended")
 
     elif sys.platform.startswith('linux'):
-        from hermes_constants import is_container
+        from shadow_constants import is_container
         if is_container():
             # Docker/Podman: no systemd — check for running gateway processes
             try:
-                from hermes_cli.gateway import find_gateway_pids
+                from shadow_cli.gateway import find_gateway_pids
                 gateway_pids = find_gateway_pids()
                 is_active = len(gateway_pids) > 0
             except Exception:
@@ -360,10 +360,10 @@ def show_status(args):
             print("  Manager:      docker (foreground)")
         else:
             try:
-                from hermes_cli.gateway import get_service_name
+                from shadow_cli.gateway import get_service_name
                 _gw_svc = get_service_name()
             except Exception:
-                _gw_svc = "hermes-gateway"
+                _gw_svc = "shadow-gateway"
             try:
                 result = subprocess.run(
                     ["systemctl", "--user", "is-active", _gw_svc],
@@ -378,7 +378,7 @@ def show_status(args):
             print("  Manager:      systemd (user)")
         
     elif sys.platform == 'darwin':
-        from hermes_cli.gateway import get_launchd_label
+        from shadow_cli.gateway import get_launchd_label
         try:
             result = subprocess.run(
                 ["launchctl", "list", get_launchd_label()],
@@ -401,7 +401,7 @@ def show_status(args):
     print()
     print(color("◆ Scheduled Jobs", Colors.CYAN, Colors.BOLD))
     
-    jobs_file = get_hermes_home() / "cron" / "jobs.json"
+    jobs_file = get_shadow_home() / "cron" / "jobs.json"
     if jobs_file.exists():
         import json
         try:
@@ -421,7 +421,7 @@ def show_status(args):
     print()
     print(color("◆ Sessions", Colors.CYAN, Colors.BOLD))
     
-    sessions_file = get_hermes_home() / "sessions" / "sessions.json"
+    sessions_file = get_shadow_home() / "sessions" / "sessions.json"
     if sessions_file.exists():
         import json
         try:
@@ -471,6 +471,6 @@ def show_status(args):
     
     print()
     print(color("─" * 60, Colors.DIM))
-    print(color("  Run 'hermes doctor' for detailed diagnostics", Colors.DIM))
-    print(color("  Run 'hermes setup' to configure", Colors.DIM))
+    print(color("  Run 'shadow doctor' for detailed diagnostics", Colors.DIM))
+    print(color("  Run 'shadow setup' to configure", Colors.DIM))
     print()

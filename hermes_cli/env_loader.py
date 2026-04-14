@@ -1,4 +1,4 @@
-"""Helpers for loading Hermes .env files consistently across entrypoints."""
+"""Helpers for loading SHADOW .env files consistently across entrypoints."""
 
 from __future__ import annotations
 
@@ -23,14 +23,14 @@ def _sanitize_env_file_if_needed(path: Path) -> None:
     This produces mangled values — e.g. a bot token duplicated 8×
     (see #8908).
 
-    We delegate to ``hermes_cli.config._sanitize_env_lines`` which
-    already knows all valid Hermes env-var names and can split
+    We delegate to ``shadow_cli.config._sanitize_env_lines`` which
+    already knows all valid SHADOW env-var names and can split
     concatenated lines correctly.
     """
     if not path.exists():
         return
     try:
-        from hermes_cli.config import _sanitize_env_lines
+        from shadow_cli.config import _sanitize_env_lines
     except ImportError:
         return  # early bootstrap — config module not available yet
 
@@ -60,22 +60,22 @@ def _sanitize_env_file_if_needed(path: Path) -> None:
         pass  # best-effort — don't block gateway startup
 
 
-def load_hermes_dotenv(
+def load_shadow_dotenv(
     *,
-    hermes_home: str | os.PathLike | None = None,
+    shadow_home: str | os.PathLike | None = None,
     project_env: str | os.PathLike | None = None,
 ) -> list[Path]:
-    """Load Hermes environment files with user config taking precedence.
+    """Load SHADOW environment files with user config taking precedence.
 
     Behavior:
-    - `~/.hermes/.env` overrides stale shell-exported values when present.
+    - `~/.shadow/.env` overrides stale shell-exported values when present.
     - project `.env` acts as a dev fallback and only fills missing values when
       the user env exists.
     - if no user env exists, the project `.env` also overrides stale shell vars.
     """
     loaded: list[Path] = []
 
-    home_path = Path(hermes_home or os.getenv("HERMES_HOME", Path.home() / ".hermes"))
+    home_path = Path(shadow_home or os.getenv("SHADOW_HOME", Path.home() / ".shadow"))
     user_env = home_path / ".env"
     project_env_path = Path(project_env) if project_env else None
 

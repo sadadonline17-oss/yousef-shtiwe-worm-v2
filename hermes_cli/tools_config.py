@@ -1,11 +1,11 @@
 """
-Unified tool configuration for Hermes Agent.
+Unified tool configuration for SHADOW Agent.
 
-`hermes tools` and `hermes setup tools` both enter this module.
+`shadow tools` and `shadow setup tools` both enter this module.
 Select a platform → toggle toolsets on/off → for newly enabled tools
 that need API keys, run through provider-aware configuration.
 
-Saves per-platform tool configuration to ~/.hermes/config.yaml under
+Saves per-platform tool configuration to ~/.shadow/config.yaml under
 the `platform_toolsets` key.
 """
 
@@ -16,11 +16,11 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 
 
-from hermes_cli.config import (
+from shadow_cli.config import (
     load_config, save_config, get_env_value, save_env_value,
 )
-from hermes_cli.colors import Colors, color
-from hermes_cli.nous_subscription import (
+from shadow_cli.colors import Colors, color
+from shadow_cli.nous_subscription import (
     apply_nous_managed_defaults,
     get_nous_subscription_features,
 )
@@ -33,7 +33,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 
 # ─── UI Helpers (shared with setup.py) ────────────────────────────────────────
 
-from hermes_cli.cli_output import (  # noqa: E402 — late import block
+from shadow_cli.cli_output import (  # noqa: E402 — late import block
     print_error as _print_error,
     print_info as _print_info,
     print_success as _print_success,
@@ -68,7 +68,7 @@ CONFIGURABLE_TOOLSETS = [
 ]
 
 # Toolsets that are OFF by default for new installs.
-# They're still in _HERMES_CORE_TOOLS (available at runtime if enabled),
+# They're still in _SHADOW_CORE_TOOLS (available at runtime if enabled),
 # but the setup checklist won't pre-select them for first-time users.
 _DEFAULT_OFF_TOOLSETS = {"moa", "homeassistant", "rl"}
 
@@ -81,7 +81,7 @@ def _get_effective_configurable_toolsets():
     """
     result = list(CONFIGURABLE_TOOLSETS)
     try:
-        from hermes_cli.plugins import discover_plugins, get_plugin_toolsets
+        from shadow_cli.plugins import discover_plugins, get_plugin_toolsets
         discover_plugins()  # idempotent — ensures plugins are loaded
         result.extend(get_plugin_toolsets())
     except Exception:
@@ -92,7 +92,7 @@ def _get_effective_configurable_toolsets():
 def _get_plugin_toolset_keys() -> set:
     """Return the set of toolset keys provided by plugins."""
     try:
-        from hermes_cli.plugins import discover_plugins, get_plugin_toolsets
+        from shadow_cli.plugins import discover_plugins, get_plugin_toolsets
         discover_plugins()  # idempotent — ensures plugins are loaded
         return {ts_key for ts_key, _, _ in get_plugin_toolsets()}
     except Exception:
@@ -101,7 +101,7 @@ def _get_plugin_toolset_keys() -> set:
 # Platform display config — derived from the canonical registry so every
 # module shares the same data.  Kept as dict-of-dicts for backward
 # compatibility with existing ``PLATFORMS[key]["label"]`` access patterns.
-from hermes_cli.platforms import PLATFORMS as _PLATFORMS_REGISTRY
+from shadow_cli.platforms import PLATFORMS as _PLATFORMS_REGISTRY
 
 PLATFORMS = {
     k: {"label": info.label, "default_toolset": info.default_toolset}
@@ -356,10 +356,10 @@ def _run_post_setup(post_setup_key: str):
             if result.returncode == 0:
                 _print_success("    Node.js dependencies installed")
             else:
-                from hermes_constants import display_hermes_home
-                _print_warning(f"    npm install failed - run manually: cd {display_hermes_home()}/hermes-agent && npm install")
+                from shadow_constants import display_shadow_home
+                _print_warning(f"    npm install failed - run manually: cd {display_shadow_home()}/shadow-agent && npm install")
         elif not node_modules.exists():
-            _print_warning("    Node.js not found - browser tools require: npm install (in hermes-agent directory)")
+            _print_warning("    Node.js not found - browser tools require: npm install (in shadow-agent directory)")
 
     elif post_setup_key == "camofox":
         camofox_dir = PROJECT_ROOT / "node_modules" / "@askjo" / "camofox-browser"
@@ -489,7 +489,7 @@ def _get_platform_tools(
     # If the saved list contains any configurable keys directly, the user
     # has explicitly configured this platform — use direct membership.
     # This avoids the subset-inference bug where composite toolsets like
-    # "hermes-cli" (which include all _HERMES_CORE_TOOLS) cause disabled
+    # "shadow-cli" (which include all _SHADOW_CORE_TOOLS) cause disabled
     # toolsets to re-appear as enabled.
     has_explicit_config = any(ts in configurable_keys for ts in toolset_names)
 
@@ -497,7 +497,7 @@ def _get_platform_tools(
         enabled_toolsets = {ts for ts in toolset_names if ts in configurable_keys}
     else:
         # No explicit config — fall back to resolving composite toolset names
-        # (e.g. "hermes-cli") to individual tool names and reverse-mapping.
+        # (e.g. "shadow-cli") to individual tool names and reverse-mapping.
         all_tool_names = set()
         for ts_name in toolset_names:
             all_tool_names.update(resolve_toolset(ts_name))
@@ -509,7 +509,7 @@ def _get_platform_tools(
                 enabled_toolsets.add(ts_key)
 
     # Plugin toolsets: enabled by default unless explicitly disabled.
-    # A plugin toolset is "known" for a platform once `hermes tools`
+    # A plugin toolset is "known" for a platform once `shadow tools`
     # has been saved for that platform (tracked via known_plugin_toolsets).
     # Unknown plugins default to enabled; known-but-absent = disabled.
     plugin_ts_keys = _get_plugin_toolset_keys()
@@ -521,7 +521,7 @@ def _get_platform_tools(
                 # Explicitly listed in config — enabled
                 enabled_toolsets.add(pts)
             elif pts not in known_for_platform:
-                # New plugin not yet seen by hermes tools — default enabled
+                # New plugin not yet seen by shadow tools — default enabled
                 enabled_toolsets.add(pts)
             # else: known but not in config = user disabled it
 
@@ -578,7 +578,7 @@ def _save_platform_tools(config: dict, platform: str, enabled_toolset_keys: Set[
     plugin_keys = _get_plugin_toolset_keys()
     configurable_keys |= plugin_keys
 
-    # Also exclude platform default toolsets (hermes-cli, hermes-telegram, etc.)
+    # Also exclude platform default toolsets (shadow-cli, shadow-telegram, etc.)
     # These are "super" toolsets that resolve to ALL tools, so preserving them
     # would silently override the user's unchecked selections on the next read.
     platform_default_keys = {p["default_toolset"] for p in PLATFORMS.values()}
@@ -649,7 +649,7 @@ def _toolset_has_keys(ts_key: str, config: dict = None) -> bool:
 
 def _prompt_choice(question: str, choices: list, default: int = 0) -> int:
     """Single-select menu (arrow keys). Delegates to curses_radiolist."""
-    from hermes_cli.curses_ui import curses_radiolist
+    from shadow_cli.curses_ui import curses_radiolist
     return curses_radiolist(question, choices, selected=default, cancel_returns=default)
 
 
@@ -703,7 +703,7 @@ def _estimate_tool_tokens() -> Dict[str, int]:
 
 def _prompt_toolset_checklist(platform_label: str, enabled: Set[str]) -> Set[str]:
     """Multi-select checklist of toolsets. Returns set of selected toolset keys."""
-    from hermes_cli.curses_ui import curses_checklist
+    from shadow_cli.curses_ui import curses_checklist
     from toolsets import resolve_toolset
 
     # Pre-compute per-tool token counts (cached after first call).
@@ -951,7 +951,7 @@ def _configure_provider(provider: dict, config: dict):
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
-                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.hermes/.env."
+                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.shadow/.env."
                 )
         return
 
@@ -1017,7 +1017,7 @@ def _configure_simple_requirements(ts_key: str):
             if api_key and api_key.strip():
                 save_env_value("OPENAI_API_KEY", api_key.strip())
                 # Save vision base URL to config (not .env — only secrets go there)
-                from hermes_cli.config import load_config, save_config
+                from shadow_cli.config import load_config, save_config
                 _cfg = load_config()
                 _aux = _cfg.setdefault("auxiliary", {}).setdefault("vision", {})
                 _aux["base_url"] = base_url
@@ -1160,7 +1160,7 @@ def _reconfigure_provider(provider: dict, config: dict):
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
-                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.hermes/.env."
+                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.shadow/.env."
                 )
         return
 
@@ -1207,7 +1207,7 @@ def _reconfigure_simple_requirements(ts_key: str):
 # ─── Main Entry Point ─────────────────────────────────────────────────────────
 
 def tools_command(args=None, first_install: bool = False, config: dict = None):
-    """Entry point for `hermes tools` and `hermes setup tools`.
+    """Entry point for `shadow tools` and `shadow setup tools`.
 
     Args:
         first_install: When True (set by the setup wizard on fresh installs),
@@ -1242,10 +1242,10 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
                 print(color("    (none enabled)", Colors.DIM))
         print()
         return
-    print(color("⚕ Hermes Tool Configuration", Colors.CYAN, Colors.BOLD))
+    print(color("⚕ SHADOW Tool Configuration", Colors.CYAN, Colors.BOLD))
     print(color("  Enable or disable tools per platform.", Colors.DIM))
     print(color("  Tools that need API keys will be configured when enabled.", Colors.DIM))
-    print(color("  Guide: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools", Colors.DIM))
+    print(color("  Guide: https://shadow-agent.nousresearch.com/docs/user-guide/features/tools", Colors.DIM))
     print()
 
     # ── First-time install: linear flow, no platform menu ──
@@ -1437,9 +1437,9 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
         platform_choices[idx] = f"Configure {pinfo['label']}  ({new_count}/{total} enabled)"
 
     print()
-    from hermes_constants import display_hermes_home
-    print(color(f"  Tool configuration saved to {display_hermes_home()}/config.yaml", Colors.DIM))
-    print(color("  Changes take effect on next 'hermes' or gateway restart.", Colors.DIM))
+    from shadow_constants import display_shadow_home
+    print(color(f"  Tool configuration saved to {display_shadow_home()}/config.yaml", Colors.DIM))
+    print(color("  Changes take effect on next 'shadow' or gateway restart.", Colors.DIM))
     print()
 
 
@@ -1453,7 +1453,7 @@ def _configure_mcp_tools_interactive(config: dict):
     a per-server curses checklist.  Writes changes back as ``tools.exclude``
     entries in config.yaml.
     """
-    from hermes_cli.curses_ui import curses_checklist
+    from shadow_cli.curses_ui import curses_checklist
 
     mcp_servers = config.get("mcp_servers") or {}
     if not mcp_servers:

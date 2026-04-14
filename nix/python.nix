@@ -78,6 +78,6 @@ let
         pythonPackageOverrides
       ]);
 in
-pythonSet.mkVirtualEnv "hermes-agent-env" {
-  hermes-agent = [ "all" ];
+pythonSet.mkVirtualEnv "shadow-agent-env" {
+  shadow-agent = [ "all" ];
 }

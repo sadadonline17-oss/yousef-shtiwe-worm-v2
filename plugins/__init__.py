@@ -1,1 +1,1 @@
-# Hermes plugins package
+# SHADOW plugins package

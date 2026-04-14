@@ -1,13 +1,13 @@
 """
-Hermes Plugin System
+SHADOW Plugin System
 ====================
 
 Discovers, loads, and manages plugins from three sources:
 
-1. **User plugins**   – ``~/.hermes/plugins/<name>/``
-2. **Project plugins** – ``./.hermes/plugins/<name>/`` (opt-in via
-   ``HERMES_ENABLE_PROJECT_PLUGINS``)
-3. **Pip plugins**     – packages that expose the ``hermes_agent.plugins``
+1. **User plugins**   – ``~/.shadow/plugins/<name>/``
+2. **Project plugins** – ``./.shadow/plugins/<name>/`` (opt-in via
+   ``SHADOW_ENABLE_PROJECT_PLUGINS``)
+3. **Pip plugins**     – packages that expose the ``shadow_agent.plugins``
    entry-point group.
 
 Each directory plugin must contain a ``plugin.yaml`` manifest **and** an
@@ -37,7 +37,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Set, Union
 
-from hermes_constants import get_hermes_home
+from shadow_constants import get_shadow_home
 from utils import env_var_enabled
 
 try:
@@ -64,9 +64,9 @@ VALID_HOOKS: Set[str] = {
     "on_session_reset",
 }
 
-ENTRY_POINTS_GROUP = "hermes_agent.plugins"
+ENTRY_POINTS_GROUP = "shadow_agent.plugins"
 
-_NS_PARENT = "hermes_plugins"
+_NS_PARENT = "shadow_plugins"
 
 
 def _env_enabled(name: str) -> bool:
@@ -77,7 +77,7 @@ def _env_enabled(name: str) -> bool:
 def _get_disabled_plugins() -> set:
     """Read the disabled plugins list from config.yaml."""
     try:
-        from hermes_cli.config import load_config
+        from shadow_cli.config import load_config
         config = load_config()
         disabled = config.get("plugins", {}).get("disabled", [])
         return set(disabled) if isinstance(disabled, list) else set()
@@ -196,7 +196,7 @@ class PluginContext:
         handler_fn: Callable | None = None,
         description: str = "",
     ) -> None:
-        """Register a CLI subcommand (e.g. ``hermes honcho ...``).
+        """Register a CLI subcommand (e.g. ``shadow honcho ...``).
 
         The *setup_fn* receives an argparse subparser and should add any
         arguments/sub-subparsers.  If *handler_fn* is provided it is set
@@ -274,7 +274,7 @@ class PluginContext:
 
         The skill becomes resolvable as ``'<plugin_name>:<name>'`` via
         ``skill_view()``.  It does **not** enter the flat
-        ``~/.hermes/skills/`` tree and is **not** listed in the system
+        ``~/.shadow/skills/`` tree and is **not** listed in the system
         prompt's ``<available_skills>`` index — plugin skills are
         opt-in explicit loads only.
 
@@ -340,13 +340,13 @@ class PluginManager:
 
         manifests: List[PluginManifest] = []
 
-        # 1. User plugins (~/.hermes/plugins/)
-        user_dir = get_hermes_home() / "plugins"
+        # 1. User plugins (~/.shadow/plugins/)
+        user_dir = get_shadow_home() / "plugins"
         manifests.extend(self._scan_directory(user_dir, source="user"))
 
-        # 2. Project plugins (./.hermes/plugins/)
-        if _env_enabled("HERMES_ENABLE_PROJECT_PLUGINS"):
-            project_dir = Path.cwd() / ".hermes" / "plugins"
+        # 2. Project plugins (./.shadow/plugins/)
+        if _env_enabled("SHADOW_ENABLE_PROJECT_PLUGINS"):
+            project_dir = Path.cwd() / ".shadow" / "plugins"
             manifests.extend(self._scan_directory(project_dir, source="project"))
 
         # 3. Pip / entry-point plugins
@@ -494,7 +494,7 @@ class PluginManager:
         self._plugins[manifest.name] = loaded
 
     def _load_directory_module(self, manifest: PluginManifest) -> types.ModuleType:
-        """Import a directory-based plugin as ``hermes_plugins.<name>``."""
+        """Import a directory-based plugin as ``shadow_plugins.<name>``."""
         plugin_dir = Path(manifest.path)  # type: ignore[arg-type]
         init_file = plugin_dir / "__init__.py"
         if not init_file.exists():
@@ -702,7 +702,7 @@ def get_plugin_context_engine():
 def get_plugin_toolsets() -> List[tuple]:
     """Return plugin toolsets as ``(key, label, description)`` tuples.
 
-    Used by the ``hermes tools`` TUI so plugin-provided toolsets appear
+    Used by the ``shadow tools`` TUI so plugin-provided toolsets appear
     alongside the built-in ones and can be toggled on/off per platform.
     """
     manager = get_plugin_manager()

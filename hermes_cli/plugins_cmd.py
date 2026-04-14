@@ -1,6 +1,6 @@
-"""``hermes plugins`` CLI subcommand — install, update, remove, and list plugins.
+"""``shadow plugins`` CLI subcommand — install, update, remove, and list plugins.
 
-Plugins are installed from Git repositories into ``~/.hermes/plugins/``.
+Plugins are installed from Git repositories into ``~/.shadow/plugins/``.
 Supports full URLs and ``owner/repo`` shorthand (resolves to GitHub).
 
 After install, if the plugin ships an ``after-install.md`` file it is
@@ -16,7 +16,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from hermes_constants import get_hermes_home
+from shadow_constants import get_shadow_home
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ _SUPPORTED_MANIFEST_VERSION = 1
 
 def _plugins_dir() -> Path:
     """Return the user plugins directory, creating it if needed."""
-    plugins = get_hermes_home() / "plugins"
+    plugins = get_shadow_home() / "plugins"
     plugins.mkdir(parents=True, exist_ok=True)
     return plugins
 
@@ -172,8 +172,8 @@ def _prompt_plugin_env_vars(manifest: dict, console) -> None:
     if not requires_env:
         return
 
-    from hermes_cli.config import get_env_value, save_env_value  # noqa: F811
-    from hermes_constants import display_hermes_home
+    from shadow_cli.config import get_env_value, save_env_value  # noqa: F811
+    from shadow_constants import display_shadow_home
 
     # Normalise to list-of-dicts
     env_specs: list[dict] = []
@@ -211,15 +211,15 @@ def _prompt_plugin_env_vars(manifest: dict, console) -> None:
             else:
                 value = input(f"  {name}: ").strip()
         except (EOFError, KeyboardInterrupt):
-            console.print(f"\n[dim]  Skipped (you can set these later in {display_hermes_home()}/.env)[/dim]")
+            console.print(f"\n[dim]  Skipped (you can set these later in {display_shadow_home()}/.env)[/dim]")
             return
 
         if value:
             save_env_value(name, value)
             os.environ[name] = value
-            console.print(f"  [green]✓[/green] Saved to {display_hermes_home()}/.env")
+            console.print(f"  [green]✓[/green] Saved to {display_shadow_home()}/.env")
         else:
-            console.print(f"  [dim]  Skipped (set {name} in {display_hermes_home()}/.env later)[/dim]")
+            console.print(f"  [dim]  Skipped (set {name} in {display_shadow_home()}/.env later)[/dim]")
 
     console.print()
 
@@ -351,7 +351,7 @@ def cmd_install(identifier: str, force: bool = False) -> None:
                 )
                 sys.exit(1)
             if mv_int > _SUPPORTED_MANIFEST_VERSION:
-                from hermes_cli.config import recommended_update_command
+                from shadow_cli.config import recommended_update_command
                 console.print(
                     f"[red]Error:[/red] Plugin '{plugin_name}' requires manifest_version "
                     f"{mv}, but this installer only supports up to {_SUPPORTED_MANIFEST_VERSION}.\n"
@@ -364,7 +364,7 @@ def cmd_install(identifier: str, force: bool = False) -> None:
                 console.print(
                     f"[red]Error:[/red] Plugin '{plugin_name}' already exists at {target}.\n"
                     f"Use [bold]--force[/bold] to remove and reinstall, or "
-                    f"[bold]hermes plugins update {plugin_name}[/bold] to pull latest."
+                    f"[bold]shadow plugins update {plugin_name}[/bold] to pull latest."
                 )
                 sys.exit(1)
             console.print(f"[dim]  Removing existing {plugin_name}...[/dim]")
@@ -377,7 +377,7 @@ def cmd_install(identifier: str, force: bool = False) -> None:
     if not (target / "plugin.yaml").exists() and not (target / "__init__.py").exists():
         console.print(
             f"[yellow]Warning:[/yellow] {plugin_name} doesn't contain plugin.yaml "
-            f"or __init__.py. It may not be a valid Hermes plugin."
+            f"or __init__.py. It may not be a valid SHADOW plugin."
         )
 
     # Copy .example files to their real names (e.g. config.yaml.example → config.yaml)
@@ -392,7 +392,7 @@ def cmd_install(identifier: str, force: bool = False) -> None:
     _display_after_install(target, identifier)
 
     console.print("[dim]Restart the gateway for the plugin to take effect:[/dim]")
-    console.print("[dim]  hermes gateway restart[/dim]")
+    console.print("[dim]  shadow gateway restart[/dim]")
     console.print()
 
 
@@ -470,7 +470,7 @@ def cmd_remove(name: str) -> None:
 def _get_disabled_set() -> set:
     """Read the disabled plugins set from config.yaml."""
     try:
-        from hermes_cli.config import load_config
+        from shadow_cli.config import load_config
         config = load_config()
         disabled = config.get("plugins", {}).get("disabled", [])
         return set(disabled) if isinstance(disabled, list) else set()
@@ -480,7 +480,7 @@ def _get_disabled_set() -> set:
 
 def _save_disabled_set(disabled: set) -> None:
     """Write the disabled plugins list to config.yaml."""
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
     config = load_config()
     if "plugins" not in config:
         config["plugins"] = {}
@@ -550,7 +550,7 @@ def cmd_list() -> None:
     dirs = sorted(d for d in plugins_dir.iterdir() if d.is_dir())
     if not dirs:
         console.print("[dim]No plugins installed.[/dim]")
-        console.print("[dim]Install with:[/dim] hermes plugins install owner/repo")
+        console.print("[dim]Install with:[/dim] shadow plugins install owner/repo")
         return
 
     disabled = _get_disabled_set()
@@ -579,7 +579,7 @@ def cmd_list() -> None:
             except Exception:
                 pass
 
-        # Check if it's a git repo (installed via hermes plugins install)
+        # Check if it's a git repo (installed via shadow plugins install)
         if (d / ".git").exists():
             source = "git"
 
@@ -590,8 +590,8 @@ def cmd_list() -> None:
     console.print()
     console.print(table)
     console.print()
-    console.print("[dim]Interactive toggle:[/dim] hermes plugins")
-    console.print("[dim]Enable/disable:[/dim] hermes plugins enable/disable <name>")
+    console.print("[dim]Interactive toggle:[/dim] shadow plugins")
+    console.print("[dim]Enable/disable:[/dim] shadow plugins enable/disable <name>")
 
 
 # ---------------------------------------------------------------------------
@@ -620,7 +620,7 @@ def _discover_context_engines() -> list[tuple[str, str]]:
 def _get_current_memory_provider() -> str:
     """Return the current memory.provider from config (empty = built-in)."""
     try:
-        from hermes_cli.config import load_config
+        from shadow_cli.config import load_config
         config = load_config()
         return config.get("memory", {}).get("provider", "") or ""
     except Exception:
@@ -630,7 +630,7 @@ def _get_current_memory_provider() -> str:
 def _get_current_context_engine() -> str:
     """Return the current context.engine from config."""
     try:
-        from hermes_cli.config import load_config
+        from shadow_cli.config import load_config
         config = load_config()
         return config.get("context", {}).get("engine", "compressor") or "compressor"
     except Exception:
@@ -639,7 +639,7 @@ def _get_current_context_engine() -> str:
 
 def _save_memory_provider(name: str) -> None:
     """Persist memory.provider to config.yaml."""
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
     config = load_config()
     if "memory" not in config:
         config["memory"] = {}
@@ -649,7 +649,7 @@ def _save_memory_provider(name: str) -> None:
 
 def _save_context_engine(name: str) -> None:
     """Persist context.engine to config.yaml."""
-    from hermes_cli.config import load_config, save_config
+    from shadow_cli.config import load_config, save_config
     config = load_config()
     if "context" not in config:
         config["context"] = {}
@@ -659,7 +659,7 @@ def _save_context_engine(name: str) -> None:
 
 def _configure_memory_provider() -> bool:
     """Launch a radio picker for memory providers. Returns True if changed."""
-    from hermes_cli.curses_ui import curses_radiolist
+    from shadow_cli.curses_ui import curses_radiolist
 
     current = _get_current_memory_provider()
     providers = _discover_memory_providers()
@@ -697,7 +697,7 @@ def _configure_memory_provider() -> bool:
 
 def _configure_context_engine() -> bool:
     """Launch a radio picker for context engines. Returns True if changed."""
-    from hermes_cli.curses_ui import curses_radiolist
+    from shadow_cli.curses_ui import curses_radiolist
 
     current = _get_current_context_engine()
     engines = _discover_context_engines()
@@ -792,7 +792,7 @@ def cmd_toggle() -> None:
 
     if not has_plugins and not has_categories:
         console.print("[dim]No plugins installed and no provider categories available.[/dim]")
-        console.print("[dim]Install with:[/dim] hermes plugins install owner/repo")
+        console.print("[dim]Install with:[/dim] shadow plugins install owner/repo")
         return
 
     # Non-TTY fallback
@@ -813,7 +813,7 @@ def cmd_toggle() -> None:
 def _run_composite_ui(curses, plugin_names, plugin_labels, plugin_selected,
                       disabled, categories, console):
     """Custom curses screen with checkboxes + category action rows."""
-    from hermes_cli.curses_ui import flush_stdin
+    from shadow_cli.curses_ui import flush_stdin
 
     chosen = set(plugin_selected)
     n_plugins = len(plugin_names)
@@ -1052,7 +1052,7 @@ def _run_composite_ui(curses, plugin_names, plugin_labels, plugin_selected,
 def _run_composite_fallback(plugin_names, plugin_labels, plugin_selected,
                             disabled, categories, console):
     """Text-based fallback for the composite plugins UI."""
-    from hermes_cli.colors import Colors, color
+    from shadow_cli.colors import Colors, color
 
     print(color("\n  Plugins", Colors.YELLOW))
 
@@ -1104,7 +1104,7 @@ def _run_composite_fallback(plugin_names, plugin_labels, plugin_selected,
 
 
 def plugins_command(args) -> None:
-    """Dispatch hermes plugins subcommands."""
+    """Dispatch shadow plugins subcommands."""
     action = getattr(args, "plugins_action", None)
 
     if action == "install":
