@@ -1,45 +1,36 @@
 import argparse
-import os
-import sys
 from tools.devops.probing import probe_service
-from tools.devops.fuzzer import test_path_traversal
-from tools.devops.stealth_recon import shadow_recon_subdomains, shadow_recon_emails
 from tools.devops.shadow_v4_core import ShadowGhost, ShadowSpread, shadow_auto_exploit_engine
+from tools.devops.shadow_v5_supreme import ShadowSQLProbe, shadow_exploit_chain, ShadowTunnel
 from tools.devops.reporter import generate_shadow_report
 
 def main():
-    parser = argparse.ArgumentParser(description="SHADOW V4.0 - THE GHOST IN THE SHELL")
+    parser = argparse.ArgumentParser(description="SHADOW V5.0 - THE SUPREME INTELLIGENCE")
     parser.add_argument("--target", required=True)
-    parser.add_argument("--ghost", action="store_true", help="Enable Anti-Forensics Wipe")
-    parser.add_argument("--pivot", action="store_true", help="Enable Lateral Movement Scan")
+    parser.add_argument("--sqli", help="Parameter to test for SQLi (e.g., 'id')")
+    parser.add_argument("--chain", action="store_true", help="Generate AI Exploit Chain")
     args = parser.parse_args()
     
     findings = {}
-    print(f"[*] SHADOW V4.0 MISSION START: {args.target}")
+    print(f"[*] SHADOW V5.0 MISSION START: {args.target}")
     
-    # 1. Recon & Intelligence
-    findings['subdomains'] = shadow_recon_subdomains(args.target)
-    findings['emails'] = shadow_recon_emails(args.target)
+    # Existing Recon & V4 Tools
+    banner = probe_service(args.target, 80)
+    findings['banner'] = banner
     
-    # 2. Service Probing & Real Exploit Matching
-    banner_info = probe_service(args.target, 80)
-    findings['services'] = banner_info
-    findings['real_exploits'] = shadow_auto_exploit_engine(banner_info)
-    
-    # 3. Lateral Movement (Pivot Discovery)
-    if args.pivot:
-        print("[!] Harvesting local pivot credentials...")
-        findings['pivot_targets'] = ShadowSpread.harvest_credentials()
+    # 1. SQL Injection Probing
+    if args.sqli:
+        print(f"[!] Probing SQLi on param: {args.sqli}")
+        findings['sqli_results'] = ShadowSQLProbe.test_sql_injection(args.target, args.sqli)
         
-    # 4. Reporting
+    # 2. AI-Driven Exploit Chaining
+    if args.chain:
+        print("[!] Generating AI Exploit Chain plan...")
+        findings['exploit_chain'] = shadow_exploit_chain(args.target)
+        
+    # 3. Report Generation
     report_path = generate_shadow_report(args.target, findings)
-    print(f"[*] Supreme Intelligence Report: {report_path}")
-    
-    # 5. Anti-Forensics (Ghost Protocol)
-    if args.ghost:
-        print("[!] Activating GHOST PROTOCOL: Wiping footprints...")
-        wipe_log = ShadowGhost.wipe_footprints()
-        print(f"[*] Clean-up complete: {len(wipe_log)} artifacts processed.")
+    print(f"[*] Supreme Intelligence Report V5.0: {report_path}")
 
 if __name__ == "__main__":
     main()
