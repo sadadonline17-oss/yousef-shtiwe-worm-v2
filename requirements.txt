@@ -1,36 +1,33 @@
-# NOTE: This file is maintained for convenience only.
-# The canonical dependency list is in pyproject.toml.
-# Preferred install: pip install -e ".[all]"
 
+aiohttp>=3.9.0
 # Core dependencies
-openai
-python-dotenv
+croniter
+debugpy
+discord.py>=2.0
+edge-tts
+fal-client
 fire
+firecrawl-py
 httpx
-rich
-tenacity
-prompt_toolkit
-pyyaml
-requests
+# Image generation
 jinja2
+nexttoken
+# NOTE: This file is maintained for convenience only.
+openai
+# Optional: For cron expression parsing (cronjob scheduling)
+# Optional: For messaging platform integrations (gateway)
+parallel-web>=0.4.2
+# Preferred install: pip install -e ".[all]"
+prompt_toolkit
 pydantic>=2.0
 PyJWT[crypto]
-debugpy
-
-# Web tools
-firecrawl-py
-parallel-web>=0.4.2
-
-# Image generation
-fal-client
-
-# Text-to-speech (Edge TTS is free, no API key needed)
-edge-tts
-
-# Optional: For cron expression parsing (cronjob scheduling)
-croniter
-
-# Optional: For messaging platform integrations (gateway)
+python-dotenv
 python-telegram-bot[webhooks]>=22.6
-discord.py>=2.0
-aiohttp>=3.9.0
+pyyaml
+requests
+rich
+sqlite3
+tenacity
+# Text-to-speech (Edge TTS is free, no API key needed)
+# The canonical dependency list is in pyproject.toml.
+# Web tools
