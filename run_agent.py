@@ -153,7 +153,7 @@ class _SafeWriter:
         try:
             return self._inner.isatty()
         except (OSError, ValueError):
-            return False
+        return False
 
     def __getattr__(self, name):
         return getattr(self._inner, name)
@@ -191,7 +191,7 @@ class IterationBudget:
         """Try to consume one iteration.  Returns True if allowed."""
         with self._lock:
             if self._used >= self.max_total:
-                return False
+            return False
             self._used += 1
             return True
 
@@ -284,26 +284,26 @@ def _should_parallelize_tool_batch(tool_calls) -> bool:
                 tool_name,
                 tool_call.function.arguments[:200],
             )
-            return False
+        return False
         if not isinstance(function_args, dict):
             logging.debug(
                 "Non-dict args for %s (%s) — defaulting to sequential",
                 tool_name,
                 type(function_args).__name__,
             )
-            return False
+        return False
 
         if tool_name in _PATH_SCOPED_TOOLS:
             scoped_path = _extract_parallel_scope_path(tool_name, function_args)
             if scoped_path is None:
-                return False
+            return False
             if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
-                return False
+            return False
             reserved_paths.append(scoped_path)
             continue
 
         if tool_name not in _PARALLEL_SAFE_TOOLS:
-            return False
+        return False
 
     return True
 
@@ -1724,11 +1724,11 @@ class AIAgent:
             return True
         stream = getattr(sys, "stdout", None)
         if stream is None:
-            return False
+        return False
         try:
             return bool(stream.isatty())
         except (AttributeError, ValueError, OSError):
-            return False
+        return False
 
     def _should_emit_quiet_tool_messages(self) -> bool:
         """Return True when quiet-mode tool summaries should print directly.
@@ -1937,7 +1937,7 @@ class AIAgent:
             True if there's meaningful content after think blocks, False otherwise
         """
         if not content:
-            return False
+        return False
 
         # Remove all reasoning tag variants (must match _strip_think_blocks)
         cleaned = self._strip_think_blocks(content)
@@ -1967,19 +1967,19 @@ class AIAgent:
     ) -> bool:
         """Detect a planning/ack message that should continue instead of ending the turn."""
         if any(isinstance(msg, dict) and msg.get("role") == "tool" for msg in messages):
-            return False
+        return False
 
         assistant_text = self._strip_think_blocks(assistant_content or "").strip().lower()
         if not assistant_text:
-            return False
+        return False
         if len(assistant_text) > 1200:
-            return False
+        return False
 
         has_future_ack = bool(
             re.search(r"\b(i['’]ll|i will|let me|i can do that|i can help with that)\b", assistant_text)
         )
         if not has_future_ack:
-            return False
+        return False
 
         action_markers = (
             "look into",
@@ -4096,7 +4096,7 @@ class AIAgent:
                 try:
                     return is_closed_attr()
                 except:
-                    return False
+                return False
             return bool(is_closed_attr)
         return False
             elif bool(is_closed_attr):
@@ -4127,22 +4127,10 @@ class AIAgent:
             self._client_log_context(),
         )
         return client
-
-    @staticmethod
-    def _force_close_tcp_sockets(client: Any) -> int:
-        """Force-close underlying TCP sockets to prevent CLOSE-WAIT accumulation.
-
-        When a provider drops a connection mid-stream, httpx's ``client.close()``
-        performs a graceful shutdown which leaves sockets in CLOSE-WAIT until the
-        OS times them out (often minutes).  This method walks the httpx transport
-        pool and issues ``socket.shutdown(SHUT_RDWR)`` + ``socket.close()`` to
-        force an immediate TCP RST, freeing the file descriptors.
-
-        Returns the number of sockets force-closed.
         """
-        import socket as _socket
-
-        closed = 0
+        Handle cases where a provider drops a connection mid-stream.
+        This ensures the Shadow client state is correctly updated.
+        """
         try:
             http_client = getattr(client, "_client", None)
             if http_client is None:
@@ -4223,7 +4211,7 @@ class AIAgent:
                     self._client_log_context(),
                     exc,
                 )
-                return False
+            return False
             self.client = new_client
         self._close_openai_client(old_client, reason=f"replace:{reason}", shared=True)
         return True
@@ -4255,17 +4243,17 @@ class AIAgent:
         """
         client = getattr(self, "client", None)
         if client is None:
-            return False
+        return False
         try:
             http_client = getattr(client, "_client", None)
             if http_client is None:
-                return False
+            return False
             transport = getattr(http_client, "_transport", None)
             if transport is None:
-                return False
+            return False
             pool = getattr(transport, "_pool", None)
             if pool is None:
-                return False
+            return False
             connections = (
                 getattr(pool, "_connections", None)
                 or getattr(pool, "_pool", None)
@@ -4528,7 +4516,7 @@ class AIAgent:
 
     def _try_refresh_codex_client_credentials(self, *, force: bool = True) -> bool:
         if self.api_mode != "codex_responses" or self.provider != "openai-codex":
-            return False
+        return False
 
         try:
             from shadow_cli.auth import resolve_codex_runtime_credentials
@@ -4536,14 +4524,14 @@ class AIAgent:
             creds = resolve_codex_runtime_credentials(force_refresh=force)
         except Exception as exc:
             logger.debug("Codex credential refresh failed: %s", exc)
-            return False
+        return False
 
         api_key = creds.get("api_key")
         base_url = creds.get("base_url")
         if not isinstance(api_key, str) or not api_key.strip():
-            return False
+        return False
         if not isinstance(base_url, str) or not base_url.strip():
-            return False
+        return False
 
         self.api_key = api_key.strip()
         self.base_url = base_url.strip().rstrip("/")
@@ -4551,13 +4539,13 @@ class AIAgent:
         self._client_kwargs["base_url"] = self.base_url
 
         if not self._replace_primary_openai_client(reason="codex_credential_refresh"):
-            return False
+        return False
 
         return True
 
     def _try_refresh_shadow_client_credentials(self, *, force: bool = True) -> bool:
         if self.api_mode != "chat_completions" or self.provider != "shadow":
-            return False
+        return False
 
         try:
             from shadow_cli.auth import resolve_shadow_runtime_credentials
@@ -4569,14 +4557,14 @@ class AIAgent:
             )
         except Exception as exc:
             logger.debug("Shadow credential refresh failed: %s", exc)
-            return False
+        return False
 
         api_key = creds.get("api_key")
         base_url = creds.get("base_url")
         if not isinstance(api_key, str) or not api_key.strip():
-            return False
+        return False
         if not isinstance(base_url, str) or not base_url.strip():
-            return False
+        return False
 
         self.api_key = api_key.strip()
         self.base_url = base_url.strip().rstrip("/")
@@ -4586,17 +4574,17 @@ class AIAgent:
         self._client_kwargs.pop("default_headers", None)
 
         if not self._replace_primary_openai_client(reason="shadow_credential_refresh"):
-            return False
+        return False
 
         return True
 
     def _try_refresh_anthropic_client_credentials(self) -> bool:
         if self.api_mode != "anthropic_messages" or not hasattr(self, "_anthropic_api_key"):
-            return False
+        return False
         # Only refresh credentials for the native Anthropic provider.
         # Other anthropic_messages providers (MiniMax, Alibaba, etc.) use their own keys.
         if self.provider != "anthropic":
-            return False
+        return False
 
         try:
             from agent.anthropic_adapter import resolve_anthropic_token, build_anthropic_client
@@ -4604,13 +4592,13 @@ class AIAgent:
             new_token = resolve_anthropic_token()
         except Exception as exc:
             logger.debug("Anthropic credential refresh failed: %s", exc)
-            return False
+        return False
 
         if not isinstance(new_token, str) or not new_token.strip():
-            return False
+        return False
         new_token = new_token.strip()
         if new_token == self._anthropic_api_key:
-            return False
+        return False
 
         try:
             self._anthropic_client.close()
@@ -4621,7 +4609,7 @@ class AIAgent:
             self._anthropic_client = build_anthropic_client(new_token, getattr(self, "_anthropic_base_url", None))
         except Exception as exc:
             logger.warning("Failed to rebuild Anthropic client after credential refresh: %s", exc)
-            return False
+        return False
 
         self._anthropic_api_key = new_token
         # Update OAuth flag — token type may have changed (API key ↔ OAuth)
@@ -4697,7 +4685,7 @@ class AIAgent:
         """
         pool = self._credential_pool
         if pool is None:
-            return False, has_retried_429
+        return False, has_retried_429
 
         effective_reason = classified_reason
         if effective_reason is None:
@@ -4719,11 +4707,11 @@ class AIAgent:
                 )
                 self._swap_credential(next_entry)
                 return True, False
-            return False, has_retried_429
+        return False, has_retried_429
 
         if effective_reason == FailoverReason.rate_limit:
             if not has_retried_429:
-                return False, True
+            return False, True
             rotate_status = status_code if status_code is not None else 429
             next_entry = pool.mark_exhausted_and_rotate(status_code=rotate_status, error_context=error_context)
             if next_entry is not None:
@@ -4734,7 +4722,7 @@ class AIAgent:
                 )
                 self._swap_credential(next_entry)
                 return True, False
-            return False, True
+        return False, True
 
         if effective_reason == FailoverReason.auth:
             refreshed = pool.try_refresh_current()
@@ -4928,7 +4916,7 @@ class AIAgent:
             self._strip_think_blocks(content or "")
         )
         if not visible_content:
-            return False
+        return False
         streamed = self._normalize_interim_visible_text(
             self._strip_think_blocks(getattr(self, "_current_streamed_assistant_text", "") or "")
         )
@@ -5585,7 +5573,7 @@ class AIAgent:
         mappings.
         """
         if self._fallback_index >= len(self._fallback_chain):
-            return False
+        return False
 
         fb = self._fallback_chain[self._fallback_index]
         self._fallback_index += 1
@@ -5729,7 +5717,7 @@ class AIAgent:
         ``gateway/run.py``), so this restoration IS needed there too.
         """
         if not self._fallback_activated:
-            return False
+        return False
 
         rt = self._primary_runtime
         try:
@@ -5780,7 +5768,7 @@ class AIAgent:
             return True
         except Exception as e:
             logging.warning("Failed to restore primary runtime: %s", e)
-            return False
+        return False
 
     # Which error types indicate a transient transport failure worth
     # one more attempt with a rebuilt client / connection pool.
@@ -5806,19 +5794,19 @@ class AIAgent:
         retries through them are exhausted, one more rebuilt client won't help.
         """
         if self._fallback_activated:
-            return False
+        return False
 
         # Only for transient transport errors
         error_type = type(api_error).__name__
         if error_type not in self._TRANSIENT_TRANSPORT_ERRORS:
-            return False
+        return False
 
         # Skip for aggregator providers — they manage their own retry infra
         if self._is_openrouter_url():
-            return False
+        return False
         provider_lower = (self.provider or "").strip().lower()
         if provider_lower in ("shadow", "shadow-research"):
-            return False
+        return False
 
         try:
             # Close existing client to release stale connections
@@ -5865,14 +5853,14 @@ class AIAgent:
             return True
         except Exception as e:
             logging.warning("Primary transport recovery failed: %s", e)
-            return False
+        return False
 
     # ── End provider fallback ──────────────────────────────────────────────
 
     @staticmethod
     def _content_has_image_parts(content: Any) -> bool:
         if not isinstance(content, list):
-            return False
+        return False
         for part in content:
             if isinstance(part, dict) and part.get("type") in {"image_url", "input_image"}:
                 return True
@@ -6382,11 +6370,11 @@ class AIAgent:
 
                 return bool(github_model_reasoning_efforts(self.model))
             except Exception:
-                return False
+            return False
         if "openrouter" not in self._base_url_lower:
-            return False
+        return False
         if "api.mistral.ai" in self._base_url_lower:
-            return False
+        return False
 
         model = (self.model or "").lower()
         reasoning_model_prefixes = (

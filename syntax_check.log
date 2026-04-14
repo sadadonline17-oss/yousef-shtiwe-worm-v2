@@ -1,0 +1,4 @@
+  File "run_agent.py", line 4974
+    or status line so the user isn't staring at a frozen screen while a
+                                  ^
+SyntaxError: unterminated string literal (detected at line 4974)
