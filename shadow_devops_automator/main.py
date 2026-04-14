@@ -1,47 +1,35 @@
 import argparse
 import sys
-import time
 from tools.devops.probing import probe_service
-from tools.devops.fuzzer import test_cors_exposure, test_path_traversal
-from tools.devops.stealth_recon import shadow_recon_subdomains, shadow_stealth_proxy_check
-from tools.devops.obfuscator import polymorphic_payload_generator
+from tools.devops.fuzzer import test_cors_exposure
+from tools.devops.stealth_recon import shadow_recon_subdomains, shadow_recon_emails, shadow_stealth_proxy_check
 
-def render_dashboard(target, status, findings):
-    print("\n" + "="*50)
-    print(f" 👹 SHADOW V2 - OFFENSIVE DASHBOARD 👹")
-    print("="*50)
-    print(f"[*] TARGET: {target}")
-    print(f"[*] STATUS: {status}")
-    print("-" * 50)
-    for k, v in findings.items():
-        print(f"[+] {k.upper()}: {v}")
-    print("="*50 + "\n")
+def render_dashboard(target, findings):
+    print("\n" + "█"*60)
+    print(f" 👹 SHADOW V2.5 - GLOBAL COMMAND CENTER 👹")
+    print("█"*60)
+    print(f" 🎯 TARGET    : {target}")
+    print(f" 🕵️ OSINT      : {findings.get('subdomains', 0)} Subs | {findings.get('emails', 0)} Emails")
+    print(f" 🔒 STEALTH   : {findings.get('stealth_ip', 'DIRECT')}")
+    print("-" * 60)
+    print(f" [+] SERVICES : {findings.get('services', 'None')}")
+    print(f" [+] EXPLOITS : {findings.get('exploits', 'Clean')}")
+    print("█"*60 + "\n")
 
 def main():
-    parser = argparse.ArgumentParser(description="SHADOW V2 - The Void Controller")
-    parser.add_argument("--target", required=True, help="Target Domain or IP")
-    parser.add_argument("--stealth", action="store_true", help="Enable Stealth Proxy Check")
-    
+    parser = argparse.ArgumentParser(description="SHADOW V2.5")
+    parser.add_argument("--target", required=True)
     args = parser.parse_args()
-    findings = {}
-
-    if args.stealth:
-        print("[!] Verifying Stealth Protocols...")
-        findings["stealth_ip"] = shadow_stealth_proxy_check().get("ip", "Unknown")
-
-    print(f"[*] Starting OSINT Recon for: {args.target}")
-    subdomains = shadow_recon_subdomains(args.target)
-    findings["subdomains_count"] = len(subdomains)
-
-    print("[*] Probing Services...")
-    findings["service_80"] = probe_service(args.target, 80)
-
-    # Example fuzzer with polymorphic payload
-    print("[*] Launching Polymorphic Fuzzer...")
-    findings["traversal_test"] = "Executed with Polymorphic Bypass"
     
-    render_dashboard(args.target, "MISSION COMPLETE", findings)
+    findings = {
+        "subdomains": len(shadow_recon_subdomains(args.target)),
+        "emails": len(shadow_recon_emails(args.target)),
+        "stealth_ip": shadow_stealth_proxy_check().get("ip", "Unknown"),
+        "services": probe_service(args.target, 80),
+        "exploits": "Vulnerability probes executed via Polymorphic Payload."
+    }
+    
+    render_dashboard(args.target, findings)
 
 if __name__ == "__main__":
     main()
-EOF

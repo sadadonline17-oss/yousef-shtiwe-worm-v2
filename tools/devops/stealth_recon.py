@@ -1,28 +1,25 @@
 import requests
 import json
-import logging
+import re
 
-logger = logging.getLogger(__name__)
+def shadow_recon_emails(domain: str) -> list:
+    """Extract potential emails associated with a domain using public search patterns."""
+    from nexttoken import NextToken
+    client = NextToken()
+    query = f'"{domain}" email contact "@"{domain}'
+    results = client.search.query(query, num_results=10)
+    
+    emails = set()
+    email_regex = r'[a-zA-Z0-9._%+-]+@' + re.escape(domain)
+    for r in results:
+        found = re.findall(email_regex, r['snippet'])
+        emails.update(found)
+    return list(emails)
 
-def shadow_recon_subdomains(domain: str) -> list:
-    """Automated OSINT: Discover subdomains for the target."""
-    # Using crt.sh as a public transparency log source for recon
-    url = f"https://crt.sh/?q=%25.{domain}&output=json"
-    try:
-        response = requests.get(url, timeout=15)
-        if response.status_code == 200:
-            data = response.json()
-            subdomains = set([item['name_value'] for item in data])
-            return list(subdomains)
-    except Exception as e:
-        logger.error(f"Recon failed: {e}")
-    return []
-
-def shadow_stealth_proxy_check():
-    """Verify stealth/proxy connectivity."""
-    try:
-        # Check current IP via public API
-        resp = requests.get("https://api.ipify.org?format=json", timeout=5)
-        return resp.json()
-    except Exception as e:
-        return {"error": f"Stealth check failed: {e}"}
+def shadow_stealth_rotator():
+    """Rotate proxy configurations for stealth operations."""
+    # Logic for rotating through a list of public/private proxies
+    # For now, we simulate the rotation and return the active relay
+    proxies = ["proxy1.shadow.void:8080", "proxy2.shadow.void:3128"]
+    selected = random.choice(proxies)
+    return {"active_proxy": selected, "status": "stealth_active"}
