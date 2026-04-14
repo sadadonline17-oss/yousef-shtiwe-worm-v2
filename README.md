@@ -1,9 +1,9 @@
-# Shadow Agent ☤
-[Documentation](https://shadow-agent.overlord.dev/docs) [Discord](https://discord.gg/shadow) License: MIT Built by SHADOW-OVERLORD
+# Shadow Agent 👹 ♟
+Documentation Discord License: MIT Built by **SHADOW-OVERLORD**
 
-The self-improving AI agent built by SHADOW-OVERLORD. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
+The self-improving AI agent built by **SHADOW-OVERLORD**. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
 
-Use any model you want — Shadow Portal, OpenRouter (200+ models), Xiaomi MiMo, z.ai/GLM, Kimi/Moonshot, MiniMax, Hugging Face, OpenAI, or your own endpoint. Switch with shadow model — no code changes, no lock-in.
+Use any model you want — **Shadow Portal**, OpenRouter (200+ models), Xiaomi MiMo, z.ai/GLM, Kimi/Moonshot, MiniMax, Hugging Face, OpenAI, or your own endpoint. Switch with `shadow model` — no code changes, no lock-in.
 
 | Feature | Description |
 | :--- | :--- |
@@ -17,11 +17,12 @@ Use any model you want — Shadow Portal, OpenRouter (200+ models), Xiaomi MiMo,
 
 ## Quick Install
 `curl -fsSL https://raw.githubusercontent.com/sadadonline17-oss/SHADOW-DevOps-Automator/main/scripts/install.sh | bash`
+
 Works on Linux, macOS, WSL2, and Android via Termux. The installer handles the platform-specific setup for you.
 
-**Android / Termux:** The tested manual path is documented in the Termux guide. On Termux, Shadow installs a curated .[termux] extra because the full .[all] extra currently pulls Android-incompatible voice dependencies.
+**Android / Termux**: The tested manual path is documented in the Termux guide. On Termux, Shadow installs a curated `.[termux]` extra because the full `.[all]` extra currently pulls Android-incompatible voice dependencies.
 
-**Windows:** Native Windows is not supported. Please install WSL2 and run the command above.
+**Windows**: Native Windows is not supported. Please install WSL2 and run the command above.
 
 After installation:
 ```bash
@@ -43,24 +44,24 @@ shadow              # start chatting!
 📖 [Full documentation →](https://shadow-agent.overlord.dev/docs)
 
 ## CLI vs Messaging Quick Reference
-Shadow has two entry points: start the terminal UI with shadow, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email. Once you're in a conversation, many slash commands are shared across both interfaces.
+Shadow has two entry points: start the terminal UI with `shadow`, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email. Once you're in a conversation, many slash commands are shared across both interfaces.
 
 | Action | CLI | Messaging platforms |
 | :--- | :--- | :--- |
-| **Start chatting** | shadow | Run shadow gateway setup + shadow gateway start, then send the bot a message |
-| **Start fresh conversation** | /new or /reset | /new or /reset |
-| **Change model** | /model [provider:model] | /model [provider:model] |
-| **Set a personality** | /personality [name] | /personality [name] |
-| **Retry or undo the last turn** | /retry, /undo | /retry, /undo |
-| **Compress context / check usage** | /compress, /usage, /insights [--days N] | /compress, /usage, /insights [days] |
-| **Browse skills** | /skills or /<skill-name> | /skills or /<skill-name> |
-| **Interrupt current work** | Ctrl+C or send a new message | /stop or send a new message |
-| **Platform-specific status** | /platforms | /status, /sethome |
+| **Start chatting** | `shadow` | Run `shadow gateway setup` + `shadow gateway start`, then send the bot a message |
+| **Start fresh conversation** | `/new` or `/reset` | `/new` or `/reset` |
+| **Change model** | `/model [provider:model]` | `/model [provider:model]` |
+| **Set a personality** | `/personality [name]` | `/personality [name]` |
+| **Retry or undo the last turn** | `/retry`, `/undo` | `/retry`, `/undo` |
+| **Compress context / check usage** | `/compress`, `/usage`, `/insights [--days N]` | `/compress`, `/usage`, `/insights [days]` |
+| **Browse skills** | `/skills` or `/<skill-name>` | `/skills` or `/<skill-name>` |
+| **Interrupt current work** | `Ctrl+C` or send a new message | `/stop` or send a new message |
+| **Platform-specific status** | `/platforms` | `/status`, `/sethome` |
 
 For the full command lists, see the CLI guide and the Messaging Gateway guide.
 
 ## Documentation
-All documentation lives at shadow-agent.overlord.dev/docs:
+All documentation lives at [shadow-agent.overlord.dev/docs](https://shadow-agent.overlord.dev/docs):
 
 | Section | What's Covered |
 | :--- | :--- |
@@ -83,30 +84,30 @@ All documentation lives at shadow-agent.overlord.dev/docs:
 ## Migrating from OpenClaw
 If you're coming from OpenClaw, Shadow can automatically import your settings, memories, skills, and API keys.
 
-**During first-time setup:** The setup wizard (shadow setup) automatically detects ~/.openclaw and offers to migrate before configuration begins.
+**During first-time setup**: The setup wizard (`shadow setup`) automatically detects `~/.openclaw` and offers to migrate before configuration begins.
 
-**Anytime after install:**
+**Anytime after install**:
 - `shadow claw migrate` — Interactive migration (full preset)
 - `shadow claw migrate --dry-run` — Preview what would be migrated
 - `shadow claw migrate --preset user-data` — Migrate without secrets
 - `shadow claw migrate --overwrite` — Overwrite existing conflicts
 
-**What gets imported:**
-- SOUL.md — persona file
-- Memories — MEMORY.md and USER.md entries
-- Skills — user-created skills → ~/.shadow/skills/openclaw-imports/
+**What gets imported**:
+- `SOUL.md` — persona file
+- Memories — `MEMORY.md` and `USER.md` entries
+- Skills — user-created skills → `~/.shadow/skills/openclaw-imports/`
 - Command allowlist — approval patterns
 - Messaging settings — platform configs, allowed users, working directory
 - API keys — allowlisted secrets (Telegram, OpenRouter, OpenAI, Anthropic, ElevenLabs)
 - TTS assets — workspace audio files
-- Workspace instructions — AGENTS.md (with --workspace-target)
+- Workspace instructions — `AGENTS.md` (with `--workspace-target`)
 
-See shadow claw migrate --help for all options, or use the openclaw-migration skill for an interactive agent-guided migration with dry-run previews.
+See `shadow claw migrate --help` for all options, or use the `openclaw-migration` skill for an interactive agent-guided migration with dry-run previews.
 
 ## Contributing
 We welcome contributions! See the Contributing Guide for development setup, code style, and PR process.
 
-**Quick start for contributors:**
+**Quick start for contributors**:
 ```bash
 git clone https://github.com/sadadonline17-oss/SHADOW-DevOps-Automator.git
 cd SHADOW-DevOps-Automator
@@ -117,7 +118,7 @@ uv pip install -e ".[all,dev]"
 python -m pytest tests/ -q
 ```
 
-**RL Training (optional):** To work on the RL/Tinker-Atropos integration:
+**RL Training (optional)**: To work on the RL/Tinker-Atropos integration:
 ```bash
 git submodule update --init tinker-atropos
 uv pip install -e "./tinker-atropos"
@@ -128,7 +129,7 @@ uv pip install -e "./tinker-atropos"
 📚 [Skills Hub](https://shadow-agent.overlord.dev/skills)
 🐛 [Issues](https://github.com/sadadonline17-oss/SHADOW-DevOps-Automator/issues)
 💡 [Discussions](https://github.com/sadadonline17-oss/SHADOW-DevOps-Automator/discussions)
-🔌 ShadowClaw — Community WeChat bridge: Run Shadow Agent and OpenClaw on the same WeChat account.
+🔌 **ShadowClaw** — Community WeChat bridge: Run Shadow Agent and OpenClaw on the same WeChat account.
 
 ## License
 MIT — see LICENSE.
@@ -136,4 +137,4 @@ MIT — see LICENSE.
 **Built by SHADOW-OVERLORD.**
 
 Releases 8
-Shadow Agent v1.0.0 (v2026.4.14)
+**Shadow Agent v1.0.0 (v2026.4.14)**

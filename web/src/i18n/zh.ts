@@ -50,7 +50,7 @@ export const zh: Translations = {
     webUi: "管理面板",
     footer: {
       name: "SHADOW Agent",
-      org: "Nous Research",
+      org: "SHADOW-OVERLORD",
     },
     nav: {
       status: "状态",

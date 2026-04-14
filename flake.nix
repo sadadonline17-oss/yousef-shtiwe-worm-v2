@@ -1,5 +1,5 @@
 {
-  description = "SHADOW Agent - AI agent framework by Nous Research";
+  description = "SHADOW Agent - AI agent framework by SHADOW-OVERLORD";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

@@ -50,7 +50,7 @@ export const en: Translations = {
     webUi: "Web UI",
     footer: {
       name: "SHADOW Agent",
-      org: "Nous Research",
+      org: "SHADOW-OVERLORD",
     },
     nav: {
       status: "Status",

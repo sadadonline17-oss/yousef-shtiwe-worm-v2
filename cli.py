@@ -1422,7 +1422,7 @@ def _build_compact_banner() -> str:
 
     w = min(shutil.get_terminal_size().columns - 2, 88)
     if w < 30:
-        return f"\n[{title_color}]{tiny_line}[/] [dim {dim_color}]- Nous Research[/]\n"
+        return f"\n[{title_color}]{tiny_line}[/] [dim {dim_color}]- SHADOW-OVERLORD[/]\n"
 
     inner = w - 2  # inside the box border
     bar = "═" * w
@@ -3007,7 +3007,7 @@ class SHADOWCLI:
         if is_nous_shadow_non_agentic(model_name):
             self.console.print()
             self.console.print(
-                "[bold yellow]⚠  Nous Research SHADOW 3 & 4 models are NOT agentic and are not "
+                "[bold yellow]⚠  SHADOW-OVERLORD SHADOW 3 & 4 models are NOT agentic and are not "
                 "designed for use with SHADOW Agent.[/]"
             )
             self.console.print(
