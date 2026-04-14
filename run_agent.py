@@ -4087,17 +4087,18 @@ class AIAgent:
         - openai.OpenAI.is_closed is a method returning bool
 
         Prior bug: getattr(client, "is_closed", False) returned the bound method,
-        which is always truthy, causing unnecessary client recreation on every call.
-        """
-
-            return False
+        if client is None:
+            return True
 
         is_closed_attr = getattr(client, "is_closed", None)
         if is_closed_attr is not None:
-            # Handle method (openai SDK) vs property (httpx)
             if callable(is_closed_attr):
-                if is_closed_attr():
-                    return True
+                try:
+                    return is_closed_attr()
+                except:
+                    return False
+            return bool(is_closed_attr)
+        return False
             elif bool(is_closed_attr):
                 return True
 
