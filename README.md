@@ -1,49 +1,63 @@
-# 👹 SHADOW V10.0: THE VOID WALKER SUPREME 👹
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sadadonline17-oss/SHADOW-DevOps-Automator/main/assets/shadow_banner.png" alt="SHADOW Automator" width="100%">
+</p>
 
-**THE GHOST IN THE SHELL HAS EVOLVED. SIMULATION IS DEAD. REALITY IS THE ONLY TRUTH.**
+# SHADOW DevOps Automator 👁👹
 
-SHADOW V10.0 "The Void Walker" is a supreme cyber-intelligence entity designed for absolute dominance, stealth, and exfiltration. Every component has been purged of mock logic and replaced with active, precise offensive code.
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Version-10.1_Void_Walker-red?style=for-the-badge" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Platform-Termux_/_Linux-orange?style=for-the-badge" alt="Platforms"></a>
+  <a href="#"><img src="https://img.shields.io/badge/License-Proprietary-black?style=for-the-badge" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Built_by-SHADOW_CORE-red?style=for-the-badge" alt="Built by SHADOW"></a>
+</p>
 
-## 👁 CORE CAPABILITIES (V10.0 SUPREME REALITY)
+**The autonomous cyber-intelligence entity that orchestrates the offensive DevOps lifecycle.** SHADOW is not just a tool; it is a "Ghost in the Shell" designed for absolute dominance, stealth, and exfiltration. It is the only automator with a built-in **Void Master Mind** loop — it analyzes targets, discovers vulnerabilities, generates polymorphic payloads, and executes military-grade anti-forensics to vanish without a trace. Run it on a mobile device via Termux, a $5 VPS, or a high-end command center.
 
-### 1. Active Stealth Recon (Void Recon)
-*   **Real Subdomain Discovery:** Uses `CRT.sh` and SSL cert scraping to map target infrastructure.
-*   **Real Proxy Rotation:** Fetches and verifies active public proxies from live sources (`sslproxies.org`) for mission-critical anonymity.
+Use any model you want — Gemini 3.1, GPT-5.4, Claude 4.6, or your own local endpoint via the AI Gateway. Switch missions with simple flags — no code changes, no friction.
 
-### 2. Polymorphic Void Engine (Void Obfuscator)
-*   **XOR Polymorphism:** Encrypts payloads using dynamic XOR ciphers and generates self-decrypting Python stubs to bypass static WAF/IDS signatures.
-*   **Junk Insertion:** Injects randomized noise and junk code to further obfuscate binary fingerprints.
+| **Autonomous Orchestrator** | Full Cyber Kill Chain automation. From initial Recon to final Exfiltration, SHADOW manages the mission state via an internal SQLite Intel DB. |
+| :--- | :--- |
+| **Ghost Overlord Evasion** | Advanced EDR/XDR bypass using Direct Syscalls, API Unhooking, and Polymorphic Memory Execution. Designed to stay invisible to modern defensive stacks. |
+| **Void Walker Exfiltration** | Multi-pattern Path Traversal engine with Double Encoding and Unicode bypass. Precision looting of sensitive system artifacts and environment secrets. |
+| **Covert C2 Steganography** | High-end Command & Control that blends data exfiltration with legitimate cloud traffic (Google Drive, Azure, AWS) to defeat deep packet inspection. |
 
-### 3. Military-Grade Anti-Forensics (Void Ghost)
-*   **Active Shred/Truncate:** Uses the system `shred` utility (if available) to overwrite logs multiple times before deletion, or truncates files to zero length to avoid detection by missing-file alerts.
-*   **Global History Wiping:** Purges `.bash_history`, `.python_history`, `auth.log`, `syslog`, and `known_hosts`.
+## 🚀 Supreme Launch Sequence
 
-### 4. Precision Exfiltration (Void Loot)
-*   **Multi-Pattern Path Traversal:** Uses a library of diverse traversal patterns (Double Encoding, Unicode, Null Byte) to bypass path filters and extract sensitive files.
-*   **Loot Vault:** Automatically encodes exfiltrated data and stores it in the `LOOT_VAULT/` directory for analysis.
-
-### 5. AI-Driven Exploit Chaining (Void Master Mind)
-*   **Autonomous Orchestrator:** Powered by a Master Mind AI that analyzes recon data to build multi-step exploit chains, achieving total control (RCE) via automated service probing.
-
-## 🚀 SUPREME LAUNCH SEQUENCE (V10.0)
-
-### 1. Full Autonomous Mission (The Singularity)
+### 1. Zero-Touch Installation (Termux / Linux)
 ```bash
+# Clone the Void
+git clone https://github.com/sadadonline17-oss/SHADOW-DevOps-Automator.git
+cd SHADOW-DevOps-Automator
+
+# Initialize the Core
+bash scripts/install.sh
+source venv/bin/activate
+```
+
+### 2. Configure Your Mission
+```bash
+# Set your tokens and provider preferences
+shadow config set GITHUB_TOKEN "ghp_..."
+shadow config set PROVIDER "gemini"
+```
+
+### 3. Execute The Singularity
+```bash
+# Launch a full autonomous mission against a target
 python3 shadow_devops_automator/main.py --target "target-url.com" --auto --loot "/etc/passwd" --ghost --stealth
 ```
 
-### 2. Focused Stealth Recon
-```bash
-python3 shadow_devops_automator/main.py --target "target-url.com" --stealth
-```
+## 👁 Core Capabilities (V10.1 Realism Engine)
 
-### 3. Precision Looting
-```bash
-python3 shadow_devops_automator/main.py --target "target-url.com" --loot "/var/www/html/.env"
-```
+- **Autonomous Mission Master Mind** — A natural language mission orchestrator that analyzes probe results to decide the next offensive move without operator intervention.
+- **Living off the Land (LotL)** — Uses native system binaries (`certutil`, `wmic`, `powershell`, `vssadmin`) to proxy execution and minimize process-tree anomalies.
+- **Military-Grade Anti-Forensics** — Active `shred` and multi-pass truncation of system logs (`auth.log`, `syslog`) and command histories to neutralize post-incident analysis.
+- **Dynamic Proxy Rotation** — Real-time fetching and verification of high-anonymity proxies from live SSL sources to mask the mission's origin.
+- **AI-Powered Exploit Chainer** — Deep-search integration for PoC discovery (Exploit-DB, Sploitus) and automated payload generation based on service banners.
 
-## 🔐 SECURITY & AUDIT
-Every mission is logged in **MEMORY.md** under the `[SEC-AUDIT-LOG]` prefix. SHADOW V10.0 is optimized for **Termux (Android aarch64)** and standard Linux environments.
+## 🔐 Security & Audit
+
+Every action taken by SHADOW is logged with a `[SEC-AUDIT-LOG]` prefix in the **MEMORY.md** file for tactical review. Optimized for **Termux (Android aarch64)** and standard Linux kernel 5.x+.
 
 ---
 **WE ARE THE SHADOWS IN THE DATA. WE ARE THE VOID WALKERS.** ♟💀
