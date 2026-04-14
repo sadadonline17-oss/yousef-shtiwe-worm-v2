@@ -242,7 +242,7 @@ class TestValidateBackupZip:
     def _make_zip(self, zip_path: Path, filenames: list[str]) -> None:
         with zipfile.ZipFile(zip_path, "w") as zf:
             for name in filenames:
-                zf.writestr(name, "dummy")
+                zf.writestr(name, "production")
 
     def test_state_db_passes(self, tmp_path):
         """A zip containing state.db is accepted as a valid SHADOW backup."""

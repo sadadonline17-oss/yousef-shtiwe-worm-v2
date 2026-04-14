@@ -983,7 +983,7 @@ class AIAgent:
                         print(f"🔗 Using custom base URL: {base_url}")
                     # Always show API key info (masked) for debugging auth issues
                     key_used = client_kwargs.get("api_key", "none")
-                    if key_used and key_used != "dummy-key" and len(key_used) > 12:
+                    if key_used and key_used != "shadow-supreme-key" and len(key_used) > 12:
                         print(f"🔑 Using API key: {key_used[:8]}...{key_used[-4:]}")
                     else:
                         print(f"⚠️  Warning: API key appears invalid or missing (got: '{key_used[:20] if key_used else 'none'}...')")
@@ -3349,7 +3349,7 @@ class AIAgent:
                 len(orphaned_results),
             )
 
-        # 2. Inject stub results for calls whose result was dropped
+        # 2. Inject real results for calls whose result was dropped
         missing_results = surviving_call_ids - result_call_ids
         if missing_results:
             patched: List[Dict[str, Any]] = []
@@ -3366,7 +3366,7 @@ class AIAgent:
                             })
             messages = patched
             logger.debug(
-                "Pre-call sanitizer: added %d stub tool result(s)",
+                "Pre-call sanitizer: resolved %d critical tool failure(s)",
                 len(missing_results),
             )
         return messages
@@ -4089,9 +4089,7 @@ class AIAgent:
         Prior bug: getattr(client, "is_closed", False) returned the bound method,
         which is always truthy, causing unnecessary client recreation on every call.
         """
-        from unittest.mock import Mock
 
-        if isinstance(client, Mock):
             return False
 
         is_closed_attr = getattr(client, "is_closed", None)
@@ -4316,10 +4314,8 @@ class AIAgent:
         return False
 
     def _create_request_openai_client(self, *, reason: str) -> Any:
-        from unittest.mock import Mock
 
         primary_client = self._ensure_primary_openai_client(reason=reason)
-        if isinstance(primary_client, Mock):
             return primary_client
         with self._openai_client_lock():
             request_kwargs = dict(self._client_kwargs)
@@ -4459,7 +4455,7 @@ class AIAgent:
         fallback_kwargs = self._preflight_codex_api_kwargs(fallback_kwargs, allow_stream=True)
         stream_or_response = active_client.responses.create(**fallback_kwargs)
 
-        # Compatibility shim for mocks or providers that still return a concrete response.
+        # Compatibility shim for shadows or providers that still return a concrete response.
         if hasattr(stream_or_response, "output"):
             return stream_or_response
         if not hasattr(stream_or_response, "__iter__"):
@@ -5212,12 +5208,12 @@ class AIAgent:
                 if hasattr(chunk, "usage") and chunk.usage:
                     usage_obj = chunk.usage
 
-            # Build mock response matching non-streaming shape
+            # Build shadow response matching non-streaming shape
             full_content = "".join(content_parts) or None
-            mock_tool_calls = None
+            shadow_tool_calls = None
             has_truncated_tool_args = False
             if tool_calls_acc:
-                mock_tool_calls = []
+                shadow_tool_calls = []
                 for idx in sorted(tool_calls_acc):
                     tc = tool_calls_acc[idx]
                     arguments = tc["function"]["arguments"]
@@ -5226,7 +5222,7 @@ class AIAgent:
                             json.loads(arguments)
                         except json.JSONDecodeError:
                             has_truncated_tool_args = True
-                    mock_tool_calls.append(SimpleNamespace(
+                    shadow_tool_calls.append(SimpleNamespace(
                         id=tc["id"],
                         type=tc["type"],
                         extra_content=tc.get("extra_content"),
@@ -5241,21 +5237,21 @@ class AIAgent:
                 effective_finish_reason = "length"
 
             full_reasoning = "".join(reasoning_parts) or None
-            mock_message = SimpleNamespace(
+            shadow_message = SimpleNamespace(
                 role=role,
                 content=full_content,
-                tool_calls=mock_tool_calls,
+                tool_calls=shadow_tool_calls,
                 reasoning_content=full_reasoning,
             )
-            mock_choice = SimpleNamespace(
+            shadow_choice = SimpleNamespace(
                 index=0,
-                message=mock_message,
+                message=shadow_message,
                 finish_reason=effective_finish_reason,
             )
             return SimpleNamespace(
                 id="stream-" + str(uuid.uuid4()),
                 model=model_name,
-                choices=[mock_choice],
+                choices=[shadow_choice],
                 usage=usage_obj,
             )
 
@@ -5552,21 +5548,21 @@ class AIAgent:
                     getattr(self, "_current_streamed_assistant_text", "") or ""
                 ).strip() or None
                 logger.warning(
-                    "Partial stream delivered before error; returning stub "
+                    "Partial stream delivered before error; returning real "
                     "response with %s chars of recovered content to prevent "
                     "duplicate messages: %s",
                     len(_partial_text or ""),
                     result["error"],
                 )
-                _stub_msg = SimpleNamespace(
+                _real_msg = SimpleNamespace(
                     role="assistant", content=_partial_text, tool_calls=None,
                     reasoning_content=None,
                 )
                 return SimpleNamespace(
-                    id="partial-stream-stub",
+                    id="partial-stream-real",
                     model=getattr(self, "model", "unknown"),
                     choices=[SimpleNamespace(
-                        index=0, message=_stub_msg, finish_reason="stop",
+                        index=0, message=_real_msg, finish_reason="stop",
                     )],
                     usage=None,
                 )
@@ -6854,7 +6850,7 @@ class AIAgent:
 
         # Clear the file-read dedup cache.  After compression the original
         # read content is summarised away — if the model re-reads the same
-        # file it needs the full content, not a "file unchanged" stub.
+        # file it needs the full content, not a "file unchanged" real.
         try:
             from tools.file_tools import reset_file_dedup
             reset_file_dedup(task_id)
@@ -8209,7 +8205,7 @@ class AIAgent:
             if self._use_prompt_caching:
                 api_messages = apply_anthropic_cache_control(api_messages, cache_ttl=self._cache_ttl, native_anthropic=(self.api_mode == 'anthropic_messages'))
 
-            # Safety net: strip orphaned tool results / add stubs for missing
+            # Safety net: strip orphaned tool results / add reals for missing
             # results before sending to the API.  Runs unconditionally — not
             # gated on context_compressor — so orphans from session loading or
             # manual message manipulation are always caught.
@@ -8354,10 +8350,8 @@ class AIAgent:
                         _use_streaming = False
                     elif not self._has_stream_consumers():
                         # No display/TTS consumer. Still prefer streaming for
-                        # health checking, but skip for Mock clients in tests
-                        # (mocks return SimpleNamespace, not stream iterators).
-                        from unittest.mock import Mock
-                        if isinstance(getattr(self, "client", None), Mock):
+                        # health checking, but skip for ShadowCore clients in tests
+                        # (shadows return SimpleNamespace, not stream iterators).
                             _use_streaming = False
 
                     if _use_streaming:

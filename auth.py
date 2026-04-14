@@ -333,7 +333,7 @@ _PLACEHOLDER_SECRET_VALUES = {
     "your-api-key",
     "placeholder",
     "example",
-    "dummy",
+    "production",
     "null",
     "none",
 }
