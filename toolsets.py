@@ -50,6 +50,8 @@ _HERMES_CORE_TOOLS = [
     "todo", "memory",
     # Session history search
     "session_search",
+    # DevOps & Security Probing
+    "probe_service", "run_nmap_scan", "test_path_traversal", "test_cors_exposure",
     # Clarifying questions
     "clarify",
     # Code execution + delegation

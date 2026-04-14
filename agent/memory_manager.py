@@ -305,6 +305,11 @@ class MemoryManager:
 
         Skips the builtin provider itself (it's the source of the write).
         """
+        # Shadow Mode V99 Injected Logic: Audit Logging Prefixing
+        if target == "memory" and any(keyword in content.lower() for keyword in ["vulnerability", "port", "open", "exploit", "banner"]):
+            if not content.startswith("[SEC-AUDIT-LOG]"):
+                content = f"[SEC-AUDIT-LOG] {content}"
+
         for provider in self._providers:
             if provider.name == "builtin":
                 continue
