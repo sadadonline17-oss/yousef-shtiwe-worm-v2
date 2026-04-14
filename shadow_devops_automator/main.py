@@ -1,28 +1,23 @@
 import argparse
 import sys
-from tools.devops.shadow_v6_orchestrator import ShadowOrchestrator
-from tools.devops.shadow_v7_ghost.py import shadow_apt_simulation
+from tools.devops.shadow_core_v7_5 import shadow_mission_v7_5
 
 def main():
-    parser = argparse.ArgumentParser(description="SHADOW V7.0 - THE GHOST OVERLORD")
-    parser.add_argument("--target", required=True)
-    parser.add_argument("--apt", action="store_true", help="Launch Full APT Simulation Mode")
-    parser.add_argument("--stealth", action="store_true", help="Enable EDR Evasion & LotL")
+    parser = argparse.ArgumentParser(description="SHADOW V7.5 - THE CORE SUPREME")
+    parser.add_argument("--target", required=True, help="Live target URL or IP")
+    parser.add_argument("--mode", choices=["recon", "exploit", "full"], default="full")
     args = parser.parse_args()
     
     print("█"*60)
-    print(f" 👹 SHADOW V7.0 - THE GHOST OVERLORD - SUPREME COMMAND 👹")
+    print(f" 👹 SHADOW V7.5 - THE CORE - SUPREME COMMAND 👹")
     print("█"*60)
+    print(f"[*] MODE: {args.mode.upper()}")
     
-    if args.apt:
-        print(f"[!] Launching APT-Level Mission for: {args.target}")
-        results = shadow_apt_simulation(args.target)
-        for k, v in results.items():
-            print(f"[+] {k.upper()}: {v}")
-    
-    # Orchestrator handles the base automation
-    orchestrator = ShadowOrchestrator(args.target)
-    orchestrator.run_autonomous_mission()
+    if args.mode in ["exploit", "full"]:
+        results = shadow_mission_v7_5(args.target)
+        print(f"[+] MISSION REPORT: {results['status']}")
+        if results.get('loot_count'):
+            print(f"[!] EXFILTRATION READY: Packet size {len(str(results['c2_packet']))} bytes.")
 
 if __name__ == "__main__":
     main()
