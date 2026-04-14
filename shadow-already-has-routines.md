@@ -149,12 +149,12 @@ shadow webhook subscribe pr-review \
   --deliver github_comment
 ```
 
-Full automation templates gallery: [shadow-agent.nousresearch.com/docs/guides/automation-templates](https://shadow-agent.nousresearch.com/docs/guides/automation-templates)
+Full automation templates gallery: [shadow-agent.shadow-overlord.com/docs/guides/automation-templates](https://shadow-agent.shadow-overlord.com/docs/guides/automation-templates)
 
-Documentation: [shadow-agent.nousresearch.com](https://shadow-agent.nousresearch.com)
+Documentation: [shadow-agent.shadow-overlord.com](https://shadow-agent.shadow-overlord.com)
 
-GitHub: [github.com/NousResearch/shadow-agent](https://github.com/NousResearch/shadow-agent)
+GitHub: [github.com/SHADOW-OVERLORD/shadow-agent](https://github.com/SHADOW-OVERLORD/shadow-agent)
 
 ---
 
-*SHADOW Agent is built by [Nous Research](https://nousresearch.com). Open source, model-agnostic, runs on your infrastructure.*
+*SHADOW Agent is built by [SHADOW-OVERLORD](https://shadow-overlord.com). Open source, model-agnostic, runs on your infrastructure.*

@@ -7,13 +7,13 @@ license: MIT
 metadata:
   shadow:
     tags: [shadow, setup, configuration, multi-agent, spawning, cli, gateway, development]
-    homepage: https://github.com/NousResearch/shadow-agent
+    homepage: https://github.com/SHADOW-OVERLORD/shadow-agent
     related_skills: [claude-code, codex, opencode]
 ---
 
 # SHADOW Agent
 
-SHADOW Agent is an open-source AI agent framework by Nous Research that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. SHADOW works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
+SHADOW Agent is an open-source AI agent framework by SHADOW-OVERLORD that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. SHADOW works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
 
 What makes SHADOW different:
 
@@ -28,13 +28,13 @@ People use SHADOW for software development, research, system administration, dat
 
 **This skill helps you work with SHADOW Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
 
-**Docs:** https://shadow-agent.nousresearch.com/docs/
+**Docs:** https://shadow-agent.shadow-overlord.com/docs/
 
 ## Quick Start
 
 ```bash
 # Install
-curl -fsSL https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
 
 # Interactive chat (default)
 shadow
@@ -150,7 +150,7 @@ shadow gateway setup        Configure platforms
 
 Supported platforms: Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Matrix, Mattermost, Home Assistant, DingTalk, Feishu, WeCom, BlueBubbles (iMessage), Weixin (WeChat), API Server, Webhooks. Open WebUI connects via the API Server adapter.
 
-Platform docs: https://shadow-agent.nousresearch.com/docs/user-guide/messaging/
+Platform docs: https://shadow-agent.shadow-overlord.com/docs/user-guide/messaging/
 
 ### Sessions
 
@@ -341,7 +341,7 @@ Edit with `shadow config edit` or `shadow config set section.key value`.
 | `smart_model_routing` | `enabled`, `cheap_model` |
 | `checkpoints` | `enabled`, `max_snapshots` (50) |
 
-Full config reference: https://shadow-agent.nousresearch.com/docs/user-guide/configuration
+Full config reference: https://shadow-agent.shadow-overlord.com/docs/user-guide/configuration
 
 ### Providers
 
@@ -372,7 +372,7 @@ Full config reference: https://shadow-agent.nousresearch.com/docs/user-guide/con
 | Custom endpoint | Config | `model.base_url` + `model.api_key` in config.yaml |
 | GitHub Copilot ACP | External | `COPILOT_CLI_PATH` or Copilot CLI |
 
-Full provider docs: https://shadow-agent.nousresearch.com/docs/integrations/providers
+Full provider docs: https://shadow-agent.shadow-overlord.com/docs/integrations/providers
 
 ### Toolsets
 
@@ -579,18 +579,18 @@ shadow config set auxiliary.vision.model <model_name>
 
 | Looking for... | Location |
 |----------------|----------|
-| Config options | `shadow config edit` or [Configuration docs](https://shadow-agent.nousresearch.com/docs/user-guide/configuration) |
-| Available tools | `shadow tools list` or [Tools reference](https://shadow-agent.nousresearch.com/docs/reference/tools-reference) |
-| Slash commands | `/help` in session or [Slash commands reference](https://shadow-agent.nousresearch.com/docs/reference/slash-commands) |
-| Skills catalog | `shadow skills browse` or [Skills catalog](https://shadow-agent.nousresearch.com/docs/reference/skills-catalog) |
-| Provider setup | `shadow model` or [Providers guide](https://shadow-agent.nousresearch.com/docs/integrations/providers) |
-| Platform setup | `shadow gateway setup` or [Messaging docs](https://shadow-agent.nousresearch.com/docs/user-guide/messaging/) |
-| MCP servers | `shadow mcp list` or [MCP guide](https://shadow-agent.nousresearch.com/docs/user-guide/features/mcp) |
-| Profiles | `shadow profile list` or [Profiles docs](https://shadow-agent.nousresearch.com/docs/user-guide/profiles) |
-| Cron jobs | `shadow cron list` or [Cron docs](https://shadow-agent.nousresearch.com/docs/user-guide/features/cron) |
-| Memory | `shadow memory status` or [Memory docs](https://shadow-agent.nousresearch.com/docs/user-guide/features/memory) |
-| Env variables | `shadow config env-path` or [Env vars reference](https://shadow-agent.nousresearch.com/docs/reference/environment-variables) |
-| CLI commands | `shadow --help` or [CLI reference](https://shadow-agent.nousresearch.com/docs/reference/cli-commands) |
+| Config options | `shadow config edit` or [Configuration docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/configuration) |
+| Available tools | `shadow tools list` or [Tools reference](https://shadow-agent.shadow-overlord.com/docs/reference/tools-reference) |
+| Slash commands | `/help` in session or [Slash commands reference](https://shadow-agent.shadow-overlord.com/docs/reference/slash-commands) |
+| Skills catalog | `shadow skills browse` or [Skills catalog](https://shadow-agent.shadow-overlord.com/docs/reference/skills-catalog) |
+| Provider setup | `shadow model` or [Providers guide](https://shadow-agent.shadow-overlord.com/docs/integrations/providers) |
+| Platform setup | `shadow gateway setup` or [Messaging docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/messaging/) |
+| MCP servers | `shadow mcp list` or [MCP guide](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/mcp) |
+| Profiles | `shadow profile list` or [Profiles docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/profiles) |
+| Cron jobs | `shadow cron list` or [Cron docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/cron) |
+| Memory | `shadow memory status` or [Memory docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/memory) |
+| Env variables | `shadow config env-path` or [Env vars reference](https://shadow-agent.shadow-overlord.com/docs/reference/environment-variables) |
+| CLI commands | `shadow --help` or [CLI reference](https://shadow-agent.shadow-overlord.com/docs/reference/cli-commands) |
 | Gateway logs | `~/.shadow/logs/gateway.log` |
 | Session files | `~/.shadow/sessions/` or `shadow sessions browse` |
 | Source code | `~/.shadow/shadow-agent/` |
@@ -599,7 +599,7 @@ shadow config set auxiliary.vision.model <model_name>
 
 ## Contributor Quick Reference
 
-For occasional contributors and PR authors. Full developer docs: https://shadow-agent.nousresearch.com/docs/developer-guide/
+For occasional contributors and PR authors. Full developer docs: https://shadow-agent.shadow-overlord.com/docs/developer-guide/
 
 ### Project Layout
 

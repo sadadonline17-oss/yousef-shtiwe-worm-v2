@@ -21,7 +21,7 @@ class ShadowSupremeGateway:
             print(f"📡 [SHADOW-PLATFORM] {platform.upper()} Bridge Connected.")
         
     def route_signal(self, platform: str, sender_id: str, message: str):
-        """Cross-platform conversation continuity (Hermes DNA)."""
+        """Cross-platform conversation continuity (Shadow DNA)."""
         mission_id = f"{platform}:{sender_id}"
         if mission_id not in self.active_missions:
             from shadow_core.agent.overlord import ShadowSupremeAgent

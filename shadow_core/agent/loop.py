@@ -8,7 +8,7 @@ from shadow_core.skills.manager import SkillManager
 class ShadowAgent:
     """
     SHADOW V11.0 - The Autonomous Offensive Entity.
-    A self-improving agent architecture based on the Hermes loop.
+    A self-improving agent architecture based on the Shadow loop.
     """
     def __init__(self, model="gemini-3-flash-preview", system_prompt_path="shadow_core/prompts/system.md"):
         self.client = NextToken()

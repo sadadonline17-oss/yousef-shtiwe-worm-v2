@@ -9,7 +9,7 @@ class ShadowSkillManager:
         self._load_core_skills()
 
     def _load_core_skills(self):
-        # Hermes-style tool registration
+        # Shadow-style tool registration
         from tools.devops.shadow_void_walker import shadow_recon_subdomains, shadow_loot_file, shadow_ghost_wipe
         from tools.devops.probing import probe_service
         

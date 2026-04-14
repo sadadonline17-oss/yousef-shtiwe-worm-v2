@@ -2154,7 +2154,7 @@ class OptionalSkillSource(SkillSource):
     """
     Fetch skills from the optional-skills/ directory shipped with the repo.
 
-    These skills are official (maintained by Nous Research) but not activated
+    These skills are official (maintained by SHADOW-OVERLORD) but not activated
     by default — they don't appear in the system prompt and aren't copied to
     ~/.shadow/skills/ during setup.  They are discoverable via the Skills Hub
     (search / install / inspect) and labelled "official" with "builtin" trust.
@@ -2702,7 +2702,7 @@ def check_for_skill_updates(
 # SHADOW centralized index source
 # ---------------------------------------------------------------------------
 
-SHADOW_INDEX_URL = "https://shadow-agent.nousresearch.com/docs/api/skills-index.json"
+SHADOW_INDEX_URL = "https://shadow-agent.shadow-overlord.com/docs/api/skills-index.json"
 SHADOW_INDEX_CACHE_FILE = INDEX_CACHE_DIR / "shadow-index.json"
 SHADOW_INDEX_TTL = 6 * 3600  # 6 hours
 

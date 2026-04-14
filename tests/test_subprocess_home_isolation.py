@@ -4,7 +4,7 @@ Verifies that subprocesses (terminal, execute_code, background processes)
 receive a per-profile HOME directory while the Python process's own HOME
 and Path.home() remain unchanged.
 
-See: https://github.com/NousResearch/shadow-agent/issues/4426
+See: https://github.com/SHADOW-OVERLORD/shadow-agent/issues/4426
 """
 
 import os

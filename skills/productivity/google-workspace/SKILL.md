@@ -2,7 +2,7 @@
 name: google-workspace
 description: Gmail, Calendar, Drive, Contacts, Sheets, and Docs integration via gws CLI (googleworkspace/cli). Uses OAuth2 with automatic token refresh via bridge script. Requires gws binary.
 version: 2.0.0
-author: Nous Research
+author: SHADOW-OVERLORD
 license: MIT
 required_credential_files:
   - path: google_token.json
@@ -12,7 +12,7 @@ required_credential_files:
 metadata:
   shadow:
     tags: [Google, Gmail, Calendar, Drive, Sheets, Docs, Contacts, Email, OAuth, gws]
-    homepage: https://github.com/NousResearch/shadow-agent
+    homepage: https://github.com/SHADOW-OVERLORD/shadow-agent
     related_skills: [himalaya]
 ---
 

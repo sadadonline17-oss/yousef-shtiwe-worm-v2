@@ -214,7 +214,7 @@ If you've worked through this guide and the issue persists:
 
 1. Run the job with `shadow cron run <job_id>` (fires on next gateway tick) and watch for errors in the chat output
 2. Check `~/.shadow/logs/agent.log` for scheduler messages and `~/.shadow/logs/errors.log` for warnings
-3. Open an issue at [github.com/NousResearch/shadow-agent](https://github.com/NousResearch/shadow-agent) with:
+3. Open an issue at [github.com/SHADOW-OVERLORD/shadow-agent](https://github.com/SHADOW-OVERLORD/shadow-agent) with:
    - The job ID and schedule
    - The delivery target
    - What you expected vs. what happened

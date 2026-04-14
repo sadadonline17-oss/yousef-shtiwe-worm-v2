@@ -11,7 +11,7 @@ class ShadowSupremeAgent:
     """
     SHADOW V14.0 - THE SUPREME OVERLORD.
     The self-improving autonomous entity built on the Shadow DNA.
-    Inherits the full Hermes learning loop: 
+    Inherits the full Shadow learning loop: 
     Experience -> Skill Creation -> Self-Improvement -> Persistent Knowledge.
     """
     def __init__(self, session_id: str = None, model: str = "gemini-3-flash-preview"):

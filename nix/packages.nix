@@ -44,7 +44,7 @@
 
         meta = with pkgs.lib; {
           description = "AI agent with advanced tool-calling capabilities";
-          homepage = "https://github.com/NousResearch/shadow-agent";
+          homepage = "https://github.com/SHADOW-OVERLORD/shadow-agent";
           mainProgram = "shadow";
           license = licenses.mit;
           platforms = platforms.unix;

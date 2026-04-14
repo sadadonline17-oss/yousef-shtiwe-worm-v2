@@ -28,11 +28,11 @@ load_dotenv()
 
 # Default datasets to sample from
 DEFAULT_DATASETS = [
-    "NousResearch/swe-terminus-agent-glm-kimi-minimax",
-    "NousResearch/shadow-agent-megascience-sft1",
-    "NousResearch/SHADOW-Agent-Thinking-GLM-4.7-SFT2",
-    "NousResearch/SHADOW-Agent-Thinking-GLM-4.7-SFT1",
-    "NousResearch/terminal-tasks-glm-shadow-agent"
+    "SHADOW-OVERLORD/swe-terminus-agent-glm-kimi-minimax",
+    "SHADOW-OVERLORD/shadow-agent-megascience-sft1",
+    "SHADOW-OVERLORD/SHADOW-Agent-Thinking-GLM-4.7-SFT2",
+    "SHADOW-OVERLORD/SHADOW-Agent-Thinking-GLM-4.7-SFT1",
+    "SHADOW-OVERLORD/terminal-tasks-glm-shadow-agent"
 ]
 
 
@@ -41,7 +41,7 @@ def load_dataset_from_hf(dataset_name: str) -> List[Dict[str, Any]]:
     Load a dataset from HuggingFace.
     
     Args:
-        dataset_name: HuggingFace dataset name (e.g., "NousResearch/dataset-name")
+        dataset_name: HuggingFace dataset name (e.g., "SHADOW-OVERLORD/dataset-name")
         
     Returns:
         List of trajectory entries
@@ -402,7 +402,7 @@ def main(
     print(f"📁 Compressed batches: {compressed_dir}")
     print(f"📁 Final output:       {final_output}")
     print(f"\nTo upload to HuggingFace:")
-    print(f"   huggingface-cli upload NousResearch/{output_name} {final_output}")
+    print(f"   huggingface-cli upload SHADOW-OVERLORD/{output_name} {final_output}")
 
 
 if __name__ == "__main__":

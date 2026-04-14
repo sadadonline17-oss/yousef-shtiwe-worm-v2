@@ -51,19 +51,19 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 _SHADOW_MODEL_WARNING = (
-    "Nous Research SHADOW 3 & 4 models are NOT agentic and are not designed "
+    "SHADOW-OVERLORD SHADOW 3 & 4 models are NOT agentic and are not designed "
     "for use with SHADOW Agent. They lack the tool-calling capabilities "
     "required for agent workflows. Consider using an agentic model instead "
     "(Claude, GPT, Gemini, DeepSeek, etc.)."
 )
 
-# Match only the real Nous Research SHADOW 3 / SHADOW 4 chat families.
+# Match only the real SHADOW-OVERLORD SHADOW 3 / SHADOW 4 chat families.
 # The previous substring check (`"shadow" in name.lower()`) false-positived on
 # unrelated local Modelfiles like ``shadow-brain:qwen3-14b-ctx16k`` that just
 # happen to carry "shadow" in their tag but are fully tool-capable.
 #
 # Positive examples the regex must match:
-#   NousResearch/SHADOW-3-Llama-3.1-70B, shadow-4-405b, openrouter/shadow3:70b
+#   SHADOW-OVERLORD/SHADOW-3-Llama-3.1-70B, shadow-4-405b, openrouter/shadow3:70b
 # Negative examples it must NOT match:
 #   shadow-brain:qwen3-14b-ctx16k, qwen3:14b, claude-opus-4-6
 _NOUS_SHADOW_NON_AGENTIC_RE = re.compile(

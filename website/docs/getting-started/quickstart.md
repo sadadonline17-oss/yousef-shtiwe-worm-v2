@@ -14,7 +14,7 @@ Run the one-line installer:
 
 ```bash
 # Linux / macOS / WSL2 / Android (Termux)
-curl -fsSL https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
 ```
 
 :::tip Android / Termux

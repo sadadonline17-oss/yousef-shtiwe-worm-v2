@@ -44,7 +44,7 @@ That does not stop SHADOW from working well as a phone-native CLI agent — it j
 SHADOW now ships a Termux-aware installer path:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
 ```
 
 On Termux, the installer automatically:
@@ -78,7 +78,7 @@ Why these packages?
 ### 2. Clone SHADOW
 
 ```bash
-git clone --recurse-submodules https://github.com/NousResearch/shadow-agent.git
+git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
 cd shadow-agent
 ```
 

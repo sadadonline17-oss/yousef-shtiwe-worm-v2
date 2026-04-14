@@ -52,7 +52,7 @@ IGNORED_EMAILS = {
     "noreply@anthropic.com",
     "noreply@github.com",
     "cursoragent@cursor.com",
-    "shadow@nousresearch.com",
+    "shadow@shadow-overlord.com",
     "shadow-audit@example.com",
     "shadow@habibilabs.dev",
 }
@@ -96,7 +96,7 @@ def gh_pr_list():
         result = subprocess.run(
             [
                 "gh", "pr", "list",
-                "--repo", "NousResearch/shadow-agent",
+                "--repo", "SHADOW-OVERLORD/shadow-agent",
                 "--state", "merged",
                 "--json", "number,title,body,author,mergedAt",
                 "--limit", "300",

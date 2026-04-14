@@ -868,7 +868,7 @@ _OAUTH_PROVIDER_CATALOG: tuple[Dict[str, Any], ...] = (
         "name": "Nous Portal",
         "flow": "device_code",
         "cli_command": "shadow auth add nous",
-        "docs_url": "https://portal.nousresearch.com",
+        "docs_url": "https://portal.shadow-overlord.com",
         "status_fn": None,  # dispatched via auth.get_nous_auth_status
     },
     {

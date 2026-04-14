@@ -11,7 +11,7 @@ from shadow_core.memory.database import ShadowMemory
 class ShadowAIAgent:
     """
     SHADOW V12.0 - THE SINGULARITY CORE.
-    The autonomous engine that inherits the full Hermes Agent loop logic 
+    The autonomous engine that inherits the full Shadow Agent loop logic 
     but specializes in Void-level offensive operations.
     """
     def __init__(self, session_id: str = None, model: str = "gemini-3-flash-preview"):
@@ -25,7 +25,7 @@ class ShadowAIAgent:
         self.history = []
 
     def chat(self, user_input: str, stream: bool = False):
-        """Standard Hermes-style chat loop with tool orchestration."""
+        """Standard Shadow-style chat loop with tool orchestration."""
         # 1. Retrieve persistent intelligence from past sessions
         past_intel = self.memory.retrieve_relevant_intel(user_input)
         
@@ -39,7 +39,7 @@ class ShadowAIAgent:
         while iteration < 20:
             iteration += 1
             
-            # Context Compression (Hermes Logic)
+            # Context Compression (Shadow Logic)
             messages = self.compressor.compress([{"role": "system", "content": system_msg}] + self.history)
             
             response = self.client.chat.completions.create(

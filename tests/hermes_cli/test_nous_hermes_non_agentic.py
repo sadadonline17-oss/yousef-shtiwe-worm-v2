@@ -5,7 +5,7 @@ Prior to this check, the warning fired on any model whose name contained
 local Modelfiles such as ``shadow-brain:qwen3-14b-ctx16k`` — a tool-capable
 Qwen3 wrapper that happens to live under the "shadow" tag namespace.
 
-``is_nous_shadow_non_agentic`` should only match the actual Nous Research
+``is_nous_shadow_non_agentic`` should only match the actual SHADOW-OVERLORD
 SHADOW-3 / SHADOW-4 chat family.
 """
 
@@ -23,16 +23,16 @@ from shadow_cli.model_switch import (
 @pytest.mark.parametrize(
     "model_name",
     [
-        "NousResearch/SHADOW-3-Llama-3.1-70B",
-        "NousResearch/SHADOW-3-Llama-3.1-405B",
+        "SHADOW-OVERLORD/SHADOW-3-Llama-3.1-70B",
+        "SHADOW-OVERLORD/SHADOW-3-Llama-3.1-405B",
         "shadow-3",
         "SHADOW-3",
         "shadow-4",
         "shadow-4-405b",
         "shadow_4_70b",
         "openrouter/shadow3:70b",
-        "openrouter/nousresearch/shadow-4-405b",
-        "NousResearch/SHADOW3",
+        "openrouter/shadow-overlord/shadow-4-405b",
+        "SHADOW-OVERLORD/SHADOW3",
         "shadow-3.1",
     ],
 )

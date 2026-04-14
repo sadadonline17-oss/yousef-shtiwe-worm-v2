@@ -65,7 +65,7 @@ If `git status --short` shows unexpected changes after `shadow update`, stop and
 shadow version
 ```
 
-Compare against the latest release at the [GitHub releases page](https://github.com/NousResearch/shadow-agent/releases) or check for available updates:
+Compare against the latest release at the [GitHub releases page](https://github.com/SHADOW-OVERLORD/shadow-agent/releases) or check for available updates:
 
 ```bash
 shadow update --check

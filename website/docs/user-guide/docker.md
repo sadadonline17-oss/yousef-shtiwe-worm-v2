@@ -21,7 +21,7 @@ If this is your first time running SHADOW Agent, create a data directory on the 
 mkdir -p ~/.shadow
 docker run -it --rm \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent setup
+  shadow-overlord/shadow-agent setup
 ```
 
 This drops you into the setup wizard, which will prompt you for your API keys and write them to `~/.shadow/.env`. You only need to do this once. It is highly recommended to set up a chat system for the gateway to work with at this point.
@@ -35,7 +35,7 @@ docker run -d \
   --name shadow \
   --restart unless-stopped \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent gateway run
+  shadow-overlord/shadow-agent gateway run
 ```
 
 ## Running interactively (CLI chat)
@@ -45,7 +45,7 @@ To open an interactive chat session against a running data directory:
 ```sh
 docker run -it --rm \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent
+  shadow-overlord/shadow-agent
 ```
 
 ## Persistent volumes
@@ -78,7 +78,7 @@ docker run -it --rm \
   -v ~/.shadow:/opt/data \
   -e ANTHROPIC_API_KEY="sk-ant-..." \
   -e OPENAI_API_KEY="sk-..." \
-  nousresearch/shadow-agent
+  shadow-overlord/shadow-agent
 ```
 
 Direct `-e` flags override values from `.env`. This is useful for CI/CD or secrets-manager integrations where you don't want keys on disk.
@@ -91,7 +91,7 @@ For persistent gateway deployment, a `docker-compose.yaml` is convenient:
 version: "3.8"
 services:
   shadow:
-    image: nousresearch/shadow-agent:latest
+    image: shadow-overlord/shadow-agent:latest
     container_name: shadow
     restart: unless-stopped
     command: gateway run
@@ -131,7 +131,7 @@ docker run -d \
   --restart unless-stopped \
   --memory=4g --cpus=2 \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent gateway run
+  shadow-overlord/shadow-agent gateway run
 ```
 
 ## What the Dockerfile does
@@ -157,13 +157,13 @@ The entrypoint script (`docker/entrypoint.sh`) bootstraps the data volume on fir
 Pull the latest image and recreate the container. Your data directory is untouched.
 
 ```sh
-docker pull nousresearch/shadow-agent:latest
+docker pull shadow-overlord/shadow-agent:latest
 docker rm -f shadow
 docker run -d \
   --name shadow \
   --restart unless-stopped \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent gateway run
+  shadow-overlord/shadow-agent gateway run
 ```
 
 Or with Docker Compose:
@@ -204,7 +204,7 @@ docker run -d \
   --name shadow \
   --shm-size=1g \
   -v ~/.shadow:/opt/data \
-  nousresearch/shadow-agent gateway run
+  shadow-overlord/shadow-agent gateway run
 ```
 
 ### Gateway not reconnecting after network issues
@@ -219,6 +219,6 @@ docker restart shadow
 
 ```sh
 docker logs --tail 50 shadow          # Recent logs
-docker run -it --rm nousresearch/shadow-agent:latest version     # Verify version
+docker run -it --rm shadow-overlord/shadow-agent:latest version     # Verify version
 docker stats shadow                    # Resource usage
 ```

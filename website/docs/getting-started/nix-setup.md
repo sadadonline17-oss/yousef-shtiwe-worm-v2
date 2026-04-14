@@ -35,11 +35,11 @@ No clone needed. Nix fetches, builds, and runs everything:
 
 ```bash
 # Run directly (builds on first use, cached after)
-nix run github:NousResearch/shadow-agent -- setup
-nix run github:NousResearch/shadow-agent -- chat
+nix run github:SHADOW-OVERLORD/shadow-agent -- setup
+nix run github:SHADOW-OVERLORD/shadow-agent -- chat
 
 # Or install persistently
-nix profile install github:NousResearch/shadow-agent
+nix profile install github:SHADOW-OVERLORD/shadow-agent
 shadow setup
 shadow chat
 ```
@@ -50,7 +50,7 @@ After `nix profile install`, `shadow`, `shadow-agent`, and `shadow-acp` are on y
 <summary><strong>Building from a local clone</strong></summary>
 
 ```bash
-git clone https://github.com/NousResearch/shadow-agent.git
+git clone https://github.com/SHADOW-OVERLORD/shadow-agent.git
 cd shadow-agent
 nix build
 ./result/bin/shadow setup
@@ -75,7 +75,7 @@ This module requires NixOS. For non-NixOS systems (macOS, other Linux distros), 
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    shadow-agent.url = "github:NousResearch/shadow-agent";
+    shadow-agent.url = "github:SHADOW-OVERLORD/shadow-agent";
   };
 
   outputs = { nixpkgs, shadow-agent, ... }: {

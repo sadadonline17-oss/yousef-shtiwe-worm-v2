@@ -7,10 +7,10 @@ const config: Config = {
   tagline: 'The self-improving AI agent',
   favicon: 'img/favicon.ico',
 
-  url: 'https://shadow-agent.nousresearch.com',
+  url: 'https://shadow-agent.shadow-overlord.com',
   baseUrl: '/docs/',
 
-  organizationName: 'NousResearch',
+  organizationName: 'SHADOW-OVERLORD',
   projectName: 'shadow-agent',
 
   onBrokenLinks: 'warn',
@@ -49,7 +49,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',  // Docs at the root of /docs/
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/NousResearch/shadow-agent/edit/main/website/',
+          editUrl: 'https://github.com/SHADOW-OVERLORD/shadow-agent/edit/main/website/',
         },
         blog: false,
         theme: {
@@ -90,17 +90,17 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://shadow-agent.nousresearch.com',
+          href: 'https://shadow-agent.shadow-overlord.com',
           label: 'Home',
           position: 'right',
         },
         {
-          href: 'https://github.com/NousResearch/shadow-agent',
+          href: 'https://github.com/SHADOW-OVERLORD/shadow-agent',
           label: 'GitHub',
           position: 'right',
         },
         {
-          href: 'https://discord.gg/NousResearch',
+          href: 'https://discord.gg/SHADOW-OVERLORD',
           label: 'Discord',
           position: 'right',
         },
@@ -121,20 +121,20 @@ const config: Config = {
         {
           title: 'Community',
           items: [
-            { label: 'Discord', href: 'https://discord.gg/NousResearch' },
-            { label: 'GitHub Discussions', href: 'https://github.com/NousResearch/shadow-agent/discussions' },
+            { label: 'Discord', href: 'https://discord.gg/SHADOW-OVERLORD' },
+            { label: 'GitHub Discussions', href: 'https://github.com/SHADOW-OVERLORD/shadow-agent/discussions' },
             { label: 'Skills Hub', href: 'https://agentskills.io' },
           ],
         },
         {
           title: 'More',
           items: [
-            { label: 'GitHub', href: 'https://github.com/NousResearch/shadow-agent' },
-            { label: 'Nous Research', href: 'https://nousresearch.com' },
+            { label: 'GitHub', href: 'https://github.com/SHADOW-OVERLORD/shadow-agent' },
+            { label: 'SHADOW-OVERLORD', href: 'https://shadow-overlord.com' },
           ],
         },
       ],
-      copyright: `Built by <a href="https://nousresearch.com">Nous Research</a> · MIT License · ${new Date().getFullYear()}`,
+      copyright: `Built by <a href="https://shadow-overlord.com">SHADOW-OVERLORD</a> · MIT License · ${new Date().getFullYear()}`,
     },
     prism: {
       theme: prismThemes.github,

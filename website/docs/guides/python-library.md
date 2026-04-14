@@ -15,19 +15,19 @@ SHADOW isn't just a CLI tool. You can import `AIAgent` directly and use it progr
 Install SHADOW directly from the repository:
 
 ```bash
-pip install git+https://github.com/NousResearch/shadow-agent.git
+pip install git+https://github.com/SHADOW-OVERLORD/shadow-agent.git
 ```
 
 Or with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv pip install git+https://github.com/NousResearch/shadow-agent.git
+uv pip install git+https://github.com/SHADOW-OVERLORD/shadow-agent.git
 ```
 
 You can also pin it in your `requirements.txt`:
 
 ```text
-shadow-agent @ git+https://github.com/NousResearch/shadow-agent.git
+shadow-agent @ git+https://github.com/SHADOW-OVERLORD/shadow-agent.git
 ```
 
 :::tip

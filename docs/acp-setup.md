@@ -224,5 +224,5 @@ SHADOW_LOG_LEVEL=DEBUG shadow acp
 ## Further Reading
 
 - [ACP Specification](https://github.com/anysphere/acp)
-- [SHADOW Agent Documentation](https://github.com/NousResearch/shadow-agent)
+- [SHADOW Agent Documentation](https://github.com/SHADOW-OVERLORD/shadow-agent)
 - Run `shadow --help` for all CLI options

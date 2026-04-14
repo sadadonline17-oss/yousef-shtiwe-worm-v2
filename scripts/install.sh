@@ -6,7 +6,7 @@
 # Uses uv for desktop/server installs and Python's stdlib venv + pip on Termux.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
 #
 # Or with options:
 #   curl -fsSL ... | bash -s -- --no-venv --skip-setup
@@ -26,8 +26,8 @@ NC='\033[0m' # No Color
 BOLD='\033[1m'
 
 # Configuration
-REPO_URL_SSH="git@github.com:NousResearch/shadow-agent.git"
-REPO_URL_HTTPS="https://github.com/NousResearch/shadow-agent.git"
+REPO_URL_SSH="git@github.com:SHADOW-OVERLORD/shadow-agent.git"
+REPO_URL_HTTPS="https://github.com/SHADOW-OVERLORD/shadow-agent.git"
 SHADOW_HOME="$HOME/.shadow"
 INSTALL_DIR="${SHADOW_INSTALL_DIR:-$SHADOW_HOME/shadow-agent}"
 PYTHON_VERSION="3.11"
@@ -96,7 +96,7 @@ print_banner() {
     echo "┌─────────────────────────────────────────────────────────┐"
     echo "│             ⚕ SHADOW Agent Installer                    │"
     echo "├─────────────────────────────────────────────────────────┤"
-    echo "│  An open source AI agent by Nous Research.              │"
+    echo "│  An open source AI agent by SHADOW-OVERLORD.              │"
     echo "└─────────────────────────────────────────────────────────┘"
     echo -e "${NC}"
 }
@@ -175,7 +175,7 @@ detect_os() {
             OS="windows"
             DISTRO="windows"
             log_error "Windows detected. Please use the PowerShell installer:"
-            log_info "  irm https://raw.githubusercontent.com/NousResearch/shadow-agent/main/scripts/install.ps1 | iex"
+            log_info "  irm https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.ps1 | iex"
             exit 1
             ;;
         *)
