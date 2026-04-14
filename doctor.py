@@ -37,7 +37,7 @@ _PROVIDER_ENV_HINTS = (
     "ANTHROPIC_API_KEY",
     "ANTHROPIC_TOKEN",
     "OPENAI_BASE_URL",
-    "NOUS_API_KEY",
+    "Shadow_API_KEY",
     "GLM_API_KEY",
     "ZAI_API_KEY",
     "Z_AI_API_KEY",
@@ -372,13 +372,13 @@ def run_doctor(args):
     print(color("◆ Auth Providers", Colors.CYAN, Colors.BOLD))
 
     try:
-        from shadow_cli.auth import get_nous_auth_status, get_codex_auth_status
+        from shadow_cli.auth import get_shadow_auth_status, get_codex_auth_status
 
-        nous_status = get_nous_auth_status()
-        if nous_status.get("logged_in"):
-            check_ok("Nous Portal auth", "(logged in)")
+        shadow_status = get_shadow_auth_status()
+        if shadow_status.get("logged_in"):
+            check_ok("Shadow Portal auth", "(logged in)")
         else:
-            check_warn("Nous Portal auth", "(not logged in)")
+            check_warn("Shadow Portal auth", "(not logged in)")
 
         codex_status = get_codex_auth_status()
         if codex_status.get("logged_in"):

@@ -251,7 +251,7 @@ def _has_any_provider_configured() -> bool:
     except Exception:
         pass
 
-    # Check for Nous Portal OAuth credentials
+    # Check for Shadow Portal OAuth credentials
     auth_file = get_shadow_home() / "auth.json"
     if auth_file.exists():
         try:
@@ -1112,8 +1112,8 @@ def select_provider_and_model(args=None):
     # Step 2: Provider-specific setup + model selection
     if selected_provider == "openrouter":
         _model_flow_openrouter(config, current_model)
-    elif selected_provider == "nous":
-        _model_flow_nous(config, current_model, args=args)
+    elif selected_provider == "shadow":
+        _model_flow_shadow(config, current_model, args=args)
     elif selected_provider == "openai-codex":
         _model_flow_openai_codex(config, current_model)
     elif selected_provider == "qwen-oauth":
@@ -1267,24 +1267,24 @@ def _model_flow_openrouter(config, current_model=""):
         print("No change.")
 
 
-def _model_flow_nous(config, current_model="", args=None):
-    """Nous Portal provider: ensure logged in, then pick model."""
+def _model_flow_shadow(config, current_model="", args=None):
+    """Shadow Portal provider: ensure logged in, then pick model."""
     from shadow_cli.auth import (
         get_provider_auth_state, _prompt_model_selection, _save_model_choice,
-        _update_config_for_provider, resolve_nous_runtime_credentials,
+        _update_config_for_provider, resolve_shadow_runtime_credentials,
         AuthError, format_auth_error,
-        _login_nous, PROVIDER_REGISTRY,
+        _login_shadow, PROVIDER_REGISTRY,
     )
     from shadow_cli.config import get_env_value, save_config, save_env_value
-    from shadow_cli.nous_subscription import (
-        apply_nous_provider_defaults,
-        get_nous_subscription_explainer_lines,
+    from shadow_cli.shadow_subscription import (
+        apply_shadow_provider_defaults,
+        get_shadow_subscription_explainer_lines,
     )
     import argparse
 
-    state = get_provider_auth_state("nous")
+    state = get_provider_auth_state("shadow")
     if not state or not state.get("access_token"):
-        print("Not logged into Nous Portal. Starting login...")
+        print("Not logged into Shadow Portal. Starting login...")
         print()
         try:
             mock_args = argparse.Namespace(
@@ -1297,9 +1297,9 @@ def _model_flow_nous(config, current_model="", args=None):
                 ca_bundle=getattr(args, "ca_bundle", None),
                 insecure=bool(getattr(args, "insecure", False)),
             )
-            _login_nous(mock_args, PROVIDER_REGISTRY["nous"])
+            _login_shadow(mock_args, PROVIDER_REGISTRY["shadow"])
             print()
-            for line in get_nous_subscription_explainer_lines():
+            for line in get_shadow_subscription_explainer_lines():
                 print(line)
         except SystemExit:
             print("Login cancelled or failed.")
@@ -1307,37 +1307,37 @@ def _model_flow_nous(config, current_model="", args=None):
         except Exception as exc:
             print(f"Login failed: {exc}")
             return
-        # login_nous already handles model selection + config update
+        # login_shadow already handles model selection + config update
         return
 
     # Already logged in — use curated model list (same as OpenRouter defaults).
     # The live /models endpoint returns hundreds of models; the curated list
     # shows only agentic models users recognize from OpenRouter.
     from shadow_cli.models import (
-        _PROVIDER_MODELS, get_pricing_for_provider, filter_nous_free_models,
-        check_nous_free_tier, partition_nous_models_by_tier,
+        _PROVIDER_MODELS, get_pricing_for_provider, filter_shadow_free_models,
+        check_shadow_free_tier, partition_shadow_models_by_tier,
     )
-    model_ids = _PROVIDER_MODELS.get("nous", [])
+    model_ids = _PROVIDER_MODELS.get("shadow", [])
     if not model_ids:
-        print("No curated models available for Nous Portal.")
+        print("No curated models available for Shadow Portal.")
         return
 
     # Verify credentials are still valid (catches expired sessions early)
     try:
-        creds = resolve_nous_runtime_credentials(min_key_ttl_seconds=5 * 60)
+        creds = resolve_shadow_runtime_credentials(min_key_ttl_seconds=5 * 60)
     except Exception as exc:
         relogin = isinstance(exc, AuthError) and exc.relogin_required
         msg = format_auth_error(exc) if isinstance(exc, AuthError) else str(exc)
         if relogin:
             print(f"Session expired: {msg}")
-            print("Re-authenticating with Nous Portal...\n")
+            print("Re-authenticating with Shadow Portal...\n")
             try:
                 mock_args = argparse.Namespace(
                     portal_url=None, inference_url=None, client_id=None,
                     scope=None, no_browser=False, timeout=15.0,
                     ca_bundle=None, insecure=False,
                 )
-                _login_nous(mock_args, PROVIDER_REGISTRY["nous"])
+                _login_shadow(mock_args, PROVIDER_REGISTRY["shadow"])
             except Exception as login_exc:
                 print(f"Re-login failed: {login_exc}")
             return
@@ -1345,37 +1345,37 @@ def _model_flow_nous(config, current_model="", args=None):
         return
 
     # Fetch live pricing (non-blocking — returns empty dict on failure)
-    pricing = get_pricing_for_provider("nous")
+    pricing = get_pricing_for_provider("shadow")
 
     # Check if user is on free tier
-    free_tier = check_nous_free_tier()
+    free_tier = check_shadow_free_tier()
 
     # For both tiers: apply the allowlist filter first (removes non-allowlisted
     # free models and allowlist models that aren't actually free).
     # Then for free users: partition remaining models into selectable/unavailable.
-    model_ids = filter_nous_free_models(model_ids, pricing)
+    model_ids = filter_shadow_free_models(model_ids, pricing)
     unavailable_models: list[str] = []
     if free_tier:
-        model_ids, unavailable_models = partition_nous_models_by_tier(model_ids, pricing, free_tier=True)
+        model_ids, unavailable_models = partition_shadow_models_by_tier(model_ids, pricing, free_tier=True)
 
     if not model_ids and not unavailable_models:
-        print("No models available for Nous Portal after filtering.")
+        print("No models available for Shadow Portal after filtering.")
         return
 
     # Resolve portal URL for upgrade links (may differ on staging)
-    _nous_portal_url = ""
+    _shadow_portal_url = ""
     try:
-        _nous_state = get_provider_auth_state("nous")
-        if _nous_state:
-            _nous_portal_url = _nous_state.get("portal_base_url", "")
+        _shadow_state = get_provider_auth_state("shadow")
+        if _shadow_state:
+            _shadow_portal_url = _shadow_state.get("portal_base_url", "")
     except Exception:
         pass
 
     if free_tier and not model_ids:
         print("No free models currently available.")
         if unavailable_models:
-            from shadow_cli.auth import DEFAULT_NOUS_PORTAL_URL
-            _url = (_nous_portal_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
+            from shadow_cli.auth import DEFAULT_Shadow_PORTAL_URL
+            _url = (_shadow_portal_url or DEFAULT_Shadow_PORTAL_URL).rstrip("/")
             print(f"Upgrade at {_url} to access paid models.")
         return
 
@@ -1383,13 +1383,13 @@ def _model_flow_nous(config, current_model="", args=None):
 
     selected = _prompt_model_selection(
         model_ids, current_model=current_model, pricing=pricing,
-        unavailable_models=unavailable_models, portal_url=_nous_portal_url,
+        unavailable_models=unavailable_models, portal_url=_shadow_portal_url,
     )
     if selected:
         _save_model_choice(selected)
-        # Reactivate Nous as the provider and update config
+        # Reactivate Shadow as the provider and update config
         inference_url = creds.get("base_url", "")
-        _update_config_for_provider("nous", inference_url)
+        _update_config_for_provider("shadow", inference_url)
         current_model_cfg = config.get("model")
         if isinstance(current_model_cfg, dict):
             model_cfg = dict(current_model_cfg)
@@ -1397,7 +1397,7 @@ def _model_flow_nous(config, current_model="", args=None):
             model_cfg = {"default": current_model_cfg.strip()}
         else:
             model_cfg = {}
-        model_cfg["provider"] = "nous"
+        model_cfg["provider"] = "shadow"
         model_cfg["default"] = selected
         if inference_url and inference_url.strip():
             model_cfg["base_url"] = inference_url.rstrip("/")
@@ -1408,17 +1408,17 @@ def _model_flow_nous(config, current_model="", args=None):
         if get_env_value("OPENAI_BASE_URL"):
             save_env_value("OPENAI_BASE_URL", "")
             save_env_value("OPENAI_API_KEY", "")
-        changed_defaults = apply_nous_provider_defaults(config)
+        changed_defaults = apply_shadow_provider_defaults(config)
         save_config(config)
-        print(f"Default model set to: {selected} (via Nous Portal)")
+        print(f"Default model set to: {selected} (via Shadow Portal)")
         if "tts" in changed_defaults:
-            print("TTS provider set to: OpenAI TTS via your Nous subscription")
+            print("TTS provider set to: OpenAI TTS via your Shadow subscription")
         else:
             current_tts = str(config.get("tts", {}).get("provider") or "edge")
             if current_tts.lower() not in {"", "edge"}:
                 print(f"Keeping your existing TTS provider: {current_tts}")
         print()
-        for line in get_nous_subscription_explainer_lines():
+        for line in get_shadow_subscription_explainer_lines():
             print(line)
     else:
         print("No change.")
@@ -2853,7 +2853,7 @@ def cmd_version(args):
     except ImportError:
         print("OpenAI SDK: Not installed")
 
-    # Show update status (synchronous — acceptable since user asked for version info)
+    # Show update status (synchroshadow — acceptable since user asked for version info)
     try:
         from shadow_cli.banner import check_for_updates
         from shadow_cli.config import recommended_update_command
@@ -4612,7 +4612,7 @@ For more help on a command:
     )
     chat_parser.add_argument(
         "--provider",
-        choices=["auto", "openrouter", "nous", "openai-codex", "copilot-acp", "copilot", "anthropic", "gemini", "huggingface", "zai", "kimi-coding", "kimi-coding-cn", "minimax", "minimax-cn", "kilocode", "xiaomi", "arcee"],
+        choices=["auto", "openrouter", "shadow", "openai-codex", "copilot-acp", "copilot", "anthropic", "gemini", "huggingface", "zai", "kimi-coding", "kimi-coding-cn", "minimax", "minimax-cn", "kilocode", "xiaomi", "arcee"],
         default=None,
         help="Inference provider (default: auto)"
     )
@@ -4689,41 +4689,41 @@ For more help on a command:
     )
     model_parser.add_argument(
         "--portal-url",
-        help="Portal base URL for Nous login (default: production portal)"
+        help="Portal base URL for Shadow login (default: production portal)"
     )
     model_parser.add_argument(
         "--inference-url",
-        help="Inference API base URL for Nous login (default: production inference API)"
+        help="Inference API base URL for Shadow login (default: production inference API)"
     )
     model_parser.add_argument(
         "--client-id",
         default=None,
-        help="OAuth client id to use for Nous login (default: shadow-cli)"
+        help="OAuth client id to use for Shadow login (default: shadow-cli)"
     )
     model_parser.add_argument(
         "--scope",
         default=None,
-        help="OAuth scope to request for Nous login"
+        help="OAuth scope to request for Shadow login"
     )
     model_parser.add_argument(
         "--no-browser",
         action="store_true",
-        help="Do not attempt to open the browser automatically during Nous login"
+        help="Do not attempt to open the browser automatically during Shadow login"
     )
     model_parser.add_argument(
         "--timeout",
         type=float,
         default=15.0,
-        help="HTTP request timeout in seconds for Nous login (default: 15)"
+        help="HTTP request timeout in seconds for Shadow login (default: 15)"
     )
     model_parser.add_argument(
         "--ca-bundle",
-        help="Path to CA bundle PEM file for Nous TLS verification"
+        help="Path to CA bundle PEM file for Shadow TLS verification"
     )
     model_parser.add_argument(
         "--insecure",
         action="store_true",
-        help="Disable TLS verification for Nous login (testing only)"
+        help="Disable TLS verification for Shadow login (testing only)"
     )
     model_parser.set_defaults(func=cmd_model)
 
@@ -4827,9 +4827,9 @@ For more help on a command:
     )
     login_parser.add_argument(
         "--provider",
-        choices=["nous", "openai-codex"],
+        choices=["shadow", "openai-codex"],
         default=None,
-        help="Provider to authenticate with (default: nous)"
+        help="Provider to authenticate with (default: shadow)"
     )
     login_parser.add_argument(
         "--portal-url",
@@ -4881,7 +4881,7 @@ For more help on a command:
     )
     logout_parser.add_argument(
         "--provider",
-        choices=["nous", "openai-codex"],
+        choices=["shadow", "openai-codex"],
         default=None,
         help="Provider to log out from (default: active provider)"
     )
@@ -4897,8 +4897,8 @@ For more help on a command:
     auth_add.add_argument("--type", dest="auth_type", choices=["oauth", "api-key", "api_key"], help="Credential type to add")
     auth_add.add_argument("--label", help="Optional display label")
     auth_add.add_argument("--api-key", help="API key value (otherwise prompted securely)")
-    auth_add.add_argument("--portal-url", help="Nous portal base URL")
-    auth_add.add_argument("--inference-url", help="Nous inference base URL")
+    auth_add.add_argument("--portal-url", help="Shadow portal base URL")
+    auth_add.add_argument("--inference-url", help="Shadow inference base URL")
     auth_add.add_argument("--client-id", help="OAuth client id")
     auth_add.add_argument("--scope", help="OAuth scope override")
     auth_add.add_argument("--no-browser", action="store_true", help="Do not auto-open a browser for OAuth login")

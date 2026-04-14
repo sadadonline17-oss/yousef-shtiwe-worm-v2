@@ -16,7 +16,7 @@ from agent.prompt_builder import (
     _find_git_root,
     _strip_yaml_frontmatter,
     build_skills_system_prompt,
-    build_nous_subscription_prompt,
+    build_shadow_subscription_prompt,
     build_context_files_prompt,
     build_environment_hints,
     CONTEXT_FILE_MAX_CHARS,
@@ -29,7 +29,7 @@ from agent.prompt_builder import (
     PLATFORM_HINTS,
     WSL_ENVIRONMENT_HINT,
 )
-from shadow_cli.nous_subscription import NousFeatureState, NousSubscriptionFeatures
+from shadow_cli.shadow_subscription import ShadowFeatureState, ShadowSubscriptionFeatures
 
 
 # =========================================================================
@@ -411,58 +411,58 @@ class TestBuildSkillsSystemPrompt:
         assert "backend-skill" in result
 
 
-class TestBuildNousSubscriptionPrompt:
+class TestBuildShadowSubscriptionPrompt:
     def test_includes_active_subscription_features(self, monkeypatch):
-        monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
+        monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
         monkeypatch.setattr(
-            "shadow_cli.nous_subscription.get_nous_subscription_features",
-            lambda config=None: NousSubscriptionFeatures(
+            "shadow_cli.shadow_subscription.get_shadow_subscription_features",
+            lambda config=None: ShadowSubscriptionFeatures(
                 subscribed=True,
-                nous_auth_present=True,
-                provider_is_nous=True,
+                shadow_auth_present=True,
+                provider_is_shadow=True,
                 features={
-                    "web": NousFeatureState("web", "Web tools", True, True, True, True, False, True, "firecrawl"),
-                    "image_gen": NousFeatureState("image_gen", "Image generation", True, True, True, True, False, True, "Nous Subscription"),
-                    "tts": NousFeatureState("tts", "OpenAI TTS", True, True, True, True, False, True, "OpenAI TTS"),
-                    "browser": NousFeatureState("browser", "Browser automation", True, True, True, True, False, True, "Browser Use"),
-                    "modal": NousFeatureState("modal", "Modal execution", False, True, False, False, False, True, "local"),
+                    "web": ShadowFeatureState("web", "Web tools", True, True, True, True, False, True, "firecrawl"),
+                    "image_gen": ShadowFeatureState("image_gen", "Image generation", True, True, True, True, False, True, "Shadow Subscription"),
+                    "tts": ShadowFeatureState("tts", "OpenAI TTS", True, True, True, True, False, True, "OpenAI TTS"),
+                    "browser": ShadowFeatureState("browser", "Browser automation", True, True, True, True, False, True, "Browser Use"),
+                    "modal": ShadowFeatureState("modal", "Modal execution", False, True, False, False, False, True, "local"),
                 },
             ),
         )
 
-        prompt = build_nous_subscription_prompt({"web_search", "browser_navigate"})
+        prompt = build_shadow_subscription_prompt({"web_search", "browser_navigate"})
 
         assert "Browser Use" in prompt
         assert "Modal execution is optional" in prompt
         assert "do not ask the user for Firecrawl, FAL, OpenAI TTS, or Browser-Use API keys" in prompt
 
     def test_non_subscriber_prompt_includes_relevant_upgrade_guidance(self, monkeypatch):
-        monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
+        monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
         monkeypatch.setattr(
-            "shadow_cli.nous_subscription.get_nous_subscription_features",
-            lambda config=None: NousSubscriptionFeatures(
+            "shadow_cli.shadow_subscription.get_shadow_subscription_features",
+            lambda config=None: ShadowSubscriptionFeatures(
                 subscribed=False,
-                nous_auth_present=False,
-                provider_is_nous=False,
+                shadow_auth_present=False,
+                provider_is_shadow=False,
                 features={
-                    "web": NousFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
-                    "image_gen": NousFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
-                    "tts": NousFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
-                    "browser": NousFeatureState("browser", "Browser automation", True, False, False, False, False, True, ""),
-                    "modal": NousFeatureState("modal", "Modal execution", False, False, False, False, False, True, ""),
+                    "web": ShadowFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
+                    "image_gen": ShadowFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
+                    "tts": ShadowFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
+                    "browser": ShadowFeatureState("browser", "Browser automation", True, False, False, False, False, True, ""),
+                    "modal": ShadowFeatureState("modal", "Modal execution", False, False, False, False, False, True, ""),
                 },
             ),
         )
 
-        prompt = build_nous_subscription_prompt({"image_generate"})
+        prompt = build_shadow_subscription_prompt({"image_generate"})
 
-        assert "suggest Nous subscription as one option" in prompt
+        assert "suggest Shadow subscription as one option" in prompt
         assert "Do not mention subscription unless" in prompt
 
     def test_feature_flag_off_returns_empty_prompt(self, monkeypatch):
-        monkeypatch.delenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", raising=False)
+        monkeypatch.delenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", raising=False)
 
-        prompt = build_nous_subscription_prompt({"web_search"})
+        prompt = build_shadow_subscription_prompt({"web_search"})
 
         assert prompt == ""
 

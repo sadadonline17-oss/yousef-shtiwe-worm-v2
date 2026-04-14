@@ -436,15 +436,15 @@ def test_load_pool_removes_stale_seeded_env_entry(tmp_path, monkeypatch):
     assert auth_payload["credential_pool"]["openrouter"] == []
 
 
-def test_load_pool_migrates_nous_provider_state(tmp_path, monkeypatch):
+def test_load_pool_migrates_shadow_provider_state(tmp_path, monkeypatch):
     monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
     _write_auth_store(
         tmp_path,
         {
             "version": 1,
-            "active_provider": "nous",
+            "active_provider": "shadow",
             "providers": {
-                "nous": {
+                "shadow": {
                     "portal_base_url": "https://portal.example.com",
                     "inference_base_url": "https://inference.example.com/v1",
                     "client_id": "shadow-cli",
@@ -462,7 +462,7 @@ def test_load_pool_migrates_nous_provider_state(tmp_path, monkeypatch):
 
     from agent.credential_pool import load_pool
 
-    pool = load_pool("nous")
+    pool = load_pool("shadow")
     entry = pool.select()
 
     assert entry is not None
@@ -516,15 +516,15 @@ def test_load_pool_removes_stale_file_backed_singleton_entry(tmp_path, monkeypat
     assert auth_payload["credential_pool"]["anthropic"] == []
 
 
-def test_load_pool_migrates_nous_provider_state_preserves_tls(tmp_path, monkeypatch):
+def test_load_pool_migrates_shadow_provider_state_preserves_tls(tmp_path, monkeypatch):
     monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
     _write_auth_store(
         tmp_path,
         {
             "version": 1,
-            "active_provider": "nous",
+            "active_provider": "shadow",
             "providers": {
-                "nous": {
+                "shadow": {
                     "portal_base_url": "https://portal.example.com",
                     "inference_base_url": "https://inference.example.com/v1",
                     "client_id": "shadow-cli",
@@ -537,7 +537,7 @@ def test_load_pool_migrates_nous_provider_state_preserves_tls(tmp_path, monkeypa
                     "agent_key_expires_at": "2026-03-24T13:30:00+00:00",
                     "tls": {
                         "insecure": True,
-                        "ca_bundle": "/tmp/nous-ca.pem",
+                        "ca_bundle": "/tmp/shadow-ca.pem",
                     },
                 }
             },
@@ -546,19 +546,19 @@ def test_load_pool_migrates_nous_provider_state_preserves_tls(tmp_path, monkeypa
 
     from agent.credential_pool import load_pool
 
-    pool = load_pool("nous")
+    pool = load_pool("shadow")
     entry = pool.select()
 
     assert entry is not None
     assert entry.tls == {
         "insecure": True,
-        "ca_bundle": "/tmp/nous-ca.pem",
+        "ca_bundle": "/tmp/shadow-ca.pem",
     }
 
     auth_payload = json.loads((tmp_path / "shadow" / "auth.json").read_text())
-    assert auth_payload["credential_pool"]["nous"][0]["tls"] == {
+    assert auth_payload["credential_pool"]["shadow"][0]["tls"] == {
         "insecure": True,
-        "ca_bundle": "/tmp/nous-ca.pem",
+        "ca_bundle": "/tmp/shadow-ca.pem",
     }
 
 

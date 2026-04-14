@@ -2,7 +2,7 @@
 
 Different LLM providers expect model identifiers in different formats:
 
-- **Aggregators** (OpenRouter, Nous, AI Gateway, Kilo Code) need
+- **Aggregators** (OpenRouter, Shadow, AI Gateway, Kilo Code) need
   ``vendor/model`` slugs like ``anthropic/claude-sonnet-4.6``.
 - **Anthropic** native API expects bare names with dots replaced by
   hyphens: ``claude-sonnet-4-6``.
@@ -31,7 +31,7 @@ from typing import Optional
 # Vendor prefix mapping
 # ---------------------------------------------------------------------------
 # Maps the first hyphen-delimited token of a bare model name to the vendor
-# slug used by aggregator APIs (OpenRouter, Nous, etc.).
+# slug used by aggregator APIs (OpenRouter, Shadow, etc.).
 #
 # Example: "claude-sonnet-4.6" -> first token "claude" -> vendor "anthropic"
 #          -> aggregator slug: "anthropic/claude-sonnet-4.6"
@@ -61,7 +61,7 @@ _VENDOR_PREFIXES: dict[str, str] = {
 # Providers whose APIs consume vendor/model slugs.
 _AGGREGATOR_PROVIDERS: frozenset[str] = frozenset({
     "openrouter",
-    "nous",
+    "shadow",
     "ai-gateway",
     "kilocode",
 })

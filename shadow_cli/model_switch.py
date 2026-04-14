@@ -66,14 +66,14 @@ _SHADOW_MODEL_WARNING = (
 #   SHADOW-OVERLORD/SHADOW-3-Llama-3.1-70B, shadow-4-405b, openrouter/shadow3:70b
 # Negative examples it must NOT match:
 #   shadow-brain:qwen3-14b-ctx16k, qwen3:14b, claude-opus-4-6
-_NOUS_SHADOW_NON_AGENTIC_RE = re.compile(
+_Shadow_SHADOW_NON_AGENTIC_RE = re.compile(
     r"(?:^|[/:])shadow[-_ ]?[34](?:[-_.:]|$)",
     re.IGNORECASE,
 )
 
 
-def is_nous_shadow_non_agentic(model_name: str) -> bool:
-    """Return True if *model_name* is a real Nous SHADOW 3/4 chat model.
+def is_shadow_shadow_non_agentic(model_name: str) -> bool:
+    """Return True if *model_name* is a real Shadow SHADOW 3/4 chat model.
 
     Used to decide whether to surface the non-agentic warning at startup.
     Callers in :mod:`cli.py` and here should go through this single helper
@@ -81,12 +81,12 @@ def is_nous_shadow_non_agentic(model_name: str) -> bool:
     """
     if not model_name:
         return False
-    return bool(_NOUS_SHADOW_NON_AGENTIC_RE.search(model_name))
+    return bool(_Shadow_SHADOW_NON_AGENTIC_RE.search(model_name))
 
 
 def _check_shadow_model_warning(model_name: str) -> str:
-    """Return a warning string if *model_name* is a Nous SHADOW 3/4 chat model."""
-    if is_nous_shadow_non_agentic(model_name):
+    """Return a warning string if *model_name* is a Shadow SHADOW 3/4 chat model."""
+    if is_shadow_shadow_non_agentic(model_name):
         return _SHADOW_MODEL_WARNING
     return ""
 
@@ -388,10 +388,10 @@ def _resolve_alias_fallback(
 ) -> Optional[tuple[str, str, str]]:
     """Try to resolve an alias on the user's authenticated providers.
 
-    Falls back to ``("openrouter", "nous")`` only when no authenticated
+    Falls back to ``("openrouter", "shadow")`` only when no authenticated
     providers are supplied (backwards compat for non-interactive callers).
     """
-    providers = authenticated_providers or ("openrouter", "nous")
+    providers = authenticated_providers or ("openrouter", "shadow")
     for provider in providers:
         result = resolve_alias(raw_input, provider)
         if result is not None:
@@ -793,9 +793,9 @@ def list_authenticated_providers(
     # Build curated model lists keyed by shadow provider ID
     curated: dict[str, list[str]] = dict(_PROVIDER_MODELS)
     curated["openrouter"] = [mid for mid, _ in OPENROUTER_MODELS]
-    # "nous" shares OpenRouter's curated list if not separately defined
-    if "nous" not in curated:
-        curated["nous"] = curated["openrouter"]
+    # "shadow" shares OpenRouter's curated list if not separately defined
+    if "shadow" not in curated:
+        curated["shadow"] = curated["openrouter"]
 
     # --- 1. Check SHADOW-mapped providers ---
     for shadow_id, mdev_id in PROVIDER_TO_MODELS_DEV.items():
@@ -839,7 +839,7 @@ def list_authenticated_providers(
         })
         seen_slugs.add(slug)
 
-    # --- 2. Check SHADOW-only providers (nous, openai-codex, copilot, opencode-go) ---
+    # --- 2. Check SHADOW-only providers (shadow, openai-codex, copilot, opencode-go) ---
     from shadow_cli.providers import SHADOW_OVERLAYS
     from shadow_cli.auth import PROVIDER_REGISTRY as _auth_registry
 

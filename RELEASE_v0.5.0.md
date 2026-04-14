@@ -8,7 +8,7 @@
 
 ## ✨ Highlights
 
-- **Nous Portal now supports 400+ models** — The SHADOW-OVERLORD inference portal has expanded dramatically, giving SHADOW Agent users access to over 400 models through a single provider endpoint
+- **Shadow Portal now supports 400+ models** — The SHADOW-OVERLORD inference portal has expanded dramatically, giving SHADOW Agent users access to over 400 models through a single provider endpoint
 
 - **Hugging Face as a first-class inference provider** — Full integration with HF Inference API including curated agentic model picker that maps to OpenRouter analogues, live `/models` endpoint probe, and setup wizard flow ([#3419](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3419), [#3440](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3440))
 
@@ -40,7 +40,7 @@
 - Removed `/model` slash command from CLI and gateway in favor of `shadow model` subcommand ([#3080](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3080))
 - Preserve `custom` provider instead of silently remapping to `openrouter` ([#2792](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2792))
 - Read root-level `provider` and `base_url` from config.yaml into model config ([#3112](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3112))
-- Align Nous Portal model slugs with OpenRouter naming ([#3253](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3253))
+- Align Shadow Portal model slugs with OpenRouter naming ([#3253](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3253))
 - Fix Alibaba provider default endpoint and model list ([#3484](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3484))
 - Allow MiniMax users to override `/v1` → `/anthropic` auto-correction ([#3553](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3553))
 - Migrate OAuth token refresh to `platform.claude.com` with fallback ([#3246](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/3246))

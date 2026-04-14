@@ -35,7 +35,7 @@ user message
 
 ### openclaw-honcho: hook-based plugin
 
-The plugin registers hooks against OpenClaw's event bus. Context is fetched synchronously inside `before_prompt_build` on every turn. Message capture happens in `agent_end`. The multi-agent hierarchy is tracked via `subagent_spawned`. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.
+The plugin registers hooks against OpenClaw's event bus. Context is fetched synchroshadowly inside `before_prompt_build` on every turn. Message capture happens in `agent_end`. The multi-agent hierarchy is tracked via `subagent_spawned`. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.
 
 Turn flow:
 
@@ -103,7 +103,7 @@ Six patterns from SHADOW are worth adopting in any Honcho integration. Each is d
 
 ### Problem
 
-Calling `session.context()` and `peer.chat()` synchronously before each LLM call adds 200–800ms of Honcho round-trip latency to every turn.
+Calling `session.context()` and `peer.chat()` synchroshadowly before each LLM call adds 200–800ms of Honcho round-trip latency to every turn.
 
 ### Pattern
 

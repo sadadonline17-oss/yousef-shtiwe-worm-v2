@@ -668,10 +668,10 @@ class TestBuildSystemPrompt:
         # Should contain current date info like "Conversation started:"
         assert "Conversation started:" in prompt
 
-    def test_includes_nous_subscription_prompt(self, agent, monkeypatch):
-        monkeypatch.setattr(run_agent, "build_nous_subscription_prompt", lambda tool_names: "NOUS SUBSCRIPTION BLOCK")
+    def test_includes_shadow_subscription_prompt(self, agent, monkeypatch):
+        monkeypatch.setattr(run_agent, "build_shadow_subscription_prompt", lambda tool_names: "Shadow SUBSCRIPTION BLOCK")
         prompt = agent._build_system_prompt()
-        assert "NOUS SUBSCRIPTION BLOCK" in prompt
+        assert "Shadow SUBSCRIPTION BLOCK" in prompt
 
     def test_skills_prompt_derives_available_toolsets_from_loaded_tools(self):
         tools = _make_tool_defs("web_search", "skills_list", "skill_view", "skill_manage")
@@ -893,7 +893,7 @@ class TestBuildApiKwargs:
         kwargs = agent._build_api_kwargs(messages)
         assert kwargs["extra_body"]["reasoning"]["effort"] == "medium"
 
-    def test_reasoning_sent_for_nous_route(self, agent):
+    def test_reasoning_sent_for_shadow_route(self, agent):
         agent.base_url = "https://inference-api.shadow-overlord.com/v1"
         agent.model = "minimax/minimax-m2.5"
         messages = [{"role": "user", "content": "hi"}]
@@ -2079,9 +2079,9 @@ class TestRunConversation:
         assert result["final_response"] == "Fresh partial content from this turn"
         assert result["api_calls"] == 1
 
-    def test_nous_401_refreshes_after_remint_and_retries(self, agent):
+    def test_shadow_401_refreshes_after_remint_and_retries(self, agent):
         self._setup_agent(agent)
-        agent.provider = "nous"
+        agent.provider = "shadow"
         agent.api_mode = "chat_completions"
 
         calls = {"api": 0, "refresh": 0}
@@ -2110,7 +2110,7 @@ class TestRunConversation:
             patch.object(agent, "_cleanup_task_resources"),
             patch.object(agent, "_interruptible_api_call", side_effect=_fake_api_call),
             patch.object(
-                agent, "_try_refresh_nous_client_credentials", side_effect=_fake_refresh
+                agent, "_try_refresh_shadow_client_credentials", side_effect=_fake_refresh
             ),
         ):
             result = agent.run_conversation("hello")
@@ -2515,13 +2515,13 @@ class TestConversationHistoryNotMutated:
 # ---------------------------------------------------------------------------
 
 
-class TestNousCredentialRefresh:
-    """Verify Nous credential refresh rebuilds the runtime client."""
+class TestShadowCredentialRefresh:
+    """Verify Shadow credential refresh rebuilds the runtime client."""
 
-    def test_try_refresh_nous_client_credentials_rebuilds_client(
+    def test_try_refresh_shadow_client_credentials_rebuilds_client(
         self, agent, monkeypatch
     ):
-        agent.provider = "nous"
+        agent.provider = "shadow"
         agent.api_mode = "chat_completions"
 
         closed = {"value": False}
@@ -2538,7 +2538,7 @@ class TestNousCredentialRefresh:
         def _fake_resolve(**kwargs):
             captured.update(kwargs)
             return {
-                "api_key": "new-nous-key",
+                "api_key": "new-shadow-key",
                 "base_url": "https://inference-api.shadow-overlord.com/v1",
             }
 
@@ -2547,17 +2547,17 @@ class TestNousCredentialRefresh:
             return _RebuiltClient()
 
         monkeypatch.setattr(
-            "shadow_cli.auth.resolve_nous_runtime_credentials", _fake_resolve
+            "shadow_cli.auth.resolve_shadow_runtime_credentials", _fake_resolve
         )
 
         agent.client = _ExistingClient()
         with patch("run_agent.OpenAI", side_effect=_fake_openai):
-            ok = agent._try_refresh_nous_client_credentials(force=True)
+            ok = agent._try_refresh_shadow_client_credentials(force=True)
 
         assert ok is True
         assert closed["value"] is True
         assert captured["force_mint"] is True
-        assert rebuilt["kwargs"]["api_key"] == "new-nous-key"
+        assert rebuilt["kwargs"]["api_key"] == "new-shadow-key"
         assert (
             rebuilt["kwargs"]["base_url"] == "https://inference-api.shadow-overlord.com/v1"
         )

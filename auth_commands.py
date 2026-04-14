@@ -32,7 +32,7 @@ from shadow_constants import OPENROUTER_BASE_URL
 
 
 # Providers that support OAuth login in addition to API keys.
-_OAUTH_CAPABLE_PROVIDERS = {"anthropic", "nous", "openai-codex", "qwen-oauth"}
+_OAUTH_CAPABLE_PROVIDERS = {"anthropic", "shadow", "openai-codex", "qwen-oauth"}
 
 
 def _get_custom_provider_names() -> list:
@@ -147,7 +147,7 @@ def auth_add_command(args) -> None:
         if provider.startswith(CUSTOM_POOL_PREFIX):
             requested_type = AUTH_TYPE_API_KEY
         else:
-            requested_type = AUTH_TYPE_OAUTH if provider in {"anthropic", "nous", "openai-codex", "qwen-oauth"} else AUTH_TYPE_API_KEY
+            requested_type = AUTH_TYPE_OAUTH if provider in {"anthropic", "shadow", "openai-codex", "qwen-oauth"} else AUTH_TYPE_API_KEY
 
     pool = load_pool(provider)
 
@@ -201,8 +201,8 @@ def auth_add_command(args) -> None:
         print(f'Added {provider} OAuth credential #{len(pool.entries())}: "{entry.label}"')
         return
 
-    if provider == "nous":
-        creds = auth_mod._nous_device_code_login(
+    if provider == "shadow":
+        creds = auth_mod._shadow_device_code_login(
             portal_base_url=getattr(args, "portal_url", None),
             inference_base_url=getattr(args, "inference_url", None),
             client_id=getattr(args, "client_id", None),
@@ -327,7 +327,7 @@ def auth_remove_command(args) -> None:
     # If this was a singleton-seeded credential (OAuth device_code, shadow_pkce),
     # clear the underlying auth store / credential file so it doesn't get
     # re-seeded on the next load_pool() call.
-    elif removed.source == "device_code" and provider in ("openai-codex", "nous"):
+    elif removed.source == "device_code" and provider in ("openai-codex", "shadow"):
         from shadow_cli.auth import (
             _load_auth_store, _save_auth_store, _auth_store_lock,
         )

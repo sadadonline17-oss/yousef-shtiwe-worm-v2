@@ -1411,8 +1411,8 @@ def _build_compact_banner() -> str:
     dim_color = _skin.get_color("banner_dim", "#B8860B") if _skin else "#B8860B"
 
     if skin_name == "default":
-        line1 = "⚕ NOUS SHADOW - AI Agent Framework"
-        tiny_line = "⚕ NOUS SHADOW"
+        line1 = "⚕ Shadow SHADOW - AI Agent Framework"
+        tiny_line = "⚕ Shadow SHADOW"
     else:
         agent_name = _skin.get_branding("agent_name", "SHADOW Agent") if _skin else "SHADOW Agent"
         line1 = f"{agent_name} - AI Agent Framework"
@@ -1601,7 +1601,7 @@ class SHADOWCLI:
         Args:
             model: Model to use (default: from env or claude-sonnet)
             toolsets: List of toolsets to enable (default: all)
-            provider: Inference provider ("auto", "openrouter", "nous", "openai-codex", "zai", "kimi-coding", "minimax", "minimax-cn")
+            provider: Inference provider ("auto", "openrouter", "shadow", "openai-codex", "zai", "kimi-coding", "minimax", "minimax-cn")
             api_key: API key (default: from environment)
             base_url: API base URL (default: OpenRouter)
             max_turns: Maximum tool-calling iterations shared with subagents (default: 90)
@@ -3000,11 +3000,11 @@ class SHADOWCLI:
                     "[dim]   Fix: Set model.context_length in config.yaml, or increase your server's context setting[/]"
                 )
 
-        # Warn if the configured model is a Nous SHADOW LLM (not agentic)
-        from shadow_cli.model_switch import is_nous_shadow_non_agentic
+        # Warn if the configured model is a Shadow SHADOW LLM (not agentic)
+        from shadow_cli.model_switch import is_shadow_shadow_non_agentic
 
         model_name = getattr(self, "model", "") or ""
-        if is_nous_shadow_non_agentic(model_name):
+        if is_shadow_shadow_non_agentic(model_name):
             self.console.print()
             self.console.print(
                 "[bold yellow]⚠  SHADOW-OVERLORD SHADOW 3 & 4 models are NOT agentic and are not "
@@ -4859,8 +4859,8 @@ class SHADOWCLI:
                 marker = " ← active" if is_active else ""
                 print(f"    [{p['id']}]{marker}")
                 curated = curated_models_for_provider(p["id"])
-                # Fetch pricing for providers that support it (openrouter, nous)
-                pricing_map = get_pricing_for_provider(p["id"]) if p["id"] in ("openrouter", "nous") else {}
+                # Fetch pricing for providers that support it (openrouter, shadow)
+                pricing_map = get_pricing_for_provider(p["id"]) if p["id"] in ("openrouter", "shadow") else {}
                 if curated and pricing_map:
                     cur_model = self.model if is_active else ""
                     for line in format_model_pricing_table(curated, pricing_map, current_model=cur_model):
@@ -9821,7 +9821,7 @@ def main(
         toolsets: Comma-separated list of toolsets to enable (e.g., "web,terminal")
         skills: Comma-separated or repeated list of skills to preload for the session
         model: Model to use (default: anthropic/claude-opus-4-20250514)
-        provider: Inference provider ("auto", "openrouter", "nous", "openai-codex", "zai", "kimi-coding", "minimax", "minimax-cn")
+        provider: Inference provider ("auto", "openrouter", "shadow", "openai-codex", "zai", "kimi-coding", "minimax", "minimax-cn")
         api_key: API key for authentication
         base_url: Base URL for the API
         max_turns: Maximum tool-calling iterations (default: 60)

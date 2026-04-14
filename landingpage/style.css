@@ -1,6 +1,6 @@
 /* =========================================================================
    SHADOW Agent Landing Page
-   Colors: Nous Blue (#3050FF) palette
+   Colors: Shadow Blue (#3050FF) palette
    ========================================================================= */
 
 /* --- Reset & Base --- */
@@ -163,7 +163,7 @@ strong {
 }
 .nav-logo:hover { color: var(--primary-light); }
 
-.nav-nous-logo {
+.nav-shadow-logo {
     width: 22px;
     height: 22px;
     border-radius: 4px;

@@ -285,32 +285,32 @@ def test_save_platform_tools_still_preserves_mcp_with_platform_default_present()
     assert "terminal" not in saved
 
 
-def test_visible_providers_include_nous_subscription_when_logged_in(monkeypatch):
-    monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
-    config = {"model": {"provider": "nous"}}
+def test_visible_providers_include_shadow_subscription_when_logged_in(monkeypatch):
+    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
+    config = {"model": {"provider": "shadow"}}
 
     monkeypatch.setattr(
-        "shadow_cli.nous_subscription.get_nous_auth_status",
+        "shadow_cli.shadow_subscription.get_shadow_auth_status",
         lambda: {"logged_in": True},
     )
 
     providers = _visible_providers(TOOL_CATEGORIES["browser"], config)
 
-    assert providers[0]["name"].startswith("Nous Subscription")
+    assert providers[0]["name"].startswith("Shadow Subscription")
 
 
-def test_visible_providers_hide_nous_subscription_when_feature_flag_is_off(monkeypatch):
-    monkeypatch.delenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", raising=False)
-    config = {"model": {"provider": "nous"}}
+def test_visible_providers_hide_shadow_subscription_when_feature_flag_is_off(monkeypatch):
+    monkeypatch.delenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", raising=False)
+    config = {"model": {"provider": "shadow"}}
 
     monkeypatch.setattr(
-        "shadow_cli.nous_subscription.get_nous_auth_status",
+        "shadow_cli.shadow_subscription.get_shadow_auth_status",
         lambda: {"logged_in": True},
     )
 
     providers = _visible_providers(TOOL_CATEGORIES["browser"], config)
 
-    assert all(not provider["name"].startswith("Nous Subscription") for provider in providers)
+    assert all(not provider["name"].startswith("Shadow Subscription") for provider in providers)
 
 
 def test_local_browser_provider_is_saved_explicitly(monkeypatch):
@@ -327,10 +327,10 @@ def test_local_browser_provider_is_saved_explicitly(monkeypatch):
     assert config["browser"]["cloud_provider"] == "local"
 
 
-def test_first_install_nous_auto_configures_managed_defaults(monkeypatch):
-    monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
+def test_first_install_shadow_auto_configures_managed_defaults(monkeypatch):
+    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
     config = {
-        "model": {"provider": "nous"},
+        "model": {"provider": "shadow"},
         "platform_toolsets": {"cli": []},
     }
     for env_var in (
@@ -355,14 +355,14 @@ def test_first_install_nous_auto_configures_managed_defaults(monkeypatch):
     monkeypatch.setattr("shadow_cli.tools_config.save_config", lambda config: None)
     # Prevent leaked platform tokens (e.g. DISCORD_BOT_TOKEN from gateway.run
     # import) from adding extra platforms. The loop in tools_command runs
-    # apply_nous_managed_defaults per platform; a second iteration sees values
+    # apply_shadow_managed_defaults per platform; a second iteration sees values
     # set by the first as "explicit" and skips them.
     monkeypatch.setattr(
         "shadow_cli.tools_config._get_enabled_platforms",
         lambda: ["cli"],
     )
     monkeypatch.setattr(
-        "shadow_cli.nous_subscription.get_nous_auth_status",
+        "shadow_cli.shadow_subscription.get_shadow_auth_status",
         lambda: {"logged_in": True},
     )
 

@@ -21,7 +21,7 @@ shadow chat -q "Hello"
 shadow chat --model "anthropic/claude-sonnet-4"
 
 # With a specific provider
-shadow chat --provider nous        # Use Nous Portal
+shadow chat --provider shadow        # Use Shadow Portal
 shadow chat --provider openrouter  # Force OpenRouter
 
 # With specific toolsets

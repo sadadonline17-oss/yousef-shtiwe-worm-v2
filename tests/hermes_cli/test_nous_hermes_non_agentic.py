@@ -1,11 +1,11 @@
-"""Tests for the Nous-SHADOW-3/4 non-agentic warning detector.
+"""Tests for the Shadow-SHADOW-3/4 non-agentic warning detector.
 
 Prior to this check, the warning fired on any model whose name contained
 ``"shadow"`` anywhere (case-insensitive). That false-positived on unrelated
 local Modelfiles such as ``shadow-brain:qwen3-14b-ctx16k`` — a tool-capable
 Qwen3 wrapper that happens to live under the "shadow" tag namespace.
 
-``is_nous_shadow_non_agentic`` should only match the actual SHADOW-OVERLORD
+``is_shadow_shadow_non_agentic`` should only match the actual SHADOW-OVERLORD
 SHADOW-3 / SHADOW-4 chat family.
 """
 
@@ -16,7 +16,7 @@ import pytest
 from shadow_cli.model_switch import (
     _SHADOW_MODEL_WARNING,
     _check_shadow_model_warning,
-    is_nous_shadow_non_agentic,
+    is_shadow_shadow_non_agentic,
 )
 
 
@@ -36,9 +36,9 @@ from shadow_cli.model_switch import (
         "shadow-3.1",
     ],
 )
-def test_matches_real_nous_shadow_chat_models(model_name: str) -> None:
-    assert is_nous_shadow_non_agentic(model_name), (
-        f"expected {model_name!r} to be flagged as Nous SHADOW 3/4"
+def test_matches_real_shadow_shadow_chat_models(model_name: str) -> None:
+    assert is_shadow_shadow_non_agentic(model_name), (
+        f"expected {model_name!r} to be flagged as Shadow SHADOW 3/4"
     )
     assert _check_shadow_model_warning(model_name) == _SHADOW_MODEL_WARNING
 
@@ -63,7 +63,7 @@ def test_matches_real_nous_shadow_chat_models(model_name: str) -> None:
         # Non-chat SHADOW models we don't warn about
         "shadow-llm-2",
         "shadow2-pro",
-        "nous-shadow-2-mistral",
+        "shadow-shadow-2-mistral",
         # Edge cases
         "",
         "shadow",  # bare "shadow" isn't the 3/4 family
@@ -72,13 +72,13 @@ def test_matches_real_nous_shadow_chat_models(model_name: str) -> None:
     ],
 )
 def test_does_not_match_unrelated_models(model_name: str) -> None:
-    assert not is_nous_shadow_non_agentic(model_name), (
-        f"expected {model_name!r} NOT to be flagged as Nous SHADOW 3/4"
+    assert not is_shadow_shadow_non_agentic(model_name), (
+        f"expected {model_name!r} NOT to be flagged as Shadow SHADOW 3/4"
     )
     assert _check_shadow_model_warning(model_name) == ""
 
 
 def test_none_like_inputs_are_safe() -> None:
-    assert is_nous_shadow_non_agentic("") is False
+    assert is_shadow_shadow_non_agentic("") is False
     # Defensive: the helper shouldn't crash on None-ish falsy input either.
     assert _check_shadow_model_warning("") == ""

@@ -1,7 +1,7 @@
 """
 Multi-provider authentication system for SHADOW Agent.
 
-Supports OAuth device code flows (Nous Portal, future: OpenAI Codex) and
+Supports OAuth device code flows (Shadow Portal, future: OpenAI Codex) and
 traditional API key providers (OpenRouter, custom endpoints). Auth state
 is persisted in ~/.shadow/auth.json with cross-process file locking.
 
@@ -58,11 +58,11 @@ except Exception:
 AUTH_STORE_VERSION = 1
 AUTH_LOCK_TIMEOUT_SECONDS = 15.0
 
-# Nous Portal defaults
-DEFAULT_NOUS_PORTAL_URL = "https://portal.shadow-overlord.com"
-DEFAULT_NOUS_INFERENCE_URL = "https://inference-api.shadow-overlord.com/v1"
-DEFAULT_NOUS_CLIENT_ID = "shadow-cli"
-DEFAULT_NOUS_SCOPE = "inference:mint_agent_key"
+# Shadow Portal defaults
+DEFAULT_Shadow_PORTAL_URL = "https://portal.shadow-overlord.com"
+DEFAULT_Shadow_INFERENCE_URL = "https://inference-api.shadow-overlord.com/v1"
+DEFAULT_Shadow_CLIENT_ID = "shadow-cli"
+DEFAULT_Shadow_SCOPE = "inference:mint_agent_key"
 DEFAULT_AGENT_KEY_MIN_TTL_SECONDS = 30 * 60  # 30 minutes
 ACCESS_TOKEN_REFRESH_SKEW_SECONDS = 120       # refresh 2 min before expiry
 DEVICE_AUTH_POLL_INTERVAL_CAP_SECONDS = 1     # poll at most every 1s
@@ -100,14 +100,14 @@ class ProviderConfig:
 
 
 PROVIDER_REGISTRY: Dict[str, ProviderConfig] = {
-    "nous": ProviderConfig(
-        id="nous",
-        name="Nous Portal",
+    "shadow": ProviderConfig(
+        id="shadow",
+        name="Shadow Portal",
         auth_type="oauth_device_code",
-        portal_base_url=DEFAULT_NOUS_PORTAL_URL,
-        inference_base_url=DEFAULT_NOUS_INFERENCE_URL,
-        client_id=DEFAULT_NOUS_CLIENT_ID,
-        scope=DEFAULT_NOUS_SCOPE,
+        portal_base_url=DEFAULT_Shadow_PORTAL_URL,
+        inference_base_url=DEFAULT_Shadow_INFERENCE_URL,
+        client_id=DEFAULT_Shadow_CLIENT_ID,
+        scope=DEFAULT_Shadow_SCOPE,
     ),
     "openai-codex": ProviderConfig(
         id="openai-codex",
@@ -501,14 +501,14 @@ def format_auth_error(error: Exception) -> str:
 
     if error.code == "subscription_required":
         return (
-            "No active paid subscription found on Nous Portal. "
+            "No active paid subscription found on Shadow Portal. "
             "Please purchase/activate a subscription, then retry."
         )
 
     if error.code == "insufficient_credits":
         return (
             "Subscription credits are exhausted. "
-            "Top up/renew credits in Nous Portal, then retry."
+            "Top up/renew credits in Shadow Portal, then retry."
         )
 
     if error.code == "temporarily_unavailable":
@@ -635,10 +635,10 @@ def _load_auth_store(auth_file: Optional[Path] = None) -> Dict[str, Any]:
     if isinstance(raw, dict) and isinstance(raw.get("systems"), dict):
         systems = raw["systems"]
         providers = {}
-        if "nous_portal" in systems:
-            providers["nous"] = systems["nous_portal"]
+        if "shadow_portal" in systems:
+            providers["shadow"] = systems["shadow_portal"]
         return {"version": AUTH_STORE_VERSION, "providers": providers,
-                "active_provider": "nous" if providers else None}
+                "active_provider": "shadow" if providers else None}
 
     return {"version": AUTH_STORE_VERSION, "providers": {}}
 
@@ -1674,7 +1674,7 @@ def _poll_for_token(
 
 
 # =============================================================================
-# Nous Portal — token refresh, agent key minting, model discovery
+# Shadow Portal — token refresh, agent key minting, model discovery
 # =============================================================================
 
 def _refresh_access_token(
@@ -1697,19 +1697,19 @@ def _refresh_access_token(
         payload = response.json()
         if "access_token" not in payload:
             raise AuthError("Refresh response missing access_token",
-                            provider="nous", code="invalid_token", relogin_required=True)
+                            provider="shadow", code="invalid_token", relogin_required=True)
         return payload
 
     try:
         error_payload = response.json()
     except Exception as exc:
         raise AuthError("Refresh token exchange failed",
-                        provider="nous", relogin_required=True) from exc
+                        provider="shadow", relogin_required=True) from exc
 
     code = str(error_payload.get("error", "invalid_grant"))
     description = str(error_payload.get("error_description") or "Refresh token exchange failed")
     relogin = code in {"invalid_grant", "invalid_token"}
-    raise AuthError(description, provider="nous", code=code, relogin_required=relogin)
+    raise AuthError(description, provider="shadow", code=code, relogin_required=relogin)
 
 
 def _mint_agent_key(
@@ -1730,29 +1730,29 @@ def _mint_agent_key(
         payload = response.json()
         if "api_key" not in payload:
             raise AuthError("Mint response missing api_key",
-                            provider="nous", code="server_error")
+                            provider="shadow", code="server_error")
         return payload
 
     try:
         error_payload = response.json()
     except Exception as exc:
         raise AuthError("Agent key mint request failed",
-                        provider="nous", code="server_error") from exc
+                        provider="shadow", code="server_error") from exc
 
     code = str(error_payload.get("error", "server_error"))
     description = str(error_payload.get("error_description") or "Agent key mint request failed")
     relogin = code in {"invalid_token", "invalid_grant"}
-    raise AuthError(description, provider="nous", code=code, relogin_required=relogin)
+    raise AuthError(description, provider="shadow", code=code, relogin_required=relogin)
 
 
-def fetch_nous_models(
+def fetch_shadow_models(
     *,
     inference_base_url: str,
     api_key: str,
     timeout_seconds: float = 15.0,
     verify: bool | str = True,
 ) -> List[str]:
-    """Fetch available model IDs from the Nous inference API."""
+    """Fetch available model IDs from the Shadow inference API."""
     timeout = httpx.Timeout(timeout_seconds)
     with httpx.Client(timeout=timeout, headers={"Accept": "application/json"}, verify=verify) as client:
         response = client.get(
@@ -1767,7 +1767,7 @@ def fetch_nous_models(
             description = str(err.get("error_description") or err.get("error") or description)
         except Exception as e:
             logger.debug("Could not parse error response JSON: %s", e)
-        raise AuthError(description, provider="nous", code="models_fetch_failed")
+        raise AuthError(description, provider="shadow", code="models_fetch_failed")
 
     payload = response.json()
     data = payload.get("data")
@@ -1809,40 +1809,40 @@ def _agent_key_is_usable(state: Dict[str, Any], min_ttl_seconds: int) -> bool:
     return not _is_expiring(state.get("agent_key_expires_at"), min_ttl_seconds)
 
 
-def resolve_nous_access_token(
+def resolve_shadow_access_token(
     *,
     timeout_seconds: float = 15.0,
     insecure: Optional[bool] = None,
     ca_bundle: Optional[str] = None,
     refresh_skew_seconds: int = ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
 ) -> str:
-    """Resolve a refresh-aware Nous Portal access token for managed tool gateways."""
+    """Resolve a refresh-aware Shadow Portal access token for managed tool gateways."""
     with _auth_store_lock():
         auth_store = _load_auth_store()
-        state = _load_provider_state(auth_store, "nous")
+        state = _load_provider_state(auth_store, "shadow")
 
         if not state:
             raise AuthError(
-                "SHADOW is not logged into Nous Portal.",
-                provider="nous",
+                "SHADOW is not logged into Shadow Portal.",
+                provider="shadow",
                 relogin_required=True,
             )
 
         portal_base_url = (
             _optional_base_url(state.get("portal_base_url"))
             or os.getenv("SHADOW_PORTAL_BASE_URL")
-            or os.getenv("NOUS_PORTAL_BASE_URL")
-            or DEFAULT_NOUS_PORTAL_URL
+            or os.getenv("Shadow_PORTAL_BASE_URL")
+            or DEFAULT_Shadow_PORTAL_URL
         ).rstrip("/")
-        client_id = str(state.get("client_id") or DEFAULT_NOUS_CLIENT_ID)
+        client_id = str(state.get("client_id") or DEFAULT_Shadow_CLIENT_ID)
         verify = _resolve_verify(insecure=insecure, ca_bundle=ca_bundle, auth_state=state)
 
         access_token = state.get("access_token")
         refresh_token = state.get("refresh_token")
         if not isinstance(access_token, str) or not access_token:
             raise AuthError(
-                "No access token found for Nous Portal login.",
-                provider="nous",
+                "No access token found for Shadow Portal login.",
+                provider="shadow",
                 relogin_required=True,
             )
 
@@ -1852,7 +1852,7 @@ def resolve_nous_access_token(
         if not isinstance(refresh_token, str) or not refresh_token:
             raise AuthError(
                 "Session expired and no refresh token is available.",
-                provider="nous",
+                provider="shadow",
                 relogin_required=True,
             )
 
@@ -1887,12 +1887,12 @@ def resolve_nous_access_token(
             "insecure": verify is False,
             "ca_bundle": verify if isinstance(verify, str) else None,
         }
-        _save_provider_state(auth_store, "nous", state)
+        _save_provider_state(auth_store, "shadow", state)
         _save_auth_store(auth_store)
         return state["access_token"]
 
 
-def refresh_nous_oauth_pure(
+def refresh_shadow_oauth_pure(
     access_token: str,
     refresh_token: str,
     client_id: str,
@@ -1900,7 +1900,7 @@ def refresh_nous_oauth_pure(
     inference_base_url: str,
     *,
     token_type: str = "Bearer",
-    scope: str = DEFAULT_NOUS_SCOPE,
+    scope: str = DEFAULT_Shadow_SCOPE,
     obtained_at: Optional[str] = None,
     expires_at: Optional[str] = None,
     agent_key: Optional[str] = None,
@@ -1912,15 +1912,15 @@ def refresh_nous_oauth_pure(
     force_refresh: bool = False,
     force_mint: bool = False,
 ) -> Dict[str, Any]:
-    """Refresh Nous OAuth state without mutating auth.json."""
+    """Refresh Shadow OAuth state without mutating auth.json."""
     state: Dict[str, Any] = {
         "access_token": access_token,
         "refresh_token": refresh_token,
-        "client_id": client_id or DEFAULT_NOUS_CLIENT_ID,
-        "portal_base_url": (portal_base_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/"),
-        "inference_base_url": (inference_base_url or DEFAULT_NOUS_INFERENCE_URL).rstrip("/"),
+        "client_id": client_id or DEFAULT_Shadow_CLIENT_ID,
+        "portal_base_url": (portal_base_url or DEFAULT_Shadow_PORTAL_URL).rstrip("/"),
+        "inference_base_url": (inference_base_url or DEFAULT_Shadow_INFERENCE_URL).rstrip("/"),
         "token_type": token_type or "Bearer",
-        "scope": scope or DEFAULT_NOUS_SCOPE,
+        "scope": scope or DEFAULT_Shadow_SCOPE,
         "obtained_at": obtained_at,
         "expires_at": expires_at,
         "agent_key": agent_key,
@@ -1977,7 +1977,7 @@ def refresh_nous_oauth_pure(
     return state
 
 
-def refresh_nous_oauth_from_state(
+def refresh_shadow_oauth_from_state(
     state: Dict[str, Any],
     *,
     min_key_ttl_seconds: int = DEFAULT_AGENT_KEY_MIN_TTL_SECONDS,
@@ -1985,16 +1985,16 @@ def refresh_nous_oauth_from_state(
     force_refresh: bool = False,
     force_mint: bool = False,
 ) -> Dict[str, Any]:
-    """Refresh Nous OAuth from a state dict. Thin wrapper around refresh_nous_oauth_pure."""
+    """Refresh Shadow OAuth from a state dict. Thin wrapper around refresh_shadow_oauth_pure."""
     tls = state.get("tls") or {}
-    return refresh_nous_oauth_pure(
+    return refresh_shadow_oauth_pure(
         state.get("access_token", ""),
         state.get("refresh_token", ""),
         state.get("client_id", "shadow-cli"),
-        state.get("portal_base_url", DEFAULT_NOUS_PORTAL_URL),
-        state.get("inference_base_url", DEFAULT_NOUS_INFERENCE_URL),
+        state.get("portal_base_url", DEFAULT_Shadow_PORTAL_URL),
+        state.get("inference_base_url", DEFAULT_Shadow_INFERENCE_URL),
         token_type=state.get("token_type", "Bearer"),
-        scope=state.get("scope", DEFAULT_NOUS_SCOPE),
+        scope=state.get("scope", DEFAULT_Shadow_SCOPE),
         obtained_at=state.get("obtained_at"),
         expires_at=state.get("expires_at"),
         agent_key=state.get("agent_key"),
@@ -2008,7 +2008,7 @@ def refresh_nous_oauth_from_state(
     )
 
 
-def resolve_nous_runtime_credentials(
+def resolve_shadow_runtime_credentials(
     *,
     min_key_ttl_seconds: int = DEFAULT_AGENT_KEY_MIN_TTL_SECONDS,
     timeout_seconds: float = 15.0,
@@ -2017,7 +2017,7 @@ def resolve_nous_runtime_credentials(
     force_mint: bool = False,
 ) -> Dict[str, Any]:
     """
-    Resolve Nous inference credentials for runtime use.
+    Resolve Shadow inference credentials for runtime use.
 
     Ensures access_token is valid (refreshes if needed) and a short-lived
     inference key is present with minimum TTL (mints/reuses as needed).
@@ -2031,39 +2031,39 @@ def resolve_nous_runtime_credentials(
 
     with _auth_store_lock():
         auth_store = _load_auth_store()
-        state = _load_provider_state(auth_store, "nous")
+        state = _load_provider_state(auth_store, "shadow")
 
         if not state:
-            raise AuthError("SHADOW is not logged into Nous Portal.",
-                            provider="nous", relogin_required=True)
+            raise AuthError("SHADOW is not logged into Shadow Portal.",
+                            provider="shadow", relogin_required=True)
 
         portal_base_url = (
             _optional_base_url(state.get("portal_base_url"))
             or os.getenv("SHADOW_PORTAL_BASE_URL")
-            or os.getenv("NOUS_PORTAL_BASE_URL")
-            or DEFAULT_NOUS_PORTAL_URL
+            or os.getenv("Shadow_PORTAL_BASE_URL")
+            or DEFAULT_Shadow_PORTAL_URL
         ).rstrip("/")
         inference_base_url = (
             _optional_base_url(state.get("inference_base_url"))
-            or os.getenv("NOUS_INFERENCE_BASE_URL")
-            or DEFAULT_NOUS_INFERENCE_URL
+            or os.getenv("Shadow_INFERENCE_BASE_URL")
+            or DEFAULT_Shadow_INFERENCE_URL
         ).rstrip("/")
-        client_id = str(state.get("client_id") or DEFAULT_NOUS_CLIENT_ID)
+        client_id = str(state.get("client_id") or DEFAULT_Shadow_CLIENT_ID)
 
         def _persist_state(reason: str) -> None:
             try:
-                _save_provider_state(auth_store, "nous", state)
+                _save_provider_state(auth_store, "shadow", state)
                 _save_auth_store(auth_store)
             except Exception as exc:
                 _oauth_trace(
-                    "nous_state_persist_failed",
+                    "shadow_state_persist_failed",
                     sequence_id=sequence_id,
                     reason=reason,
                     error_type=type(exc).__name__,
                 )
                 raise
             _oauth_trace(
-                "nous_state_persisted",
+                "shadow_state_persisted",
                 sequence_id=sequence_id,
                 reason=reason,
                 refresh_token_fp=_token_fingerprint(state.get("refresh_token")),
@@ -2073,7 +2073,7 @@ def resolve_nous_runtime_credentials(
         verify = _resolve_verify(insecure=insecure, ca_bundle=ca_bundle, auth_state=state)
         timeout = httpx.Timeout(timeout_seconds if timeout_seconds else 15.0)
         _oauth_trace(
-            "nous_runtime_credentials_start",
+            "shadow_runtime_credentials_start",
             sequence_id=sequence_id,
             force_mint=bool(force_mint),
             min_key_ttl_seconds=min_key_ttl_seconds,
@@ -2085,14 +2085,14 @@ def resolve_nous_runtime_credentials(
             refresh_token = state.get("refresh_token")
 
             if not isinstance(access_token, str) or not access_token:
-                raise AuthError("No access token found for Nous Portal login.",
-                                provider="nous", relogin_required=True)
+                raise AuthError("No access token found for Shadow Portal login.",
+                                provider="shadow", relogin_required=True)
 
             # Step 1: refresh access token if expiring
             if _is_expiring(state.get("expires_at"), ACCESS_TOKEN_REFRESH_SKEW_SECONDS):
                 if not isinstance(refresh_token, str) or not refresh_token:
                     raise AuthError("Session expired and no refresh token is available.",
-                                    provider="nous", relogin_required=True)
+                                    provider="shadow", relogin_required=True)
 
                 _oauth_trace(
                     "refresh_start",
@@ -2231,12 +2231,12 @@ def resolve_nous_runtime_credentials(
                 "ca_bundle": verify if isinstance(verify, str) else None,
             }
 
-        _persist_state("resolve_nous_runtime_credentials_final")
+        _persist_state("resolve_shadow_runtime_credentials_final")
 
     api_key = state.get("agent_key")
     if not isinstance(api_key, str) or not api_key:
-        raise AuthError("Failed to resolve a Nous inference API key",
-                        provider="nous", code="server_error")
+        raise AuthError("Failed to resolve a Shadow inference API key",
+                        provider="shadow", code="server_error")
 
     expires_at = state.get("agent_key_expires_at")
     expires_epoch = _parse_iso_timestamp(expires_at)
@@ -2247,7 +2247,7 @@ def resolve_nous_runtime_credentials(
     )
 
     return {
-        "provider": "nous",
+        "provider": "shadow",
         "base_url": inference_base_url,
         "api_key": api_key,
         "key_id": state.get("agent_key_id"),
@@ -2261,7 +2261,7 @@ def resolve_nous_runtime_credentials(
 # Status helpers
 # =============================================================================
 
-def get_nous_auth_status() -> Dict[str, Any]:
+def get_shadow_auth_status() -> Dict[str, Any]:
     """Status snapshot for `shadow status` output.
 
     Checks the credential pool first (where the dashboard device-code flow
@@ -2272,7 +2272,7 @@ def get_nous_auth_status() -> Dict[str, Any]:
     # here but may not have written to the auth store yet.
     try:
         from agent.credential_pool import load_pool
-        pool = load_pool("nous")
+        pool = load_pool("shadow")
         if pool and pool.has_credentials():
             entry = pool.select()
             if entry is not None:
@@ -2296,7 +2296,7 @@ def get_nous_auth_status() -> Dict[str, Any]:
         pass
 
     # Fall back to auth-store provider state
-    state = get_provider_auth_state("nous")
+    state = get_provider_auth_state("shadow")
     if not state:
         return {
             "logged_in": False,
@@ -2429,8 +2429,8 @@ def get_external_process_provider_status(provider_id: str) -> Dict[str, Any]:
 def get_auth_status(provider_id: Optional[str] = None) -> Dict[str, Any]:
     """Generic auth status dispatcher."""
     target = provider_id or get_active_provider()
-    if target == "nous":
-        return get_nous_auth_status()
+    if target == "shadow":
+        return get_shadow_auth_status()
     if target == "openai-codex":
         return get_codex_auth_status()
     if target == "qwen-oauth":
@@ -2701,7 +2701,7 @@ def _prompt_model_selection(
         # simple_term_menu pads title lines to terminal width (causes wrapping),
         # so we keep the title minimal and use stdout for the static block.
         # clear_screen=False means our printed output stays visible above.
-        _upgrade_url = (portal_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
+        _upgrade_url = (portal_url or DEFAULT_Shadow_PORTAL_URL).rstrip("/")
         if _unavailable:
             print(menu_title)
             print()
@@ -2749,7 +2749,7 @@ def _prompt_model_selection(
     print(f"  {n + 2:>{num_width}}. Skip (keep current)")
 
     if _unavailable:
-        _upgrade_url = (portal_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
+        _upgrade_url = (portal_url or DEFAULT_Shadow_PORTAL_URL).rstrip("/")
         print()
         print(f"  {_DIM}── Unavailable models (requires paid tier — upgrade at {_upgrade_url}) ──{_RESET}")
         for mid in _unavailable:
@@ -3011,7 +3011,7 @@ def _codex_device_code_login() -> Dict[str, Any]:
     }
 
 
-def _nous_device_code_login(
+def _shadow_device_code_login(
     *,
     portal_base_url: Optional[str] = None,
     inference_base_url: Optional[str] = None,
@@ -3023,17 +3023,17 @@ def _nous_device_code_login(
     ca_bundle: Optional[str] = None,
     min_key_ttl_seconds: int = 5 * 60,
 ) -> Dict[str, Any]:
-    """Run the Nous device-code flow and return full OAuth state without persisting."""
-    pconfig = PROVIDER_REGISTRY["nous"]
+    """Run the Shadow device-code flow and return full OAuth state without persisting."""
+    pconfig = PROVIDER_REGISTRY["shadow"]
     portal_base_url = (
         portal_base_url
         or os.getenv("SHADOW_PORTAL_BASE_URL")
-        or os.getenv("NOUS_PORTAL_BASE_URL")
+        or os.getenv("Shadow_PORTAL_BASE_URL")
         or pconfig.portal_base_url
     ).rstrip("/")
     requested_inference_url = (
         inference_base_url
-        or os.getenv("NOUS_INFERENCE_BASE_URL")
+        or os.getenv("Shadow_INFERENCE_BASE_URL")
         or pconfig.inference_base_url
     ).rstrip("/")
     client_id = client_id or pconfig.client_id
@@ -3121,7 +3121,7 @@ def _nous_device_code_login(
         "agent_key_obtained_at": None,
     }
     try:
-        return refresh_nous_oauth_from_state(
+        return refresh_shadow_oauth_from_state(
             auth_state,
             min_key_ttl_seconds=min_key_ttl_seconds,
             timeout_seconds=timeout_seconds,
@@ -3131,10 +3131,10 @@ def _nous_device_code_login(
     except AuthError as exc:
         if exc.code == "subscription_required":
             portal_url = auth_state.get(
-                "portal_base_url", DEFAULT_NOUS_PORTAL_URL
+                "portal_base_url", DEFAULT_Shadow_PORTAL_URL
             ).rstrip("/")
             print()
-            print("Your Nous Portal account does not have an active subscription.")
+            print("Your Shadow Portal account does not have an active subscription.")
             print(f"  Subscribe here: {portal_url}/billing")
             print()
             print("After subscribing, run `shadow model` again to finish setup.")
@@ -3142,8 +3142,8 @@ def _nous_device_code_login(
         raise
 
 
-def _login_nous(args, pconfig: ProviderConfig) -> None:
-    """Nous Portal device authorization flow."""
+def _login_shadow(args, pconfig: ProviderConfig) -> None:
+    """Shadow Portal device authorization flow."""
     timeout_seconds = getattr(args, "timeout", None) or 15.0
     insecure = bool(getattr(args, "insecure", False))
     ca_bundle = (
@@ -3153,7 +3153,7 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
     )
 
     try:
-        auth_state = _nous_device_code_login(
+        auth_state = _shadow_device_code_login(
             portal_base_url=getattr(args, "portal_url", None),
             inference_base_url=getattr(args, "inference_url", None),
             client_id=getattr(args, "client_id", None) or pconfig.client_id,
@@ -3169,7 +3169,7 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
 
         with _auth_store_lock():
             auth_store = _load_auth_store()
-            _save_provider_state(auth_store, "nous", auth_state)
+            _save_provider_state(auth_store, "shadow", auth_state)
             saved_to = _save_auth_store(auth_store)
 
         print()
@@ -3177,7 +3177,7 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
         print(f"  Auth state: {saved_to}")
 
         # Resolve model BEFORE writing provider to config.yaml so we never
-        # leave the config in a half-updated state (provider=nous but model
+        # leave the config in a half-updated state (provider=shadow but model
         # still set to the previous provider's model, e.g. opus from
         # OpenRouter).  The auth.json active_provider was already set above.
         selected_model = None
@@ -3186,24 +3186,24 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
             if not isinstance(runtime_key, str) or not runtime_key:
                 raise AuthError(
                     "No runtime API key available to fetch models",
-                    provider="nous",
+                    provider="shadow",
                     code="invalid_token",
                 )
 
             from shadow_cli.models import (
-                _PROVIDER_MODELS, get_pricing_for_provider, filter_nous_free_models,
-                check_nous_free_tier, partition_nous_models_by_tier,
+                _PROVIDER_MODELS, get_pricing_for_provider, filter_shadow_free_models,
+                check_shadow_free_tier, partition_shadow_models_by_tier,
             )
-            model_ids = _PROVIDER_MODELS.get("nous", [])
+            model_ids = _PROVIDER_MODELS.get("shadow", [])
 
             print()
             unavailable_models: list = []
             if model_ids:
-                pricing = get_pricing_for_provider("nous")
-                model_ids = filter_nous_free_models(model_ids, pricing)
-                free_tier = check_nous_free_tier()
+                pricing = get_pricing_for_provider("shadow")
+                model_ids = filter_shadow_free_models(model_ids, pricing)
+                free_tier = check_shadow_free_tier()
                 if free_tier:
-                    model_ids, unavailable_models = partition_nous_models_by_tier(
+                    model_ids, unavailable_models = partition_shadow_models_by_tier(
                         model_ids, pricing, free_tier=True,
                     )
             _portal = auth_state.get("portal_base_url", "")
@@ -3215,11 +3215,11 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
                     portal_url=_portal,
                 )
             elif unavailable_models:
-                _url = (_portal or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
+                _url = (_portal or DEFAULT_Shadow_PORTAL_URL).rstrip("/")
                 print("No free models currently available.")
                 print(f"Upgrade at {_url} to access paid models.")
             else:
-                print("No curated models available for Nous Portal.")
+                print("No curated models available for Shadow Portal.")
         except Exception as exc:
             message = format_auth_error(exc) if isinstance(exc, AuthError) else str(exc)
             print()
@@ -3227,12 +3227,12 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
 
         # Write provider + model atomically so config is never mismatched.
         config_path = _update_config_for_provider(
-            "nous", inference_base_url, default_model=selected_model,
+            "shadow", inference_base_url, default_model=selected_model,
         )
         if selected_model:
             _save_model_choice(selected_model)
             print(f"Default model set to: {selected_model}")
-        print(f"  Config updated: {config_path} (model.provider=nous)")
+        print(f"  Config updated: {config_path} (model.provider=shadow)")
 
     except KeyboardInterrupt:
         print("\nLogin cancelled.")

@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Any, Optional, List, Tuple
 
-from tools.tool_backend_helpers import managed_nous_tools_enabled as _managed_nous_tools_enabled
+from tools.tool_backend_helpers import managed_shadow_tools_enabled as _managed_shadow_tools_enabled
 
 _IS_WINDOWS = platform.system() == "Windows"
 _ENV_VAR_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
@@ -434,7 +434,7 @@ DEFAULT_CONFIG = {
     # the configured provider is unavailable.
     "auxiliary": {
         "vision": {
-            "provider": "auto",    # auto | openrouter | nous | codex | custom
+            "provider": "auto",    # auto | openrouter | shadow | codex | custom
             "model": "",           # e.g. "google/gemini-2.5-flash", "gpt-4o"
             "base_url": "",        # direct OpenAI-compatible endpoint (takes precedence over provider)
             "api_key": "",         # API key for base_url (falls back to OPENAI_API_KEY)
@@ -598,7 +598,7 @@ DEFAULT_CONFIG = {
     # Subagent delegation — override the provider:model used by delegate_task
     # so child agents can run on a different (cheaper/faster) provider and model.
     # Uses the same runtime provider resolution as CLI/gateway startup, so all
-    # configured providers (OpenRouter, Nous, Z.ai, Kimi, etc.) are supported.
+    # configured providers (OpenRouter, Shadow, Z.ai, Kimi, etc.) are supported.
     "delegation": {
         "model": "",       # e.g. "google/gemini-3-flash-preview" (empty = inherit parent model)
         "provider": "",    # e.g. "openrouter" (empty = inherit parent provider + credentials)
@@ -723,16 +723,16 @@ ENV_VARS_BY_VERSION: Dict[int, List[str]] = {
 
 # Required environment variables with metadata for migration prompts.
 # LLM provider is required but handled in the setup wizard's provider
-# selection step (Nous Portal / OpenRouter / Custom endpoint), so this
+# selection step (Shadow Portal / OpenRouter / Custom endpoint), so this
 # dict is intentionally empty — no single env var is universally required.
 REQUIRED_ENV_VARS = {}
 
 # Optional environment variables that enhance functionality
 OPTIONAL_ENV_VARS = {
     # ── Provider (handled in provider selection, not shown in checklists) ──
-    "NOUS_BASE_URL": {
-        "description": "Nous Portal base URL override",
-        "prompt": "Nous Portal base URL (leave empty for default)",
+    "Shadow_BASE_URL": {
+        "description": "Shadow Portal base URL override",
+        "prompt": "Shadow Portal base URL (leave empty for default)",
         "url": None,
         "password": False,
         "category": "provider",
@@ -1009,7 +1009,7 @@ OPTIONAL_ENV_VARS = {
         "advanced": True,
     },
     "FIRECRAWL_GATEWAY_URL": {
-        "description": "Exact Firecrawl tool-gateway origin override for Nous Subscribers only (optional)",
+        "description": "Exact Firecrawl tool-gateway origin override for Shadow Subscribers only (optional)",
         "prompt": "Firecrawl gateway URL (leave empty to derive from domain)",
         "url": None,
         "password": False,
@@ -1017,7 +1017,7 @@ OPTIONAL_ENV_VARS = {
         "advanced": True,
     },
     "TOOL_GATEWAY_DOMAIN": {
-        "description": "Shared tool-gateway domain suffix for Nous Subscribers only, used to derive vendor hosts, e.g. shadow-overlord.com -> firecrawl-gateway.shadow-overlord.com",
+        "description": "Shared tool-gateway domain suffix for Shadow Subscribers only, used to derive vendor hosts, e.g. shadow-overlord.com -> firecrawl-gateway.shadow-overlord.com",
         "prompt": "Tool-gateway domain suffix",
         "url": None,
         "password": False,
@@ -1025,7 +1025,7 @@ OPTIONAL_ENV_VARS = {
         "advanced": True,
     },
     "TOOL_GATEWAY_SCHEME": {
-        "description": "Shared tool-gateway URL scheme for Nous Subscribers only, used to derive vendor hosts (`https` by default, set `http` for local gateway testing)",
+        "description": "Shared tool-gateway URL scheme for Shadow Subscribers only, used to derive vendor hosts (`https` by default, set `http` for local gateway testing)",
         "prompt": "Tool-gateway URL scheme",
         "url": None,
         "password": False,
@@ -1033,7 +1033,7 @@ OPTIONAL_ENV_VARS = {
         "advanced": True,
     },
     "TOOL_GATEWAY_USER_TOKEN": {
-        "description": "Explicit Nous Subscriber access token for tool-gateway requests (optional; otherwise read from the SHADOW auth store)",
+        "description": "Explicit Shadow Subscriber access token for tool-gateway requests (optional; otherwise read from the SHADOW auth store)",
         "prompt": "Tool-gateway user token",
         "url": None,
         "password": True,
@@ -1522,7 +1522,7 @@ OPTIONAL_ENV_VARS = {
     },
 }
 
-if not _managed_nous_tools_enabled():
+if not _managed_shadow_tools_enabled():
     for _hidden_var in (
         "FIRECRAWL_GATEWAY_URL",
         "TOOL_GATEWAY_DOMAIN",
@@ -2540,7 +2540,7 @@ _FALLBACK_COMMENT = """
 # Supported providers:
 #   openrouter   (OPENROUTER_API_KEY)  — routes to any model
 #   openai-codex (OAuth — shadow auth) — OpenAI Codex
-#   nous         (OAuth — shadow auth) — Nous Portal
+#   shadow         (OAuth — shadow auth) — Shadow Portal
 #   zai          (ZAI_API_KEY)         — Z.AI / GLM
 #   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
 #   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
@@ -2584,7 +2584,7 @@ _COMMENTED_SECTIONS = """
 # Supported providers:
 #   openrouter   (OPENROUTER_API_KEY)  — routes to any model
 #   openai-codex (OAuth — shadow auth) — OpenAI Codex
-#   nous         (OAuth — shadow auth) — Nous Portal
+#   shadow         (OAuth — shadow auth) — Shadow Portal
 #   zai          (ZAI_API_KEY)         — Z.AI / GLM
 #   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
 #   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)

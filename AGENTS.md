@@ -107,7 +107,7 @@ class AIAgent:
 
 ### Agent Loop
 
-The core loop is inside `run_conversation()` — entirely synchronous:
+The core loop is inside `run_conversation()` — entirely synchroshadow:
 
 ```python
 while api_call_count < self.max_iterations and self.iteration_budget.remaining > 0:

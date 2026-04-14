@@ -843,7 +843,7 @@ class MCPServerTask:
 
         Called when the server sends ``notifications/tools/list_changed``.
         The lock prevents overlapping refreshes from rapid-fire notifications.
-        After the initial ``await`` (list_tools), all mutations are synchronous
+        After the initial ``await`` (list_tools), all mutations are synchroshadow
         — atomic from the event loop's perspective.
         """
         from tools.registry import registry, tool_error

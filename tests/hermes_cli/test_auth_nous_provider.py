@@ -1,4 +1,4 @@
-"""Regression tests for Nous OAuth refresh + agent-key mint interactions."""
+"""Regression tests for Shadow OAuth refresh + agent-key mint interactions."""
 
 import json
 import os
@@ -8,7 +8,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from shadow_cli.auth import AuthError, get_provider_auth_state, resolve_nous_runtime_credentials
+from shadow_cli.auth import AuthError, get_provider_auth_state, resolve_shadow_runtime_credentials
 
 
 # =============================================================================
@@ -85,7 +85,7 @@ class TestResolveVerifyFallback:
         assert result == str(ca_file)
 
 
-def _setup_nous_auth(
+def _setup_shadow_auth(
     shadow_home: Path,
     *,
     access_token: str = "access-old",
@@ -94,9 +94,9 @@ def _setup_nous_auth(
     shadow_home.mkdir(parents=True, exist_ok=True)
     auth_store = {
         "version": 1,
-        "active_provider": "nous",
+        "active_provider": "shadow",
         "providers": {
-            "nous": {
+            "shadow": {
                 "portal_base_url": "https://portal.example.com",
                 "inference_base_url": "https://inference.example.com/v1",
                 "client_id": "shadow-cli",
@@ -129,26 +129,26 @@ def _mint_payload(api_key: str = "agent-key") -> dict:
     }
 
 
-def test_get_nous_auth_status_checks_credential_pool(tmp_path, monkeypatch):
-    """get_nous_auth_status() should find Nous credentials in the pool
-    even when the auth store has no Nous provider entry — this is the
+def test_get_shadow_auth_status_checks_credential_pool(tmp_path, monkeypatch):
+    """get_shadow_auth_status() should find Shadow credentials in the pool
+    even when the auth store has no Shadow provider entry — this is the
     case when login happened via the dashboard device-code flow which
     saves to the pool only.
     """
-    from shadow_cli.auth import get_nous_auth_status
+    from shadow_cli.auth import get_shadow_auth_status
 
     shadow_home = tmp_path / "shadow"
     shadow_home.mkdir(parents=True, exist_ok=True)
-    # Empty auth store — no Nous provider entry
+    # Empty auth store — no Shadow provider entry
     (shadow_home / "auth.json").write_text(json.dumps({
         "version": 1, "providers": {},
     }))
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
-    # Seed the credential pool with a Nous entry
+    # Seed the credential pool with a Shadow entry
     from agent.credential_pool import PooledCredential, load_pool
-    pool = load_pool("nous")
-    entry = PooledCredential.from_dict("nous", {
+    pool = load_pool("shadow")
+    entry = PooledCredential.from_dict("shadow", {
         "access_token": "test-access-token",
         "refresh_token": "test-refresh-token",
         "portal_base_url": "https://portal.example.com",
@@ -162,31 +162,31 @@ def test_get_nous_auth_status_checks_credential_pool(tmp_path, monkeypatch):
     })
     pool.add_entry(entry)
 
-    status = get_nous_auth_status()
+    status = get_shadow_auth_status()
     assert status["logged_in"] is True
     assert "example.com" in str(status.get("portal_base_url", ""))
 
 
-def test_get_nous_auth_status_auth_store_fallback(tmp_path, monkeypatch):
-    """get_nous_auth_status() falls back to auth store when credential
+def test_get_shadow_auth_status_auth_store_fallback(tmp_path, monkeypatch):
+    """get_shadow_auth_status() falls back to auth store when credential
     pool is empty.
     """
-    from shadow_cli.auth import get_nous_auth_status
+    from shadow_cli.auth import get_shadow_auth_status
 
     shadow_home = tmp_path / "shadow"
-    _setup_nous_auth(shadow_home, access_token="at-123")
+    _setup_shadow_auth(shadow_home, access_token="at-123")
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
-    status = get_nous_auth_status()
+    status = get_shadow_auth_status()
     assert status["logged_in"] is True
     assert status["portal_base_url"] == "https://portal.example.com"
 
 
-def test_get_nous_auth_status_empty_returns_not_logged_in(tmp_path, monkeypatch):
-    """get_nous_auth_status() returns logged_in=False when both pool
+def test_get_shadow_auth_status_empty_returns_not_logged_in(tmp_path, monkeypatch):
+    """get_shadow_auth_status() returns logged_in=False when both pool
     and auth store are empty.
     """
-    from shadow_cli.auth import get_nous_auth_status
+    from shadow_cli.auth import get_shadow_auth_status
 
     shadow_home = tmp_path / "shadow"
     shadow_home.mkdir(parents=True, exist_ok=True)
@@ -195,13 +195,13 @@ def test_get_nous_auth_status_empty_returns_not_logged_in(tmp_path, monkeypatch)
     }))
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
-    status = get_nous_auth_status()
+    status = get_shadow_auth_status()
     assert status["logged_in"] is False
 
 
 def test_refresh_token_persisted_when_mint_returns_insufficient_credits(tmp_path, monkeypatch):
     shadow_home = tmp_path / "shadow"
-    _setup_nous_auth(shadow_home, refresh_token="refresh-old")
+    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
     refresh_calls = []
@@ -220,29 +220,29 @@ def test_refresh_token_persisted_when_mint_returns_insufficient_credits(tmp_path
     def _fake_mint_agent_key(*, client, portal_base_url, access_token, min_ttl_seconds):
         mint_calls["count"] += 1
         if mint_calls["count"] == 1:
-            raise AuthError("credits exhausted", provider="nous", code="insufficient_credits")
+            raise AuthError("credits exhausted", provider="shadow", code="insufficient_credits")
         return _mint_payload(api_key="agent-key-2")
 
     monkeypatch.setattr("shadow_cli.auth._refresh_access_token", _fake_refresh_access_token)
     monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
     with pytest.raises(AuthError) as exc:
-        resolve_nous_runtime_credentials(min_key_ttl_seconds=300)
+        resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
     assert exc.value.code == "insufficient_credits"
 
-    state_after_failure = get_provider_auth_state("nous")
+    state_after_failure = get_provider_auth_state("shadow")
     assert state_after_failure is not None
     assert state_after_failure["refresh_token"] == "refresh-1"
     assert state_after_failure["access_token"] == "access-1"
 
-    creds = resolve_nous_runtime_credentials(min_key_ttl_seconds=300)
+    creds = resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
     assert creds["api_key"] == "agent-key-2"
     assert refresh_calls == ["refresh-old", "refresh-1"]
 
 
 def test_refresh_token_persisted_when_mint_times_out(tmp_path, monkeypatch):
     shadow_home = tmp_path / "shadow"
-    _setup_nous_auth(shadow_home, refresh_token="refresh-old")
+    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
     def _fake_refresh_access_token(*, client, portal_base_url, client_id, refresh_token):
@@ -260,9 +260,9 @@ def test_refresh_token_persisted_when_mint_times_out(tmp_path, monkeypatch):
     monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
     with pytest.raises(httpx.ReadTimeout):
-        resolve_nous_runtime_credentials(min_key_ttl_seconds=300)
+        resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
 
-    state_after_failure = get_provider_auth_state("nous")
+    state_after_failure = get_provider_auth_state("shadow")
     assert state_after_failure is not None
     assert state_after_failure["refresh_token"] == "refresh-1"
     assert state_after_failure["access_token"] == "access-1"
@@ -270,7 +270,7 @@ def test_refresh_token_persisted_when_mint_times_out(tmp_path, monkeypatch):
 
 def test_mint_retry_uses_latest_rotated_refresh_token(tmp_path, monkeypatch):
     shadow_home = tmp_path / "shadow"
-    _setup_nous_auth(shadow_home, refresh_token="refresh-old")
+    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
     monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
 
     refresh_calls = []
@@ -289,13 +289,13 @@ def test_mint_retry_uses_latest_rotated_refresh_token(tmp_path, monkeypatch):
     def _fake_mint_agent_key(*, client, portal_base_url, access_token, min_ttl_seconds):
         mint_calls["count"] += 1
         if mint_calls["count"] == 1:
-            raise AuthError("stale access token", provider="nous", code="invalid_token")
+            raise AuthError("stale access token", provider="shadow", code="invalid_token")
         return _mint_payload(api_key="agent-key")
 
     monkeypatch.setattr("shadow_cli.auth._refresh_access_token", _fake_refresh_access_token)
     monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
-    creds = resolve_nous_runtime_credentials(min_key_ttl_seconds=300)
+    creds = resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
     assert creds["api_key"] == "agent-key"
     assert refresh_calls == ["refresh-old", "refresh-1"]
 

@@ -307,80 +307,80 @@ def test_codex_provider_replaces_incompatible_default_model(monkeypatch):
     assert shell.model == "gpt-5.2-codex"
 
 
-def test_model_flow_nous_prints_subscription_guidance_without_mutating_explicit_tts(monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
+def test_model_flow_shadow_prints_subscription_guidance_without_mutating_explicit_tts(monkeypatch, capsys):
+    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
     config = {
-        "model": {"provider": "nous", "default": "claude-opus-4-6"},
+        "model": {"provider": "shadow", "default": "claude-opus-4-6"},
         "tts": {"provider": "elevenlabs"},
         "browser": {"cloud_provider": "browser-use"},
     }
 
     monkeypatch.setattr(
         "shadow_cli.auth.get_provider_auth_state",
-        lambda provider: {"access_token": "nous-token"},
+        lambda provider: {"access_token": "shadow-token"},
     )
     monkeypatch.setattr(
-        "shadow_cli.auth.resolve_nous_runtime_credentials",
+        "shadow_cli.auth.resolve_shadow_runtime_credentials",
         lambda *args, **kwargs: {
             "base_url": "https://inference.example.com/v1",
-            "api_key": "nous-key",
+            "api_key": "shadow-key",
         },
     )
     monkeypatch.setattr(
-        "shadow_cli.auth.fetch_nous_models",
+        "shadow_cli.auth.fetch_shadow_models",
         lambda *args, **kwargs: ["claude-opus-4-6"],
     )
     monkeypatch.setattr("shadow_cli.auth._prompt_model_selection", lambda model_ids, current_model="", pricing=None, **kw: "claude-opus-4-6")
     monkeypatch.setattr("shadow_cli.auth._save_model_choice", lambda model: None)
     monkeypatch.setattr("shadow_cli.auth._update_config_for_provider", lambda provider, url: None)
     monkeypatch.setattr(
-        "shadow_cli.nous_subscription.get_nous_subscription_explainer_lines",
-        lambda: ["Nous subscription enables managed web tools."],
+        "shadow_cli.shadow_subscription.get_shadow_subscription_explainer_lines",
+        lambda: ["Shadow subscription enables managed web tools."],
     )
 
-    shadow_main._model_flow_nous(config, current_model="claude-opus-4-6")
+    shadow_main._model_flow_shadow(config, current_model="claude-opus-4-6")
 
     out = capsys.readouterr().out
-    assert "Nous subscription enables managed web tools." in out
+    assert "Shadow subscription enables managed web tools." in out
     assert config["tts"]["provider"] == "elevenlabs"
     assert config["browser"]["cloud_provider"] == "browser-use"
 
 
-def test_model_flow_nous_applies_managed_tts_default_when_unconfigured(monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_ENABLE_NOUS_MANAGED_TOOLS", "1")
+def test_model_flow_shadow_applies_managed_tts_default_when_unconfigured(monkeypatch, capsys):
+    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
     config = {
-        "model": {"provider": "nous", "default": "claude-opus-4-6"},
+        "model": {"provider": "shadow", "default": "claude-opus-4-6"},
         "tts": {"provider": "edge"},
     }
 
     monkeypatch.setattr(
         "shadow_cli.auth.get_provider_auth_state",
-        lambda provider: {"access_token": "nous-token"},
+        lambda provider: {"access_token": "shadow-token"},
     )
     monkeypatch.setattr(
-        "shadow_cli.auth.resolve_nous_runtime_credentials",
+        "shadow_cli.auth.resolve_shadow_runtime_credentials",
         lambda *args, **kwargs: {
             "base_url": "https://inference.example.com/v1",
-            "api_key": "nous-key",
+            "api_key": "shadow-key",
         },
     )
     monkeypatch.setattr(
-        "shadow_cli.auth.fetch_nous_models",
+        "shadow_cli.auth.fetch_shadow_models",
         lambda *args, **kwargs: ["claude-opus-4-6"],
     )
     monkeypatch.setattr("shadow_cli.auth._prompt_model_selection", lambda model_ids, current_model="", pricing=None, **kw: "claude-opus-4-6")
     monkeypatch.setattr("shadow_cli.auth._save_model_choice", lambda model: None)
     monkeypatch.setattr("shadow_cli.auth._update_config_for_provider", lambda provider, url: None)
     monkeypatch.setattr(
-        "shadow_cli.nous_subscription.get_nous_subscription_explainer_lines",
-        lambda: ["Nous subscription enables managed web tools."],
+        "shadow_cli.shadow_subscription.get_shadow_subscription_explainer_lines",
+        lambda: ["Shadow subscription enables managed web tools."],
     )
 
-    shadow_main._model_flow_nous(config, current_model="claude-opus-4-6")
+    shadow_main._model_flow_shadow(config, current_model="claude-opus-4-6")
 
     out = capsys.readouterr().out
-    assert "Nous subscription enables managed web tools." in out
-    assert "OpenAI TTS via your Nous subscription" in out
+    assert "Shadow subscription enables managed web tools." in out
+    assert "OpenAI TTS via your Shadow subscription" in out
     assert config["tts"]["provider"] == "openai"
 
 
@@ -592,16 +592,16 @@ def test_model_flow_custom_saves_verified_v1_base_url(monkeypatch, capsys):
     assert saved_env["MODEL"] == "llm"
 
 
-def test_cmd_model_forwards_nous_login_tls_options(monkeypatch):
+def test_cmd_model_forwards_shadow_login_tls_options(monkeypatch):
     monkeypatch.setattr(shadow_main, "_require_tty", lambda *a: None)
     monkeypatch.setattr(
         "shadow_cli.config.load_config",
-        lambda: {"model": {"default": "gpt-5", "provider": "nous"}},
+        lambda: {"model": {"default": "gpt-5", "provider": "shadow"}},
     )
     monkeypatch.setattr("shadow_cli.config.save_config", lambda cfg: None)
     monkeypatch.setattr("shadow_cli.config.get_env_value", lambda key: "")
     monkeypatch.setattr("shadow_cli.config.save_env_value", lambda key, value: None)
-    monkeypatch.setattr("shadow_cli.auth.resolve_provider", lambda requested, **kwargs: "nous")
+    monkeypatch.setattr("shadow_cli.auth.resolve_provider", lambda requested, **kwargs: "shadow")
     monkeypatch.setattr("shadow_cli.auth.get_provider_auth_state", lambda provider_id: None)
     monkeypatch.setattr(shadow_main, "_prompt_provider_choice", lambda choices, **kwargs: 0)
 
@@ -617,7 +617,7 @@ def test_cmd_model_forwards_nous_login_tls_options(monkeypatch):
         captured["ca_bundle"] = login_args.ca_bundle
         captured["insecure"] = login_args.insecure
 
-    monkeypatch.setattr("shadow_cli.auth._login_nous", _fake_login)
+    monkeypatch.setattr("shadow_cli.auth._login_shadow", _fake_login)
 
     shadow_main.cmd_model(
         SimpleNamespace(

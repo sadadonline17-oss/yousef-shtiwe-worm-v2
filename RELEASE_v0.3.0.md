@@ -337,7 +337,7 @@
 - Fallback providers + /background command docs ([#1430](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1430))
 - Gateway service scopes docs ([#1378](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1378))
 - Slack thread reply behavior docs ([#1407](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1407))
-- Redesigned landing page with Nous blue palette — by @austinpickett ([#974](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/974))
+- Redesigned landing page with Shadow blue palette — by @austinpickett ([#974](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/974))
 - Fix several documentation typos — by @JackTheGit ([#953](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/953))
 - Stabilize website diagrams ([#1405](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1405))
 - CLI vs messaging quick reference in README ([#1491](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1491))
@@ -365,7 +365,7 @@
 - **@jplew** (1 PR) — Gateway restart on retryable startup failures
 - **@brandtcormorant** (1 PR) — Fix Anthropic cache control for empty text blocks
 - **@aydnOktay** (1 PR) — Improve error logging in session search tool
-- **@austinpickett** (1 PR) — Landing page redesign with Nous blue palette
+- **@austinpickett** (1 PR) — Landing page redesign with Shadow blue palette
 - **@JackTheGit** (1 PR) — Documentation typo fixes
 
 ### All Contributors

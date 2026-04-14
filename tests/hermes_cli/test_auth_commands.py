@@ -95,12 +95,12 @@ def test_auth_add_anthropic_oauth_persists_pool_entry(tmp_path, monkeypatch):
     assert entry["expires_at_ms"] == 1711234567000
 
 
-def test_auth_add_nous_oauth_persists_pool_entry(tmp_path, monkeypatch):
+def test_auth_add_shadow_oauth_persists_pool_entry(tmp_path, monkeypatch):
     monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
     _write_auth_store(tmp_path, {"version": 1, "providers": {}})
-    token = _jwt_with_email("nous@example.com")
+    token = _jwt_with_email("shadow@example.com")
     monkeypatch.setattr(
-        "shadow_cli.auth._nous_device_code_login",
+        "shadow_cli.auth._shadow_device_code_login",
         lambda **kwargs: {
             "portal_base_url": "https://portal.example.com",
             "inference_base_url": "https://inference.example.com/v1",
@@ -125,7 +125,7 @@ def test_auth_add_nous_oauth_persists_pool_entry(tmp_path, monkeypatch):
     from shadow_cli.auth_commands import auth_add_command
 
     class _Args:
-        provider = "nous"
+        provider = "shadow"
         auth_type = "oauth"
         api_key = None
         label = None
@@ -141,9 +141,9 @@ def test_auth_add_nous_oauth_persists_pool_entry(tmp_path, monkeypatch):
     auth_add_command(_Args())
 
     payload = json.loads((tmp_path / "shadow" / "auth.json").read_text())
-    entries = payload["credential_pool"]["nous"]
+    entries = payload["credential_pool"]["shadow"]
     entry = next(item for item in entries if item["source"] == "manual:device_code")
-    assert entry["label"] == "nous@example.com"
+    assert entry["label"] == "shadow@example.com"
     assert entry["source"] == "manual:device_code"
     assert entry["agent_key"] == "ak-test"
     assert entry["portal_base_url"] == "https://portal.example.com"

@@ -8,7 +8,7 @@ that the setup wizard correctly syncs config from disk after the call.
 from __future__ import annotations
 
 from shadow_cli.config import load_config, save_config, save_env_value
-from shadow_cli.nous_subscription import NousFeatureState, NousSubscriptionFeatures
+from shadow_cli.shadow_subscription import ShadowFeatureState, ShadowSubscriptionFeatures
 from shadow_cli.setup import _print_setup_summary, setup_model_provider
 
 
@@ -458,17 +458,17 @@ def test_setup_summary_shows_camofox_when_browser_feature_is_camofox(tmp_path, m
     monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     monkeypatch.setattr(
-        "shadow_cli.setup.get_nous_subscription_features",
-        lambda config: NousSubscriptionFeatures(
+        "shadow_cli.setup.get_shadow_subscription_features",
+        lambda config: ShadowSubscriptionFeatures(
             subscribed=False,
-            nous_auth_present=False,
-            provider_is_nous=False,
+            shadow_auth_present=False,
+            provider_is_shadow=False,
             features={
-                "web": NousFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
-                "image_gen": NousFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
-                "tts": NousFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
-                "browser": NousFeatureState("browser", "Browser automation", True, True, True, False, True, True, "Camofox"),
-                "modal": NousFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
+                "web": ShadowFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
+                "image_gen": ShadowFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
+                "tts": ShadowFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
+                "browser": ShadowFeatureState("browser", "Browser automation", True, True, True, False, True, True, "Camofox"),
+                "modal": ShadowFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
             },
         ),
     )
@@ -485,17 +485,17 @@ def test_setup_summary_does_not_mark_incomplete_browserbase_as_available(tmp_pat
     _clear_provider_env(monkeypatch)
     monkeypatch.setenv("BROWSERBASE_API_KEY", "bb-key")
     monkeypatch.setattr(
-        "shadow_cli.setup.get_nous_subscription_features",
-        lambda config: NousSubscriptionFeatures(
+        "shadow_cli.setup.get_shadow_subscription_features",
+        lambda config: ShadowSubscriptionFeatures(
             subscribed=False,
-            nous_auth_present=False,
-            provider_is_nous=False,
+            shadow_auth_present=False,
+            provider_is_shadow=False,
             features={
-                "web": NousFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
-                "image_gen": NousFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
-                "tts": NousFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
-                "browser": NousFeatureState("browser", "Browser automation", True, False, False, False, False, True, "Browserbase"),
-                "modal": NousFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
+                "web": ShadowFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
+                "image_gen": ShadowFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
+                "tts": ShadowFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
+                "browser": ShadowFeatureState("browser", "Browser automation", True, False, False, False, False, True, "Browserbase"),
+                "modal": ShadowFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
             },
         ),
     )

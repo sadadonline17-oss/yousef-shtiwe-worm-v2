@@ -17,7 +17,7 @@ Quick answers and fixes for the most common questions and issues.
 SHADOW Agent works with any OpenAI-compatible API. Supported providers include:
 
 - **[OpenRouter](https://openrouter.ai/)** — access hundreds of models through one API key (recommended for flexibility)
-- **Nous Portal** — SHADOW-OVERLORD's own inference endpoint
+- **Shadow Portal** — SHADOW-OVERLORD's own inference endpoint
 - **OpenAI** — GPT-4o, o1, o3, etc.
 - **Anthropic** — Claude models (via OpenRouter or compatible proxy)
 - **Google** — Gemini models (via OpenRouter or compatible proxy)
@@ -110,7 +110,7 @@ Yes. Import the `AIAgent` class and use SHADOW programmatically:
 ```python
 from run_agent import AIAgent
 
-agent = AIAgent(model="openrouter/nous/shadow-3-llama-3.1-70b")
+agent = AIAgent(model="openrouter/shadow/shadow-3-llama-3.1-70b")
 response = agent.chat("Explain quantum computing briefly")
 ```
 
@@ -217,7 +217,7 @@ Make sure the key matches the provider. An OpenAI key won't work with OpenRouter
 shadow model
 
 # Set a valid model
-shadow config set SHADOW_MODEL openrouter/nous/shadow-3-llama-3.1-70b
+shadow config set SHADOW_MODEL openrouter/shadow/shadow-3-llama-3.1-70b
 
 # Or specify per-session
 shadow chat --model openrouter/meta-llama/llama-3.1-70b-instruct

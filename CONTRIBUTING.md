@@ -134,7 +134,7 @@ shadow-agent/
 │   ├── main.py                   # Entry point, argument parsing, command dispatch
 │   ├── config.py                 # Config management, migration, env var definitions
 │   ├── setup.py                  # Interactive setup wizard
-│   ├── auth.py                   # Provider resolution, OAuth, Nous Portal
+│   ├── auth.py                   # Provider resolution, OAuth, Shadow Portal
 │   ├── models.py                 # OpenRouter model selection lists
 │   ├── banner.py                 # Welcome banner, ASCII art
 │   ├── commands.py               # Central slash command registry (CommandDef), autocomplete, gateway helpers
@@ -187,7 +187,7 @@ shadow-agent/
 |------|---------|
 | `~/.shadow/config.yaml` | Settings (model, terminal, toolsets, compression, etc.) |
 | `~/.shadow/.env` | API keys and secrets |
-| `~/.shadow/auth.json` | OAuth credentials (Nous Portal) |
+| `~/.shadow/auth.json` | OAuth credentials (Shadow Portal) |
 | `~/.shadow/skills/` | All active skills (bundled + hub-installed + agent-created) |
 | `~/.shadow/memories/` | Persistent memory (MEMORY.md, USER.md) |
 | `~/.shadow/state.db` | SQLite session database |
@@ -222,7 +222,7 @@ User message → AIAgent._run_agent_loop()
 - **Toolset grouping**: Tools are grouped into toolsets (`web`, `terminal`, `file`, `browser`, etc.) that can be enabled/disabled per platform.
 - **Session persistence**: All conversations are stored in SQLite (`shadow_state.py`) with full-text search and unique session titles. JSON logs go to `~/.shadow/sessions/`.
 - **Ephemeral injection**: System prompts and prefill messages are injected at API call time, never persisted to the database or logs.
-- **Provider abstraction**: The agent works with any OpenAI-compatible API. Provider resolution happens at init time (Nous Portal OAuth, OpenRouter API key, or custom endpoint).
+- **Provider abstraction**: The agent works with any OpenAI-compatible API. Provider resolution happens at init time (Shadow Portal OAuth, OpenRouter API key, or custom endpoint).
 - **Provider routing**: When using OpenRouter, `provider_routing` in config.yaml controls provider selection (sort by throughput/latency/price, allow/ignore specific providers, data retention policies). These are injected as `extra_body.provider` in API requests.
 
 ---

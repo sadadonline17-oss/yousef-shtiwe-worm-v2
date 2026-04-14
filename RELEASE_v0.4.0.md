@@ -99,7 +99,7 @@
 - Tie `api_mode` to provider config instead of env var ([#1656](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1656))
 - Fix: prevent Anthropic token leaking to third-party `anthropic_messages` providers ([#2389](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2389))
 - Fix: prevent Anthropic fallback from inheriting non-Anthropic `base_url` ([#2388](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2388))
-- Fix: `auxiliary_is_nous` flag never resets — leaked Nous tags to other providers ([#1713](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1713))
+- Fix: `auxiliary_is_shadow` flag never resets — leaked Shadow tags to other providers ([#1713](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1713))
 - Fix: Anthropic `tool_choice 'none'` still allowed tool calls ([#1714](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1714))
 - Fix: Mistral parser nested JSON fallback extraction ([#2335](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2335))
 - Fix: MiniMax 401 auth resolved by defaulting to `anthropic_messages` ([#2103](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2103))
@@ -328,7 +328,7 @@
 - Safely handle non-string inputs in redacting formatter ([#2392](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2392), [#1700](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1700))
 - ACP: preserve session provider on model switch, persist sessions to disk ([#2380](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2380), [#2071](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2071))
 - API server: persist ResponseStore to SQLite across restarts ([#2472](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2472))
-- Fix: `fetch_nous_models` always TypeError from positional args ([#1699](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1699))
+- Fix: `fetch_shadow_models` always TypeError from positional args ([#1699](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1699))
 - Fix: resolve merge conflict markers in cli.py breaking startup ([#2347](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2347))
 - Fix: `minisweagent_path.py` missing from wheel ([#2098](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/2098) by @JiwaniZakir)
 

@@ -413,7 +413,7 @@ class TrajectoryCompressor:
         if "openrouter" in url:
             return "openrouter"
         if "shadow-overlord.com" in url:
-            return "nous"
+            return "shadow"
         if "chatgpt.com/backend-api/codex" in url:
             return "codex"
         if "api.z.ai" in url:

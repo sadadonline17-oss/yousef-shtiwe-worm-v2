@@ -160,7 +160,7 @@ directly.
 Edit `~/.shadow/config.yaml`:
 
 ```yaml
-model: openrouter/nous/shadow-3-llama-3.1-70b
+model: openrouter/shadow/shadow-3-llama-3.1-70b
 ```
 
 Or set the `SHADOW_MODEL` environment variable.

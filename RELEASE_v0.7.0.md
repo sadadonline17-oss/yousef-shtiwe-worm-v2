@@ -41,7 +41,7 @@
 - **Standard DashScope international endpoint** for Alibaba provider ([#4133](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4133), closes [#3912](https://github.com/SHADOW-OVERLORD/shadow-agent/issues/3912))
 - **Custom providers context_length** honored in hygiene compression ([#4085](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4085))
 - **Non-sk-ant keys** treated as regular API keys, not OAuth tokens ([#4093](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4093))
-- **Claude-sonnet-4.6** added to OpenRouter and Nous model lists ([#4157](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4157))
+- **Claude-sonnet-4.6** added to OpenRouter and Shadow model lists ([#4157](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4157))
 - **Qwen 3.6 Plus Preview** added to model lists ([#4376](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4376))
 - **MiniMax M2.7** added to shadow model picker and OpenCode ([#4208](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4208))
 - **Auto-detect models from server probe** in custom endpoint setup ([#4218](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4218))

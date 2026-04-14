@@ -20,11 +20,11 @@ from shadow_cli.config import (
     load_config, save_config, get_env_value, save_env_value,
 )
 from shadow_cli.colors import Colors, color
-from shadow_cli.nous_subscription import (
-    apply_nous_managed_defaults,
-    get_nous_subscription_features,
+from shadow_cli.shadow_subscription import (
+    apply_shadow_managed_defaults,
+    get_shadow_subscription_features,
 )
-from tools.tool_backend_helpers import managed_nous_tools_enabled
+from tools.tool_backend_helpers import managed_shadow_tools_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -120,12 +120,12 @@ TOOL_CATEGORIES = {
         "icon": "🔊",
         "providers": [
             {
-                "name": "Nous Subscription",
+                "name": "Shadow Subscription",
                 "tag": "Managed OpenAI TTS billed to your subscription",
                 "env_vars": [],
                 "tts_provider": "openai",
-                "requires_nous_auth": True,
-                "managed_nous_feature": "tts",
+                "requires_shadow_auth": True,
+                "managed_shadow_feature": "tts",
                 "override_env_vars": ["VOICE_TOOLS_OPENAI_KEY", "OPENAI_API_KEY"],
             },
             {
@@ -167,12 +167,12 @@ TOOL_CATEGORIES = {
         "icon": "🔍",
         "providers": [
             {
-                "name": "Nous Subscription",
+                "name": "Shadow Subscription",
                 "tag": "Managed Firecrawl billed to your subscription",
                 "web_backend": "firecrawl",
                 "env_vars": [],
-                "requires_nous_auth": True,
-                "managed_nous_feature": "web",
+                "requires_shadow_auth": True,
+                "managed_shadow_feature": "web",
                 "override_env_vars": ["FIRECRAWL_API_KEY", "FIRECRAWL_API_URL"],
             },
             {
@@ -222,11 +222,11 @@ TOOL_CATEGORIES = {
         "icon": "🎨",
         "providers": [
             {
-                "name": "Nous Subscription",
+                "name": "Shadow Subscription",
                 "tag": "Managed FAL image generation billed to your subscription",
                 "env_vars": [],
-                "requires_nous_auth": True,
-                "managed_nous_feature": "image_gen",
+                "requires_shadow_auth": True,
+                "managed_shadow_feature": "image_gen",
                 "override_env_vars": ["FAL_KEY"],
             },
             {
@@ -243,12 +243,12 @@ TOOL_CATEGORIES = {
         "icon": "🌐",
         "providers": [
             {
-                "name": "Nous Subscription (Browser Use cloud)",
+                "name": "Shadow Subscription (Browser Use cloud)",
                 "tag": "Managed Browser Use billed to your subscription",
                 "env_vars": [],
                 "browser_provider": "browser-use",
-                "requires_nous_auth": True,
-                "managed_nous_feature": "browser",
+                "requires_shadow_auth": True,
+                "managed_shadow_feature": "browser",
                 "override_env_vars": ["BROWSER_USE_API_KEY"],
                 "post_setup": "agent_browser",
             },
@@ -622,9 +622,9 @@ def _toolset_has_keys(ts_key: str, config: dict = None) -> bool:
             return False
 
     if ts_key in {"web", "image_gen", "tts", "browser"}:
-        features = get_nous_subscription_features(config)
+        features = get_shadow_subscription_features(config)
         feature = features.features.get(ts_key)
-        if feature and (feature.available or feature.managed_by_nous):
+        if feature and (feature.available or feature.managed_by_shadow):
             return True
 
     # Check TOOL_CATEGORIES first (provider-aware)
@@ -767,12 +767,12 @@ def _configure_toolset(ts_key: str, config: dict):
 
 def _visible_providers(cat: dict, config: dict) -> list[dict]:
     """Return provider entries visible for the current auth/config state."""
-    features = get_nous_subscription_features(config)
+    features = get_shadow_subscription_features(config)
     visible = []
     for provider in cat.get("providers", []):
-        if provider.get("managed_nous_feature") and not managed_nous_tools_enabled():
+        if provider.get("managed_shadow_feature") and not managed_shadow_tools_enabled():
             continue
-        if provider.get("requires_nous_auth") and not features.nous_auth_present:
+        if provider.get("requires_shadow_auth") and not features.shadow_auth_present:
             continue
         visible.append(provider)
     return visible
@@ -868,26 +868,26 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
 
 def _is_provider_active(provider: dict, config: dict) -> bool:
     """Check if a provider entry matches the currently active config."""
-    managed_feature = provider.get("managed_nous_feature")
+    managed_feature = provider.get("managed_shadow_feature")
     if managed_feature:
-        features = get_nous_subscription_features(config)
+        features = get_shadow_subscription_features(config)
         feature = features.features.get(managed_feature)
         if feature is None:
             return False
         if managed_feature == "image_gen":
-            return feature.managed_by_nous
+            return feature.managed_by_shadow
         if provider.get("tts_provider"):
             return (
-                feature.managed_by_nous
+                feature.managed_by_shadow
                 and config.get("tts", {}).get("provider") == provider["tts_provider"]
             )
         if "browser_provider" in provider:
             current = config.get("browser", {}).get("cloud_provider")
-            return feature.managed_by_nous and provider["browser_provider"] == current
+            return feature.managed_by_shadow and provider["browser_provider"] == current
         if provider.get("web_backend"):
             current = config.get("web", {}).get("backend")
-            return feature.managed_by_nous and current == provider["web_backend"]
-        return feature.managed_by_nous
+            return feature.managed_by_shadow and current == provider["web_backend"]
+        return feature.managed_by_shadow
 
     if provider.get("tts_provider"):
         return config.get("tts", {}).get("provider") == provider["tts_provider"]
@@ -915,12 +915,12 @@ def _detect_active_provider_index(providers: list, config: dict) -> int:
 def _configure_provider(provider: dict, config: dict):
     """Configure a single provider - prompt for API keys and set config."""
     env_vars = provider.get("env_vars", [])
-    managed_feature = provider.get("managed_nous_feature")
+    managed_feature = provider.get("managed_shadow_feature")
 
-    if provider.get("requires_nous_auth"):
-        features = get_nous_subscription_features(config)
-        if not features.nous_auth_present:
-            _print_warning("  Nous Subscription is only available after logging into Nous Portal.")
+    if provider.get("requires_shadow_auth"):
+        features = get_shadow_subscription_features(config)
+        if not features.shadow_auth_present:
+            _print_warning("  Shadow Subscription is only available after logging into Shadow Portal.")
             return
 
     # Set TTS provider in config if applicable
@@ -947,7 +947,7 @@ def _configure_provider(provider: dict, config: dict):
             _run_post_setup(provider["post_setup"])
         _print_success(f"  {provider['name']} - no configuration needed!")
         if managed_feature:
-            _print_info("  Requests for this tool will be billed to your Nous subscription.")
+            _print_info("  Requests for this tool will be billed to your Shadow subscription.")
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
@@ -1125,12 +1125,12 @@ def _configure_tool_category_for_reconfig(ts_key: str, cat: dict, config: dict):
 def _reconfigure_provider(provider: dict, config: dict):
     """Reconfigure a provider - update API keys."""
     env_vars = provider.get("env_vars", [])
-    managed_feature = provider.get("managed_nous_feature")
+    managed_feature = provider.get("managed_shadow_feature")
 
-    if provider.get("requires_nous_auth"):
-        features = get_nous_subscription_features(config)
-        if not features.nous_auth_present:
-            _print_warning("  Nous Subscription is only available after logging into Nous Portal.")
+    if provider.get("requires_shadow_auth"):
+        features = get_shadow_subscription_features(config)
+        if not features.shadow_auth_present:
+            _print_warning("  Shadow Subscription is only available after logging into Shadow Portal.")
             return
 
     if provider.get("tts_provider"):
@@ -1156,7 +1156,7 @@ def _reconfigure_provider(provider: dict, config: dict):
             _run_post_setup(provider["post_setup"])
         _print_success(f"  {provider['name']} - no configuration needed!")
         if managed_feature:
-            _print_info("  Requests for this tool will be billed to your Nous subscription.")
+            _print_info("  Requests for this tool will be billed to your Shadow subscription.")
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
@@ -1271,14 +1271,14 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
                     label = next((l for k, l, _ in _get_effective_configurable_toolsets() if k == ts), ts)
                     print(color(f"  - {label}", Colors.RED))
 
-            auto_configured = apply_nous_managed_defaults(
+            auto_configured = apply_shadow_managed_defaults(
                 config,
                 enabled_toolsets=new_enabled,
             )
-            if managed_nous_tools_enabled():
+            if managed_shadow_tools_enabled():
                 for ts_key in sorted(auto_configured):
                     label = next((l for k, l, _ in CONFIGURABLE_TOOLSETS if k == ts_key), ts_key)
-                    print(color(f"  ✓ {label}: using your Nous subscription defaults", Colors.GREEN))
+                    print(color(f"  ✓ {label}: using your Shadow subscription defaults", Colors.GREEN))
 
             # Walk through ALL selected tools that have provider options or
             # need API keys.  This ensures browser (Local vs Browserbase),

@@ -40,7 +40,7 @@ Current provider families include:
 
 - AI Gateway (Vercel)
 - OpenRouter
-- Nous Portal
+- Shadow Portal
 - OpenAI Codex
 - Copilot / Copilot ACP
 - Anthropic (native)

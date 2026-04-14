@@ -2,7 +2,7 @@
 
 **Release Date:** April 8, 2026
 
-> The intelligence release — background task auto-notifications, free MiMo v2 Pro on Nous Portal, live model switching across all platforms, self-optimized GPT/Codex guidance, native Google AI Studio, smart inactivity timeouts, approval buttons, MCP OAuth 2.1, and 209 merged PRs with 82 resolved issues.
+> The intelligence release — background task auto-notifications, free MiMo v2 Pro on Shadow Portal, live model switching across all platforms, self-optimized GPT/Codex guidance, native Google AI Studio, smart inactivity timeouts, approval buttons, MCP OAuth 2.1, and 209 merged PRs with 82 resolved issues.
 
 ---
 
@@ -10,9 +10,9 @@
 
 - **Background Process Auto-Notifications (`notify_on_complete`)** — Background tasks can now automatically notify the agent when they finish. Start a long-running process (AI model training, test suites, deployments, builds) and the agent gets notified on completion — no polling needed. The agent can keep working on other things and pick up results when they land. ([#5779](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5779))
 
-- **Free Xiaomi MiMo v2 Pro on Nous Portal** — Nous Portal now supports the free-tier Xiaomi MiMo v2 Pro model for auxiliary tasks (compression, vision, summarization), with free-tier model gating and pricing display in model selection. ([#6018](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6018), [#5880](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5880))
+- **Free Xiaomi MiMo v2 Pro on Shadow Portal** — Shadow Portal now supports the free-tier Xiaomi MiMo v2 Pro model for auxiliary tasks (compression, vision, summarization), with free-tier model gating and pricing display in model selection. ([#6018](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6018), [#5880](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5880))
 
-- **Live Model Switching (`/model` Command)** — Switch models and providers mid-session from CLI, Telegram, Discord, Slack, or any gateway platform. Aggregator-aware resolution keeps you on OpenRouter/Nous when possible, with automatic cross-provider fallback when needed. Interactive model pickers on Telegram and Discord with inline buttons. ([#5181](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5181), [#5742](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5742))
+- **Live Model Switching (`/model` Command)** — Switch models and providers mid-session from CLI, Telegram, Discord, Slack, or any gateway platform. Aggregator-aware resolution keeps you on OpenRouter/Shadow when possible, with automatic cross-provider fallback when needed. Interactive model pickers on Telegram and Discord with inline buttons. ([#5181](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5181), [#5742](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5742))
 
 - **Self-Optimized GPT/Codex Tool-Use Guidance** — The agent diagnosed and patched 5 failure modes in GPT and Codex tool calling through automated behavioral benchmarking, dramatically improving reliability on OpenAI models. Includes execution discipline guidance and thinking-only prefill continuation for structured reasoning. ([#6120](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6120), [#5414](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5414), [#5931](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5931))
 
@@ -40,8 +40,8 @@
 - **Native Google AI Studio (Gemini) provider** with models.dev integration for automatic context length detection ([#5577](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5577))
 - **`/model` command — full provider+model system overhaul** — live switching across CLI and all gateway platforms with aggregator-aware resolution ([#5181](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5181))
 - **Interactive model picker for Telegram and Discord** — inline button-based model selection ([#5742](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5742))
-- **Nous Portal free-tier model gating** with pricing display in model selection ([#5880](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5880))
-- **Model pricing display** for OpenRouter and Nous Portal providers ([#5416](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5416))
+- **Shadow Portal free-tier model gating** with pricing display in model selection ([#5880](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5880))
+- **Model pricing display** for OpenRouter and Shadow Portal providers ([#5416](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5416))
 - **xAI (Grok) prompt caching** via `x-grok-conv-id` header ([#5604](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5604))
 - **Grok added to tool-use enforcement models** for direct xAI usage ([#5595](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5595))
 - **MiniMax TTS provider** (speech-2.8) ([#4963](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4963))
@@ -56,12 +56,12 @@
 - **Codex pool entry sync** from `~/.codex/auth.json` on exhaustion — @GratefulDave ([#5610](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5610))
 - **Auxiliary client payment fallback** — retry with next provider on 402 ([#5599](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5599))
 - **Auxiliary client resolves named custom providers** and 'main' alias ([#5978](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5978))
-- **Use mimo-v2-pro** for non-vision auxiliary tasks on Nous free tier ([#6018](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6018))
+- **Use mimo-v2-pro** for non-vision auxiliary tasks on Shadow free tier ([#6018](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6018))
 - **Vision auto-detection** tries main provider first ([#6041](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6041))
 - **Provider re-ordering and Quick Install** — @austinpickett ([#4664](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4664))
-- **Nous OAuth access_token** no longer used as inference API key — @SHL0MS ([#5564](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5564))
-- **SHADOW_PORTAL_BASE_URL env var** respected during Nous login — @benbarclay ([#5745](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5745))
-- **Env var overrides** for Nous portal/inference URLs ([#5419](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5419))
+- **Shadow OAuth access_token** no longer used as inference API key — @SHL0MS ([#5564](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5564))
+- **SHADOW_PORTAL_BASE_URL env var** respected during Shadow login — @benbarclay ([#5745](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5745))
+- **Env var overrides** for Shadow portal/inference URLs ([#5419](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5419))
 - **Z.AI endpoint auto-detect** via probe and cache ([#5763](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5763))
 - **MiniMax context lengths, model catalog, thinking guard, aux model, and config base_url** corrections ([#6082](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/6082))
 - **Community provider/model resolution fixes** — salvaged 4 community PRs + MiniMax aux URL ([#5983](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5983))
@@ -103,7 +103,7 @@
 - **Silent memory flush failure** on /new and /resume fixed — @ryanautomated ([#5640](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5640))
 - **OpenViking atexit safety net** for session commit ([#5664](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/5664))
 - **OpenViking tenant-scoping headers** for multi-tenant servers ([#4936](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4936))
-- **ByteRover brv query** runs synchronously before LLM call ([#4831](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4831))
+- **ByteRover brv query** runs synchroshadowly before LLM call ([#4831](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/4831))
 
 ---
 
@@ -331,9 +331,9 @@
 - **@teknium1** — 179 PRs
 
 ### Top Community Contributors
-- **@SHL0MS** (7 PRs) — p5js creative coding skill, manim-video skill + 5 reference expansions, research-paper-writing, Nous OAuth fix, manim font fix
+- **@SHL0MS** (7 PRs) — p5js creative coding skill, manim-video skill + 5 reference expansions, research-paper-writing, Shadow OAuth fix, manim font fix
 - **@alt-glitch** (3 PRs) — Firecrawl cloud browser provider, test re-architecture + CI fixes, Nix flake fixes
-- **@benbarclay** (2 PRs) — Browser Use managed provider switch, Nous portal base URL fix
+- **@benbarclay** (2 PRs) — Browser Use managed provider switch, Shadow portal base URL fix
 - **@CharlieKerfoot** (2 PRs) — macOS portable base64 encoding, thread-safe PairingStore
 - **@WAXLYY** (2 PRs) — send_message secret redaction, gateway media URL sanitization
 - **@MadKangYu** (2 PRs) — Telegram log noise reduction, context compaction fix for temperature-restricted models

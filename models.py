@@ -70,7 +70,7 @@ def _codex_curated_models() -> list[str]:
 
 
 _PROVIDER_MODELS: dict[str, list[str]] = {
-    "nous": [
+    "shadow": [
         "xiaomi/mimo-v2-pro",
         "anthropic/claude-opus-4.6",
         "anthropic/claude-sonnet-4.6",
@@ -303,14 +303,14 @@ _PROVIDER_MODELS: dict[str, list[str]] = {
 }
 
 # ---------------------------------------------------------------------------
-# Nous Portal free-model filtering
+# Shadow Portal free-model filtering
 # ---------------------------------------------------------------------------
-# Models that are ALLOWED to appear when priced as free on Nous Portal.
+# Models that are ALLOWED to appear when priced as free on Shadow Portal.
 # Any other free model is hidden — prevents promotional/temporary free models
 # from cluttering the selection when users are paying subscribers.
 # Models in this list are ALSO filtered out if they are NOT free (i.e. they
 # should only appear in the menu when they are genuinely free).
-_NOUS_ALLOWED_FREE_MODELS: frozenset[str] = frozenset({
+_Shadow_ALLOWED_FREE_MODELS: frozenset[str] = frozenset({
     "xiaomi/mimo-v2-pro",
     "xiaomi/mimo-v2-omni",
 })
@@ -327,11 +327,11 @@ def _is_model_free(model_id: str, pricing: dict[str, dict[str, str]]) -> bool:
         return False
 
 
-def filter_nous_free_models(
+def filter_shadow_free_models(
     model_ids: list[str],
     pricing: dict[str, dict[str, str]],
 ) -> list[str]:
-    """Filter the Nous Portal model list according to free-model policy.
+    """Filter the Shadow Portal model list according to free-model policy.
 
     Rules:
       • Paid models that are NOT in the allowlist → keep (normal case).
@@ -345,7 +345,7 @@ def filter_nous_free_models(
     result: list[str] = []
     for mid in model_ids:
         free = _is_model_free(mid, pricing)
-        if mid in _NOUS_ALLOWED_FREE_MODELS:
+        if mid in _Shadow_ALLOWED_FREE_MODELS:
             # Allowlist model: only show when it's actually free
             if free:
                 result.append(mid)
@@ -357,11 +357,11 @@ def filter_nous_free_models(
 
 
 # ---------------------------------------------------------------------------
-# Nous Portal account tier detection
+# Shadow Portal account tier detection
 # ---------------------------------------------------------------------------
 
-def fetch_nous_account_tier(access_token: str, portal_base_url: str = "") -> dict[str, Any]:
-    """Fetch the user's Nous Portal account/subscription info.
+def fetch_shadow_account_tier(access_token: str, portal_base_url: str = "") -> dict[str, Any]:
+    """Fetch the user's Shadow Portal account/subscription info.
 
     Calls ``<portal>/api/oauth/account`` with the OAuth access token.
 
@@ -394,7 +394,7 @@ def fetch_nous_account_tier(access_token: str, portal_base_url: str = "") -> dic
         return {}
 
 
-def is_nous_free_tier(account_info: dict[str, Any]) -> bool:
+def is_shadow_free_tier(account_info: dict[str, Any]) -> bool:
     """Return True if the account info indicates a free (unpaid) tier.
 
     Checks ``subscription.monthly_charge == 0``.  Returns False when
@@ -412,15 +412,15 @@ def is_nous_free_tier(account_info: dict[str, Any]) -> bool:
         return False
 
 
-def partition_nous_models_by_tier(
+def partition_shadow_models_by_tier(
     model_ids: list[str],
     pricing: dict[str, dict[str, str]],
     free_tier: bool,
 ) -> tuple[list[str], list[str]]:
-    """Split Nous models into (selectable, unavailable) based on user tier.
+    """Split Shadow models into (selectable, unavailable) based on user tier.
 
     For paid-tier users: all models are selectable, none unavailable
-    (free-model filtering is handled separately by ``filter_nous_free_models``).
+    (free-model filtering is handled separately by ``filter_shadow_free_models``).
 
     For free-tier users: only free models are selectable; paid models
     are returned as unavailable (shown grayed out in the menu).
@@ -449,8 +449,8 @@ _FREE_TIER_CACHE_TTL: int = 180  # seconds (3 minutes)
 _free_tier_cache: tuple[bool, float] | None = None  # (result, timestamp)
 
 
-def check_nous_free_tier() -> bool:
-    """Check if the current Nous Portal user is on a free (unpaid) tier.
+def check_shadow_free_tier() -> bool:
+    """Check if the current Shadow Portal user is on a free (unpaid) tier.
 
     Results are cached for ``_FREE_TIER_CACHE_TTL`` seconds to avoid
     hitting the Portal API on every call.  The cache is short-lived so
@@ -468,12 +468,12 @@ def check_nous_free_tier() -> bool:
             return cached_result
 
     try:
-        from shadow_cli.auth import get_provider_auth_state, resolve_nous_runtime_credentials
+        from shadow_cli.auth import get_provider_auth_state, resolve_shadow_runtime_credentials
 
         # Ensure we have a fresh token (triggers refresh if needed)
-        resolve_nous_runtime_credentials(min_key_ttl_seconds=60)
+        resolve_shadow_runtime_credentials(min_key_ttl_seconds=60)
 
-        state = get_provider_auth_state("nous")
+        state = get_provider_auth_state("shadow")
         if not state:
             _free_tier_cache = (False, now)
             return False
@@ -483,8 +483,8 @@ def check_nous_free_tier() -> bool:
             _free_tier_cache = (False, now)
             return False
 
-        account_info = fetch_nous_account_tier(access_token, portal_url)
-        result = is_nous_free_tier(account_info)
+        account_info = fetch_shadow_account_tier(access_token, portal_url)
+        result = is_shadow_free_tier(account_info)
         _free_tier_cache = (result, now)
         return result
     except Exception:
@@ -510,7 +510,7 @@ class ProviderEntry(NamedTuple):
 
 
 CANONICAL_PROVIDERS: list[ProviderEntry] = [
-    ProviderEntry("nous",           "Nous Portal",              "Nous Portal (SHADOW-OVERLORD subscription)"),
+    ProviderEntry("shadow",           "Shadow Portal",              "Shadow Portal (SHADOW-OVERLORD subscription)"),
     ProviderEntry("openrouter",     "OpenRouter",               "OpenRouter (100+ models, pay-per-use)"),
     ProviderEntry("anthropic",      "Anthropic",                "Anthropic (Claude models — API key or Claude Code)"),
     ProviderEntry("openai-codex",   "OpenAI Codex",             "OpenAI Codex"),
@@ -779,7 +779,7 @@ def fetch_models_with_pricing(
     """Fetch ``/v1/models`` and return ``{model_id: {prompt, completion}}`` pricing.
 
     Results are cached per *base_url* so repeated calls are free.
-    Works with any OpenRouter-compatible endpoint (OpenRouter, Nous Portal).
+    Works with any OpenRouter-compatible endpoint (OpenRouter, Shadow Portal).
     """
     cache_key = (base_url or "").rstrip("/")
     if not force_refresh and cache_key in _pricing_cache:
@@ -822,11 +822,11 @@ def _resolve_openrouter_api_key() -> str:
     return os.getenv("OPENROUTER_API_KEY", "").strip()
 
 
-def _resolve_nous_pricing_credentials() -> tuple[str, str]:
-    """Return ``(api_key, base_url)`` for Nous Portal pricing, or empty strings."""
+def _resolve_shadow_pricing_credentials() -> tuple[str, str]:
+    """Return ``(api_key, base_url)`` for Shadow Portal pricing, or empty strings."""
     try:
-        from shadow_cli.auth import resolve_nous_runtime_credentials
-        creds = resolve_nous_runtime_credentials()
+        from shadow_cli.auth import resolve_shadow_runtime_credentials
+        creds = resolve_shadow_runtime_credentials()
         if creds:
             return (creds.get("api_key", ""), creds.get("base_url", ""))
     except Exception:
@@ -835,7 +835,7 @@ def _resolve_nous_pricing_credentials() -> tuple[str, str]:
 
 
 def get_pricing_for_provider(provider: str, *, force_refresh: bool = False) -> dict[str, dict[str, str]]:
-    """Return live pricing for providers that support it (openrouter, nous)."""
+    """Return live pricing for providers that support it (openrouter, shadow)."""
     normalized = normalize_provider(provider)
     if normalized == "openrouter":
         return fetch_models_with_pricing(
@@ -843,10 +843,10 @@ def get_pricing_for_provider(provider: str, *, force_refresh: bool = False) -> d
             base_url="https://openrouter.ai/api",
             force_refresh=force_refresh,
         )
-    if normalized == "nous":
-        api_key, base_url = _resolve_nous_pricing_credentials()
+    if normalized == "shadow":
+        api_key, base_url = _resolve_shadow_pricing_credentials()
         if base_url:
-            # Nous base_url typically looks like https://inference-api.shadow-overlord.com/v1
+            # Shadow base_url typically looks like https://inference-api.shadow-overlord.com/v1
             # We need the part before /v1 for our fetch function
             stripped = base_url.rstrip("/")
             if stripped.endswith("/v1"):
@@ -917,7 +917,7 @@ def parse_model_input(raw: str, current_provider: str) -> tuple[str, str]:
     Supports ``provider:model`` syntax to switch providers at runtime::
 
         openrouter:anthropic/claude-sonnet-4.5  →  ("openrouter", "anthropic/claude-sonnet-4.5")
-        nous:shadow-3                           →  ("nous", "shadow-3")
+        shadow:shadow-3                           →  ("shadow", "shadow-3")
         anthropic/claude-sonnet-4.5             →  (current_provider, "anthropic/claude-sonnet-4.5")
         gpt-5.4                                 →  (current_provider, "gpt-5.4")
 
@@ -975,7 +975,7 @@ def curated_models_for_provider(
     if normalized == "openrouter":
         return fetch_openrouter_models(force_refresh=force_refresh)
 
-    # Try live API first (Codex, Nous, etc. all support /models)
+    # Try live API first (Codex, Shadow, etc. all support /models)
     live = provider_model_ids(normalized)
     if live:
         return [(m, "") for m in live]
@@ -1008,7 +1008,7 @@ def detect_provider_for_model(
     name_lower = name.lower()
 
     # --- Step 0: bare provider name typed as model ---
-    # If someone types `/model nous` or `/model anthropic`, treat it as a
+    # If someone types `/model shadow` or `/model anthropic`, treat it as a
     # provider switch and pick the first model from that provider's catalog.
     # Skip "custom" and "openrouter" — custom has no model catalog, and
     # openrouter requires an explicit model name to be useful.
@@ -1023,7 +1023,7 @@ def detect_provider_for_model(
             return (resolved_provider, default_models[0])
 
     # Aggregators list other providers' models — never auto-switch TO them
-    _AGGREGATORS = {"nous", "openrouter"}
+    _AGGREGATORS = {"shadow", "openrouter"}
 
     # If the model belongs to the current provider's catalog, don't suggest switching
     current_models = _PROVIDER_MODELS.get(current_provider, [])
@@ -1214,7 +1214,7 @@ def _resolve_copilot_catalog_api_key() -> str:
 def provider_model_ids(provider: Optional[str], *, force_refresh: bool = False) -> list[str]:
     """Return the best known model catalog for a provider.
 
-    Tries live API endpoints for providers that support them (Codex, Nous),
+    Tries live API endpoints for providers that support them (Codex, Shadow),
     falling back to static lists.
     """
     normalized = normalize_provider(provider)
@@ -1233,13 +1233,13 @@ def provider_model_ids(provider: Optional[str], *, force_refresh: bool = False) 
             pass
         if normalized == "copilot-acp":
             return list(_PROVIDER_MODELS.get("copilot", []))
-    if normalized == "nous":
-        # Try live Nous Portal /models endpoint
+    if normalized == "shadow":
+        # Try live Shadow Portal /models endpoint
         try:
-            from shadow_cli.auth import fetch_nous_models, resolve_nous_runtime_credentials
-            creds = resolve_nous_runtime_credentials()
+            from shadow_cli.auth import fetch_shadow_models, resolve_shadow_runtime_credentials
+            creds = resolve_shadow_runtime_credentials()
             if creds:
-                live = fetch_nous_models(api_key=creds.get("api_key", ""), inference_base_url=creds.get("base_url", ""))
+                live = fetch_shadow_models(api_key=creds.get("api_key", ""), inference_base_url=creds.get("base_url", ""))
                 if live:
                     return live
         except Exception:

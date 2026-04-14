@@ -37,7 +37,7 @@ shadow [global-options] <command> [subcommand/options]
 | `shadow gateway` | Run or manage the messaging gateway service. |
 | `shadow setup` | Interactive setup wizard for all or part of the configuration. |
 | `shadow whatsapp` | Configure and pair the WhatsApp bridge. |
-| `shadow auth` | Manage credentials — add, list, remove, reset, set strategy. Handles OAuth flows for Codex/Nous/Anthropic. |
+| `shadow auth` | Manage credentials — add, list, remove, reset, set strategy. Handles OAuth flows for Codex/Shadow/Anthropic. |
 | `shadow login` / `logout` | **Deprecated** — use `shadow auth` instead. |
 | `shadow status` | Show agent, auth, and platform status. |
 | `shadow cron` | Inspect and tick the cron scheduler. |
@@ -83,7 +83,7 @@ Common options:
 | `-q`, `--query "..."` | One-shot, non-interactive prompt. |
 | `-m`, `--model <model>` | Override the model for this run. |
 | `-t`, `--toolsets <csv>` | Enable a comma-separated set of toolsets. |
-| `--provider <provider>` | Force a provider: `auto`, `openrouter`, `nous`, `openai-codex`, `copilot-acp`, `copilot`, `anthropic`, `gemini`, `huggingface`, `zai`, `kimi-coding`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`. |
+| `--provider <provider>` | Force a provider: `auto`, `openrouter`, `shadow`, `openai-codex`, `copilot-acp`, `copilot`, `anthropic`, `gemini`, `huggingface`, `zai`, `kimi-coding`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`. |
 | `-s`, `--skills <name>` | Preload one or more skills for the session (can be repeated or comma-separated). |
 | `-v`, `--verbose` | Verbose output. |
 | `-Q`, `--quiet` | Programmatic mode: suppress banner/spinner/tool previews. |
@@ -331,7 +331,7 @@ api_keys:
   openrouter           set
   openai               not set
   anthropic            set
-  nous                 not set
+  shadow                 not set
   firecrawl            set
   ...
 

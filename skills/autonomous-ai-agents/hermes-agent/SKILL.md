@@ -80,7 +80,7 @@ shadow chat [flags]
   -q, --query TEXT          Single query, non-interactive
   -m, --model MODEL         Model (e.g. anthropic/claude-sonnet-4)
   -t, --toolsets LIST       Comma-separated toolsets
-  --provider PROVIDER       Force provider (openrouter, anthropic, nous, etc.)
+  --provider PROVIDER       Force provider (openrouter, anthropic, shadow, etc.)
   -v, --verbose             Verbose output
   -Q, --quiet               Suppress banner, spinner, tool previews
   --checkpoints             Enable filesystem checkpoints (/rollback)
@@ -99,7 +99,7 @@ shadow config path          Print config.yaml path
 shadow config env-path      Print .env path
 shadow config check         Check for missing/outdated config
 shadow config migrate       Update config with new options
-shadow login [--provider P] OAuth login (nous, openai-codex)
+shadow login [--provider P] OAuth login (shadow, openai-codex)
 shadow logout               Clear stored auth
 shadow doctor [--fix]       Check dependencies and config
 shadow status [--all]       Show component status
@@ -351,7 +351,7 @@ Full config reference: https://shadow-agent.shadow-overlord.com/docs/user-guide/
 |----------|------|-------------|
 | OpenRouter | API key | `OPENROUTER_API_KEY` |
 | Anthropic | API key | `ANTHROPIC_API_KEY` |
-| Nous Portal | OAuth | `shadow login --provider nous` |
+| Shadow Portal | OAuth | `shadow login --provider shadow` |
 | OpenAI Codex | OAuth | `shadow login --provider openai-codex` |
 | GitHub Copilot | Token | `COPILOT_GITHUB_TOKEN` |
 | Google Gemini | API key | `GOOGLE_API_KEY` or `GEMINI_API_KEY` |

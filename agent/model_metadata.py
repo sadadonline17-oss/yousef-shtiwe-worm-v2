@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 # Only these are stripped — Ollama-style "model:tag" colons (e.g. "qwen3.5:27b")
 # are preserved so the full model name reaches cache lookups and server queries.
 _PROVIDER_PREFIXES: frozenset[str] = frozenset({
-    "openrouter", "nous", "openai-codex", "copilot", "copilot-acp",
+    "openrouter", "shadow", "openai-codex", "copilot", "copilot-acp",
     "gemini", "zai", "kimi-coding", "kimi-coding-cn", "minimax", "minimax-cn", "anthropic", "deepseek",
     "opencode-zen", "opencode-go", "ai-gateway", "kilocode", "alibaba",
     "qwen-oauth",
@@ -229,7 +229,7 @@ _URL_TO_PROVIDER: Dict[str, str] = {
     "portal.qwen.ai": "qwen-oauth",
     "openrouter.ai": "openrouter",
     "generativelanguage.googleapis.com": "gemini",
-    "inference-api.shadow-overlord.com": "nous",
+    "inference-api.shadow-overlord.com": "shadow",
     "api.deepseek.com": "deepseek",
     "api.githubcopilot.com": "copilot",
     "models.github.ai": "copilot",
@@ -859,7 +859,7 @@ def _query_local_context_length(model: str, base_url: str) -> Optional[int]:
 def _normalize_model_version(model: str) -> str:
     """Normalize version separators for matching.
 
-    Nous uses dashes: claude-opus-4-6, claude-sonnet-4-5
+    Shadow uses dashes: claude-opus-4-6, claude-sonnet-4-5
     OpenRouter uses dots: claude-opus-4.6, claude-sonnet-4.5
     Normalize both to dashes for comparison.
     """
@@ -897,10 +897,10 @@ def _query_anthropic_context_length(model: str, base_url: str, api_key: str) -> 
     return None
 
 
-def _resolve_nous_context_length(model: str) -> Optional[int]:
-    """Resolve Nous Portal model context length via OpenRouter metadata.
+def _resolve_shadow_context_length(model: str) -> Optional[int]:
+    """Resolve Shadow Portal model context length via OpenRouter metadata.
 
-    Nous model IDs are bare (e.g. 'claude-opus-4-6') while OpenRouter uses
+    Shadow model IDs are bare (e.g. 'claude-opus-4-6') while OpenRouter uses
     prefixed IDs (e.g. 'anthropic/claude-opus-4.6'). Try suffix matching
     with version normalization (dot↔dash).
     """
@@ -946,7 +946,7 @@ def get_model_context_length(
     3. Local server query (for local endpoints)
     4. Anthropic /v1/models API (API-key users only, not OAuth)
     5. OpenRouter live API metadata
-    6. Nous suffix-match via OpenRouter cache
+    6. Shadow suffix-match via OpenRouter cache
     7. models.dev registry lookup (provider-aware)
     8. Thin hardcoded defaults (broad family patterns)
     9. Default fallback (128K)
@@ -1023,8 +1023,8 @@ def get_model_context_length(
             if inferred:
                 effective_provider = inferred
 
-    if effective_provider == "nous":
-        ctx = _resolve_nous_context_length(model)
+    if effective_provider == "shadow":
+        ctx = _resolve_shadow_context_length(model)
         if ctx:
             return ctx
     if effective_provider:

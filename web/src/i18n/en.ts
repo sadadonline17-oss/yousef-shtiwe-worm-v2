@@ -117,7 +117,7 @@ export const en: Translations = {
     input: "Input",
     output: "Output",
     total: "Total",
-    noUsageData: "No usage data for this period",
+    shadowageData: "No usage data for this period",
     startSession: "Start a session to see analytics here",
     date: "Date",
     model: "Model",

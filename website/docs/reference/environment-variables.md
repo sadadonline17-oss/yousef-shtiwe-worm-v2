@@ -70,11 +70,11 @@ For native Anthropic auth, SHADOW prefers Claude Code's own credential files whe
 
 | Variable | Description |
 |----------|-------------|
-| `SHADOW_INFERENCE_PROVIDER` | Override provider selection: `auto`, `openrouter`, `nous`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `deepseek`, `opencode-zen`, `opencode-go`, `ai-gateway` (default: `auto`) |
-| `SHADOW_PORTAL_BASE_URL` | Override Nous Portal URL (for development/testing) |
-| `NOUS_INFERENCE_BASE_URL` | Override Nous inference API URL |
-| `SHADOW_NOUS_MIN_KEY_TTL_SECONDS` | Min agent key TTL before re-mint (default: 1800 = 30min) |
-| `SHADOW_NOUS_TIMEOUT_SECONDS` | HTTP timeout for Nous credential / token flows |
+| `SHADOW_INFERENCE_PROVIDER` | Override provider selection: `auto`, `openrouter`, `shadow`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `deepseek`, `opencode-zen`, `opencode-go`, `ai-gateway` (default: `auto`) |
+| `SHADOW_PORTAL_BASE_URL` | Override Shadow Portal URL (for development/testing) |
+| `Shadow_INFERENCE_BASE_URL` | Override Shadow inference API URL |
+| `SHADOW_Shadow_MIN_KEY_TTL_SECONDS` | Min agent key TTL before re-mint (default: 1800 = 30min) |
+| `SHADOW_Shadow_TIMEOUT_SECONDS` | HTTP timeout for Shadow credential / token flows |
 | `SHADOW_DUMP_REQUESTS` | Dump API request payloads to log files (`true`/`false`) |
 | `SHADOW_PREFILL_MESSAGES_FILE` | Path to a JSON file of ephemeral prefill messages injected at API-call time |
 | `SHADOW_TIMEZONE` | IANA timezone override (for example `America/New_York`) |

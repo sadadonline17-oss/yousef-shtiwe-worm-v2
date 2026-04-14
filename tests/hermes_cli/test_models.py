@@ -4,9 +4,9 @@ from unittest.mock import patch, MagicMock
 
 from shadow_cli.models import (
     OPENROUTER_MODELS, fetch_openrouter_models, model_ids, detect_provider_for_model,
-    filter_nous_free_models, _NOUS_ALLOWED_FREE_MODELS,
-    is_nous_free_tier, partition_nous_models_by_tier,
-    check_nous_free_tier, _FREE_TIER_CACHE_TTL,
+    filter_shadow_free_models, _Shadow_ALLOWED_FREE_MODELS,
+    is_shadow_free_tier, partition_shadow_models_by_tier,
+    check_shadow_free_tier, _FREE_TIER_CACHE_TTL,
 )
 import shadow_cli.models as _models_mod
 
@@ -161,15 +161,15 @@ class TestDetectProviderForModel:
             assert detect_provider_for_model("nonexistent-model-xyz", "openai-codex") is None
 
     def test_aggregator_not_suggested(self):
-        """nous/openrouter should never be auto-suggested as target provider."""
+        """shadow/openrouter should never be auto-suggested as target provider."""
         with patch("shadow_cli.models.fetch_openrouter_models", return_value=LIVE_OPENROUTER_MODELS):
             result = detect_provider_for_model("claude-opus-4-6", "openai-codex")
         assert result is not None
-        assert result[0] not in ("nous",)  # nous has claude models but shouldn't be suggested
+        assert result[0] not in ("shadow",)  # shadow has claude models but shouldn't be suggested
 
 
-class TestFilterNousFreeModels:
-    """Tests for filter_nous_free_models — Nous Portal free-model policy."""
+class TestFilterShadowFreeModels:
+    """Tests for filter_shadow_free_models — Shadow Portal free-model policy."""
 
     _PAID = {"prompt": "0.000003", "completion": "0.000015"}
     _FREE = {"prompt": "0", "completion": "0"}
@@ -178,7 +178,7 @@ class TestFilterNousFreeModels:
         """Regular paid models pass through unchanged."""
         models = ["anthropic/claude-opus-4.6", "openai/gpt-5.4"]
         pricing = {m: self._PAID for m in models}
-        assert filter_nous_free_models(models, pricing) == models
+        assert filter_shadow_free_models(models, pricing) == models
 
     def test_free_non_allowlist_models_removed(self):
         """Free models NOT in the allowlist are filtered out."""
@@ -187,7 +187,7 @@ class TestFilterNousFreeModels:
             "anthropic/claude-opus-4.6": self._PAID,
             "arcee-ai/trinity-large-preview:free": self._FREE,
         }
-        result = filter_nous_free_models(models, pricing)
+        result = filter_shadow_free_models(models, pricing)
         assert result == ["anthropic/claude-opus-4.6"]
 
     def test_allowlist_model_kept_when_free(self):
@@ -197,7 +197,7 @@ class TestFilterNousFreeModels:
             "anthropic/claude-opus-4.6": self._PAID,
             "xiaomi/mimo-v2-pro": self._FREE,
         }
-        result = filter_nous_free_models(models, pricing)
+        result = filter_shadow_free_models(models, pricing)
         assert result == ["anthropic/claude-opus-4.6", "xiaomi/mimo-v2-pro"]
 
     def test_allowlist_model_removed_when_paid(self):
@@ -207,19 +207,19 @@ class TestFilterNousFreeModels:
             "anthropic/claude-opus-4.6": self._PAID,
             "xiaomi/mimo-v2-pro": self._PAID,
         }
-        result = filter_nous_free_models(models, pricing)
+        result = filter_shadow_free_models(models, pricing)
         assert result == ["anthropic/claude-opus-4.6"]
 
     def test_no_pricing_returns_all(self):
         """When pricing data is unavailable, all models pass through."""
         models = ["anthropic/claude-opus-4.6", "nvidia/nemotron-3-super-120b-a12b:free"]
-        assert filter_nous_free_models(models, {}) == models
+        assert filter_shadow_free_models(models, {}) == models
 
     def test_model_with_no_pricing_entry_treated_as_paid(self):
         """A model missing from the pricing dict is kept (assumed paid)."""
         models = ["anthropic/claude-opus-4.6", "openai/gpt-5.4"]
         pricing = {"anthropic/claude-opus-4.6": self._PAID}  # gpt-5.4 not in pricing
-        result = filter_nous_free_models(models, pricing)
+        result = filter_shadow_free_models(models, pricing)
         assert result == models
 
     def test_mixed_scenario(self):
@@ -238,7 +238,7 @@ class TestFilterNousFreeModels:
             "xiaomi/mimo-v2-omni": self._PAID,
             "openai/gpt-5.4": self._PAID,
         }
-        result = filter_nous_free_models(models, pricing)
+        result = filter_shadow_free_models(models, pricing)
         assert result == [
             "anthropic/claude-opus-4.6",
             "xiaomi/mimo-v2-pro",
@@ -247,42 +247,42 @@ class TestFilterNousFreeModels:
 
     def test_allowlist_contains_expected_models(self):
         """Sanity: the allowlist has the models we expect."""
-        assert "xiaomi/mimo-v2-pro" in _NOUS_ALLOWED_FREE_MODELS
-        assert "xiaomi/mimo-v2-omni" in _NOUS_ALLOWED_FREE_MODELS
+        assert "xiaomi/mimo-v2-pro" in _Shadow_ALLOWED_FREE_MODELS
+        assert "xiaomi/mimo-v2-omni" in _Shadow_ALLOWED_FREE_MODELS
 
 
-class TestIsNousFreeTier:
-    """Tests for is_nous_free_tier — account tier detection."""
+class TestIsShadowFreeTier:
+    """Tests for is_shadow_free_tier — account tier detection."""
 
     def test_paid_plus_tier(self):
-        assert is_nous_free_tier({"subscription": {"plan": "Plus", "tier": 2, "monthly_charge": 20}}) is False
+        assert is_shadow_free_tier({"subscription": {"plan": "Plus", "tier": 2, "monthly_charge": 20}}) is False
 
     def test_free_tier_by_charge(self):
-        assert is_nous_free_tier({"subscription": {"plan": "Free", "tier": 0, "monthly_charge": 0}}) is True
+        assert is_shadow_free_tier({"subscription": {"plan": "Free", "tier": 0, "monthly_charge": 0}}) is True
 
     def test_no_charge_field_not_free(self):
         """Missing monthly_charge defaults to not-free (don't block users)."""
-        assert is_nous_free_tier({"subscription": {"plan": "Free", "tier": 0}}) is False
+        assert is_shadow_free_tier({"subscription": {"plan": "Free", "tier": 0}}) is False
 
     def test_plan_name_alone_not_free(self):
         """Plan name alone is not enough — monthly_charge is required."""
-        assert is_nous_free_tier({"subscription": {"plan": "free"}}) is False
+        assert is_shadow_free_tier({"subscription": {"plan": "free"}}) is False
 
     def test_empty_subscription_not_free(self):
         """Empty subscription dict defaults to not-free (don't block users)."""
-        assert is_nous_free_tier({"subscription": {}}) is False
+        assert is_shadow_free_tier({"subscription": {}}) is False
 
     def test_no_subscription_not_free(self):
         """Missing subscription key returns False."""
-        assert is_nous_free_tier({}) is False
+        assert is_shadow_free_tier({}) is False
 
     def test_empty_response_not_free(self):
         """Completely empty response defaults to not-free."""
-        assert is_nous_free_tier({}) is False
+        assert is_shadow_free_tier({}) is False
 
 
-class TestPartitionNousModelsByTier:
-    """Tests for partition_nous_models_by_tier — free vs paid tier model split."""
+class TestPartitionShadowModelsByTier:
+    """Tests for partition_shadow_models_by_tier — free vs paid tier model split."""
 
     _PAID = {"prompt": "0.000003", "completion": "0.000015"}
     _FREE = {"prompt": "0", "completion": "0"}
@@ -291,7 +291,7 @@ class TestPartitionNousModelsByTier:
         """Paid users get all models as selectable, none unavailable."""
         models = ["anthropic/claude-opus-4.6", "xiaomi/mimo-v2-pro"]
         pricing = {"anthropic/claude-opus-4.6": self._PAID, "xiaomi/mimo-v2-pro": self._FREE}
-        sel, unav = partition_nous_models_by_tier(models, pricing, free_tier=False)
+        sel, unav = partition_shadow_models_by_tier(models, pricing, free_tier=False)
         assert sel == models
         assert unav == []
 
@@ -303,14 +303,14 @@ class TestPartitionNousModelsByTier:
             "xiaomi/mimo-v2-pro": self._FREE,
             "openai/gpt-5.4": self._PAID,
         }
-        sel, unav = partition_nous_models_by_tier(models, pricing, free_tier=True)
+        sel, unav = partition_shadow_models_by_tier(models, pricing, free_tier=True)
         assert sel == ["xiaomi/mimo-v2-pro"]
         assert unav == ["anthropic/claude-opus-4.6", "openai/gpt-5.4"]
 
     def test_no_pricing_returns_all(self):
         """Without pricing data, all models are selectable."""
         models = ["anthropic/claude-opus-4.6", "openai/gpt-5.4"]
-        sel, unav = partition_nous_models_by_tier(models, {}, free_tier=True)
+        sel, unav = partition_shadow_models_by_tier(models, {}, free_tier=True)
         assert sel == models
         assert unav == []
 
@@ -318,7 +318,7 @@ class TestPartitionNousModelsByTier:
         """When all models are free, free-tier users can select all."""
         models = ["xiaomi/mimo-v2-pro", "xiaomi/mimo-v2-omni"]
         pricing = {m: self._FREE for m in models}
-        sel, unav = partition_nous_models_by_tier(models, pricing, free_tier=True)
+        sel, unav = partition_shadow_models_by_tier(models, pricing, free_tier=True)
         assert sel == models
         assert unav == []
 
@@ -326,13 +326,13 @@ class TestPartitionNousModelsByTier:
         """When all models are paid, free-tier users have none selectable."""
         models = ["anthropic/claude-opus-4.6", "openai/gpt-5.4"]
         pricing = {m: self._PAID for m in models}
-        sel, unav = partition_nous_models_by_tier(models, pricing, free_tier=True)
+        sel, unav = partition_shadow_models_by_tier(models, pricing, free_tier=True)
         assert sel == []
         assert unav == models
 
 
-class TestCheckNousFreeTierCache:
-    """Tests for the TTL cache on check_nous_free_tier()."""
+class TestCheckShadowFreeTierCache:
+    """Tests for the TTL cache on check_shadow_free_tier()."""
 
     def setup_method(self):
         _models_mod._free_tier_cache = None
@@ -340,34 +340,34 @@ class TestCheckNousFreeTierCache:
     def teardown_method(self):
         _models_mod._free_tier_cache = None
 
-    @patch("shadow_cli.models.fetch_nous_account_tier")
-    @patch("shadow_cli.models.is_nous_free_tier", return_value=True)
+    @patch("shadow_cli.models.fetch_shadow_account_tier")
+    @patch("shadow_cli.models.is_shadow_free_tier", return_value=True)
     def test_result_is_cached(self, mock_is_free, mock_fetch):
         """Second call within TTL returns cached result without API call."""
         mock_fetch.return_value = {"subscription": {"monthly_charge": 0}}
         with patch("shadow_cli.auth.get_provider_auth_state", return_value={"access_token": "tok"}), \
-             patch("shadow_cli.auth.resolve_nous_runtime_credentials"):
-            result1 = check_nous_free_tier()
-            result2 = check_nous_free_tier()
+             patch("shadow_cli.auth.resolve_shadow_runtime_credentials"):
+            result1 = check_shadow_free_tier()
+            result2 = check_shadow_free_tier()
 
         assert result1 is True
         assert result2 is True
         assert mock_fetch.call_count == 1
 
-    @patch("shadow_cli.models.fetch_nous_account_tier")
-    @patch("shadow_cli.models.is_nous_free_tier", return_value=False)
+    @patch("shadow_cli.models.fetch_shadow_account_tier")
+    @patch("shadow_cli.models.is_shadow_free_tier", return_value=False)
     def test_cache_expires_after_ttl(self, mock_is_free, mock_fetch):
         """After TTL expires, the API is called again."""
         mock_fetch.return_value = {"subscription": {"monthly_charge": 20}}
         with patch("shadow_cli.auth.get_provider_auth_state", return_value={"access_token": "tok"}), \
-             patch("shadow_cli.auth.resolve_nous_runtime_credentials"):
-            result1 = check_nous_free_tier()
+             patch("shadow_cli.auth.resolve_shadow_runtime_credentials"):
+            result1 = check_shadow_free_tier()
             assert mock_fetch.call_count == 1
 
             cached_result, cached_at = _models_mod._free_tier_cache
             _models_mod._free_tier_cache = (cached_result, cached_at - _FREE_TIER_CACHE_TTL - 1)
 
-            result2 = check_nous_free_tier()
+            result2 = check_shadow_free_tier()
             assert mock_fetch.call_count == 2
 
         assert result1 is False

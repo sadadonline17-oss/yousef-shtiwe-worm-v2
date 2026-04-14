@@ -4,8 +4,8 @@ Standalone Web Tools Module
 
 This module provides generic web tools that work with multiple backend providers.
 Backend is selected during ``shadow tools`` setup (web.backend in config.yaml).
-When available, SHADOW can route Firecrawl calls through a Nous-hosted tool-gateway
-for Nous Subscribers only.
+When available, SHADOW can route Firecrawl calls through a Shadow-hosted tool-gateway
+for Shadow Subscribers only.
 
 Available tools:
 - web_search_tool: Search the web for information
@@ -14,7 +14,7 @@ Available tools:
 
 Backend compatibility:
 - Exa: https://exa.ai (search, extract)
-- Firecrawl: https://docs.firecrawl.dev/introduction (search, extract, crawl; direct or derived firecrawl-gateway.<domain> for Nous Subscribers)
+- Firecrawl: https://docs.firecrawl.dev/introduction (search, extract, crawl; direct or derived firecrawl-gateway.<domain> for Shadow Subscribers)
 - Parallel: https://docs.parallel.ai (search, extract)
 - Tavily: https://tavily.com (search, extract, crawl)
 
@@ -56,10 +56,10 @@ from agent.auxiliary_client import (
 from tools.debug_helpers import DebugSession
 from tools.managed_tool_gateway import (
     build_vendor_gateway_url,
-    read_nous_access_token as _read_nous_access_token,
+    read_shadow_access_token as _read_shadow_access_token,
     resolve_managed_tool_gateway,
 )
-from tools.tool_backend_helpers import managed_nous_tools_enabled
+from tools.tool_backend_helpers import managed_shadow_tools_enabled
 from tools.url_safety import is_safe_url
 from tools.website_policy import check_website_access
 
@@ -93,7 +93,7 @@ def _get_backend() -> str:
 
     # Fallback for manual / legacy config — pick the highest-priority
     # available backend. Firecrawl also counts as available when the managed
-    # tool gateway is configured for Nous subscribers.
+    # tool gateway is configured for Shadow subscribers.
     backend_candidates = (
         ("firecrawl", _has_env("FIRECRAWL_API_KEY") or _has_env("FIRECRAWL_API_URL") or _is_tool_gateway_ready()),
         ("parallel", _has_env("PARALLEL_API_KEY")),
@@ -148,8 +148,8 @@ def _get_firecrawl_gateway_url() -> str:
 
 
 def _is_tool_gateway_ready() -> bool:
-    """Return True when gateway URL and a Nous Subscriber token are available."""
-    return resolve_managed_tool_gateway("firecrawl", token_reader=_read_nous_access_token) is not None
+    """Return True when gateway URL and a Shadow Subscriber token are available."""
+    return resolve_managed_tool_gateway("firecrawl", token_reader=_read_shadow_access_token) is not None
 
 
 def _has_direct_firecrawl_config() -> bool:
@@ -163,9 +163,9 @@ def _raise_web_backend_configuration_error() -> None:
         "Web tools are not configured. "
         "Set FIRECRAWL_API_KEY for cloud Firecrawl or set FIRECRAWL_API_URL for a self-hosted Firecrawl instance."
     )
-    if managed_nous_tools_enabled():
+    if managed_shadow_tools_enabled():
         message += (
-            " If you have the hidden Nous-managed tools flag enabled, you can also login to Nous "
+            " If you have the hidden Shadow-managed tools flag enabled, you can also login to Shadow "
             "(`shadow model`) and provide FIRECRAWL_GATEWAY_URL or TOOL_GATEWAY_DOMAIN."
         )
     raise ValueError(message)
@@ -173,10 +173,10 @@ def _raise_web_backend_configuration_error() -> None:
 
 def _firecrawl_backend_help_suffix() -> str:
     """Return optional managed-gateway guidance for Firecrawl help text."""
-    if not managed_nous_tools_enabled():
+    if not managed_shadow_tools_enabled():
         return ""
     return (
-        ", or, if you have the hidden Nous-managed tools flag enabled, login to Nous and use "
+        ", or, if you have the hidden Shadow-managed tools flag enabled, login to Shadow and use "
         "FIRECRAWL_GATEWAY_URL or TOOL_GATEWAY_DOMAIN"
     )
 
@@ -190,7 +190,7 @@ def _web_requires_env() -> list[str]:
         "FIRECRAWL_API_KEY",
         "FIRECRAWL_API_URL",
     ]
-    if managed_nous_tools_enabled():
+    if managed_shadow_tools_enabled():
         requires.extend(
             [
                 "FIRECRAWL_GATEWAY_URL",
@@ -206,7 +206,7 @@ def _get_firecrawl_client():
     """Get or create Firecrawl client.
 
     Direct Firecrawl takes precedence when explicitly configured. Otherwise
-    SHADOW falls back to the Firecrawl tool-gateway for logged-in Nous Subscribers.
+    SHADOW falls back to the Firecrawl tool-gateway for logged-in Shadow Subscribers.
     """
     global _firecrawl_client, _firecrawl_client_config
 
@@ -216,20 +216,20 @@ def _get_firecrawl_client():
     else:
         managed_gateway = resolve_managed_tool_gateway(
             "firecrawl",
-            token_reader=_read_nous_access_token,
+            token_reader=_read_shadow_access_token,
         )
         if managed_gateway is None:
             logger.error("Firecrawl client initialization failed: missing direct config and tool-gateway auth.")
             _raise_web_backend_configuration_error()
 
         kwargs = {
-            "api_key": managed_gateway.nous_user_token,
+            "api_key": managed_gateway.shadow_user_token,
             "api_url": managed_gateway.gateway_origin,
         }
         client_config = (
             "tool-gateway",
             kwargs["api_url"],
-            managed_gateway.nous_user_token,
+            managed_gateway.shadow_user_token,
         )
 
     if _firecrawl_client is not None and _firecrawl_client_config == client_config:
@@ -443,8 +443,8 @@ def _extract_scrape_payload(scrape_result: Any) -> Dict[str, Any]:
 
 DEFAULT_MIN_LENGTH_FOR_SUMMARIZATION = 5000
 
-def _is_nous_auxiliary_client(client: Any) -> bool:
-    """Return True when the resolved auxiliary backend is Nous Portal."""
+def _is_shadow_auxiliary_client(client: Any) -> bool:
+    """Return True when the resolved auxiliary backend is Shadow Portal."""
     from urllib.parse import urlparse
 
     base_url = str(getattr(client, "base_url", "") or "")
@@ -459,7 +459,7 @@ def _resolve_web_extract_auxiliary(model: Optional[str] = None) -> tuple[Optiona
     effective_model = model or configured_model or default_model
 
     extra_body: Dict[str, Any] = {}
-    if client is not None and _is_nous_auxiliary_client(client):
+    if client is not None and _is_shadow_auxiliary_client(client):
         from agent.auxiliary_client import get_auxiliary_extra_body
         extra_body = get_auxiliary_extra_body() or {"tags": ["product=shadow-agent"]}
 
@@ -1286,7 +1286,7 @@ async def web_extract_tool(
 
                     try:
                         logger.info("Scraping: %s", url)
-                        # Run synchronous Firecrawl scrape in a thread with a
+                        # Run synchroshadow Firecrawl scrape in a thread with a
                         # 60s timeout so a hung fetch doesn't block the session.
                         try:
                             scrape_result = await asyncio.wait_for(
@@ -1909,7 +1909,7 @@ def check_firecrawl_api_key() -> bool:
 
     Availability is true when either:
     1) direct Firecrawl config (`FIRECRAWL_API_KEY` or `FIRECRAWL_API_URL`), or
-    2) Firecrawl gateway origin + Nous Subscriber access token
+    2) Firecrawl gateway origin + Shadow Subscriber access token
        (fallback when direct Firecrawl is not configured).
 
     Returns:
@@ -1946,7 +1946,7 @@ if __name__ == "__main__":
     tool_gateway_available = _is_tool_gateway_ready()
     firecrawl_key_available = bool(os.getenv("FIRECRAWL_API_KEY", "").strip())
     firecrawl_url_available = bool(os.getenv("FIRECRAWL_API_URL", "").strip())
-    nous_available = check_auxiliary_model()
+    shadow_available = check_auxiliary_model()
     default_summarizer_model = _get_default_summarizer_model()
 
     if web_available:
@@ -1974,9 +1974,9 @@ if __name__ == "__main__":
             f"{_firecrawl_backend_help_suffix()}"
         )
 
-    if not nous_available:
+    if not shadow_available:
         print("❌ No auxiliary model available for LLM content processing")
-        print("Set OPENROUTER_API_KEY, configure Nous Portal, or set OPENAI_BASE_URL + OPENAI_API_KEY")
+        print("Set OPENROUTER_API_KEY, configure Shadow Portal, or set OPENAI_BASE_URL + OPENAI_API_KEY")
         print("⚠️  Without an auxiliary model, LLM content processing will be disabled")
     else:
         print(f"✅ Auxiliary model available: {default_summarizer_model}")
@@ -1986,7 +1986,7 @@ if __name__ == "__main__":
 
     print("🛠️  Web tools ready for use!")
     
-    if nous_available:
+    if shadow_available:
         print(f"🧠 LLM content processing available with {default_summarizer_model}")
         print(f"   Default min length for processing: {DEFAULT_MIN_LENGTH_FOR_SUMMARIZATION} chars")
     
@@ -2001,16 +2001,16 @@ if __name__ == "__main__":
     print("  from web_tools import web_search_tool, web_extract_tool, web_crawl_tool")
     print("  import asyncio")
     print("")
-    print("  # Search (synchronous)")
+    print("  # Search (synchroshadow)")
     print("  results = web_search_tool('Python tutorials')")
     print("")
-    print("  # Extract and crawl (asynchronous)")
+    print("  # Extract and crawl (asynchroshadow)")
     print("  async def main():")
     print("      content = await web_extract_tool(['https://example.com'])")
     print("      crawl_data = await web_crawl_tool('example.com', 'Find docs')")
     print("  asyncio.run(main())")
     
-    if nous_available:
+    if shadow_available:
         print("\nLLM-enhanced usage:")
         print("  # Content automatically processed for pages >5000 chars (default)")
         print("  content = await web_extract_tool(['https://python.org/about/'])")

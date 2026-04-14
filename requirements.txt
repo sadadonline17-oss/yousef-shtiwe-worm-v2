@@ -26,7 +26,6 @@ python-telegram-bot[webhooks]>=22.6
 pyyaml
 requests
 rich
-sqlite3
 tenacity
 # Text-to-speech (Edge TTS is free, no API key needed)
 # The canonical dependency list is in pyproject.toml.

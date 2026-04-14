@@ -1,4 +1,4 @@
-"""Helpers for Nous subscription managed-tool capabilities."""
+"""Helpers for Shadow subscription managed-tool capabilities."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, Optional, Set
 
-from shadow_cli.auth import get_nous_auth_status
+from shadow_cli.auth import get_shadow_auth_status
 from shadow_cli.config import get_env_value, load_config
 from tools.managed_tool_gateway import is_managed_tool_gateway_ready
 from tools.tool_backend_helpers import (
     has_direct_modal_credentials,
-    managed_nous_tools_enabled,
+    managed_shadow_tools_enabled,
     normalize_browser_cloud_provider,
     normalize_modal_mode,
     resolve_modal_backend_state,
@@ -25,13 +25,13 @@ _DEFAULT_PLATFORM_TOOLSETS = {
 
 
 @dataclass(frozen=True)
-class NousFeatureState:
+class ShadowFeatureState:
     key: str
     label: str
     included_by_default: bool
     available: bool
     active: bool
-    managed_by_nous: bool
+    managed_by_shadow: bool
     direct_override: bool
     toolset_enabled: bool
     current_provider: str = ""
@@ -39,33 +39,33 @@ class NousFeatureState:
 
 
 @dataclass(frozen=True)
-class NousSubscriptionFeatures:
+class ShadowSubscriptionFeatures:
     subscribed: bool
-    nous_auth_present: bool
-    provider_is_nous: bool
-    features: Dict[str, NousFeatureState]
+    shadow_auth_present: bool
+    provider_is_shadow: bool
+    features: Dict[str, ShadowFeatureState]
 
     @property
-    def web(self) -> NousFeatureState:
+    def web(self) -> ShadowFeatureState:
         return self.features["web"]
 
     @property
-    def image_gen(self) -> NousFeatureState:
+    def image_gen(self) -> ShadowFeatureState:
         return self.features["image_gen"]
 
     @property
-    def tts(self) -> NousFeatureState:
+    def tts(self) -> ShadowFeatureState:
         return self.features["tts"]
 
     @property
-    def browser(self) -> NousFeatureState:
+    def browser(self) -> ShadowFeatureState:
         return self.features["browser"]
 
     @property
-    def modal(self) -> NousFeatureState:
+    def modal(self) -> ShadowFeatureState:
         return self.features["modal"]
 
-    def items(self) -> Iterable[NousFeatureState]:
+    def items(self) -> Iterable[ShadowFeatureState]:
         ordered = ("web", "image_gen", "tts", "browser", "modal")
         for key in ordered:
             yield self.features[key]
@@ -215,23 +215,23 @@ def _resolve_browser_feature_state(
     return "local", available, active, False
 
 
-def get_nous_subscription_features(
+def get_shadow_subscription_features(
     config: Optional[Dict[str, object]] = None,
-) -> NousSubscriptionFeatures:
+) -> ShadowSubscriptionFeatures:
     if config is None:
         config = load_config() or {}
     config = dict(config)
     model_cfg = _model_config_dict(config)
-    provider_is_nous = str(model_cfg.get("provider") or "").strip().lower() == "nous"
+    provider_is_shadow = str(model_cfg.get("provider") or "").strip().lower() == "shadow"
 
     try:
-        nous_status = get_nous_auth_status()
+        shadow_status = get_shadow_auth_status()
     except Exception:
-        nous_status = {}
+        shadow_status = {}
 
-    managed_tools_flag = managed_nous_tools_enabled()
-    nous_auth_present = bool(nous_status.get("logged_in"))
-    subscribed = provider_is_nous or nous_auth_present
+    managed_tools_flag = managed_shadow_tools_enabled()
+    shadow_auth_present = bool(shadow_status.get("logged_in"))
+    subscribed = provider_is_shadow or shadow_auth_present
 
     web_tool_enabled = _toolset_enabled(config, "web")
     image_tool_enabled = _toolset_enabled(config, "image_gen")
@@ -269,11 +269,11 @@ def get_nous_subscription_features(
     direct_browser_use = bool(get_env_value("BROWSER_USE_API_KEY"))
     direct_modal = has_direct_modal_credentials()
 
-    managed_web_available = managed_tools_flag and nous_auth_present and is_managed_tool_gateway_ready("firecrawl")
-    managed_image_available = managed_tools_flag and nous_auth_present and is_managed_tool_gateway_ready("fal-queue")
-    managed_tts_available = managed_tools_flag and nous_auth_present and is_managed_tool_gateway_ready("openai-audio")
-    managed_browser_available = managed_tools_flag and nous_auth_present and is_managed_tool_gateway_ready("browser-use")
-    managed_modal_available = managed_tools_flag and nous_auth_present and is_managed_tool_gateway_ready("modal")
+    managed_web_available = managed_tools_flag and shadow_auth_present and is_managed_tool_gateway_ready("firecrawl")
+    managed_image_available = managed_tools_flag and shadow_auth_present and is_managed_tool_gateway_ready("fal-queue")
+    managed_tts_available = managed_tools_flag and shadow_auth_present and is_managed_tool_gateway_ready("openai-audio")
+    managed_browser_available = managed_tools_flag and shadow_auth_present and is_managed_tool_gateway_ready("browser-use")
+    managed_modal_available = managed_tools_flag and shadow_auth_present and is_managed_tool_gateway_ready("modal")
     modal_state = resolve_modal_backend_state(
         modal_mode,
         has_direct=direct_modal,
@@ -369,61 +369,61 @@ def get_nous_subscription_features(
         tts_explicit_configured = tts_provider not in {"", "edge"}
 
     features = {
-        "web": NousFeatureState(
+        "web": ShadowFeatureState(
             key="web",
             label="Web tools",
             included_by_default=True,
             available=web_available,
             active=web_active,
-            managed_by_nous=web_managed,
+            managed_by_shadow=web_managed,
             direct_override=web_active and not web_managed,
             toolset_enabled=web_tool_enabled,
             current_provider=web_backend or "",
             explicit_configured=bool(web_backend),
         ),
-        "image_gen": NousFeatureState(
+        "image_gen": ShadowFeatureState(
             key="image_gen",
             label="Image generation",
             included_by_default=True,
             available=image_available,
             active=image_active,
-            managed_by_nous=image_managed,
+            managed_by_shadow=image_managed,
             direct_override=image_active and not image_managed,
             toolset_enabled=image_tool_enabled,
-            current_provider="FAL" if direct_fal else ("Nous Subscription" if image_managed else ""),
+            current_provider="FAL" if direct_fal else ("Shadow Subscription" if image_managed else ""),
             explicit_configured=direct_fal,
         ),
-        "tts": NousFeatureState(
+        "tts": ShadowFeatureState(
             key="tts",
             label="OpenAI TTS",
             included_by_default=True,
             available=tts_available,
             active=tts_active,
-            managed_by_nous=tts_managed,
+            managed_by_shadow=tts_managed,
             direct_override=tts_active and not tts_managed,
             toolset_enabled=tts_tool_enabled,
             current_provider=_tts_label(tts_current_provider),
             explicit_configured=tts_explicit_configured,
         ),
-        "browser": NousFeatureState(
+        "browser": ShadowFeatureState(
             key="browser",
             label="Browser automation",
             included_by_default=True,
             available=browser_available,
             active=browser_active,
-            managed_by_nous=browser_managed,
+            managed_by_shadow=browser_managed,
             direct_override=browser_active and not browser_managed,
             toolset_enabled=browser_tool_enabled,
             current_provider=_browser_label(browser_current_provider),
             explicit_configured=browser_provider_explicit,
         ),
-        "modal": NousFeatureState(
+        "modal": ShadowFeatureState(
             key="modal",
             label="Modal execution",
             included_by_default=False,
             available=modal_available,
             active=modal_active,
-            managed_by_nous=modal_managed,
+            managed_by_shadow=modal_managed,
             direct_override=terminal_backend == "modal" and modal_direct_override,
             toolset_enabled=modal_tool_enabled,
             current_provider="Modal" if terminal_backend == "modal" else terminal_backend or "local",
@@ -431,32 +431,32 @@ def get_nous_subscription_features(
         ),
     }
 
-    return NousSubscriptionFeatures(
+    return ShadowSubscriptionFeatures(
         subscribed=subscribed,
-        nous_auth_present=nous_auth_present,
-        provider_is_nous=provider_is_nous,
+        shadow_auth_present=shadow_auth_present,
+        provider_is_shadow=provider_is_shadow,
         features=features,
     )
 
 
-def get_nous_subscription_explainer_lines() -> list[str]:
-    if not managed_nous_tools_enabled():
+def get_shadow_subscription_explainer_lines() -> list[str]:
+    if not managed_shadow_tools_enabled():
         return []
 
     return [
-        "Nous subscription enables managed web tools, image generation, OpenAI TTS, and browser automation by default.",
-        "Those managed tools bill to your Nous subscription. Modal execution is optional and can bill to your subscription too.",
+        "Shadow subscription enables managed web tools, image generation, OpenAI TTS, and browser automation by default.",
+        "Those managed tools bill to your Shadow subscription. Modal execution is optional and can bill to your subscription too.",
         "Change these later with: shadow setup tools, shadow setup terminal, or shadow status.",
     ]
 
 
-def apply_nous_provider_defaults(config: Dict[str, object]) -> set[str]:
-    """Apply provider-level Nous defaults shared by `shadow setup` and `shadow model`."""
-    if not managed_nous_tools_enabled():
+def apply_shadow_provider_defaults(config: Dict[str, object]) -> set[str]:
+    """Apply provider-level Shadow defaults shared by `shadow setup` and `shadow model`."""
+    if not managed_shadow_tools_enabled():
         return set()
 
-    features = get_nous_subscription_features(config)
-    if not features.provider_is_nous:
+    features = get_shadow_subscription_features(config)
+    if not features.provider_is_shadow:
         return set()
 
     tts_cfg = config.get("tts")
@@ -472,16 +472,16 @@ def apply_nous_provider_defaults(config: Dict[str, object]) -> set[str]:
     return {"tts"}
 
 
-def apply_nous_managed_defaults(
+def apply_shadow_managed_defaults(
     config: Dict[str, object],
     *,
     enabled_toolsets: Optional[Iterable[str]] = None,
 ) -> set[str]:
-    if not managed_nous_tools_enabled():
+    if not managed_shadow_tools_enabled():
         return set()
 
-    features = get_nous_subscription_features(config)
-    if not features.provider_is_nous:
+    features = get_shadow_subscription_features(config)
+    if not features.provider_is_shadow:
         return set()
 
     selected_toolsets = set(enabled_toolsets or ())

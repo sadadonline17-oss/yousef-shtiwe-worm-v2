@@ -298,7 +298,7 @@ The setup wizard installs dependencies automatically and only installs what's ne
 | `memory_mode` | `hybrid` | `hybrid` (context + tools), `context` (auto-inject only), `tools` (tools only) |
 | `auto_retain` | `true` | Automatically retain conversation turns |
 | `auto_recall` | `true` | Automatically recall memories before each turn |
-| `retain_async` | `true` | Process retain asynchronously on the server |
+| `retain_async` | `true` | Process retain asynchroshadowly on the server |
 | `tags` | — | Tags applied when storing memories |
 | `recall_tags` | — | Tags to filter on recall |
 

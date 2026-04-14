@@ -806,16 +806,16 @@ def build_skills_system_prompt(
     return result
 
 
-def build_nous_subscription_prompt(valid_tool_names: "set[str] | None" = None) -> str:
-    """Build a compact Nous subscription capability block for the system prompt."""
+def build_shadow_subscription_prompt(valid_tool_names: "set[str] | None" = None) -> str:
+    """Build a compact Shadow subscription capability block for the system prompt."""
     try:
-        from shadow_cli.nous_subscription import get_nous_subscription_features
-        from tools.tool_backend_helpers import managed_nous_tools_enabled
+        from shadow_cli.shadow_subscription import get_shadow_subscription_features
+        from tools.tool_backend_helpers import managed_shadow_tools_enabled
     except Exception as exc:
-        logger.debug("Failed to import Nous subscription helper: %s", exc)
+        logger.debug("Failed to import Shadow subscription helper: %s", exc)
         return ""
 
-    if not managed_nous_tools_enabled():
+    if not managed_shadow_tools_enabled():
         return ""
 
     valid_names = set(valid_tool_names or set())
@@ -841,30 +841,30 @@ def build_nous_subscription_prompt(valid_tool_names: "set[str] | None" = None) -
     if valid_names and not (valid_names & relevant_tool_names):
         return ""
 
-    features = get_nous_subscription_features()
+    features = get_shadow_subscription_features()
 
     def _status_line(feature) -> str:
-        if feature.managed_by_nous:
-            return f"- {feature.label}: active via Nous subscription"
+        if feature.managed_by_shadow:
+            return f"- {feature.label}: active via Shadow subscription"
         if feature.active:
             current = feature.current_provider or "configured provider"
             return f"- {feature.label}: currently using {current}"
-        if feature.included_by_default and features.nous_auth_present:
-            return f"- {feature.label}: included with Nous subscription, not currently selected"
-        if feature.key == "modal" and features.nous_auth_present:
-            return f"- {feature.label}: optional via Nous subscription"
+        if feature.included_by_default and features.shadow_auth_present:
+            return f"- {feature.label}: included with Shadow subscription, not currently selected"
+        if feature.key == "modal" and features.shadow_auth_present:
+            return f"- {feature.label}: optional via Shadow subscription"
         return f"- {feature.label}: not currently available"
 
     lines = [
-        "# Nous Subscription",
-        "Nous subscription includes managed web tools (Firecrawl), image generation (FAL), OpenAI TTS, and browser automation (Browser Use) by default. Modal execution is optional.",
+        "# Shadow Subscription",
+        "Shadow subscription includes managed web tools (Firecrawl), image generation (FAL), OpenAI TTS, and browser automation (Browser Use) by default. Modal execution is optional.",
         "Current capability status:",
     ]
     lines.extend(_status_line(feature) for feature in features.items())
     lines.extend(
         [
-            "When a Nous-managed feature is active, do not ask the user for Firecrawl, FAL, OpenAI TTS, or Browser-Use API keys.",
-            "If the user is not subscribed and asks for a capability that Nous subscription would unlock or simplify, suggest Nous subscription as one option alongside direct setup or local alternatives.",
+            "When a Shadow-managed feature is active, do not ask the user for Firecrawl, FAL, OpenAI TTS, or Browser-Use API keys.",
+            "If the user is not subscribed and asks for a capability that Shadow subscription would unlock or simplify, suggest Shadow subscription as one option alongside direct setup or local alternatives.",
             "Do not mention subscription unless the user asks about it or it directly solves the current missing capability.",
             "Useful commands: shadow setup, shadow setup tools, shadow setup terminal, shadow status.",
         ]

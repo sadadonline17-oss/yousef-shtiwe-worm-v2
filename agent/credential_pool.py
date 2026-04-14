@@ -160,13 +160,13 @@ class PooledCredential:
 
     @property
     def runtime_api_key(self) -> str:
-        if self.provider == "nous":
+        if self.provider == "shadow":
             return str(self.agent_key or self.access_token or "")
         return str(self.access_token or "")
 
     @property
     def runtime_base_url(self) -> Optional[str]:
-        if self.provider == "nous":
+        if self.provider == "shadow":
             return self.inference_base_url or self.base_url
         return self.base_url
 
@@ -500,15 +500,15 @@ class CredentialPool:
         re-seeding a consumed single-use refresh token.
 
         Applies to any OAuth provider whose singleton lives in auth.json
-        (currently Nous and OpenAI Codex).
+        (currently Shadow and OpenAI Codex).
         """
         if entry.source != "device_code":
             return
         try:
             with _auth_store_lock():
                 auth_store = _load_auth_store()
-                if self.provider == "nous":
-                    state = _load_provider_state(auth_store, "nous")
+                if self.provider == "shadow":
+                    state = _load_provider_state(auth_store, "shadow")
                     if state is None:
                         return
                     state["access_token"] = entry.access_token
@@ -528,7 +528,7 @@ class CredentialPool:
                             state[extra_key] = val
                     if entry.inference_base_url:
                         state["inference_base_url"] = entry.inference_base_url
-                    _save_provider_state(auth_store, "nous", state)
+                    _save_provider_state(auth_store, "shadow", state)
 
                 elif self.provider == "openai-codex":
                     state = _load_provider_state(auth_store, "openai-codex")
@@ -602,8 +602,8 @@ class CredentialPool:
                     refresh_token=refreshed["refresh_token"],
                     last_refresh=refreshed.get("last_refresh"),
                 )
-            elif self.provider == "nous":
-                nous_state = {
+            elif self.provider == "shadow":
+                shadow_state = {
                     "access_token": entry.access_token,
                     "refresh_token": entry.refresh_token,
                     "client_id": entry.client_id,
@@ -617,8 +617,8 @@ class CredentialPool:
                     "agent_key_expires_at": entry.agent_key_expires_at,
                     "tls": entry.tls,
                 }
-                refreshed = auth_mod.refresh_nous_oauth_from_state(
-                    nous_state,
+                refreshed = auth_mod.refresh_shadow_oauth_from_state(
+                    shadow_state,
                     min_key_ttl_seconds=DEFAULT_AGENT_KEY_MIN_TTL_SECONDS,
                     force_refresh=force,
                     force_mint=force,
@@ -759,8 +759,8 @@ class CredentialPool:
                 entry.access_token,
                 CODEX_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
             )
-        if self.provider == "nous":
-            # Nous refresh/mint can require network access and should happen when
+        if self.provider == "shadow":
+            # Shadow refresh/mint can require network access and should happen when
             # runtime credentials are actually resolved, not merely when the pool
             # is enumerated for listing, migration, or selection.
             return False
@@ -1126,8 +1126,8 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
                     },
                 )
 
-    elif provider == "nous":
-        state = _load_provider_state(auth_store, "nous")
+    elif provider == "shadow":
+        state = _load_provider_state(auth_store, "shadow")
         if state:
             active_sources.add("device_code")
             changed |= _upsert_entry(

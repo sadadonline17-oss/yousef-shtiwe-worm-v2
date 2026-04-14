@@ -66,7 +66,7 @@ try:
 except Exception:
     SHADOW_VERSION = "0.0.0"
 
-# Thread pool for running AIAgent (synchronous) in parallel.
+# Thread pool for running AIAgent (synchroshadow) in parallel.
 _executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="acp-agent")
 
 

@@ -1554,7 +1554,7 @@ class BasePlatformAdapter(ABC):
         # the race window where a second message arriving before the task
         # starts would also pass the _active_sessions check and spawn a
         # duplicate task.  (grammY sequentialize / aiogram EventIsolation
-        # pattern — set the guard synchronously, not inside the task.)
+        # pattern — set the guard synchroshadowly, not inside the task.)
         self._active_sessions[session_key] = asyncio.Event()
 
         # Spawn background task to process this message

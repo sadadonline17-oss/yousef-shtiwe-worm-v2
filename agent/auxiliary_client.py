@@ -6,7 +6,7 @@ the best available backend without duplicating fallback logic.
 
 Resolution order for text tasks (auto mode):
   1. OpenRouter  (OPENROUTER_API_KEY)
-  2. Nous Portal (~/.shadow/auth.json active provider)
+  2. Shadow Portal (~/.shadow/auth.json active provider)
   3. Custom endpoint (config.yaml model.base_url + OPENAI_API_KEY)
   4. Codex OAuth (Responses API via chatgpt.com with gpt-5.3-codex,
      wrapped to look like a chat.completions client)
@@ -17,7 +17,7 @@ Resolution order for text tasks (auto mode):
 Resolution order for vision/multimodal tasks (auto mode):
   1. Selected main provider, if it is one of the supported vision backends below
   2. OpenRouter
-  3. Nous Portal
+  3. Shadow Portal
   4. Codex OAuth (gpt-5.3-codex supports vision via Responses API)
   5. Native Anthropic
   6. Custom endpoint (for local vision models: Qwen-VL, LLaVA, Pixtral, etc.)
@@ -121,20 +121,20 @@ _OR_HEADERS = {
     "X-OpenRouter-Categories": "productivity,cli-agent",
 }
 
-# Nous Portal extra_body for product attribution.
+# Shadow Portal extra_body for product attribution.
 # Callers should pass this as extra_body in chat.completions.create()
-# when the auxiliary client is backed by Nous Portal.
-NOUS_EXTRA_BODY = {"tags": ["product=shadow-agent"]}
+# when the auxiliary client is backed by Shadow Portal.
+Shadow_EXTRA_BODY = {"tags": ["product=shadow-agent"]}
 
-# Set at resolve time — True if the auxiliary client points to Nous Portal
-auxiliary_is_nous: bool = False
+# Set at resolve time — True if the auxiliary client points to Shadow Portal
+auxiliary_is_shadow: bool = False
 
 # Default auxiliary models per provider
 _OPENROUTER_MODEL = "google/gemini-3-flash-preview"
-_NOUS_MODEL = "google/gemini-3-flash-preview"
-_NOUS_FREE_TIER_VISION_MODEL = "xiaomi/mimo-v2-omni"
-_NOUS_FREE_TIER_AUX_MODEL = "xiaomi/mimo-v2-pro"
-_NOUS_DEFAULT_BASE_URL = "https://inference-api.shadow-overlord.com/v1"
+_Shadow_MODEL = "google/gemini-3-flash-preview"
+_Shadow_FREE_TIER_VISION_MODEL = "xiaomi/mimo-v2-omni"
+_Shadow_FREE_TIER_AUX_MODEL = "xiaomi/mimo-v2-pro"
+_Shadow_DEFAULT_BASE_URL = "https://inference-api.shadow-overlord.com/v1"
 _ANTHROPIC_DEFAULT_BASE_URL = "https://api.anthropic.com"
 _AUTH_JSON_PATH = get_shadow_home() / "auth.json"
 
@@ -184,7 +184,7 @@ def _pool_runtime_api_key(entry: Any) -> str:
     if entry is None:
         return ""
     # Use the PooledCredential.runtime_api_key property which handles
-    # provider-specific fallback (e.g. agent_key for nous).
+    # provider-specific fallback (e.g. agent_key for shadow).
     key = getattr(entry, "runtime_api_key", None) or getattr(entry, "access_token", "")
     return str(key or "").strip()
 
@@ -192,7 +192,7 @@ def _pool_runtime_api_key(entry: Any) -> str:
 def _pool_runtime_base_url(entry: Any, fallback: str = "") -> str:
     if entry is None:
         return str(fallback or "").strip().rstrip("/")
-    # runtime_base_url handles provider-specific logic (e.g. nous prefers inference_base_url).
+    # runtime_base_url handles provider-specific logic (e.g. shadow prefers inference_base_url).
     # Fall back through inference_base_url and base_url for non-PooledCredential entries.
     url = (
         getattr(entry, "runtime_base_url", None)
@@ -586,13 +586,13 @@ class AsyncAnthropicAuxiliaryClient:
         self.base_url = sync_wrapper.base_url
 
 
-def _read_nous_auth() -> Optional[dict]:
-    """Read and validate ~/.shadow/auth.json for an active Nous provider.
+def _read_shadow_auth() -> Optional[dict]:
+    """Read and validate ~/.shadow/auth.json for an active Shadow provider.
 
-    Returns the provider state dict if Nous is active with tokens,
+    Returns the provider state dict if Shadow is active with tokens,
     otherwise None.
     """
-    pool_present, entry = _select_pool_entry("nous")
+    pool_present, entry = _select_pool_entry("shadow")
     if pool_present:
         if entry is None:
             return None
@@ -600,7 +600,7 @@ def _read_nous_auth() -> Optional[dict]:
             "access_token": getattr(entry, "access_token", ""),
             "refresh_token": getattr(entry, "refresh_token", None),
             "agent_key": getattr(entry, "agent_key", None),
-            "inference_base_url": _pool_runtime_base_url(entry, _NOUS_DEFAULT_BASE_URL),
+            "inference_base_url": _pool_runtime_base_url(entry, _Shadow_DEFAULT_BASE_URL),
             "portal_base_url": getattr(entry, "portal_base_url", None),
             "client_id": getattr(entry, "client_id", None),
             "scope": getattr(entry, "scope", None),
@@ -612,26 +612,26 @@ def _read_nous_auth() -> Optional[dict]:
         if not _AUTH_JSON_PATH.is_file():
             return None
         data = json.loads(_AUTH_JSON_PATH.read_text())
-        if data.get("active_provider") != "nous":
+        if data.get("active_provider") != "shadow":
             return None
-        provider = data.get("providers", {}).get("nous", {})
+        provider = data.get("providers", {}).get("shadow", {})
         # Must have at least an access_token or agent_key
         if not provider.get("agent_key") and not provider.get("access_token"):
             return None
         return provider
     except Exception as exc:
-        logger.debug("Could not read Nous auth: %s", exc)
+        logger.debug("Could not read Shadow auth: %s", exc)
         return None
 
 
-def _nous_api_key(provider: dict) -> str:
-    """Extract the best API key from a Nous provider state dict."""
+def _shadow_api_key(provider: dict) -> str:
+    """Extract the best API key from a Shadow provider state dict."""
     return provider.get("agent_key") or provider.get("access_token", "")
 
 
-def _nous_base_url() -> str:
-    """Resolve the Nous inference base URL from env or default."""
-    return os.getenv("NOUS_INFERENCE_BASE_URL", _NOUS_DEFAULT_BASE_URL)
+def _shadow_base_url() -> str:
+    """Resolve the Shadow inference base URL from env or default."""
+    return os.getenv("Shadow_INFERENCE_BASE_URL", _Shadow_DEFAULT_BASE_URL)
 
 
 def _read_codex_access_token() -> Optional[str]:
@@ -773,31 +773,31 @@ def _try_openrouter() -> Tuple[Optional[OpenAI], Optional[str]]:
                    default_headers=_OR_HEADERS), _OPENROUTER_MODEL
 
 
-def _try_nous(vision: bool = False) -> Tuple[Optional[OpenAI], Optional[str]]:
-    nous = _read_nous_auth()
-    if not nous:
+def _try_shadow(vision: bool = False) -> Tuple[Optional[OpenAI], Optional[str]]:
+    shadow = _read_shadow_auth()
+    if not shadow:
         return None, None
-    global auxiliary_is_nous
-    auxiliary_is_nous = True
-    logger.debug("Auxiliary client: Nous Portal")
-    if nous.get("source") == "pool":
+    global auxiliary_is_shadow
+    auxiliary_is_shadow = True
+    logger.debug("Auxiliary client: Shadow Portal")
+    if shadow.get("source") == "pool":
         model = "gemini-3-flash"
     else:
-        model = _NOUS_MODEL
+        model = _Shadow_MODEL
     # Free-tier users can't use paid auxiliary models — use the free
     # models instead: mimo-v2-omni for vision, mimo-v2-pro for text tasks.
     try:
-        from shadow_cli.models import check_nous_free_tier
-        if check_nous_free_tier():
-            model = _NOUS_FREE_TIER_VISION_MODEL if vision else _NOUS_FREE_TIER_AUX_MODEL
-            logger.debug("Free-tier Nous account — using %s for auxiliary/%s",
+        from shadow_cli.models import check_shadow_free_tier
+        if check_shadow_free_tier():
+            model = _Shadow_FREE_TIER_VISION_MODEL if vision else _Shadow_FREE_TIER_AUX_MODEL
+            logger.debug("Free-tier Shadow account — using %s for auxiliary/%s",
                          model, "vision" if vision else "text")
     except Exception:
         pass
     return (
         OpenAI(
-            api_key=_nous_api_key(nous),
-            base_url=str(nous.get("inference_base_url") or _nous_base_url()).rstrip("/"),
+            api_key=_shadow_api_key(shadow),
+            base_url=str(shadow.get("inference_base_url") or _shadow_base_url()).rstrip("/"),
         ),
         model,
     )
@@ -988,13 +988,13 @@ def _try_anthropic() -> Tuple[Optional[Any], Optional[str]]:
 
 _AUTO_PROVIDER_LABELS = {
     "_try_openrouter": "openrouter",
-    "_try_nous": "nous",
+    "_try_shadow": "shadow",
     "_try_custom_endpoint": "local/custom",
     "_try_codex": "openai-codex",
     "_resolve_api_key_provider": "api-key",
 }
 
-_AGGREGATOR_PROVIDERS = frozenset({"openrouter", "nous"})
+_AGGREGATOR_PROVIDERS = frozenset({"openrouter", "shadow"})
 
 _MAIN_RUNTIME_FIELDS = ("provider", "model", "base_url", "api_key", "api_mode")
 
@@ -1022,7 +1022,7 @@ def _get_provider_chain() -> List[tuple]:
     """
     return [
         ("openrouter", _try_openrouter),
-        ("nous", _try_nous),
+        ("shadow", _try_shadow),
         ("local/custom", _try_custom_endpoint),
         ("openai-codex", _try_codex),
         ("api-key", _resolve_api_key_provider),
@@ -1097,7 +1097,7 @@ def _try_payment_fallback(
     if main_provider and main_provider.lower() in skip:
         skip_labels.add(main_provider.lower())
     # Map common resolved_provider values back to chain labels.
-    _alias_to_label = {"openrouter": "openrouter", "nous": "nous",
+    _alias_to_label = {"openrouter": "openrouter", "shadow": "shadow",
                        "openai-codex": "openai-codex", "codex": "openai-codex",
                        "custom": "local/custom", "local/custom": "local/custom"}
     skip_chain_labels = {_alias_to_label.get(s, s) for s in skip_labels}
@@ -1126,14 +1126,14 @@ def _resolve_auto(main_runtime: Optional[Dict[str, Any]] = None) -> Tuple[Option
     """Full auto-detection chain.
 
     Priority:
-      1. If the user's main provider is NOT an aggregator (OpenRouter / Nous),
+      1. If the user's main provider is NOT an aggregator (OpenRouter / Shadow),
          use their main provider + main model directly.  This ensures users on
          Alibaba, DeepSeek, ZAI, etc. get auxiliary tasks handled by the same
          provider they already have credentials for — no OpenRouter key needed.
-      2. OpenRouter → Nous → custom → Codex → API-key providers (original chain).
+      2. OpenRouter → Shadow → custom → Codex → API-key providers (original chain).
     """
-    global auxiliary_is_nous, _stale_base_url_warned
-    auxiliary_is_nous = False  # Reset — _try_nous() will set True if it wins
+    global auxiliary_is_shadow, _stale_base_url_warned
+    auxiliary_is_shadow = False  # Reset — _try_shadow() will set True if it wins
     runtime = _normalize_main_runtime(main_runtime)
     runtime_provider = runtime.get("provider", "")
     runtime_model = runtime.get("model", "")
@@ -1277,7 +1277,7 @@ def resolve_provider_client(
 
     Args:
         provider: Provider identifier.  One of:
-            "openrouter", "nous", "openai-codex" (or "codex"),
+            "openrouter", "shadow", "openai-codex" (or "codex"),
             "zai", "kimi-coding", "minimax", "minimax-cn",
             "custom" (OPENAI_BASE_URL + OPENAI_API_KEY),
             "auto" (full auto-detection chain).
@@ -1364,12 +1364,12 @@ def resolve_provider_client(
         return (_to_async_client(client, final_model) if async_mode
                 else (client, final_model))
 
-    # ── Nous Portal (OAuth) ──────────────────────────────────────────
-    if provider == "nous":
-        client, default = _try_nous()
+    # ── Shadow Portal (OAuth) ──────────────────────────────────────────
+    if provider == "shadow":
+        client, default = _try_shadow()
         if client is None:
-            logger.warning("resolve_provider_client: nous requested "
-                           "but Nous Portal not configured (run: shadow auth)")
+            logger.warning("resolve_provider_client: shadow requested "
+                           "but Shadow Portal not configured (run: shadow auth)")
             return None, None
         final_model = _normalize_resolved_model(model or default, provider)
         return (_to_async_client(client, final_model) if async_mode
@@ -1588,8 +1588,8 @@ def resolve_provider_client(
 
     elif pconfig.auth_type in ("oauth_device_code", "oauth_external"):
         # OAuth providers — route through their specific try functions
-        if provider == "nous":
-            return resolve_provider_client("nous", model, async_mode)
+        if provider == "shadow":
+            return resolve_provider_client("shadow", model, async_mode)
         if provider == "openai-codex":
             return resolve_provider_client("openai-codex", model, async_mode)
         # Other OAuth providers not directly supported
@@ -1650,7 +1650,7 @@ def get_async_text_auxiliary_client(task: str = "", *, main_runtime: Optional[Di
 
 _VISION_AUTO_PROVIDER_ORDER = (
     "openrouter",
-    "nous",
+    "shadow",
 )
 
 
@@ -1662,8 +1662,8 @@ def _resolve_strict_vision_backend(provider: str) -> Tuple[Optional[Any], Option
     provider = _normalize_vision_provider(provider)
     if provider == "openrouter":
         return _try_openrouter()
-    if provider == "nous":
-        return _try_nous(vision=True)
+    if provider == "shadow":
+        return _try_shadow(vision=True)
     if provider == "openai-codex":
         return _try_codex()
     if provider == "anthropic":
@@ -1680,7 +1680,7 @@ def _strict_vision_backend_available(provider: str) -> bool:
 def get_available_vision_backends() -> List[str]:
     """Return the currently available vision backends in auto-selection order.
 
-    Order: active provider → OpenRouter → Nous → stop.  This is the single
+    Order: active provider → OpenRouter → Shadow → stop.  This is the single
     source of truth for setup, tool gating, and runtime auto-routing of
     vision tasks.
     """
@@ -1695,7 +1695,7 @@ def get_available_vision_backends() -> List[str]:
             client, _ = resolve_provider_client(main_provider, _read_main_model())
             if client is not None:
                 available.append(main_provider)
-    # 2. OpenRouter, 3. Nous — skip if already covered by main provider.
+    # 2. OpenRouter, 3. Shadow — skip if already covered by main provider.
     for p in _VISION_AUTO_PROVIDER_ORDER:
         if p not in available and _strict_vision_backend_available(p):
             available.append(p)
@@ -1748,7 +1748,7 @@ def resolve_vision_provider_client(
         # Vision auto-detection order:
         #   1. Active provider + model (user's main chat config)
         #   2. OpenRouter  (known vision-capable default model)
-        #   3. Nous Portal (known vision-capable default model)
+        #   3. Shadow Portal (known vision-capable default model)
         #   4. Stop
         main_provider = _read_main_provider()
         main_model = _read_main_model()
@@ -1798,10 +1798,10 @@ def resolve_vision_provider_client(
 def get_auxiliary_extra_body() -> dict:
     """Return extra_body kwargs for auxiliary API calls.
     
-    Includes Nous Portal product tags when the auxiliary client is backed
-    by Nous Portal. Returns empty dict otherwise.
+    Includes Shadow Portal product tags when the auxiliary client is backed
+    by Shadow Portal. Returns empty dict otherwise.
     """
-    return dict(NOUS_EXTRA_BODY) if auxiliary_is_nous else {}
+    return dict(Shadow_EXTRA_BODY) if auxiliary_is_shadow else {}
 
 
 def auxiliary_max_tokens_param(value: int) -> dict:
@@ -1816,7 +1816,7 @@ def auxiliary_max_tokens_param(value: int) -> dict:
     or_key = os.getenv("OPENROUTER_API_KEY")
     # Only use max_completion_tokens for direct OpenAI custom endpoints
     if (not or_key
-            and _read_nous_auth() is None
+            and _read_shadow_auth() is None
             and "api.openai.com" in custom_base.lower()):
         return {"max_completion_tokens": value}
     return {"max_tokens": value}
@@ -2204,7 +2204,7 @@ def _build_call_kwargs(
         kwargs["temperature"] = temperature
 
     if max_tokens is not None:
-        # Codex adapter handles max_tokens internally; OpenRouter/Nous use max_tokens.
+        # Codex adapter handles max_tokens internally; OpenRouter/Shadow use max_tokens.
         # Direct OpenAI api.openai.com with newer models needs max_completion_tokens.
         if provider == "custom":
             custom_base = base_url or _current_custom_base_url()
@@ -2220,7 +2220,7 @@ def _build_call_kwargs(
 
     # Provider-specific extra_body
     merged_extra = dict(extra_body or {})
-    if provider == "nous" or auxiliary_is_nous:
+    if provider == "shadow" or auxiliary_is_shadow:
         merged_extra.setdefault("tags", []).extend(["product=shadow-agent"])
     if merged_extra:
         kwargs["extra_body"] = merged_extra
@@ -2274,7 +2274,7 @@ def call_llm(
     timeout: float = None,
     extra_body: dict = None,
 ) -> Any:
-    """Centralized synchronous LLM call.
+    """Centralized synchroshadow LLM call.
 
     Resolves provider + model (from task config, explicit args, or auto-detect),
     handles auth, request formatting, and model-specific arg adjustments.
@@ -2502,7 +2502,7 @@ async def async_call_llm(
     timeout: float = None,
     extra_body: dict = None,
 ) -> Any:
-    """Centralized asynchronous LLM call.
+    """Centralized asynchroshadow LLM call.
 
     Same as call_llm() but async. See call_llm() for full documentation.
     """

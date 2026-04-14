@@ -20,11 +20,11 @@ import copy
 from pathlib import Path
 from typing import Optional, Dict, Any
 
-from shadow_cli.nous_subscription import (
-    apply_nous_provider_defaults,
-    get_nous_subscription_features,
+from shadow_cli.shadow_subscription import (
+    apply_shadow_provider_defaults,
+    get_shadow_subscription_features,
 )
-from tools.tool_backend_helpers import managed_nous_tools_enabled
+from tools.tool_backend_helpers import managed_shadow_tools_enabled
 from shadow_constants import get_optional_skills_dir
 
 logger = logging.getLogger(__name__)
@@ -351,7 +351,7 @@ def _print_setup_summary(config: dict, shadow_home):
     print_header("Tool Availability Summary")
 
     tool_status = []
-    subscription_features = get_nous_subscription_features(config)
+    subscription_features = get_shadow_subscription_features(config)
 
     # Vision — use the same runtime resolver as the actual vision tools
     try:
@@ -373,8 +373,8 @@ def _print_setup_summary(config: dict, shadow_home):
         tool_status.append(("Mixture of Agents", False, "OPENROUTER_API_KEY"))
 
     # Web tools (Exa, Parallel, Firecrawl, or Tavily)
-    if subscription_features.web.managed_by_nous:
-        tool_status.append(("Web Search & Extract (Nous subscription)", True, None))
+    if subscription_features.web.managed_by_shadow:
+        tool_status.append(("Web Search & Extract (Shadow subscription)", True, None))
     elif subscription_features.web.available:
         label = "Web Search & Extract"
         if subscription_features.web.current_provider:
@@ -385,8 +385,8 @@ def _print_setup_summary(config: dict, shadow_home):
 
     # Browser tools (local Chromium, Camofox, Browserbase, Browser Use, or Firecrawl)
     browser_provider = subscription_features.browser.current_provider
-    if subscription_features.browser.managed_by_nous:
-        tool_status.append(("Browser Automation (Nous Browser Use)", True, None))
+    if subscription_features.browser.managed_by_shadow:
+        tool_status.append(("Browser Automation (Shadow Browser Use)", True, None))
     elif subscription_features.browser.available:
         label = "Browser Automation"
         if browser_provider:
@@ -412,8 +412,8 @@ def _print_setup_summary(config: dict, shadow_home):
         )
 
     # FAL (image generation)
-    if subscription_features.image_gen.managed_by_nous:
-        tool_status.append(("Image Generation (Nous subscription)", True, None))
+    if subscription_features.image_gen.managed_by_shadow:
+        tool_status.append(("Image Generation (Shadow subscription)", True, None))
     elif subscription_features.image_gen.available:
         tool_status.append(("Image Generation", True, None))
     else:
@@ -421,8 +421,8 @@ def _print_setup_summary(config: dict, shadow_home):
 
     # TTS — show configured provider
     tts_provider = config.get("tts", {}).get("provider", "edge")
-    if subscription_features.tts.managed_by_nous:
-        tool_status.append(("Text-to-Speech (OpenAI via Nous subscription)", True, None))
+    if subscription_features.tts.managed_by_shadow:
+        tool_status.append(("Text-to-Speech (OpenAI via Shadow subscription)", True, None))
     elif tts_provider == "elevenlabs" and get_env_value("ELEVENLABS_API_KEY"):
         tool_status.append(("Text-to-Speech (ElevenLabs)", True, None))
     elif tts_provider == "openai" and (
@@ -446,15 +446,15 @@ def _print_setup_summary(config: dict, shadow_home):
     else:
         tool_status.append(("Text-to-Speech (Edge TTS)", True, None))
 
-    if subscription_features.modal.managed_by_nous:
-        tool_status.append(("Modal Execution (Nous subscription)", True, None))
+    if subscription_features.modal.managed_by_shadow:
+        tool_status.append(("Modal Execution (Shadow subscription)", True, None))
     elif config.get("terminal", {}).get("backend") == "modal":
         if subscription_features.modal.direct_override:
             tool_status.append(("Modal Execution (direct Modal)", True, None))
         else:
             tool_status.append(("Modal Execution", False, "run 'shadow setup terminal'"))
-    elif managed_nous_tools_enabled() and subscription_features.nous_auth_present:
-        tool_status.append(("Modal Execution (optional via Nous subscription)", True, None))
+    elif managed_shadow_tools_enabled() and subscription_features.shadow_auth_present:
+        tool_status.append(("Modal Execution (optional via Shadow subscription)", True, None))
 
     # Tinker + WandB (RL training)
     if get_env_value("TINKER_API_KEY") and get_env_value("WANDB_API_KEY"):
@@ -671,7 +671,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
     if isinstance(_m, dict):
         selected_provider = _m.get("provider")
 
-    nous_subscription_selected = selected_provider == "nous"
+    shadow_subscription_selected = selected_provider == "shadow"
 
     # ── Same-provider fallback & rotation setup (full setup only) ──
     if not quick and _supports_same_provider_pool_setup(selected_provider):
@@ -767,7 +767,7 @@ def setup_model_provider(config: dict, *, quick: bool = False):
 
     if _vision_needs_setup:
         _prov_names = {
-            "nous-api": "Nous Portal API key",
+            "shadow-api": "Shadow Portal API key",
             "copilot": "GitHub Copilot",
             "copilot-acp": "GitHub Copilot ACP",
             "zai": "Z.AI / GLM",
@@ -835,17 +835,17 @@ def setup_model_provider(config: dict, *, quick: bool = False):
             print_info("Skipped — add later with 'shadow setup' or configure AUXILIARY_VISION_* settings")
 
 
-    if selected_provider == "nous" and nous_subscription_selected:
-        changed_defaults = apply_nous_provider_defaults(config)
+    if selected_provider == "shadow" and shadow_subscription_selected:
+        changed_defaults = apply_shadow_provider_defaults(config)
         current_tts = str(config.get("tts", {}).get("provider") or "edge")
         if "tts" in changed_defaults:
-            print_success("TTS provider set to: OpenAI TTS via your Nous subscription")
+            print_success("TTS provider set to: OpenAI TTS via your Shadow subscription")
         else:
             print_info(f"Keeping your existing TTS provider: {current_tts}")
 
     save_config(config)
 
-    if not quick and selected_provider != "nous":
+    if not quick and selected_provider != "shadow":
         _setup_tts_provider(config)
 
 
@@ -914,7 +914,7 @@ def _setup_tts_provider(config: dict):
     """Interactive TTS provider selection with install flow for NeuTTS."""
     tts_config = config.get("tts", {})
     current_provider = tts_config.get("provider", "edge")
-    subscription_features = get_nous_subscription_features(config)
+    subscription_features = get_shadow_subscription_features(config)
 
     provider_labels = {
         "edge": "Edge TTS",
@@ -933,9 +933,9 @@ def _setup_tts_provider(config: dict):
 
     choices = []
     providers = []
-    if managed_nous_tools_enabled() and subscription_features.nous_auth_present:
-        choices.append("Nous Subscription (managed OpenAI TTS, billed to your subscription)")
-        providers.append("nous-openai")
+    if managed_shadow_tools_enabled() and subscription_features.shadow_auth_present:
+        choices.append("Shadow Subscription (managed OpenAI TTS, billed to your subscription)")
+        providers.append("shadow-openai")
     choices.extend(
         [
             "Edge TTS (free, cloud-based, no setup needed)",
@@ -955,10 +955,10 @@ def _setup_tts_provider(config: dict):
         return
 
     selected = providers[idx]
-    selected_via_nous = selected == "nous-openai"
-    if selected == "nous-openai":
+    selected_via_shadow = selected == "shadow-openai"
+    if selected == "shadow-openai":
         selected = "openai"
-        print_info("OpenAI TTS will use the managed Nous gateway and bill to your subscription.")
+        print_info("OpenAI TTS will use the managed Shadow gateway and bill to your subscription.")
         if get_env_value("VOICE_TOOLS_OPENAI_KEY") or get_env_value("OPENAI_API_KEY"):
             print_warning(
                 "Direct OpenAI credentials are still configured and may take precedence until removed from ~/.shadow/.env."
@@ -1000,7 +1000,7 @@ def _setup_tts_provider(config: dict):
                 print_warning("No API key provided. Falling back to Edge TTS.")
                 selected = "edge"
 
-    elif selected == "openai" and not selected_via_nous:
+    elif selected == "openai" and not selected_via_shadow:
         existing = get_env_value("VOICE_TOOLS_OPENAI_KEY") or get_env_value("OPENAI_API_KEY")
         if not existing:
             print()
@@ -1183,16 +1183,16 @@ def setup_terminal_backend(config: dict):
         from tools.tool_backend_helpers import normalize_modal_mode
 
         managed_modal_available = bool(
-            managed_nous_tools_enabled()
+            managed_shadow_tools_enabled()
             and
-            get_nous_subscription_features(config).nous_auth_present
+            get_shadow_subscription_features(config).shadow_auth_present
             and is_managed_tool_gateway_ready("modal")
         )
         modal_mode = normalize_modal_mode(config.get("terminal", {}).get("modal_mode"))
         use_managed_modal = False
         if managed_modal_available:
             modal_choices = [
-                "Use my Nous subscription",
+                "Use my Shadow subscription",
                 "Use my own Modal account",
             ]
             if modal_mode == "managed":
@@ -1210,7 +1210,7 @@ def setup_terminal_backend(config: dict):
 
         if use_managed_modal:
             config["terminal"]["modal_mode"] = "managed"
-            print_info("Modal execution will use the managed Nous gateway and bill to your subscription.")
+            print_info("Modal execution will use the managed Shadow gateway and bill to your subscription.")
             if get_env_value("MODAL_TOKEN_ID") or get_env_value("MODAL_TOKEN_SECRET"):
                 print_info(
                     "Direct Modal credentials are still configured, but this backend is pinned to managed mode."

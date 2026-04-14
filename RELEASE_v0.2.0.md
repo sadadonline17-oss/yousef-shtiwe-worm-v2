@@ -32,7 +32,7 @@
 
 ### Provider & Model Support
 - Centralized provider router with `resolve_provider_client()` + `call_llm()` API ([#1003](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/1003))
-- Nous Portal as first-class provider in setup ([#644](https://github.com/SHADOW-OVERLORD/shadow-agent/issues/644))
+- Shadow Portal as first-class provider in setup ([#644](https://github.com/SHADOW-OVERLORD/shadow-agent/issues/644))
 - OpenAI Codex (Responses API) with ChatGPT subscription support ([#43](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/43)) — @grp06
 - Codex OAuth vision support + multimodal content adapter
 - Validate `/model` against live API instead of hardcoded lists
@@ -40,7 +40,7 @@
 - Kimi Code API support ([#635](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/635)) — @christomitov
 - MiniMax model ID update ([#473](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/473)) — @tars90percent
 - OpenRouter provider routing configuration (provider_preferences)
-- Nous credential refresh on 401 errors ([#571](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/571), [#269](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/269)) — @rewbs
+- Shadow credential refresh on 401 errors ([#571](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/571), [#269](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/269)) — @rewbs
 - z.ai/GLM, Kimi/Moonshot, MiniMax, Azure OpenAI as first-class providers
 - Unified `/model` and `/provider` into single view
 
@@ -158,7 +158,7 @@
 - Multiple named custom providers
 - Shell config detection improvement for PATH setup ([#317](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/317)) — @mehmetkr-31
 - Consistent SHADOW_HOME and .env path resolution ([#51](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/51), [#48](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/48)) — @deankerr
-- Docker backend fix on macOS + subagent auth for Nous Portal ([#46](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/46)) — @rsavitt
+- Docker backend fix on macOS + subagent auth for Shadow Portal ([#46](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/46)) — @rsavitt
 
 ---
 
@@ -288,7 +288,7 @@
 - Fix Anthropic "prompt is too long" 400 error not detected as context length error ([#813](https://github.com/SHADOW-OVERLORD/shadow-agent/issues/813))
 - Fix SQLite session transcript accumulating duplicate messages — 3-4x token inflation ([#860](https://github.com/SHADOW-OVERLORD/shadow-agent/issues/860))
 - Fix setup wizard skipping API key prompts on first install ([#748](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/748))
-- Fix setup wizard showing OpenRouter model list for Nous Portal ([#575](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/575)) — @PercyDikec
+- Fix setup wizard showing OpenRouter model list for Shadow Portal ([#575](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/575)) — @PercyDikec
 - Fix provider selection not persisting when switching via shadow model ([#881](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/881))
 - Fix Docker backend failing when docker not in PATH on macOS ([#889](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/889))
 - Fix ClawHub Skills Hub adapter for API endpoint changes ([#286](https://github.com/SHADOW-OVERLORD/shadow-agent/pull/286)) — @BP602

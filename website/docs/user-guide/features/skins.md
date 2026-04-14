@@ -214,7 +214,7 @@ tool_prefix: "▏"
 
 [SHADOW Mod](https://github.com/cocktailpeanut/shadow-mod) is a community-built web UI for creating and managing skins visually. Instead of writing YAML by hand, you get a point-and-click editor with live preview.
 
-![SHADOW Mod skin editor](https://raw.githubusercontent.com/cocktailpeanut/shadow-mod/master/nous.png)
+![SHADOW Mod skin editor](https://raw.githubusercontent.com/cocktailpeanut/shadow-mod/master/shadow.png)
 
 **What it does:**
 

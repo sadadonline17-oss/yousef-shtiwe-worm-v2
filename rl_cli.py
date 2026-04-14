@@ -217,7 +217,7 @@ def check_tinker_atropos():
 
 
 def list_environments_sync():
-    """List available environments (synchronous wrapper)."""
+    """List available environments (synchroshadow wrapper)."""
     from tools.rl_training_tool import rl_list_environments
     import json
     

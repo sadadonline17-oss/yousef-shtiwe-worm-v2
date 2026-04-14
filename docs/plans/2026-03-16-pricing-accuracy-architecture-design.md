@@ -384,7 +384,7 @@ Suggested flow:
 This can run:
 
 - inline for cheap lookups
-- asynchronously for delayed provider accounting
+- asynchroshadowly for delayed provider accounting
 
 ## Persistence Changes
 

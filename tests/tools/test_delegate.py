@@ -657,21 +657,21 @@ class TestDelegationCredentialResolution(unittest.TestCase):
         self.assertIn("OPENAI_API_KEY", str(ctx.exception))
 
     @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
-    def test_nous_provider_resolves_nous_credentials(self, mock_resolve):
-        """Nous provider resolves Nous Portal base_url and api_key."""
+    def test_shadow_provider_resolves_shadow_credentials(self, mock_resolve):
+        """Shadow provider resolves Shadow Portal base_url and api_key."""
         mock_resolve.return_value = {
-            "provider": "nous",
+            "provider": "shadow",
             "base_url": "https://inference-api.shadow-overlord.com/v1",
-            "api_key": "nous-agent-key-xyz",
+            "api_key": "shadow-agent-key-xyz",
             "api_mode": "chat_completions",
         }
         parent = _make_mock_parent(depth=0)
-        cfg = {"model": "shadow-3-llama-3.1-8b", "provider": "nous"}
+        cfg = {"model": "shadow-3-llama-3.1-8b", "provider": "shadow"}
         creds = _resolve_delegation_credentials(cfg, parent)
-        self.assertEqual(creds["provider"], "nous")
+        self.assertEqual(creds["provider"], "shadow")
         self.assertEqual(creds["base_url"], "https://inference-api.shadow-overlord.com/v1")
-        self.assertEqual(creds["api_key"], "nous-agent-key-xyz")
-        mock_resolve.assert_called_once_with(requested="nous")
+        self.assertEqual(creds["api_key"], "shadow-agent-key-xyz")
+        mock_resolve.assert_called_once_with(requested="shadow")
 
     @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
     def test_provider_resolution_failure_raises_valueerror(self, mock_resolve):
@@ -748,7 +748,7 @@ class TestDelegationProviderIntegration(unittest.TestCase):
     @patch("tools.delegate_tool._load_config")
     @patch("tools.delegate_tool._resolve_delegation_credentials")
     def test_cross_provider_delegation(self, mock_creds, mock_cfg):
-        """Parent on Nous, subagent on OpenRouter — full credential switch."""
+        """Parent on Shadow, subagent on OpenRouter — full credential switch."""
         mock_cfg.return_value = {
             "max_iterations": 45,
             "model": "google/gemini-3-flash-preview",
@@ -762,9 +762,9 @@ class TestDelegationProviderIntegration(unittest.TestCase):
             "api_mode": "chat_completions",
         }
         parent = _make_mock_parent(depth=0)
-        parent.provider = "nous"
+        parent.provider = "shadow"
         parent.base_url = "https://inference-api.shadow-overlord.com/v1"
-        parent.api_key = "nous-key-abc"
+        parent.api_key = "shadow-key-abc"
 
         with patch("run_agent.AIAgent") as MockAgent:
             mock_child = MagicMock()
@@ -776,7 +776,7 @@ class TestDelegationProviderIntegration(unittest.TestCase):
             delegate_task(goal="Cross-provider test", parent_agent=parent)
 
             _, kwargs = MockAgent.call_args
-            # Child should use OpenRouter, NOT Nous
+            # Child should use OpenRouter, NOT Shadow
             self.assertEqual(kwargs["provider"], "openrouter")
             self.assertEqual(kwargs["base_url"], "https://openrouter.ai/api/v1")
             self.assertEqual(kwargs["api_key"], "sk-or-key")

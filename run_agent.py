@@ -81,7 +81,7 @@ from agent.error_classifier import classify_api_error, FailoverReason
 from agent.prompt_builder import (
     DEFAULT_AGENT_IDENTITY, PLATFORM_HINTS,
     MEMORY_GUIDANCE, SESSION_SEARCH_GUIDANCE, SKILLS_GUIDANCE,
-    build_nous_subscription_prompt,
+    build_shadow_subscription_prompt,
 )
 from agent.model_metadata import (
     fetch_model_metadata,
@@ -3161,9 +3161,9 @@ class AIAgent:
         if tool_guidance:
             prompt_parts.append(" ".join(tool_guidance))
 
-        nous_subscription_prompt = build_nous_subscription_prompt(self.valid_tool_names)
-        if nous_subscription_prompt:
-            prompt_parts.append(nous_subscription_prompt)
+        shadow_subscription_prompt = build_shadow_subscription_prompt(self.valid_tool_names)
+        if shadow_subscription_prompt:
+            prompt_parts.append(shadow_subscription_prompt)
         # Tool-use enforcement: tells the model to actually call tools instead
         # of describing intended actions.  Controlled by config.yaml
         # agent.tool_use_enforcement:
@@ -4558,20 +4558,20 @@ class AIAgent:
 
         return True
 
-    def _try_refresh_nous_client_credentials(self, *, force: bool = True) -> bool:
-        if self.api_mode != "chat_completions" or self.provider != "nous":
+    def _try_refresh_shadow_client_credentials(self, *, force: bool = True) -> bool:
+        if self.api_mode != "chat_completions" or self.provider != "shadow":
             return False
 
         try:
-            from shadow_cli.auth import resolve_nous_runtime_credentials
+            from shadow_cli.auth import resolve_shadow_runtime_credentials
 
-            creds = resolve_nous_runtime_credentials(
-                min_key_ttl_seconds=max(60, int(os.getenv("SHADOW_NOUS_MIN_KEY_TTL_SECONDS", "1800"))),
-                timeout_seconds=float(os.getenv("SHADOW_NOUS_TIMEOUT_SECONDS", "15")),
+            creds = resolve_shadow_runtime_credentials(
+                min_key_ttl_seconds=max(60, int(os.getenv("SHADOW_Shadow_MIN_KEY_TTL_SECONDS", "1800"))),
+                timeout_seconds=float(os.getenv("SHADOW_Shadow_TIMEOUT_SECONDS", "15")),
                 force_mint=force,
             )
         except Exception as exc:
-            logger.debug("Nous credential refresh failed: %s", exc)
+            logger.debug("Shadow credential refresh failed: %s", exc)
             return False
 
         api_key = creds.get("api_key")
@@ -4585,10 +4585,10 @@ class AIAgent:
         self.base_url = base_url.strip().rstrip("/")
         self._client_kwargs["api_key"] = self.api_key
         self._client_kwargs["base_url"] = self.base_url
-        # Nous requests should not inherit OpenRouter-only attribution headers.
+        # Shadow requests should not inherit OpenRouter-only attribution headers.
         self._client_kwargs.pop("default_headers", None)
 
-        if not self._replace_primary_openai_client(reason="nous_credential_refresh"):
+        if not self._replace_primary_openai_client(reason="shadow_credential_refresh"):
             return False
 
         return True
@@ -5804,7 +5804,7 @@ class AIAgent:
         Anthropic, OpenAI, local models) where a TCP-level hiccup does not
         mean the provider is down.
 
-        Skipped for proxy/aggregator providers (OpenRouter, Nous) which
+        Skipped for proxy/aggregator providers (OpenRouter, Shadow) which
         already manage connection pools and retries server-side — if our
         retries through them are exhausted, one more rebuilt client won't help.
         """
@@ -5820,7 +5820,7 @@ class AIAgent:
         if self._is_openrouter_url():
             return False
         provider_lower = (self.provider or "").strip().lower()
-        if provider_lower in ("nous", "nous-research"):
+        if provider_lower in ("shadow", "shadow-research"):
             return False
 
         try:
@@ -6286,7 +6286,7 @@ class AIAgent:
             # model has adequate output budget for tool calls.
             api_kwargs.update(self._max_tokens_param(65536))
         elif (self._is_openrouter_url() or "shadow-overlord" in self._base_url_lower) and "claude" in (self.model or "").lower():
-            # OpenRouter and Nous Portal translate requests to Anthropic's
+            # OpenRouter and Shadow Portal translate requests to Anthropic's
             # Messages API, which requires max_tokens as a mandatory field.
             # When we omit it, the proxy picks a default that can be too
             # low — the model spends its output budget on thinking and has
@@ -6310,11 +6310,11 @@ class AIAgent:
 
         # Provider preferences (only, ignore, order, sort) are OpenRouter-
         # specific.  Only send to OpenRouter-compatible endpoints.
-        # TODO: Nous Portal will add transparent proxy support — re-enable
-        # for _is_nous when their backend is updated.
+        # TODO: Shadow Portal will add transparent proxy support — re-enable
+        # for _is_shadow when their backend is updated.
         if provider_preferences and _is_openrouter:
             extra_body["provider"] = provider_preferences
-        _is_nous = "shadow-overlord" in self._base_url_lower
+        _is_shadow = "shadow-overlord" in self._base_url_lower
 
         if self._supports_reasoning_extra_body():
             if _is_github_models:
@@ -6324,10 +6324,10 @@ class AIAgent:
             else:
                 if self.reasoning_config is not None:
                     rc = dict(self.reasoning_config)
-                    # Nous Portal requires reasoning enabled — don't send
+                    # Shadow Portal requires reasoning enabled — don't send
                     # enabled=false to it (would cause 400).
-                    if _is_nous and rc.get("enabled") is False:
-                        pass  # omit reasoning entirely for Nous when disabled
+                    if _is_shadow and rc.get("enabled") is False:
+                        pass  # omit reasoning entirely for Shadow when disabled
                     else:
                         extra_body["reasoning"] = rc
                 else:
@@ -6336,8 +6336,8 @@ class AIAgent:
                         "effort": "medium"
                     }
 
-        # Nous Portal product attribution
-        if _is_nous:
+        # Shadow Portal product attribution
+        if _is_shadow:
             extra_body["tags"] = ["product=shadow-agent"]
 
         # Ollama num_ctx: override the 2048 default so the model actually
@@ -6373,7 +6373,7 @@ class AIAgent:
 
         OpenRouter forwards unknown extra_body fields to upstream providers.
         Some providers/routes reject `reasoning` with 400s, so gate it to
-        known reasoning-capable model families and direct Nous Portal.
+        known reasoning-capable model families and direct Shadow Portal.
         """
         if "shadow-overlord" in self._base_url_lower:
             return True
@@ -7629,7 +7629,7 @@ class AIAgent:
                     api_messages.insert(sys_offset + idx, pfm.copy())
 
             summary_extra_body = {}
-            _is_nous = "shadow-overlord" in self._base_url_lower
+            _is_shadow = "shadow-overlord" in self._base_url_lower
             if self._supports_reasoning_extra_body():
                 if self.reasoning_config is not None:
                     summary_extra_body["reasoning"] = self.reasoning_config
@@ -7638,7 +7638,7 @@ class AIAgent:
                         "enabled": True,
                         "effort": "medium"
                     }
-            if _is_nous:
+            if _is_shadow:
                 summary_extra_body["tags"] = ["product=shadow-agent"]
 
             if self.api_mode == "codex_responses":
@@ -8284,7 +8284,7 @@ class AIAgent:
             max_compression_attempts = 3
             codex_auth_retry_attempted=False
             anthropic_auth_retry_attempted=False
-            nous_auth_retry_attempted=False
+            shadow_auth_retry_attempted=False
             thinking_sig_retry_attempted = False
             has_retried_429 = False
             restart_with_compressed_messages = False
@@ -9022,13 +9022,13 @@ class AIAgent:
                             continue
                     if (
                         self.api_mode == "chat_completions"
-                        and self.provider == "nous"
+                        and self.provider == "shadow"
                         and status_code == 401
-                        and not nous_auth_retry_attempted
+                        and not shadow_auth_retry_attempted
                     ):
-                        nous_auth_retry_attempted = True
-                        if self._try_refresh_nous_client_credentials(force=True):
-                            print(f"{self.log_prefix}🔐 Nous agent key refreshed after 401. Retrying request...")
+                        shadow_auth_retry_attempted = True
+                        if self._try_refresh_shadow_client_credentials(force=True):
+                            print(f"{self.log_prefix}🔐 Shadow agent key refreshed after 401. Retrying request...")
                             continue
                     if (
                         self.api_mode == "anthropic_messages"

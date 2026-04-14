@@ -315,7 +315,7 @@ class SessionDB:
                 # reasoning text and structured reasoning_details across gateway
                 # session turns.  Without these, reasoning chains are lost on
                 # session reload, breaking multi-turn reasoning continuity for
-                # providers that replay reasoning (OpenRouter, OpenAI, Nous).
+                # providers that replay reasoning (OpenRouter, OpenAI, Shadow).
                 for col_name, col_type in [
                     ("reasoning", "TEXT"),
                     ("reasoning_details", "TEXT"),
@@ -910,7 +910,7 @@ class SessionDB:
                     logger.warning("Failed to deserialize tool_calls in conversation replay, falling back to []")
                     msg["tool_calls"] = []
             # Restore reasoning fields on assistant messages so providers
-            # that replay reasoning (OpenRouter, OpenAI, Nous) receive
+            # that replay reasoning (OpenRouter, OpenAI, Shadow) receive
             # coherent multi-turn reasoning context.
             if row["role"] == "assistant":
                 if row["reasoning"]:

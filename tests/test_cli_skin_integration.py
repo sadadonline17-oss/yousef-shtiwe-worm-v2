@@ -89,16 +89,16 @@ class TestCliSkinPromptIntegration:
 
 
 class TestCompactBannerSkinIntegration:
-    def test_default_compact_banner_keeps_legacy_nous_shadow_branding(self):
+    def test_default_compact_banner_keeps_legacy_shadow_shadow_branding(self):
         set_active_skin("default")
 
         with patch("cli.shutil.get_terminal_size", return_value=SimpleNamespace(columns=90)), \
              patch("cli.format_banner_version_label", return_value="SHADOW Agent v0.1.0 (test)"):
             banner = _build_compact_banner()
 
-        assert "NOUS SHADOW" in banner
+        assert "Shadow SHADOW" in banner
 
-    def test_poseidon_compact_banner_uses_skin_branding_instead_of_nous_shadow(self):
+    def test_poseidon_compact_banner_uses_skin_branding_instead_of_shadow_shadow(self):
         set_active_skin("poseidon")
 
         with patch("cli.shutil.get_terminal_size", return_value=SimpleNamespace(columns=90)), \
@@ -106,7 +106,7 @@ class TestCompactBannerSkinIntegration:
             banner = _build_compact_banner()
 
         assert "Poseidon Agent" in banner
-        assert "NOUS SHADOW" not in banner
+        assert "Shadow SHADOW" not in banner
 
     def test_poseidon_compact_banner_uses_skin_colors(self):
         set_active_skin("poseidon")

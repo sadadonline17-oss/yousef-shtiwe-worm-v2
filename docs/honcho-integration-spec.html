@@ -229,7 +229,7 @@ flowchart TD
   </div>
 
   <h3>openclaw-honcho: hook-based plugin</h3>
-  <p>The plugin registers hooks against OpenClaw's event bus. Context is fetched synchronously inside <code>before_prompt_build</code> on every turn. Message capture happens in <code>agent_end</code>. The multi-agent hierarchy is tracked via <code>subagent_spawned</code>. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.</p>
+  <p>The plugin registers hooks against OpenClaw's event bus. Context is fetched synchroshadowly inside <code>before_prompt_build</code> on every turn. Message capture happens in <code>agent_end</code>. The multi-agent hierarchy is tracked via <code>subagent_spawned</code>. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.</p>
 
   <div class="mermaid">
 %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f3150', 'primaryTextColor': '#c9d1d9', 'primaryBorderColor': '#3d6ea5', 'lineColor': '#3d6ea5', 'secondaryColor': '#162030', 'tertiaryColor': '#11151c' }}}%%
@@ -394,7 +394,7 @@ flowchart TD
   <h2>Spec: async prefetch</h2>
 
   <h3>Problem</h3>
-  <p>Calling <code>session.context()</code> and <code>peer.chat()</code> synchronously before each LLM call adds 200–800ms of Honcho round-trip latency to every turn. Users experience this as the agent "thinking slowly."</p>
+  <p>Calling <code>session.context()</code> and <code>peer.chat()</code> synchroshadowly before each LLM call adds 200–800ms of Honcho round-trip latency to every turn. Users experience this as the agent "thinking slowly."</p>
 
   <h3>Pattern</h3>
   <p>Fire both calls as non-blocking background work at the <strong>end</strong> of each turn. Store results in a per-session cache keyed by session ID. At the <strong>start</strong> of the next turn, pop from cache — the HTTP is already done. First turn is cold (empty cache); all subsequent turns are zero-latency on the response path.</p>

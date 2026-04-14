@@ -26,7 +26,7 @@ class TestFirecrawlClientConfig:
         tools.web_tools._firecrawl_client = None
         tools.web_tools._firecrawl_client_config = None
         for key in (
-            "SHADOW_ENABLE_NOUS_MANAGED_TOOLS",
+            "SHADOW_ENABLE_Shadow_MANAGED_TOOLS",
             "FIRECRAWL_API_KEY",
             "FIRECRAWL_API_URL",
             "FIRECRAWL_GATEWAY_URL",
@@ -35,7 +35,7 @@ class TestFirecrawlClientConfig:
             "TOOL_GATEWAY_USER_TOKEN",
         ):
             os.environ.pop(key, None)
-        os.environ["SHADOW_ENABLE_NOUS_MANAGED_TOOLS"] = "1"
+        os.environ["SHADOW_ENABLE_Shadow_MANAGED_TOOLS"] = "1"
 
     def teardown_method(self):
         """Reset client after each test."""
@@ -43,7 +43,7 @@ class TestFirecrawlClientConfig:
         tools.web_tools._firecrawl_client = None
         tools.web_tools._firecrawl_client_config = None
         for key in (
-            "SHADOW_ENABLE_NOUS_MANAGED_TOOLS",
+            "SHADOW_ENABLE_Shadow_MANAGED_TOOLS",
             "FIRECRAWL_API_KEY",
             "FIRECRAWL_API_URL",
             "FIRECRAWL_GATEWAY_URL",
@@ -90,7 +90,7 @@ class TestFirecrawlClientConfig:
     def test_no_config_raises_with_helpful_message(self):
         """Neither key nor URL → ValueError with guidance."""
         with patch("tools.web_tools.Firecrawl"):
-            with patch("tools.web_tools._read_nous_access_token", return_value=None):
+            with patch("tools.web_tools._read_shadow_access_token", return_value=None):
                 from tools.web_tools import _get_firecrawl_client
                 with pytest.raises(ValueError, match="FIRECRAWL_API_KEY"):
                     _get_firecrawl_client()
@@ -98,12 +98,12 @@ class TestFirecrawlClientConfig:
     def test_tool_gateway_domain_builds_firecrawl_gateway_origin(self):
         """Shared gateway domain should derive the Firecrawl vendor hostname."""
         with patch.dict(os.environ, {"TOOL_GATEWAY_DOMAIN": "shadow-overlord.com"}):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch("tools.web_tools.Firecrawl") as mock_fc:
                     from tools.web_tools import _get_firecrawl_client
                     result = _get_firecrawl_client()
                     mock_fc.assert_called_once_with(
-                        api_key="nous-token",
+                        api_key="shadow-token",
                         api_url="https://firecrawl-gateway.shadow-overlord.com",
                     )
                     assert result is mock_fc.return_value
@@ -114,12 +114,12 @@ class TestFirecrawlClientConfig:
             "TOOL_GATEWAY_DOMAIN": "shadow-overlord.com",
             "TOOL_GATEWAY_SCHEME": "http",
         }):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch("tools.web_tools.Firecrawl") as mock_fc:
                     from tools.web_tools import _get_firecrawl_client
                     result = _get_firecrawl_client()
                     mock_fc.assert_called_once_with(
-                        api_key="nous-token",
+                        api_key="shadow-token",
                         api_url="http://firecrawl-gateway.shadow-overlord.com",
                     )
                     assert result is mock_fc.return_value
@@ -130,7 +130,7 @@ class TestFirecrawlClientConfig:
             "TOOL_GATEWAY_DOMAIN": "shadow-overlord.com",
             "TOOL_GATEWAY_SCHEME": "ftp",
         }):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 from tools.web_tools import _get_firecrawl_client
                 with pytest.raises(ValueError, match="TOOL_GATEWAY_SCHEME"):
                     _get_firecrawl_client()
@@ -141,23 +141,23 @@ class TestFirecrawlClientConfig:
             "FIRECRAWL_GATEWAY_URL": "https://firecrawl-gateway.localhost:3009/",
             "TOOL_GATEWAY_DOMAIN": "shadow-overlord.com",
         }):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch("tools.web_tools.Firecrawl") as mock_fc:
                     from tools.web_tools import _get_firecrawl_client
                     _get_firecrawl_client()
                     mock_fc.assert_called_once_with(
-                        api_key="nous-token",
+                        api_key="shadow-token",
                         api_url="https://firecrawl-gateway.localhost:3009",
                     )
 
-    def test_default_gateway_domain_targets_nous_production_origin(self):
+    def test_default_gateway_domain_targets_shadow_production_origin(self):
         """Default gateway origin should point at the Firecrawl vendor hostname."""
-        with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+        with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
             with patch("tools.web_tools.Firecrawl") as mock_fc:
                 from tools.web_tools import _get_firecrawl_client
                 _get_firecrawl_client()
                 mock_fc.assert_called_once_with(
-                    api_key="nous-token",
+                    api_key="shadow-token",
                     api_url="https://firecrawl-gateway.shadow-overlord.com",
                 )
 
@@ -167,13 +167,13 @@ class TestFirecrawlClientConfig:
             "FIRECRAWL_API_KEY": "fc-test",
             "TOOL_GATEWAY_DOMAIN": "shadow-overlord.com",
         }):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch("tools.web_tools.Firecrawl") as mock_fc:
                     from tools.web_tools import _get_firecrawl_client
                     _get_firecrawl_client()
                 mock_fc.assert_called_once_with(api_key="fc-test")
 
-    def test_nous_auth_token_respects_shadow_home_override(self, tmp_path):
+    def test_shadow_auth_token_respects_shadow_home_override(self, tmp_path):
         """Auth lookup should read from SHADOW_HOME/auth.json, not ~/.shadow/auth.json."""
         real_home = tmp_path / "real-home"
         (real_home / ".shadow").mkdir(parents=True)
@@ -182,8 +182,8 @@ class TestFirecrawlClientConfig:
         shadow_home.mkdir()
         (shadow_home / "auth.json").write_text(json.dumps({
             "providers": {
-                "nous": {
-                    "access_token": "nous-token",
+                "shadow": {
+                    "access_token": "shadow-token",
                 }
             }
         }))
@@ -194,7 +194,7 @@ class TestFirecrawlClientConfig:
         }, clear=False):
             import tools.web_tools
             importlib.reload(tools.web_tools)
-            assert tools.web_tools._read_nous_access_token() == "nous-token"
+            assert tools.web_tools._read_shadow_access_token() == "shadow-token"
 
     def test_check_auxiliary_model_re_resolves_backend_each_call(self):
         """Availability checks should not be pinned to module import state."""
@@ -283,7 +283,7 @@ class TestFirecrawlClientConfig:
         """FIRECRAWL_API_KEY='' with no URL → should raise."""
         with patch.dict(os.environ, {"FIRECRAWL_API_KEY": ""}):
             with patch("tools.web_tools.Firecrawl"):
-                with patch("tools.web_tools._read_nous_access_token", return_value=None):
+                with patch("tools.web_tools._read_shadow_access_token", return_value=None):
                     from tools.web_tools import _get_firecrawl_client
                     with pytest.raises(ValueError):
                         _get_firecrawl_client()
@@ -298,7 +298,7 @@ class TestBackendSelection:
     """
 
     _ENV_KEYS = (
-        "SHADOW_ENABLE_NOUS_MANAGED_TOOLS",
+        "SHADOW_ENABLE_Shadow_MANAGED_TOOLS",
         "EXA_API_KEY",
         "PARALLEL_API_KEY",
         "FIRECRAWL_API_KEY",
@@ -311,9 +311,9 @@ class TestBackendSelection:
     )
 
     def setup_method(self):
-        os.environ["SHADOW_ENABLE_NOUS_MANAGED_TOOLS"] = "1"
+        os.environ["SHADOW_ENABLE_Shadow_MANAGED_TOOLS"] = "1"
         for key in self._ENV_KEYS:
-            if key != "SHADOW_ENABLE_NOUS_MANAGED_TOOLS":
+            if key != "SHADOW_ENABLE_Shadow_MANAGED_TOOLS":
                 os.environ.pop(key, None)
 
     def teardown_method(self):
@@ -523,7 +523,7 @@ class TestCheckWebApiKey:
     """Test suite for check_web_api_key() unified availability check."""
 
     _ENV_KEYS = (
-        "SHADOW_ENABLE_NOUS_MANAGED_TOOLS",
+        "SHADOW_ENABLE_Shadow_MANAGED_TOOLS",
         "EXA_API_KEY",
         "PARALLEL_API_KEY",
         "FIRECRAWL_API_KEY",
@@ -536,9 +536,9 @@ class TestCheckWebApiKey:
     )
 
     def setup_method(self):
-        os.environ["SHADOW_ENABLE_NOUS_MANAGED_TOOLS"] = "1"
+        os.environ["SHADOW_ENABLE_Shadow_MANAGED_TOOLS"] = "1"
         for key in self._ENV_KEYS:
-            if key != "SHADOW_ENABLE_NOUS_MANAGED_TOOLS":
+            if key != "SHADOW_ENABLE_Shadow_MANAGED_TOOLS":
                 os.environ.pop(key, None)
 
     def teardown_method(self):
@@ -592,20 +592,20 @@ class TestCheckWebApiKey:
             assert check_web_api_key() is True
 
     def test_tool_gateway_returns_true(self):
-        with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+        with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
             from tools.web_tools import check_web_api_key
             assert check_web_api_key() is True
 
     def test_configured_backend_must_match_available_provider(self):
         with patch("tools.web_tools._load_web_config", return_value={"backend": "parallel"}):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch.dict(os.environ, {"FIRECRAWL_GATEWAY_URL": "http://127.0.0.1:3002"}, clear=False):
                     from tools.web_tools import check_web_api_key
                     assert check_web_api_key() is False
 
     def test_configured_firecrawl_backend_accepts_managed_gateway(self):
         with patch("tools.web_tools._load_web_config", return_value={"backend": "firecrawl"}):
-            with patch("tools.web_tools._read_nous_access_token", return_value="nous-token"):
+            with patch("tools.web_tools._read_shadow_access_token", return_value="shadow-token"):
                 with patch.dict(os.environ, {"FIRECRAWL_GATEWAY_URL": "http://127.0.0.1:3002"}, clear=False):
                     from tools.web_tools import check_web_api_key
                     assert check_web_api_key() is True
