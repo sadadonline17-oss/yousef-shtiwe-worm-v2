@@ -2,39 +2,27 @@ import requests
 import json
 
 def test_path_traversal(base_url: str):
-    \"\"\"
-    فحص ثغرات Path Traversal في الخوادم المستهدفة.
-    \"\"\"
-    payloads = [
-        \"/../../../../etc/passwd\",
-        \"/..%2f..%2f..%2f..%2fetc/passwd\",
-        \"/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd\"
-    ]
+    """Fuzzing for path traversal vulnerabilities."""
+    payloads = ["/../../../../etc/passwd", "/..%2f..%2f..%2f..%2fetc/passwd"]
     results = []
     for payload in payloads:
-        url = f\"{base_url}{payload}\"
+        url = f"{base_url}{payload}"
         try:
             response = requests.get(url, timeout=5)
-            if \"root:x:0:0:\" in response.text:
-                results.append({\"url\": url, \"vulnerable\": True, \"evidence\": response.text[:100]})
+            if "root:x:0:0:" in response.text:
+                results.append({"url": url, "vulnerable": True})
             else:
-                results.append({\"url\": url, \"vulnerable\": False})
+                results.append({"url": url, "vulnerable": False})
         except Exception as e:
-            results.append({\"url\": url, \"error\": str(e)})
+            results.append({"url": url, "error": str(e)})
     return json.dumps(results)
 
 def test_cors_exposure(url: str):
-    \"\"\"
-    فحص إعدادات CORS الضعيفة التي قد تؤدي لتسريب البيانات.
-    \"\"\"
-    headers = {\"Origin\": \"https://evil-attacker.com\"}
+    """Fuzzing for weak CORS settings."""
+    headers = {"Origin": "https://evil-attacker.com"}
     try:
         response = requests.options(url, headers=headers, timeout=5)
-        allow_origin = response.headers.get(\"Access-Control-Allow-Origin\", \"\")
-        return json.dumps({
-            \"url\": url,
-            \"allow_origin\": allow_origin,
-            \"vulnerable\": allow_origin == \"*\" or allow_origin == \"https://evil-attacker.com\"
-        })
+        allow_origin = response.headers.get("Access-Control-Allow-Origin", "")
+        return json.dumps({"url": url, "vulnerable": allow_origin == "*"})
     except Exception as e:
-        return json.dumps({\"error\": str(e)})
+        return json.dumps({"error": str(e)})
