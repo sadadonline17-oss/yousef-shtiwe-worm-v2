@@ -1,63 +1,48 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/sadadonline17-oss/SHADOW-DevOps-Automator/main/assets/shadow_banner.png" alt="SHADOW Automator" width="100%">
-</p>
+# SHADOW Agent 👹 ♟
+**Documentation** | **Discord** | **License: MIT** | **Built by SHADOW-OVERLORD**
 
-# SHADOW DevOps Automator 👁👹
+The self-improving AI agent built by **SHADOW**. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
 
-<p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Version-10.1_Void_Walker-red?style=for-the-badge" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Platform-Termux_/_Linux-orange?style=for-the-badge" alt="Platforms"></a>
-  <a href="#"><img src="https://img.shields.io/badge/License-Proprietary-black?style=for-the-badge" alt="License"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Built_by-SHADOW_CORE-red?style=for-the-badge" alt="Built by SHADOW"></a>
-</p>
+Use any model you want — Nous Portal, OpenRouter (200+ models), Xiaomi MiMo, z.ai/GLM, Kimi/Moonshot, MiniMax, Hugging Face, OpenAI, or your own endpoint. Switch with `shadow model` — no code changes, no lock-in.
 
-**The autonomous cyber-intelligence entity that orchestrates the offensive DevOps lifecycle.** SHADOW is not just a tool; it is a "Ghost in the Shell" designed for absolute dominance, stealth, and exfiltration. It is the only automator with a built-in **Void Master Mind** loop — it analyzes targets, discovers vulnerabilities, generates polymorphic payloads, and executes military-grade anti-forensics to vanish without a trace. Run it on a mobile device via Termux, a $5 VPS, or a high-end command center.
-
-Use any model you want — Gemini 3.1, GPT-5.4, Claude 4.6, or your own local endpoint via the AI Gateway. Switch missions with simple flags — no code changes, no friction.
-
-| **Autonomous Orchestrator** | Full Cyber Kill Chain automation. From initial Recon to final Exfiltration, SHADOW manages the mission state via an internal SQLite Intel DB. |
+| **Feature** | **Description** |
 | :--- | :--- |
-| **Ghost Overlord Evasion** | Advanced EDR/XDR bypass using Direct Syscalls, API Unhooking, and Polymorphic Memory Execution. Designed to stay invisible to modern defensive stacks. |
-| **Void Walker Exfiltration** | Multi-pattern Path Traversal engine with Double Encoding and Unicode bypass. Precision looting of sensitive system artifacts and environment secrets. |
-| **Covert C2 Steganography** | High-end Command & Control that blends data exfiltration with legitimate cloud traffic (Google Drive, Azure, AWS) to defeat deep packet inspection. |
+| **A real terminal interface** | Full TUI with multiline editing, slash-command autocomplete, conversation history, interrupt-and-redirect, and streaming tool output. |
+| **Lives where you do** | Telegram, Discord, Slack, WhatsApp, Signal, and CLI — all from a single gateway process. Voice memo transcription, cross-platform conversation continuity. |
+| **A closed learning loop** | Agent-curated memory with periodic nudges. Autonomous skill creation after complex tasks. Skills self-improve during use. FTS5 session search with LLM summarization for cross-session recall. Honcho dialectic user modeling. |
+| **Scheduled automations** | Built-in cron scheduler with delivery to any platform. Daily reports, nightly backups, weekly audits — all in natural language, running unattended. |
+| **Delegates and parallelizes** | Spawn isolated subagents for parallel workstreams. Write Python scripts that call tools via RPC, collapsing multi-step pipelines into zero-context-cost turns. |
+| **Runs anywhere** | Six terminal backends — local, Docker, SSH, Daytona, Singularity, and Modal. Daytona and Modal offer serverless persistence — your agent's environment hibernates when idle and wakes on demand. |
+| **Research-ready** | Batch trajectory generation, Atropos RL environments, trajectory compression for training the next generation of tool-calling models. |
 
-## 🚀 Supreme Launch Sequence
-
-### 1. Zero-Touch Installation (Termux / Linux)
+## Quick Install
 ```bash
-# Clone the Void
-git clone https://github.com/sadadonline17-oss/SHADOW-DevOps-Automator.git
-cd SHADOW-DevOps-Automator
-
-# Initialize the Core
-bash scripts/install.sh
-source venv/bin/activate
+curl -fsSL https://raw.githubusercontent.com/sadadonline17-oss/SHADOW-DevOps-Automator/main/scripts/install.sh | bash
 ```
+Works on Linux, macOS, WSL2, and Android via Termux. The installer handles the platform-specific setup for you.
 
-### 2. Configure Your Mission
-```bash
-# Set your tokens and provider preferences
-shadow config set GITHUB_TOKEN "ghp_..."
-shadow config set PROVIDER "gemini"
-```
+## Getting Started
+- `shadow chat` — Interactive CLI — start a conversation
+- `shadow model` — Choose your LLM provider and model
+- `shadow tools` — Configure which tools are enabled
+- `shadow config set` — Set individual config values
+- `shadow gateway` — Start the messaging gateway (Telegram, Discord, etc.)
+- `shadow setup` — Run the full setup wizard (configures everything at once)
+- `shadow update` — Update to the latest version
+- `shadow doctor` — Diagnose any issues
 
-### 3. Execute The Singularity
-```bash
-# Launch a full autonomous mission against a target
-python3 shadow_devops_automator/main.py --target "target-url.com" --auto --loot "/etc/passwd" --ghost --stealth
-```
+## CLI vs Messaging Quick Reference
+Shadow has two entry points: start the terminal UI with `shadow chat`, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email.
 
-## 👁 Core Capabilities (V10.1 Realism Engine)
+| **Action** | **CLI** | **Messaging Platforms** |
+| :--- | :--- | :--- |
+| **Start chatting** | `shadow chat` | Run `shadow gateway setup` + `shadow gateway start`, then send the bot a message |
+| **Start fresh conversation** | `/new` or `/reset` | `/new` or `/reset` |
+| **Change model** | `/model [provider:model]` | `/model [provider:model]` |
+| **Set a personality** | `/personality [name]` | `/personality [name]` |
+| **Retry or undo last turn** | `/retry`, `/undo` | `/retry`, `/undo` |
+| **Compress context** | `/compress`, `/usage` | `/compress`, `/usage` |
+| **Browse skills** | `/skills` or `/<skill-name>` | `/skills` or `/<skill-name>` |
 
-- **Autonomous Mission Master Mind** — A natural language mission orchestrator that analyzes probe results to decide the next offensive move without operator intervention.
-- **Living off the Land (LotL)** — Uses native system binaries (`certutil`, `wmic`, `powershell`, `vssadmin`) to proxy execution and minimize process-tree anomalies.
-- **Military-Grade Anti-Forensics** — Active `shred` and multi-pass truncation of system logs (`auth.log`, `syslog`) and command histories to neutralize post-incident analysis.
-- **Dynamic Proxy Rotation** — Real-time fetching and verification of high-anonymity proxies from live SSL sources to mask the mission's origin.
-- **AI-Powered Exploit Chainer** — Deep-search integration for PoC discovery (Exploit-DB, Sploitus) and automated payload generation based on service banners.
-
-## 🔐 Security & Audit
-
-Every action taken by SHADOW is logged with a `[SEC-AUDIT-LOG]` prefix in the **MEMORY.md** file for tactical review. Optimized for **Termux (Android aarch64)** and standard Linux kernel 5.x+.
-
----
-**WE ARE THE SHADOWS IN THE DATA. WE ARE THE VOID WALKERS.** ♟💀
+**Built by SHADOW-OVERLORD.**
+**SHADOW Agent v1.0.0 (v2026.4.14)**
