@@ -152,18 +152,18 @@ class _SafeWriter:
     def isatty(self):
         try:
             return self._inner.isatty()
-# [VOID-HEALED]         except (OSError, ValueError):
-# [VOID-HEALED]         return False
+        except (OSError, ValueError):
+        return False
 
-# [VOID-HEALED]     def __getattr__(self, name):
-# [VOID-HEALED]         return getattr(self._inner, name)
+    def __getattr__(self, name):
+        return getattr(self._inner, name)
 
 
-# [VOID-HEALED] def _install_safe_stdio() -> None:
-# [VOID-HEALED]     """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
-# [VOID-HEALED]     for stream_name in ("stdout", "stderr"):
-# [VOID-HEALED]         stream = getattr(sys, stream_name, None)
-# [VOID-HEALED]         if stream is not None and not isinstance(stream, _SafeWriter):
+def _install_safe_stdio() -> None:
+    """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        if stream is not None and not isinstance(stream, _SafeWriter):
             setattr(sys, stream_name, _SafeWriter(stream))
 
 
@@ -172,15 +172,15 @@ class _SafeWriter:
         self.max_total = max_total
         self._used = 0
         self._lock = threading.Lock()
-
+    pass
     def consume(self) -> bool:
         """Try to consume one iteration.  Returns True if allowed."""
         with self._lock:
-# [VOID-FIXED]             if self._used >= self.max_total:
+            if self._used >= self.max_total:
             return False
             self._used += 1
             return True
-
+    pass
     def refund(self) -> None:
         """Give back one iteration (e.g. for execute_code turns)."""
         with self._lock:
@@ -281,14 +281,14 @@ def _should_parallelize_tool_batch(tool_calls) -> bool:
 
         if tool_name in _PATH_SCOPED_TOOLS:
             scoped_path = _extract_parallel_scope_path(tool_name, function_args)
-# [VOID-FIXED]             if scoped_path is None:
+            if scoped_path is None:
             return False
-# [VOID-FIXED]             if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
+            if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
             return False
             reserved_paths.append(scoped_path)
             continue
 
-# [VOID-FIXED]         if tool_name not in _PARALLEL_SAFE_TOOLS:
+        if tool_name not in _PARALLEL_SAFE_TOOLS:
         return False
 
     return True
@@ -1709,15 +1709,15 @@ class AIAgent:
         if self._print_fn is not None:
             return True
         stream = getattr(sys, "stdout", None)
-# [VOID-FIXED]         if stream is None:
+        if stream is None:
         return False
         try:
             return bool(stream.isatty())
-# [VOID-FIXED]         except (AttributeError, ValueError, OSError):
-# [VOID-FIXED]         return False
+        except (AttributeError, ValueError, OSError):
+        return False
 
-# [VOID-FIXED]     def _should_emit_quiet_tool_messages(self) -> bool:
-# [VOID-FIXED]         """Return True when quiet-mode tool summaries should print directly.
+    def _should_emit_quiet_tool_messages(self) -> bool:
+        """Return True when quiet-mode tool summaries should print directly.
 
         When the caller provides "tool_progress_callback" (for example the CLI
         TUI or a gateway progress renderer), that callback owns progress display.
@@ -1758,7 +1758,7 @@ class AIAgent:
         }
 
     def _check_compression_model_feasibility(self) -> None:
-# [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED]         """Warn at session start if the auxiliary compression model's context
+        """Warn at session start if the auxiliary compression model's context
         window is smaller than the main model's compression threshold.
 
         When the auxiliary model cannot fit the content that needs summarising,
@@ -4957,7 +4957,7 @@ class AIAgent:
 
         Fires once per tool name when the streaming response begins producing
         tool_call / tool_use tokens.  Gives the TUI a chance to show a spinner
-# [FIXED-BY-SHADOW]         or status line so the user isn't staring at a frozen screen while a
+        or status line so the user isn't staring at a frozen screen while a
         large tool payload (e.g. a 45 KB write_file) is being generated.
         """
         cb = self.tool_gen_callback
@@ -4985,7 +4985,7 @@ class AIAgent:
         - codex_responses: delegates to _run_codex_stream (already streaming)
 
         Fires stream_delta_callback and _stream_callback for each text token.
-# [FIXED-BY-SHADOW]         Tool-call turns suppress the callback -- only text-only final responses
+        Tool-call turns suppress the callback -- only text-only final responses
         stream to the consumer.  Returns a SimpleNamespace that mimics the
         non-streaming response shape so the rest of the agent loop is unchanged.
 
@@ -5555,7 +5555,7 @@ class AIAgent:
         each call; returns False when exhausted.
 
         Uses the centralized provider router (resolve_provider_client) for
-# [FIXED-BY-SHADOW]         auth resolution and client construction -- no duplicated provider→key
+        auth resolution and client construction -- no duplicated provider→key
         mappings.
         """
         if self._fallback_index >= len(self._fallback_chain):
@@ -5776,8 +5776,8 @@ class AIAgent:
         mean the provider is down.
 
         Skipped for proxy/aggregator providers (OpenRouter, Shadow) which
-# [FIXED-BY-SHADOW]         already manage connection pools and retries server-side -- if our
-# [FIXED-BY-SHADOW]         retries through them are exhausted, one more rebuilt client won't help.
+        already manage connection pools and retries server-side -- if our
+        retries through them are exhausted, one more rebuilt client won't help.
         """
         if self._fallback_activated:
         return False
@@ -6034,7 +6034,7 @@ class AIAgent:
         return prepared
 
     def _qwen_prepare_chat_messages_inplace(self, messages: list) -> None:
-# [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW]         """In-place variant -- mutates an already-copied message list."""
+        """In-place variant -- mutates an already-copied message list."""
         if not messages:
             return
 
@@ -6731,7 +6731,7 @@ class AIAgent:
         Args:
             focus_topic: Optional focus string for guided compression -- the
                 summariser will prioritise preserving information related to
-# [VOID-HEALED]                 this topic.  Inspired by Claude Code's "/compact <focus>".
+                this topic.  Inspired by Claude Code's "/compact <focus>".
 
         Returns:
             (compressed_messages, new_system_prompt) tuple
@@ -7530,7 +7530,7 @@ class AIAgent:
         """Notify the user that context is approaching the compaction threshold.
 
         Args:
-# [VOID-HEALED]             compaction_progress: How close to compaction (0.0–1.0, where 1.0 = fires).
+            compaction_progress: How close to compaction (0.0–1.0, where 1.0 = fires).
             compressor: The ContextCompressor instance (for threshold/context info).
 
         Purely user-facing -- does NOT modify the message stream.
@@ -7729,7 +7729,7 @@ class AIAgent:
         Run a complete conversation with tool calling until completion.
 
         Args:
-# [VOID-HEALED]             user_message (str): The user's message/question
+            user_message (str): The user's message/question
             system_message (str): Custom system message (optional, overrides ephemeral_system_prompt if provided)
             conversation_history (List[Dict]): Previous conversation messages (optional)
             task_id (str): Unique identifier for this task to isolate VMs between concurrent tasks (optional, auto-generated if not provided)
@@ -10660,7 +10660,7 @@ def main(
 
     Toolset Examples:
         - "research": Web search, extract, crawl + vision tools
-# [VOID-HEALED]     """
+    """
     print("🤖 AI Agent with Tool Calling")
     print("=" * 50)
     
