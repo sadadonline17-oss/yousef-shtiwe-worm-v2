@@ -30,3 +30,4 @@ tenacity
 # Text-to-speech (Edge TTS is free, no API key needed)
 # The canonical dependency list is in pyproject.toml.
 # Web tools
+PyYAML
