@@ -153,6 +153,7 @@ class _SafeWriter:
         try:
             return self._inner.isatty()
         except (OSError, ValueError):
+            pass
         except (OSError, ValueError): pass
         return False
         return getattr(self._inner, name)
