@@ -5,92 +5,79 @@
 
     echo -e "\033[38;5;220m"
     echo "╔══════════════════════════════════════════════════════════════════════╗"
-    echo "║   YOUSEF SHTIWE - VOID INSTALLER v47.0 (ATOMIC NEXUS)          ║"
+    echo "║   YOUSEF SHTIWE - SOVEREIGN INSTALLER v48.0 (TERMUX CORE)     ║"
     echo "╚══════════════════════════════════════════════════════════════════════╝"
     echo -e "\033[0m"
 
-    echo "👹 [VOID-CORE] Initiating Sovereign Core Integration..."
-
     if [ -d "/data/data/com.termux" ] || [ -n "$TERMUX_VERSION" ]; then
-        TARGET_DIR="$HOME/yousef-shtiwe-worm-v2"
         IS_TERMUX=true
+        PREFIX="/data/data/com.termux/files/usr"
+        HOME_DIR="/data/data/com.termux/files/home"
     else
-        TARGET_DIR="$(pwd)/yousef-shtiwe-worm-v2"
         IS_TERMUX=false
+        PREFIX="/usr/local"
+        HOME_DIR="$HOME"
     fi
 
+    TARGET_DIR="$HOME_DIR/yousef-shtiwe-worm-v2"
     mkdir -p "$TARGET_DIR"
     cd "$TARGET_DIR"
 
-    # Dependency check
+    # Dependency check for Termux
     if [ "$IS_TERMUX" = true ]; then
+        echo "[⚙️] Termux Environment Detected. Synchronizing Packages..."
         pkg update -y || true
-        pkg install python nmap curl unzip git openssl -y || true
-        python3 -m pip install --upgrade pip --break-system-packages --quiet || true
+        pkg install python nmap curl unzip git openssl make clang -y || true
+        # [PHASE 2 FIX] Commented pip upgrade as requested
+        # python3 -m pip install --upgrade pip --break-system-packages --quiet || true
     fi
 
-    # 1. ATOMIC CLONE & SYNC
-    echo "[⚙️] Fetching Advanced Autonomous Logic (Yousef Shtiwe v1.0.0)..."
-    if [ ! -d ".git" ]; then
-        git clone https://github.com/sadadonline17-oss/yousef-shtiwe-worm-v2.git .
-    else
-        git pull origin main --force
+    install_sqlmap_termux() {
+        echo "[→] Installing sqlmap via git clone..."
+        rm -rf "$PREFIX/opt/sqlmap"
+        git clone --depth=1 https://github.com/sqlmapproject/sqlmap.git "$PREFIX/opt/sqlmap"
+        ln -sf "$PREFIX/opt/sqlmap/sqlmap.py" "$PREFIX/bin/sqlmap"
+    }
+
+    install_masscan_termux() {
+        echo "[→] Installing masscan from source..."
+        rm -rf "$PREFIX/opt/masscan"
+        git clone https://github.com/robertdavidgraham/masscan.git "$PREFIX/opt/masscan"
+        cd "$PREFIX/opt/masscan" && make -j4
+        ln -sf "$PREFIX/opt/masscan/bin/masscan" "$PREFIX/bin/masscan"
+        cd "$TARGET_DIR"
+    }
+
+    if [ "$IS_TERMUX" = true ]; then
+        install_sqlmap_termux
+        install_masscan_termux
     fi
 
-    # 2. INSTALL DEPENDENCIES
-    echo "[📦] Installing Sovereign Dependencies..."
+    # 1. ATOMIC SYNC
+    echo "[⚡] Fetching Sovereign Logic Components..."
+    # We use a python script to pull individual files if git fails on slow connections
+    curl -fsSL "https://raw.githubusercontent.com/sadadonline17-oss/yousef-shtiwe-worm-v2/main/scripts/void_sync.py" -o void_sync.py
+    python3 void_sync.py
+    rm void_sync.py
+
+    # 2. INSTALL PYTHON DEPENDENCIES
+    echo "[📦] Installing Sovereign Python Modules..."
     python3 -m pip install -r requirements.txt --break-system-packages --quiet || true
 
-    # 3. RADICAL SHELL RECONSTRUCTION
-    echo "[⚓] Executing Sovereign Shell Patching..."
-    export CLI_PATH="$TARGET_DIR/yousef_shtiwe_cli.py"
-    chmod +x "$CLI_PATH"
-    
-    # We use a special 'yousef' function to handle commands and interactive mode
-    BASHRC="$HOME/.bashrc"
-    [ -f "$HOME/.zshrc" ] && BASHRC="$HOME/.zshrc"
+    # 3. SHELL SOVEREIGNTY
+    echo "[⚓] Finalizing Shell Integration..."
+    BASHRC="$HOME_DIR/.bashrc"
+    [ -f "$HOME_DIR/.zshrc" ] && BASHRC="$HOME_DIR/.zshrc"
 
-    # Injecting the permanent alias and function
-    cat << EOF > scripts/heal_rc.py
-import os
-def heal():
-    home = os.path.expanduser("~")
-    bashrc = os.path.join(home, ".bashrc")
-    prefix = os.environ.get('PREFIX', '/data/data/com.termux/files/usr')
-    cli = os.path.join(home, "yousef-shtiwe-worm-v2", "yousef_shtiwe_cli.py")
-    
-    with open(bashrc, 'r') as f: lines = f.readlines()
-    
-    clean = []
-    for line in lines:
-        if any(x in line for x in ["yousef", "shtiwe", "yousef shtiwe", "VOID CORE"]): continue
-        clean.append(line)
-        
-    logic = f"""
-# --- YOUSEF SHTIWE VOID CORE v47.0 ---
-export TMPDIR="{prefix}/tmp"
-yousef() {{
-    if [ "$1" = "shtiwe" ]; then
-        shift
-        export SHTIWE_VOID_OVERRIDE=1
-        python3 "{cli}" "$@"
-    else
-        command yousef "$@" 2>/dev/null || echo -e "\\033[31m[!] Use: yousef shtiwe\\033[0m"
+    # Atomic Injection of Alias and function
+    if ! grep -q "yousef shtiwe" "$BASHRC"; then
+        echo "alias \"yousef shtiwe\"=\"python3 $TARGET_DIR/yousef_shtiwe_cli.py\"" >> "$BASHRC"
     fi
-}}
-# --- END VOID CORE ---
-"""
-    with open(bashrc, 'w') as f: f.write("".join(clean) + logic)
-    print("✅ Shell Healed.")
-
-if __name__ == "__main__": heal()
-EOF
-    python3 scripts/heal_rc.py
-    rm scripts/heal_rc.py
 
     echo -e "\033[38;5;46m"
-    echo "✅ [YOUSEF SHTIWE] SYSTEM FULLY INTEGRATED (V47.0)."
-    echo "✅ [SUCCESS] Advanced Yousef Shtiwe v1.0.0 logic merged with Sovereign Identity."
-    echo "🚀 ACTION: Run 'source ~/.bashrc' then 'yousef shtiwe doctor'"
+    echo "✅ [YOUSEF SHTIWE] SYSTEM TRANSFORMATION COMPLETE (V48.0)."
+    echo "✅ [SUCCESS] sqlmap & masscan installed from source."
+    echo "✅ [SUCCESS] Sovereign Alias 'yousef shtiwe' injected."
+    echo "🚀 ACTION: Run 'source $BASHRC' then 'yousef shtiwe offensive recon <target>'"
     echo -e "\033[0m"
 }

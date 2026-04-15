@@ -1,31 +1,18 @@
 [project]
-name = "yousef shtiwe-agent"
-version = "1.0.0"
-description = "YOUSEF SHTIWE Agent - The Supreme Self-Improving Autonomous Entity"
+name = "yousef-shtiwe-worm-v2"
+version = "48.0.0"
+description = "The YOUSEF SHTIWE Sovereign Offensive Agent."
 dependencies = [
-    "fire",
     "requests",
-    "nexttoken",
-    "prompt_toolkit",
     "rich",
-    "pydantic>=2.0",
     "python-dotenv",
-    "aiohttp",
-    "croniter"
-]
-
-[project.optional-dependencies]
-all = [
-    "discord.py",
-    "python-telegram-bot",
-    "firecrawl-py",
-    "edge-tts",
-    "fal-client"
+    "PyYAML",
+    "httpx",
 ]
 
 [project.scripts]
-yousef shtiwe = "yousef shtiwe_cli.main:main"
+yousef-shtiwe = "yousef_shtiwe_cli:main"
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["yousef_shtiwe_cli*", "shtiwe_modules*", "agent*", "yousef_shtiwe_core*"]
