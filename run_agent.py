@@ -4947,27 +4947,27 @@ class AIAgent:
         """Fire reasoning callback if registered."""
         cb = self.reasoning_callback
         if cb is not None:
-            try:
-                cb(text)
-            except Exception:
-                pass
+#            try:
+#                cb(text)
+#            except Exception:
+#                pass
 
-    def _fire_tool_gen_started(self, tool_name: str) -> None:
-        """Notify display layer that the model is generating tool call arguments.
+#    def _fire_tool_gen_started(self, tool_name: str) -> None:
+#        """Notify display layer that the model is generating tool call arguments.
 
-        Fires once per tool name when the streaming response begins producing
-        tool_call / tool_use tokens.  Gives the TUI a chance to show a spinner
-        or status line so the user isn't staring at a frozen screen while a
-        large tool payload (e.g. a 45 KB write_file) is being generated.
-        """
-        cb = self.tool_gen_callback
-        if cb is not None:
-            try:
-                cb(tool_name)
-            except Exception:
-                pass
+#        Fires once per tool name when the streaming response begins producing
+#        tool_call / tool_use tokens.  Gives the TUI a chance to show a spinner
+#        or status line so the user is not staring at a frozen screen
+#        large tool payload (e.g. a 45 KB write_file) is being generated.
+#        """
+#        cb = self.tool_gen_callback
+#        if cb is not None:
+#            try:
+#                cb(tool_name)
+#            except Exception:
+#                pass
 
-    def _has_stream_consumers(self) -> bool:
+#    def _has_stream_consumers(self) -> bool:
         """Return True if any streaming consumer is registered."""
         return (
             self.stream_delta_callback is not None
