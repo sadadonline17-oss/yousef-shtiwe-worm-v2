@@ -154,7 +154,6 @@ class _SafeWriter:
         try:
             return self._inner.isatty()
         except (OSError, ValueError): pass
-            pass
         return False
 
     def __getattr__(self, name):
