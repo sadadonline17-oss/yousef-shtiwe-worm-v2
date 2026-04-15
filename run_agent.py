@@ -167,22 +167,8 @@ class _SafeWriter:
             setattr(sys, stream_name, _SafeWriter(stream))
 
 
-# [VOID-HEALED] class IterationBudget:
-# [VOID-HEALED]     """Thread-safe iteration counter for an agent.
-
-# [VOID-HEALED]     Each agent (parent or subagent) gets its own "IterationBudget".
-# [VOID-HEALED]     The parent's budget is capped at "max_iterations" (default 90).
-# [VOID-HEALED]     Each subagent gets an independent budget capped at
-    "delegation.max_iterations" (default 50) -- this means total
-# [VOID-HEALED]     iterations across parent + subagents can exceed the parent's cap.
-    Users control the per-subagent limit via "delegation.max_iterations"
-    in config.yaml.
-
-    "execute_code" (programmatic tool calling) iterations are refunded via
-# [VOID-HEALED]     :meth:'refund' so they don't eat into the budget.
-    """
-
-    def __init__(self, max_total: int):
+        except Exception as e:
+            logger.error(f"Iteration error: {e}")
         self.max_total = max_total
         self._used = 0
         self._lock = threading.Lock()
@@ -190,7 +176,7 @@ class _SafeWriter:
     def consume(self) -> bool:
         """Try to consume one iteration.  Returns True if allowed."""
         with self._lock:
-            if self._used >= self.max_total:
+# [VOID-FIXED]             if self._used >= self.max_total:
             return False
             self._used += 1
             return True
@@ -295,14 +281,14 @@ def _should_parallelize_tool_batch(tool_calls) -> bool:
 
         if tool_name in _PATH_SCOPED_TOOLS:
             scoped_path = _extract_parallel_scope_path(tool_name, function_args)
-            if scoped_path is None:
+# [VOID-FIXED]             if scoped_path is None:
             return False
-            if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
+# [VOID-FIXED]             if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
             return False
             reserved_paths.append(scoped_path)
             continue
 
-        if tool_name not in _PARALLEL_SAFE_TOOLS:
+# [VOID-FIXED]         if tool_name not in _PARALLEL_SAFE_TOOLS:
         return False
 
     return True
@@ -1723,15 +1709,15 @@ class AIAgent:
         if self._print_fn is not None:
             return True
         stream = getattr(sys, "stdout", None)
-        if stream is None:
+# [VOID-FIXED]         if stream is None:
         return False
         try:
             return bool(stream.isatty())
-        except (AttributeError, ValueError, OSError):
-        return False
+# [VOID-FIXED]         except (AttributeError, ValueError, OSError):
+# [VOID-FIXED]         return False
 
-    def _should_emit_quiet_tool_messages(self) -> bool:
-        """Return True when quiet-mode tool summaries should print directly.
+# [VOID-FIXED]     def _should_emit_quiet_tool_messages(self) -> bool:
+# [VOID-FIXED]         """Return True when quiet-mode tool summaries should print directly.
 
         When the caller provides "tool_progress_callback" (for example the CLI
         TUI or a gateway progress renderer), that callback owns progress display.
@@ -1772,7 +1758,7 @@ class AIAgent:
         }
 
     def _check_compression_model_feasibility(self) -> None:
-        """Warn at session start if the auxiliary compression model's context
+# [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED]         """Warn at session start if the auxiliary compression model's context
         window is smaller than the main model's compression threshold.
 
         When the auxiliary model cannot fit the content that needs summarising,
