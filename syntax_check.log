@@ -1,4 +1,4 @@
-  File "run_agent.py", line 6360
-    Some providers/routes reject `reasoning` with 400s, so gate it to
-                                                    ^
-SyntaxError: invalid decimal literal
+  File "run_agent.py", line 6748
+    this topic.  Inspired by Claude Code's "/compact <focus>".
+                                        ^
+SyntaxError: unterminated string literal (detected at line 6748)

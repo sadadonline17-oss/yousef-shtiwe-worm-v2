@@ -179,7 +179,7 @@ class IterationBudget:
     in config.yaml.
 
     "execute_code" (programmatic tool calling) iterations are refunded via
-    :meth:`refund` so they don't eat into the budget.
+    :meth:'refund' so they don't eat into the budget.
     """
 
     def __init__(self, max_total: int):
@@ -238,7 +238,7 @@ _MAX_TOOL_WORKERS = 8
 
 # Patterns that indicate a terminal command may modify/delete files.
 _DESTRUCTIVE_PATTERNS = re.compile(
-    r"""(?:^|\s|&&|\|\||;|`)(?:
+    r"""(?:^|\s|&&|\|\||;|')(?:
         rm\s|rmdir\s|
         mv\s|
         sed\s+-i|
@@ -940,7 +940,7 @@ class AIAgent:
                         raise RuntimeError(
                             f"Provider '{_explicit}' is set in config.yaml but no API key "
                             f"was found. Set the {_explicit.upper()}_API_KEY environment "
-                            f"variable, or switch to a different provider with `shadow model`."
+                            f"variable, or switch to a different provider with 'shadow model'."
                         )
                     # Final fallback: try raw OpenRouter key
                     client_kwargs = {
@@ -1799,7 +1799,7 @@ class AIAgent:
                 msg = (
                     "⚠ No auxiliary LLM provider configured -- context "
                     "compression will drop middle turns without a summary. "
-                    "Run `shadow setup` or set OPENROUTER_API_KEY."
+                    "Run 'shadow setup' or set OPENROUTER_API_KEY."
                 )
                 self._compression_warning = msg
                 self._emit_status(msg)
@@ -3515,7 +3515,7 @@ class AIAgent:
         call_id: str,
         response_item_id: Optional[str] = None,
     ) -> str:
-        """Build a valid Responses `function_call.id` (must start with `fc_`)."""
+        """Build a valid Responses 'function_call.id' (must start with 'fc_')."""
         if isinstance(response_item_id, str):
             candidate = response_item_id.strip()
             if candidate.startswith("fc_"):
@@ -4677,7 +4677,7 @@ class AIAgent:
         On billing exhaustion: immediately rotates.
         On auth failures: attempts token refresh before rotating.
 
-        `classified_reason` lets the recovery path honor the structured error
+        'classified_reason' lets the recovery path honor the structured error
         classifier instead of relying only on raw HTTP codes. This matters for
         providers that surface billing/rate-limit/auth conditions under a
         different status code, such as Anthropic returning HTTP 400 for
@@ -6357,7 +6357,7 @@ class AIAgent:
         """Return True when reasoning extra_body is safe to send for this route/model.
 
         OpenRouter forwards unknown extra_body fields to upstream providers.
-        Some providers/routes reject `reasoning` with 400s, so gate it to
+        Some providers/routes reject 'reasoning' with 400 errors, so gate it to
         known reasoning-capable model families and direct Shadow Portal.
         """
         if "shadow-overlord" in self._base_url_lower:
@@ -8124,7 +8124,7 @@ class AIAgent:
                 # Inject ephemeral context into the current turn's user message.
                 # Sources: memory manager prefetch + plugin pre_llm_call hooks
                 # with target="user_message" (the default).  Both are
-                # API-call-time only -- the original message in `messages` is
+                # API-call-time only -- the original message in 'messages' is
                 # never mutated, so nothing leaks into session persistence.
                 if idx == current_turn_user_idx and msg.get("role") == "user":
                     _injections = []
@@ -8205,7 +8205,7 @@ class AIAgent:
             # which enables KV cache reuse on local inference servers
             # (llama.cpp, vLLM, Ollama) and improves cache hit rates for
             # cloud providers.  Operates on api_messages (the API copy) so
-            # the original conversation history in `messages` is untouched.
+            # the original conversation history in 'messages' is untouched.
             for am in api_messages:
                 if isinstance(am.get("content"), str):
                     am["content"] = am["content"].strip()
@@ -8430,7 +8430,7 @@ class AIAgent:
                     if response_invalid:
                         # Stop spinner before printing error messages
                         if thinking_spinner:
-                            thinking_spinner.stop("(´;ω;`) oops, retrying...")
+                            thinking_spinner.stop("(´;ω;') oops, retrying...")
                             thinking_spinner = None
                         if self.thinking_callback:
                             self.thinking_callback("")
@@ -8644,9 +8644,9 @@ class AIAgent:
                                 "The model used all its output tokens on reasoning "
                                 "and had none left for the actual response.\n\n"
                                 "To fix this:\n"
-                                "→ Lower reasoning effort: `/thinkon low` or `/thinkon minimal`\n"
+                                "→ Lower reasoning effort: '/thinkon low' or '/thinkon minimal'\n"
                                 "→ Increase the output token limit: "
-                                "set `model.max_tokens` in config.yaml"
+                                "set 'model.max_tokens' in config.yaml"
                             )
                             self._cleanup_task_resources(effective_task_id)
                             self._persist_session(messages, conversation_history)
@@ -9455,8 +9455,8 @@ class AIAgent:
                             if _provider == "openai-codex" and status_code == 401:
                                 self._vprint(f"{self.log_prefix}   💡 Codex OAuth token was rejected (HTTP 401). Your token may have been", force=True)
                                 self._vprint(f"{self.log_prefix}      refreshed by another client (Codex CLI, VS Code). To fix:", force=True)
-                                self._vprint(f"{self.log_prefix}      1. Run `codex` in your terminal to generate fresh tokens.", force=True)
-                                self._vprint(f"{self.log_prefix}      2. Then run `shadow auth` to re-authenticate.", force=True)
+                                self._vprint(f"{self.log_prefix}      1. Run 'codex' in your terminal to generate fresh tokens.", force=True)
+                                self._vprint(f"{self.log_prefix}      2. Then run 'shadow auth' to re-authenticate.", force=True)
                             else:
                                 self._vprint(f"{self.log_prefix}   💡 Your API key was rejected by the provider. Check:", force=True)
                                 self._vprint(f"{self.log_prefix}      • Is the key valid? Run: shadow setup", force=True)
@@ -9641,7 +9641,7 @@ class AIAgent:
 
             # Guard: if all retries exhausted without a successful response
             # (e.g. repeated context-length errors that exhausted retry_count),
-            # the `response` variable is still None. Break out cleanly.
+            # the 'response' variable is still None. Break out cleanly.
             if response is None:
                 _turn_exit_reason = "all_retries_exhausted_no_response"
                 print(f"{self.log_prefix}❌ All API retries exhausted with no successful response.")
@@ -10230,7 +10230,7 @@ class AIAgent:
                         # reasoning) AND reasoning-only responses after
                         # prefill exhaustion -- models like mimo-v2-pro
                         # always populate reasoning fields via OpenRouter,
-                        # so the old `not _has_structured` guard blocked
+                        # so the old 'not _has_structured' guard blocked
                         # retries for every reasoning model after prefill.
                         _truly_empty = not self._strip_think_blocks(
                             final_response
