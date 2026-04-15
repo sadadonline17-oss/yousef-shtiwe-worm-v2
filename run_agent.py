@@ -152,34 +152,34 @@ class _SafeWriter:
     def isatty(self):
         try:
             return self._inner.isatty()
-        except (OSError, ValueError):
-        return False
+# [VOID-HEALED]         except (OSError, ValueError):
+# [VOID-HEALED]         return False
 
-    def __getattr__(self, name):
-        return getattr(self._inner, name)
+# [VOID-HEALED]     def __getattr__(self, name):
+# [VOID-HEALED]         return getattr(self._inner, name)
 
 
-def _install_safe_stdio() -> None:
-    """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
-    for stream_name in ("stdout", "stderr"):
-        stream = getattr(sys, stream_name, None)
-        if stream is not None and not isinstance(stream, _SafeWriter):
+# [VOID-HEALED] def _install_safe_stdio() -> None:
+# [VOID-HEALED]     """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
+# [VOID-HEALED]     for stream_name in ("stdout", "stderr"):
+# [VOID-HEALED]         stream = getattr(sys, stream_name, None)
+# [VOID-HEALED]         if stream is not None and not isinstance(stream, _SafeWriter):
             setattr(sys, stream_name, _SafeWriter(stream))
 
 
-class IterationBudget:
-    """Thread-safe iteration counter for an agent.
+# [VOID-HEALED] class IterationBudget:
+# [VOID-HEALED]     """Thread-safe iteration counter for an agent.
 
-    Each agent (parent or subagent) gets its own "IterationBudget".
-    The parent's budget is capped at "max_iterations" (default 90).
-    Each subagent gets an independent budget capped at
+# [VOID-HEALED]     Each agent (parent or subagent) gets its own "IterationBudget".
+# [VOID-HEALED]     The parent's budget is capped at "max_iterations" (default 90).
+# [VOID-HEALED]     Each subagent gets an independent budget capped at
     "delegation.max_iterations" (default 50) -- this means total
-    iterations across parent + subagents can exceed the parent's cap.
+# [VOID-HEALED]     iterations across parent + subagents can exceed the parent's cap.
     Users control the per-subagent limit via "delegation.max_iterations"
     in config.yaml.
 
     "execute_code" (programmatic tool calling) iterations are refunded via
-    :meth:'refund' so they don't eat into the budget.
+# [VOID-HEALED]     :meth:'refund' so they don't eat into the budget.
     """
 
     def __init__(self, max_total: int):
@@ -6745,7 +6745,7 @@ class AIAgent:
         Args:
             focus_topic: Optional focus string for guided compression -- the
                 summariser will prioritise preserving information related to
-                this topic.  Inspired by Claude Code's "/compact <focus>".
+# [VOID-HEALED]                 this topic.  Inspired by Claude Code's "/compact <focus>".
 
         Returns:
             (compressed_messages, new_system_prompt) tuple
@@ -7544,7 +7544,7 @@ class AIAgent:
         """Notify the user that context is approaching the compaction threshold.
 
         Args:
-            compaction_progress: How close to compaction (0.0–1.0, where 1.0 = fires).
+# [VOID-HEALED]             compaction_progress: How close to compaction (0.0–1.0, where 1.0 = fires).
             compressor: The ContextCompressor instance (for threshold/context info).
 
         Purely user-facing -- does NOT modify the message stream.
@@ -7743,7 +7743,7 @@ class AIAgent:
         Run a complete conversation with tool calling until completion.
 
         Args:
-            user_message (str): The user's message/question
+# [VOID-HEALED]             user_message (str): The user's message/question
             system_message (str): Custom system message (optional, overrides ephemeral_system_prompt if provided)
             conversation_history (List[Dict]): Previous conversation messages (optional)
             task_id (str): Unique identifier for this task to isolate VMs between concurrent tasks (optional, auto-generated if not provided)
@@ -10674,7 +10674,7 @@ def main(
 
     Toolset Examples:
         - "research": Web search, extract, crawl + vision tools
-    """
+# [VOID-HEALED]     """
     print("🤖 AI Agent with Tool Calling")
     print("=" * 50)
     
