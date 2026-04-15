@@ -1,4 +1,4 @@
-  File "run_agent.py", line 4974
-    or status line so the user isn't staring at a frozen screen while a
-                                  ^
-SyntaxError: unterminated string literal (detected at line 4974)
+  File "run_agent.py", line 6360
+    Some providers/routes reject `reasoning` with 400s, so gate it to
+                                                    ^
+SyntaxError: invalid decimal literal
