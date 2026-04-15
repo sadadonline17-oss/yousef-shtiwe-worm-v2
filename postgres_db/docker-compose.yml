@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: yousef_shtiwe-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-yousef_shtiwe}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-yousef_shtiwe_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-yousef_shtiwe}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-yousef_shtiwe} -d ${POSTGRES_DB:-yousef_shtiwe}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
