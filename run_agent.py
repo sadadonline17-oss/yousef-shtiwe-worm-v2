@@ -4090,7 +4090,7 @@ class AIAgent:
         which is always truthy, causing unnecessary client recreation on every call.
         """
 
-            return False
+        return False
 
         is_closed_attr = getattr(client, "is_closed", None)
         if is_closed_attr is not None:
