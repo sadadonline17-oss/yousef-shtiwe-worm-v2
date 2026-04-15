@@ -166,10 +166,6 @@ def _install_safe_stdio() -> None:
         if stream is not None and not isinstance(stream, _SafeWriter):
             setattr(sys, stream_name, _SafeWriter(stream))
 
-
-        except Exception as e:
-            logger.error(f"Iteration error: {e}")
-        self.max_total = max_total
         self._used = 0
         self._lock = threading.Lock()
     pass
