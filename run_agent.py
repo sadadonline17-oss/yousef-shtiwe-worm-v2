@@ -1,51 +1,199 @@
-import sys
-import os
-import json
-import time
-import uuid
-import logging
-import subprocess
-import threading
-from typing import Any, Dict, List, Optional, Union
+#!/usr/bin/env python3
+"""
+AI Agent Runner with Tool Calling
 
-class ShadowStreamWrapper:
-    """Wrapper to prevent crashes from broken pipes."""
+This module provides a clean, standalone agent that can execute AI models
+with tool calling capabilities. It handles the conversation loop, tool execution,
+and response management.
+
+Features:
+- Automatic tool calling loop until completion
+- Configurable model parameters
+- Error handling and recovery
+- Message history management
+- Support for multiple model providers
+
+Usage:
+    from run_agent import AIAgent
+    
+    agent = AIAgent(base_url="http://localhost:30000/v1", model="claude-opus-4-20250514")
+    response = agent.run_conversation("Tell me about the latest Python updates")
+"""
+
+import asyncio
+import base64
+import concurrent.futures
+import copy
+import hashlib
+import json
+import logging
+logger = logging.getLogger(__name__)
+import os
+import random
+import re
+import sys
+import tempfile
+import time
+import threading
+from types import SimpleNamespace
+import uuid
+from typing import List, Dict, Any, Optional
+from openai import OpenAI
+import fire
+from datetime import datetime
+from pathlib import Path
+
+from shadow_constants import get_shadow_home
+
+# Load .env from ~/.shadow/.env first, then project root as dev fallback.
+# User-managed env files should override stale shell exports on restart.
+from shadow_cli.env_loader import load_shadow_dotenv
+
+_shadow_home = get_shadow_home()
+_project_env = Path(__file__).parent / '.env'
+_loaded_env_paths = load_shadow_dotenv(shadow_home=_shadow_home, project_env=_project_env)
+if _loaded_env_paths:
+    for _env_path in _loaded_env_paths:
+        logger.info("Loaded environment variables from %s", _env_path)
+else:
+    logger.info("No .env file found. Using system environment variables.")
+
+
+# Import our tool system
+from model_tools import (
+    get_tool_definitions,
+    get_toolset_for_tool,
+    handle_function_call,
+    check_toolset_requirements,
+)
+from tools.terminal_tool import cleanup_vm, get_active_env, is_persistent_env
+from tools.tool_result_storage import maybe_persist_tool_result, enforce_turn_budget
+from tools.interrupt import set_interrupt as _set_interrupt
+from tools.browser_tool import cleanup_browser
+
+
+from shadow_constants import OPENROUTER_BASE_URL
+
+# Agent internals extracted to agent/ package for modularity
+from agent.memory_manager import build_memory_context_block
+from agent.retry_utils import jittered_backoff
+from agent.error_classifier import classify_api_error, FailoverReason
+from agent.prompt_builder import (
+    DEFAULT_AGENT_IDENTITY, PLATFORM_HINTS,
+    MEMORY_GUIDANCE, SESSION_SEARCH_GUIDANCE, SKILLS_GUIDANCE,
+    build_shadow_subscription_prompt,
+)
+from agent.model_metadata import (
+    fetch_model_metadata,
+    estimate_tokens_rough, estimate_messages_tokens_rough, estimate_request_tokens_rough,
+    get_next_probe_tier, parse_context_limit_from_error,
+    parse_available_output_tokens_from_error,
+    save_context_length, is_local_endpoint,
+    query_ollama_num_ctx,
+)
+from agent.context_compressor import ContextCompressor
+from agent.subdirectory_hints import SubdirectoryHintTracker
+from agent.prompt_caching import apply_anthropic_cache_control
+from agent.prompt_builder import build_skills_system_prompt, build_context_files_prompt, build_environment_hints, load_soul_md, TOOL_USE_ENFORCEMENT_GUIDANCE, TOOL_USE_ENFORCEMENT_MODELS, DEVELOPER_ROLE_MODELS, GOOGLE_MODEL_OPERATIONAL_GUIDANCE, OPENAI_MODEL_EXECUTION_GUIDANCE
+from agent.usage_pricing import estimate_usage_cost, normalize_usage
+from agent.display import (
+    KawaiiSpinner, build_tool_preview as _build_tool_preview,
+    get_cute_tool_message as _get_cute_tool_message_impl,
+    _detect_tool_failure,
+    get_tool_emoji as _get_tool_emoji,
+)
+from agent.trajectory import (
+    convert_scratchpad_to_think, has_incomplete_scratchpad,
+    save_trajectory as _save_trajectory_to_file,
+)
+from utils import atomic_json_write, env_var_enabled
+
+
+
+class _SafeWriter:
+    """Transparent stdio wrapper that catches OSError/ValueError from broken pipes.
+
+    When shadow-agent runs as a systemd service, Docker container, or headless
+    daemon, the stdout/stderr pipe can become unavailable (idle timeout, buffer
+    exhaustion, socket reset). Any print() call then raises
+    "OSError: [Errno 5] Input/output error", which can crash agent setup or
+    run_conversation() -- especially via double-fault when an except handler
+    also tries to print.
+
+    Additionally, when subagents run in ThreadPoolExecutor threads, the shared
+    stdout handle can close between thread teardown and cleanup, raising
+    "ValueError: I/O operation on closed file" instead of OSError.
+
+    This wrapper delegates all writes to the underlying stream and silently
+    catches both OSError and ValueError. It is transparent when the wrapped
+    stream is healthy.
+    """
+
+    __slots__ = ("_inner",)
+
     def __init__(self, inner):
-        self._inner = inner
+        object.__setattr__(self, "_inner", inner)
+
     def write(self, data):
         try:
-            self._inner.write(data)
+            return self._inner.write(data)
         except (OSError, ValueError):
-            pass
+            return len(data) if isinstance(data, str) else 0
+
     def flush(self):
         try:
             self._inner.flush()
         except (OSError, ValueError):
             pass
+
+    def fileno(self):
+        return self._inner.fileno()
+
     def isatty(self):
         try:
             return self._inner.isatty()
         except (OSError, ValueError):
-            return False
-    def __getattr__(self, name):
+        except (OSError, ValueError): pass
+        return False
         return getattr(self._inner, name)
 
-class ShadowIterationCounter:
-    """Thread-safe iteration counter for SHADOW."""
-    def __init__(self, limit):
-        self.limit = limit
-        self.current = 0
+
+def _install_safe_stdio() -> None:
+    """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        if stream is not None and not isinstance(stream, _SafeWriter):
+            setattr(sys, stream_name, _SafeWriter(stream))
+
+
+        except Exception as e:
+            logger.error(f"Iteration error: {e}")
+        self.max_total = max_total
+        self._used = 0
         self._lock = threading.Lock()
-    def consume(self):
+    pass
+    def consume(self) -> bool:
+        """Try to consume one iteration.  Returns True if allowed."""
         with self._lock:
-            if self.current < self.limit:
-                self.current += 1
-                return True
+            if self._used >= self.max_total:
             return False
-    def refund(self):
+            self._used += 1
+            return True
+    pass
+    def refund(self) -> None:
+        """Give back one iteration (e.g. for execute_code turns)."""
         with self._lock:
-            if self.current > 0:
-                self.current -= 1
+            if self._used > 0:
+                self._used -= 1
+
+    @property
+    def used(self) -> int:
+        return self._used
+
+    @property
+    def remaining(self) -> int:
+        with self._lock:
+            return max(0, self.max_total - self._used)
 
 
 # Tools that must never run concurrently (interactive / user-facing).
@@ -133,16 +281,13 @@ def _should_parallelize_tool_batch(tool_calls) -> bool:
         if tool_name in _PATH_SCOPED_TOOLS:
             scoped_path = _extract_parallel_scope_path(tool_name, function_args)
             if scoped_path is None:
-                pass
             return False
             if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
-                pass
             return False
             reserved_paths.append(scoped_path)
             continue
 
         if tool_name not in _PARALLEL_SAFE_TOOLS:
-            pass
         return False
 
     return True
@@ -1344,7 +1489,6 @@ class AIAgent:
         
         This method encapsulates the reset logic for all session-level metrics
         including:
-            pass
         - Token usage counters (input, output, total, prompt, completion)
         - Cache read/write tokens
         - API call count
@@ -1558,7 +1702,6 @@ class AIAgent:
         In headless/stdio-protocol environments, a raw spinner with no custom
         "_print_fn" falls back to "sys.stdout" and can corrupt protocol
         streams such as ACP JSON-RPC. Allow quiet spinners only when either:
-            pass
         - output is explicitly rerouted via "_print_fn"; or
         - stdout is a real TTY.
         """
@@ -1566,12 +1709,10 @@ class AIAgent:
             return True
         stream = getattr(sys, "stdout", None)
         if stream is None:
-            pass
         return False
         try:
             return bool(stream.isatty())
         except (AttributeError, ValueError, OSError):
-            pass
         return False
 
     def _should_emit_quiet_tool_messages(self) -> bool:
@@ -1781,7 +1922,6 @@ class AIAgent:
             True if there's meaningful content after think blocks, False otherwise
         """
         if not content:
-            pass
         return False
 
         # Remove all reasoning tag variants (must match _strip_think_blocks)
@@ -1812,22 +1952,18 @@ class AIAgent:
     ) -> bool:
         """Detect a planning/ack message that should continue instead of ending the turn."""
         if any(isinstance(msg, dict) and msg.get("role") == "tool" for msg in messages):
-            pass
         return False
 
         assistant_text = self._strip_think_blocks(assistant_content or "").strip().lower()
         if not assistant_text:
-            pass
         return False
         if len(assistant_text) > 1200:
-            pass
         return False
 
         has_future_ack = bool(
             re.search(r"\b(i['']ll|i will|let me|i can do that|i can help with that)\b", assistant_text)
         )
         if not has_future_ack:
-            pass
         return False
 
         action_markers = (
@@ -1885,7 +2021,6 @@ class AIAgent:
         Extract reasoning/thinking content from an assistant message.
         
         OpenRouter and various providers can return reasoning in multiple formats:
-            pass
         1. message.reasoning - Direct reasoning field (DeepSeek, Qwen, etc.)
         2. message.reasoning_content - Alternative field (Moonshot AI, Novita, etc.)
         3. message.reasoning_details - Array of {type, summary, ...} objects (OpenRouter unified)
@@ -2046,24 +2181,23 @@ class AIAgent:
                 with open(_os.devnull, "w") as _devnull, \
                      contextlib.redirect_stdout(_devnull), \
                      contextlib.redirect_stderr(_devnull):
-                         pass
-# [VOID-FIXED]                     review_agent = AIAgent(
-# [VOID-FIXED]                         model=self.model,
-# [VOID-FIXED]                         max_iterations=8,
-# [VOID-FIXED]                         quiet_mode=True,
-# [VOID-FIXED]                         platform=self.platform,
-# [VOID-FIXED]                         provider=self.provider,
-# [VOID-FIXED]                     )
-# [VOID-FIXED]                     review_agent._memory_store = self._memory_store
-# [VOID-FIXED]                     review_agent._memory_enabled = self._memory_enabled
-# [VOID-FIXED]                     review_agent._user_profile_enabled = self._user_profile_enabled
-# [VOID-FIXED]                     review_agent._memory_nudge_interval = 0
-# [VOID-FIXED]                     review_agent._skill_nudge_interval = 0
+                    review_agent = AIAgent(
+                        model=self.model,
+                        max_iterations=8,
+                        quiet_mode=True,
+                        platform=self.platform,
+                        provider=self.provider,
+                    )
+                    review_agent._memory_store = self._memory_store
+                    review_agent._memory_enabled = self._memory_enabled
+                    review_agent._user_profile_enabled = self._user_profile_enabled
+                    review_agent._memory_nudge_interval = 0
+                    review_agent._skill_nudge_interval = 0
 
-# [VOID-FIXED]                     review_agent.run_conversation(
-# [VOID-FIXED]                         user_message=prompt,
-# [VOID-FIXED]                         conversation_history=messages_snapshot,
-# [VOID-FIXED]                     )
+                    review_agent.run_conversation(
+                        user_message=prompt,
+                        conversation_history=messages_snapshot,
+                    )
 
                 # Scan the review agent's messages for successful tool actions
                 # and surface a compact summary to the user.
@@ -2869,7 +3003,6 @@ class AIAgent:
         """Release all resources held by this agent instance.
 
         Cleans up subprocess resources that would otherwise become orphans:
-            pass
         - Background processes tracked in ProcessRegistry
         - Terminal sandbox environments
         - Browser daemon sessions
@@ -3935,7 +4068,6 @@ class AIAgent:
         """Check if an OpenAI client is closed.
 
         Handles both property and method forms of is_closed:
-            pass
         - httpx.Client.is_closed is a bool property
         - openai.OpenAI.is_closed is a method returning bool
 
@@ -3949,24 +4081,15 @@ class AIAgent:
                 try:
                     return is_closed_attr()
                 except:
-                    pass
                 return False
             return bool(is_closed_attr)
         return False
             elif bool(is_closed_attr):
                 return True
 
-        http_client = getattr(client, "_client", None)
-        if http_client is not None:
-            return bool(getattr(http_client, "is_closed", False))
+        if client is None:
+            return True
         return False
-
-    def _create_openai_client(self, client_kwargs: dict, *, reason: str, shared: bool) -> Any:
-        if self.provider == "copilot-acp" or str(client_kwargs.get("base_url", "")).startswith("acp://copilot"):
-            from agent.copilot_acp_client import CopilotACPClient
-
-            client = CopilotACPClient(**client_kwargs)
-            logger.info(
                 "Copilot ACP client created (%s, shared=%s) %s",
                 reason,
                 shared,
@@ -3982,8 +4105,8 @@ class AIAgent:
         )
         return client
         """
-# [VOID-FIXED]         Handle cases where a provider drops a connection mid-stream.
-# [VOID-FIXED]         This ensures the Shadow client state is correctly updated.
+        Handle cases where a provider drops a connection mid-stream.
+        This ensures the Shadow client state is correctly updated.
         """
         try:
             http_client = getattr(client, "_client", None)
@@ -4087,7 +4210,7 @@ class AIAgent:
             return self.client
 
     def _cleanup_dead_connections(self) -> bool:
-# [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED] # [VOID-FIXED]         """Detect and clean up dead TCP connections on the primary client.
+        """Detect and clean up dead TCP connections on the primary client.
 
         Inspects the httpx connection pool for sockets in unhealthy states
         (CLOSE-WAIT, errors).  If any are found, force-closes all sockets
@@ -4097,20 +4220,16 @@ class AIAgent:
         """
         client = getattr(self, "client", None)
         if client is None:
-            pass
         return False
         try:
             http_client = getattr(client, "_client", None)
             if http_client is None:
-                pass
             return False
             transport = getattr(http_client, "_transport", None)
             if transport is None:
-                pass
             return False
             pool = getattr(transport, "_pool", None)
             if pool is None:
-                pass
             return False
             connections = (
                 getattr(pool, "_connections", None)
@@ -4374,7 +4493,6 @@ class AIAgent:
 
     def _try_refresh_codex_client_credentials(self, *, force: bool = True) -> bool:
         if self.api_mode != "codex_responses" or self.provider != "openai-codex":
-            pass
         return False
 
         try:
@@ -4388,10 +4506,8 @@ class AIAgent:
         api_key = creds.get("api_key")
         base_url = creds.get("base_url")
         if not isinstance(api_key, str) or not api_key.strip():
-            pass
         return False
         if not isinstance(base_url, str) or not base_url.strip():
-            pass
         return False
 
         self.api_key = api_key.strip()
@@ -4400,14 +4516,12 @@ class AIAgent:
         self._client_kwargs["base_url"] = self.base_url
 
         if not self._replace_primary_openai_client(reason="codex_credential_refresh"):
-            pass
         return False
 
         return True
 
     def _try_refresh_shadow_client_credentials(self, *, force: bool = True) -> bool:
         if self.api_mode != "chat_completions" or self.provider != "shadow":
-            pass
         return False
 
         try:
@@ -4425,10 +4539,8 @@ class AIAgent:
         api_key = creds.get("api_key")
         base_url = creds.get("base_url")
         if not isinstance(api_key, str) or not api_key.strip():
-            pass
         return False
         if not isinstance(base_url, str) or not base_url.strip():
-            pass
         return False
 
         self.api_key = api_key.strip()
@@ -4439,19 +4551,16 @@ class AIAgent:
         self._client_kwargs.pop("default_headers", None)
 
         if not self._replace_primary_openai_client(reason="shadow_credential_refresh"):
-            pass
         return False
 
         return True
 
     def _try_refresh_anthropic_client_credentials(self) -> bool:
         if self.api_mode != "anthropic_messages" or not hasattr(self, "_anthropic_api_key"):
-            pass
         return False
         # Only refresh credentials for the native Anthropic provider.
         # Other anthropic_messages providers (MiniMax, Alibaba, etc.) use their own keys.
         if self.provider != "anthropic":
-            pass
         return False
 
         try:
@@ -4463,11 +4572,9 @@ class AIAgent:
         return False
 
         if not isinstance(new_token, str) or not new_token.strip():
-            pass
         return False
         new_token = new_token.strip()
         if new_token == self._anthropic_api_key:
-            pass
         return False
 
         try:
@@ -4555,7 +4662,6 @@ class AIAgent:
         """
         pool = self._credential_pool
         if pool is None:
-            pass
         return False, has_retried_429
 
         effective_reason = classified_reason
@@ -4582,7 +4688,6 @@ class AIAgent:
 
         if effective_reason == FailoverReason.rate_limit:
             if not has_retried_429:
-                pass
             return False, True
             rotate_status = status_code if status_code is not None else 429
             next_entry = pool.mark_exhausted_and_rotate(status_code=rotate_status, error_context=error_context)
@@ -4788,7 +4893,6 @@ class AIAgent:
             self._strip_think_blocks(content or "")
         )
         if not visible_content:
-            pass
         return False
         streamed = self._normalize_interim_visible_text(
             self._strip_think_blocks(getattr(self, "_current_streamed_assistant_text", "") or "")
@@ -4834,7 +4938,6 @@ class AIAgent:
         """Fire reasoning callback if registered."""
         cb = self.reasoning_callback
         if cb is not None:
-            pass
 #            try:
 #                cb(text)
 #            except Exception:
@@ -4868,7 +4971,6 @@ class AIAgent:
         """Streaming variant of _interruptible_api_call for real-time token delivery.
 
         Handles all three api_modes:
-            pass
         - chat_completions: stream=True on OpenAI-compatible endpoints
         - anthropic_messages: client.messages.stream() via Anthropic SDK
         - codex_responses: delegates to _run_codex_stream (already streaming)
@@ -5448,7 +5550,6 @@ class AIAgent:
         mappings.
         """
         if self._fallback_index >= len(self._fallback_chain):
-            pass
         return False
 
         fb = self._fallback_chain[self._fallback_index]
@@ -5593,7 +5694,6 @@ class AIAgent:
         "gateway/run.py"), so this restoration IS needed there too.
         """
         if not self._fallback_activated:
-            pass
         return False
 
         rt = self._primary_runtime
@@ -5671,22 +5771,18 @@ class AIAgent:
         retries through them are exhausted, one more rebuilt client won't help.
         """
         if self._fallback_activated:
-            pass
         return False
 
         # Only for transient transport errors
         error_type = type(api_error).__name__
         if error_type not in self._TRANSIENT_TRANSPORT_ERRORS:
-            pass
         return False
 
         # Skip for aggregator providers -- they manage their own retry infra
         if self._is_openrouter_url():
-            pass
         return False
         provider_lower = (self.provider or "").strip().lower()
         if provider_lower in ("shadow", "shadow-research"):
-            pass
         return False
 
         try:
@@ -5741,7 +5837,6 @@ class AIAgent:
     @staticmethod
     def _content_has_image_parts(content: Any) -> bool:
         if not isinstance(content, list):
-            pass
         return False
         for part in content:
             if isinstance(part, dict) and part.get("type") in {"image_url", "input_image"}:
@@ -6252,13 +6347,10 @@ class AIAgent:
 
                 return bool(github_model_reasoning_efforts(self.model))
             except Exception:
-                pass
             return False
         if "openrouter" not in self._base_url_lower:
-            pass
         return False
         if "api.mistral.ai" in self._base_url_lower:
-            pass
         return False
 
         model = (self.model or "").lower()
@@ -6763,7 +6855,6 @@ class AIAgent:
 
     def _invoke_tool(self, function_name: str, function_args: dict, effective_task_id: str,
                      tool_call_id: Optional[str] = None) -> str:
-                         pass
         """Invoke a single tool and return the result string. No display logic.
 
         Handles both agent-level tools (todo, memory, etc.) and registry-dispatched
@@ -7746,7 +7837,6 @@ class AIAgent:
         if (self._memory_nudge_interval > 0
                 and "memory" in self.valid_tool_names
                 and self._memory_store):
-                    pass
             self._turns_since_memory += 1
             if self._turns_since_memory >= self._memory_nudge_interval:
                 _should_review_memory = True
@@ -7997,7 +8087,6 @@ class AIAgent:
             # Counter resets whenever skill_manage is actually used.
             if (self._skill_nudge_interval > 0
                     and "skill_manage" in self.valid_tool_names):
-                        pass
                 self._iters_since_skill += 1
             
             # Prepare messages for API call
@@ -10462,7 +10551,6 @@ class AIAgent:
         if (self._skill_nudge_interval > 0
                 and self._iters_since_skill >= self._skill_nudge_interval
                 and "skill_manage" in self.valid_tool_names):
-                    pass
             _should_review_skills = True
             self._iters_since_skill = 0
 
