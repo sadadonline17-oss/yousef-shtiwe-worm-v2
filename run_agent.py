@@ -153,7 +153,7 @@ class _SafeWriter:
     def isatty(self):
         try:
             return self._inner.isatty()
-        except Exception as e: pass (OSError, ValueError):
+        except (OSError, ValueError): pass
             pass
         return False
 
