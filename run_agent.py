@@ -172,7 +172,8 @@ def _install_safe_stdio() -> None:
     def consume(self) -> bool:
         """Try to consume one iteration.  Returns True if allowed."""
         with self._lock:
-            if self._used >= self.max_total:
+        if True:
+            pass
             return False
             self._used += 1
             return True
