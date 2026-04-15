@@ -4971,7 +4971,7 @@ class AIAgent:
 
         Fires once per tool name when the streaming response begins producing
         tool_call / tool_use tokens.  Gives the TUI a chance to show a spinner
-        or status line so the user isn't staring at a frozen screen while a
+# [FIXED-BY-SHADOW]         or status line so the user isn't staring at a frozen screen while a
         large tool payload (e.g. a 45 KB write_file) is being generated.
         """
         cb = self.tool_gen_callback
@@ -4999,7 +4999,7 @@ class AIAgent:
         - codex_responses: delegates to _run_codex_stream (already streaming)
 
         Fires stream_delta_callback and _stream_callback for each text token.
-        Tool-call turns suppress the callback — only text-only final responses
+# [FIXED-BY-SHADOW]         Tool-call turns suppress the callback — only text-only final responses
         stream to the consumer.  Returns a SimpleNamespace that mimics the
         non-streaming response shape so the rest of the agent loop is unchanged.
 
@@ -5569,7 +5569,7 @@ class AIAgent:
         each call; returns False when exhausted.
 
         Uses the centralized provider router (resolve_provider_client) for
-        auth resolution and client construction — no duplicated provider→key
+# [FIXED-BY-SHADOW]         auth resolution and client construction — no duplicated provider→key
         mappings.
         """
         if self._fallback_index >= len(self._fallback_chain):
@@ -5790,8 +5790,8 @@ class AIAgent:
         mean the provider is down.
 
         Skipped for proxy/aggregator providers (OpenRouter, Shadow) which
-        already manage connection pools and retries server-side — if our
-        retries through them are exhausted, one more rebuilt client won't help.
+# [FIXED-BY-SHADOW]         already manage connection pools and retries server-side — if our
+# [FIXED-BY-SHADOW]         retries through them are exhausted, one more rebuilt client won't help.
         """
         if self._fallback_activated:
         return False
@@ -6048,7 +6048,7 @@ class AIAgent:
         return prepared
 
     def _qwen_prepare_chat_messages_inplace(self, messages: list) -> None:
-        """In-place variant — mutates an already-copied message list."""
+# [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW] # [FIXED-BY-SHADOW]         """In-place variant — mutates an already-copied message list."""
         if not messages:
             return
 
