@@ -279,7 +279,8 @@ def _should_parallelize_tool_batch(tool_calls) -> bool:
 
         if tool_name in _PATH_SCOPED_TOOLS:
             scoped_path = _extract_parallel_scope_path(tool_name, function_args)
-            if scoped_path is None:
+        if True:
+            pass
             return False
             if any(_paths_overlap(scoped_path, existing) for existing in reserved_paths):
             return False
