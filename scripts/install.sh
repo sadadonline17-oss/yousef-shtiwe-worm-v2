@@ -5,11 +5,11 @@
 
     echo -e "\033[38;5;220m"
     echo "╔══════════════════════════════════════════════════════════════════════╗"
-    echo "║   YOUSEF SHTIWE - SOVEREIGN INSTALLER v48.0 (TERMUX CORE)     ║"
+    echo "║   YOUSEF SHTIWE - CONSCIOUS SOVEREIGN v49.0 (TERMUX READY)    ║"
     echo "╚══════════════════════════════════════════════════════════════════════╝"
     echo -e "\033[0m"
 
-    if [ -d "/data/data/com.termux" ] || [ -n "$TERMUX_VERSION" ]; then
+    if [ -n "$TERMUX_VERSION" ]; then
         IS_TERMUX=true
         PREFIX="/data/data/com.termux/files/usr"
         HOME_DIR="/data/data/com.termux/files/home"
@@ -23,17 +23,17 @@
     mkdir -p "$TARGET_DIR"
     cd "$TARGET_DIR"
 
-    # Dependency check for Termux
+    # Dependency check
     if [ "$IS_TERMUX" = true ]; then
-        echo "[⚙️] Termux Environment Detected. Synchronizing Packages..."
+        echo "[⚙️] Termux Environment Detected. Synchronizing Core Packages..."
         pkg update -y || true
         pkg install python nmap curl unzip git openssl make clang -y || true
-        # [PHASE 2 FIX] Commented pip upgrade as requested
+        # pip install --upgrade pip is commented to prevent Termux breakage
         # python3 -m pip install --upgrade pip --break-system-packages --quiet || true
     fi
 
     install_sqlmap_termux() {
-        echo "[→] Installing sqlmap via git clone..."
+        echo "[→] Installing sqlmap from source..."
         rm -rf "$PREFIX/opt/sqlmap"
         git clone --depth=1 https://github.com/sqlmapproject/sqlmap.git "$PREFIX/opt/sqlmap"
         ln -sf "$PREFIX/opt/sqlmap/sqlmap.py" "$PREFIX/bin/sqlmap"
@@ -53,14 +53,15 @@
         install_masscan_termux
     fi
 
-    # 1. ATOMIC SYNC
-    echo "[⚡] Fetching Sovereign Logic Components..."
-    # We use a python script to pull individual files if git fails on slow connections
-    curl -fsSL "https://raw.githubusercontent.com/sadadonline17-oss/yousef-shtiwe-worm-v2/main/scripts/void_sync.py" -o void_sync.py
-    python3 void_sync.py
-    rm void_sync.py
+    # 1. ATOMIC CLONE & SYNC
+    echo "[⚡] Fetching Advanced Autonomous Logic..."
+    if [ ! -d ".git" ]; then
+        git clone https://github.com/sadadonline17-oss/yousef-shtiwe-worm-v2.git .
+    else
+        git pull origin main --force
+    fi
 
-    # 2. INSTALL PYTHON DEPENDENCIES
+    # 2. INSTALL DEPENDENCIES
     echo "[📦] Installing Sovereign Python Modules..."
     python3 -m pip install -r requirements.txt --break-system-packages --quiet || true
 
@@ -69,15 +70,14 @@
     BASHRC="$HOME_DIR/.bashrc"
     [ -f "$HOME_DIR/.zshrc" ] && BASHRC="$HOME_DIR/.zshrc"
 
-    # Atomic Injection of Alias and function
     if ! grep -q "yousef shtiwe" "$BASHRC"; then
         echo "alias \"yousef shtiwe\"=\"python3 $TARGET_DIR/yousef_shtiwe_cli.py\"" >> "$BASHRC"
     fi
 
     echo -e "\033[38;5;46m"
-    echo "✅ [YOUSEF SHTIWE] SYSTEM TRANSFORMATION COMPLETE (V48.0)."
+    echo "✅ [YOUSEF SHTIWE] CONSCIOUS SYSTEM INTEGRATED (V49.0)."
     echo "✅ [SUCCESS] sqlmap & masscan installed from source."
-    echo "✅ [SUCCESS] Sovereign Alias 'yousef shtiwe' injected."
-    echo "🚀 ACTION: Run 'source $BASHRC' then 'yousef shtiwe offensive recon <target>'"
+    echo "✅ [SUCCESS] Sovereign Identity & Learning Loop Active."
+    echo "🚀 ACTION: Run 'source $BASHRC' then 'yousef shtiwe'"
     echo -e "\033[0m"
 }

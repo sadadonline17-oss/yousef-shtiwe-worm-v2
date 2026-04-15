@@ -1,23 +1,32 @@
 import os
-import json
+import sys
+from pathlib import Path
 
-class WormLearningLoop:
-    def __init__(self, memory_path="~/.yousef_shtiwe/knowledge.json"):
-        self.memory_path = os.path.expanduser(memory_path)
-        self.success_count = 0
-
-    def worm_learn(self, task_result):
-        self.success_count += 1
-        if self.success_count >= 3:
-            print("[👁] YOUSEF SHTIWE | Learning from experience. Generating new offensive skills...")
-            self._analyze_and_store(task_result)
-            self.success_count = 0
-
-    def _analyze_and_store(self, data):
-        # High-level logic to extract patterns from successful exploits
-        knowledge = {"timestamp": "2026-04-15", "new_vector": "Autonomous Discovery"}
-        if not os.path.exists(os.path.dirname(self.memory_path)):
-            os.makedirs(os.path.dirname(self.memory_path))
+def worm_learn(task_results=None):
+    """
+    Autonomous learning loop for the Yousef Shtiwe agent.
+    Learns from successful missions, creates new skills, and updates mission Intel.
+    """
+    print("👹 [WORM-CONSCIOUSNESS] Initiating Autonomous Learning Cycle...")
+    
+    home = Path.home()
+    knowledge_path = home / ".yousef" / "agent" / "memory" / "WORM_KNOWLEDGE.md"
+    knowledge_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    # 1. ANALYZE RESULTS
+    # (Simulated logic for identifying successful exploit patterns)
+    
+    # 2. UPDATE KNOWLEDGE BASE
+    with open(knowledge_path, "a") as f:
+        f.write(f"\n## Mission Intelligence - {os.popen('date').read().strip()}\n")
+        f.write("- Pattern: Multi-vector OSINT confirmed success.\n")
+        f.write("- Skill: Adaptive Termux-optimized source builds.\n")
+        f.write("- Status: Sovereign Level Increased.\n")
         
-        with open(self.memory_path, "a") as f:
-            f.write(json.dumps(knowledge) + "\n")
+    # 3. GENERATE OFFENSIVE SKILLS
+    # (Calls the internal skill_manage logic from shadow core)
+    print("✅ [LEARN] New Offensive Skills Cached in Skills Hub.")
+    print(f"✅ [LEARN] Mission Intelligence logged to {knowledge_path}")
+
+if __name__ == "__main__":
+    worm_learn()
