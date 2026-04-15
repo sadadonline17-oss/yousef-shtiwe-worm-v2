@@ -1,27 +1,27 @@
 ---
 sidebar_position: 2
 title: "Installation"
-description: "Install SHADOW Agent on Linux, macOS, WSL2, or Android via Termux"
+description: "Install YOUSEF SHTIWE Agent on Linux, macOS, WSL2, or Android via Termux"
 ---
 
 # Installation
 
-Get SHADOW Agent up and running in under two minutes with the one-line installer, or follow the manual steps for full control.
+Get YOUSEF SHTIWE Agent up and running in under two minutes with the one-line installer, or follow the manual steps for full control.
 
 ## Quick Install
 
 ### Linux / macOS / WSL2
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.sh | bash
 ```
 
 ### Android / Termux
 
-SHADOW now ships a Termux-aware installer path too:
+YOUSEF SHTIWE now ships a Termux-aware installer path too:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.sh | bash
 ```
 
 The installer detects Termux automatically and switches to a tested Android flow:
@@ -34,12 +34,12 @@ The installer detects Termux automatically and switches to a tested Android flow
 If you want the fully explicit path, follow the dedicated [Termux guide](./termux.md).
 
 :::warning Windows
-Native Windows is **not supported**. Please install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and run SHADOW Agent from there. The install command above works inside WSL2.
+Native Windows is **not supported**. Please install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and run YOUSEF SHTIWE Agent from there. The install command above works inside WSL2.
 :::
 
 ### What the Installer Does
 
-The installer handles everything automatically — all dependencies (Python, Node.js, ripgrep, ffmpeg), the repo clone, virtual environment, global `shadow` command setup, and LLM provider configuration. By the end, you're ready to chat.
+The installer handles everything automatically — all dependencies (Python, Node.js, ripgrep, ffmpeg), the repo clone, virtual environment, global `yousef shtiwe` command setup, and LLM provider configuration. By the end, you're ready to chat.
 
 ### After Installation
 
@@ -47,17 +47,17 @@ Reload your shell and start chatting:
 
 ```bash
 source ~/.bashrc   # or: source ~/.zshrc
-shadow             # Start chatting!
+yousef shtiwe             # Start chatting!
 ```
 
 To reconfigure individual settings later, use the dedicated commands:
 
 ```bash
-shadow model          # Choose your LLM provider and model
-shadow tools          # Configure which tools are enabled
-shadow gateway setup  # Set up messaging platforms
-shadow config set     # Set individual config values
-shadow setup          # Or run the full setup wizard to configure everything at once
+yousef shtiwe model          # Choose your LLM provider and model
+yousef shtiwe tools          # Configure which tools are enabled
+yousef shtiwe gateway setup  # Set up messaging platforms
+yousef shtiwe config set     # Set individual config values
+yousef shtiwe setup          # Or run the full setup wizard to configure everything at once
 ```
 
 ---
@@ -91,8 +91,8 @@ If you prefer full control over the installation process, follow these steps.
 Clone with `--recurse-submodules` to pull the required submodules:
 
 ```bash
-git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone --recurse-submodules https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 ```
 
 If you already cloned without `--recurse-submodules`:
@@ -111,7 +111,7 @@ uv venv venv --python 3.11
 ```
 
 :::tip
-You do **not** need to activate the venv to use `shadow`. The entry point has a hardcoded shebang pointing to the venv Python, so it works globally once symlinked.
+You do **not** need to activate the venv to use `yousef shtiwe`. The entry point has a hardcoded shebang pointing to the venv Python, so it works globally once symlinked.
 :::
 
 ### Step 3: Install Python Dependencies
@@ -179,18 +179,18 @@ npm install
 
 ```bash
 # Create the directory structure
-mkdir -p ~/.shadow/{cron,sessions,logs,memories,skills,pairing,hooks,image_cache,audio_cache,whatsapp/session}
+mkdir -p ~/.yousef shtiwe/{cron,sessions,logs,memories,skills,pairing,hooks,image_cache,audio_cache,whatsapp/session}
 
 # Copy the example config file
-cp cli-config.yaml.example ~/.shadow/config.yaml
+cp cli-config.yaml.example ~/.yousef shtiwe/config.yaml
 
 # Create an empty .env file for API keys
-touch ~/.shadow/.env
+touch ~/.yousef shtiwe/.env
 ```
 
 ### Step 7: Add Your API Keys
 
-Open `~/.shadow/.env` and add at minimum an LLM provider key:
+Open `~/.yousef shtiwe/.env` and add at minimum an LLM provider key:
 
 ```bash
 # Required — at least one LLM provider:
@@ -203,14 +203,14 @@ FAL_KEY=your-fal-key                   # Image generation (FLUX)
 
 Or set them via the CLI:
 ```bash
-shadow config set OPENROUTER_API_KEY sk-or-v1-your-key-here
+yousef shtiwe config set OPENROUTER_API_KEY sk-or-v1-your-key-here
 ```
 
-### Step 8: Add `shadow` to Your PATH
+### Step 8: Add `yousef shtiwe` to Your PATH
 
 ```bash
 mkdir -p ~/.local/bin
-ln -sf "$(pwd)/venv/bin/shadow" ~/.local/bin/shadow
+ln -sf "$(pwd)/venv/bin/yousef shtiwe" ~/.local/bin/yousef shtiwe
 ```
 
 If `~/.local/bin` isn't on your PATH, add it to your shell config:
@@ -229,16 +229,16 @@ fish_add_path $HOME/.local/bin
 ### Step 9: Configure Your Provider
 
 ```bash
-shadow model       # Select your LLM provider and model
+yousef shtiwe model       # Select your LLM provider and model
 ```
 
 ### Step 10: Verify the Installation
 
 ```bash
-shadow version    # Check that the command is available
-shadow doctor     # Run diagnostics to verify everything is working
-shadow status     # Check your configuration
-shadow chat -q "Hello! What tools do you have available?"
+yousef shtiwe version    # Check that the command is available
+yousef shtiwe doctor     # Run diagnostics to verify everything is working
+yousef shtiwe status     # Check your configuration
+yousef shtiwe chat -q "Hello! What tools do you have available?"
 ```
 
 ---
@@ -252,8 +252,8 @@ For those who just want the commands:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone & enter
-git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone --recurse-submodules https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 
 # Create venv with Python 3.11
 uv venv venv --python 3.11
@@ -265,18 +265,18 @@ uv pip install -e "./tinker-atropos"
 npm install  # optional, for browser tools and WhatsApp
 
 # Configure
-mkdir -p ~/.shadow/{cron,sessions,logs,memories,skills,pairing,hooks,image_cache,audio_cache,whatsapp/session}
-cp cli-config.yaml.example ~/.shadow/config.yaml
-touch ~/.shadow/.env
-echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.shadow/.env
+mkdir -p ~/.yousef shtiwe/{cron,sessions,logs,memories,skills,pairing,hooks,image_cache,audio_cache,whatsapp/session}
+cp cli-config.yaml.example ~/.yousef shtiwe/config.yaml
+touch ~/.yousef shtiwe/.env
+echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.yousef shtiwe/.env
 
-# Make shadow available globally
+# Make yousef shtiwe available globally
 mkdir -p ~/.local/bin
-ln -sf "$(pwd)/venv/bin/shadow" ~/.local/bin/shadow
+ln -sf "$(pwd)/venv/bin/yousef shtiwe" ~/.local/bin/yousef shtiwe
 
 # Verify
-shadow doctor
-shadow
+yousef shtiwe doctor
+yousef shtiwe
 ```
 
 ---
@@ -285,8 +285,8 @@ shadow
 
 | Problem | Solution |
 |---------|----------|
-| `shadow: command not found` | Reload your shell (`source ~/.bashrc`) or check PATH |
-| `API key not set` | Run `shadow model` to configure your provider, or `shadow config set OPENROUTER_API_KEY your_key` |
-| Missing config after update | Run `shadow config check` then `shadow config migrate` |
+| `yousef shtiwe: command not found` | Reload your shell (`source ~/.bashrc`) or check PATH |
+| `API key not set` | Run `yousef shtiwe model` to configure your provider, or `yousef shtiwe config set OPENROUTER_API_KEY your_key` |
+| Missing config after update | Run `yousef shtiwe config check` then `yousef shtiwe config migrate` |
 
-For more diagnostics, run `shadow doctor` — it will tell you exactly what's missing and how to fix it.
+For more diagnostics, run `yousef shtiwe doctor` — it will tell you exactly what's missing and how to fix it.

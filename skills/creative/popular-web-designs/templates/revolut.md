@@ -1,7 +1,7 @@
 # Design System: Revolut
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -27,7 +27,7 @@ What distinguishes Revolut is its pill-everything button system. Every button us
 - Universal pill buttons (9999px radius) with generous padding (14px 32px)
 - Inter for body text with positive letter-spacing (0.16px–0.24px)
 - Rich semantic color system: blue, teal, pink, yellow, green, brown, danger, warning
-- Zero shadows detected — depth through color contrast only
+- Zero yousef shtiwes detected — depth through color contrast only
 - Tight display line-heights (1.00) with relaxed body (1.50–1.56)
 
 ## 2. Color Palette & Roles
@@ -122,7 +122,7 @@ What distinguishes Revolut is its pill-everything button system. Every button us
 
 ### Cards & Containers
 - Radius: 12px (small), 20px (cards)
-- No shadows — flat surfaces with color contrast
+- No yousef shtiwes — flat surfaces with color contrast
 - Dark and light section alternation
 
 ### Navigation
@@ -146,10 +146,10 @@ What distinguishes Revolut is its pill-everything button system. Every button us
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Everything — Revolut uses zero shadows |
+| Flat (Level 0) | No yousef shtiwe | Everything — Revolut uses zero yousef shtiwes |
 | Focus | `0 0 0 0.125rem` ring | Accessibility focus |
 
-**Shadow Philosophy**: Revolut uses ZERO shadows. Depth comes entirely from the dark/light section contrast and the generous whitespace between elements.
+**Yousef Shtiwe Philosophy**: Revolut uses ZERO yousef shtiwes. Depth comes entirely from the dark/light section contrast and the generous whitespace between elements.
 
 ## 7. Do's and Don'ts
 
@@ -161,7 +161,7 @@ What distinguishes Revolut is its pill-everything button system. Every button us
 - Apply positive letter-spacing on Inter body text
 
 ### Don't
-- Don't use shadows — Revolut is flat by design
+- Don't use yousef shtiwes — Revolut is flat by design
 - Don't use bold (700) for Aeonik Pro headings — 500 is the weight
 - Don't use small buttons — the generous padding is intentional
 - Don't apply semantic colors to marketing surfaces — they're for the product
@@ -194,5 +194,5 @@ What distinguishes Revolut is its pill-everything button system. Every button us
 ### Iteration Guide
 1. Aeonik Pro 500 for headings — never bold
 2. All buttons are pills (9999px) with generous padding
-3. Zero shadows — flat is the Revolut identity
+3. Zero yousef shtiwes — flat is the Revolut identity
 4. Near-black + white for marketing, semantic colors for product

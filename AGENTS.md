@@ -1,6 +1,6 @@
-# SHADOW Agent - Development Guide
+# YOUSEF SHTIWE Agent - Development Guide
 
-Instructions for AI coding assistants and developers working on the shadow-agent codebase.
+Instructions for AI coding assistants and developers working on the yousef shtiwe-agent codebase.
 
 ## Development Environment
 
@@ -11,12 +11,12 @@ source venv/bin/activate  # ALWAYS activate before running Python
 ## Project Structure
 
 ```
-shadow-agent/
+yousef shtiwe-agent/
 ├── run_agent.py          # AIAgent class — core conversation loop
 ├── model_tools.py        # Tool orchestration, _discover_tools(), handle_function_call()
-├── toolsets.py           # Toolset definitions, _SHADOW_CORE_TOOLS list
-├── cli.py                # SHADOWCLI class — interactive CLI orchestrator
-├── shadow_state.py       # SessionDB — SQLite session store (FTS5 search)
+├── toolsets.py           # Toolset definitions, _YOUSEF SHTIWE_CORE_TOOLS list
+├── cli.py                # YOUSEF SHTIWECLI class — interactive CLI orchestrator
+├── yousef shtiwe_state.py       # SessionDB — SQLite session store (FTS5 search)
 ├── agent/                # Agent internals
 │   ├── prompt_builder.py     # System prompt assembly
 │   ├── context_compressor.py # Auto context compression
@@ -27,15 +27,15 @@ shadow-agent/
 │   ├── display.py            # KawaiiSpinner, tool preview formatting
 │   ├── skill_commands.py     # Skill slash commands (shared CLI/gateway)
 │   └── trajectory.py         # Trajectory saving helpers
-├── shadow_cli/           # CLI subcommands and setup
-│   ├── main.py           # Entry point — all `shadow` subcommands
+├── yousef shtiwe_cli/           # CLI subcommands and setup
+│   ├── main.py           # Entry point — all `yousef shtiwe` subcommands
 │   ├── config.py         # DEFAULT_CONFIG, OPTIONAL_ENV_VARS, migration
 │   ├── commands.py       # Slash command definitions + SlashCommandCompleter
 │   ├── callbacks.py      # Terminal callbacks (clarify, sudo, approval)
 │   ├── setup.py          # Interactive setup wizard
 │   ├── skin_engine.py    # Skin/theme engine — CLI visual customization
-│   ├── skills_config.py  # `shadow skills` — enable/disable skills per platform
-│   ├── tools_config.py   # `shadow tools` — enable/disable tools per platform
+│   ├── skills_config.py  # `yousef shtiwe skills` — enable/disable skills per platform
+│   ├── tools_config.py   # `yousef shtiwe tools` — enable/disable tools per platform
 │   ├── skills_hub.py     # `/skills` slash command (search, browse, install)
 │   ├── models.py         # Model catalog, provider model lists
 │   ├── model_switch.py   # Shared /model switch pipeline (CLI + gateway)
@@ -63,7 +63,7 @@ shadow-agent/
 └── batch_runner.py       # Parallel batch processing
 ```
 
-**User config:** `~/.shadow/config.yaml` (settings), `~/.shadow/.env` (API keys)
+**User config:** `~/.yousef shtiwe/config.yaml` (settings), `~/.yousef shtiwe/.env` (API keys)
 
 ## File Dependency Chain
 
@@ -107,7 +107,7 @@ class AIAgent:
 
 ### Agent Loop
 
-The core loop is inside `run_conversation()` — entirely synchroshadow:
+The core loop is inside `run_conversation()` — entirely synchroyousef shtiwe:
 
 ```python
 while api_call_count < self.max_iterations and self.iteration_budget.remaining > 0:
@@ -130,11 +130,11 @@ Messages follow OpenAI format: `{"role": "system/user/assistant/tool", ...}`. Re
 - **Rich** for banner/panels, **prompt_toolkit** for input with autocomplete
 - **KawaiiSpinner** (`agent/display.py`) — animated faces during API calls, `┊` activity feed for tool results
 - `load_cli_config()` in cli.py merges hardcoded defaults + user config YAML
-- **Skin engine** (`shadow_cli/skin_engine.py`) — data-driven CLI theming; initialized from `display.skin` config key at startup; skins customize banner colors, spinner faces/verbs/wings, tool prefix, response box, branding text
-- `process_command()` is a method on `SHADOWCLI` — dispatches on canonical command name resolved via `resolve_command()` from the central registry
-- Skill slash commands: `agent/skill_commands.py` scans `~/.shadow/skills/`, injects as **user message** (not system prompt) to preserve prompt caching
+- **Skin engine** (`yousef shtiwe_cli/skin_engine.py`) — data-driven CLI theming; initialized from `display.skin` config key at startup; skins customize banner colors, spinner faces/verbs/wings, tool prefix, response box, branding text
+- `process_command()` is a method on `YOUSEF SHTIWECLI` — dispatches on canonical command name resolved via `resolve_command()` from the central registry
+- Skill slash commands: `agent/skill_commands.py` scans `~/.yousef shtiwe/skills/`, injects as **user message** (not system prompt) to preserve prompt caching
 
-### Slash Command Registry (`shadow_cli/commands.py`)
+### Slash Command Registry (`yousef shtiwe_cli/commands.py`)
 
 All slash commands are defined in a central `COMMAND_REGISTRY` list of `CommandDef` objects. Every downstream consumer derives from this registry automatically:
 
@@ -142,18 +142,18 @@ All slash commands are defined in a central `COMMAND_REGISTRY` list of `CommandD
 - **Gateway** — `GATEWAY_KNOWN_COMMANDS` frozenset for hook emission, `resolve_command()` for dispatch
 - **Gateway help** — `gateway_help_lines()` generates `/help` output
 - **Telegram** — `telegram_bot_commands()` generates the BotCommand menu
-- **Slack** — `slack_subcommand_map()` generates `/shadow` subcommand routing
+- **Slack** — `slack_subcommand_map()` generates `/yousef shtiwe` subcommand routing
 - **Autocomplete** — `COMMANDS` flat dict feeds `SlashCommandCompleter`
 - **CLI help** — `COMMANDS_BY_CATEGORY` dict feeds `show_help()`
 
 ### Adding a Slash Command
 
-1. Add a `CommandDef` entry to `COMMAND_REGISTRY` in `shadow_cli/commands.py`:
+1. Add a `CommandDef` entry to `COMMAND_REGISTRY` in `yousef shtiwe_cli/commands.py`:
 ```python
 CommandDef("mycommand", "Description of what it does", "Session",
            aliases=("mc",), args_hint="[arg]"),
 ```
-2. Add handler in `SHADOWCLI.process_command()` in `cli.py`:
+2. Add handler in `YOUSEF SHTIWECLI.process_command()` in `cli.py`:
 ```python
 elif canonical == "mycommand":
     self._handle_mycommand(cmd_original)
@@ -206,13 +206,13 @@ registry.register(
 
 **2. Add import** in `model_tools.py` `_discover_tools()` list.
 
-**3. Add to `toolsets.py`** — either `_SHADOW_CORE_TOOLS` (all platforms) or a new toolset.
+**3. Add to `toolsets.py`** — either `_YOUSEF SHTIWE_CORE_TOOLS` (all platforms) or a new toolset.
 
 The registry handles schema collection, dispatch, availability checking, and error wrapping. All handlers MUST return a JSON string.
 
-**Path references in tool schemas**: If the schema description mentions file paths (e.g. default output directories), use `display_shadow_home()` to make them profile-aware. The schema is generated at import time, which is after `_apply_profile_override()` sets `SHADOW_HOME`.
+**Path references in tool schemas**: If the schema description mentions file paths (e.g. default output directories), use `display_yousef shtiwe_home()` to make them profile-aware. The schema is generated at import time, which is after `_apply_profile_override()` sets `YOUSEF SHTIWE_HOME`.
 
-**State files**: If a tool stores persistent state (caches, logs, checkpoints), use `get_shadow_home()` for the base directory — never `Path.home() / ".shadow"`. This ensures each profile gets its own state.
+**State files**: If a tool stores persistent state (caches, logs, checkpoints), use `get_yousef shtiwe_home()` for the base directory — never `Path.home() / ".yousef shtiwe"`. This ensures each profile gets its own state.
 
 **Agent-level tools** (todo, memory): intercepted by `run_agent.py` before `handle_function_call()`. See `todo_tool.py` for the pattern.
 
@@ -221,11 +221,11 @@ The registry handles schema collection, dispatch, availability checking, and err
 ## Adding Configuration
 
 ### config.yaml options:
-1. Add to `DEFAULT_CONFIG` in `shadow_cli/config.py`
+1. Add to `DEFAULT_CONFIG` in `yousef shtiwe_cli/config.py`
 2. Bump `_config_version` (currently 5) to trigger migration for existing users
 
 ### .env variables:
-1. Add to `OPTIONAL_ENV_VARS` in `shadow_cli/config.py` with metadata:
+1. Add to `OPTIONAL_ENV_VARS` in `yousef shtiwe_cli/config.py` with metadata:
 ```python
 "NEW_API_KEY": {
     "description": "What it's for",
@@ -241,20 +241,20 @@ The registry handles schema collection, dispatch, availability checking, and err
 | Loader | Used by | Location |
 |--------|---------|----------|
 | `load_cli_config()` | CLI mode | `cli.py` |
-| `load_config()` | `shadow tools`, `shadow setup` | `shadow_cli/config.py` |
+| `load_config()` | `yousef shtiwe tools`, `yousef shtiwe setup` | `yousef shtiwe_cli/config.py` |
 | Direct YAML load | Gateway | `gateway/run.py` |
 
 ---
 
 ## Skin/Theme System
 
-The skin engine (`shadow_cli/skin_engine.py`) provides data-driven CLI visual customization. Skins are **pure data** — no code changes needed to add a new skin.
+The skin engine (`yousef shtiwe_cli/skin_engine.py`) provides data-driven CLI visual customization. Skins are **pure data** — no code changes needed to add a new skin.
 
 ### Architecture
 
 ```
-shadow_cli/skin_engine.py    # SkinConfig dataclass, built-in skins, YAML loader
-~/.shadow/skins/*.yaml       # User-installed custom skins (drop-in)
+yousef shtiwe_cli/skin_engine.py    # SkinConfig dataclass, built-in skins, YAML loader
+~/.yousef shtiwe/skins/*.yaml       # User-installed custom skins (drop-in)
 ```
 
 - `init_skin_from_config()` — called at CLI startup, reads `display.skin` from config
@@ -286,14 +286,14 @@ shadow_cli/skin_engine.py    # SkinConfig dataclass, built-in skins, YAML loader
 
 ### Built-in skins
 
-- `default` — Classic SHADOW gold/kawaii (the current look)
+- `default` — Classic YOUSEF SHTIWE gold/kawaii (the current look)
 - `ares` — Crimson/bronze war-god theme with custom spinner wings
 - `mono` — Clean grayscale monochrome
 - `slate` — Cool blue developer-focused theme
 
 ### Adding a built-in skin
 
-Add to `_BUILTIN_SKINS` dict in `shadow_cli/skin_engine.py`:
+Add to `_BUILTIN_SKINS` dict in `yousef shtiwe_cli/skin_engine.py`:
 
 ```python
 "mytheme": {
@@ -308,7 +308,7 @@ Add to `_BUILTIN_SKINS` dict in `shadow_cli/skin_engine.py`:
 
 ### User skins (YAML)
 
-Users create `~/.shadow/skins/<name>.yaml`:
+Users create `~/.yousef shtiwe/skins/<name>.yaml`:
 
 ```yaml
 name: cyberpunk
@@ -338,7 +338,7 @@ Activate with `/skin cyberpunk` or `display.skin: cyberpunk` in config.yaml.
 ## Important Policies
 ### Prompt Caching Must Not Break
 
-SHADOW-Agent ensures caching remains valid throughout a conversation. **Do NOT implement changes that would:**
+YOUSEF SHTIWE-Agent ensures caching remains valid throughout a conversation. **Do NOT implement changes that would:**
 - Alter past context mid-conversation
 - Change toolsets mid-conversation
 - Reload memories or rebuild system prompts mid-conversation
@@ -354,7 +354,7 @@ Cache-breaking forces dramatically higher costs. The ONLY time we alter context 
 When `terminal(background=true, notify_on_complete=true)` is used, the gateway runs a watcher that
 detects process completion and triggers a new agent turn. Control verbosity of background process
 messages with `display.background_process_notifications`
-in config.yaml (or `SHADOW_BACKGROUND_NOTIFICATIONS` env var):
+in config.yaml (or `YOUSEF SHTIWE_BACKGROUND_NOTIFICATIONS` env var):
 
 - `all` — running-output updates + final message (default)
 - `result` — only the final completion message
@@ -365,46 +365,46 @@ in config.yaml (or `SHADOW_BACKGROUND_NOTIFICATIONS` env var):
 
 ## Profiles: Multi-Instance Support
 
-SHADOW supports **profiles** — multiple fully isolated instances, each with its own
-`SHADOW_HOME` directory (config, API keys, memory, sessions, skills, gateway, etc.).
+YOUSEF SHTIWE supports **profiles** — multiple fully isolated instances, each with its own
+`YOUSEF SHTIWE_HOME` directory (config, API keys, memory, sessions, skills, gateway, etc.).
 
-The core mechanism: `_apply_profile_override()` in `shadow_cli/main.py` sets
-`SHADOW_HOME` before any module imports. All 119+ references to `get_shadow_home()`
+The core mechanism: `_apply_profile_override()` in `yousef shtiwe_cli/main.py` sets
+`YOUSEF SHTIWE_HOME` before any module imports. All 119+ references to `get_yousef shtiwe_home()`
 automatically scope to the active profile.
 
 ### Rules for profile-safe code
 
-1. **Use `get_shadow_home()` for all SHADOW_HOME paths.** Import from `shadow_constants`.
-   NEVER hardcode `~/.shadow` or `Path.home() / ".shadow"` in code that reads/writes state.
+1. **Use `get_yousef shtiwe_home()` for all YOUSEF SHTIWE_HOME paths.** Import from `yousef shtiwe_constants`.
+   NEVER hardcode `~/.yousef shtiwe` or `Path.home() / ".yousef shtiwe"` in code that reads/writes state.
    ```python
    # GOOD
-   from shadow_constants import get_shadow_home
-   config_path = get_shadow_home() / "config.yaml"
+   from yousef shtiwe_constants import get_yousef shtiwe_home
+   config_path = get_yousef shtiwe_home() / "config.yaml"
 
    # BAD — breaks profiles
-   config_path = Path.home() / ".shadow" / "config.yaml"
+   config_path = Path.home() / ".yousef shtiwe" / "config.yaml"
    ```
 
-2. **Use `display_shadow_home()` for user-facing messages.** Import from `shadow_constants`.
-   This returns `~/.shadow` for default or `~/.shadow/profiles/<name>` for profiles.
+2. **Use `display_yousef shtiwe_home()` for user-facing messages.** Import from `yousef shtiwe_constants`.
+   This returns `~/.yousef shtiwe` for default or `~/.yousef shtiwe/profiles/<name>` for profiles.
    ```python
    # GOOD
-   from shadow_constants import display_shadow_home
-   print(f"Config saved to {display_shadow_home()}/config.yaml")
+   from yousef shtiwe_constants import display_yousef shtiwe_home
+   print(f"Config saved to {display_yousef shtiwe_home()}/config.yaml")
 
    # BAD — shows wrong path for profiles
-   print("Config saved to ~/.shadow/config.yaml")
+   print("Config saved to ~/.yousef shtiwe/config.yaml")
    ```
 
-3. **Module-level constants are fine** — they cache `get_shadow_home()` at import time,
-   which is AFTER `_apply_profile_override()` sets the env var. Just use `get_shadow_home()`,
-   not `Path.home() / ".shadow"`.
+3. **Module-level constants are fine** — they cache `get_yousef shtiwe_home()` at import time,
+   which is AFTER `_apply_profile_override()` sets the env var. Just use `get_yousef shtiwe_home()`,
+   not `Path.home() / ".yousef shtiwe"`.
 
-4. **Tests that mock `Path.home()` must also set `SHADOW_HOME`** — since code now uses
-   `get_shadow_home()` (reads env var), not `Path.home() / ".shadow"`:
+4. **Tests that mock `Path.home()` must also set `YOUSEF SHTIWE_HOME`** — since code now uses
+   `get_yousef shtiwe_home()` (reads env var), not `Path.home() / ".yousef shtiwe"`:
    ```python
    with patch.object(Path, "home", return_value=tmp_path), \
-        patch.dict(os.environ, {"SHADOW_HOME": str(tmp_path / ".shadow")}):
+        patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": str(tmp_path / ".yousef shtiwe")}):
        ...
    ```
 
@@ -414,20 +414,20 @@ automatically scope to the active profile.
    `disconnect()`/`stop()`. This prevents two profiles from using the same credential.
    See `gateway/platforms/telegram.py` for the canonical pattern.
 
-6. **Profile operations are HOME-anchored, not SHADOW_HOME-anchored** — `_get_profiles_root()`
-   returns `Path.home() / ".shadow" / "profiles"`, NOT `get_shadow_home() / "profiles"`.
-   This is intentional — it lets `shadow -p coder profile list` see all profiles regardless
+6. **Profile operations are HOME-anchored, not YOUSEF SHTIWE_HOME-anchored** — `_get_profiles_root()`
+   returns `Path.home() / ".yousef shtiwe" / "profiles"`, NOT `get_yousef shtiwe_home() / "profiles"`.
+   This is intentional — it lets `yousef shtiwe -p coder profile list` see all profiles regardless
    of which one is active.
 
 ## Known Pitfalls
 
-### DO NOT hardcode `~/.shadow` paths
-Use `get_shadow_home()` from `shadow_constants` for code paths. Use `display_shadow_home()`
-for user-facing print/log messages. Hardcoding `~/.shadow` breaks profiles — each profile
-has its own `SHADOW_HOME` directory. This was the source of 5 bugs fixed in PR #3575.
+### DO NOT hardcode `~/.yousef shtiwe` paths
+Use `get_yousef shtiwe_home()` from `yousef shtiwe_constants` for code paths. Use `display_yousef shtiwe_home()`
+for user-facing print/log messages. Hardcoding `~/.yousef shtiwe` breaks profiles — each profile
+has its own `YOUSEF SHTIWE_HOME` directory. This was the source of 5 bugs fixed in PR #3575.
 
 ### DO NOT use `simple_term_menu` for interactive menus
-Rendering bugs in tmux/iTerm2 — ghosting on scroll. Use `curses` (stdlib) instead. See `shadow_cli/tools_config.py` for the pattern.
+Rendering bugs in tmux/iTerm2 — ghosting on scroll. Use `curses` (stdlib) instead. See `yousef shtiwe_cli/tools_config.py` for the pattern.
 
 ### DO NOT use `\033[K` (ANSI erase-to-EOL) in spinner/display code
 Leaks as literal `?[K` text under `prompt_toolkit`'s `patch_stdout`. Use space-padding: `f"\r{line}{' ' * pad}"`.
@@ -438,19 +438,19 @@ Leaks as literal `?[K` text under `prompt_toolkit`'s `patch_stdout`. Use space-p
 ### DO NOT hardcode cross-tool references in schema descriptions
 Tool schema descriptions must not mention tools from other toolsets by name (e.g., `browser_navigate` saying "prefer web_search"). Those tools may be unavailable (missing API keys, disabled toolset), causing the model to hallucinate calls to non-existent tools. If a cross-reference is needed, add it dynamically in `get_tool_definitions()` in `model_tools.py` — see the `browser_navigate` / `execute_code` post-processing blocks for the pattern.
 
-### Tests must not write to `~/.shadow/`
-The `_isolate_shadow_home` autouse fixture in `tests/conftest.py` redirects `SHADOW_HOME` to a temp dir. Never hardcode `~/.shadow/` paths in tests.
+### Tests must not write to `~/.yousef shtiwe/`
+The `_isolate_yousef shtiwe_home` autouse fixture in `tests/conftest.py` redirects `YOUSEF SHTIWE_HOME` to a temp dir. Never hardcode `~/.yousef shtiwe/` paths in tests.
 
 **Profile tests**: When testing profile features, also mock `Path.home()` so that
-`_get_profiles_root()` and `_get_default_shadow_home()` resolve within the temp dir.
-Use the pattern from `tests/shadow_cli/test_profiles.py`:
+`_get_profiles_root()` and `_get_default_yousef shtiwe_home()` resolve within the temp dir.
+Use the pattern from `tests/yousef shtiwe_cli/test_profiles.py`:
 ```python
 @pytest.fixture
 def profile_env(tmp_path, monkeypatch):
-    home = tmp_path / ".shadow"
+    home = tmp_path / ".yousef shtiwe"
     home.mkdir()
     monkeypatch.setattr(Path, "home", lambda: tmp_path)
-    monkeypatch.setenv("SHADOW_HOME", str(home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(home))
     return home
 ```
 

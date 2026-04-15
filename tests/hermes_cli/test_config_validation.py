@@ -2,7 +2,7 @@
 
 import pytest
 
-from shadow_cli.config import validate_config_structure, ConfigIssue
+from yousef shtiwe_cli.config import validate_config_structure, ConfigIssue
 
 
 class TestCustomProvidersValidation:

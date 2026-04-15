@@ -14,14 +14,14 @@ class TestSaveConfigValueAtomic:
     @pytest.fixture
     def config_env(self, tmp_path, monkeypatch):
         """Isolated config environment with a writable config.yaml."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text(yaml.dump({
             "model": {"default": "test-model", "provider": "openrouter"},
             "display": {"skin": "default"},
         }))
-        monkeypatch.setattr("cli._shadow_home", shadow_home)
+        monkeypatch.setattr("cli._yousef shtiwe_home", yousef shtiwe_home)
         return config_path
 
     def test_calls_atomic_yaml_write(self, config_env, monkeypatch):

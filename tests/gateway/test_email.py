@@ -37,7 +37,7 @@ class TestConfigEnvOverrides(unittest.TestCase):
     """Verify email config is loaded from environment variables."""
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -48,10 +48,10 @@ class TestConfigEnvOverrides(unittest.TestCase):
         _apply_env_overrides(config)
         self.assertIn(Platform.EMAIL, config.platforms)
         self.assertTrue(config.platforms[Platform.EMAIL].enabled)
-        self.assertEqual(config.platforms[Platform.EMAIL].extra["address"], "shadow@test.com")
+        self.assertEqual(config.platforms[Platform.EMAIL].extra["address"], "yousef shtiwe@test.com")
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -73,7 +73,7 @@ class TestConfigEnvOverrides(unittest.TestCase):
         self.assertNotIn(Platform.EMAIL, config.platforms)
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -313,12 +313,12 @@ class TestToolset(unittest.TestCase):
 
     def test_email_toolset_exists(self):
         from toolsets import TOOLSETS
-        self.assertIn("shadow-email", TOOLSETS)
+        self.assertIn("yousef shtiwe-email", TOOLSETS)
 
     def test_email_in_gateway_toolset(self):
         from toolsets import TOOLSETS
-        includes = TOOLSETS["shadow-gateway"]["includes"]
-        self.assertIn("shadow-email", includes)
+        includes = TOOLSETS["yousef shtiwe-gateway"]["includes"]
+        self.assertIn("yousef shtiwe-email", includes)
 
 
 class TestPlatformHints(unittest.TestCase):
@@ -346,12 +346,12 @@ class TestGatewaySetup(unittest.TestCase):
     """Verify email in gateway setup wizard."""
 
     def test_email_in_platforms_list(self):
-        from shadow_cli.gateway import _PLATFORMS
+        from yousef shtiwe_cli.gateway import _PLATFORMS
         keys = [p["key"] for p in _PLATFORMS]
         self.assertIn("email", keys)
 
     def test_email_has_setup_vars(self):
-        from shadow_cli.gateway import _PLATFORMS
+        from yousef shtiwe_cli.gateway import _PLATFORMS
         email_platform = next(p for p in _PLATFORMS if p["key"] == "email")
         var_names = [v["name"] for v in email_platform["vars"]]
         self.assertIn("EMAIL_ADDRESS", var_names)
@@ -379,7 +379,7 @@ class TestDispatchMessage(unittest.TestCase):
         """Create an EmailAdapter with mocked env vars."""
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_IMAP_PORT": "993",
@@ -399,8 +399,8 @@ class TestDispatchMessage(unittest.TestCase):
 
         msg_data = {
             "uid": b"1",
-            "sender_addr": "shadow@test.com",
-            "sender_name": "SHADOW",
+            "sender_addr": "yousef shtiwe@test.com",
+            "sender_name": "YOUSEF SHTIWE",
             "subject": "Test",
             "message_id": "<msg1@test.com>",
             "in_reply_to": "",
@@ -569,7 +569,7 @@ class TestThreadContext(unittest.TestCase):
     def _make_adapter(self):
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -645,7 +645,7 @@ class TestThreadContext(unittest.TestCase):
             self.assertFalse(send_call["Subject"].startswith("Re: Re:"))
 
     def test_no_thread_context_uses_default_subject(self):
-        """Without thread context, subject should be 'Re: SHADOW Agent'."""
+        """Without thread context, subject should be 'Re: YOUSEF SHTIWE Agent'."""
         adapter = self._make_adapter()
 
         with patch("smtplib.SMTP") as mock_smtp:
@@ -655,7 +655,7 @@ class TestThreadContext(unittest.TestCase):
             adapter._send_email("newuser@test.com", "Hello!", None)
 
             send_call = mock_server.send_message.call_args[0][0]
-            self.assertEqual(send_call["Subject"], "Re: SHADOW Agent")
+            self.assertEqual(send_call["Subject"], "Re: YOUSEF SHTIWE Agent")
 
 
 class TestSendMethods(unittest.TestCase):
@@ -664,7 +664,7 @@ class TestSendMethods(unittest.TestCase):
     def _make_adapter(self):
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -683,12 +683,12 @@ class TestSendMethods(unittest.TestCase):
             mock_smtp.return_value = mock_server
 
             result = asyncio.run(
-                adapter.send("user@test.com", "Hello from SHADOW!")
+                adapter.send("user@test.com", "Hello from YOUSEF SHTIWE!")
             )
 
             self.assertTrue(result.success)
             mock_server.starttls.assert_called_once()
-            mock_server.login.assert_called_once_with("shadow@test.com", "secret")
+            mock_server.login.assert_called_once_with("yousef shtiwe@test.com", "secret")
             mock_server.send_message.assert_called_once()
             mock_server.quit.assert_called_once()
 
@@ -784,7 +784,7 @@ class TestConnectDisconnect(unittest.TestCase):
     def _make_adapter(self):
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -862,7 +862,7 @@ class TestFetchNewMessages(unittest.TestCase):
     def _make_adapter(self):
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -955,7 +955,7 @@ class TestPollLoop(unittest.TestCase):
     def _make_adapter(self):
         from gateway.config import PlatformConfig
         with patch.dict(os.environ, {
-            "EMAIL_ADDRESS": "shadow@test.com",
+            "EMAIL_ADDRESS": "yousef shtiwe@test.com",
             "EMAIL_PASSWORD": "secret",
             "EMAIL_IMAP_HOST": "imap.test.com",
             "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -1003,7 +1003,7 @@ class TestSendEmailStandalone(unittest.TestCase):
     """Test the standalone _send_email function in send_message_tool."""
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_SMTP_HOST": "smtp.test.com",
         "EMAIL_SMTP_PORT": "587",
@@ -1019,7 +1019,7 @@ class TestSendEmailStandalone(unittest.TestCase):
             mock_smtp.return_value = mock_server
 
             result = asyncio.run(
-                _send_email({"address": "shadow@test.com", "smtp_host": "smtp.test.com"}, "user@test.com", "Hello")
+                _send_email({"address": "yousef shtiwe@test.com", "smtp_host": "smtp.test.com"}, "user@test.com", "Hello")
             )
 
             self.assertTrue(result["success"])
@@ -1028,7 +1028,7 @@ class TestSendEmailStandalone(unittest.TestCase):
             self.assertIsInstance(kwargs["context"], ssl.SSLContext)
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_SMTP_HOST": "smtp.test.com",
     })
@@ -1039,7 +1039,7 @@ class TestSendEmailStandalone(unittest.TestCase):
 
         with patch("smtplib.SMTP", side_effect=Exception("SMTP error")):
             result = asyncio.run(
-                _send_email({"address": "shadow@test.com", "smtp_host": "smtp.test.com"}, "user@test.com", "Hello")
+                _send_email({"address": "yousef shtiwe@test.com", "smtp_host": "smtp.test.com"}, "user@test.com", "Hello")
             )
 
             self.assertIn("error", result)
@@ -1063,7 +1063,7 @@ class TestSmtpConnectionCleanup(unittest.TestCase):
     """Verify SMTP connections are closed even when send_message raises."""
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -1075,7 +1075,7 @@ class TestSmtpConnectionCleanup(unittest.TestCase):
         return EmailAdapter(PlatformConfig(enabled=True))
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -1094,7 +1094,7 @@ class TestSmtpConnectionCleanup(unittest.TestCase):
         mock_smtp.quit.assert_called_once()
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_SMTP_HOST": "smtp.test.com",
@@ -1118,7 +1118,7 @@ class TestImapConnectionCleanup(unittest.TestCase):
     """Verify IMAP connections are closed even when fetch raises."""
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_IMAP_PORT": "993",
@@ -1130,7 +1130,7 @@ class TestImapConnectionCleanup(unittest.TestCase):
         return EmailAdapter(PlatformConfig(enabled=True))
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_IMAP_PORT": "993",
@@ -1157,7 +1157,7 @@ class TestImapConnectionCleanup(unittest.TestCase):
         mock_imap.logout.assert_called_once()
 
     @patch.dict(os.environ, {
-        "EMAIL_ADDRESS": "shadow@test.com",
+        "EMAIL_ADDRESS": "yousef shtiwe@test.com",
         "EMAIL_PASSWORD": "secret",
         "EMAIL_IMAP_HOST": "imap.test.com",
         "EMAIL_IMAP_PORT": "993",

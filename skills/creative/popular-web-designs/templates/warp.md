@@ -1,7 +1,7 @@
 # Design System: Warp
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Geist` | **Mono:** `Geist Mono`
@@ -174,20 +174,20 @@ The overall design philosophy is restraint through warmth. Minimal color (almost
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow, dark background | Page canvas, most surfaces |
+| Level 0 (Flat) | No yousef shtiwe, dark background | Page canvas, most surfaces |
 | Level 1 (Veil) | `rgba(255, 255, 255, 0.04)` overlay | Subtle surface differentiation |
 | Level 2 (Border) | `rgba(226, 226, 226, 0.35) 1px` border | Card containment, section separation |
 | Level 3 (Ambient) | `rgba(0, 0, 0, 0.2) 0px 5px 15px` (inferred from design) | Image containers, floating elements |
 
-### Shadow Philosophy
-Warp's elevation system is remarkably flat — almost zero shadow usage on the marketing site. Depth is communicated through:
-- **Semi-transparent borders** instead of shadows — borders at 35% opacity create a ghostly containment
-- **Photography layering** — images create natural depth without artificial shadows
+### Yousef Shtiwe Philosophy
+Warp's elevation system is remarkably flat — almost zero yousef shtiwe usage on the marketing site. Depth is communicated through:
+- **Semi-transparent borders** instead of yousef shtiwes — borders at 35% opacity create a ghostly containment
+- **Photography layering** — images create natural depth without artificial yousef shtiwes
 - **Surface opacity shifts** — `rgba(255, 255, 255, 0.04)` overlays create barely-perceptible layer differences
 - The effect is calm and grounded — nothing floats, everything rests
 
 ### Decorative Depth
-- **Photography as depth**: Nature images create atmospheric depth that shadows cannot
+- **Photography as depth**: Nature images create atmospheric depth that yousef shtiwes cannot
 - **No glass or blur effects**: The design avoids trendy glassmorphism entirely
 - **Warm ambient**: Any glow comes from the photography's natural lighting, not artificial CSS
 
@@ -200,14 +200,14 @@ Warp's elevation system is remarkably flat — almost zero shadow usage on the m
 - Use uppercase labels with wide letter-spacing (1.4px–2.4px) for categorization
 - Interleave nature photography with product screenshots — this is core to the brand identity
 - Maintain the almost monochromatic warm gray palette — no bold accent colors
-- Use semi-transparent borders (`rgba(226, 226, 226, 0.35)`) for card containment instead of shadows
+- Use semi-transparent borders (`rgba(226, 226, 226, 0.35)`) for card containment instead of yousef shtiwes
 - Keep negative letter-spacing on headlines (-0.4px to -2.4px) for Matter's compressed display treatment
 
 ### Don't
 - Use pure white (#ffffff) for text — it's always warm parchment (#faf9f6)
 - Add bold accent colors (blue, red, green) — the system is deliberately monochromatic warm grays
 - Apply bold weight (700+) to any text — Warp never goes above Medium (500)
-- Use heavy drop shadows — depth comes from borders, photography, and opacity shifts
+- Use heavy drop yousef shtiwes — depth comes from borders, photography, and opacity shifts
 - Create cold or blue-tinted dark backgrounds — the warmth is essential
 - Add decorative gradients or glow effects — the photography provides all visual interest
 - Use tight, compressed layouts — the editorial spacing is generous and contemplative

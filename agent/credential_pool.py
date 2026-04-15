@@ -13,9 +13,9 @@ from dataclasses import dataclass, fields, replace
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from shadow_constants import OPENROUTER_BASE_URL
-import shadow_cli.auth as auth_mod
-from shadow_cli.auth import (
+from yousef shtiwe_constants import OPENROUTER_BASE_URL
+import yousef shtiwe_cli.auth as auth_mod
+from yousef shtiwe_cli.auth import (
     CODEX_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
     DEFAULT_AGENT_KEY_MIN_TTL_SECONDS,
     PROVIDER_REGISTRY,
@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 def _load_config_safe() -> Optional[dict]:
     """Load config.yaml, returning None on any error."""
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
 
         return load_config()
     except Exception:
@@ -160,13 +160,13 @@ class PooledCredential:
 
     @property
     def runtime_api_key(self) -> str:
-        if self.provider == "shadow":
+        if self.provider == "yousef shtiwe":
             return str(self.agent_key or self.access_token or "")
         return str(self.access_token or "")
 
     @property
     def runtime_base_url(self) -> Optional[str]:
-        if self.provider == "shadow":
+        if self.provider == "yousef shtiwe":
             return self.inference_base_url or self.base_url
         return self.base_url
 
@@ -290,7 +290,7 @@ def _iter_custom_providers(config: Optional[dict] = None):
     if not isinstance(custom_providers, list):
         # Fall back to the v12+ providers dict via the compatibility layer
         try:
-            from shadow_cli.config import get_compatible_custom_providers
+            from yousef shtiwe_cli.config import get_compatible_custom_providers
 
             custom_providers = get_compatible_custom_providers(config)
         except Exception:
@@ -461,7 +461,7 @@ class CredentialPool:
         """Sync an openai-codex pool entry from ~/.codex/auth.json if tokens differ.
 
         OpenAI OAuth refresh tokens are single-use and rotate on every refresh.
-        When the Codex CLI (or another SHADOW profile) refreshes its token,
+        When the Codex CLI (or another YOUSEF SHTIWE profile) refreshes its token,
         the pool entry's refresh_token becomes stale.  This method detects that
         by comparing against ~/.codex/auth.json and syncing the fresh pair.
         """
@@ -500,15 +500,15 @@ class CredentialPool:
         re-seeding a consumed single-use refresh token.
 
         Applies to any OAuth provider whose singleton lives in auth.json
-        (currently Shadow and OpenAI Codex).
+        (currently Yousef Shtiwe and OpenAI Codex).
         """
         if entry.source != "device_code":
             return
         try:
             with _auth_store_lock():
                 auth_store = _load_auth_store()
-                if self.provider == "shadow":
-                    state = _load_provider_state(auth_store, "shadow")
+                if self.provider == "yousef shtiwe":
+                    state = _load_provider_state(auth_store, "yousef shtiwe")
                     if state is None:
                         return
                     state["access_token"] = entry.access_token
@@ -528,7 +528,7 @@ class CredentialPool:
                             state[extra_key] = val
                     if entry.inference_base_url:
                         state["inference_base_url"] = entry.inference_base_url
-                    _save_provider_state(auth_store, "shadow", state)
+                    _save_provider_state(auth_store, "yousef shtiwe", state)
 
                 elif self.provider == "openai-codex":
                     state = _load_provider_state(auth_store, "openai-codex")
@@ -563,7 +563,7 @@ class CredentialPool:
 
                 refreshed = refresh_anthropic_oauth_pure(
                     entry.refresh_token,
-                    use_json=entry.source.endswith("shadow_pkce"),
+                    use_json=entry.source.endswith("yousef shtiwe_pkce"),
                 )
                 updated = replace(
                     entry,
@@ -586,7 +586,7 @@ class CredentialPool:
                         logger.debug("Failed to write refreshed token to credentials file: %s", wexc)
             elif self.provider == "openai-codex":
                 # Proactively sync from ~/.codex/auth.json before refresh.
-                # The Codex CLI (or another SHADOW profile) may have already
+                # The Codex CLI (or another YOUSEF SHTIWE profile) may have already
                 # consumed our refresh_token.  Syncing first avoids a
                 # "refresh_token_reused" error when the CLI has a newer pair.
                 synced = self._sync_codex_entry_from_cli(entry)
@@ -602,8 +602,8 @@ class CredentialPool:
                     refresh_token=refreshed["refresh_token"],
                     last_refresh=refreshed.get("last_refresh"),
                 )
-            elif self.provider == "shadow":
-                shadow_state = {
+            elif self.provider == "yousef shtiwe":
+                yousef shtiwe_state = {
                     "access_token": entry.access_token,
                     "refresh_token": entry.refresh_token,
                     "client_id": entry.client_id,
@@ -617,8 +617,8 @@ class CredentialPool:
                     "agent_key_expires_at": entry.agent_key_expires_at,
                     "tls": entry.tls,
                 }
-                refreshed = auth_mod.refresh_shadow_oauth_from_state(
-                    shadow_state,
+                refreshed = auth_mod.refresh_yousef shtiwe_oauth_from_state(
+                    yousef shtiwe_state,
                     min_key_ttl_seconds=DEFAULT_AGENT_KEY_MIN_TTL_SECONDS,
                     force_refresh=force,
                     force_mint=force,
@@ -648,7 +648,7 @@ class CredentialPool:
                         from agent.anthropic_adapter import refresh_anthropic_oauth_pure
                         refreshed = refresh_anthropic_oauth_pure(
                             synced.refresh_token,
-                            use_json=synced.source.endswith("shadow_pkce"),
+                            use_json=synced.source.endswith("yousef shtiwe_pkce"),
                         )
                         updated = replace(
                             synced,
@@ -759,8 +759,8 @@ class CredentialPool:
                 entry.access_token,
                 CODEX_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
             )
-        if self.provider == "shadow":
-            # Shadow refresh/mint can require network access and should happen when
+        if self.provider == "yousef shtiwe":
+            # Yousef Shtiwe refresh/mint can require network access and should happen when
             # runtime credentials are actually resolved, not merely when the pool
             # is enumerated for listing, migration, or selection.
             return False
@@ -783,7 +783,7 @@ class CredentialPool:
         for entry in self._entries:
             # For anthropic claude_code entries, sync from the credentials file
             # before any status/refresh checks. This picks up tokens refreshed
-            # by other processes (Claude Code CLI, other SHADOW profiles).
+            # by other processes (Claude Code CLI, other YOUSEF SHTIWE profiles).
             if (self.provider == "anthropic" and entry.source == "claude_code"
                     and entry.last_status == STATUS_EXHAUSTED):
                 synced = self._sync_anthropic_entry_from_credentials_file(entry)
@@ -792,7 +792,7 @@ class CredentialPool:
                     cleared_any = True
             # For openai-codex entries, sync from ~/.codex/auth.json before
             # any status/refresh checks.  This picks up tokens refreshed by
-            # the Codex CLI or another SHADOW profile.
+            # the Codex CLI or another YOUSEF SHTIWE profile.
             if (self.provider == "openai-codex"
                     and entry.last_status == STATUS_EXHAUSTED
                     and entry.refresh_token):
@@ -1053,7 +1053,7 @@ def _normalize_pool_priorities(provider: str, entries: List[PooledCredential]) -
     source_rank = {
         "env:ANTHROPIC_TOKEN": 0,
         "env:CLAUDE_CODE_OAUTH_TOKEN": 1,
-        "shadow_pkce": 2,
+        "yousef shtiwe_pkce": 2,
         "claude_code": 3,
         "env:ANTHROPIC_API_KEY": 4,
     }
@@ -1086,27 +1086,27 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
     auth_store = _load_auth_store()
 
     if provider == "anthropic":
-        # Only auto-discover external credentials (Claude Code, SHADOW PKCE)
+        # Only auto-discover external credentials (Claude Code, YOUSEF SHTIWE PKCE)
         # when the user has explicitly configured anthropic as their provider.
         # Without this gate, auxiliary client fallback chains silently read
         # ~/.claude/.credentials.json without user consent.  See PR #4210.
         try:
-            from shadow_cli.auth import is_provider_explicitly_configured
+            from yousef shtiwe_cli.auth import is_provider_explicitly_configured
             if not is_provider_explicitly_configured("anthropic"):
                 return changed, active_sources
         except ImportError:
             pass
 
-        from agent.anthropic_adapter import read_claude_code_credentials, read_shadow_oauth_credentials
+        from agent.anthropic_adapter import read_claude_code_credentials, read_yousef shtiwe_oauth_credentials
 
         for source_name, creds in (
-            ("shadow_pkce", read_shadow_oauth_credentials()),
+            ("yousef shtiwe_pkce", read_yousef shtiwe_oauth_credentials()),
             ("claude_code", read_claude_code_credentials()),
         ):
             if creds and creds.get("accessToken"):
                 # Check if user explicitly removed this source
                 try:
-                    from shadow_cli.auth import is_source_suppressed
+                    from yousef shtiwe_cli.auth import is_source_suppressed
                     if is_source_suppressed(provider, source_name):
                         continue
                 except ImportError:
@@ -1126,8 +1126,8 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
                     },
                 )
 
-    elif provider == "shadow":
-        state = _load_provider_state(auth_store, "shadow")
+    elif provider == "yousef shtiwe":
+        state = _load_provider_state(auth_store, "yousef shtiwe")
         if state:
             active_sources.add("device_code")
             changed |= _upsert_entry(
@@ -1157,7 +1157,7 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
         # env vars (COPILOT_GITHUB_TOKEN / GH_TOKEN).  They don't live in
         # the auth store or credential pool, so we resolve them here.
         try:
-            from shadow_cli.copilot_auth import resolve_copilot_token
+            from yousef shtiwe_cli.copilot_auth import resolve_copilot_token
             token, source = resolve_copilot_token()
             if token:
                 source_name = "gh_cli" if "gh" in source.lower() else f"env:{source}"
@@ -1179,11 +1179,11 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
     elif provider == "qwen-oauth":
         # Qwen OAuth tokens live in ~/.qwen/oauth_creds.json, written by
         # the Qwen CLI (`qwen auth qwen-oauth`).  They aren't in the
-        # SHADOW auth store or env vars, so resolve them here.
+        # YOUSEF SHTIWE auth store or env vars, so resolve them here.
         # Use refresh_if_expiring=False to avoid network calls during
         # pool loading / provider discovery.
         try:
-            from shadow_cli.auth import resolve_qwen_runtime_credentials
+            from yousef shtiwe_cli.auth import resolve_qwen_runtime_credentials
             creds = resolve_qwen_runtime_credentials(refresh_if_expiring=False)
             token = creds.get("api_key", "")
             if token:
@@ -1208,16 +1208,16 @@ def _seed_from_singletons(provider: str, entries: List[PooledCredential]) -> Tup
     elif provider == "openai-codex":
         state = _load_provider_state(auth_store, "openai-codex")
         tokens = state.get("tokens") if isinstance(state, dict) else None
-        # Fallback: import from Codex CLI (~/.codex/auth.json) if SHADOW auth
+        # Fallback: import from Codex CLI (~/.codex/auth.json) if YOUSEF SHTIWE auth
         # store has no tokens.  This mirrors resolve_codex_runtime_credentials()
         # so that load_pool() and list_authenticated_providers() detect tokens
         # that only exist in the Codex CLI shared file.
         if not (isinstance(tokens, dict) and tokens.get("access_token")):
             try:
-                from shadow_cli.auth import _import_codex_cli_tokens, _save_codex_tokens
+                from yousef shtiwe_cli.auth import _import_codex_cli_tokens, _save_codex_tokens
                 cli_tokens = _import_codex_cli_tokens()
                 if cli_tokens:
-                    logger.info("Importing Codex CLI tokens into SHADOW auth store.")
+                    logger.info("Importing Codex CLI tokens into YOUSEF SHTIWE auth store.")
                     _save_codex_tokens(cli_tokens)
                     # Re-read state after import
                     auth_store = _load_auth_store()
@@ -1318,7 +1318,7 @@ def _prune_stale_seeded_entries(entries: List[PooledCredential], active_sources:
         or entry.source in active_sources
         or not (
             entry.source.startswith("env:")
-            or entry.source in {"claude_code", "shadow_pkce"}
+            or entry.source in {"claude_code", "yousef shtiwe_pkce"}
         )
     ]
     if len(retained) == len(entries):

@@ -1,11 +1,11 @@
-"""Tests for shadow_cli.model_normalize — provider-aware model name normalization.
+"""Tests for yousef shtiwe_cli.model_normalize — provider-aware model name normalization.
 
 Covers issue #5211: opencode-go model names with dots (e.g. minimax-m2.7)
 must NOT be mangled to hyphens (minimax-m2-7).
 """
 import pytest
 
-from shadow_cli.model_normalize import (
+from yousef shtiwe_cli.model_normalize import (
     normalize_model_for_provider,
     _DOT_TO_HYPHEN_PROVIDERS,
     _AGGREGATOR_PROVIDERS,
@@ -102,8 +102,8 @@ class TestAggregatorProviders:
         result = normalize_model_for_provider("claude-sonnet-4.6", "openrouter")
         assert result == "anthropic/claude-sonnet-4.6"
 
-    def test_shadow_prepends_vendor(self):
-        result = normalize_model_for_provider("gpt-5.4", "shadow")
+    def test_yousef shtiwe_prepends_vendor(self):
+        result = normalize_model_for_provider("gpt-5.4", "yousef shtiwe")
         assert result == "openai/gpt-5.4"
 
     def test_vendor_already_present(self):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Google Workspace OAuth2 setup for SHADOW Agent.
+"""Google Workspace OAuth2 setup for YOUSEF SHTIWE Agent.
 
 Fully non-interactive — designed to be driven by the agent via terminal commands.
 The agent mediates between this script and the user (works on CLI, Telegram, Discord, etc.)
@@ -29,17 +29,17 @@ import sys
 from pathlib import Path
 
 try:
-    from shadow_constants import display_shadow_home, get_shadow_home
+    from yousef shtiwe_constants import display_yousef shtiwe_home, get_yousef shtiwe_home
 except ModuleNotFoundError:
-    SHADOW_AGENT_ROOT = Path(__file__).resolve().parents[4]
-    if SHADOW_AGENT_ROOT.exists():
-        sys.path.insert(0, str(SHADOW_AGENT_ROOT))
-    from shadow_constants import display_shadow_home, get_shadow_home
+    YOUSEF SHTIWE_AGENT_ROOT = Path(__file__).resolve().parents[4]
+    if YOUSEF SHTIWE_AGENT_ROOT.exists():
+        sys.path.insert(0, str(YOUSEF SHTIWE_AGENT_ROOT))
+    from yousef shtiwe_constants import display_yousef shtiwe_home, get_yousef shtiwe_home
 
-SHADOW_HOME = get_shadow_home()
-TOKEN_PATH = SHADOW_HOME / "google_token.json"
-CLIENT_SECRET_PATH = SHADOW_HOME / "google_client_secret.json"
-PENDING_AUTH_PATH = SHADOW_HOME / "google_oauth_pending.json"
+YOUSEF SHTIWE_HOME = get_yousef shtiwe_home()
+TOKEN_PATH = YOUSEF SHTIWE_HOME / "google_token.json"
+CLIENT_SECRET_PATH = YOUSEF SHTIWE_HOME / "google_client_secret.json"
+PENDING_AUTH_PATH = YOUSEF SHTIWE_HOME / "google_oauth_pending.json"
 
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
@@ -80,7 +80,7 @@ def _format_missing_scopes(missing_scopes: list[str]) -> str:
     return (
         "Token is valid but missing required Google Workspace scopes:\n"
         f"{bullets}\n"
-        "Run the Google Workspace setup again from this same SHADOW profile to refresh consent."
+        "Run the Google Workspace setup again from this same YOUSEF SHTIWE profile to refresh consent."
     )
 
 
@@ -168,7 +168,7 @@ def check_auth():
 
 
 def store_client_secret(path: str):
-    """Copy and validate client_secret.json to SHADOW home."""
+    """Copy and validate client_secret.json to YOUSEF SHTIWE home."""
     src = Path(path).expanduser().resolve()
     if not src.exists():
         print(f"ERROR: File not found: {src}")
@@ -333,7 +333,7 @@ def exchange_auth_code(code: str):
     TOKEN_PATH.write_text(json.dumps(token_payload, indent=2))
     PENDING_AUTH_PATH.unlink(missing_ok=True)
     print(f"OK: Authenticated. Token saved to {TOKEN_PATH}")
-    print(f"Profile-scoped token location: {display_shadow_home()}/google_token.json")
+    print(f"Profile-scoped token location: {display_yousef shtiwe_home()}/google_token.json")
 
 
 def revoke():
@@ -369,7 +369,7 @@ def revoke():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Google Workspace OAuth setup for SHADOW")
+    parser = argparse.ArgumentParser(description="Google Workspace OAuth setup for YOUSEF SHTIWE")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--check", action="store_true", help="Check if auth is valid (exit 0=yes, 1=no)")
     group.add_argument("--client-secret", metavar="PATH", help="Store OAuth client_secret.json")

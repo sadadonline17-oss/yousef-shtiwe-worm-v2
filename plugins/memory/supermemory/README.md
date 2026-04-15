@@ -10,23 +10,23 @@ Semantic long-term memory with profile recall, semantic search, explicit memory 
 ## Setup
 
 ```bash
-shadow memory setup    # select "supermemory"
+yousef shtiwe memory setup    # select "supermemory"
 ```
 
 Or manually:
 
 ```bash
-shadow config set memory.provider supermemory
-echo 'SUPERMEMORY_API_KEY=***' >> ~/.shadow/.env
+yousef shtiwe config set memory.provider supermemory
+echo 'SUPERMEMORY_API_KEY=***' >> ~/.yousef shtiwe/.env
 ```
 
 ## Config
 
-Config file: `$SHADOW_HOME/supermemory.json`
+Config file: `$YOUSEF SHTIWE_HOME/supermemory.json`
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `container_tag` | `shadow` | Container tag used for search and writes. Supports `{identity}` template for profile-scoped tags (e.g. `shadow-{identity}` → `shadow-coder`). |
+| `container_tag` | `yousef shtiwe` | Container tag used for search and writes. Supports `{identity}` template for profile-scoped tags (e.g. `yousef shtiwe-{identity}` → `yousef shtiwe-coder`). |
 | `auto_recall` | `true` | Inject relevant memory context before turns |
 | `auto_capture` | `true` | Store cleaned user-assistant turns after each response |
 | `max_recall_results` | `10` | Max recalled items to format into context |
@@ -54,7 +54,7 @@ Config file: `$SHADOW_HOME/supermemory.json`
 
 ## Behavior
 
-When enabled, SHADOW can:
+When enabled, YOUSEF SHTIWE can:
 
 - prefetch relevant memory context before each turn
 - store cleaned conversation turns after each completed response
@@ -63,15 +63,15 @@ When enabled, SHADOW can:
 
 ## Profile-Scoped Containers
 
-Use `{identity}` in the `container_tag` to scope memories per SHADOW profile:
+Use `{identity}` in the `container_tag` to scope memories per YOUSEF SHTIWE profile:
 
 ```json
 {
-  "container_tag": "shadow-{identity}"
+  "container_tag": "yousef shtiwe-{identity}"
 }
 ```
 
-For a profile named `coder`, this resolves to `shadow-coder`. The default profile resolves to `shadow-default`. Without `{identity}`, all profiles share the same container.
+For a profile named `coder`, this resolves to `yousef shtiwe-coder`. The default profile resolves to `yousef shtiwe-default`. Without `{identity}`, all profiles share the same container.
 
 ## Multi-Container Mode
 
@@ -79,7 +79,7 @@ For advanced setups (e.g. OpenClaw-style multi-workspace), you can enable custom
 
 ```json
 {
-  "container_tag": "shadow",
+  "container_tag": "yousef shtiwe",
   "enable_custom_container_tags": true,
   "custom_containers": ["project-alpha", "project-beta", "shared-knowledge"],
   "custom_container_instructions": "Use project-alpha for coding tasks, project-beta for research, and shared-knowledge for team-wide facts."

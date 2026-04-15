@@ -1,4 +1,4 @@
-"""Shared utility functions for shadow-agent."""
+"""Shared utility functions for yousef shtiwe-agent."""
 
 import json
 import logging

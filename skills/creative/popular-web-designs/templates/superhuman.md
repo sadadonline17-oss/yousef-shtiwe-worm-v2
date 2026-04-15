@@ -1,7 +1,7 @@
 # Design System: Superhuman
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -19,7 +19,7 @@ Superhuman's website feels like opening a luxury envelope — predominantly whit
 
 The typography is the true signature: Super Sans VF, a custom variable font with unconventional weight stops (460, 540, 600, 700) that sit between traditional font weight categories. Weight 460 — slightly heavier than regular but lighter than medium — is the workhorse, creating text that feels more confident than typical 400-weight but never aggressive. The tight line-heights (0.96 on display text) compress headlines into dense, powerful blocks, while generous 1.50 line-height on body text provides airy readability. This tension between compressed power and breathing room defines the Superhuman typographic voice.
 
-The design philosophy is maximum confidence through minimum decoration. Warm cream buttons (`#e9e5dd`) instead of bright CTAs, a near-absence of borders and shadows, and lavender purple (`#cbb7fb`) as the sole accent color. It's a productivity tool that markets itself like a luxury brand — every pixel earns its place, nothing is merely decorative. The brand naming convention extends to colors: the primary purple is called "Mysteria," straddling blue and purple with deliberate ambiguity.
+The design philosophy is maximum confidence through minimum decoration. Warm cream buttons (`#e9e5dd`) instead of bright CTAs, a near-absence of borders and yousef shtiwes, and lavender purple (`#cbb7fb`) as the sole accent color. It's a productivity tool that markets itself like a luxury brand — every pixel earns its place, nothing is merely decorative. The brand naming convention extends to colors: the primary purple is called "Mysteria," straddling blue and purple with deliberate ambiguity.
 
 **Key Characteristics:**
 - Deep purple gradient hero (`#1b1938`) contrasting against a predominantly white content body
@@ -130,7 +130,7 @@ The design philosophy is maximum confidence through minimum decoration. Warm cre
 ### Image Treatment
 - **Product screenshots**: Large, dominant product UI images showing the email interface — the product is the hero
 - **Lifestyle photography**: A single dramatic image (silhouette against purple/red gradient) in the hero area — cinematic and editorial
-- **Full-width presentation**: Screenshots span full container width with subtle shadow or no border
+- **Full-width presentation**: Screenshots span full container width with subtle yousef shtiwe or no border
 - **Aspect ratios**: Wide landscape ratios (roughly 16:9) for product screenshots
 - **Color integration**: Screenshots are carefully color-graded to harmonize with the purple-to-white page flow
 
@@ -167,16 +167,16 @@ The design philosophy is maximum confidence through minimum decoration. Warm cre
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow, white background | Primary page canvas, most content surfaces |
+| Level 0 (Flat) | No yousef shtiwe, white background | Primary page canvas, most content surfaces |
 | Level 1 (Border) | `1px solid #dcd7d3` (Parchment Border) | Card containment, section dividers |
 | Level 2 (Dark Border) | `1px solid #292827` | Header elements, dark section separators |
-| Level 3 (Glow) | Subtle shadow (from 6 shadow definitions detected) | Product screenshot containers, elevated cards |
+| Level 3 (Glow) | Subtle yousef shtiwe (from 6 yousef shtiwe definitions detected) | Product screenshot containers, elevated cards |
 | Level 4 (Hero Depth) | `rgba(255, 255, 255, 0.2)` transparent border | Elements on the dark purple gradient hero |
 
-### Shadow Philosophy
+### Yousef Shtiwe Philosophy
 Superhuman's elevation system is remarkably restrained on the marketing site. Depth is primarily communicated through:
 - **Border containment**: Warm-toned borders (`#dcd7d3`) at 1px create gentle separation
-- **Color contrast**: The hero gradient creates massive depth through color shift rather than shadows
+- **Color contrast**: The hero gradient creates massive depth through color shift rather than yousef shtiwes
 - **Product screenshots**: Screenshots themselves create depth by showing a layered UI within the flat page
 - **Opacity layering**: Semi-transparent whites on the hero gradient create atmospheric depth layers
 
@@ -202,7 +202,7 @@ Superhuman's elevation system is remarkably restrained on the marketing site. De
 - Use conventional font weights (400, 500, 600) — Superhuman's 460 and 540 are deliberately between standard stops
 - Add bright or saturated CTA colors (blue, green, red) — buttons are intentionally muted in Warm Cream or Charcoal
 - Introduce additional accent colors beyond Lavender Glow — the palette is deliberately restrained to one accent
-- Apply shadows generously — depth comes from borders, color contrast, and photography, not box-shadows
+- Apply yousef shtiwes generously — depth comes from borders, color contrast, and photography, not box-yousef shtiwes
 - Use tight line-height on body text — display is compressed (0.96) but body is generous (1.50)
 - Add decorative elements, icons, or illustrations — Superhuman relies on product UI and minimal typography
 - Create pill-shaped buttons — the system uses 8px radius, not rounded pills

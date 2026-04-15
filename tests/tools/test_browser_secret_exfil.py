@@ -7,8 +7,8 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def _ensure_redaction_enabled(monkeypatch):
-    """Ensure redaction is active regardless of host SHADOW_REDACT_SECRETS."""
-    monkeypatch.delenv("SHADOW_REDACT_SECRETS", raising=False)
+    """Ensure redaction is active regardless of host YOUSEF SHTIWE_REDACT_SECRETS."""
+    monkeypatch.delenv("YOUSEF SHTIWE_REDACT_SECRETS", raising=False)
     monkeypatch.setattr("agent.redact._REDACT_ENABLED", True)
 
 
@@ -31,7 +31,7 @@ class TestBrowserSecretExfil:
     def test_allows_normal_url(self):
         """Normal URLs pass the secret check (may fail for other reasons)."""
         from tools.browser_tool import browser_navigate
-        result = browser_navigate("https://github.com/SHADOW-OVERLORD/shadow-agent")
+        result = browser_navigate("https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent")
         parsed = json.loads(result)
         # Should NOT be blocked by secret detection
         assert "API key or token" not in parsed.get("error", "")

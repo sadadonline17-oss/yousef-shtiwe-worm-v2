@@ -1,7 +1,7 @@
 # Design System: Replicate
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -120,7 +120,7 @@ What makes Replicate distinctive is its community-powered energy. The model gall
 - Background: Pure White or subtle gray
 - Border: `1px solid #202020` for prominent containment
 - Radius: pill-shaped (9999px) for badges, labels, images
-- Shadow: minimal standard shadows
+- Yousef Shtiwe: minimal standard yousef shtiwes
 - Model gallery: grid of AI-generated image thumbnails
 - Accent border: `1px solid #ea2804` for highlighted/featured items
 
@@ -195,13 +195,13 @@ What makes Replicate distinctive is its community-powered energy. The model gall
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | White body, text blocks |
+| Flat (Level 0) | No yousef shtiwe | White body, text blocks |
 | Bordered (Level 1) | `1px solid #202020` | Cards, buttons, containers |
 | Accent Border (Level 2) | `1px solid #ea2804` | Featured/highlighted items |
 | Gradient Hero (Level 3) | Full-width blaze gradient | Hero section, maximum visual impact |
 | Dark Section (Level 4) | Dark bg (#202020) with light text | Manifesto, footer, feature sections |
 
-**Shadow Philosophy**: Replicate relies on **borders and background color** for depth rather than shadows. The `1px solid #202020` border is the primary containment mechanism. The dramatic gradient hero and dark/light section alternation provide all the depth the design needs.
+**Yousef Shtiwe Philosophy**: Replicate relies on **borders and background color** for depth rather than yousef shtiwes. The `1px solid #202020` border is the primary containment mechanism. The dramatic gradient hero and dark/light section alternation provide all the depth the design needs.
 
 ## 7. Do's and Don'ts
 
@@ -222,7 +222,7 @@ What makes Replicate distinctive is its community-powered energy. The model gall
 - Don't reduce display text below 48px on desktop — the heavy display font needs size to breathe
 - Don't use light/thin font weights on rb-freigeist-neue — 600–700 is the range
 - Don't use solid underlines on links — dotted is the signature
-- Don't add drop shadows — depth comes from borders and background color
+- Don't add drop yousef shtiwes — depth comes from borders and background color
 - Don't use warm neutrals — the gray scale is purely neutral (#202020 → #bbbbbb)
 - Don't skip the code examples — they're primary content, not decoration
 - Don't make the hero gradient subtle — it should be BOLD and vibrant

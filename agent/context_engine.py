@@ -104,7 +104,7 @@ class ContextEngine(ABC):
         """Called when a new conversation session begins.
 
         Use this to load persisted state (DAG, store) for the session.
-        kwargs may include shadow_home, platform, model, etc.
+        kwargs may include yousef shtiwe_home, platform, model, etc.
         """
 
     def on_session_end(self, session_id: str, messages: List[Dict[str, Any]]) -> None:

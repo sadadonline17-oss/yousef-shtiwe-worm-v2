@@ -211,8 +211,8 @@ class ThreadParticipationTracker:
         self._threads: set = self._load()
 
     def _state_path(self) -> Path:
-        from shadow_constants import get_shadow_home
-        return get_shadow_home() / f"{self._platform}_threads.json"
+        from yousef shtiwe_constants import get_yousef shtiwe_home
+        return get_yousef shtiwe_home() / f"{self._platform}_threads.json"
 
     def _load(self) -> set:
         path = self._state_path()

@@ -2,10 +2,10 @@
 name: llm-wiki
 description: "Karpathy's LLM Wiki — build and maintain a persistent, interlinked markdown knowledge base. Ingest sources, query compiled knowledge, and lint for consistency."
 version: 2.0.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [wiki, knowledge-base, research, notes, markdown, rag-alternative]
     category: research
     related_skills: [obsidian, arxiv, agentic-research-ideas]
@@ -39,8 +39,8 @@ Use this skill when the user:
 
 ## Wiki Location
 
-Configured via `skills.config.wiki.path` in `~/.shadow/config.yaml` (prompted
-during `shadow config migrate` or `shadow setup`):
+Configured via `skills.config.wiki.path` in `~/.yousef shtiwe/config.yaml` (prompted
+during `yousef shtiwe config migrate` or `yousef shtiwe setup`):
 
 ```yaml
 skills:

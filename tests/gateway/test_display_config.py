@@ -243,10 +243,10 @@ class TestConfigMigration:
         }
         config_path.write_text(yaml.dump(config))
 
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
-        # Re-import to pick up the new SHADOW_HOME
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
+        # Re-import to pick up the new YOUSEF SHTIWE_HOME
         import importlib
-        import shadow_cli.config as cfg_mod
+        import yousef shtiwe_cli.config as cfg_mod
         importlib.reload(cfg_mod)
 
         result = cfg_mod.migrate_config(interactive=False, quiet=True)
@@ -270,9 +270,9 @@ class TestConfigMigration:
         }
         config_path.write_text(yaml.dump(config))
 
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         import importlib
-        import shadow_cli.config as cfg_mod
+        import yousef shtiwe_cli.config as cfg_mod
         importlib.reload(cfg_mod)
 
         cfg_mod.migrate_config(interactive=False, quiet=True)

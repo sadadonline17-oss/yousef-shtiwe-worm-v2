@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the SHADOW Skills Index — a centralized JSON catalog of all skills.
+"""Build the YOUSEF SHTIWE Skills Index — a centralized JSON catalog of all skills.
 
 This script crawls every skill source (skills.sh, GitHub taps, official,
 clawhub, lobehub, claude-marketplace) and writes a JSON index with resolved
 GitHub paths. The index is served as a static file on the docs site so that
-`shadow skills search/install` can use it without hitting the GitHub API.
+`yousef shtiwe skills search/install` can use it without hitting the GitHub API.
 
 Usage:
     # Local (uses gh CLI or GITHUB_TOKEN for auth)
@@ -28,8 +28,8 @@ from datetime import datetime, timezone
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO_ROOT)
 
-# Ensure SHADOW_HOME is set (needed by tools/skills_hub.py imports)
-os.environ.setdefault("SHADOW_HOME", os.path.join(os.path.expanduser("~"), ".shadow"))
+# Ensure YOUSEF SHTIWE_HOME is set (needed by tools/skills_hub.py imports)
+os.environ.setdefault("YOUSEF SHTIWE_HOME", os.path.join(os.path.expanduser("~"), ".yousef shtiwe"))
 
 from tools.skills_hub import (
     GitHubAuth,
@@ -243,7 +243,7 @@ def batch_resolve_paths(skills: list, auth: GitHubAuth) -> list:
 
 
 def main():
-    print("Building SHADOW Skills Index...", flush=True)
+    print("Building YOUSEF SHTIWE Skills Index...", flush=True)
     overall_start = time.time()
 
     auth = GitHubAuth()

@@ -2,7 +2,7 @@
 
 # YC-Bench Evaluation
 #
-# Requires: pip install "shadow-agent[yc-bench]"
+# Requires: pip install "yousef shtiwe-agent[yc-bench]"
 #
 # Run from repo root:
 #   bash environments/benchmarks/yc_bench/run_eval.sh

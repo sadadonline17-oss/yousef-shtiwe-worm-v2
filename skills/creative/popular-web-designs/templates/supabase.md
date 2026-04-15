@@ -1,7 +1,7 @@
 # Design System: Supabase
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `Source Code Pro`
@@ -32,7 +32,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 - Pill buttons (9999px) for primary CTAs, 6px radius for secondary
 - Neutral gray scale from `#171717` through `#898989` to `#fafafa`
 - Border system using dark grays (`#2e2e2e`, `#363636`, `#393939`)
-- Minimal shadows — depth through border contrast and transparency
+- Minimal yousef shtiwes — depth through border contrast and transparency
 - Radix color primitives (crimson, purple, violet, indigo, yellow, tomato, orange, slate)
 
 ## 2. Color Palette & Roles
@@ -71,8 +71,8 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 - **Slate Alpha** (`hsla(210, 87.8%, 16.1%, 0.031)`): Ultra-subtle blue wash
 - **Fixed Scale Alpha** (`hsla(200, 90.3%, 93.4%, 0.109)`): Light frost overlay
 
-### Shadows
-- Supabase uses **almost no shadows** in its dark theme. Depth is created through border contrast and surface color differences rather than box-shadows. Focus states use `rgba(0, 0, 0, 0.1) 0px 4px 12px` — minimal, functional.
+### Yousef Shtiwes
+- Supabase uses **almost no yousef shtiwes** in its dark theme. Depth is created through border contrast and surface color differences rather than box-yousef shtiwes. Focus states use `rgba(0, 0, 0, 0.1) 0px 4px 12px` — minimal, functional.
 
 ## 3. Typography Rules
 
@@ -112,7 +112,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 - Padding: 8px 32px
 - Radius: 9999px (full pill)
 - Border: `1px solid #fafafa` (white border on dark)
-- Focus shadow: `rgba(0, 0, 0, 0.1) 0px 4px 12px`
+- Focus yousef shtiwe: `rgba(0, 0, 0, 0.1) 0px 4px 12px`
 - Use: Primary CTA ("Start your project")
 
 **Secondary Pill (Dark, Muted)**
@@ -136,7 +136,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 - Background: dark surfaces (`#171717` or slightly lighter)
 - Border: `1px solid #2e2e2e` or `#363636`
 - Radius: 8px–16px
-- No visible shadows — borders define edges
+- No visible yousef shtiwes — borders define edges
 - Internal padding: 16px–24px
 
 ### Tabs
@@ -184,7 +184,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 ### Whitespace Philosophy
 - **Dramatic section spacing**: 90px–128px between major sections creates a cinematic pacing — each section is its own scene in the dark void.
 - **Dense content blocks**: Within sections, spacing is tight (16px–24px), creating concentrated information clusters.
-- **Border-defined space**: Instead of whitespace + shadows for separation, Supabase uses thin borders on dark backgrounds — separation through line, not gap.
+- **Border-defined space**: Instead of whitespace + yousef shtiwes for separation, Supabase uses thin borders on dark backgrounds — separation through line, not gap.
 
 ### Border Radius Scale
 - Standard (6px): Ghost buttons, small elements
@@ -197,12 +197,12 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, border `#2e2e2e` | Default state, most surfaces |
+| Flat (Level 0) | No yousef shtiwe, border `#2e2e2e` | Default state, most surfaces |
 | Subtle Border (Level 1) | Border `#363636` or `#393939` | Interactive elements, hover |
 | Focus (Level 2) | `rgba(0, 0, 0, 0.1) 0px 4px 12px` | Focus states only |
 | Green Accent (Level 3) | Border `rgba(62, 207, 142, 0.3)` | Brand-highlighted elements |
 
-**Shadow Philosophy**: Supabase deliberately avoids shadows. In a dark-mode-native design, shadows are nearly invisible and serve no purpose. Instead, depth is communicated through a sophisticated border hierarchy — from `#242424` (barely visible) through `#2e2e2e` (standard) to `#393939` (prominent). The green accent border (`rgba(62, 207, 142, 0.3)`) at 30% opacity is the "elevated" state — the brand color itself becomes the depth signal.
+**Yousef Shtiwe Philosophy**: Supabase deliberately avoids yousef shtiwes. In a dark-mode-native design, yousef shtiwes are nearly invisible and serve no purpose. Instead, depth is communicated through a sophisticated border hierarchy — from `#242424` (barely visible) through `#2e2e2e` (standard) to `#393939` (prominent). The green accent border (`rgba(62, 207, 142, 0.3)`) at 30% opacity is the "elevated" state — the brand color itself becomes the depth signal.
 
 ## 7. Do's and Don'ts
 
@@ -217,7 +217,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 - Use Source Code Pro uppercase labels for developer-context markers
 
 ### Don't
-- Don't add box-shadows — they're invisible on dark backgrounds and break the border-defined depth system
+- Don't add box-yousef shtiwes — they're invisible on dark backgrounds and break the border-defined depth system
 - Don't use bold (700) text weight — the system uses 400 and 500 only
 - Don't apply green to backgrounds or large surfaces — it's for borders, links, and small accents
 - Don't use warm colors (crimson, orange) as primary design elements — they exist as semantic tokens for states
@@ -261,7 +261,7 @@ The green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in li
 ### Iteration Guide
 1. Start with #171717 background — everything is dark-mode-native
 2. Green is the brand identity marker — use it for links, logo, and accent borders only
-3. Depth comes from borders (#242424 → #2e2e2e → #363636), not shadows
+3. Depth comes from borders (#242424 → #2e2e2e → #363636), not yousef shtiwes
 4. Weight 400 is the default for everything — 500 only for interactive elements
 5. Hero line-height of 1.00 is the signature typographic move
 6. Pill (9999px) for primary actions, 6px for secondary, 8-16px for cards

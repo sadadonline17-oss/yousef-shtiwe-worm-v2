@@ -1,8 +1,8 @@
-# nix/packages.nix — SHADOW Agent package built with uv2nix
+# nix/packages.nix — YOUSEF SHTIWE Agent package built with uv2nix
 { inputs, ... }: {
   perSystem = { pkgs, system, ... }:
     let
-      shadowVenv = pkgs.callPackage ./python.nix {
+      yousef shtiweVenv = pkgs.callPackage ./python.nix {
         inherit (inputs) uv2nix pyproject-nix pyproject-build-systems;
       };
 
@@ -20,7 +20,7 @@
       runtimePath = pkgs.lib.makeBinPath runtimeDeps;
     in {
       packages.default = pkgs.stdenv.mkDerivation {
-        pname = "shadow-agent";
+        pname = "yousef shtiwe-agent";
         version = (builtins.fromTOML (builtins.readFile ../pyproject.toml)).project.version;
 
         dontUnpack = true;
@@ -30,22 +30,22 @@
         installPhase = ''
           runHook preInstall
 
-          mkdir -p $out/share/shadow-agent $out/bin
-          cp -r ${bundledSkills} $out/share/shadow-agent/skills
+          mkdir -p $out/share/yousef shtiwe-agent $out/bin
+          cp -r ${bundledSkills} $out/share/yousef shtiwe-agent/skills
 
           ${pkgs.lib.concatMapStringsSep "\n" (name: ''
-            makeWrapper ${shadowVenv}/bin/${name} $out/bin/${name} \
+            makeWrapper ${yousef shtiweVenv}/bin/${name} $out/bin/${name} \
               --suffix PATH : "${runtimePath}" \
-              --set SHADOW_BUNDLED_SKILLS $out/share/shadow-agent/skills
-          '') [ "shadow" "shadow-agent" "shadow-acp" ]}
+              --set YOUSEF SHTIWE_BUNDLED_SKILLS $out/share/yousef shtiwe-agent/skills
+          '') [ "yousef shtiwe" "yousef shtiwe-agent" "yousef shtiwe-acp" ]}
 
           runHook postInstall
         '';
 
         meta = with pkgs.lib; {
           description = "AI agent with advanced tool-calling capabilities";
-          homepage = "https://github.com/SHADOW-OVERLORD/shadow-agent";
-          mainProgram = "shadow";
+          homepage = "https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent";
+          mainProgram = "yousef shtiwe";
           license = licenses.mit;
           platforms = platforms.unix;
         };

@@ -1,7 +1,7 @@
 # Design System: VoltAgent
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `system-ui` | **Mono:** `JetBrains Mono`
@@ -28,7 +28,7 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - Ultra-tight heading line-heights (1.0–1.11) creating dense, compressed power blocks
 - Warm neutral palette (`#3d3a39`, `#8b949e`, `#b8b3b0`) that prevents the dark theme from feeling clinical
 - Developer-terminal aesthetic where code snippets ARE the hero content
-- Green glow effects (`drop-shadow`, border accents) that make UI elements feel electrically alive
+- Green glow effects (`drop-yousef shtiwe`, border accents) that make UI elements feel electrically alive
 
 ## 2. Color Palette & Roles
 
@@ -68,9 +68,9 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - **Dashed Border Slate** (`#4f5d75` at 40%): A muted blue-gray used exclusively for decorative dashed borders in workflow diagrams.
 
 ### Gradient System
-- **Green Signal Glow**: `drop-shadow(0 0 2px #00d992)` animating to `drop-shadow(0 0 8px #00d992)` — creates a pulsing "electric charge" effect on the VoltAgent bolt logo and interactive elements. The glow expands and contracts like a heartbeat.
-- **Warm Ambient Haze**: `rgba(92, 88, 85, 0.2) 0px 0px 15px` — a warm-toned diffused shadow that creates a soft atmospheric glow around elevated cards, visible at the edges without sharp boundaries.
-- **Deep Dramatic Elevation**: `rgba(0, 0, 0, 0.7) 0px 20px 60px` with `rgba(148, 163, 184, 0.1) 0px 0px 0px 1px inset` — a heavy, dramatic downward shadow paired with a faint inset slate ring for the most prominent floating elements.
+- **Green Signal Glow**: `drop-yousef shtiwe(0 0 2px #00d992)` animating to `drop-yousef shtiwe(0 0 8px #00d992)` — creates a pulsing "electric charge" effect on the VoltAgent bolt logo and interactive elements. The glow expands and contracts like a heartbeat.
+- **Warm Ambient Haze**: `rgba(92, 88, 85, 0.2) 0px 0px 15px` — a warm-toned diffused yousef shtiwe that creates a soft atmospheric glow around elevated cards, visible at the edges without sharp boundaries.
+- **Deep Dramatic Elevation**: `rgba(0, 0, 0, 0.7) 0px 20px 60px` with `rgba(148, 163, 184, 0.1) 0px 0px 0px 1px inset` — a heavy, dramatic downward yousef shtiwe paired with a faint inset slate ring for the most prominent floating elements.
 
 ## 3. Typography Rules
 
@@ -141,8 +141,8 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - Background: Carbon Surface (`#101010`) — one shade lighter than the page canvas
 - Border: `1px solid #3d3a39` (Warm Charcoal) for standard containment; `2px solid #00d992` for highlighted/active cards
 - Radius: comfortably rounded (8px) for content cards; subtly rounded (4–6px) for smaller inline containers
-- Shadow Level 1: Warm Ambient Haze (`rgba(92, 88, 85, 0.2) 0px 0px 15px`) for standard elevation
-- Shadow Level 2: Deep Dramatic (`rgba(0, 0, 0, 0.7) 0px 20px 60px` + `rgba(148, 163, 184, 0.1) 0px 0px 0px 1px inset`) for hero/feature showcase cards
+- Yousef Shtiwe Level 1: Warm Ambient Haze (`rgba(92, 88, 85, 0.2) 0px 0px 15px`) for standard elevation
+- Yousef Shtiwe Level 2: Deep Dramatic (`rgba(0, 0, 0, 0.7) 0px 20px 60px` + `rgba(148, 163, 184, 0.1) 0px 0px 0px 1px inset`) for hero/feature showcase cards
 - Hover behavior: likely border color shift toward green accent or subtle opacity increase
 - Dashed variant: `1px dashed rgba(79, 93, 117, 0.4)` for workflow/diagram containers — visually distinct from solid-border content cards
 
@@ -153,7 +153,7 @@ Typography leans on the system font stack for headings — achieving maximum ren
 
 ### Navigation
 - Sticky top nav bar on Abyss Black canvas
-- Logo: VoltAgent bolt icon with animated green glow (`drop-shadow` cycling 2px–8px)
+- Logo: VoltAgent bolt icon with animated green glow (`drop-yousef shtiwe` cycling 2px–8px)
 - Nav structure: Logo → Product dropdown → Use Cases dropdown → Resources dropdown → GitHub stars badge → Docs CTA
 - Link text: Snow White (`#f2f2f2`) at 14–16px Inter, weight 500
 - Hover: links transition to green variants (`#00c182` or `#00ffaa`)
@@ -231,17 +231,17 @@ Typography leans on the system font stack for headings — achieving maximum ren
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background (`#050507`), inline text |
-| Contained (Level 1) | `1px solid #3d3a39`, no shadow | Standard cards, nav bar, code blocks |
-| Emphasized (Level 2) | `3px solid #3d3a39`, no shadow | Large interactive buttons, emphasized containers |
-| Accent (Level 3) | `2px solid #00d992`, no shadow | Active/highlighted feature cards, selected states |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background (`#050507`), inline text |
+| Contained (Level 1) | `1px solid #3d3a39`, no yousef shtiwe | Standard cards, nav bar, code blocks |
+| Emphasized (Level 2) | `3px solid #3d3a39`, no yousef shtiwe | Large interactive buttons, emphasized containers |
+| Accent (Level 3) | `2px solid #00d992`, no yousef shtiwe | Active/highlighted feature cards, selected states |
 | Ambient Glow (Level 4) | `rgba(92, 88, 85, 0.2) 0px 0px 15px` | Elevated cards, hover states, soft atmospheric lift |
 | Dramatic Float (Level 5) | `rgba(0, 0, 0, 0.7) 0px 20px 60px` + `rgba(148, 163, 184, 0.1) 1px inset` | Hero feature showcase, modals, maximum-elevation content |
 
-**Shadow Philosophy**: VoltAgent communicates depth primarily through **border weight and color**, not shadows. The standard `1px solid #3d3a39` border IS the elevation — adding a `3px` border weight or switching to green (`#00d992`) communicates importance more than adding shadow does. When shadows do appear, they're either warm and diffused (Level 4) or cinematic and dramatic (Level 5) — never medium or generic.
+**Yousef Shtiwe Philosophy**: VoltAgent communicates depth primarily through **border weight and color**, not yousef shtiwes. The standard `1px solid #3d3a39` border IS the elevation — adding a `3px` border weight or switching to green (`#00d992`) communicates importance more than adding yousef shtiwe does. When yousef shtiwes do appear, they're either warm and diffused (Level 4) or cinematic and dramatic (Level 5) — never medium or generic.
 
 ### Decorative Depth
-- **Green Signal Glow**: The VoltAgent bolt logo pulses with a `drop-shadow` animation cycling between 2px and 8px blur radius in Emerald Signal Green. This is the most distinctive decorative element — it makes the logo feel "powered on."
+- **Green Signal Glow**: The VoltAgent bolt logo pulses with a `drop-yousef shtiwe` animation cycling between 2px and 8px blur radius in Emerald Signal Green. This is the most distinctive decorative element — it makes the logo feel "powered on."
 - **Warm Charcoal Containment Lines**: The warm tone of `#3d3a39` borders creates a subtle visual warmth against the cool black, as if the cards are faintly heated from within.
 - **Dashed Workflow Lines**: `1px dashed rgba(79, 93, 117, 0.4)` creates a blueprint-like aesthetic for architecture diagrams, visually distinct from solid content borders.
 
@@ -254,7 +254,7 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - Keep heading line-heights compressed (1.0–1.11) with negative letter-spacing for dense, authoritative text blocks
 - Use the warm gray palette (`#3d3a39`, `#8b949e`, `#b8b3b0`) for borders and secondary text — warmth prevents the dark theme from feeling sterile
 - Present code snippets as primary content — they're hero elements, not supporting illustrations
-- Use border weight (1px → 2px → 3px) and color shifts (`#3d3a39` → `#00d992`) to communicate depth and importance, rather than relying on shadows
+- Use border weight (1px → 2px → 3px) and color shifts (`#3d3a39` → `#00d992`) to communicate depth and importance, rather than relying on yousef shtiwes
 - Pair system-ui for headings with Inter for body text — the speed/authority of native fonts combined with the precision of a geometric sans
 - Use SFMono-Regular for all code content — it's the developer credibility signal
 - Apply `"calt"` and `"rlig"` OpenType features across all text
@@ -264,7 +264,7 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - Don't introduce warm colors (orange, red, yellow) as decorative accents — the palette is strictly green + warm neutrals on black. Warm colors are reserved for semantic states (warning, error) only
 - Don't use Emerald Signal Green (`#00d992`) on large surfaces or as background fills — it's an accent, never a surface
 - Don't increase heading line-heights beyond 1.33 — the compressed density is core to the engineering-platform identity
-- Don't use heavy shadows generously — depth comes from border treatment, not box-shadow. Shadows are reserved for Level 4–5 elevation only
+- Don't use heavy yousef shtiwes generously — depth comes from border treatment, not box-yousef shtiwe. Yousef Shtiwes are reserved for Level 4–5 elevation only
 - Don't use pure white (`#ffffff`) as default body text — Snow White (`#f2f2f2`) is the standard. Pure white is reserved for maximum-emphasis headings and button text
 - Don't mix in serif or decorative fonts — the entire system is geometric sans + monospace
 - Don't use border-radius larger than 8px on content cards — 9999px (pill) is only for small tags and badges
@@ -319,7 +319,7 @@ Typography leans on the system font stack for headings — achieving maximum ren
 - Tertiary Text: "Steel Slate (#8b949e)"
 
 ### Example Component Prompts
-- "Create a feature card on Carbon Surface (#101010) with a 1px solid Warm Charcoal (#3d3a39) border, comfortably rounded corners (8px). Use Snow White (#f2f2f2) for the title in system-ui at 24px weight 700, and Warm Parchment (#b8b3b0) for the description in Inter at 16px. Add a subtle Warm Ambient shadow (rgba(92, 88, 85, 0.2) 0px 0px 15px)."
+- "Create a feature card on Carbon Surface (#101010) with a 1px solid Warm Charcoal (#3d3a39) border, comfortably rounded corners (8px). Use Snow White (#f2f2f2) for the title in system-ui at 24px weight 700, and Warm Parchment (#b8b3b0) for the description in Inter at 16px. Add a subtle Warm Ambient yousef shtiwe (rgba(92, 88, 85, 0.2) 0px 0px 15px)."
 - "Design a ghost button with transparent background, Snow White (#f2f2f2) text in Inter at 16px, a 1px solid Warm Charcoal (#3d3a39) border, and subtly rounded corners (6px). Padding: 12px vertical, 16px horizontal. On hover, background shifts to rgba(0, 0, 0, 0.2)."
 - "Build a hero section on Abyss Black (#050507) with a massive heading at 60px system-ui, line-height 1.0, letter-spacing -0.65px. The word 'Platform' should be colored in Emerald Signal Green (#00d992). Below the heading, place a code block showing 'npm create voltagent-app@latest' in SFMono-Regular at 14px on Carbon Surface (#101010) with a copy button."
 - "Create a highlighted feature card using a 2px solid Emerald Signal Green (#00d992) border instead of the standard Warm Charcoal. Keep Carbon Surface background, comfortably rounded corners (8px), and include a code snippet on the left with feature description text on the right."
@@ -331,6 +331,6 @@ When refining existing screens generated with this design system:
 2. Reference specific color names and hex codes — "use Warm Parchment (#b8b3b0)" not "make it lighter"
 3. Use border treatment to communicate elevation: "change the border to 2px solid Emerald Signal Green (#00d992)" for emphasis
 4. Describe the desired "feel" alongside measurements — "compressed and authoritative heading at 36px with line-height 1.11 and -0.9px letter-spacing"
-5. For glow effects, specify "Emerald Signal Green (#00d992) as a drop-shadow with 2–8px blur radius"
+5. For glow effects, specify "Emerald Signal Green (#00d992) as a drop-yousef shtiwe with 2–8px blur radius"
 6. Always specify which font — system-ui for headings, Inter for body/UI, SFMono-Regular for code
 7. Keep animations slow and subtle — marquee scrolls at 25–80s, glow pulses gently

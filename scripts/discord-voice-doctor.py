@@ -19,8 +19,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-SHADOW_HOME = Path(os.getenv("SHADOW_HOME", Path.home() / ".shadow"))
-ENV_FILE = SHADOW_HOME / ".env"
+YOUSEF SHTIWE_HOME = Path(os.getenv("YOUSEF SHTIWE_HOME", Path.home() / ".yousef shtiwe"))
+ENV_FILE = YOUSEF SHTIWE_HOME / ".env"
 
 OK = "\033[92m\u2713\033[0m"
 FAIL = "\033[91m\u2717\033[0m"
@@ -232,10 +232,10 @@ def check_env_vars():
 
 
 def check_config(groq_key, eleven_key):
-    """Check shadow config.yaml."""
+    """Check yousef shtiwe config.yaml."""
     section("Configuration")
 
-    config_path = SHADOW_HOME / "config.yaml"
+    config_path = YOUSEF SHTIWE_HOME / "config.yaml"
     if config_path.exists():
         try:
             import yaml
@@ -261,7 +261,7 @@ def check_config(groq_key, eleven_key):
         warn("config.yaml", "not found — using defaults")
 
     # Voice mode state
-    voice_mode_path = SHADOW_HOME / "gateway_voice_mode.json"
+    voice_mode_path = YOUSEF SHTIWE_HOME / "gateway_voice_mode.json"
     if voice_mode_path.exists():
         try:
             import json

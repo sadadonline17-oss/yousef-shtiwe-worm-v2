@@ -1,7 +1,7 @@
 # Design System: Intercom
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -112,7 +112,7 @@ What distinguishes Intercom is its remarkably sharp geometry — 4px border-radi
 - Background: `#faf9f6` (warm cream)
 - Border: `1px solid #dedbd6` (warm oat)
 - Radius: 8px
-- No visible shadows
+- No visible yousef shtiwes
 
 ### Navigation
 - Saans 16px for links
@@ -126,7 +126,7 @@ What distinguishes Intercom is its remarkably sharp geometry — 4px border-radi
 ### Border Radius: 4px (buttons), 6px (nav items), 8px (cards, containers)
 
 ## 6. Depth & Elevation
-Minimal shadows. Depth through warm border colors and surface tints.
+Minimal yousef shtiwes. Depth through warm border colors and surface tints.
 
 ## 7. Do's and Don'ts
 

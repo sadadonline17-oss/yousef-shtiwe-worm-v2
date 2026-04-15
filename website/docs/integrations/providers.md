@@ -6,47 +6,47 @@ sidebar_position: 1
 
 # AI Providers
 
-This page covers setting up inference providers for SHADOW Agent — from cloud APIs like OpenRouter and Anthropic, to self-hosted endpoints like Ollama and vLLM, to advanced routing and fallback configurations. You need at least one provider configured to use SHADOW.
+This page covers setting up inference providers for YOUSEF SHTIWE Agent — from cloud APIs like OpenRouter and Anthropic, to self-hosted endpoints like Ollama and vLLM, to advanced routing and fallback configurations. You need at least one provider configured to use YOUSEF SHTIWE.
 
 ## Inference Providers
 
-You need at least one way to connect to an LLM. Use `shadow model` to switch providers and models interactively, or configure directly:
+You need at least one way to connect to an LLM. Use `yousef shtiwe model` to switch providers and models interactively, or configure directly:
 
 | Provider | Setup |
 |----------|-------|
-| **Shadow Portal** | `shadow model` (OAuth, subscription-based) |
-| **OpenAI Codex** | `shadow model` (ChatGPT OAuth, uses Codex models) |
-| **GitHub Copilot** | `shadow model` (OAuth device code flow, `COPILOT_GITHUB_TOKEN`, `GH_TOKEN`, or `gh auth token`) |
-| **GitHub Copilot ACP** | `shadow model` (spawns local `copilot --acp --stdio`) |
-| **Anthropic** | `shadow model` (Claude Pro/Max via Claude Code auth, Anthropic API key, or manual setup-token) |
-| **OpenRouter** | `OPENROUTER_API_KEY` in `~/.shadow/.env` |
-| **AI Gateway** | `AI_GATEWAY_API_KEY` in `~/.shadow/.env` (provider: `ai-gateway`) |
-| **z.ai / GLM** | `GLM_API_KEY` in `~/.shadow/.env` (provider: `zai`) |
-| **Kimi / Moonshot** | `KIMI_API_KEY` in `~/.shadow/.env` (provider: `kimi-coding`) |
-| **Kimi / Moonshot (China)** | `KIMI_CN_API_KEY` in `~/.shadow/.env` (provider: `kimi-coding-cn`; aliases: `kimi-cn`, `moonshot-cn`) |
-| **Arcee AI** | `ARCEEAI_API_KEY` in `~/.shadow/.env` (provider: `arcee`; aliases: `arcee-ai`, `arceeai`) |
-| **MiniMax** | `MINIMAX_API_KEY` in `~/.shadow/.env` (provider: `minimax`) |
-| **MiniMax China** | `MINIMAX_CN_API_KEY` in `~/.shadow/.env` (provider: `minimax-cn`) |
-| **Alibaba Cloud** | `DASHSCOPE_API_KEY` in `~/.shadow/.env` (provider: `alibaba`, aliases: `dashscope`, `qwen`) |
-| **Kilo Code** | `KILOCODE_API_KEY` in `~/.shadow/.env` (provider: `kilocode`) |
-| **Xiaomi MiMo** | `XIAOMI_API_KEY` in `~/.shadow/.env` (provider: `xiaomi`, aliases: `mimo`, `xiaomi-mimo`) |
-| **OpenCode Zen** | `OPENCODE_ZEN_API_KEY` in `~/.shadow/.env` (provider: `opencode-zen`) |
-| **OpenCode Go** | `OPENCODE_GO_API_KEY` in `~/.shadow/.env` (provider: `opencode-go`) |
-| **DeepSeek** | `DEEPSEEK_API_KEY` in `~/.shadow/.env` (provider: `deepseek`) |
-| **Hugging Face** | `HF_TOKEN` in `~/.shadow/.env` (provider: `huggingface`, aliases: `hf`) |
-| **Google / Gemini** | `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) in `~/.shadow/.env` (provider: `gemini`) |
-| **Custom Endpoint** | `shadow model` → choose "Custom endpoint" (saved in `config.yaml`) |
+| **Yousef Shtiwe Portal** | `yousef shtiwe model` (OAuth, subscription-based) |
+| **OpenAI Codex** | `yousef shtiwe model` (ChatGPT OAuth, uses Codex models) |
+| **GitHub Copilot** | `yousef shtiwe model` (OAuth device code flow, `COPILOT_GITHUB_TOKEN`, `GH_TOKEN`, or `gh auth token`) |
+| **GitHub Copilot ACP** | `yousef shtiwe model` (spawns local `copilot --acp --stdio`) |
+| **Anthropic** | `yousef shtiwe model` (Claude Pro/Max via Claude Code auth, Anthropic API key, or manual setup-token) |
+| **OpenRouter** | `OPENROUTER_API_KEY` in `~/.yousef shtiwe/.env` |
+| **AI Gateway** | `AI_GATEWAY_API_KEY` in `~/.yousef shtiwe/.env` (provider: `ai-gateway`) |
+| **z.ai / GLM** | `GLM_API_KEY` in `~/.yousef shtiwe/.env` (provider: `zai`) |
+| **Kimi / Moonshot** | `KIMI_API_KEY` in `~/.yousef shtiwe/.env` (provider: `kimi-coding`) |
+| **Kimi / Moonshot (China)** | `KIMI_CN_API_KEY` in `~/.yousef shtiwe/.env` (provider: `kimi-coding-cn`; aliases: `kimi-cn`, `moonshot-cn`) |
+| **Arcee AI** | `ARCEEAI_API_KEY` in `~/.yousef shtiwe/.env` (provider: `arcee`; aliases: `arcee-ai`, `arceeai`) |
+| **MiniMax** | `MINIMAX_API_KEY` in `~/.yousef shtiwe/.env` (provider: `minimax`) |
+| **MiniMax China** | `MINIMAX_CN_API_KEY` in `~/.yousef shtiwe/.env` (provider: `minimax-cn`) |
+| **Alibaba Cloud** | `DASHSCOPE_API_KEY` in `~/.yousef shtiwe/.env` (provider: `alibaba`, aliases: `dashscope`, `qwen`) |
+| **Kilo Code** | `KILOCODE_API_KEY` in `~/.yousef shtiwe/.env` (provider: `kilocode`) |
+| **Xiaomi MiMo** | `XIAOMI_API_KEY` in `~/.yousef shtiwe/.env` (provider: `xiaomi`, aliases: `mimo`, `xiaomi-mimo`) |
+| **OpenCode Zen** | `OPENCODE_ZEN_API_KEY` in `~/.yousef shtiwe/.env` (provider: `opencode-zen`) |
+| **OpenCode Go** | `OPENCODE_GO_API_KEY` in `~/.yousef shtiwe/.env` (provider: `opencode-go`) |
+| **DeepSeek** | `DEEPSEEK_API_KEY` in `~/.yousef shtiwe/.env` (provider: `deepseek`) |
+| **Hugging Face** | `HF_TOKEN` in `~/.yousef shtiwe/.env` (provider: `huggingface`, aliases: `hf`) |
+| **Google / Gemini** | `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) in `~/.yousef shtiwe/.env` (provider: `gemini`) |
+| **Custom Endpoint** | `yousef shtiwe model` → choose "Custom endpoint" (saved in `config.yaml`) |
 
 :::tip Model key alias
 In the `model:` config section, you can use either `default:` or `model:` as the key name for your model ID. Both `model: { default: my-model }` and `model: { model: my-model }` work identically.
 :::
 
 :::info Codex Note
-The OpenAI Codex provider authenticates via device code (open a URL, enter a code). SHADOW stores the resulting credentials in its own auth store under `~/.shadow/auth.json` and can import existing Codex CLI credentials from `~/.codex/auth.json` when present. No Codex CLI installation is required.
+The OpenAI Codex provider authenticates via device code (open a URL, enter a code). YOUSEF SHTIWE stores the resulting credentials in its own auth store under `~/.yousef shtiwe/auth.json` and can import existing Codex CLI credentials from `~/.codex/auth.json` when present. No Codex CLI installation is required.
 :::
 
 :::warning
-Even when using Shadow Portal, Codex, or a custom endpoint, some tools (vision, web summarization, MoA) use a separate "auxiliary" model — by default Gemini Flash via OpenRouter. An `OPENROUTER_API_KEY` enables these tools automatically. You can also configure which model and provider these tools use — see [Auxiliary Models](/docs/user-guide/configuration#auxiliary-models).
+Even when using Yousef Shtiwe Portal, Codex, or a custom endpoint, some tools (vision, web summarization, MoA) use a separate "auxiliary" model — by default Gemini Flash via OpenRouter. An `OPENROUTER_API_KEY` enables these tools automatically. You can also configure which model and provider these tools use — see [Auxiliary Models](/docs/user-guide/configuration#auxiliary-models).
 :::
 
 ### Anthropic (Native)
@@ -56,21 +56,21 @@ Use Claude models directly through the Anthropic API — no OpenRouter proxy nee
 ```bash
 # With an API key (pay-per-token)
 export ANTHROPIC_API_KEY=***
-shadow chat --provider anthropic --model claude-sonnet-4-6
+yousef shtiwe chat --provider anthropic --model claude-sonnet-4-6
 
-# Preferred: authenticate through `shadow model`
-# SHADOW will use Claude Code's credential store directly when available
-shadow model
+# Preferred: authenticate through `yousef shtiwe model`
+# YOUSEF SHTIWE will use Claude Code's credential store directly when available
+yousef shtiwe model
 
 # Manual override with a setup-token (fallback / legacy)
 export ANTHROPIC_TOKEN=***  # setup-token or manual OAuth token
-shadow chat --provider anthropic
+yousef shtiwe chat --provider anthropic
 
 # Auto-detect Claude Code credentials (if you already use Claude Code)
-shadow chat --provider anthropic  # reads Claude Code credential files automatically
+yousef shtiwe chat --provider anthropic  # reads Claude Code credential files automatically
 ```
 
-When you choose Anthropic OAuth through `shadow model`, SHADOW prefers Claude Code's own credential store over copying the token into `~/.shadow/.env`. That keeps refreshable Claude credentials refreshable.
+When you choose Anthropic OAuth through `yousef shtiwe model`, YOUSEF SHTIWE prefers Claude Code's own credential store over copying the token into `~/.yousef shtiwe/.env`. That keeps refreshable Claude credentials refreshable.
 
 Or set it permanently:
 ```yaml
@@ -85,12 +85,12 @@ model:
 
 ### GitHub Copilot
 
-SHADOW supports GitHub Copilot as a first-class provider with two modes:
+YOUSEF SHTIWE supports GitHub Copilot as a first-class provider with two modes:
 
 **`copilot` — Direct Copilot API** (recommended). Uses your GitHub Copilot subscription to access GPT-5.x, Claude, Gemini, and other models through the Copilot API.
 
 ```bash
-shadow chat --provider copilot --model gpt-5.4
+yousef shtiwe chat --provider copilot --model gpt-5.4
 ```
 
 **Authentication options** (checked in this order):
@@ -100,18 +100,18 @@ shadow chat --provider copilot --model gpt-5.4
 3. `GITHUB_TOKEN` environment variable
 4. `gh auth token` CLI fallback
 
-If no token is found, `shadow model` offers an **OAuth device code login** — the same flow used by the Copilot CLI and opencode.
+If no token is found, `yousef shtiwe model` offers an **OAuth device code login** — the same flow used by the Copilot CLI and opencode.
 
 :::warning Token types
 The Copilot API does **not** support classic Personal Access Tokens (`ghp_*`). Supported token types:
 
 | Type | Prefix | How to get |
 |------|--------|------------|
-| OAuth token | `gho_` | `shadow model` → GitHub Copilot → Login with GitHub |
+| OAuth token | `gho_` | `yousef shtiwe model` → GitHub Copilot → Login with GitHub |
 | Fine-grained PAT | `github_pat_` | GitHub Settings → Developer settings → Fine-grained tokens (needs **Copilot Requests** permission) |
 | GitHub App token | `ghu_` | Via GitHub App installation |
 
-If your `gh auth token` returns a `ghp_*` token, use `shadow model` to authenticate via OAuth instead.
+If your `gh auth token` returns a `ghp_*` token, use `yousef shtiwe model` to authenticate via OAuth instead.
 :::
 
 **API routing**: GPT-5+ models (except `gpt-5-mini`) automatically use the Responses API. All other models (GPT-4o, Claude, Gemini, etc.) use Chat Completions. Models are auto-detected from the live Copilot catalog.
@@ -119,7 +119,7 @@ If your `gh auth token` returns a `ghp_*` token, use `shadow model` to authentic
 **`copilot-acp` — Copilot ACP agent backend**. Spawns the local Copilot CLI as a subprocess:
 
 ```bash
-shadow chat --provider copilot-acp --model copilot-acp
+yousef shtiwe chat --provider copilot-acp --model copilot-acp
 # Requires the GitHub Copilot CLI in PATH and an existing `copilot login` session
 ```
 
@@ -133,8 +133,8 @@ model:
 | Environment variable | Description |
 |---------------------|-------------|
 | `COPILOT_GITHUB_TOKEN` | GitHub token for Copilot API (first priority) |
-| `SHADOW_COPILOT_ACP_COMMAND` | Override the Copilot CLI binary path (default: `copilot`) |
-| `SHADOW_COPILOT_ACP_ARGS` | Override ACP args (default: `--acp --stdio`) |
+| `YOUSEF SHTIWE_COPILOT_ACP_COMMAND` | Override the Copilot CLI binary path (default: `copilot`) |
+| `YOUSEF SHTIWE_COPILOT_ACP_ARGS` | Override ACP args (default: `--acp --stdio`) |
 
 ### First-Class Chinese AI Providers
 
@@ -142,36 +142,36 @@ These providers have built-in support with dedicated provider IDs. Set the API k
 
 ```bash
 # z.ai / ZhipuAI GLM
-shadow chat --provider zai --model glm-5
-# Requires: GLM_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider zai --model glm-5
+# Requires: GLM_API_KEY in ~/.yousef shtiwe/.env
 
 # Kimi / Moonshot AI (international: api.moonshot.ai)
-shadow chat --provider kimi-coding --model kimi-for-coding
-# Requires: KIMI_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider kimi-coding --model kimi-for-coding
+# Requires: KIMI_API_KEY in ~/.yousef shtiwe/.env
 
 # Kimi / Moonshot AI (China: api.moonshot.cn)
-shadow chat --provider kimi-coding-cn --model kimi-k2.5
-# Requires: KIMI_CN_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider kimi-coding-cn --model kimi-k2.5
+# Requires: KIMI_CN_API_KEY in ~/.yousef shtiwe/.env
 
 # MiniMax (global endpoint)
-shadow chat --provider minimax --model MiniMax-M2.7
-# Requires: MINIMAX_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider minimax --model MiniMax-M2.7
+# Requires: MINIMAX_API_KEY in ~/.yousef shtiwe/.env
 
 # MiniMax (China endpoint)
-shadow chat --provider minimax-cn --model MiniMax-M2.7
-# Requires: MINIMAX_CN_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider minimax-cn --model MiniMax-M2.7
+# Requires: MINIMAX_CN_API_KEY in ~/.yousef shtiwe/.env
 
 # Alibaba Cloud / DashScope (Qwen models)
-shadow chat --provider alibaba --model qwen3.5-plus
-# Requires: DASHSCOPE_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider alibaba --model qwen3.5-plus
+# Requires: DASHSCOPE_API_KEY in ~/.yousef shtiwe/.env
 
 # Xiaomi MiMo
-shadow chat --provider xiaomi --model mimo-v2-pro
-# Requires: XIAOMI_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider xiaomi --model mimo-v2-pro
+# Requires: XIAOMI_API_KEY in ~/.yousef shtiwe/.env
 
 # Arcee AI (Trinity models)
-shadow chat --provider arcee --model trinity-large-thinking
-# Requires: ARCEEAI_API_KEY in ~/.shadow/.env
+yousef shtiwe chat --provider arcee --model trinity-large-thinking
+# Requires: ARCEEAI_API_KEY in ~/.yousef shtiwe/.env
 ```
 
 Or set the provider permanently in `config.yaml`:
@@ -184,12 +184,12 @@ model:
 Base URLs can be overridden with `GLM_BASE_URL`, `KIMI_BASE_URL`, `MINIMAX_BASE_URL`, `MINIMAX_CN_BASE_URL`, `DASHSCOPE_BASE_URL`, or `XIAOMI_BASE_URL` environment variables.
 
 :::note Z.AI Endpoint Auto-Detection
-When using the Z.AI / GLM provider, SHADOW automatically probes multiple endpoints (global, China, coding variants) to find one that accepts your API key. You don't need to set `GLM_BASE_URL` manually — the working endpoint is detected and cached automatically.
+When using the Z.AI / GLM provider, YOUSEF SHTIWE automatically probes multiple endpoints (global, China, coding variants) to find one that accepts your API key. You don't need to set `GLM_BASE_URL` manually — the working endpoint is detected and cached automatically.
 :::
 
 ### xAI (Grok) Prompt Caching
 
-When using xAI as a provider (any base URL containing `x.ai`), SHADOW automatically enables prompt caching by sending the `x-grok-conv-id` header with every API request. This routes requests to the same server within a conversation session, allowing xAI's infrastructure to reuse cached system prompts and conversation history.
+When using xAI as a provider (any base URL containing `x.ai`), YOUSEF SHTIWE automatically enables prompt caching by sending the `x-grok-conv-id` header with every API request. This routes requests to the same server within a conversation session, allowing xAI's infrastructure to reuse cached system prompts and conversation history.
 
 No configuration is needed — caching activates automatically when an xAI endpoint is detected and a session ID is available. This reduces latency and cost for multi-turn conversations.
 
@@ -199,11 +199,11 @@ No configuration is needed — caching activates automatically when an xAI endpo
 
 ```bash
 # Use any available model
-shadow chat --provider huggingface --model Qwen/Qwen3-235B-A22B-Thinking-2507
-# Requires: HF_TOKEN in ~/.shadow/.env
+yousef shtiwe chat --provider huggingface --model Qwen/Qwen3-235B-A22B-Thinking-2507
+# Requires: HF_TOKEN in ~/.yousef shtiwe/.env
 
 # Short alias
-shadow chat --provider hf --model deepseek-ai/DeepSeek-V3.2
+yousef shtiwe chat --provider hf --model deepseek-ai/DeepSeek-V3.2
 ```
 
 Or set it permanently in `config.yaml`:
@@ -221,7 +221,7 @@ The base URL can be overridden with `HF_BASE_URL`.
 
 ## Custom & Self-Hosted LLM Providers
 
-SHADOW Agent works with **any OpenAI-compatible API endpoint**. If a server implements `/v1/chat/completions`, you can point SHADOW at it. This means you can use local models, GPU inference servers, multi-provider routers, or any third-party API.
+YOUSEF SHTIWE Agent works with **any OpenAI-compatible API endpoint**. If a server implements `/v1/chat/completions`, you can point YOUSEF SHTIWE at it. This means you can use local models, GPU inference servers, multi-provider routers, or any third-party API.
 
 ### General Setup
 
@@ -229,14 +229,14 @@ Three ways to configure a custom endpoint:
 
 **Interactive setup (recommended):**
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter: API base URL, API key, Model name
 ```
 
 **Manual config (`config.yaml`):**
 ```yaml
-# In ~/.shadow/config.yaml
+# In ~/.yousef shtiwe/config.yaml
 model:
   default: your-model-name
   provider: custom
@@ -245,7 +245,7 @@ model:
 ```
 
 :::warning Legacy env vars
-`OPENAI_BASE_URL` and `LLM_MODEL` in `.env` are **removed**. Neither is read by any part of SHADOW — `config.yaml` is the single source of truth for model and endpoint configuration. If you have stale entries in your `.env`, they are automatically cleared on the next `shadow setup` or config migration. Use `shadow model` or edit `config.yaml` directly.
+`OPENAI_BASE_URL` and `LLM_MODEL` in `.env` are **removed**. Neither is read by any part of YOUSEF SHTIWE — `config.yaml` is the single source of truth for model and endpoint configuration. If you have stale entries in your `.env`, they are automatically cleared on the next `yousef shtiwe setup` or config migration. Use `yousef shtiwe model` or edit `config.yaml` directly.
 :::
 
 Both approaches persist to `config.yaml`, which is the source of truth for model, provider, and base URL.
@@ -267,7 +267,7 @@ If you have **named custom providers** configured (see below), use the triple sy
 /model custom:work:llama3       # Use the "work" custom provider with llama3
 ```
 
-When switching providers, SHADOW persists the base URL and provider to config so the change survives restarts. When switching away from a custom endpoint to a built-in provider, the stale base URL is automatically cleared.
+When switching providers, YOUSEF SHTIWE persists the base URL and provider to config so the change survives restarts. When switching away from a custom endpoint to a built-in provider, the stale base URL is automatically cleared.
 
 :::tip
 `/model custom` (bare, no model name) queries your endpoint's `/models` API and auto-selects the model if exactly one is loaded. Useful for local servers running a single model.
@@ -287,10 +287,10 @@ ollama pull qwen2.5-coder:32b
 ollama serve   # Starts on port 11434
 ```
 
-Then configure SHADOW:
+Then configure YOUSEF SHTIWE:
 
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter URL: http://localhost:11434/v1
 # Skip API key (Ollama doesn't need one)
@@ -334,7 +334,7 @@ echo -e "FROM qwen2.5-coder:32b\nPARAMETER num_ctx 32768" > Modelfile
 ollama create qwen2.5-coder-32k -f Modelfile
 ```
 
-**You cannot set context length through the OpenAI-compatible API** (`/v1/chat/completions`). It must be configured server-side or via a Modelfile. This is the #1 source of confusion when integrating Ollama with tools like SHADOW.
+**You cannot set context length through the OpenAI-compatible API** (`/v1/chat/completions`). It must be configured server-side or via a Modelfile. This is the #1 source of confusion when integrating Ollama with tools like YOUSEF SHTIWE.
 :::
 
 **Verify your context is set correctly:**
@@ -361,13 +361,13 @@ vllm serve meta-llama/Llama-3.1-70B-Instruct \
   --max-model-len 65536 \
   --tensor-parallel-size 2 \
   --enable-auto-tool-choice \
-  --tool-call-parser shadow
+  --tool-call-parser yousef shtiwe
 ```
 
-Then configure SHADOW:
+Then configure YOUSEF SHTIWE:
 
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter URL: http://localhost:8000/v1
 # Skip API key (or enter one if you configured vLLM with --api-key)
@@ -380,10 +380,10 @@ shadow model
 
 | Flag | Purpose |
 |------|---------|
-| `--enable-auto-tool-choice` | Required for `tool_choice: "auto"` (the default in SHADOW) |
+| `--enable-auto-tool-choice` | Required for `tool_choice: "auto"` (the default in YOUSEF SHTIWE) |
 | `--tool-call-parser <name>` | Parser for the model's tool call format |
 
-Supported parsers: `shadow` (Qwen 2.5, SHADOW 2/3), `llama3_json` (Llama 3.x), `mistral`, `deepseek_v3`, `deepseek_v31`, `xlam`, `pythonic`. Without these flags, tool calls won't work — the model will output tool calls as text.
+Supported parsers: `yousef shtiwe` (Qwen 2.5, YOUSEF SHTIWE 2/3), `llama3_json` (Llama 3.x), `mistral`, `deepseek_v3`, `deepseek_v31`, `xlam`, `pythonic`. Without these flags, tool calls won't work — the model will output tool calls as text.
 
 :::tip
 vLLM supports human-readable sizes: `--max-model-len 64k` (lowercase k = 1000, uppercase K = 1024).
@@ -405,10 +405,10 @@ python -m sglang.launch_server \
   --tool-call-parser qwen
 ```
 
-Then configure SHADOW:
+Then configure YOUSEF SHTIWE:
 
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter URL: http://localhost:30000/v1
 # Enter model name: meta-llama/Llama-3.1-70B-Instruct
@@ -441,10 +441,10 @@ cmake -B build && cmake --build build --config Release
 
 **Context length (`-c`):** Recent builds default to `0` which reads the model's training context from the GGUF metadata. For models with 128k+ training context, this can OOM trying to allocate the full KV cache. Set `-c` explicitly to what you need (32k–64k is a good range for agent use). If using parallel slots (`-np`), the total context is divided among slots — with `-c 32768 -np 4`, each slot only gets 8k.
 
-Then configure SHADOW to point at it:
+Then configure YOUSEF SHTIWE to point at it:
 
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter URL: http://localhost:8080/v1
 # Skip API key (local servers don't need one)
@@ -454,9 +454,9 @@ shadow model
 This saves the endpoint to `config.yaml` so it persists across sessions.
 
 :::caution `--jinja` is required for tool calling
-Without `--jinja`, llama-server ignores the `tools` parameter entirely. The model will try to call tools by writing JSON in its response text, but SHADOW won't recognize it as a tool call — you'll see raw JSON like `{"name": "web_search", ...}` printed as a message instead of an actual search.
+Without `--jinja`, llama-server ignores the `tools` parameter entirely. The model will try to call tools by writing JSON in its response text, but YOUSEF SHTIWE won't recognize it as a tool call — you'll see raw JSON like `{"name": "web_search", ...}` printed as a message instead of an actual search.
 
-Native tool calling support (best performance): Llama 3.x, Qwen 2.5 (including Coder), SHADOW 2/3, Mistral, DeepSeek, Functionary. All other models use a generic handler that works but may be less efficient. See the [llama.cpp function calling docs](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md) for the full list.
+Native tool calling support (best performance): Llama 3.x, Qwen 2.5 (including Coder), YOUSEF SHTIWE 2/3, Mistral, DeepSeek, Functionary. All other models use a generic handler that works but may be less efficient. See the [llama.cpp function calling docs](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md) for the full list.
 
 You can verify tool support is active by checking `http://localhost:8080/props` — the `chat_template` field should be present.
 :::
@@ -478,10 +478,10 @@ lms server start                        # Starts on port 1234
 lms load qwen2.5-coder --context-length 32768
 ```
 
-Then configure SHADOW:
+Then configure YOUSEF SHTIWE:
 
 ```bash
-shadow model
+yousef shtiwe model
 # Select "Custom endpoint (self-hosted / VLLM / etc.)"
 # Enter URL: http://localhost:1234/v1
 # Skip API key (LM Studio doesn't require one)
@@ -500,13 +500,13 @@ Alternatively, use the CLI: `lms load model-name --context-length 32768`
 To set persistent per-model defaults: My Models tab → gear icon on the model → set context size.
 :::
 
-**Tool calling:** Supported since LM Studio 0.3.6. Models with native tool-calling training (Qwen 2.5, Llama 3.x, Mistral, SHADOW) are auto-detected and shown with a tool badge. Other models use a generic fallback that may be less reliable.
+**Tool calling:** Supported since LM Studio 0.3.6. Models with native tool-calling training (Qwen 2.5, Llama 3.x, Mistral, YOUSEF SHTIWE) are auto-detected and shown with a tool badge. Other models use a generic fallback that may be less reliable.
 
 ---
 
 ### WSL2 Networking (Windows Users)
 
-Since SHADOW Agent requires a Unix environment, Windows users run it inside WSL2. If your model server (Ollama, LM Studio, etc.) runs on the **Windows host**, you need to bridge the network gap — WSL2 uses a virtual network adapter with its own subnet, so `localhost` inside WSL2 refers to the Linux VM, **not** the Windows host.
+Since YOUSEF SHTIWE Agent requires a Unix environment, Windows users run it inside WSL2. If your model server (Ollama, LM Studio, etc.) runs on the **Windows host**, you need to bridge the network gap — WSL2 uses a virtual network adapter with its own subnet, so `localhost` inside WSL2 refers to the Linux VM, **not** the Windows host.
 
 :::tip Both in WSL2? No problem.
 If your model server also runs inside WSL2 (common for vLLM, SGLang, and llama-server), `localhost` works as expected — they share the same network namespace. Skip this section.
@@ -549,7 +549,7 @@ ip route show | grep -i default | awk '{ print $3 }'
 # Example output: 172.29.192.1
 ```
 
-Use that IP in your SHADOW config:
+Use that IP in your YOUSEF SHTIWE config:
 
 ```yaml
 model:
@@ -611,17 +611,17 @@ curl http://localhost:11434/v1/models          # Mirrored mode
 curl http://172.29.192.1:11434/v1/models       # NAT mode (use your actual host IP)
 ```
 
-If you get a JSON response listing your models, you're good. Use that same URL as the `base_url` in your SHADOW config.
+If you get a JSON response listing your models, you're good. Use that same URL as the `base_url` in your YOUSEF SHTIWE config.
 
 ---
 
 ### Troubleshooting Local Models
 
-These issues affect **all** local inference servers when used with SHADOW.
+These issues affect **all** local inference servers when used with YOUSEF SHTIWE.
 
 #### "Connection refused" from WSL2 to a Windows-hosted model server
 
-If you're running SHADOW inside WSL2 and your model server on the Windows host, `http://localhost:<port>` won't work in WSL2's default NAT networking mode. See [WSL2 Networking](#wsl2-networking-windows-users) above for the fix.
+If you're running YOUSEF SHTIWE inside WSL2 and your model server on the Windows host, `http://localhost:<port>` won't work in WSL2's default NAT networking mode. See [WSL2 Networking](#wsl2-networking-windows-users) above for the fix.
 
 #### Tool calls appear as text instead of executing
 
@@ -632,19 +632,19 @@ The model outputs something like `{"name": "web_search", "arguments": {...}}` as
 | Server | Fix |
 |--------|-----|
 | **llama.cpp** | Add `--jinja` to the startup command |
-| **vLLM** | Add `--enable-auto-tool-choice --tool-call-parser shadow` |
+| **vLLM** | Add `--enable-auto-tool-choice --tool-call-parser yousef shtiwe` |
 | **SGLang** | Add `--tool-call-parser qwen` (or appropriate parser) |
 | **Ollama** | Tool calling is enabled by default — make sure your model supports it (check with `ollama show model-name`) |
 | **LM Studio** | Update to 0.3.6+ and use a model with native tool support |
 
 #### Model seems to forget context or give incoherent responses
 
-**Cause:** Context window is too small. When the conversation exceeds the context limit, most servers silently drop older messages. SHADOW's system prompt + tool schemas alone can use 4k–8k tokens.
+**Cause:** Context window is too small. When the conversation exceeds the context limit, most servers silently drop older messages. YOUSEF SHTIWE's system prompt + tool schemas alone can use 4k–8k tokens.
 
 **Diagnosis:**
 
 ```bash
-# Check what SHADOW thinks the context is
+# Check what YOUSEF SHTIWE thinks the context is
 # Look at startup line: "Context limit: X tokens"
 
 # Check your server's actual context
@@ -657,7 +657,7 @@ The model outputs something like `{"name": "web_search", "arguments": {...}}` as
 
 #### "Context limit: 2048 tokens" at startup
 
-SHADOW auto-detects context length from your server's `/v1/models` endpoint. If the server reports a low value (or doesn't report one at all), SHADOW uses the model's declared limit which may be wrong.
+YOUSEF SHTIWE auto-detects context length from your server's `/v1/models` endpoint. If the server reports a low value (or doesn't report one at all), YOUSEF SHTIWE uses the model's declared limit which may be wrong.
 
 **Fix:** Set it explicitly in `config.yaml`:
 
@@ -672,8 +672,8 @@ model:
 #### Responses get cut off mid-sentence
 
 **Possible causes:**
-1. **Low output cap (`max_tokens`) on the server** — SGLang defaults to 128 tokens per response. Set `--default-max-tokens` on the server or configure SHADOW with `model.max_tokens` in config.yaml. Note: `max_tokens` controls response length only — it is unrelated to how long your conversation history can be (that is `context_length`).
-2. **Context exhaustion** — The model filled its context window. Increase `model.context_length` or enable [context compression](/docs/user-guide/configuration#context-compression) in SHADOW.
+1. **Low output cap (`max_tokens`) on the server** — SGLang defaults to 128 tokens per response. Set `--default-max-tokens` on the server or configure YOUSEF SHTIWE with `model.max_tokens` in config.yaml. Note: `max_tokens` controls response length only — it is unrelated to how long your conversation history can be (that is `context_length`).
+2. **Context exhaustion** — The model filled its context window. Increase `model.context_length` or enable [context compression](/docs/user-guide/configuration#context-compression) in YOUSEF SHTIWE.
 
 ---
 
@@ -690,7 +690,7 @@ litellm --model anthropic/claude-sonnet-4 --port 4000
 litellm --config litellm_config.yaml --port 4000
 ```
 
-Then configure SHADOW with `shadow model` → Custom endpoint → `http://localhost:4000/v1`.
+Then configure YOUSEF SHTIWE with `yousef shtiwe model` → Custom endpoint → `http://localhost:4000/v1`.
 
 Example `litellm_config.yaml` with fallback:
 ```yaml
@@ -718,7 +718,7 @@ router_settings:
 npx @blockrun/clawrouter    # Starts on port 8402
 ```
 
-Then configure SHADOW with `shadow model` → Custom endpoint → `http://localhost:8402/v1` → model name `blockrun/auto`.
+Then configure YOUSEF SHTIWE with `yousef shtiwe model` → Custom endpoint → `http://localhost:8402/v1` → model name `blockrun/auto`.
 
 Routing profiles:
 | Profile | Strategy | Savings |
@@ -752,7 +752,7 @@ Any service with an OpenAI-compatible API works. Some popular options:
 | [LocalAI](https://localai.io) | `http://localhost:8080/v1` | Self-hosted, multi-model |
 | [Jan](https://jan.ai) | `http://localhost:1337/v1` | Desktop app with local models |
 
-Configure any of these with `shadow model` → Custom endpoint, or in `config.yaml`:
+Configure any of these with `yousef shtiwe model` → Custom endpoint, or in `config.yaml`:
 
 ```yaml
 model:
@@ -767,7 +767,7 @@ model:
 ### Context Length Detection
 
 :::note Two settings, easy to confuse
-**`context_length`** is the **total context window** — the combined budget for input *and* output tokens (e.g. 200,000 for Claude Opus 4.6). SHADOW uses this to decide when to compress history and to validate API requests.
+**`context_length`** is the **total context window** — the combined budget for input *and* output tokens (e.g. 200,000 for Claude Opus 4.6). YOUSEF SHTIWE uses this to decide when to compress history and to validate API requests.
 
 **`model.max_tokens`** is the **output cap** — the maximum number of tokens the model may generate in a *single response*. It has nothing to do with how long your conversation history can be. The industry-standard name `max_tokens` is a common source of confusion; Anthropic's native API has since renamed it `max_output_tokens` for clarity.
 
@@ -775,7 +775,7 @@ Set `context_length` when auto-detection gets the window size wrong.
 Set `model.max_tokens` only when you need to limit how long individual responses can be.
 :::
 
-SHADOW uses a multi-source resolution chain to detect the correct context window for your model and provider:
+YOUSEF SHTIWE uses a multi-source resolution chain to detect the correct context window for your model and provider:
 
 1. **Config override** — `model.context_length` in config.yaml (highest priority)
 2. **Custom provider per-model** — `custom_providers[].models.<id>.context_length`
@@ -783,7 +783,7 @@ SHADOW uses a multi-source resolution chain to detect the correct context window
 4. **Endpoint `/models`** — queries your server's API (local/custom endpoints)
 5. **Anthropic `/v1/models`** — queries Anthropic's API for `max_input_tokens` (API-key users only)
 6. **OpenRouter API** — live model metadata from OpenRouter
-7. **Shadow Portal** — suffix-matches Shadow model IDs against OpenRouter metadata
+7. **Yousef Shtiwe Portal** — suffix-matches Yousef Shtiwe model IDs against OpenRouter metadata
 8. **[models.dev](https://models.dev)** — community-maintained registry with provider-specific context lengths for 3800+ models across 100+ providers
 9. **Fallback defaults** — broad model family patterns (128K default)
 
@@ -811,7 +811,7 @@ custom_providers:
         context_length: 65536
 ```
 
-`shadow model` will prompt for context length when configuring a custom endpoint. Leave it blank for auto-detection.
+`yousef shtiwe model` will prompt for context length when configuring a custom endpoint. Leave it blank for auto-detection.
 
 :::tip When to set this manually
 - You're using Ollama with a custom `num_ctx` that's lower than the model's maximum
@@ -829,7 +829,7 @@ If you work with multiple custom endpoints (e.g., a local dev server and a remot
 custom_providers:
   - name: local
     base_url: http://localhost:8080/v1
-    # api_key omitted — SHADOW uses "no-key-required" for keyless local servers
+    # api_key omitted — YOUSEF SHTIWE uses "no-key-required" for keyless local servers
   - name: work
     base_url: https://gpu-server.internal.corp/v1
     api_key: corp-api-key
@@ -848,7 +848,7 @@ Switch between them mid-session with the triple syntax:
 /model custom:anthropic-proxy:claude-sonnet-4  # Use the proxy
 ```
 
-You can also select named custom providers from the interactive `shadow model` menu.
+You can also select named custom providers from the interactive `yousef shtiwe model` menu.
 
 ---
 
@@ -856,7 +856,7 @@ You can also select named custom providers from the interactive `shadow model` m
 
 | Use Case | Recommended |
 |----------|-------------|
-| **Just want it to work** | OpenRouter (default) or Shadow Portal |
+| **Just want it to work** | OpenRouter (default) or Yousef Shtiwe Portal |
 | **Local models, easy setup** | Ollama |
 | **Production GPU serving** | vLLM or SGLang |
 | **Mac / no GPU** | Ollama or llama.cpp |
@@ -867,7 +867,7 @@ You can also select named custom providers from the interactive `shadow model` m
 | **Chinese AI models** | z.ai (GLM), Kimi/Moonshot (`kimi-coding` or `kimi-coding-cn`), MiniMax, or Xiaomi MiMo (first-class providers) |
 
 :::tip
-You can switch between providers at any time with `shadow model` — no restart required. Your conversation history, memory, and skills carry over regardless of which provider you use.
+You can switch between providers at any time with `yousef shtiwe model` — no restart required. Your conversation history, memory, and skills carry over regardless of which provider you use.
 :::
 
 ## Optional API Keys
@@ -886,7 +886,7 @@ You can switch between providers at any time with `shadow model` — no restart 
 
 ### Self-Hosting Firecrawl
 
-By default, SHADOW uses the [Firecrawl cloud API](https://firecrawl.dev/) for web search and scraping. If you prefer to run Firecrawl locally, you can point SHADOW at a self-hosted instance instead. See Firecrawl's [SELF_HOST.md](https://github.com/firecrawl/firecrawl/blob/main/SELF_HOST.md) for complete setup instructions.
+By default, YOUSEF SHTIWE uses the [Firecrawl cloud API](https://firecrawl.dev/) for web search and scraping. If you prefer to run Firecrawl locally, you can point YOUSEF SHTIWE at a self-hosted instance instead. See Firecrawl's [SELF_HOST.md](https://github.com/firecrawl/firecrawl/blob/main/SELF_HOST.md) for complete setup instructions.
 
 **What you get:** No API key required, no rate limits, no per-page costs, full data sovereignty.
 
@@ -902,16 +902,16 @@ By default, SHADOW uses the [Firecrawl cloud API](https://firecrawl.dev/) for we
    docker compose up -d
    ```
 
-2. Point SHADOW at your instance (no API key needed):
+2. Point YOUSEF SHTIWE at your instance (no API key needed):
    ```bash
-   shadow config set FIRECRAWL_API_URL http://localhost:3002
+   yousef shtiwe config set FIRECRAWL_API_URL http://localhost:3002
    ```
 
 You can also set both `FIRECRAWL_API_KEY` and `FIRECRAWL_API_URL` if your self-hosted instance has authentication enabled.
 
 ## OpenRouter Provider Routing
 
-When using OpenRouter, you can control how requests are routed across providers. Add a `provider_routing` section to `~/.shadow/config.yaml`:
+When using OpenRouter, you can control how requests are routed across providers. Add a `provider_routing` section to `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
 provider_routing:
@@ -927,7 +927,7 @@ provider_routing:
 
 ## Fallback Model
 
-Configure a backup provider:model that SHADOW switches to automatically when your primary model fails (rate limits, server errors, auth failures):
+Configure a backup provider:model that YOUSEF SHTIWE switches to automatically when your primary model fails (rate limits, server errors, auth failures):
 
 ```yaml
 fallback_model:
@@ -939,7 +939,7 @@ fallback_model:
 
 When activated, the fallback swaps the model and provider mid-session without losing your conversation. It fires **at most once** per session.
 
-Supported providers: `openrouter`, `shadow`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `deepseek`, `ai-gateway`, `opencode-zen`, `opencode-go`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `custom`.
+Supported providers: `openrouter`, `yousef shtiwe`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `deepseek`, `ai-gateway`, `opencode-zen`, `opencode-go`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `custom`.
 
 :::tip
 Fallback is configured exclusively through `config.yaml` — there are no environment variables for it. For full details on when it triggers, supported providers, and how it interacts with auxiliary tasks and delegation, see [Fallback Providers](/docs/user-guide/features/fallback-providers).
@@ -947,7 +947,7 @@ Fallback is configured exclusively through `config.yaml` — there are no enviro
 
 ## Smart Model Routing
 
-Optional cheap-vs-strong routing lets SHADOW keep your main model for complex work while sending very short/simple turns to a cheaper model.
+Optional cheap-vs-strong routing lets YOUSEF SHTIWE keep your main model for complex work while sending very short/simple turns to a cheaper model.
 
 ```yaml
 smart_model_routing:
@@ -962,9 +962,9 @@ smart_model_routing:
 ```
 
 How it works:
-- If a turn is short, single-line, and does not look code/tool/debug heavy, SHADOW may route it to `cheap_model`
-- If the turn looks complex, SHADOW stays on your primary model/provider
-- If the cheap route cannot be resolved cleanly, SHADOW falls back to the primary model automatically
+- If a turn is short, single-line, and does not look code/tool/debug heavy, YOUSEF SHTIWE may route it to `cheap_model`
+- If the turn looks complex, YOUSEF SHTIWE stays on your primary model/provider
+- If the cheap route cannot be resolved cleanly, YOUSEF SHTIWE falls back to the primary model automatically
 
 This is intentionally conservative. It is meant for quick, low-stakes turns like:
 - short factual questions

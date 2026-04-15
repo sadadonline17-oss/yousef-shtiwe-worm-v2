@@ -1,14 +1,14 @@
-"""Tests for MCP tools interactive configuration in shadow_cli.tools_config."""
+"""Tests for MCP tools interactive configuration in yousef shtiwe_cli.tools_config."""
 
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
-from shadow_cli.tools_config import _configure_mcp_tools_interactive
+from yousef shtiwe_cli.tools_config import _configure_mcp_tools_interactive
 
 # Patch targets: imports happen inside the function body, so patch at source
 _PROBE = "tools.mcp_tool.probe_mcp_server_tools"
-_CHECKLIST = "shadow_cli.curses_ui.curses_checklist"
-_SAVE = "shadow_cli.tools_config.save_config"
+_CHECKLIST = "yousef shtiwe_cli.curses_ui.curses_checklist"
+_SAVE = "yousef shtiwe_cli.tools_config.save_config"
 
 
 def test_no_mcp_servers_prints_info(capsys):

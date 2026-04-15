@@ -1,12 +1,12 @@
 ---
 sidebar_position: 2
 title: "Environment Variables"
-description: "Complete reference of all environment variables used by SHADOW Agent"
+description: "Complete reference of all environment variables used by YOUSEF SHTIWE Agent"
 ---
 
 # Environment Variables Reference
 
-All variables go in `~/.shadow/.env`. You can also set them with `shadow config set VAR value`.
+All variables go in `~/.yousef shtiwe/.env`. You can also set them with `yousef shtiwe config set VAR value`.
 
 ## LLM Providers
 
@@ -21,9 +21,9 @@ All variables go in `~/.shadow/.env`. You can also set them with `shadow config 
 | `COPILOT_GITHUB_TOKEN` | GitHub token for Copilot API — first priority (OAuth `gho_*` or fine-grained PAT `github_pat_*`; classic PATs `ghp_*` are **not supported**) |
 | `GH_TOKEN` | GitHub token — second priority for Copilot (also used by `gh` CLI) |
 | `GITHUB_TOKEN` | GitHub token — third priority for Copilot |
-| `SHADOW_COPILOT_ACP_COMMAND` | Override Copilot ACP CLI binary path (default: `copilot`) |
-| `COPILOT_CLI_PATH` | Alias for `SHADOW_COPILOT_ACP_COMMAND` |
-| `SHADOW_COPILOT_ACP_ARGS` | Override Copilot ACP arguments (default: `--acp --stdio`) |
+| `YOUSEF SHTIWE_COPILOT_ACP_COMMAND` | Override Copilot ACP CLI binary path (default: `copilot`) |
+| `COPILOT_CLI_PATH` | Alias for `YOUSEF SHTIWE_COPILOT_ACP_COMMAND` |
+| `YOUSEF SHTIWE_COPILOT_ACP_ARGS` | Override Copilot ACP arguments (default: `--acp --stdio`) |
 | `COPILOT_ACP_BASE_URL` | Override Copilot ACP base URL |
 | `GLM_API_KEY` | z.ai / ZhipuAI GLM API key ([z.ai](https://z.ai)) |
 | `ZAI_API_KEY` | Alias for `GLM_API_KEY` |
@@ -58,26 +58,26 @@ All variables go in `~/.shadow/.env`. You can also set them with `shadow config 
 | `OPENCODE_GO_API_KEY` | OpenCode Go API key — $10/month subscription for open models ([opencode.ai](https://opencode.ai/auth)) |
 | `OPENCODE_GO_BASE_URL` | Override OpenCode Go base URL |
 | `CLAUDE_CODE_OAUTH_TOKEN` | Explicit Claude Code token override if you export one manually |
-| `SHADOW_MODEL` | Override model name at process level (used by cron scheduler; prefer `config.yaml` for normal use) |
+| `YOUSEF SHTIWE_MODEL` | Override model name at process level (used by cron scheduler; prefer `config.yaml` for normal use) |
 | `VOICE_TOOLS_OPENAI_KEY` | Preferred OpenAI key for OpenAI speech-to-text and text-to-speech providers |
-| `SHADOW_LOCAL_STT_COMMAND` | Optional local speech-to-text command template. Supports `{input_path}`, `{output_dir}`, `{language}`, and `{model}` placeholders |
-| `SHADOW_LOCAL_STT_LANGUAGE` | Default language passed to `SHADOW_LOCAL_STT_COMMAND` or auto-detected local `whisper` CLI fallback (default: `en`) |
-| `SHADOW_HOME` | Override SHADOW config directory (default: `~/.shadow`). Also scopes the gateway PID file and systemd service name, so multiple installations can run concurrently |
+| `YOUSEF SHTIWE_LOCAL_STT_COMMAND` | Optional local speech-to-text command template. Supports `{input_path}`, `{output_dir}`, `{language}`, and `{model}` placeholders |
+| `YOUSEF SHTIWE_LOCAL_STT_LANGUAGE` | Default language passed to `YOUSEF SHTIWE_LOCAL_STT_COMMAND` or auto-detected local `whisper` CLI fallback (default: `en`) |
+| `YOUSEF SHTIWE_HOME` | Override YOUSEF SHTIWE config directory (default: `~/.yousef shtiwe`). Also scopes the gateway PID file and systemd service name, so multiple installations can run concurrently |
 
 ## Provider Auth (OAuth)
 
-For native Anthropic auth, SHADOW prefers Claude Code's own credential files when they exist because those credentials can refresh automatically. Environment variables such as `ANTHROPIC_TOKEN` remain useful as manual overrides, but they are no longer the preferred path for Claude Pro/Max login.
+For native Anthropic auth, YOUSEF SHTIWE prefers Claude Code's own credential files when they exist because those credentials can refresh automatically. Environment variables such as `ANTHROPIC_TOKEN` remain useful as manual overrides, but they are no longer the preferred path for Claude Pro/Max login.
 
 | Variable | Description |
 |----------|-------------|
-| `SHADOW_INFERENCE_PROVIDER` | Override provider selection: `auto`, `openrouter`, `shadow`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `deepseek`, `opencode-zen`, `opencode-go`, `ai-gateway` (default: `auto`) |
-| `SHADOW_PORTAL_BASE_URL` | Override Shadow Portal URL (for development/testing) |
-| `Shadow_INFERENCE_BASE_URL` | Override Shadow inference API URL |
-| `SHADOW_Shadow_MIN_KEY_TTL_SECONDS` | Min agent key TTL before re-mint (default: 1800 = 30min) |
-| `SHADOW_Shadow_TIMEOUT_SECONDS` | HTTP timeout for Shadow credential / token flows |
-| `SHADOW_DUMP_REQUESTS` | Dump API request payloads to log files (`true`/`false`) |
-| `SHADOW_PREFILL_MESSAGES_FILE` | Path to a JSON file of ephemeral prefill messages injected at API-call time |
-| `SHADOW_TIMEZONE` | IANA timezone override (for example `America/New_York`) |
+| `YOUSEF SHTIWE_INFERENCE_PROVIDER` | Override provider selection: `auto`, `openrouter`, `yousef shtiwe`, `openai-codex`, `copilot`, `copilot-acp`, `anthropic`, `huggingface`, `zai`, `kimi-coding`, `kimi-coding-cn`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`, `alibaba`, `deepseek`, `opencode-zen`, `opencode-go`, `ai-gateway` (default: `auto`) |
+| `YOUSEF SHTIWE_PORTAL_BASE_URL` | Override Yousef Shtiwe Portal URL (for development/testing) |
+| `Yousef Shtiwe_INFERENCE_BASE_URL` | Override Yousef Shtiwe inference API URL |
+| `YOUSEF SHTIWE_Yousef Shtiwe_MIN_KEY_TTL_SECONDS` | Min agent key TTL before re-mint (default: 1800 = 30min) |
+| `YOUSEF SHTIWE_Yousef Shtiwe_TIMEOUT_SECONDS` | HTTP timeout for Yousef Shtiwe credential / token flows |
+| `YOUSEF SHTIWE_DUMP_REQUESTS` | Dump API request payloads to log files (`true`/`false`) |
+| `YOUSEF SHTIWE_PREFILL_MESSAGES_FILE` | Path to a JSON file of ephemeral prefill messages injected at API-call time |
+| `YOUSEF SHTIWE_TIMEZONE` | IANA timezone override (for example `America/New_York`) |
 
 ## Tool APIs
 
@@ -127,7 +127,7 @@ For native Anthropic auth, SHADOW prefers Claude Code's own credential files whe
 | `TERMINAL_CWD` | Working directory for all terminal sessions |
 | `SUDO_PASSWORD` | Enable sudo without interactive prompt |
 
-For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETIME_SECONDS` controls when SHADOW cleans up an idle terminal session, and later resumes may recreate the sandbox rather than keep the same live processes running.
+For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETIME_SECONDS` controls when YOUSEF SHTIWE cleans up an idle terminal session, and later resumes may recreate the sandbox rather than keep the same live processes running.
 
 ## SSH Backend
 
@@ -147,7 +147,7 @@ For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETI
 | `TERMINAL_CONTAINER_MEMORY` | Memory in MB (default: 5120) |
 | `TERMINAL_CONTAINER_DISK` | Disk in MB (default: 51200) |
 | `TERMINAL_CONTAINER_PERSISTENT` | Persist container filesystem across sessions (default: `true`) |
-| `TERMINAL_SANDBOX_DIR` | Host directory for workspaces and overlays (default: `~/.shadow/sandboxes/`) |
+| `TERMINAL_SANDBOX_DIR` | Host directory for workspaces and overlays (default: `~/.yousef shtiwe/sandboxes/`) |
 
 ## Persistent Shell
 
@@ -280,7 +280,7 @@ For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETI
 | `MATTERMOST_REPLY_MODE` | Reply style: `thread` (threaded replies) or `off` (flat messages, default) |
 | `MATRIX_HOMESERVER` | Matrix homeserver URL (e.g. `https://matrix.org`) |
 | `MATRIX_ACCESS_TOKEN` | Matrix access token for bot authentication |
-| `MATRIX_USER_ID` | Matrix user ID (e.g. `@shadow:matrix.org`) — required for password login, optional with access token |
+| `MATRIX_USER_ID` | Matrix user ID (e.g. `@yousef shtiwe:matrix.org`) — required for password login, optional with access token |
 | `MATRIX_PASSWORD` | Matrix password (alternative to access token) |
 | `MATRIX_ALLOWED_USERS` | Comma-separated Matrix user IDs allowed to message the bot (e.g. `@alice:matrix.org`) |
 | `MATRIX_HOME_ROOM` | Room ID for proactive message delivery (e.g. `!abc123:matrix.org`) |
@@ -300,8 +300,8 @@ For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETI
 | `API_SERVER_CORS_ORIGINS` | Comma-separated browser origins allowed to call the API server directly (for example `http://localhost:3000,http://127.0.0.1:3000`). Default: disabled. |
 | `API_SERVER_PORT` | Port for the API server (default: `8642`) |
 | `API_SERVER_HOST` | Host/bind address for the API server (default: `127.0.0.1`). Use `0.0.0.0` for network access — requires `API_SERVER_KEY` and a narrow `API_SERVER_CORS_ORIGINS` allowlist. |
-| `API_SERVER_MODEL_NAME` | Model name advertised on `/v1/models`. Defaults to the profile name (or `shadow-agent` for the default profile). Useful for multi-user setups where frontends like Open WebUI need distinct model names per connection. |
-| `GATEWAY_PROXY_URL` | URL of a remote SHADOW API server to forward messages to ([proxy mode](/docs/user-guide/messaging/matrix#proxy-mode-e2ee-on-macos)). When set, the gateway handles platform I/O only — all agent work is delegated to the remote server. Also configurable via `gateway.proxy_url` in `config.yaml`. |
+| `API_SERVER_MODEL_NAME` | Model name advertised on `/v1/models`. Defaults to the profile name (or `yousef shtiwe-agent` for the default profile). Useful for multi-user setups where frontends like Open WebUI need distinct model names per connection. |
+| `GATEWAY_PROXY_URL` | URL of a remote YOUSEF SHTIWE API server to forward messages to ([proxy mode](/docs/user-guide/messaging/matrix#proxy-mode-e2ee-on-macos)). When set, the gateway handles platform I/O only — all agent work is delegated to the remote server. Also configurable via `gateway.proxy_url` in `config.yaml`. |
 | `GATEWAY_PROXY_KEY` | Bearer token for authenticating with the remote API server in proxy mode. Must match `API_SERVER_KEY` on the remote host. |
 | `MESSAGING_CWD` | Working directory for terminal commands in messaging mode (default: `~`) |
 | `GATEWAY_ALLOWED_USERS` | Comma-separated user IDs allowed across all platforms |
@@ -311,27 +311,27 @@ For cloud sandbox backends, persistence is filesystem-oriented. `TERMINAL_LIFETI
 
 | Variable | Description |
 |----------|-------------|
-| `SHADOW_MAX_ITERATIONS` | Max tool-calling iterations per conversation (default: 90) |
-| `SHADOW_TOOL_PROGRESS` | Deprecated compatibility variable for tool progress display. Prefer `display.tool_progress` in `config.yaml`. |
-| `SHADOW_TOOL_PROGRESS_MODE` | Deprecated compatibility variable for tool progress mode. Prefer `display.tool_progress` in `config.yaml`. |
-| `SHADOW_HUMAN_DELAY_MODE` | Response pacing: `off`/`natural`/`custom` |
-| `SHADOW_HUMAN_DELAY_MIN_MS` | Custom delay range minimum (ms) |
-| `SHADOW_HUMAN_DELAY_MAX_MS` | Custom delay range maximum (ms) |
-| `SHADOW_QUIET` | Suppress non-essential output (`true`/`false`) |
-| `SHADOW_API_TIMEOUT` | LLM API call timeout in seconds (default: `1800`) |
-| `SHADOW_STREAM_READ_TIMEOUT` | Streaming socket read timeout in seconds (default: `120`). Auto-increased to `SHADOW_API_TIMEOUT` for local providers. Increase if local LLMs time out during long code generation. |
-| `SHADOW_STREAM_STALE_TIMEOUT` | Stale stream detection timeout in seconds (default: `180`). Auto-disabled for local providers. Triggers connection kill if no chunks arrive within this window. |
-| `SHADOW_EXEC_ASK` | Enable execution approval prompts in gateway mode (`true`/`false`) |
-| `SHADOW_ENABLE_PROJECT_PLUGINS` | Enable auto-discovery of repo-local plugins from `./.shadow/plugins/` (`true`/`false`, default: `false`) |
-| `SHADOW_BACKGROUND_NOTIFICATIONS` | Background process notification mode in gateway: `all` (default), `result`, `error`, `off` |
-| `SHADOW_EPHEMERAL_SYSTEM_PROMPT` | Ephemeral system prompt injected at API-call time (never persisted to sessions) |
+| `YOUSEF SHTIWE_MAX_ITERATIONS` | Max tool-calling iterations per conversation (default: 90) |
+| `YOUSEF SHTIWE_TOOL_PROGRESS` | Deprecated compatibility variable for tool progress display. Prefer `display.tool_progress` in `config.yaml`. |
+| `YOUSEF SHTIWE_TOOL_PROGRESS_MODE` | Deprecated compatibility variable for tool progress mode. Prefer `display.tool_progress` in `config.yaml`. |
+| `YOUSEF SHTIWE_HUMAN_DELAY_MODE` | Response pacing: `off`/`natural`/`custom` |
+| `YOUSEF SHTIWE_HUMAN_DELAY_MIN_MS` | Custom delay range minimum (ms) |
+| `YOUSEF SHTIWE_HUMAN_DELAY_MAX_MS` | Custom delay range maximum (ms) |
+| `YOUSEF SHTIWE_QUIET` | Suppress non-essential output (`true`/`false`) |
+| `YOUSEF SHTIWE_API_TIMEOUT` | LLM API call timeout in seconds (default: `1800`) |
+| `YOUSEF SHTIWE_STREAM_READ_TIMEOUT` | Streaming socket read timeout in seconds (default: `120`). Auto-increased to `YOUSEF SHTIWE_API_TIMEOUT` for local providers. Increase if local LLMs time out during long code generation. |
+| `YOUSEF SHTIWE_STREAM_STALE_TIMEOUT` | Stale stream detection timeout in seconds (default: `180`). Auto-disabled for local providers. Triggers connection kill if no chunks arrive within this window. |
+| `YOUSEF SHTIWE_EXEC_ASK` | Enable execution approval prompts in gateway mode (`true`/`false`) |
+| `YOUSEF SHTIWE_ENABLE_PROJECT_PLUGINS` | Enable auto-discovery of repo-local plugins from `./.yousef shtiwe/plugins/` (`true`/`false`, default: `false`) |
+| `YOUSEF SHTIWE_BACKGROUND_NOTIFICATIONS` | Background process notification mode in gateway: `all` (default), `result`, `error`, `off` |
+| `YOUSEF SHTIWE_EPHEMERAL_SYSTEM_PROMPT` | Ephemeral system prompt injected at API-call time (never persisted to sessions) |
 
 ## Cron Scheduler
 
 | Variable | Description |
 |----------|-------------|
-| `SHADOW_CRON_TIMEOUT` | Inactivity timeout for cron job agent runs in seconds (default: `600`). The agent can run indefinitely while actively calling tools or receiving stream tokens — this only triggers when idle. Set to `0` for unlimited. |
-| `SHADOW_CRON_SCRIPT_TIMEOUT` | Timeout for pre-run scripts attached to cron jobs in seconds (default: `120`). Override for scripts that need longer execution (e.g., randomized delays for anti-bot timing). Also configurable via `cron.script_timeout_seconds` in `config.yaml`. |
+| `YOUSEF SHTIWE_CRON_TIMEOUT` | Inactivity timeout for cron job agent runs in seconds (default: `600`). The agent can run indefinitely while actively calling tools or receiving stream tokens — this only triggers when idle. Set to `0` for unlimited. |
+| `YOUSEF SHTIWE_CRON_SCRIPT_TIMEOUT` | Timeout for pre-run scripts attached to cron jobs in seconds (default: `120`). Override for scripts that need longer execution (e.g., randomized delays for anti-bot timing). Also configurable via `cron.script_timeout_seconds` in `config.yaml`. |
 
 ## Session Settings
 
@@ -369,7 +369,7 @@ Older configs with `compression.summary_model`, `compression.summary_provider`, 
 | `AUXILIARY_WEB_EXTRACT_BASE_URL` | Direct OpenAI-compatible endpoint for web extraction/summarization |
 | `AUXILIARY_WEB_EXTRACT_API_KEY` | API key paired with `AUXILIARY_WEB_EXTRACT_BASE_URL` |
 
-For task-specific direct endpoints, SHADOW uses the task's configured API key or `OPENAI_API_KEY`. It does not reuse `OPENROUTER_API_KEY` for those custom endpoints.
+For task-specific direct endpoints, YOUSEF SHTIWE uses the task's configured API key or `OPENAI_API_KEY`. It does not reuse `OPENROUTER_API_KEY` for those custom endpoints.
 
 ## Fallback Model (config.yaml only)
 
@@ -385,7 +385,7 @@ See [Fallback Providers](/docs/user-guide/features/fallback-providers) for full 
 
 ## Provider Routing (config.yaml only)
 
-These go in `~/.shadow/config.yaml` under the `provider_routing` section:
+These go in `~/.yousef shtiwe/config.yaml` under the `provider_routing` section:
 
 | Key | Description |
 |-----|-------------|
@@ -397,5 +397,5 @@ These go in `~/.shadow/config.yaml` under the `provider_routing` section:
 | `data_collection` | `"allow"` (default) or `"deny"` to exclude data-storing providers |
 
 :::tip
-Use `shadow config set` to set environment variables — it automatically saves them to the right file (`.env` for secrets, `config.yaml` for everything else).
+Use `yousef shtiwe config set` to set environment variables — it automatically saves them to the right file (`.env` for secrets, `config.yaml` for everything else).
 :::

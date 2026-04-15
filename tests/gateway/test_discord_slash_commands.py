@@ -60,7 +60,7 @@ def adapter():
         tree=FakeTree(),
         get_channel=lambda _id: None,
         fetch_channel=AsyncMock(),
-        user=SimpleNamespace(id=99999, name="SHADOWBot"),
+        user=SimpleNamespace(id=99999, name="YOUSEF SHTIWEBot"),
     )
     adapter._text_batch_delay_seconds = 0  # disable batching for tests
     return adapter
@@ -135,10 +135,10 @@ async def test_handle_thread_create_slash_dispatches_session_when_message_provid
 
     adapter._dispatch_thread_session = AsyncMock()
 
-    await adapter._handle_thread_create_slash(interaction, "Planning", "Hello SHADOW", 1440)
+    await adapter._handle_thread_create_slash(interaction, "Planning", "Hello YOUSEF SHTIWE", 1440)
 
     adapter._dispatch_thread_session.assert_awaited_once_with(
-        interaction, "555", "Planning", "Hello SHADOW",
+        interaction, "555", "Planning", "Hello YOUSEF SHTIWE",
     )
 
 
@@ -482,15 +482,15 @@ def test_discord_auto_thread_config_bridge(monkeypatch, tmp_path):
     from pathlib import Path
 
     # Write a config.yaml the loader will find
-    shadow_dir = tmp_path / ".shadow"
-    shadow_dir.mkdir()
-    config_path = shadow_dir / "config.yaml"
+    yousef shtiwe_dir = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_dir.mkdir()
+    config_path = yousef shtiwe_dir / "config.yaml"
     config_path.write_text(yaml.dump({
         "discord": {"auto_thread": True},
     }))
 
     monkeypatch.delenv("DISCORD_AUTO_THREAD", raising=False)
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_dir))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_dir))
     monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
     from gateway.config import load_gateway_config

@@ -1,4 +1,4 @@
-"""Tests for shadow backup and import commands."""
+"""Tests for yousef shtiwe backup and import commands."""
 
 import json
 import os
@@ -15,12 +15,12 @@ import pytest
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _make_shadow_tree(root: Path) -> None:
-    """Create a realistic ~/.shadow directory structure for testing."""
+def _make_yousef shtiwe_tree(root: Path) -> None:
+    """Create a realistic ~/.yousef shtiwe directory structure for testing."""
     (root / "config.yaml").write_text("model:\n  provider: openrouter\n")
     (root / ".env").write_text("OPENROUTER_API_KEY=sk-test-123\n")
     (root / "memory_store.db").write_bytes(b"fake-sqlite")
-    (root / "shadow_state.db").write_bytes(b"fake-state")
+    (root / "yousef shtiwe_state.db").write_bytes(b"fake-state")
 
     # Sessions
     (root / "sessions").mkdir(exist_ok=True)
@@ -49,11 +49,11 @@ def _make_shadow_tree(root: Path) -> None:
     (root / "profiles" / "coder" / "config.yaml").write_text("model:\n  provider: anthropic\n")
     (root / "profiles" / "coder" / ".env").write_text("ANTHROPIC_API_KEY=sk-ant-123\n")
 
-    # shadow-agent repo (should be EXCLUDED)
-    (root / "shadow-agent").mkdir(exist_ok=True)
-    (root / "shadow-agent" / "run_agent.py").write_text("# big file\n")
-    (root / "shadow-agent" / ".git").mkdir()
-    (root / "shadow-agent" / ".git" / "HEAD").write_text("ref: refs/heads/main\n")
+    # yousef shtiwe-agent repo (should be EXCLUDED)
+    (root / "yousef shtiwe-agent").mkdir(exist_ok=True)
+    (root / "yousef shtiwe-agent" / "run_agent.py").write_text("# big file\n")
+    (root / "yousef shtiwe-agent" / ".git").mkdir()
+    (root / "yousef shtiwe-agent" / ".git" / "HEAD").write_text("ref: refs/heads/main\n")
 
     # __pycache__ (should be EXCLUDED)
     (root / "plugins").mkdir(exist_ok=True)
@@ -73,46 +73,46 @@ def _make_shadow_tree(root: Path) -> None:
 # ---------------------------------------------------------------------------
 
 class TestShouldExclude:
-    def test_excludes_shadow_agent(self):
-        from shadow_cli.backup import _should_exclude
-        assert _should_exclude(Path("shadow-agent/run_agent.py"))
-        assert _should_exclude(Path("shadow-agent/.git/HEAD"))
+    def test_excludes_yousef shtiwe_agent(self):
+        from yousef shtiwe_cli.backup import _should_exclude
+        assert _should_exclude(Path("yousef shtiwe-agent/run_agent.py"))
+        assert _should_exclude(Path("yousef shtiwe-agent/.git/HEAD"))
 
     def test_excludes_pycache(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert _should_exclude(Path("plugins/__pycache__/mod.cpython-312.pyc"))
 
     def test_excludes_pyc_files(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert _should_exclude(Path("some/module.pyc"))
 
     def test_excludes_pid_files(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert _should_exclude(Path("gateway.pid"))
         assert _should_exclude(Path("cron.pid"))
 
     def test_includes_config(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path("config.yaml"))
 
     def test_includes_env(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path(".env"))
 
     def test_includes_skills(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path("skills/my-skill/SKILL.md"))
 
     def test_includes_profiles(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path("profiles/coder/config.yaml"))
 
     def test_includes_sessions(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path("sessions/abc.json"))
 
     def test_includes_logs(self):
-        from shadow_cli.backup import _should_exclude
+        from yousef shtiwe_cli.backup import _should_exclude
         assert not _should_exclude(Path("logs/agent.log"))
 
 
@@ -123,18 +123,18 @@ class TestShouldExclude:
 class TestBackup:
     def test_creates_zip(self, tmp_path, monkeypatch):
         """Backup creates a valid zip containing expected files."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        _make_shadow_tree(shadow_home)
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        _make_yousef shtiwe_tree(yousef shtiwe_home)
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
-        # get_default_shadow_root needs this
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
+        # get_default_yousef shtiwe_root needs this
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_zip = tmp_path / "backup.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         assert out_zip.exists()
@@ -155,39 +155,39 @@ class TestBackup:
             # Skins
             assert "skins/cyber.yaml" in names
 
-    def test_excludes_shadow_agent(self, tmp_path, monkeypatch):
-        """Backup does NOT include shadow-agent/ directory."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        _make_shadow_tree(shadow_home)
+    def test_excludes_yousef shtiwe_agent(self, tmp_path, monkeypatch):
+        """Backup does NOT include yousef shtiwe-agent/ directory."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        _make_yousef shtiwe_tree(yousef shtiwe_home)
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_zip = tmp_path / "backup.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         with zipfile.ZipFile(out_zip, "r") as zf:
             names = zf.namelist()
-            agent_files = [n for n in names if "shadow-agent" in n]
-            assert agent_files == [], f"shadow-agent files leaked into backup: {agent_files}"
+            agent_files = [n for n in names if "yousef shtiwe-agent" in n]
+            assert agent_files == [], f"yousef shtiwe-agent files leaked into backup: {agent_files}"
 
     def test_excludes_pycache(self, tmp_path, monkeypatch):
         """Backup does NOT include __pycache__ dirs."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        _make_shadow_tree(shadow_home)
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        _make_yousef shtiwe_tree(yousef shtiwe_home)
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_zip = tmp_path / "backup.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         with zipfile.ZipFile(out_zip, "r") as zf:
@@ -197,17 +197,17 @@ class TestBackup:
 
     def test_excludes_pid_files(self, tmp_path, monkeypatch):
         """Backup does NOT include PID files."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        _make_shadow_tree(shadow_home)
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        _make_yousef shtiwe_tree(yousef shtiwe_home)
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_zip = tmp_path / "backup.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         with zipfile.ZipFile(out_zip, "r") as zf:
@@ -216,21 +216,21 @@ class TestBackup:
             assert pid_files == []
 
     def test_default_output_path(self, tmp_path, monkeypatch):
-        """When no output path given, zip goes to ~/shadow-backup-*.zip."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("model: test\n")
+        """When no output path given, zip goes to ~/yousef shtiwe-backup-*.zip."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("model: test\n")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         args = Namespace(output=None)
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         # Should exist in home dir
-        zips = list(tmp_path.glob("shadow-backup-*.zip"))
+        zips = list(tmp_path.glob("yousef shtiwe-backup-*.zip"))
         assert len(zips) == 1
 
 
@@ -245,8 +245,8 @@ class TestValidateBackupZip:
                 zf.writestr(name, "production")
 
     def test_state_db_passes(self, tmp_path):
-        """A zip containing state.db is accepted as a valid SHADOW backup."""
-        from shadow_cli.backup import _validate_backup_zip
+        """A zip containing state.db is accepted as a valid YOUSEF SHTIWE backup."""
+        from yousef shtiwe_cli.backup import _validate_backup_zip
         zip_path = tmp_path / "backup.zip"
         self._make_zip(zip_path, ["state.db", "sessions/abc.json"])
         with zipfile.ZipFile(zip_path, "r") as zf:
@@ -254,17 +254,17 @@ class TestValidateBackupZip:
         assert ok, reason
 
     def test_old_wrong_db_name_fails(self, tmp_path):
-        """A zip with only shadow_state.db (old wrong name) is rejected."""
-        from shadow_cli.backup import _validate_backup_zip
+        """A zip with only yousef shtiwe_state.db (old wrong name) is rejected."""
+        from yousef shtiwe_cli.backup import _validate_backup_zip
         zip_path = tmp_path / "old.zip"
-        self._make_zip(zip_path, ["shadow_state.db", "memory_store.db"])
+        self._make_zip(zip_path, ["yousef shtiwe_state.db", "memory_store.db"])
         with zipfile.ZipFile(zip_path, "r") as zf:
             ok, reason = _validate_backup_zip(zf)
         assert not ok
 
     def test_config_yaml_passes(self, tmp_path):
         """A zip containing config.yaml is accepted (existing behaviour preserved)."""
-        from shadow_cli.backup import _validate_backup_zip
+        from yousef shtiwe_cli.backup import _validate_backup_zip
         zip_path = tmp_path / "backup.zip"
         self._make_zip(zip_path, ["config.yaml", "skills/x/SKILL.md"])
         with zipfile.ZipFile(zip_path, "r") as zf:
@@ -287,10 +287,10 @@ class TestImport:
                     zf.writestr(name, content)
 
     def test_restores_files(self, tmp_path, monkeypatch):
-        """Import extracts files into shadow home."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        """Import extracts files into yousef shtiwe home."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -303,40 +303,40 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
-        assert (shadow_home / "config.yaml").read_text() == "model:\n  provider: openrouter\n"
-        assert (shadow_home / ".env").read_text() == "OPENROUTER_API_KEY=sk-test\n"
-        assert (shadow_home / "skills" / "my-skill" / "SKILL.md").read_text() == "# My Skill\n"
-        assert (shadow_home / "profiles" / "coder" / "config.yaml").exists()
+        assert (yousef shtiwe_home / "config.yaml").read_text() == "model:\n  provider: openrouter\n"
+        assert (yousef shtiwe_home / ".env").read_text() == "OPENROUTER_API_KEY=sk-test\n"
+        assert (yousef shtiwe_home / "skills" / "my-skill" / "SKILL.md").read_text() == "# My Skill\n"
+        assert (yousef shtiwe_home / "profiles" / "coder" / "config.yaml").exists()
 
-    def test_strips_shadow_prefix(self, tmp_path, monkeypatch):
-        """Import strips .shadow/ prefix if all entries share it."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    def test_strips_yousef shtiwe_prefix(self, tmp_path, monkeypatch):
+        """Import strips .yousef shtiwe/ prefix if all entries share it."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
         self._make_backup_zip(zip_path, {
-            ".shadow/config.yaml": "model: test\n",
-            ".shadow/skills/a/SKILL.md": "# A\n",
+            ".yousef shtiwe/config.yaml": "model: test\n",
+            ".yousef shtiwe/skills/a/SKILL.md": "# A\n",
         })
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
-        assert (shadow_home / "config.yaml").read_text() == "model: test\n"
-        assert (shadow_home / "skills" / "a" / "SKILL.md").read_text() == "# A\n"
+        assert (yousef shtiwe_home / "config.yaml").read_text() == "model: test\n"
+        assert (yousef shtiwe_home / "skills" / "a" / "SKILL.md").read_text() == "# A\n"
 
     def test_rejects_empty_zip(self, tmp_path, monkeypatch):
         """Import rejects an empty zip."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "empty.zip"
@@ -345,15 +345,15 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with pytest.raises(SystemExit):
             run_import(args)
 
-    def test_rejects_non_shadow_zip(self, tmp_path, monkeypatch):
-        """Import rejects a zip that doesn't look like a shadow backup."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    def test_rejects_non_yousef shtiwe_zip(self, tmp_path, monkeypatch):
+        """Import rejects a zip that doesn't look like a yousef shtiwe backup."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "random.zip"
@@ -364,15 +364,15 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with pytest.raises(SystemExit):
             run_import(args)
 
     def test_blocks_path_traversal(self, tmp_path, monkeypatch):
         """Import blocks zip entries with path traversal."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "evil.zip"
@@ -384,21 +384,21 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
         # config.yaml should be restored
-        assert (shadow_home / "config.yaml").exists()
-        # traversal file should NOT exist outside shadow home
+        assert (yousef shtiwe_home / "config.yaml").exists()
+        # traversal file should NOT exist outside yousef shtiwe home
         assert not (tmp_path / "etc" / "passwd").exists()
 
     def test_confirmation_prompt_abort(self, tmp_path, monkeypatch):
         """Import aborts when user says no to confirmation."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
         # Pre-existing config triggers the confirmation
-        (shadow_home / "config.yaml").write_text("existing: true\n")
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        (yousef shtiwe_home / "config.yaml").write_text("existing: true\n")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -408,19 +408,19 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=False)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with patch("builtins.input", return_value="n"):
             run_import(args)
 
         # Original config should be unchanged
-        assert (shadow_home / "config.yaml").read_text() == "existing: true\n"
+        assert (yousef shtiwe_home / "config.yaml").read_text() == "existing: true\n"
 
     def test_force_skips_confirmation(self, tmp_path, monkeypatch):
         """Import with --force skips confirmation and overwrites."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("existing: true\n")
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("existing: true\n")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -430,20 +430,20 @@ class TestImport:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
-        assert (shadow_home / "config.yaml").read_text() == "model: restored\n"
+        assert (yousef shtiwe_home / "config.yaml").read_text() == "model: restored\n"
 
     def test_missing_file_exits(self, tmp_path, monkeypatch):
         """Import exits with error for nonexistent file."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         args = Namespace(zipfile=str(tmp_path / "nonexistent.zip"), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with pytest.raises(SystemExit):
             run_import(args)
 
@@ -456,24 +456,24 @@ class TestRoundTrip:
     def test_backup_then_import(self, tmp_path, monkeypatch):
         """Full round-trip: backup -> import to a new location -> verify."""
         # Source
-        src_home = tmp_path / "source" / ".shadow"
+        src_home = tmp_path / "source" / ".yousef shtiwe"
         src_home.mkdir(parents=True)
-        _make_shadow_tree(src_home)
+        _make_yousef shtiwe_tree(src_home)
 
-        monkeypatch.setenv("SHADOW_HOME", str(src_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(src_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "source")
 
         # Backup
         out_zip = tmp_path / "roundtrip.zip"
-        from shadow_cli.backup import run_backup, run_import
+        from yousef shtiwe_cli.backup import run_backup, run_import
 
         run_backup(Namespace(output=str(out_zip)))
         assert out_zip.exists()
 
         # Import into a different location
-        dst_home = tmp_path / "dest" / ".shadow"
+        dst_home = tmp_path / "dest" / ".yousef shtiwe"
         dst_home.mkdir(parents=True)
-        monkeypatch.setenv("SHADOW_HOME", str(dst_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(dst_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "dest")
 
         run_import(Namespace(zipfile=str(out_zip), force=True))
@@ -486,8 +486,8 @@ class TestRoundTrip:
         assert (dst_home / "sessions" / "abc123.json").exists()
         assert (dst_home / "logs" / "agent.log").exists()
 
-        # shadow-agent should NOT be present
-        assert not (dst_home / "shadow-agent").exists()
+        # yousef shtiwe-agent should NOT be present
+        assert not (dst_home / "yousef shtiwe-agent").exists()
         # __pycache__ should NOT be present
         assert not (dst_home / "plugins" / "__pycache__").exists()
         # PID files should NOT be present
@@ -500,23 +500,23 @@ class TestRoundTrip:
 
 class TestFormatSize:
     def test_bytes(self):
-        from shadow_cli.backup import _format_size
+        from yousef shtiwe_cli.backup import _format_size
         assert _format_size(512) == "512 B"
 
     def test_kilobytes(self):
-        from shadow_cli.backup import _format_size
+        from yousef shtiwe_cli.backup import _format_size
         assert "KB" in _format_size(2048)
 
     def test_megabytes(self):
-        from shadow_cli.backup import _format_size
+        from yousef shtiwe_cli.backup import _format_size
         assert "MB" in _format_size(5 * 1024 * 1024)
 
     def test_gigabytes(self):
-        from shadow_cli.backup import _format_size
+        from yousef shtiwe_cli.backup import _format_size
         assert "GB" in _format_size(3 * 1024 ** 3)
 
     def test_terabytes(self):
-        from shadow_cli.backup import _format_size
+        from yousef shtiwe_cli.backup import _format_size
         assert "TB" in _format_size(2 * 1024 ** 4)
 
 
@@ -524,7 +524,7 @@ class TestValidation:
     def test_validate_with_config(self):
         """Zip with config.yaml passes validation."""
         import io
-        from shadow_cli.backup import _validate_backup_zip
+        from yousef shtiwe_cli.backup import _validate_backup_zip
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
@@ -537,7 +537,7 @@ class TestValidation:
     def test_validate_with_env(self):
         """Zip with .env passes validation."""
         import io
-        from shadow_cli.backup import _validate_backup_zip
+        from yousef shtiwe_cli.backup import _validate_backup_zip
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
@@ -548,9 +548,9 @@ class TestValidation:
         assert ok
 
     def test_validate_rejects_random(self):
-        """Zip without shadow markers fails validation."""
+        """Zip without yousef shtiwe markers fails validation."""
         import io
-        from shadow_cli.backup import _validate_backup_zip
+        from yousef shtiwe_cli.backup import _validate_backup_zip
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
@@ -560,23 +560,23 @@ class TestValidation:
             ok, reason = _validate_backup_zip(zf)
         assert not ok
 
-    def test_detect_prefix_shadow(self):
-        """Detects .shadow/ prefix wrapping all entries."""
+    def test_detect_prefix_yousef shtiwe(self):
+        """Detects .yousef shtiwe/ prefix wrapping all entries."""
         import io
-        from shadow_cli.backup import _detect_prefix
+        from yousef shtiwe_cli.backup import _detect_prefix
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
-            zf.writestr(".shadow/config.yaml", "test")
-            zf.writestr(".shadow/skills/a/SKILL.md", "skill")
+            zf.writestr(".yousef shtiwe/config.yaml", "test")
+            zf.writestr(".yousef shtiwe/skills/a/SKILL.md", "skill")
         buf.seek(0)
         with zipfile.ZipFile(buf, "r") as zf:
-            assert _detect_prefix(zf) == ".shadow/"
+            assert _detect_prefix(zf) == ".yousef shtiwe/"
 
     def test_detect_prefix_none(self):
         """No prefix when entries are at root."""
         import io
-        from shadow_cli.backup import _detect_prefix
+        from yousef shtiwe_cli.backup import _detect_prefix
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
@@ -589,13 +589,13 @@ class TestValidation:
     def test_detect_prefix_only_dirs(self):
         """Prefix detection returns empty for zip with only directory entries."""
         import io
-        from shadow_cli.backup import _detect_prefix
+        from yousef shtiwe_cli.backup import _detect_prefix
 
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
             # Only directory entries (trailing slash)
-            zf.writestr(".shadow/", "")
-            zf.writestr(".shadow/skills/", "")
+            zf.writestr(".yousef shtiwe/", "")
+            zf.writestr(".yousef shtiwe/skills/", "")
         buf.seek(0)
         with zipfile.ZipFile(buf, "r") as zf:
             assert _detect_prefix(zf) == ""
@@ -606,25 +606,25 @@ class TestValidation:
 # ---------------------------------------------------------------------------
 
 class TestBackupEdgeCases:
-    def test_nonexistent_shadow_home(self, tmp_path, monkeypatch):
-        """Backup exits when shadow home doesn't exist."""
-        fake_home = tmp_path / "nonexistent" / ".shadow"
-        monkeypatch.setenv("SHADOW_HOME", str(fake_home))
+    def test_nonexistent_yousef shtiwe_home(self, tmp_path, monkeypatch):
+        """Backup exits when yousef shtiwe home doesn't exist."""
+        fake_home = tmp_path / "nonexistent" / ".yousef shtiwe"
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(fake_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "nonexistent")
 
         args = Namespace(output=str(tmp_path / "out.zip"))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         with pytest.raises(SystemExit):
             run_backup(args)
 
     def test_output_is_directory(self, tmp_path, monkeypatch):
         """When output path is a directory, zip is created inside it."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("model: test\n")
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("model: test\n")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_dir = tmp_path / "backups"
@@ -632,44 +632,44 @@ class TestBackupEdgeCases:
 
         args = Namespace(output=str(out_dir))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
-        zips = list(out_dir.glob("shadow-backup-*.zip"))
+        zips = list(out_dir.glob("yousef shtiwe-backup-*.zip"))
         assert len(zips) == 1
 
     def test_output_without_zip_suffix(self, tmp_path, monkeypatch):
         """Output path without .zip gets suffix appended."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("model: test\n")
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("model: test\n")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_path = tmp_path / "mybackup.tar"
         args = Namespace(output=str(out_path))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         # Should have .tar.zip suffix
         assert (tmp_path / "mybackup.tar.zip").exists()
 
-    def test_empty_shadow_home(self, tmp_path, monkeypatch):
-        """Backup handles empty shadow home (no files to back up)."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
+    def test_empty_yousef shtiwe_home(self, tmp_path, monkeypatch):
+        """Backup handles empty yousef shtiwe home (no files to back up)."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
         # Only excluded dirs, no actual files
-        (shadow_home / "__pycache__").mkdir()
-        (shadow_home / "__pycache__" / "foo.pyc").write_bytes(b"\x00")
+        (yousef shtiwe_home / "__pycache__").mkdir()
+        (yousef shtiwe_home / "__pycache__" / "foo.pyc").write_bytes(b"\x00")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         args = Namespace(output=str(tmp_path / "out.zip"))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         # No zip should be created
@@ -677,22 +677,22 @@ class TestBackupEdgeCases:
 
     def test_permission_error_during_backup(self, tmp_path, monkeypatch):
         """Backup handles permission errors gracefully."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("model: test\n")
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("model: test\n")
 
         # Create an unreadable file
-        bad_file = shadow_home / "secret.db"
+        bad_file = yousef shtiwe_home / "secret.db"
         bad_file.write_text("data")
         bad_file.chmod(0o000)
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         out_zip = tmp_path / "out.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         try:
             run_backup(args)
         finally:
@@ -702,20 +702,20 @@ class TestBackupEdgeCases:
         # Zip should still be created with the readable files
         assert out_zip.exists()
 
-    def test_skips_output_zip_inside_shadow(self, tmp_path, monkeypatch):
-        """Backup skips its own output zip if it's inside shadow root."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("model: test\n")
+    def test_skips_output_zip_inside_yousef shtiwe(self, tmp_path, monkeypatch):
+        """Backup skips its own output zip if it's inside yousef shtiwe root."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("model: test\n")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
-        # Output inside shadow home
-        out_zip = shadow_home / "backup.zip"
+        # Output inside yousef shtiwe home
+        out_zip = yousef shtiwe_home / "backup.zip"
         args = Namespace(output=str(out_zip))
 
-        from shadow_cli.backup import run_backup
+        from yousef shtiwe_cli.backup import run_backup
         run_backup(args)
 
         # The zip should exist but not contain itself
@@ -732,25 +732,25 @@ class TestImportEdgeCases:
 
     def test_not_a_zip(self, tmp_path, monkeypatch):
         """Import rejects a non-zip file."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         not_zip = tmp_path / "fake.zip"
         not_zip.write_text("this is not a zip")
 
         args = Namespace(zipfile=str(not_zip), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with pytest.raises(SystemExit):
             run_import(args)
 
     def test_eof_during_confirmation(self, tmp_path, monkeypatch):
         """Import handles EOFError during confirmation prompt."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / "config.yaml").write_text("existing\n")
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / "config.yaml").write_text("existing\n")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -758,17 +758,17 @@ class TestImportEdgeCases:
 
         args = Namespace(zipfile=str(zip_path), force=False)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with patch("builtins.input", side_effect=EOFError):
             with pytest.raises(SystemExit):
                 run_import(args)
 
     def test_keyboard_interrupt_during_confirmation(self, tmp_path, monkeypatch):
         """Import handles KeyboardInterrupt during confirmation prompt."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / ".env").write_text("KEY=val\n")
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / ".env").write_text("KEY=val\n")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -776,20 +776,20 @@ class TestImportEdgeCases:
 
         args = Namespace(zipfile=str(zip_path), force=False)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with patch("builtins.input", side_effect=KeyboardInterrupt):
             with pytest.raises(SystemExit):
                 run_import(args)
 
     def test_permission_error_during_import(self, tmp_path, monkeypatch):
         """Import handles permission errors during extraction."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         # Create a read-only directory so extraction fails
-        locked_dir = shadow_home / "locked"
+        locked_dir = yousef shtiwe_home / "locked"
         locked_dir.mkdir()
         locked_dir.chmod(0o555)
 
@@ -801,20 +801,20 @@ class TestImportEdgeCases:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         try:
             run_import(args)
         finally:
             locked_dir.chmod(0o755)
 
         # config.yaml should still be restored despite the error
-        assert (shadow_home / "config.yaml").exists()
+        assert (yousef shtiwe_home / "config.yaml").exists()
 
     def test_progress_with_many_files(self, tmp_path, monkeypatch):
         """Import shows progress with 500+ files."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "big.zip"
@@ -826,11 +826,11 @@ class TestImportEdgeCases:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
-        assert (shadow_home / "config.yaml").exists()
-        assert (shadow_home / "sessions" / "s0599.json").exists()
+        assert (yousef shtiwe_home / "config.yaml").exists()
+        assert (yousef shtiwe_home / "sessions" / "s0599.json").exists()
 
 
 # ---------------------------------------------------------------------------
@@ -845,9 +845,9 @@ class TestProfileRestoration:
 
     def test_import_creates_profile_wrappers(self, tmp_path, monkeypatch):
         """Import auto-creates wrapper scripts for restored profiles."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         # Mock the wrapper dir to be inside tmp_path
@@ -864,12 +864,12 @@ class TestProfileRestoration:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
         # Profile directories should exist
-        assert (shadow_home / "profiles" / "coder" / "config.yaml").exists()
-        assert (shadow_home / "profiles" / "researcher" / "config.yaml").exists()
+        assert (yousef shtiwe_home / "profiles" / "coder" / "config.yaml").exists()
+        assert (yousef shtiwe_home / "profiles" / "researcher" / "config.yaml").exists()
 
         # Wrapper scripts should be created
         assert (wrapper_dir / "coder").exists()
@@ -877,13 +877,13 @@ class TestProfileRestoration:
 
         # Wrappers should contain the right content
         coder_wrapper = (wrapper_dir / "coder").read_text()
-        assert "shadow -p coder" in coder_wrapper
+        assert "yousef shtiwe -p coder" in coder_wrapper
 
     def test_import_skips_profile_dirs_without_config(self, tmp_path, monkeypatch):
         """Import doesn't create wrappers for profile dirs without config."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         wrapper_dir = tmp_path / ".local" / "bin"
@@ -898,7 +898,7 @@ class TestProfileRestoration:
 
         args = Namespace(zipfile=str(zip_path), force=True)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         run_import(args)
 
         # Only valid profile should get a wrapper
@@ -907,9 +907,9 @@ class TestProfileRestoration:
 
     def test_import_without_profiles_module(self, tmp_path, monkeypatch):
         """Import gracefully handles missing profiles module (fresh install)."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
 
         zip_path = tmp_path / "backup.zip"
@@ -921,20 +921,20 @@ class TestProfileRestoration:
         args = Namespace(zipfile=str(zip_path), force=True)
 
         # Simulate profiles module not being available
-        import shadow_cli.backup as backup_mod
+        import yousef shtiwe_cli.backup as backup_mod
         original_import = __builtins__.__import__ if hasattr(__builtins__, '__import__') else __import__
 
         def fake_import(name, *a, **kw):
-            if name == "shadow_cli.profiles":
+            if name == "yousef shtiwe_cli.profiles":
                 raise ImportError("no profiles module")
             return original_import(name, *a, **kw)
 
-        from shadow_cli.backup import run_import
+        from yousef shtiwe_cli.backup import run_import
         with patch("builtins.__import__", side_effect=fake_import):
             run_import(args)
 
         # Files should still be restored even if wrappers can't be created
-        assert (shadow_home / "profiles" / "coder" / "config.yaml").exists()
+        assert (yousef shtiwe_home / "profiles" / "coder" / "config.yaml").exists()
 
 
 # ---------------------------------------------------------------------------
@@ -943,7 +943,7 @@ class TestProfileRestoration:
 
 class TestSafeCopyDb:
     def test_copies_valid_database(self, tmp_path):
-        from shadow_cli.backup import _safe_copy_db
+        from yousef shtiwe_cli.backup import _safe_copy_db
         src = tmp_path / "test.db"
         dst = tmp_path / "copy.db"
 
@@ -962,7 +962,7 @@ class TestSafeCopyDb:
         assert rows == [(42,)]
 
     def test_copies_wal_mode_database(self, tmp_path):
-        from shadow_cli.backup import _safe_copy_db
+        from yousef shtiwe_cli.backup import _safe_copy_db
         src = tmp_path / "wal.db"
         dst = tmp_path / "copy.db"
 
@@ -988,9 +988,9 @@ class TestSafeCopyDb:
 
 class TestQuickSnapshot:
     @pytest.fixture
-    def shadow_home(self, tmp_path):
-        """Create a fake SHADOW_HOME with critical state files."""
-        home = tmp_path / ".shadow"
+    def yousef shtiwe_home(self, tmp_path):
+        """Create a fake YOUSEF SHTIWE_HOME with critical state files."""
+        home = tmp_path / ".yousef shtiwe"
         home.mkdir()
         (home / "config.yaml").write_text("model:\n  provider: openrouter\n")
         (home / ".env").write_text("OPENROUTER_API_KEY=test-key-123\n")
@@ -1007,23 +1007,23 @@ class TestQuickSnapshot:
         conn.close()
         return home
 
-    def test_creates_snapshot(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
+    def test_creates_snapshot(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
         assert snap_id is not None
-        snap_dir = shadow_home / "state-snapshots" / snap_id
+        snap_dir = yousef shtiwe_home / "state-snapshots" / snap_id
         assert snap_dir.is_dir()
         assert (snap_dir / "manifest.json").exists()
 
-    def test_label_in_id(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot
-        snap_id = create_quick_snapshot(label="before-upgrade", shadow_home=shadow_home)
+    def test_label_in_id(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot
+        snap_id = create_quick_snapshot(label="before-upgrade", yousef shtiwe_home=yousef shtiwe_home)
         assert "before-upgrade" in snap_id
 
-    def test_state_db_safely_copied(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
-        db_copy = shadow_home / "state-snapshots" / snap_id / "state.db"
+    def test_state_db_safely_copied(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
+        db_copy = yousef shtiwe_home / "state-snapshots" / snap_id / "state.db"
         assert db_copy.exists()
 
         conn = sqlite3.connect(str(db_copy))
@@ -1032,84 +1032,84 @@ class TestQuickSnapshot:
         assert len(rows) == 1
         assert rows[0] == ("s1", "hello world")
 
-    def test_copies_nested_files(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
-        assert (shadow_home / "state-snapshots" / snap_id / "cron" / "jobs.json").exists()
+    def test_copies_nested_files(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
+        assert (yousef shtiwe_home / "state-snapshots" / snap_id / "cron" / "jobs.json").exists()
 
-    def test_missing_files_skipped(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
-        with open(shadow_home / "state-snapshots" / snap_id / "manifest.json") as f:
+    def test_missing_files_skipped(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
+        with open(yousef shtiwe_home / "state-snapshots" / snap_id / "manifest.json") as f:
             meta = json.load(f)
         # gateway_state.json etc. don't exist in fixture
         assert "gateway_state.json" not in meta["files"]
 
     def test_empty_home_returns_none(self, tmp_path):
-        from shadow_cli.backup import create_quick_snapshot
+        from yousef shtiwe_cli.backup import create_quick_snapshot
         empty = tmp_path / "empty"
         empty.mkdir()
-        assert create_quick_snapshot(shadow_home=empty) is None
+        assert create_quick_snapshot(yousef shtiwe_home=empty) is None
 
-    def test_list_snapshots(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, list_quick_snapshots
-        id1 = create_quick_snapshot(label="first", shadow_home=shadow_home)
-        id2 = create_quick_snapshot(label="second", shadow_home=shadow_home)
+    def test_list_snapshots(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, list_quick_snapshots
+        id1 = create_quick_snapshot(label="first", yousef shtiwe_home=yousef shtiwe_home)
+        id2 = create_quick_snapshot(label="second", yousef shtiwe_home=yousef shtiwe_home)
 
-        snaps = list_quick_snapshots(shadow_home=shadow_home)
+        snaps = list_quick_snapshots(yousef shtiwe_home=yousef shtiwe_home)
         assert len(snaps) == 2
         assert snaps[0]["id"] == id2  # most recent first
         assert snaps[1]["id"] == id1
 
-    def test_list_limit(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, list_quick_snapshots
+    def test_list_limit(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, list_quick_snapshots
         for i in range(5):
-            create_quick_snapshot(label=f"s{i}", shadow_home=shadow_home)
-        snaps = list_quick_snapshots(limit=3, shadow_home=shadow_home)
+            create_quick_snapshot(label=f"s{i}", yousef shtiwe_home=yousef shtiwe_home)
+        snaps = list_quick_snapshots(limit=3, yousef shtiwe_home=yousef shtiwe_home)
         assert len(snaps) == 3
 
-    def test_restore_config(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, restore_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
+    def test_restore_config(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, restore_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
 
-        (shadow_home / "config.yaml").write_text("model:\n  provider: anthropic\n")
-        assert "anthropic" in (shadow_home / "config.yaml").read_text()
+        (yousef shtiwe_home / "config.yaml").write_text("model:\n  provider: anthropic\n")
+        assert "anthropic" in (yousef shtiwe_home / "config.yaml").read_text()
 
-        result = restore_quick_snapshot(snap_id, shadow_home=shadow_home)
+        result = restore_quick_snapshot(snap_id, yousef shtiwe_home=yousef shtiwe_home)
         assert result is True
-        assert "openrouter" in (shadow_home / "config.yaml").read_text()
+        assert "openrouter" in (yousef shtiwe_home / "config.yaml").read_text()
 
-    def test_restore_state_db(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, restore_quick_snapshot
-        snap_id = create_quick_snapshot(shadow_home=shadow_home)
+    def test_restore_state_db(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, restore_quick_snapshot
+        snap_id = create_quick_snapshot(yousef shtiwe_home=yousef shtiwe_home)
 
-        conn = sqlite3.connect(str(shadow_home / "state.db"))
+        conn = sqlite3.connect(str(yousef shtiwe_home / "state.db"))
         conn.execute("INSERT INTO sessions VALUES ('s2', 'new')")
         conn.commit()
         conn.close()
 
-        restore_quick_snapshot(snap_id, shadow_home=shadow_home)
+        restore_quick_snapshot(snap_id, yousef shtiwe_home=yousef shtiwe_home)
 
-        conn = sqlite3.connect(str(shadow_home / "state.db"))
+        conn = sqlite3.connect(str(yousef shtiwe_home / "state.db"))
         rows = conn.execute("SELECT * FROM sessions").fetchall()
         conn.close()
         assert len(rows) == 1
 
-    def test_restore_nonexistent(self, shadow_home):
-        from shadow_cli.backup import restore_quick_snapshot
-        assert restore_quick_snapshot("nonexistent", shadow_home=shadow_home) is False
+    def test_restore_nonexistent(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import restore_quick_snapshot
+        assert restore_quick_snapshot("nonexistent", yousef shtiwe_home=yousef shtiwe_home) is False
 
-    def test_auto_prune(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, list_quick_snapshots, _QUICK_DEFAULT_KEEP
+    def test_auto_prune(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, list_quick_snapshots, _QUICK_DEFAULT_KEEP
         for i in range(_QUICK_DEFAULT_KEEP + 5):
-            create_quick_snapshot(label=f"snap-{i:03d}", shadow_home=shadow_home)
-        snaps = list_quick_snapshots(limit=100, shadow_home=shadow_home)
+            create_quick_snapshot(label=f"snap-{i:03d}", yousef shtiwe_home=yousef shtiwe_home)
+        snaps = list_quick_snapshots(limit=100, yousef shtiwe_home=yousef shtiwe_home)
         assert len(snaps) <= _QUICK_DEFAULT_KEEP
 
-    def test_manual_prune(self, shadow_home):
-        from shadow_cli.backup import create_quick_snapshot, prune_quick_snapshots, list_quick_snapshots
+    def test_manual_prune(self, yousef shtiwe_home):
+        from yousef shtiwe_cli.backup import create_quick_snapshot, prune_quick_snapshots, list_quick_snapshots
         for i in range(10):
-            create_quick_snapshot(label=f"s{i}", shadow_home=shadow_home)
-        deleted = prune_quick_snapshots(keep=3, shadow_home=shadow_home)
+            create_quick_snapshot(label=f"s{i}", yousef shtiwe_home=yousef shtiwe_home)
+        deleted = prune_quick_snapshots(keep=3, yousef shtiwe_home=yousef shtiwe_home)
         assert deleted == 7
-        assert len(list_quick_snapshots(shadow_home=shadow_home)) == 3
+        assert len(list_quick_snapshots(yousef shtiwe_home=yousef shtiwe_home)) == 3

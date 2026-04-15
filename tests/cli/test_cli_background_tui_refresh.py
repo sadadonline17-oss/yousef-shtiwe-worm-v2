@@ -10,12 +10,12 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from cli import SHADOWCLI
+from cli import YOUSEF SHTIWECLI
 
 
 def _make_cli():
-    """Create a minimal SHADOWCLI instance for testing."""
-    cli_obj = SHADOWCLI.__new__(SHADOWCLI)
+    """Create a minimal YOUSEF SHTIWECLI instance for testing."""
+    cli_obj = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
     cli_obj.model = "test-model"
     cli_obj._background_tasks = {}
     cli_obj._background_task_counter = 0

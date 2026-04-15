@@ -6,7 +6,7 @@ description: "AI-native persistent memory via Honcho — dialectic reasoning, mu
 
 # Honcho Memory
 
-[Honcho](https://github.com/plastic-labs/honcho) is an AI-native memory backend that adds dialectic reasoning and deep user modeling on top of SHADOW's built-in memory system. Instead of simple key-value storage, Honcho maintains a running model of who the user is — their preferences, communication style, goals, and patterns — by reasoning about conversations after they happen.
+[Honcho](https://github.com/plastic-labs/honcho) is an AI-native memory backend that adds dialectic reasoning and deep user modeling on top of YOUSEF SHTIWE's built-in memory system. Instead of simple key-value storage, Honcho maintains a running model of who the user is — their preferences, communication style, goals, and patterns — by reasoning about conversations after they happen.
 
 :::info Honcho is a Memory Provider Plugin
 Honcho is integrated into the [Memory Providers](./memory-providers.md) system. All features below are available through the unified memory provider interface.
@@ -25,24 +25,24 @@ Honcho is integrated into the [Memory Providers](./memory-providers.md) system. 
 
 **Dialectic reasoning**: After each conversation, Honcho analyzes the exchange and derives "conclusions" — insights about the user's preferences, habits, and goals. These conclusions accumulate over time, giving the agent a deepening understanding that goes beyond what the user explicitly stated.
 
-**Multi-agent profiles**: When multiple SHADOW instances talk to the same user (e.g., a coding assistant and a personal assistant), Honcho maintains separate "peer" profiles. Each peer sees only its own observations and conclusions, preventing cross-contamination of context.
+**Multi-agent profiles**: When multiple YOUSEF SHTIWE instances talk to the same user (e.g., a coding assistant and a personal assistant), Honcho maintains separate "peer" profiles. Each peer sees only its own observations and conclusions, preventing cross-contamination of context.
 
 ## Setup
 
 ```bash
-shadow memory setup    # select "honcho" from the provider list
+yousef shtiwe memory setup    # select "honcho" from the provider list
 ```
 
 Or configure manually:
 
 ```yaml
-# ~/.shadow/config.yaml
+# ~/.yousef shtiwe/config.yaml
 memory:
   provider: honcho
 ```
 
 ```bash
-echo "HONCHO_API_KEY=your-key" >> ~/.shadow/.env
+echo "HONCHO_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 Get an API key at [honcho.dev](https://honcho.dev).
@@ -50,7 +50,7 @@ Get an API key at [honcho.dev](https://honcho.dev).
 ## Configuration Options
 
 ```yaml
-# ~/.shadow/config.yaml
+# ~/.yousef shtiwe/config.yaml
 honcho:
   observation: directional    # "unified" (default for new installs) or "directional"
   peer_name: ""               # auto-detected from platform, or set manually
@@ -74,19 +74,19 @@ When Honcho is active as the memory provider, four additional tools become avail
 ## CLI Commands
 
 ```bash
-shadow honcho status          # Show connection status and config
-shadow honcho peer            # Update peer names for multi-agent setups
+yousef shtiwe honcho status          # Show connection status and config
+yousef shtiwe honcho peer            # Update peer names for multi-agent setups
 ```
 
-## Migrating from `shadow honcho`
+## Migrating from `yousef shtiwe honcho`
 
-If you previously used the standalone `shadow honcho setup`:
+If you previously used the standalone `yousef shtiwe honcho setup`:
 
 1. Your existing configuration (`honcho.json` or `~/.honcho/config.json`) is preserved
 2. Your server-side data (memories, conclusions, user profiles) is intact
 3. Set `memory.provider: honcho` in config.yaml to reactivate
 
-No re-login or re-setup needed. Run `shadow memory setup` and select "honcho" — the wizard detects your existing config.
+No re-login or re-setup needed. Run `yousef shtiwe memory setup` and select "honcho" — the wizard detects your existing config.
 
 ## Full Documentation
 

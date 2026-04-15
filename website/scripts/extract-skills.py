@@ -94,9 +94,9 @@ def extract_local_skills():
             tags = []
             metadata = fm.get("metadata")
             if isinstance(metadata, dict):
-                shadow_meta = metadata.get("shadow", {})
-                if isinstance(shadow_meta, dict):
-                    tags = shadow_meta.get("tags", [])
+                yousef shtiwe_meta = metadata.get("yousef shtiwe", {})
+                if isinstance(yousef shtiwe_meta, dict):
+                    tags = yousef shtiwe_meta.get("tags", [])
             if not tags:
                 tags = fm.get("tags", [])
             if isinstance(tags, str):

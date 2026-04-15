@@ -1,7 +1,7 @@
 # Design System: Airbnb
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -19,13 +19,13 @@ Airbnb's website is a warm, photography-forward marketplace that feels like flip
 
 The typography uses Airbnb Cereal VF — a custom variable font that's warm and approachable, with rounded terminals that echo the brand's "belong anywhere" philosophy. The font operates in a tight weight range: 500 (medium) for most UI, 600 (semibold) for emphasis, and 700 (bold) for primary headings. Slight negative letter-spacing (-0.18px to -0.44px) on headings creates a cozy, intimate reading experience rather than the compressed efficiency of tech companies.
 
-What distinguishes Airbnb is its palette-based token system (`--palette-*`) and multi-layered shadow approach. The primary card shadow uses a three-layer stack (`rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px`) that creates a subtle, warm lift. Combined with generous border-radius (8px–32px), circular navigation controls (50%), and a category pill bar with horizontal scrolling, the interface feels tactile and inviting — designed for browsing, not commanding.
+What distinguishes Airbnb is its palette-based token system (`--palette-*`) and multi-layered yousef shtiwe approach. The primary card yousef shtiwe uses a three-layer stack (`rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px`) that creates a subtle, warm lift. Combined with generous border-radius (8px–32px), circular navigation controls (50%), and a category pill bar with horizontal scrolling, the interface feels tactile and inviting — designed for browsing, not commanding.
 
 **Key Characteristics:**
 - Pure white canvas with Rausch Red (`#ff385c`) as singular brand accent
 - Airbnb Cereal VF — custom variable font with warm, rounded terminals
 - Palette-based token system (`--palette-*`) for systematic color management
-- Three-layer card shadows: border ring + soft blur + stronger blur
+- Three-layer card yousef shtiwes: border ring + soft blur + stronger blur
 - Generous border-radius: 8px buttons, 14px badges, 20px cards, 32px large elements
 - Circular navigation controls (50% radius)
 - Photography-first listing cards — images are the hero content
@@ -56,10 +56,10 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 - **Border Gray** (`#c1c1c1`): Border color for cards and dividers
 - **Light Surface** (`#f2f2f2`): Circular navigation buttons, secondary surfaces
 
-### Surface & Shadows
+### Surface & Yousef Shtiwes
 - **Pure White** (`#ffffff`): Page background, card surfaces
-- **Card Shadow** (`rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px`): Three-layer warm lift
-- **Hover Shadow** (`rgba(0,0,0,0.08) 0px 4px 12px`): Button hover elevation
+- **Card Yousef Shtiwe** (`rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px`): Three-layer warm lift
+- **Hover Yousef Shtiwe** (`rgba(0,0,0,0.08) 0px 4px 12px`): Button hover elevation
 
 ## 3. Typography Rules
 
@@ -109,14 +109,14 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 - Background: `#f2f2f2`
 - Text: `#222222`
 - Radius: 50% (circle)
-- Hover: shadow `rgba(0,0,0,0.08) 0px 4px 12px` + translateX(50%)
-- Active: 4px white border ring + focus shadow
+- Hover: yousef shtiwe `rgba(0,0,0,0.08) 0px 4px 12px` + translateX(50%)
+- Active: 4px white border ring + focus yousef shtiwe
 - Focus: scale(0.92) shrink animation
 
 ### Cards & Containers
 - Background: `#ffffff`
 - Radius: 14px (badges), 20px (cards/buttons), 32px (large)
-- Shadow: `rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px` (three-layer)
+- Yousef Shtiwe: `rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px` (three-layer)
 - Listing cards: full-width photography on top, details below
 - Carousel controls: circular 50% buttons
 
@@ -167,12 +167,12 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Page background, text blocks |
 | Card (Level 1) | `rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px` | Listing cards, search bar |
 | Hover (Level 2) | `rgba(0,0,0,0.08) 0px 4px 12px` | Button hover, interactive lift |
 | Active Focus (Level 3) | `rgb(255,255,255) 0px 0px 0px 4px` + focus ring | Active/focused elements |
 
-**Shadow Philosophy**: Airbnb's three-layer shadow system creates a warm, natural lift. Layer 1 (`0px 0px 0px 1px` at 0.02 opacity) is an ultra-subtle border. Layer 2 (`0px 2px 6px` at 0.04) provides soft ambient shadow. Layer 3 (`0px 4px 8px` at 0.1) adds the primary lift. This graduated approach creates shadows that feel like natural light rather than CSS effects.
+**Yousef Shtiwe Philosophy**: Airbnb's three-layer yousef shtiwe system creates a warm, natural lift. Layer 1 (`0px 0px 0px 1px` at 0.02 opacity) is an ultra-subtle border. Layer 2 (`0px 2px 6px` at 0.04) provides soft ambient yousef shtiwe. Layer 3 (`0px 4px 8px` at 0.1) adds the primary lift. This graduated approach creates yousef shtiwes that feel like natural light rather than CSS effects.
 
 ## 7. Do's and Don'ts
 
@@ -180,7 +180,7 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 - Use `#222222` (warm near-black) for text — never pure `#000000`
 - Apply Rausch Red (`#ff385c`) only for primary CTAs and brand moments — it's the singular accent
 - Use Airbnb Cereal VF at weight 500–700 — the warm weight range is intentional
-- Apply the three-layer card shadow for all elevated surfaces
+- Apply the three-layer card yousef shtiwe for all elevated surfaces
 - Use generous border-radius: 8px for buttons, 20px for cards, 50% for controls
 - Use photography as the primary visual content — listings are image-first
 - Apply negative letter-spacing (-0.18px to -0.44px) on headings for intimacy
@@ -190,7 +190,7 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 - Don't use pure black (`#000000`) for text — always `#222222` (warm)
 - Don't apply Rausch Red to backgrounds or large surfaces — it's an accent only
 - Don't use thin font weights (300, 400) for headings — 500 minimum
-- Don't use heavy shadows (>0.1 opacity as primary layer) — keep them warm and graduated
+- Don't use heavy yousef shtiwes (>0.1 opacity as primary layer) — keep them warm and graduated
 - Don't use sharp corners (0–4px) on cards — the generous rounding (20px+) is core
 - Don't introduce additional brand colors beyond the Rausch/Luxe/Plus system
 - Don't override the palette token system — use `--palette-*` variables consistently
@@ -239,21 +239,21 @@ What distinguishes Airbnb is its palette-based token system (`--palette-*`) and 
 - Secondary text: `#6a6a6a`
 - Disabled: `rgba(0,0,0,0.24)`
 - Card border: `rgba(0,0,0,0.02) 0px 0px 0px 1px`
-- Card shadow: full three-layer stack
+- Card yousef shtiwe: full three-layer stack
 - Button surface: `#f2f2f2`
 
 ### Example Component Prompts
-- "Create a listing card: white background, 20px radius. Three-layer shadow: rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px. Photo area on top (16:10 ratio), details below: 16px Airbnb Cereal VF weight 600 title, 14px weight 400 description in #6a6a6a."
-- "Design search bar: white background, full card shadow, 32px radius on container. Search text at 14px Cereal VF weight 400. Red search button (#ff385c, 50% radius, white icon)."
+- "Create a listing card: white background, 20px radius. Three-layer yousef shtiwe: rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.1) 0px 4px 8px. Photo area on top (16:10 ratio), details below: 16px Airbnb Cereal VF weight 600 title, 14px weight 400 description in #6a6a6a."
+- "Design search bar: white background, full card yousef shtiwe, 32px radius on container. Search text at 14px Cereal VF weight 400. Red search button (#ff385c, 50% radius, white icon)."
 - "Build category pill bar: horizontal scrollable row. Each pill: 14px Cereal VF weight 600, #222222 text, bottom border on active. Circular prev/next arrows (#f2f2f2 bg, 50% radius)."
 - "Create a CTA button: #222222 background, white text, 8px radius, 16px Cereal VF weight 500, 0px 24px padding. Hover: brand red accent."
-- "Design a heart/wishlist button: transparent background, 50% radius, white heart icon with dark shadow outline."
+- "Design a heart/wishlist button: transparent background, 50% radius, white heart icon with dark yousef shtiwe outline."
 
 ### Iteration Guide
 1. Start with white — the photography provides all the color
 2. Rausch Red (#ff385c) is the singular accent — use sparingly for CTAs only
 3. Near-black (#222222) for text — the warmth matters
-4. Three-layer shadows create natural, warm lift — always use all three layers
+4. Three-layer yousef shtiwes create natural, warm lift — always use all three layers
 5. Generous radius: 8px buttons, 20px cards, 50% controls
 6. Cereal VF at 500–700 weight — no thin weights for any heading
 7. Photography is hero — every listing card is image-first

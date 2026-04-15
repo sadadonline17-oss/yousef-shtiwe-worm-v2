@@ -1,7 +1,7 @@
 [project]
-name = "shadow-agent"
+name = "yousef shtiwe-agent"
 version = "1.0.0"
-description = "SHADOW Agent - The Supreme Self-Improving Autonomous Entity"
+description = "YOUSEF SHTIWE Agent - The Supreme Self-Improving Autonomous Entity"
 dependencies = [
     "fire",
     "requests",
@@ -24,7 +24,7 @@ all = [
 ]
 
 [project.scripts]
-shadow = "shadow_cli.main:main"
+yousef shtiwe = "yousef shtiwe_cli.main:main"
 
 [build-system]
 requires = ["setuptools>=61.0"]

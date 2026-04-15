@@ -43,15 +43,15 @@ from datetime import datetime
 import fire
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeElapsedColumn, TimeRemainingColumn
 from rich.console import Console
-from shadow_constants import OPENROUTER_BASE_URL, get_shadow_home
+from yousef shtiwe_constants import OPENROUTER_BASE_URL, get_yousef shtiwe_home
 from agent.retry_utils import jittered_backoff
 
-# Load .env from SHADOW_HOME first, then project root as a dev fallback.
-from shadow_cli.env_loader import load_shadow_dotenv
+# Load .env from YOUSEF SHTIWE_HOME first, then project root as a dev fallback.
+from yousef shtiwe_cli.env_loader import load_yousef shtiwe_dotenv
 
-_shadow_home = get_shadow_home()
+_yousef shtiwe_home = get_yousef shtiwe_home()
 _project_env = Path(__file__).parent / ".env"
-load_shadow_dotenv(shadow_home=_shadow_home, project_env=_project_env)
+load_yousef shtiwe_dotenv(yousef shtiwe_home=_yousef shtiwe_home, project_env=_project_env)
 
 
 @dataclass
@@ -366,7 +366,7 @@ class TrajectoryCompressor:
             if client is None:
                 raise RuntimeError(
                     f"Provider '{provider}' is not configured. "
-                    f"Check your API key or run: shadow setup")
+                    f"Check your API key or run: yousef shtiwe setup")
             self.client = None  # Not used directly
             self.async_client = None  # Not used directly
         else:
@@ -412,8 +412,8 @@ class TrajectoryCompressor:
         url = (self.config.base_url or "").lower()
         if "openrouter" in url:
             return "openrouter"
-        if "shadow-overlord.com" in url:
-            return "shadow"
+        if "yousef shtiwe-overlord.com" in url:
+            return "yousef shtiwe"
         if "chatgpt.com/backend-api/codex" in url:
             return "codex"
         if "api.z.ai" in url:

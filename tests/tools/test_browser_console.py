@@ -124,9 +124,9 @@ class TestBrowserConsoleToolsetWiring:
         from toolsets import TOOLSETS
         assert "browser_console" in TOOLSETS["browser"]["tools"]
 
-    def test_in_shadow_core_tools(self):
-        from toolsets import _SHADOW_CORE_TOOLS
-        assert "browser_console" in _SHADOW_CORE_TOOLS
+    def test_in_yousef shtiwe_core_tools(self):
+        from toolsets import _YOUSEF SHTIWE_CORE_TOOLS
+        assert "browser_console" in _YOUSEF SHTIWE_CORE_TOOLS
 
     def test_in_legacy_toolset_map(self):
         from model_tools import _LEGACY_TOOLSET_MAP
@@ -201,7 +201,7 @@ class TestRecordSessionsConfig:
     """browser.record_sessions config option."""
 
     def test_default_config_has_record_sessions(self):
-        from shadow_cli.config import DEFAULT_CONFIG
+        from yousef shtiwe_cli.config import DEFAULT_CONFIG
 
         browser_cfg = DEFAULT_CONFIG.get("browser", {})
         assert "record_sessions" in browser_cfg

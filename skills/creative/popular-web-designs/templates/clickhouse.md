@@ -1,7 +1,7 @@
 # Design System: ClickHouse
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -30,7 +30,7 @@ What makes ClickHouse distinctive is the electrifying tension between the near-b
 - Uppercase labels with wide letter-spacing (1.4px) for navigation structure
 - Active/pressed state shifts text to pale yellow (#f4f692)
 - All links hover to neon yellow-green — unified interactive signal
-- Inset shadows on select elements creating "pressed into the surface" depth
+- Inset yousef shtiwes on select elements creating "pressed into the surface" depth
 
 ## 2. Color Palette & Roles
 
@@ -142,9 +142,9 @@ What makes ClickHouse distinctive is the electrifying tension between the near-b
 - Background: transparent or Near Black
 - Border: `1px solid rgba(65, 65, 65, 0.8)` — the signature charcoal containment
 - Radius: 4px (small elements) or 8px (cards, containers)
-- Shadow Level 1: subtle (`rgba(0,0,0,0.1) 0px 1px 3px, rgba(0,0,0,0.1) 0px 1px 2px -1px`)
-- Shadow Level 2: medium (`rgba(0,0,0,0.1) 0px 10px 15px -3px, rgba(0,0,0,0.1) 0px 4px 6px -4px`)
-- Shadow Level 3: inset (`rgba(0,0,0,0.06) 0px 4px 4px, rgba(0,0,0,0.14) 0px 4px 25px inset`) — the "pressed" effect
+- Yousef Shtiwe Level 1: subtle (`rgba(0,0,0,0.1) 0px 1px 3px, rgba(0,0,0,0.1) 0px 1px 2px -1px`)
+- Yousef Shtiwe Level 2: medium (`rgba(0,0,0,0.1) 0px 10px 15px -3px, rgba(0,0,0,0.1) 0px 4px 6px -4px`)
+- Yousef Shtiwe Level 3: inset (`rgba(0,0,0,0.06) 0px 4px 4px, rgba(0,0,0,0.14) 0px 4px 25px inset`) — the "pressed" effect
 - Neon-highlighted cards: selected/active cards get neon yellow-green border or accent
 
 ### Navigation
@@ -206,14 +206,14 @@ What makes ClickHouse distinctive is the electrifying tension between the near-b
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Black background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Black background, text blocks |
 | Bordered (Level 1) | `1px solid rgba(65,65,65,0.8)` | Standard cards, containers |
 | Subtle (Level 2) | `0px 1px 3px rgba(0,0,0,0.1)` | Subtle card lift |
 | Elevated (Level 3) | `0px 10px 15px -3px rgba(0,0,0,0.1)` | Feature cards, hover states |
 | Pressed/Inset (Level 4) | `0px 4px 25px rgba(0,0,0,0.14) inset` | Active/pressed elements — "sunk into the surface" |
 | Neon Highlight (Level 5) | Neon Volt border (`#faff69`) | Featured/selected cards, maximum emphasis |
 
-**Shadow Philosophy**: ClickHouse uses shadows on a black canvas, where they're barely visible — they exist more for subtle dimensionality than obvious elevation. The most distinctive depth mechanism is the **inset shadow** (Level 4), which creates a "pressed into the surface" effect unique to ClickHouse. The neon border highlight (Level 5) is the primary attention-getting depth mechanism.
+**Yousef Shtiwe Philosophy**: ClickHouse uses yousef shtiwes on a black canvas, where they're barely visible — they exist more for subtle dimensionality than obvious elevation. The most distinctive depth mechanism is the **inset yousef shtiwe** (Level 4), which creates a "pressed into the surface" effect unique to ClickHouse. The neon border highlight (Level 5) is the primary attention-getting depth mechanism.
 
 ## 7. Do's and Don'ts
 
@@ -234,8 +234,8 @@ What makes ClickHouse distinctive is the electrifying tension between the near-b
 - Don't reduce display weight below 700 — heavy weight is core to the personality
 - Don't use light/white backgrounds anywhere — the entire experience is dark
 - Don't round corners beyond 8px — the sharp geometry reflects database precision
-- Don't use soft/diffused shadows on black — they're invisible. Use border-based depth instead
-- Don't skip the inset shadow on active states — the "pressed" effect is distinctive
+- Don't use soft/diffused yousef shtiwes on black — they're invisible. Use border-based depth instead
+- Don't skip the inset yousef shtiwe on active states — the "pressed" effect is distinctive
 - Don't use warm neutrals — all grays are perfectly neutral
 
 ## 8. Responsive Behavior

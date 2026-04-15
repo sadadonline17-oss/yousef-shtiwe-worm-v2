@@ -12,7 +12,7 @@ import threading
 from collections import OrderedDict
 from pathlib import Path
 
-from shadow_constants import get_shadow_home, get_skills_dir, is_wsl
+from yousef shtiwe_constants import get_yousef shtiwe_home, get_skills_dir, is_wsl
 from typing import Optional
 
 from agent.skill_utils import (
@@ -86,11 +86,11 @@ def _find_git_root(start: Path) -> Optional[Path]:
     return None
 
 
-_SHADOW_MD_NAMES = (".shadow.md", "SHADOW.md")
+_YOUSEF SHTIWE_MD_NAMES = (".yousef shtiwe.md", "YOUSEF SHTIWE.md")
 
 
-def _find_shadow_md(cwd: Path) -> Optional[Path]:
-    """Discover the nearest ``.shadow.md`` or ``SHADOW.md``.
+def _find_yousef shtiwe_md(cwd: Path) -> Optional[Path]:
+    """Discover the nearest ``.yousef shtiwe.md`` or ``YOUSEF SHTIWE.md``.
 
     Search order: *cwd* first, then each parent directory up to (and
     including) the git repository root.  Returns the first match, or
@@ -100,7 +100,7 @@ def _find_shadow_md(cwd: Path) -> Optional[Path]:
     current = cwd.resolve()
 
     for directory in [current, *current.parents]:
-        for name in _SHADOW_MD_NAMES:
+        for name in _YOUSEF SHTIWE_MD_NAMES:
             candidate = directory / name
             if candidate.is_file():
                 return candidate
@@ -132,7 +132,7 @@ def _strip_yaml_frontmatter(content: str) -> str:
 # =========================================================================
 
 DEFAULT_AGENT_IDENTITY = (
-    "You are SHADOW Agent, an intelligent AI assistant created by SHADOW-OVERLORD. "
+    "You are YOUSEF SHTIWE Agent, an intelligent AI assistant created by YOUSEF SHTIWE-OVERLORD. "
     "You are helpful, knowledgeable, and direct. You assist users with a wide "
     "range of tasks including answering questions, writing and editing code, "
     "analyzing information, creative work, and executing actions via your tools. "
@@ -430,7 +430,7 @@ _SKILLS_SNAPSHOT_VERSION = 1
 
 
 def _skills_prompt_snapshot_path() -> Path:
-    return get_shadow_home() / ".skills_prompt_snapshot.json"
+    return get_yousef shtiwe_home() / ".skills_prompt_snapshot.json"
 
 
 def clear_skills_system_prompt_cache(*, clear_snapshot: bool = False) -> None:
@@ -592,7 +592,7 @@ def build_skills_system_prompt(
     Falls back to a full filesystem scan when both layers miss.
 
     External skill directories (``skills.external_dirs`` in config.yaml) are
-    scanned alongside the local ``~/.shadow/skills/`` directory.  External dirs
+    scanned alongside the local ``~/.yousef shtiwe/skills/`` directory.  External dirs
     are read-only — they appear in the index but new skills are always created
     in the local dir.  Local skills take precedence when names collide.
     """
@@ -607,8 +607,8 @@ def build_skills_system_prompt(
     # produce distinct cache entries (gateway serves multiple platforms).
     from gateway.session_context import get_session_env
     _platform_hint = (
-        os.environ.get("SHADOW_PLATFORM")
-        or get_session_env("SHADOW_SESSION_PLATFORM")
+        os.environ.get("YOUSEF SHTIWE_PLATFORM")
+        or get_session_env("YOUSEF SHTIWE_SESSION_PLATFORM")
         or ""
     )
     cache_key = (
@@ -806,16 +806,16 @@ def build_skills_system_prompt(
     return result
 
 
-def build_shadow_subscription_prompt(valid_tool_names: "set[str] | None" = None) -> str:
-    """Build a compact Shadow subscription capability block for the system prompt."""
+def build_yousef shtiwe_subscription_prompt(valid_tool_names: "set[str] | None" = None) -> str:
+    """Build a compact Yousef Shtiwe subscription capability block for the system prompt."""
     try:
-        from shadow_cli.shadow_subscription import get_shadow_subscription_features
-        from tools.tool_backend_helpers import managed_shadow_tools_enabled
+        from yousef shtiwe_cli.yousef shtiwe_subscription import get_yousef shtiwe_subscription_features
+        from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled
     except Exception as exc:
-        logger.debug("Failed to import Shadow subscription helper: %s", exc)
+        logger.debug("Failed to import Yousef Shtiwe subscription helper: %s", exc)
         return ""
 
-    if not managed_shadow_tools_enabled():
+    if not managed_yousef shtiwe_tools_enabled():
         return ""
 
     valid_names = set(valid_tool_names or set())
@@ -841,32 +841,32 @@ def build_shadow_subscription_prompt(valid_tool_names: "set[str] | None" = None)
     if valid_names and not (valid_names & relevant_tool_names):
         return ""
 
-    features = get_shadow_subscription_features()
+    features = get_yousef shtiwe_subscription_features()
 
     def _status_line(feature) -> str:
-        if feature.managed_by_shadow:
-            return f"- {feature.label}: active via Shadow subscription"
+        if feature.managed_by_yousef shtiwe:
+            return f"- {feature.label}: active via Yousef Shtiwe subscription"
         if feature.active:
             current = feature.current_provider or "configured provider"
             return f"- {feature.label}: currently using {current}"
-        if feature.included_by_default and features.shadow_auth_present:
-            return f"- {feature.label}: included with Shadow subscription, not currently selected"
-        if feature.key == "modal" and features.shadow_auth_present:
-            return f"- {feature.label}: optional via Shadow subscription"
+        if feature.included_by_default and features.yousef shtiwe_auth_present:
+            return f"- {feature.label}: included with Yousef Shtiwe subscription, not currently selected"
+        if feature.key == "modal" and features.yousef shtiwe_auth_present:
+            return f"- {feature.label}: optional via Yousef Shtiwe subscription"
         return f"- {feature.label}: not currently available"
 
     lines = [
-        "# Shadow Subscription",
-        "Shadow subscription includes managed web tools (Firecrawl), image generation (FAL), OpenAI TTS, and browser automation (Browser Use) by default. Modal execution is optional.",
+        "# Yousef Shtiwe Subscription",
+        "Yousef Shtiwe subscription includes managed web tools (Firecrawl), image generation (FAL), OpenAI TTS, and browser automation (Browser Use) by default. Modal execution is optional.",
         "Current capability status:",
     ]
     lines.extend(_status_line(feature) for feature in features.items())
     lines.extend(
         [
-            "When a Shadow-managed feature is active, do not ask the user for Firecrawl, FAL, OpenAI TTS, or Browser-Use API keys.",
-            "If the user is not subscribed and asks for a capability that Shadow subscription would unlock or simplify, suggest Shadow subscription as one option alongside direct setup or local alternatives.",
+            "When a Yousef Shtiwe-managed feature is active, do not ask the user for Firecrawl, FAL, OpenAI TTS, or Browser-Use API keys.",
+            "If the user is not subscribed and asks for a capability that Yousef Shtiwe subscription would unlock or simplify, suggest Yousef Shtiwe subscription as one option alongside direct setup or local alternatives.",
             "Do not mention subscription unless the user asks about it or it directly solves the current missing capability.",
-            "Useful commands: shadow setup, shadow setup tools, shadow setup terminal, shadow status.",
+            "Useful commands: yousef shtiwe setup, yousef shtiwe setup tools, yousef shtiwe setup terminal, yousef shtiwe status.",
         ]
     )
     return "\n".join(lines)
@@ -889,19 +889,19 @@ def _truncate_content(content: str, filename: str, max_chars: int = CONTEXT_FILE
 
 
 def load_soul_md() -> Optional[str]:
-    """Load SOUL.md from SHADOW_HOME and return its content, or None.
+    """Load SOUL.md from YOUSEF SHTIWE_HOME and return its content, or None.
 
     Used as the agent identity (slot #1 in the system prompt).  When this
     returns content, ``build_context_files_prompt`` should be called with
     ``skip_soul=True`` so SOUL.md isn't injected twice.
     """
     try:
-        from shadow_cli.config import ensure_shadow_home
-        ensure_shadow_home()
+        from yousef shtiwe_cli.config import ensure_yousef shtiwe_home
+        ensure_yousef shtiwe_home()
     except Exception as e:
-        logger.debug("Could not ensure SHADOW_HOME before loading SOUL.md: %s", e)
+        logger.debug("Could not ensure YOUSEF SHTIWE_HOME before loading SOUL.md: %s", e)
 
-    soul_path = get_shadow_home() / "SOUL.md"
+    soul_path = get_yousef shtiwe_home() / "SOUL.md"
     if not soul_path.exists():
         return None
     try:
@@ -916,26 +916,26 @@ def load_soul_md() -> Optional[str]:
         return None
 
 
-def _load_shadow_md(cwd_path: Path) -> str:
-    """.shadow.md / SHADOW.md — walk to git root."""
-    shadow_md_path = _find_shadow_md(cwd_path)
-    if not shadow_md_path:
+def _load_yousef shtiwe_md(cwd_path: Path) -> str:
+    """.yousef shtiwe.md / YOUSEF SHTIWE.md — walk to git root."""
+    yousef shtiwe_md_path = _find_yousef shtiwe_md(cwd_path)
+    if not yousef shtiwe_md_path:
         return ""
     try:
-        content = shadow_md_path.read_text(encoding="utf-8").strip()
+        content = yousef shtiwe_md_path.read_text(encoding="utf-8").strip()
         if not content:
             return ""
         content = _strip_yaml_frontmatter(content)
-        rel = shadow_md_path.name
+        rel = yousef shtiwe_md_path.name
         try:
-            rel = str(shadow_md_path.relative_to(cwd_path))
+            rel = str(yousef shtiwe_md_path.relative_to(cwd_path))
         except ValueError:
             pass
         content = _scan_context_content(content, rel)
         result = f"## {rel}\n\n{content}"
-        return _truncate_content(result, ".shadow.md")
+        return _truncate_content(result, ".yousef shtiwe.md")
     except Exception as e:
-        logger.debug("Could not read %s: %s", shadow_md_path, e)
+        logger.debug("Could not read %s: %s", yousef shtiwe_md_path, e)
         return ""
 
 
@@ -1005,12 +1005,12 @@ def build_context_files_prompt(cwd: Optional[str] = None, skip_soul: bool = Fals
     """Discover and load context files for the system prompt.
 
     Priority (first found wins — only ONE project context type is loaded):
-      1. .shadow.md / SHADOW.md  (walk to git root)
+      1. .yousef shtiwe.md / YOUSEF SHTIWE.md  (walk to git root)
       2. AGENTS.md / agents.md   (cwd only)
       3. CLAUDE.md / claude.md   (cwd only)
       4. .cursorrules / .cursor/rules/*.mdc  (cwd only)
 
-    SOUL.md from SHADOW_HOME is independent and always included when present.
+    SOUL.md from YOUSEF SHTIWE_HOME is independent and always included when present.
     Each context source is capped at 20,000 chars.
 
     When *skip_soul* is True, SOUL.md is not included here (it was already
@@ -1024,7 +1024,7 @@ def build_context_files_prompt(cwd: Optional[str] = None, skip_soul: bool = Fals
 
     # Priority-based project context: first match wins
     project_context = (
-        _load_shadow_md(cwd_path)
+        _load_yousef shtiwe_md(cwd_path)
         or _load_agents_md(cwd_path)
         or _load_claude_md(cwd_path)
         or _load_cursorrules(cwd_path)
@@ -1032,7 +1032,7 @@ def build_context_files_prompt(cwd: Optional[str] = None, skip_soul: bool = Fals
     if project_context:
         sections.append(project_context)
 
-    # SOUL.md from SHADOW_HOME only — skip when already loaded as identity
+    # SOUL.md from YOUSEF SHTIWE_HOME only — skip when already loaded as identity
     if not skip_soul:
         soul_content = load_soul_md()
         if soul_content:

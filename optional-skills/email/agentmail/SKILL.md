@@ -1,9 +1,9 @@
 ---
 name: agentmail
-description: Give the agent its own dedicated email inbox via AgentMail. Send, receive, and manage email autonomously using agent-owned email addresses (e.g. shadow-agent@agentmail.to).
+description: Give the agent its own dedicated email inbox via AgentMail. Send, receive, and manage email autonomously using agent-owned email addresses (e.g. yousef shtiwe-agent@agentmail.to).
 version: 1.0.0
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [email, communication, agentmail, mcp]
     category: email
 ---
@@ -34,7 +34,7 @@ AgentMail gives the agent its own identity and inbox.
 - Create an account and generate an API key (starts with `am_`)
 
 ### 2. Configure MCP Server
-Add to `~/.shadow/config.yaml` (paste your actual key — MCP env vars are not expanded from .env):
+Add to `~/.yousef shtiwe/config.yaml` (paste your actual key — MCP env vars are not expanded from .env):
 ```yaml
 mcp_servers:
   agentmail:
@@ -44,9 +44,9 @@ mcp_servers:
       AGENTMAIL_API_KEY: "am_your_key_here"
 ```
 
-### 3. Restart SHADOW
+### 3. Restart YOUSEF SHTIWE
 ```bash
-shadow
+yousef shtiwe
 ```
 All 11 AgentMail tools are now available automatically.
 
@@ -70,8 +70,8 @@ All 11 AgentMail tools are now available automatically.
 
 ### Create an inbox and send an email
 1. Create a dedicated inbox:
-   - Use `create_inbox` with a username (e.g. `shadow-agent`)
-   - The agent gets address: `shadow-agent@agentmail.to`
+   - Use `create_inbox` with a username (e.g. `yousef shtiwe-agent`)
+   - The agent gets address: `yousef shtiwe-agent@agentmail.to`
 2. Send an email:
    - Use `send_message` with `inbox_id`, `to`, `subject`, `text`
 3. Check for replies:
@@ -99,7 +99,7 @@ All 11 AgentMail tools are now available automatically.
 
 **Agent-to-human outreach:**
 ```
-1. create_inbox (username: "shadow-outreach")
+1. create_inbox (username: "yousef shtiwe-outreach")
 2. send_message (to: user@example.com, subject: "Hello", text: "...")
 3. list_threads to check for replies
 ```
@@ -114,7 +114,7 @@ All 11 AgentMail tools are now available automatically.
 ## Verification
 After setup, test with:
 ```
-shadow --toolsets mcp -q "Create an AgentMail inbox called test-agent and tell me its email address"
+yousef shtiwe --toolsets mcp -q "Create an AgentMail inbox called test-agent and tell me its email address"
 ```
 You should see the new inbox address returned.
 

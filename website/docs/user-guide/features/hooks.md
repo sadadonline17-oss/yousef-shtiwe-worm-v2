@@ -6,11 +6,11 @@ description: "Run custom code at key lifecycle points — log activity, send ale
 
 # Event Hooks
 
-SHADOW has two hook systems that run custom code at key lifecycle points:
+YOUSEF SHTIWE has two hook systems that run custom code at key lifecycle points:
 
 | System | Registered via | Runs in | Use case |
 |--------|---------------|---------|----------|
-| **[Gateway hooks](#gateway-event-hooks)** | `HOOK.yaml` + `handler.py` in `~/.shadow/hooks/` | Gateway only | Logging, alerts, webhooks |
+| **[Gateway hooks](#gateway-event-hooks)** | `HOOK.yaml` + `handler.py` in `~/.yousef shtiwe/hooks/` | Gateway only | Logging, alerts, webhooks |
 | **[Plugin hooks](#plugin-hooks)** | `ctx.register_hook()` in a [plugin](/docs/user-guide/features/plugins) | CLI + Gateway | Tool interception, metrics, guardrails |
 
 Both systems are non-blocking — errors in any hook are caught and logged, never crashing the agent.
@@ -21,10 +21,10 @@ Gateway hooks fire automatically during gateway operation (Telegram, Discord, Sl
 
 ### Creating a Hook
 
-Each hook is a directory under `~/.shadow/hooks/` containing two files:
+Each hook is a directory under `~/.yousef shtiwe/hooks/` containing two files:
 
 ```text
-~/.shadow/hooks/
+~/.yousef shtiwe/hooks/
 └── my-hook/
     ├── HOOK.yaml      # Declares which events to listen for
     └── handler.py     # Python handler function
@@ -50,7 +50,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-LOG_FILE = Path.home() / ".shadow" / "hooks" / "my-hook" / "activity.log"
+LOG_FILE = Path.home() / ".yousef shtiwe" / "hooks" / "my-hook" / "activity.log"
 
 async def handle(event_type: str, context: dict):
     """Called for each subscribed event. Must be named 'handle'."""
@@ -90,14 +90,14 @@ Handlers registered for `command:*` fire for any `command:` event (`command:mode
 
 #### Boot Checklist (BOOT.md) — Built-in
 
-The gateway ships with a built-in `boot-md` hook that looks for `~/.shadow/BOOT.md` on every startup. If the file exists, the agent runs its instructions in a background session. No installation needed — just create the file.
+The gateway ships with a built-in `boot-md` hook that looks for `~/.yousef shtiwe/BOOT.md` on every startup. If the file exists, the agent runs its instructions in a background session. No installation needed — just create the file.
 
-**Create `~/.shadow/BOOT.md`:**
+**Create `~/.yousef shtiwe/BOOT.md`:**
 
 ```markdown
 # Startup Checklist
 
-1. Check if any cron jobs failed overnight — run `shadow cron list`
+1. Check if any cron jobs failed overnight — run `yousef shtiwe cron list`
 2. Send a message to Discord #general saying "Gateway restarted, all systems go"
 3. Check if /opt/app/deploy.log has any errors from the last 24 hours
 ```
@@ -113,7 +113,7 @@ No BOOT.md? The hook silently skips — zero overhead. Create the file whenever 
 Send yourself a message when the agent takes more than 10 steps:
 
 ```yaml
-# ~/.shadow/hooks/long-task-alert/HOOK.yaml
+# ~/.yousef shtiwe/hooks/long-task-alert/HOOK.yaml
 name: long-task-alert
 description: Alert when agent is taking many steps
 events:
@@ -121,7 +121,7 @@ events:
 ```
 
 ```python
-# ~/.shadow/hooks/long-task-alert/handler.py
+# ~/.yousef shtiwe/hooks/long-task-alert/handler.py
 import os
 import httpx
 
@@ -146,7 +146,7 @@ async def handle(event_type: str, context: dict):
 Track which slash commands are used:
 
 ```yaml
-# ~/.shadow/hooks/command-logger/HOOK.yaml
+# ~/.yousef shtiwe/hooks/command-logger/HOOK.yaml
 name: command-logger
 description: Log slash command usage
 events:
@@ -154,12 +154,12 @@ events:
 ```
 
 ```python
-# ~/.shadow/hooks/command-logger/handler.py
+# ~/.yousef shtiwe/hooks/command-logger/handler.py
 import json
 from datetime import datetime
 from pathlib import Path
 
-LOG = Path.home() / ".shadow" / "logs" / "command_usage.jsonl"
+LOG = Path.home() / ".yousef shtiwe" / "logs" / "command_usage.jsonl"
 
 def handle(event_type: str, context: dict):
     LOG.parent.mkdir(parents=True, exist_ok=True)
@@ -179,7 +179,7 @@ def handle(event_type: str, context: dict):
 POST to an external service on new sessions:
 
 ```yaml
-# ~/.shadow/hooks/session-webhook/HOOK.yaml
+# ~/.yousef shtiwe/hooks/session-webhook/HOOK.yaml
 name: session-webhook
 description: Notify external service on new sessions
 events:
@@ -188,10 +188,10 @@ events:
 ```
 
 ```python
-# ~/.shadow/hooks/session-webhook/handler.py
+# ~/.yousef shtiwe/hooks/session-webhook/handler.py
 import httpx
 
-WEBHOOK_URL = "https://your-service.example.com/shadow-events"
+WEBHOOK_URL = "https://your-service.example.com/yousef shtiwe-events"
 
 async def handle(event_type: str, context: dict):
     async with httpx.AsyncClient() as client:
@@ -203,7 +203,7 @@ async def handle(event_type: str, context: dict):
 
 ### How It Works
 
-1. On gateway startup, `HookRegistry.discover_and_load()` scans `~/.shadow/hooks/`
+1. On gateway startup, `HookRegistry.discover_and_load()` scans `~/.yousef shtiwe/hooks/`
 2. Each subdirectory with `HOOK.yaml` + `handler.py` is loaded dynamically
 3. Handlers are registered for their declared events
 4. At each lifecycle point, `hooks.emit()` fires all matching handlers
@@ -372,7 +372,7 @@ def my_callback(session_id: str, user_message: str, conversation_history: list,
 
 ```python
 # Inject context
-return {"context": "Recalled memories:\n- User likes Python\n- Working on shadow-agent"}
+return {"context": "Recalled memories:\n- User likes Python\n- Working on yousef shtiwe-agent"}
 
 # Plain string (equivalent)
 return "Recalled memories:\n- User likes Python"
@@ -381,7 +381,7 @@ return "Recalled memories:\n- User likes Python"
 return None
 ```
 
-**Where context is injected:** Always the **user message**, never the system prompt. This preserves the prompt cache — the system prompt stays identical across turns, so cached tokens are reused. The system prompt is SHADOW's territory (model guidance, tool enforcement, personality, skills). Plugins contribute context alongside the user's input.
+**Where context is injected:** Always the **user message**, never the system prompt. This preserves the prompt cache — the system prompt stays identical across turns, so cached tokens are reused. The system prompt is YOUSEF SHTIWE's territory (model guidance, tool enforcement, personality, skills). Plugins contribute context alongside the user's input.
 
 All injected context is **ephemeral** — added at API call time only. The original user message in the conversation history is never mutated, and nothing is persisted to the session database.
 
@@ -600,4 +600,4 @@ def register(ctx):
 
 ---
 
-See the **[Build a Plugin guide](/docs/guides/build-a-shadow-plugin)** for the full walkthrough including tool schemas, handlers, and advanced hook patterns.
+See the **[Build a Plugin guide](/docs/guides/build-a-yousef shtiwe-plugin)** for the full walkthrough including tool schemas, handlers, and advanced hook patterns.

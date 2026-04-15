@@ -16,7 +16,7 @@ class BrowserbaseProvider(CloudBrowserProvider):
     """Browserbase (https://browserbase.com) cloud browser backend.
 
     This provider requires direct BROWSERBASE_API_KEY and BROWSERBASE_PROJECT_ID
-    credentials.  Managed Shadow gateway support has been removed — the Shadow
+    credentials.  Managed Yousef Shtiwe gateway support has been removed — the Yousef Shtiwe
     subscription now routes through Browser Use instead.
     """
 
@@ -139,7 +139,7 @@ class BrowserbaseProvider(CloudBrowserProvider):
             )
 
         session_data = response.json()
-        session_name = f"shadow_{task_id}_{uuid.uuid4().hex[:8]}"
+        session_name = f"yousef shtiwe_{task_id}_{uuid.uuid4().hex[:8]}"
 
         if enable_proxies and not proxies_fallback:
             features_enabled["proxies"] = True

@@ -1,4 +1,4 @@
-"""ACP permission bridging — maps ACP approval requests to shadow approval callbacks."""
+"""ACP permission bridging — maps ACP approval requests to yousef shtiwe approval callbacks."""
 
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ from acp.schema import (
 
 logger = logging.getLogger(__name__)
 
-# Maps ACP PermissionOptionKind -> shadow approval result strings
-_KIND_TO_SHADOW = {
+# Maps ACP PermissionOptionKind -> yousef shtiwe approval result strings
+_KIND_TO_YOUSEF SHTIWE = {
     "allow_once": "once",
     "allow_always": "always",
     "reject_once": "deny",
@@ -30,7 +30,7 @@ def make_approval_callback(
     timeout: float = 60.0,
 ) -> Callable[[str, str], str]:
     """
-    Return a shadow-compatible ``approval_callback(command, description) -> str``
+    Return a yousef shtiwe-compatible ``approval_callback(command, description) -> str``
     that bridges to the ACP client's ``request_permission`` call.
 
     Args:
@@ -69,7 +69,7 @@ def make_approval_callback(
             # Look up the kind from our options list
             for opt in options:
                 if opt.option_id == option_id:
-                    return _KIND_TO_SHADOW.get(opt.kind, "deny")
+                    return _KIND_TO_YOUSEF SHTIWE.get(opt.kind, "deny")
             return "once"  # fallback for unknown option_id
         else:
             return "deny"

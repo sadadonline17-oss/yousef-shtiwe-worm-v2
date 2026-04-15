@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+import sys
+import os
+import subprocess
+
+# Absolute path resolution
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
+
+def check_and_install_deps():
+    # Format: (module_name, pip_package_name)
+    core_modules = [
+        ('fire', 'fire'),
+        ('nexttoken', 'nexttoken'),
+        ('requests', 'requests'),
+        ('rich', 'rich'),
+        ('prompt_toolkit', 'prompt_toolkit'),
+        ('yaml', 'PyYAML'),
+        ('dotenv', 'python-dotenv'),
+        ('aiohttp', 'aiohttp'),
+        ('croniter', 'croniter'),
+        ('pydantic', 'pydantic')
+    ]
+    
+    missing_packages = []
+    for module_name, package_name in core_modules:
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing_packages.append(package_name)
+            
+    if missing_packages:
+        print(f"🛠️ [YOUSEF SHTIWE-BOOT] Missing core dependencies: {', '.join(missing_packages)}. Attempting self-healing...")
+        
+        # Check for pip, try to install it if missing
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "--version"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except subprocess.CalledProcessError:
+            print("📦 [YOUSEF SHTIWE-BOOT] 'pip' not found. Bootstrapping via ensurepip...")
+            try:
+                subprocess.check_call([sys.executable, "-m", "ensurepip", "--upgrade"])
+            except Exception as e:
+                print(f"❌ [YOUSEF SHTIWE-BOOT] ensurepip failed: {e}. Please install pip manually.")
+                sys.exit(1)
+        
+        # Install dependencies
+        print(f"🛠️ [YOUSEF SHTIWE-BOOT] Injecting modules: {', '.join(missing_packages)}...")
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+            # Use --no-cache-dir to ensure fresh install if needed
+            subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing_packages)
+            print("✅ [YOUSEF SHTIWE-BOOT] Injection successful. Restarting Yousef Shtiwe...")
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+        except Exception as e:
+            print(f"❌ [YOUSEF SHTIWE-BOOT] Injection failed: {e}")
+            sys.exit(1)
+
+if __name__ == "__main__":
+    check_and_install_deps()
+    try:
+        from yousef shtiwe_cli.main import main
+        main()
+    except Exception as e:
+        print(f"❌ [YOUSEF SHTIWE-CRASH] Yousef Shtiwe encountered a fatal error during startup: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)

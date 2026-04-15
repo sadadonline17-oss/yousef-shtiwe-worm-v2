@@ -1,7 +1,7 @@
 # Design System: Pinterest
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -120,7 +120,7 @@ What distinguishes Pinterest is its generous border-radius system (12px–40px, 
 
 ### Cards & Containers
 - Photography-first pin cards with generous radius (12px–20px)
-- No traditional box-shadow on most cards
+- No traditional box-yousef shtiwe on most cards
 - White or warm fog backgrounds
 - 8px white thick border on some image containers
 
@@ -170,11 +170,11 @@ What distinguishes Pinterest is its generous border-radius system (12px–40px, 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Default — pins rely on content, not shadow |
-| Subtle (Level 1) | Minimal shadow (from tokens) | Elevated overlays, dropdowns |
+| Flat (Level 0) | No yousef shtiwe | Default — pins rely on content, not yousef shtiwe |
+| Subtle (Level 1) | Minimal yousef shtiwe (from tokens) | Elevated overlays, dropdowns |
 | Focus (Accessibility) | `--sema-color-border-focus-outer-default` ring | Focus states |
 
-**Shadow Philosophy**: Pinterest uses minimal shadows. The masonry grid relies on content (photography) to create visual interest rather than elevation effects. Depth comes from the warmth of surface colors and the generous rounding of containers.
+**Yousef Shtiwe Philosophy**: Pinterest uses minimal yousef shtiwes. The masonry grid relies on content (photography) to create visual interest rather than elevation effects. Depth comes from the warmth of surface colors and the generous rounding of containers.
 
 ## 7. Do's and Don'ts
 
@@ -191,7 +191,7 @@ What distinguishes Pinterest is its generous border-radius system (12px–40px, 
 - Don't use cool gray neutrals — always warm/olive-toned
 - Don't use pure black (`#000000`) as primary text — use plum black (`#211922`)
 - Don't use pill-shaped buttons — 16px radius is rounded but not pill
-- Don't add heavy shadows — Pinterest is flat by design, depth from content
+- Don't add heavy yousef shtiwes — Pinterest is flat by design, depth from content
 - Don't use small border-radius (<12px) on cards — the generous rounding is core
 - Don't introduce additional brand colors — red + warm neutrals is the complete palette
 - Don't use thin font weights — Pin Sans at 400 minimum
@@ -229,7 +229,7 @@ What distinguishes Pinterest is its generous border-radius system (12px–40px, 
 
 ### Example Component Prompts
 - "Create a hero: white background. Headline at 70px Pin Sans weight 600, plum black (#211922). Red CTA button (#e60023, 16px radius, 6px 14px padding). Secondary sand button (#e5e5e0, 16px radius)."
-- "Design a pin card: white background, 16px radius, no shadow. Photography fills top, 16px Pin Sans weight 400 description below in #62625b."
+- "Design a pin card: white background, 16px radius, no yousef shtiwe. Photography fills top, 16px Pin Sans weight 400 description below in #62625b."
 - "Build a circular action button: #e0e0d9 background, 50% radius, #211922 icon."
 - "Create an input field: white background, 1px solid #91918c, 16px radius, 11px 15px padding. Focus: blue outline via semantic tokens."
 - "Design the dark footer: #33332e background. Pinterest script logo in white. 12px Pin Sans links in #91918c."

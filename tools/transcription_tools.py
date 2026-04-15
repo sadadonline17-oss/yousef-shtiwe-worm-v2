@@ -35,7 +35,7 @@ from urllib.parse import urljoin
 
 from utils import is_truthy_value
 from tools.managed_tool_gateway import resolve_managed_tool_gateway
-from tools.tool_backend_helpers import managed_shadow_tools_enabled, resolve_openai_audio_api_key
+from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled, resolve_openai_audio_api_key
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +67,8 @@ DEFAULT_LOCAL_STT_LANGUAGE = "en"
 DEFAULT_STT_MODEL = os.getenv("STT_OPENAI_MODEL", "whisper-1")
 DEFAULT_GROQ_STT_MODEL = os.getenv("STT_GROQ_MODEL", "whisper-large-v3-turbo")
 DEFAULT_MISTRAL_STT_MODEL = os.getenv("STT_MISTRAL_MODEL", "voxtral-mini-latest")
-LOCAL_STT_COMMAND_ENV = "SHADOW_LOCAL_STT_COMMAND"
-LOCAL_STT_LANGUAGE_ENV = "SHADOW_LOCAL_STT_LANGUAGE"
+LOCAL_STT_COMMAND_ENV = "YOUSEF SHTIWE_LOCAL_STT_COMMAND"
+LOCAL_STT_LANGUAGE_ENV = "YOUSEF SHTIWE_LOCAL_STT_LANGUAGE"
 COMMON_LOCAL_BIN_DIRS = ("/opt/homebrew/bin", "/usr/local/bin")
 
 GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
@@ -95,7 +95,7 @@ _local_model_name: Optional[str] = None
 def _load_stt_config() -> dict:
     """Load the ``stt`` section from user config, falling back to defaults."""
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         return load_config().get("stt", {})
     except Exception:
         return {}
@@ -183,7 +183,7 @@ def _get_provider(stt_config: dict) -> str:
                 return "local_command"
             logger.warning(
                 "STT provider 'local' configured but unavailable "
-                "(install faster-whisper or set SHADOW_LOCAL_STT_COMMAND)"
+                "(install faster-whisper or set YOUSEF SHTIWE_LOCAL_STT_COMMAND)"
             )
             return "none"
 
@@ -362,7 +362,7 @@ def _transcribe_local_command(file_path: str, model_name: str) -> Dict[str, Any]
     normalized_model = _normalize_local_command_model(model_name)
 
     try:
-        with tempfile.TemporaryDirectory(prefix="shadow-local-stt-") as output_dir:
+        with tempfile.TemporaryDirectory(prefix="yousef shtiwe-local-stt-") as output_dir:
             prepared_input, prep_error = _prepare_local_audio(file_path, output_dir)
             if prep_error:
                 return {"success": False, "transcript": "", "error": prep_error}
@@ -650,11 +650,11 @@ def _resolve_openai_audio_client_config() -> tuple[str, str]:
     managed_gateway = resolve_managed_tool_gateway("openai-audio")
     if managed_gateway is None:
         message = "Neither stt.openai.api_key in config nor VOICE_TOOLS_OPENAI_KEY/OPENAI_API_KEY is set"
-        if managed_shadow_tools_enabled():
+        if managed_yousef shtiwe_tools_enabled():
             message += ", and the managed OpenAI audio gateway is unavailable"
         raise ValueError(message)
 
-    return managed_gateway.shadow_user_token, urljoin(
+    return managed_gateway.yousef shtiwe_user_token, urljoin(
         f"{managed_gateway.gateway_origin.rstrip('/')}/", "v1"
     )
 

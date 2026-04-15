@@ -188,7 +188,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-yousef shtiwe: 0 8px 24px rgba(0, 0, 0, 0.3);
   margin-top: 4px;
   overflow: hidden;
 }
@@ -431,7 +431,7 @@
   padding: 3px;
   z-index: 20;
   min-width: 130px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-yousef shtiwe: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .tableDropdownItem {

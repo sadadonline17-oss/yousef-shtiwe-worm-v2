@@ -1,4 +1,4 @@
-"""Generic managed-tool gateway helpers for Shadow-hosted vendor passthroughs."""
+"""Generic managed-tool gateway helpers for Yousef Shtiwe-hosted vendor passthroughs."""
 
 from __future__ import annotations
 
@@ -11,28 +11,28 @@ from typing import Callable, Optional
 
 logger = logging.getLogger(__name__)
 
-from shadow_constants import get_shadow_home
-from tools.tool_backend_helpers import managed_shadow_tools_enabled
+from yousef shtiwe_constants import get_yousef shtiwe_home
+from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled
 
-_DEFAULT_TOOL_GATEWAY_DOMAIN = "shadow-overlord.com"
+_DEFAULT_TOOL_GATEWAY_DOMAIN = "yousef shtiwe-overlord.com"
 _DEFAULT_TOOL_GATEWAY_SCHEME = "https"
-_Shadow_ACCESS_TOKEN_REFRESH_SKEW_SECONDS = 120
+_Yousef Shtiwe_ACCESS_TOKEN_REFRESH_SKEW_SECONDS = 120
 
 
 @dataclass(frozen=True)
 class ManagedToolGatewayConfig:
     vendor: str
     gateway_origin: str
-    shadow_user_token: str
+    yousef shtiwe_user_token: str
     managed_mode: bool
 
 
 def auth_json_path():
-    """Return the SHADOW auth store path, respecting SHADOW_HOME overrides."""
-    return get_shadow_home() / "auth.json"
+    """Return the YOUSEF SHTIWE auth store path, respecting YOUSEF SHTIWE_HOME overrides."""
+    return get_yousef shtiwe_home() / "auth.json"
 
 
-def _read_shadow_provider_state() -> Optional[dict]:
+def _read_yousef shtiwe_provider_state() -> Optional[dict]:
     try:
         path = auth_json_path()
         if not path.is_file():
@@ -41,9 +41,9 @@ def _read_shadow_provider_state() -> Optional[dict]:
         providers = data.get("providers", {})
         if not isinstance(providers, dict):
             return None
-        shadow_provider = providers.get("shadow", {})
-        if isinstance(shadow_provider, dict):
-            return shadow_provider
+        yousef shtiwe_provider = providers.get("yousef shtiwe", {})
+        if isinstance(yousef shtiwe_provider, dict):
+            return yousef shtiwe_provider
     except Exception:
         pass
     return None
@@ -72,32 +72,32 @@ def _access_token_is_expiring(expires_at: object, skew_seconds: int) -> bool:
     return remaining <= max(0, int(skew_seconds))
 
 
-def read_shadow_access_token() -> Optional[str]:
-    """Read a Shadow Subscriber OAuth access token from auth store or env override."""
+def read_yousef shtiwe_access_token() -> Optional[str]:
+    """Read a Yousef Shtiwe Subscriber OAuth access token from auth store or env override."""
     explicit = os.getenv("TOOL_GATEWAY_USER_TOKEN")
     if isinstance(explicit, str) and explicit.strip():
         return explicit.strip()
 
-    shadow_provider = _read_shadow_provider_state() or {}
-    access_token = shadow_provider.get("access_token")
+    yousef shtiwe_provider = _read_yousef shtiwe_provider_state() or {}
+    access_token = yousef shtiwe_provider.get("access_token")
     cached_token = access_token.strip() if isinstance(access_token, str) and access_token.strip() else None
 
     if cached_token and not _access_token_is_expiring(
-        shadow_provider.get("expires_at"),
-        _Shadow_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
+        yousef shtiwe_provider.get("expires_at"),
+        _Yousef Shtiwe_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
     ):
         return cached_token
 
     try:
-        from shadow_cli.auth import resolve_shadow_access_token
+        from yousef shtiwe_cli.auth import resolve_yousef shtiwe_access_token
 
-        refreshed_token = resolve_shadow_access_token(
-            refresh_skew_seconds=_Shadow_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
+        refreshed_token = resolve_yousef shtiwe_access_token(
+            refresh_skew_seconds=_Yousef Shtiwe_ACCESS_TOKEN_REFRESH_SKEW_SECONDS,
         )
         if isinstance(refreshed_token, str) and refreshed_token.strip():
             return refreshed_token.strip()
     except Exception as exc:
-        logger.debug("Shadow access token refresh failed: %s", exc)
+        logger.debug("Yousef Shtiwe access token refresh failed: %s", exc)
 
     return cached_token
 
@@ -135,21 +135,21 @@ def resolve_managed_tool_gateway(
     token_reader: Optional[Callable[[], Optional[str]]] = None,
 ) -> Optional[ManagedToolGatewayConfig]:
     """Resolve shared managed-tool gateway config for a vendor."""
-    if not managed_shadow_tools_enabled():
+    if not managed_yousef shtiwe_tools_enabled():
         return None
 
     resolved_gateway_builder = gateway_builder or build_vendor_gateway_url
-    resolved_token_reader = token_reader or read_shadow_access_token
+    resolved_token_reader = token_reader or read_yousef shtiwe_access_token
 
     gateway_origin = resolved_gateway_builder(vendor)
-    shadow_user_token = resolved_token_reader()
-    if not gateway_origin or not shadow_user_token:
+    yousef shtiwe_user_token = resolved_token_reader()
+    if not gateway_origin or not yousef shtiwe_user_token:
         return None
 
     return ManagedToolGatewayConfig(
         vendor=vendor,
         gateway_origin=gateway_origin,
-        shadow_user_token=shadow_user_token,
+        yousef shtiwe_user_token=yousef shtiwe_user_token,
         managed_mode=True,
     )
 
@@ -159,7 +159,7 @@ def is_managed_tool_gateway_ready(
     gateway_builder: Optional[Callable[[str], str]] = None,
     token_reader: Optional[Callable[[], Optional[str]]] = None,
 ) -> bool:
-    """Return True when gateway URL and Shadow access token are available."""
+    """Return True when gateway URL and Yousef Shtiwe access token are available."""
     return resolve_managed_tool_gateway(
         vendor,
         gateway_builder=gateway_builder,

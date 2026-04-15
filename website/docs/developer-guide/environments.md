@@ -1,12 +1,12 @@
 ---
 sidebar_position: 5
 title: "Environments, Benchmarks & Data Generation"
-description: "Building RL training environments, running evaluation benchmarks, and generating SFT data with the SHADOW-Agent Atropos integration"
+description: "Building RL training environments, running evaluation benchmarks, and generating SFT data with the YOUSEF SHTIWE-Agent Atropos integration"
 ---
 
 # Environments, Benchmarks & Data Generation
 
-SHADOW Agent includes a full environment framework that connects its tool-calling capabilities to the [Atropos](https://github.com/SHADOW-OVERLORD/atropos) RL training framework. This enables three workflows:
+YOUSEF SHTIWE Agent includes a full environment framework that connects its tool-calling capabilities to the [Atropos](https://github.com/YOUSEF SHTIWE-OVERLORD/atropos) RL training framework. This enables three workflows:
 
 1. **RL Training** — Train language models on multi-turn agentic tasks with GRPO
 2. **Benchmarks** — Evaluate models on standardised agentic benchmarks
@@ -15,7 +15,7 @@ SHADOW Agent includes a full environment framework that connects its tool-callin
 All three share the same core: an **environment** class that defines tasks, runs an agent loop, and scores the output.
 
 :::info Repo environments vs RL training tools
-The Python environment framework documented here lives under the repo's `environments/` directory and is the implementation-level API for SHADOW/Atropos integration. This is separate from the user-facing `rl_*` tools, which operate as an orchestration surface for remote RL training workflows.
+The Python environment framework documented here lives under the repo's `environments/` directory and is the implementation-level API for YOUSEF SHTIWE/Atropos integration. This is separate from the user-facing `rl_*` tools, which operate as an orchestration surface for remote RL training workflows.
 :::
 
 :::tip Quick Links
@@ -37,7 +37,7 @@ classDiagram
       CLI: serve / process / evaluate
     }
 
-    class SHADOWAgentBaseEnv {
+    class YOUSEF SHTIWEAgentBaseEnv {
       Terminal backend configuration
       Tool resolution
       Agent loop engine
@@ -48,7 +48,7 @@ classDiagram
       Stack testing
     }
 
-    class SHADOWSweEnv {
+    class YOUSEF SHTIWESweEnv {
       SWE training
     }
 
@@ -64,10 +64,10 @@ classDiagram
       Long-horizon benchmark
     }
 
-    BaseEnv <|-- SHADOWAgentBaseEnv
-    SHADOWAgentBaseEnv <|-- TerminalTestEnv
-    SHADOWAgentBaseEnv <|-- SHADOWSweEnv
-    SHADOWAgentBaseEnv <|-- TerminalBench2EvalEnv
+    BaseEnv <|-- YOUSEF SHTIWEAgentBaseEnv
+    YOUSEF SHTIWEAgentBaseEnv <|-- TerminalTestEnv
+    YOUSEF SHTIWEAgentBaseEnv <|-- YOUSEF SHTIWESweEnv
+    YOUSEF SHTIWEAgentBaseEnv <|-- TerminalBench2EvalEnv
     TerminalBench2EvalEnv <|-- TBLiteEvalEnv
     TerminalBench2EvalEnv <|-- YCBenchEvalEnv
 ```
@@ -81,18 +81,18 @@ The foundation from `atroposlib`. Provides:
 - **CLI interface** — three subcommands: `serve`, `process`, `evaluate`
 - **Eval logging** — `evaluate_log()` saves results to JSON + JSONL
 
-### SHADOWAgentBaseEnv
+### YOUSEF SHTIWEAgentBaseEnv
 
-The shadow-agent layer (`environments/shadow_base_env.py`). Adds:
+The yousef shtiwe-agent layer (`environments/yousef shtiwe_base_env.py`). Adds:
 - **Terminal backend configuration** — sets `TERMINAL_ENV` for sandboxed execution (local, Docker, Modal, Daytona, SSH, Singularity)
-- **Tool resolution** — `_resolve_tools_for_group()` calls shadow-agent's `get_tool_definitions()` to get the right tool schemas based on enabled/disabled toolsets
-- **Agent loop integration** — `collect_trajectory()` runs `SHADOWAgentLoop` and scores the result
+- **Tool resolution** — `_resolve_tools_for_group()` calls yousef shtiwe-agent's `get_tool_definitions()` to get the right tool schemas based on enabled/disabled toolsets
+- **Agent loop integration** — `collect_trajectory()` runs `YOUSEF SHTIWEAgentLoop` and scores the result
 - **Two-phase operation** — Phase 1 (OpenAI server) for eval/SFT, Phase 2 (VLLM ManagedServer) for full RL with logprobs
 - **Async safety patches** — monkey-patches Modal backend to work inside Atropos's event loop
 
 ### Concrete Environments
 
-Your environment inherits from `SHADOWAgentBaseEnv` and implements five methods:
+Your environment inherits from `YOUSEF SHTIWEAgentBaseEnv` and implements five methods:
 
 | Method | Purpose |
 |--------|---------|
@@ -106,7 +106,7 @@ Your environment inherits from `SHADOWAgentBaseEnv` and implements five methods:
 
 ### Agent Loop
 
-`SHADOWAgentLoop` (`environments/agent_loop.py`) is the reusable multi-turn agent engine. It runs the same tool-calling pattern as shadow-agent's main loop:
+`YOUSEF SHTIWEAgentLoop` (`environments/agent_loop.py`) is the reusable multi-turn agent engine. It runs the same tool-calling pattern as yousef shtiwe-agent's main loop:
 
 1. Send messages + tool schemas to the API via `server.chat_completion()`
 2. If the response contains `tool_calls`, dispatch each via `handle_function_call()`
@@ -158,7 +158,7 @@ Available methods:
 | **Transfers** | `upload_file()`, `upload_dir()`, `download_file()`, `download_dir()` |
 | **Web** | `web_search(query)`, `web_extract(urls)` |
 | **Browser** | `browser_navigate(url)`, `browser_snapshot()` |
-| **Generic** | `call_tool(name, args)` — escape hatch for any shadow-agent tool |
+| **Generic** | `call_tool(name, args)` — escape hatch for any yousef shtiwe-agent tool |
 | **Cleanup** | `cleanup()` — release all resources |
 
 ### Tool Call Parsers
@@ -168,11 +168,11 @@ For **Phase 2** (VLLM ManagedServer), the server returns raw text without struct
 ```python
 from environments.tool_call_parsers import get_parser
 
-parser = get_parser("shadow")  # or "mistral", "llama3_json", "qwen", "deepseek_v3", etc.
+parser = get_parser("yousef shtiwe")  # or "mistral", "llama3_json", "qwen", "deepseek_v3", etc.
 content, tool_calls = parser.parse(raw_model_output)
 ```
 
-Available parsers: `shadow`, `mistral`, `llama3_json`, `qwen`, `qwen3_coder`, `deepseek_v3`, `deepseek_v3_1`, `kimi_k2`, `longcat`, `glm45`, `glm47`.
+Available parsers: `yousef shtiwe`, `mistral`, `llama3_json`, `qwen`, `qwen3_coder`, `deepseek_v3`, `deepseek_v3_1`, `kimi_k2`, `longcat`, `glm45`, `glm47`.
 
 In Phase 1 (OpenAI server type), parsers are not needed — the server handles tool call parsing natively.
 
@@ -202,7 +202,7 @@ python environments/benchmarks/terminalbench_2/terminalbench2_env.py evaluate \
     --env.task_filter fix-git,git-multibranch
 ```
 
-Dataset: [SHADOW-OVERLORD/terminal-bench-2](https://huggingface.co/datasets/SHADOW-OVERLORD/terminal-bench-2) on HuggingFace.
+Dataset: [YOUSEF SHTIWE-OVERLORD/terminal-bench-2](https://huggingface.co/datasets/YOUSEF SHTIWE-OVERLORD/terminal-bench-2) on HuggingFace.
 
 ### TBLite (OpenThoughts Terminal Bench Lite)
 
@@ -223,7 +223,7 @@ python environments/benchmarks/tblite/tblite_env.py evaluate \
     --config environments/benchmarks/tblite/default.yaml
 ```
 
-TBLite is a thin subclass of TerminalBench2 — only the dataset and timeouts differ. Created by the OpenThoughts Agent team (Snorkel AI + Bespoke Labs). Dataset: [SHADOW-OVERLORD/openthoughts-tblite](https://huggingface.co/datasets/SHADOW-OVERLORD/openthoughts-tblite).
+TBLite is a thin subclass of TerminalBench2 — only the dataset and timeouts differ. Created by the OpenThoughts Agent team (Snorkel AI + Bespoke Labs). Dataset: [YOUSEF SHTIWE-OVERLORD/openthoughts-tblite](https://huggingface.co/datasets/YOUSEF SHTIWE-OVERLORD/openthoughts-tblite).
 
 ### YC-Bench
 
@@ -241,7 +241,7 @@ TBLite is a thin subclass of TerminalBench2 — only the dataset and timeouts di
 
 ```bash
 # Install yc-bench (optional dependency)
-pip install "shadow-agent[yc-bench]"
+pip install "yousef shtiwe-agent[yc-bench]"
 
 # Run evaluation
 bash environments/benchmarks/yc_bench/run_eval.sh
@@ -273,12 +273,12 @@ python environments/terminal_test_env/terminal_test_env.py process \
 python environments/terminal_test_env/terminal_test_env.py serve
 ```
 
-### SHADOWSweEnv
+### YOUSEF SHTIWESweEnv
 
 SWE-bench style training environment. The model gets a coding task, uses terminal + file + web tools to solve it, and the reward function runs tests in the same Modal sandbox.
 
 ```bash
-python environments/shadow_swe_env/shadow_swe_env.py serve \
+python environments/yousef shtiwe_swe_env/yousef shtiwe_swe_env.py serve \
     --openai.model_name YourModel \
     --env.dataset_name bigcode/humanevalpack \
     --env.terminal_backend modal
@@ -321,7 +321,7 @@ Connects the environment to a running Atropos API server (`run-api`). Used durin
 run-api
 
 # Terminal 2: Start the environment
-python environments/shadow_swe_env/shadow_swe_env.py serve \
+python environments/yousef shtiwe_swe_env/yousef shtiwe_swe_env.py serve \
     --openai.model_name YourModel
 ```
 
@@ -342,20 +342,20 @@ Uses ManagedServer for exact token IDs + logprobs via `/generate`. A client-side
 
 - **Use for**: full RL training with GRPO/PPO
 - **Real tokens**, masks, and logprobs flow through the pipeline
-- Set `tool_call_parser` in config to match your model's format (e.g., `"shadow"`, `"qwen"`, `"mistral"`)
+- Set `tool_call_parser` in config to match your model's format (e.g., `"yousef shtiwe"`, `"qwen"`, `"mistral"`)
 
 ## Creating Environments
 
 ### Training Environment
 
 ```python
-from environments.shadow_base_env import SHADOWAgentBaseEnv, SHADOWAgentEnvConfig
+from environments.yousef shtiwe_base_env import YOUSEF SHTIWEAgentBaseEnv, YOUSEF SHTIWEAgentEnvConfig
 from atroposlib.envs.server_handling.server_manager import APIServerConfig
 
-class MyEnvConfig(SHADOWAgentEnvConfig):
+class MyEnvConfig(YOUSEF SHTIWEAgentEnvConfig):
     my_custom_field: str = "default_value"
 
-class MyEnv(SHADOWAgentBaseEnv):
+class MyEnv(YOUSEF SHTIWEAgentBaseEnv):
     name = "my-env"
     env_config_cls = MyEnvConfig
 
@@ -416,11 +416,11 @@ See `environments/benchmarks/yc_bench/yc_bench_env.py` for a clean, well-documen
 
 ## Configuration Reference
 
-### SHADOWAgentEnvConfig Fields
+### YOUSEF SHTIWEAgentEnvConfig Fields
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `enabled_toolsets` | `List[str]` | `None` (all) | Which shadow toolsets to enable |
+| `enabled_toolsets` | `List[str]` | `None` (all) | Which yousef shtiwe toolsets to enable |
 | `disabled_toolsets` | `List[str]` | `None` | Toolsets to filter out |
 | `distribution` | `str` | `None` | Probabilistic toolset distribution name |
 | `max_agent_turns` | `int` | `30` | Max LLM calls per rollout |
@@ -431,7 +431,7 @@ See `environments/benchmarks/yc_bench/yc_bench_env.py` for a clean, well-documen
 | `terminal_lifetime` | `int` | `3600` | Max sandbox lifetime |
 | `dataset_name` | `str` | `None` | HuggingFace dataset identifier |
 | `tool_pool_size` | `int` | `128` | Thread pool size for tool execution |
-| `tool_call_parser` | `str` | `"shadow"` | Parser for Phase 2 raw output |
+| `tool_call_parser` | `str` | `"yousef shtiwe"` | Parser for Phase 2 raw output |
 | `extra_body` | `Dict` | `None` | Extra params for OpenAI API (e.g., OpenRouter provider prefs) |
 | `eval_handling` | `Enum` | `STOP_TRAIN` | `STOP_TRAIN`, `LIMIT_TRAIN`, `NONE` |
 
@@ -447,8 +447,8 @@ env:
   agent_temperature: 0.8
   terminal_backend: "modal"
   terminal_timeout: 300
-  dataset_name: "SHADOW-OVERLORD/terminal-bench-2"
-  tokenizer_name: "SHADOW-OVERLORD/SHADOW-3-Llama-3.1-8B"
+  dataset_name: "YOUSEF SHTIWE-OVERLORD/terminal-bench-2"
+  tokenizer_name: "YOUSEF SHTIWE-OVERLORD/YOUSEF SHTIWE-3-Llama-3.1-8B"
   use_wandb: true
   wandb_name: "my-benchmark"
 
@@ -472,17 +472,17 @@ python my_env.py evaluate \
 ### For all environments
 
 - Python >= 3.11
-- `atroposlib`: `pip install git+https://github.com/SHADOW-OVERLORD/atropos.git`
+- `atroposlib`: `pip install git+https://github.com/YOUSEF SHTIWE-OVERLORD/atropos.git`
 - An LLM API key (OpenRouter, OpenAI, or self-hosted VLLM/SGLang)
 
 ### For Modal-sandboxed benchmarks (TB2, TBLite)
 
-- [Modal](https://modal.com) account and CLI: `pip install "shadow-agent[modal]"`
+- [Modal](https://modal.com) account and CLI: `pip install "yousef shtiwe-agent[modal]"`
 - `MODAL_TOKEN_ID` and `MODAL_TOKEN_SECRET` environment variables
 
 ### For YC-Bench
 
-- `pip install "shadow-agent[yc-bench]"` (installs the yc-bench CLI + SQLAlchemy)
+- `pip install "yousef shtiwe-agent[yc-bench]"` (installs the yc-bench CLI + SQLAlchemy)
 - No Modal needed — runs with local terminal backend
 
 ### For RL training
@@ -497,13 +497,13 @@ See [RL Training](/user-guide/features/rl-training) for the agent-driven RL work
 
 ```
 environments/
-├── shadow_base_env.py          # Abstract base class (SHADOWAgentBaseEnv)
-├── agent_loop.py               # Multi-turn agent engine (SHADOWAgentLoop)
+├── yousef shtiwe_base_env.py          # Abstract base class (YOUSEF SHTIWEAgentBaseEnv)
+├── agent_loop.py               # Multi-turn agent engine (YOUSEF SHTIWEAgentLoop)
 ├── tool_context.py             # Per-rollout tool access for reward functions
 ├── patches.py                  # Async-safety patches for Modal backend
 │
 ├── tool_call_parsers/          # Phase 2 client-side parsers
-│   ├── shadow_parser.py        # SHADOW/ChatML <tool_call> format
+│   ├── yousef shtiwe_parser.py        # YOUSEF SHTIWE/ChatML <tool_call> format
 │   ├── mistral_parser.py       # Mistral [TOOL_CALLS] format
 │   ├── llama_parser.py         # Llama 3 JSON tool calling
 │   ├── qwen_parser.py          # Qwen format
@@ -511,7 +511,7 @@ environments/
 │   └── ...                     # + kimi_k2, longcat, glm45/47, etc.
 │
 ├── terminal_test_env/          # Stack validation (inline tasks)
-├── shadow_swe_env/             # SWE-bench training environment
+├── yousef shtiwe_swe_env/             # SWE-bench training environment
 │
 └── benchmarks/                 # Evaluation benchmarks
     ├── terminalbench_2/        # 89 terminal tasks, Modal sandboxes

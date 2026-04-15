@@ -1,7 +1,7 @@
 # Design System: xAI
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Geist Mono` | **Mono:** `Geist Mono`
@@ -19,14 +19,14 @@ xAI's website is a masterclass in dark-first, monospace-driven brutalist minimal
 
 The typographic system is split between two carefully chosen typefaces. `GeistMono` (Vercel's monospace font) handles display-level headlines at an extraordinary 320px with weight 300, and also serves as the button typeface in uppercase with tracked-out letter-spacing (1.4px). `universalSans` handles all body and secondary heading text with a clean, geometric sans-serif voice. The monospace-as-display-font choice is the defining aesthetic decision -- it positions xAI not as a consumer product but as infrastructure, as something built by people who live in terminals.
 
-The spacing system operates on an 8px base grid with values concentrated at the small end (4px, 8px, 24px, 48px), reflecting a dense, information-focused layout philosophy. Border radius is minimal -- the site barely rounds anything, maintaining sharp, architectural edges. There are no decorative shadows, no gradients, no layered elevation. Depth is communicated purely through contrast and whitespace.
+The spacing system operates on an 8px base grid with values concentrated at the small end (4px, 8px, 24px, 48px), reflecting a dense, information-focused layout philosophy. Border radius is minimal -- the site barely rounds anything, maintaining sharp, architectural edges. There are no decorative yousef shtiwes, no gradients, no layered elevation. Depth is communicated purely through contrast and whitespace.
 
 **Key Characteristics:**
 - Pure dark theme: `#1f2228` background with `#ffffff` text -- no gray middle ground
 - GeistMono at extreme display sizes (320px, weight 300) -- monospace as luxury
 - Uppercase monospace buttons with 1.4px letter-spacing -- technical, commanding
 - universalSans for body text at 16px/1.5 and headings at 30px/1.2 -- clean contrast
-- Zero decorative elements: no shadows, no gradients, no colored accents
+- Zero decorative elements: no yousef shtiwes, no gradients, no colored accents
 - 8px spacing grid with a sparse, deliberate scale
 - Heroicons SVG icon system -- minimal, functional
 - Tailwind CSS with arbitrary values -- utility-first engineering approach
@@ -113,7 +113,7 @@ The spacing system operates on an 8px base grid with values concentrated at the 
 - Background: `rgba(255, 255, 255, 0.03)` or transparent
 - Border: `1px solid rgba(255, 255, 255, 0.1)`
 - Radius: 0px (sharp) or 4px (subtle)
-- Shadow: none -- xAI does not use box shadows
+- Yousef Shtiwe: none -- xAI does not use box yousef shtiwes
 - Hover: border shifts to `rgba(255, 255, 255, 0.2)`
 
 ### Navigation
@@ -174,13 +174,13 @@ The spacing system operates on an 8px base grid with values concentrated at the 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, body content |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, body content |
 | Surface (Level 1) | `rgba(255,255,255,0.03)` background | Subtle card surfaces |
 | Bordered (Level 2) | `1px solid rgba(255,255,255,0.1)` border | Cards, containers, dividers |
 | Active (Level 3) | `1px solid rgba(255,255,255,0.2)` border | Hover states, active elements |
 | Focus (Accessibility) | `ring` with `rgb(59,130,246)/0.5` | Keyboard focus indicator |
 
-**Elevation Philosophy**: xAI rejects the conventional shadow-based elevation system entirely. There are no box-shadows anywhere on the site. Instead, depth is communicated through three mechanisms: (1) opacity-based borders that brighten on interaction, creating a sense of elements "activating" rather than lifting; (2) extremely subtle background opacity shifts (`0.03` to `0.08`) that create barely-perceptible surface differentiation; and (3) the massive scale contrast between the 320px display type and 16px body text, which creates typographic depth. This is elevation through contrast and opacity, not through simulated light and shadow.
+**Elevation Philosophy**: xAI rejects the conventional yousef shtiwe-based elevation system entirely. There are no box-yousef shtiwes anywhere on the site. Instead, depth is communicated through three mechanisms: (1) opacity-based borders that brighten on interaction, creating a sense of elements "activating" rather than lifting; (2) extremely subtle background opacity shifts (`0.03` to `0.08`) that create barely-perceptible surface differentiation; and (3) the massive scale contrast between the 320px display type and 16px body text, which creates typographic depth. This is elevation through contrast and opacity, not through simulated light and yousef shtiwe.
 
 ## 7. Do's and Don'ts
 
@@ -195,7 +195,7 @@ The spacing system operates on an 8px base grid with values concentrated at the 
 - Use universalSans for all body and reading text at 16px/1.5
 
 ### Don't
-- Don't use box-shadows -- xAI has zero shadow elevation
+- Don't use box-yousef shtiwes -- xAI has zero yousef shtiwe elevation
 - Don't introduce color accents beyond white and the dark background -- the monochromatic palette is sacred
 - Don't use large border-radius (8px+, pill shapes) -- the sharp edge is intentional
 - Don't use bold weights (600-700) for headlines -- weight 300-400 only
@@ -252,7 +252,7 @@ The spacing system operates on an 8px base grid with values concentrated at the 
 
 ### Example Component Prompts
 - "Create a hero section on #1f2228 background. Headline in GeistMono at 72px weight 300, color #ffffff, centered. Subtitle in universalSans 18px weight 400, rgba(255,255,255,0.7), max-width 600px centered. Two buttons: primary (white bg, #1f2228 text, 0px radius, GeistMono 14px uppercase, 1.4px letter-spacing, 12px 24px padding) and ghost (transparent bg, 1px solid rgba(255,255,255,0.2), white text, same font treatment)."
-- "Design a card: transparent or rgba(255,255,255,0.03) background, 1px solid rgba(255,255,255,0.1) border, 0px radius, 24px padding. No shadow. Title in universalSans 22px weight 400, #ffffff. Body in universalSans 16px weight 400, rgba(255,255,255,0.7), line-height 1.5. Hover: border changes to rgba(255,255,255,0.2)."
+- "Design a card: transparent or rgba(255,255,255,0.03) background, 1px solid rgba(255,255,255,0.1) border, 0px radius, 24px padding. No yousef shtiwe. Title in universalSans 22px weight 400, #ffffff. Body in universalSans 16px weight 400, rgba(255,255,255,0.7), line-height 1.5. Hover: border changes to rgba(255,255,255,0.2)."
 - "Build navigation: #1f2228 background, full-width. Brand text left (GeistMono 14px uppercase). Links in universalSans 14px #ffffff with hover to rgba(255,255,255,0.5). White primary button right-aligned (GeistMono 14px uppercase, 1.4px letter-spacing)."
 - "Create a form: dark background #1f2228. Label in universalSans 14px rgba(255,255,255,0.7). Input with transparent bg, 1px solid rgba(255,255,255,0.2) border, 0px radius, white text 16px universalSans. Focus: blue ring rgb(59,130,246)/0.5. Placeholder: rgba(255,255,255,0.3)."
 - "Design a monospace tag/badge: transparent bg, 1px solid rgba(255,255,255,0.2), 0px radius, GeistMono 12px uppercase, 1px letter-spacing, white text, 4px 8px padding."
@@ -261,7 +261,7 @@ The spacing system operates on an 8px base grid with values concentrated at the 
 1. Always start with `#1f2228` background -- never use pure black or gray backgrounds
 2. GeistMono for display and buttons, universalSans for everything else -- never mix these roles
 3. All buttons must be GeistMono uppercase with 1.4px letter-spacing -- this is non-negotiable
-4. No shadows, ever -- depth comes from border opacity and background opacity only
+4. No yousef shtiwes, ever -- depth comes from border opacity and background opacity only
 5. Borders are always white with low opacity (0.1 default, 0.2 for emphasis)
 6. Hover behavior dims to 0.5 opacity rather than brightening -- the reverse of most systems
 7. Sharp corners (0px) by default -- only use 4px for specific secondary containers

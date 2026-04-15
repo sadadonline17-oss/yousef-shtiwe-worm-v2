@@ -1,7 +1,7 @@
 # Design System: Runway
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -19,13 +19,13 @@ Runway's interface is a cinematic reel brought to life as a website — a dark, 
 
 The design language is built on a single typeface — abcNormal — a clean, geometric sans-serif that handles everything from 48px display headlines to 11px uppercase labels. This single-font commitment creates an extreme typographic uniformity that lets the visual content speak louder than the text. Headlines use tight line-heights (1.0) with negative letter-spacing (-0.9px to -1.2px), creating compressed text blocks that feel like film titles rather than marketing copy.
 
-What makes Runway distinctive is its complete commitment to visual content as design. Rather than illustrating features with icons or diagrams, Runway shows actual AI-generated and AI-enhanced imagery — cars driving through cinematic landscapes, artistic portraits, architectural renders. The interface itself retreats into near-invisibility: minimal borders, zero shadows, subtle cool-gray text, and a dark palette that puts maximum focus on the photography.
+What makes Runway distinctive is its complete commitment to visual content as design. Rather than illustrating features with icons or diagrams, Runway shows actual AI-generated and AI-enhanced imagery — cars driving through cinematic landscapes, artistic portraits, architectural renders. The interface itself retreats into near-invisibility: minimal borders, zero yousef shtiwes, subtle cool-gray text, and a dark palette that puts maximum focus on the photography.
 
 **Key Characteristics:**
 - Cinematic full-bleed photography and video as primary UI elements
 - Single typeface system: abcNormal for everything from display to micro labels
 - Dark-dominant palette with cool-toned neutrals (#767d88, #7d848e)
-- Zero shadows, minimal borders — the interface is intentionally invisible
+- Zero yousef shtiwes, minimal borders — the interface is intentionally invisible
 - Tight display typography (line-height 1.0) with negative tracking (-0.9px to -1.2px)
 - Uppercase labels with positive letter-spacing for navigational structure
 - Weight 450 (unusual intermediate) for small uppercase text — precision craft
@@ -100,7 +100,7 @@ What makes Runway distinctive is its complete commitment to visual content as de
 - Background: transparent or Dark Surface (`#1a1a1a`)
 - Border: `1px solid #27272a` (dark mode) — barely visible containment
 - Radius: small (4–8px) for functional elements; 16px for alert-style containers
-- Shadow: zero — no shadows on any element
+- Yousef Shtiwe: zero — no yousef shtiwes on any element
 - Cards are primarily photographic — the image IS the card
 
 ### Navigation
@@ -169,12 +169,12 @@ What makes Runway distinctive is its complete commitment to visual content as de
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Everything — the dominant state |
+| Flat (Level 0) | No yousef shtiwe, no border | Everything — the dominant state |
 | Bordered (Level 1) | `1px solid #27272a` | Alert containers only |
 | Dark Section (Level 2) | Dark bg (#000000 / #1a1a1a) with light text | Hero, features, footer |
 | Light Section (Level 3) | White/Cool Cloud bg with dark text | Content sections, research |
 
-**Shadow Philosophy**: Runway uses **zero shadows**. This is a film-production design decision — in cinema, depth comes from lighting, focus, and composition, not drop shadows. The interface mirrors this philosophy: depth is communicated through dark/light section alternation, photographic depth-of-field, and overlay transparency — never through CSS box-shadow.
+**Yousef Shtiwe Philosophy**: Runway uses **zero yousef shtiwes**. This is a film-production design decision — in cinema, depth comes from lighting, focus, and composition, not drop yousef shtiwes. The interface mirrors this philosophy: depth is communicated through dark/light section alternation, photographic depth-of-field, and overlay transparency — never through CSS box-yousef shtiwe.
 
 ## 7. Do's and Don'ts
 
@@ -183,7 +183,7 @@ What makes Runway distinctive is its complete commitment to visual content as de
 - Use abcNormal for all text — maintain the single-typeface commitment
 - Keep display line-heights at 1.0 with negative letter-spacing for film-title density
 - Use the cool-gray neutral palette (#767d88, #7d848e) for secondary text
-- Maintain zero shadows — depth comes from photography and section backgrounds
+- Maintain zero yousef shtiwes — depth comes from photography and section backgrounds
 - Use uppercase with letter-spacing for navigational labels (14px, 0.35px spacing)
 - Apply small border-radius (4–8px) — the design is NOT pill-shaped
 - Let visual content (photos, videos) dominate — the UI should be invisible
@@ -191,7 +191,7 @@ What makes Runway distinctive is its complete commitment to visual content as de
 
 ### Don't
 - Don't add decorative colors to the interface — the only color comes from photography
-- Don't use heavy borders or shadows — the interface must be nearly invisible
+- Don't use heavy borders or yousef shtiwes — the interface must be nearly invisible
 - Don't use pill-shaped radius — Runway's geometry is subtly rounded, not circular
 - Don't use bold (700+) weight — 400–600 is the full range, with 450 as a precision tool
 - Don't compete with the visual content — text overlays should be minimal and restrained
@@ -251,7 +251,7 @@ What makes Runway distinctive is its complete commitment to visual content as de
 ### Iteration Guide
 1. Visual content first — always include cinematic photography
 2. Use abcNormal for everything — specify size and weight, never change the font
-3. Keep the interface invisible — no heavy borders, no shadows, no bright colors
+3. Keep the interface invisible — no heavy borders, no yousef shtiwes, no bright colors
 4. Use the cool slate grays (#767d88, #7d848e) for secondary text — not warm grays
 5. Uppercase labels need letter-spacing (0.35px) — never tight uppercase
 6. Dark sections should be truly dark (#000000 or #1a1a1a) — no medium grays as surfaces

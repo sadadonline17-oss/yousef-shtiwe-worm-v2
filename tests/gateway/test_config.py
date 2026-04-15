@@ -140,9 +140,9 @@ class TestGatewayConfigRoundtrip:
 
 class TestLoadGatewayConfig:
     def test_bridges_quick_commands_from_config_yaml(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text(
             "quick_commands:\n"
             "  limits:\n"
@@ -151,64 +151,64 @@ class TestLoadGatewayConfig:
             encoding="utf-8",
         )
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
         assert config.quick_commands == {"limits": {"type": "exec", "command": "echo ok"}}
 
     def test_bridges_group_sessions_per_user_from_config_yaml(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text("group_sessions_per_user: false\n", encoding="utf-8")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
         assert config.group_sessions_per_user is False
 
     def test_bridges_thread_sessions_per_user_from_config_yaml(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text("thread_sessions_per_user: true\n", encoding="utf-8")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
         assert config.thread_sessions_per_user is True
 
     def test_thread_sessions_per_user_defaults_to_false(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text("{}\n", encoding="utf-8")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
         assert config.thread_sessions_per_user is False
 
     def test_invalid_quick_commands_in_config_yaml_are_ignored(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text("quick_commands: not-a-mapping\n", encoding="utf-8")
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
         assert config.quick_commands == {}
 
     def test_bridges_unauthorized_dm_behavior_from_config_yaml(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
-        config_path = shadow_home / "config.yaml"
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        config_path = yousef shtiwe_home / "config.yaml"
         config_path.write_text(
             "unauthorized_dm_behavior: ignore\n"
             "whatsapp:\n"
@@ -216,7 +216,7 @@ class TestLoadGatewayConfig:
             encoding="utf-8",
         )
 
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         config = load_gateway_config()
 
@@ -270,7 +270,7 @@ class TestHomeChannelEnvOverrides:
                 PlatformConfig(
                     enabled=True,
                     extra={
-                        "address": "shadow@test.com",
+                        "address": "yousef shtiwe@test.com",
                         "imap_host": "imap.test.com",
                         "smtp_host": "smtp.test.com",
                     },

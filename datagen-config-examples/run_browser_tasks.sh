@@ -10,12 +10,12 @@
 # Distribution: browser 97%, web 20%, vision 12%, terminal 15%
 #
 # Prerequisites:
-#   - OPENROUTER_API_KEY in ~/.shadow/.env
-#   - BROWSERBASE_API_KEY in ~/.shadow/.env (for browser tools)
+#   - OPENROUTER_API_KEY in ~/.yousef shtiwe/.env
+#   - BROWSERBASE_API_KEY in ~/.yousef shtiwe/.env (for browser tools)
 #   - A dataset JSONL file with one {"prompt": "..."} per line
 #
 # Usage:
-#   cd ~/.shadow/shadow-agent
+#   cd ~/.yousef shtiwe/yousef shtiwe-agent
 #   bash datagen-config-examples/run_browser_tasks.sh
 #
 # Output: data/browser_tasks_example/trajectories.jsonl

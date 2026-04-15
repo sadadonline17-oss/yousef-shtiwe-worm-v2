@@ -1,4 +1,4 @@
-"""Regression tests for Shadow OAuth refresh + agent-key mint interactions."""
+"""Regression tests for Yousef Shtiwe OAuth refresh + agent-key mint interactions."""
 
 import json
 import os
@@ -8,7 +8,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from shadow_cli.auth import AuthError, get_provider_auth_state, resolve_shadow_runtime_credentials
+from yousef shtiwe_cli.auth import AuthError, get_provider_auth_state, resolve_yousef shtiwe_runtime_credentials
 
 
 # =============================================================================
@@ -20,7 +20,7 @@ class TestResolveVerifyFallback:
     """Verify _resolve_verify falls back to True when CA bundle path doesn't exist."""
 
     def test_missing_ca_bundle_in_auth_state_falls_back(self):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         result = _resolve_verify(auth_state={
             "tls": {"insecure": False, "ca_bundle": "/nonexistent/ca-bundle.pem"},
@@ -28,7 +28,7 @@ class TestResolveVerifyFallback:
         assert result is True
 
     def test_valid_ca_bundle_in_auth_state_is_returned(self, tmp_path):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         ca_file = tmp_path / "ca-bundle.pem"
         ca_file.write_text("fake cert")
@@ -38,23 +38,23 @@ class TestResolveVerifyFallback:
         assert result == str(ca_file)
 
     def test_missing_ssl_cert_file_env_falls_back(self, monkeypatch):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         monkeypatch.setenv("SSL_CERT_FILE", "/nonexistent/ssl-cert.pem")
-        monkeypatch.delenv("SHADOW_CA_BUNDLE", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_CA_BUNDLE", raising=False)
         result = _resolve_verify(auth_state={"tls": {}})
         assert result is True
 
-    def test_missing_shadow_ca_bundle_env_falls_back(self, monkeypatch):
-        from shadow_cli.auth import _resolve_verify
+    def test_missing_yousef shtiwe_ca_bundle_env_falls_back(self, monkeypatch):
+        from yousef shtiwe_cli.auth import _resolve_verify
 
-        monkeypatch.setenv("SHADOW_CA_BUNDLE", "/nonexistent/shadow-ca.pem")
+        monkeypatch.setenv("YOUSEF SHTIWE_CA_BUNDLE", "/nonexistent/yousef shtiwe-ca.pem")
         monkeypatch.delenv("SSL_CERT_FILE", raising=False)
         result = _resolve_verify(auth_state={"tls": {}})
         assert result is True
 
     def test_insecure_takes_precedence_over_missing_ca(self):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         result = _resolve_verify(
             insecure=True,
@@ -63,21 +63,21 @@ class TestResolveVerifyFallback:
         assert result is False
 
     def test_no_ca_bundle_returns_true(self, monkeypatch):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
-        monkeypatch.delenv("SHADOW_CA_BUNDLE", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_CA_BUNDLE", raising=False)
         monkeypatch.delenv("SSL_CERT_FILE", raising=False)
         result = _resolve_verify(auth_state={"tls": {}})
         assert result is True
 
     def test_explicit_ca_bundle_param_missing_falls_back(self):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         result = _resolve_verify(ca_bundle="/nonexistent/explicit-ca.pem")
         assert result is True
 
     def test_explicit_ca_bundle_param_valid_is_returned(self, tmp_path):
-        from shadow_cli.auth import _resolve_verify
+        from yousef shtiwe_cli.auth import _resolve_verify
 
         ca_file = tmp_path / "explicit-ca.pem"
         ca_file.write_text("fake cert")
@@ -85,21 +85,21 @@ class TestResolveVerifyFallback:
         assert result == str(ca_file)
 
 
-def _setup_shadow_auth(
-    shadow_home: Path,
+def _setup_yousef shtiwe_auth(
+    yousef shtiwe_home: Path,
     *,
     access_token: str = "access-old",
     refresh_token: str = "refresh-old",
 ) -> None:
-    shadow_home.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     auth_store = {
         "version": 1,
-        "active_provider": "shadow",
+        "active_provider": "yousef shtiwe",
         "providers": {
-            "shadow": {
+            "yousef shtiwe": {
                 "portal_base_url": "https://portal.example.com",
                 "inference_base_url": "https://inference.example.com/v1",
-                "client_id": "shadow-cli",
+                "client_id": "yousef shtiwe-cli",
                 "token_type": "Bearer",
                 "scope": "inference:mint_agent_key",
                 "access_token": access_token,
@@ -116,7 +116,7 @@ def _setup_shadow_auth(
             }
         },
     }
-    (shadow_home / "auth.json").write_text(json.dumps(auth_store, indent=2))
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps(auth_store, indent=2))
 
 
 def _mint_payload(api_key: str = "agent-key") -> dict:
@@ -129,26 +129,26 @@ def _mint_payload(api_key: str = "agent-key") -> dict:
     }
 
 
-def test_get_shadow_auth_status_checks_credential_pool(tmp_path, monkeypatch):
-    """get_shadow_auth_status() should find Shadow credentials in the pool
-    even when the auth store has no Shadow provider entry — this is the
+def test_get_yousef shtiwe_auth_status_checks_credential_pool(tmp_path, monkeypatch):
+    """get_yousef shtiwe_auth_status() should find Yousef Shtiwe credentials in the pool
+    even when the auth store has no Yousef Shtiwe provider entry — this is the
     case when login happened via the dashboard device-code flow which
     saves to the pool only.
     """
-    from shadow_cli.auth import get_shadow_auth_status
+    from yousef shtiwe_cli.auth import get_yousef shtiwe_auth_status
 
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
-    # Empty auth store — no Shadow provider entry
-    (shadow_home / "auth.json").write_text(json.dumps({
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+    # Empty auth store — no Yousef Shtiwe provider entry
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({
         "version": 1, "providers": {},
     }))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
-    # Seed the credential pool with a Shadow entry
+    # Seed the credential pool with a Yousef Shtiwe entry
     from agent.credential_pool import PooledCredential, load_pool
-    pool = load_pool("shadow")
-    entry = PooledCredential.from_dict("shadow", {
+    pool = load_pool("yousef shtiwe")
+    entry = PooledCredential.from_dict("yousef shtiwe", {
         "access_token": "test-access-token",
         "refresh_token": "test-refresh-token",
         "portal_base_url": "https://portal.example.com",
@@ -162,47 +162,47 @@ def test_get_shadow_auth_status_checks_credential_pool(tmp_path, monkeypatch):
     })
     pool.add_entry(entry)
 
-    status = get_shadow_auth_status()
+    status = get_yousef shtiwe_auth_status()
     assert status["logged_in"] is True
     assert "example.com" in str(status.get("portal_base_url", ""))
 
 
-def test_get_shadow_auth_status_auth_store_fallback(tmp_path, monkeypatch):
-    """get_shadow_auth_status() falls back to auth store when credential
+def test_get_yousef shtiwe_auth_status_auth_store_fallback(tmp_path, monkeypatch):
+    """get_yousef shtiwe_auth_status() falls back to auth store when credential
     pool is empty.
     """
-    from shadow_cli.auth import get_shadow_auth_status
+    from yousef shtiwe_cli.auth import get_yousef shtiwe_auth_status
 
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, access_token="at-123")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, access_token="at-123")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
-    status = get_shadow_auth_status()
+    status = get_yousef shtiwe_auth_status()
     assert status["logged_in"] is True
     assert status["portal_base_url"] == "https://portal.example.com"
 
 
-def test_get_shadow_auth_status_empty_returns_not_logged_in(tmp_path, monkeypatch):
-    """get_shadow_auth_status() returns logged_in=False when both pool
+def test_get_yousef shtiwe_auth_status_empty_returns_not_logged_in(tmp_path, monkeypatch):
+    """get_yousef shtiwe_auth_status() returns logged_in=False when both pool
     and auth store are empty.
     """
-    from shadow_cli.auth import get_shadow_auth_status
+    from yousef shtiwe_cli.auth import get_yousef shtiwe_auth_status
 
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
-    (shadow_home / "auth.json").write_text(json.dumps({
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({
         "version": 1, "providers": {},
     }))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
-    status = get_shadow_auth_status()
+    status = get_yousef shtiwe_auth_status()
     assert status["logged_in"] is False
 
 
 def test_refresh_token_persisted_when_mint_returns_insufficient_credits(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, refresh_token="refresh-old")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     refresh_calls = []
     mint_calls = {"count": 0}
@@ -220,30 +220,30 @@ def test_refresh_token_persisted_when_mint_returns_insufficient_credits(tmp_path
     def _fake_mint_agent_key(*, client, portal_base_url, access_token, min_ttl_seconds):
         mint_calls["count"] += 1
         if mint_calls["count"] == 1:
-            raise AuthError("credits exhausted", provider="shadow", code="insufficient_credits")
+            raise AuthError("credits exhausted", provider="yousef shtiwe", code="insufficient_credits")
         return _mint_payload(api_key="agent-key-2")
 
-    monkeypatch.setattr("shadow_cli.auth._refresh_access_token", _fake_refresh_access_token)
-    monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._refresh_access_token", _fake_refresh_access_token)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
     with pytest.raises(AuthError) as exc:
-        resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
+        resolve_yousef shtiwe_runtime_credentials(min_key_ttl_seconds=300)
     assert exc.value.code == "insufficient_credits"
 
-    state_after_failure = get_provider_auth_state("shadow")
+    state_after_failure = get_provider_auth_state("yousef shtiwe")
     assert state_after_failure is not None
     assert state_after_failure["refresh_token"] == "refresh-1"
     assert state_after_failure["access_token"] == "access-1"
 
-    creds = resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
+    creds = resolve_yousef shtiwe_runtime_credentials(min_key_ttl_seconds=300)
     assert creds["api_key"] == "agent-key-2"
     assert refresh_calls == ["refresh-old", "refresh-1"]
 
 
 def test_refresh_token_persisted_when_mint_times_out(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, refresh_token="refresh-old")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     def _fake_refresh_access_token(*, client, portal_base_url, client_id, refresh_token):
         return {
@@ -256,22 +256,22 @@ def test_refresh_token_persisted_when_mint_times_out(tmp_path, monkeypatch):
     def _fake_mint_agent_key(*, client, portal_base_url, access_token, min_ttl_seconds):
         raise httpx.ReadTimeout("mint timeout")
 
-    monkeypatch.setattr("shadow_cli.auth._refresh_access_token", _fake_refresh_access_token)
-    monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._refresh_access_token", _fake_refresh_access_token)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
     with pytest.raises(httpx.ReadTimeout):
-        resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
+        resolve_yousef shtiwe_runtime_credentials(min_key_ttl_seconds=300)
 
-    state_after_failure = get_provider_auth_state("shadow")
+    state_after_failure = get_provider_auth_state("yousef shtiwe")
     assert state_after_failure is not None
     assert state_after_failure["refresh_token"] == "refresh-1"
     assert state_after_failure["access_token"] == "access-1"
 
 
 def test_mint_retry_uses_latest_rotated_refresh_token(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, refresh_token="refresh-old")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, refresh_token="refresh-old")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     refresh_calls = []
     mint_calls = {"count": 0}
@@ -289,13 +289,13 @@ def test_mint_retry_uses_latest_rotated_refresh_token(tmp_path, monkeypatch):
     def _fake_mint_agent_key(*, client, portal_base_url, access_token, min_ttl_seconds):
         mint_calls["count"] += 1
         if mint_calls["count"] == 1:
-            raise AuthError("stale access token", provider="shadow", code="invalid_token")
+            raise AuthError("stale access token", provider="yousef shtiwe", code="invalid_token")
         return _mint_payload(api_key="agent-key")
 
-    monkeypatch.setattr("shadow_cli.auth._refresh_access_token", _fake_refresh_access_token)
-    monkeypatch.setattr("shadow_cli.auth._mint_agent_key", _fake_mint_agent_key)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._refresh_access_token", _fake_refresh_access_token)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._mint_agent_key", _fake_mint_agent_key)
 
-    creds = resolve_shadow_runtime_credentials(min_key_ttl_seconds=300)
+    creds = resolve_yousef shtiwe_runtime_credentials(min_key_ttl_seconds=300)
     assert creds["api_key"] == "agent-key"
     assert refresh_calls == ["refresh-old", "refresh-1"]
 

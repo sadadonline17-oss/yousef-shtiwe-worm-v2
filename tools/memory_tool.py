@@ -30,7 +30,7 @@ import re
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from typing import Dict, Any, List, Optional
 
 # fcntl is Unix-only; on Windows use msvcrt for file locking
@@ -47,12 +47,12 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 # Where memory files live — resolved dynamically so profile overrides
-# (SHADOW_HOME env var changes) are always respected.  The old module-level
+# (YOUSEF SHTIWE_HOME env var changes) are always respected.  The old module-level
 # constant was cached at import time and could go stale if a profile switch
 # happened after the first import.
 def get_memory_dir() -> Path:
     """Return the profile-scoped memories directory."""
-    return get_shadow_home() / "memories"
+    return get_yousef shtiwe_home() / "memories"
 
 ENTRY_DELIMITER = "\n§\n"
 
@@ -77,7 +77,7 @@ _MEMORY_THREAT_PATTERNS = [
     # Persistence via shell rc
     (r'authorized_keys', "ssh_backdoor"),
     (r'\$HOME/\.ssh|\~/\.ssh', "ssh_access"),
-    (r'\$HOME/\.shadow/\.env|\~/\.shadow/\.env', "shadow_env"),
+    (r'\$HOME/\.yousef shtiwe/\.env|\~/\.yousef shtiwe/\.env', "yousef shtiwe_env"),
 ]
 
 # Subset of invisible chars for injection detection

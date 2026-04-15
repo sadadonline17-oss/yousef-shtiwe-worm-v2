@@ -1,7 +1,7 @@
 ---
 sidebar_position: 12
 title: "Cron Troubleshooting"
-description: "Diagnose and fix common SHADOW cron issues — jobs not firing, delivery failures, skill loading errors, and performance problems"
+description: "Diagnose and fix common YOUSEF SHTIWE cron issues — jobs not firing, delivery failures, skill loading errors, and performance problems"
 ---
 
 # Cron Troubleshooting
@@ -15,7 +15,7 @@ When a cron job isn't behaving as expected, work through these checks in order. 
 ### Check 1: Verify the job exists and is active
 
 ```bash
-shadow cron list
+yousef shtiwe cron list
 ```
 
 Look for the job and confirm its state is `[active]` (not `[paused]` or `[completed]`). If it shows `[completed]`, the repeat count may be exhausted — edit the job to reset it.
@@ -38,7 +38,7 @@ If the job fires once and then disappears from the list, it's a one-shot schedul
 
 Cron jobs are fired by the gateway's background ticker thread, which ticks every 60 seconds. A regular CLI chat session does **not** automatically fire cron jobs.
 
-If you're expecting jobs to fire automatically, you need a running gateway (`shadow gateway` or `shadow serve`). For one-off debugging, you can manually trigger a tick with `shadow cron tick`.
+If you're expecting jobs to fire automatically, you need a running gateway (`yousef shtiwe gateway` or `yousef shtiwe serve`). For one-off debugging, you can manually trigger a tick with `yousef shtiwe cron tick`.
 
 ### Check 4: Check the system clock and timezone
 
@@ -46,7 +46,7 @@ Jobs use the local timezone. If your machine's clock is wrong or in a different 
 
 ```bash
 date
-shadow cron list   # Compare next_run times with local time
+yousef shtiwe cron list   # Compare next_run times with local time
 ```
 
 ---
@@ -59,20 +59,20 @@ Delivery targets are case-sensitive and require the correct platform to be confi
 
 | Target | Requires |
 |--------|----------|
-| `telegram` | `TELEGRAM_BOT_TOKEN` in `~/.shadow/.env` |
-| `discord` | `DISCORD_BOT_TOKEN` in `~/.shadow/.env` |
-| `slack` | `SLACK_BOT_TOKEN` in `~/.shadow/.env` |
+| `telegram` | `TELEGRAM_BOT_TOKEN` in `~/.yousef shtiwe/.env` |
+| `discord` | `DISCORD_BOT_TOKEN` in `~/.yousef shtiwe/.env` |
+| `slack` | `SLACK_BOT_TOKEN` in `~/.yousef shtiwe/.env` |
 | `whatsapp` | WhatsApp gateway configured |
 | `signal` | Signal gateway configured |
 | `matrix` | Matrix homeserver configured |
 | `email` | SMTP configured in `config.yaml` |
 | `sms` | SMS provider configured |
-| `local` | Write access to `~/.shadow/cron/output/` |
+| `local` | Write access to `~/.yousef shtiwe/cron/output/` |
 | `origin` | Delivers to the chat where the job was created |
 
 Other supported platforms include `mattermost`, `homeassistant`, `dingtalk`, `feishu`, `wecom`, `weixin`, `bluebubbles`, `qqbot`, and `webhook`. You can also target a specific chat with `platform:chat_id` syntax (e.g., `telegram:-1001234567890`).
 
-If delivery fails, the job still runs — it just won't send anywhere. Check `shadow cron list` for updated `last_error` field (if available).
+If delivery fails, the job still runs — it just won't send anywhere. Check `yousef shtiwe cron list` for updated `last_error` field (if available).
 
 ### Check 2: Check `[SILENT]` usage
 
@@ -104,14 +104,14 @@ cron:
 ### Check 1: Verify skills are installed
 
 ```bash
-shadow skills list
+yousef shtiwe skills list
 ```
 
-Skills must be installed before they can be attached to cron jobs. If a skill is missing, install it first with `shadow skills install <skill-name>` or via `/skills` in the CLI.
+Skills must be installed before they can be attached to cron jobs. If a skill is missing, install it first with `yousef shtiwe skills install <skill-name>` or via `/skills` in the CLI.
 
 ### Check 2: Check skill name vs. skill folder name
 
-Skill names are case-sensitive and must match the installed skill's folder name. If your job specifies `ai-funding-daily-report` but the skill folder is `ai-funding-daily-report`, confirm the exact name from `shadow skills list`.
+Skill names are case-sensitive and must match the installed skill's folder name. If your job specifies `ai-funding-daily-report` but the skill folder is `ai-funding-daily-report`, confirm the exact name from `yousef shtiwe skills list`.
 
 ### Check 3: Skills that require interactive tools
 
@@ -138,26 +138,26 @@ In this example, `context-skill` loads before `target-skill`.
 If a job ran and failed, you may see error context in:
 
 1. The chat where the job delivers (if delivery succeeded)
-2. `~/.shadow/logs/agent.log` for scheduler messages (or `errors.log` for warnings)
-3. The job's `last_run` metadata via `shadow cron list`
+2. `~/.yousef shtiwe/logs/agent.log` for scheduler messages (or `errors.log` for warnings)
+3. The job's `last_run` metadata via `yousef shtiwe cron list`
 
 ### Check 2: Common error patterns
 
 **"No such file or directory" for scripts**
-The `script` path must be an absolute path (or relative to the SHADOW config directory). Verify:
+The `script` path must be an absolute path (or relative to the YOUSEF SHTIWE config directory). Verify:
 ```bash
-ls ~/.shadow/scripts/your-script.py   # Must exist
-shadow cron edit <job_id> --script ~/.shadow/scripts/your-script.py
+ls ~/.yousef shtiwe/scripts/your-script.py   # Must exist
+yousef shtiwe cron edit <job_id> --script ~/.yousef shtiwe/scripts/your-script.py
 ```
 
 **"Skill not found" at job execution**
-The skill must be installed on the machine running the scheduler. If you move between machines, skills don't automatically sync — reinstall them with `shadow skills install <skill-name>`.
+The skill must be installed on the machine running the scheduler. If you move between machines, skills don't automatically sync — reinstall them with `yousef shtiwe skills install <skill-name>`.
 
 **Job runs but delivers nothing**
 Likely a delivery target issue (see Delivery Failures above) or a silently suppressed response (`[SILENT]`).
 
 **Job hangs or times out**
-The scheduler uses an inactivity-based timeout (default 600s, configurable via `SHADOW_CRON_TIMEOUT` env var, `0` for unlimited). The agent can run as long as it's actively calling tools — the timer only fires after sustained inactivity. Long-running jobs should use scripts to handle data collection and deliver only the result.
+The scheduler uses an inactivity-based timeout (default 600s, configurable via `YOUSEF SHTIWE_CRON_TIMEOUT` env var, `0` for unlimited). The agent can run as long as it's actively calling tools — the timer only fires after sustained inactivity. Long-running jobs should use scripts to handle data collection and deliver only the result.
 
 ### Check 3: Lock contention
 
@@ -165,17 +165,17 @@ The scheduler uses file-based locking to prevent overlapping ticks. If two gatew
 
 Kill duplicate gateway processes:
 ```bash
-ps aux | grep shadow
+ps aux | grep yousef shtiwe
 # Kill duplicate processes, keep only one
 ```
 
 ### Check 4: Permissions on jobs.json
 
-Jobs are stored in `~/.shadow/cron/jobs.json`. If this file is not readable/writable by your user, the scheduler will fail silently:
+Jobs are stored in `~/.yousef shtiwe/cron/jobs.json`. If this file is not readable/writable by your user, the scheduler will fail silently:
 
 ```bash
-ls -la ~/.shadow/cron/jobs.json
-chmod 600 ~/.shadow/cron/jobs.json   # Your user should own it
+ls -la ~/.yousef shtiwe/cron/jobs.json
+chmod 600 ~/.yousef shtiwe/cron/jobs.json   # Your user should own it
 ```
 
 ---
@@ -199,11 +199,11 @@ Scripts that dump megabytes of output will slow down the agent and may hit token
 ## Diagnostic Commands
 
 ```bash
-shadow cron list                    # Show all jobs, states, next_run times
-shadow cron run <job_id>            # Schedule for next tick (for testing)
-shadow cron edit <job_id>           # Fix configuration issues
-shadow logs                         # View recent SHADOW logs
-shadow skills list                  # Verify installed skills
+yousef shtiwe cron list                    # Show all jobs, states, next_run times
+yousef shtiwe cron run <job_id>            # Schedule for next tick (for testing)
+yousef shtiwe cron edit <job_id>           # Fix configuration issues
+yousef shtiwe logs                         # View recent YOUSEF SHTIWE logs
+yousef shtiwe skills list                  # Verify installed skills
 ```
 
 ---
@@ -212,9 +212,9 @@ shadow skills list                  # Verify installed skills
 
 If you've worked through this guide and the issue persists:
 
-1. Run the job with `shadow cron run <job_id>` (fires on next gateway tick) and watch for errors in the chat output
-2. Check `~/.shadow/logs/agent.log` for scheduler messages and `~/.shadow/logs/errors.log` for warnings
-3. Open an issue at [github.com/SHADOW-OVERLORD/shadow-agent](https://github.com/SHADOW-OVERLORD/shadow-agent) with:
+1. Run the job with `yousef shtiwe cron run <job_id>` (fires on next gateway tick) and watch for errors in the chat output
+2. Check `~/.yousef shtiwe/logs/agent.log` for scheduler messages and `~/.yousef shtiwe/logs/errors.log` for warnings
+3. Open an issue at [github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent) with:
    - The job ID and schedule
    - The delivery target
    - What you expected vs. what happened

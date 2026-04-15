@@ -158,9 +158,9 @@
 
 <header class="hero">
   <h1>honcho<span>-integration-spec</span></h1>
-  <p class="subtitle">Comparison of SHADOW Agent vs. openclaw-honcho — and a porting spec for bringing SHADOW patterns into other Honcho integrations.</p>
+  <p class="subtitle">Comparison of YOUSEF SHTIWE Agent vs. openclaw-honcho — and a porting spec for bringing YOUSEF SHTIWE patterns into other Honcho integrations.</p>
   <div class="meta">
-    <span>shadow-agent / openclaw-honcho</span>
+    <span>yousef shtiwe-agent / openclaw-honcho</span>
     <span>Python + TypeScript</span>
     <span>2026-03-09</span>
   </div>
@@ -172,7 +172,7 @@
     <li><a href="#overview">Overview</a></li>
     <li><a href="#architecture">Architecture comparison</a></li>
     <li><a href="#diff-table">Diff table</a></li>
-    <li><a href="#patterns">SHADOW patterns to port</a></li>
+    <li><a href="#patterns">YOUSEF SHTIWE patterns to port</a></li>
     <li><a href="#spec-async">Spec: async prefetch</a></li>
     <li><a href="#spec-reasoning">Spec: dynamic reasoning level</a></li>
     <li><a href="#spec-modes">Spec: per-peer memory modes</a></li>
@@ -188,12 +188,12 @@
 <section id="overview">
   <h2>Overview</h2>
 
-  <p>Two independent Honcho integrations have been built for two different agent runtimes: <strong>SHADOW Agent</strong> (Python, baked into the runner) and <strong>openclaw-honcho</strong> (TypeScript plugin via hook/tool API). Both use the same Honcho peer paradigm — dual peer model, <code>session.context()</code>, <code>peer.chat()</code> — but they made different tradeoffs at every layer.</p>
+  <p>Two independent Honcho integrations have been built for two different agent runtimes: <strong>YOUSEF SHTIWE Agent</strong> (Python, baked into the runner) and <strong>openclaw-honcho</strong> (TypeScript plugin via hook/tool API). Both use the same Honcho peer paradigm — dual peer model, <code>session.context()</code>, <code>peer.chat()</code> — but they made different tradeoffs at every layer.</p>
 
-  <p>This document maps those tradeoffs and defines a porting spec: a set of SHADOW-originated patterns, each stated as an integration-agnostic interface, that any Honcho integration can adopt regardless of runtime or language.</p>
+  <p>This document maps those tradeoffs and defines a porting spec: a set of YOUSEF SHTIWE-originated patterns, each stated as an integration-agnostic interface, that any Honcho integration can adopt regardless of runtime or language.</p>
 
   <div class="callout">
-    <strong>Scope</strong> Both integrations work correctly today. This spec is about the delta — patterns in SHADOW that are worth propagating and patterns in openclaw-honcho that SHADOW should eventually adopt. The spec is additive, not prescriptive.
+    <strong>Scope</strong> Both integrations work correctly today. This spec is about the delta — patterns in YOUSEF SHTIWE that are worth propagating and patterns in openclaw-honcho that YOUSEF SHTIWE should eventually adopt. The spec is additive, not prescriptive.
   </div>
 </section>
 
@@ -201,7 +201,7 @@
 <section id="architecture">
   <h2>Architecture comparison</h2>
 
-  <h3>SHADOW: baked-in runner</h3>
+  <h3>YOUSEF SHTIWE: baked-in runner</h3>
   <p>Honcho is initialised directly inside <code>AIAgent.__init__</code>. There is no plugin boundary. Session management, context injection, async prefetch, and CLI surface are all first-class concerns of the runner. Context is injected once per session (baked into <code>_cached_system_prompt</code>) and never re-fetched mid-session — this maximises prefix cache hits at the LLM provider.</p>
 
   <div class="mermaid">
@@ -229,7 +229,7 @@ flowchart TD
   </div>
 
   <h3>openclaw-honcho: hook-based plugin</h3>
-  <p>The plugin registers hooks against OpenClaw's event bus. Context is fetched synchroshadowly inside <code>before_prompt_build</code> on every turn. Message capture happens in <code>agent_end</code>. The multi-agent hierarchy is tracked via <code>subagent_spawned</code>. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.</p>
+  <p>The plugin registers hooks against OpenClaw's event bus. Context is fetched synchroyousef shtiwely inside <code>before_prompt_build</code> on every turn. Message capture happens in <code>agent_end</code>. The multi-agent hierarchy is tracked via <code>subagent_spawned</code>. This model is correct but every turn pays a blocking Honcho round-trip before the LLM call can begin.</p>
 
   <div class="mermaid">
 %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f3150', 'primaryTextColor': '#c9d1d9', 'primaryBorderColor': '#3d6ea5', 'lineColor': '#3d6ea5', 'secondaryColor': '#162030', 'tertiaryColor': '#11151c' }}}%%
@@ -262,7 +262,7 @@ flowchart TD
       <thead>
         <tr>
           <th>Dimension</th>
-          <th>SHADOW Agent</th>
+          <th>YOUSEF SHTIWE Agent</th>
           <th>openclaw-honcho</th>
         </tr>
       </thead>
@@ -339,7 +339,7 @@ flowchart TD
         </tr>
         <tr>
           <td><strong>AI peer name in identity</strong></td>
-          <td>Replaces "SHADOW Agent" in DEFAULT_AGENT_IDENTITY when configured.</td>
+          <td>Replaces "YOUSEF SHTIWE Agent" in DEFAULT_AGENT_IDENTITY when configured.</td>
           <td>Not implemented.</td>
         </tr>
         <tr>
@@ -359,13 +359,13 @@ flowchart TD
 
 <!-- PATTERNS -->
 <section id="patterns">
-  <h2>SHADOW patterns to port</h2>
+  <h2>YOUSEF SHTIWE patterns to port</h2>
 
-  <p>Six patterns from SHADOW are worth adopting in any Honcho integration. They are described below as integration-agnostic interfaces — the implementation will differ per runtime, but the contract is the same.</p>
+  <p>Six patterns from YOUSEF SHTIWE are worth adopting in any Honcho integration. They are described below as integration-agnostic interfaces — the implementation will differ per runtime, but the contract is the same.</p>
 
   <div class="compare">
     <div class="compare-card">
-      <h4>Patterns SHADOW contributes</h4>
+      <h4>Patterns YOUSEF SHTIWE contributes</h4>
       <ul>
         <li>Async prefetch (zero-latency)</li>
         <li>Dynamic reasoning level</li>
@@ -394,7 +394,7 @@ flowchart TD
   <h2>Spec: async prefetch</h2>
 
   <h3>Problem</h3>
-  <p>Calling <code>session.context()</code> and <code>peer.chat()</code> synchroshadowly before each LLM call adds 200–800ms of Honcho round-trip latency to every turn. Users experience this as the agent "thinking slowly."</p>
+  <p>Calling <code>session.context()</code> and <code>peer.chat()</code> synchroyousef shtiwely before each LLM call adds 200–800ms of Honcho round-trip latency to every turn. Users experience this as the agent "thinking slowly."</p>
 
   <h3>Pattern</h3>
   <p>Fire both calls as non-blocking background work at the <strong>end</strong> of each turn. Store results in a per-session cache keyed by session ID. At the <strong>start</strong> of the next turn, pop from cache — the HTTP is already done. First turn is cold (empty cache); all subsequent turns are zero-latency on the response path.</p>
@@ -641,7 +641,7 @@ openclaw honcho map                   <span class="cm"># no-arg = list mappings<
     <li class="todo"><strong>CLI surface injection</strong> — append command reference to <code>before_prompt_build</code> return value when Honcho is active. (<a href="#spec-cli">spec</a>)</li>
     <li class="todo"><strong>honcho identity subcommand</strong> — add <code>openclaw honcho identity</code> CLI command. (<a href="#spec-identity">spec</a>)</li>
     <li class="todo"><strong>AI peer name injection</strong> — if <code>aiPeer</code> name configured, prepend to injected system prompt. (<a href="#spec-identity">spec</a>)</li>
-    <li class="todo"><strong>honcho mode / honcho sessions / honcho map</strong> — CLI parity with SHADOW. (<a href="#spec-sessions">spec</a>)</li>
+    <li class="todo"><strong>honcho mode / honcho sessions / honcho map</strong> — CLI parity with YOUSEF SHTIWE. (<a href="#spec-sessions">spec</a>)</li>
   </ul>
 
   <div class="callout success">
@@ -653,7 +653,7 @@ openclaw honcho map                   <span class="cm"># no-arg = list mappings<
 <section id="nanobot-checklist">
   <h2>nanobot-honcho checklist</h2>
 
-  <p>nanobot-honcho is a greenfield integration. Start from openclaw-honcho's architecture (hook-based, dual peer) and apply all SHADOW patterns from day one rather than retrofitting. Priority order:</p>
+  <p>nanobot-honcho is a greenfield integration. Start from openclaw-honcho's architecture (hook-based, dual peer) and apply all YOUSEF SHTIWE patterns from day one rather than retrofitting. Priority order:</p>
 
   <h3>Phase 1 — core correctness</h3>
   <ul class="checklist">

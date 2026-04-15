@@ -8,18 +8,18 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def _isolate(tmp_path, monkeypatch):
-    """Redirect SHADOW_HOME and clear module caches."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    """Redirect YOUSEF SHTIWE_HOME and clear module caches."""
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     # Write a minimal config so load_config doesn't fail
-    (shadow_home / "config.yaml").write_text("model:\n  default: test-model\n")
+    (yousef shtiwe_home / "config.yaml").write_text("model:\n  default: test-model\n")
 
 
 def _write_config(tmp_path, config_dict):
-    """Write a config.yaml to the test SHADOW_HOME."""
+    """Write a config.yaml to the test YOUSEF SHTIWE_HOME."""
     import yaml
-    config_path = tmp_path / ".shadow" / "config.yaml"
+    config_path = tmp_path / ".yousef shtiwe" / "config.yaml"
     config_path.write_text(yaml.dump(config_dict))
 
 
@@ -163,7 +163,7 @@ class TestResolveProviderClientModelNormalization:
             "model": {"default": "zai/glm-5.1", "provider": "zai"},
         })
         with (
-            patch("shadow_cli.auth.resolve_api_key_provider_credentials", return_value={
+            patch("yousef shtiwe_cli.auth.resolve_api_key_provider_credentials", return_value={
                 "api_key": "glm-key",
                 "base_url": "https://api.z.ai/api/paas/v4",
             }),
@@ -182,7 +182,7 @@ class TestResolveProviderClientModelNormalization:
             "model": {"default": "zai/glm-5.1", "provider": "zai"},
         })
         with (
-            patch("shadow_cli.auth.resolve_api_key_provider_credentials", return_value={
+            patch("yousef shtiwe_cli.auth.resolve_api_key_provider_credentials", return_value={
                 "api_key": "glm-key",
                 "base_url": "https://api.z.ai/api/paas/v4",
             }),
@@ -218,8 +218,8 @@ class TestResolveVisionProviderClientModelNormalization:
             "model": {"default": "zai/glm-5.1", "provider": "zai"},
         })
         with (
-            patch("agent.auxiliary_client._read_shadow_auth", return_value=None),
-            patch("shadow_cli.auth.resolve_api_key_provider_credentials", return_value={
+            patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None),
+            patch("yousef shtiwe_cli.auth.resolve_api_key_provider_credentials", return_value={
                 "api_key": "glm-key",
                 "base_url": "https://api.z.ai/api/paas/v4",
             }),

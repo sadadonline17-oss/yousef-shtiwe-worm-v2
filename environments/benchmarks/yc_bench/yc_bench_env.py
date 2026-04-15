@@ -21,7 +21,7 @@ The evaluate flow:
     2. evaluate()  -- Iterates over all runs sequentially through:
         a. rollout_and_score_eval()  -- Per-run agent loop
             - Initialises a fresh yc-bench simulation via `sim init` (NOT `run`)
-            - Runs SHADOWAgentLoop with terminal tool only
+            - Runs YOUSEF SHTIWEAgentLoop with terminal tool only
             - Reads final SQLite DB to extract score
             - Returns survival (0/1) + normalised funds score
         b. Aggregates per-preset and overall metrics
@@ -34,7 +34,7 @@ Key features:
   - Per-preset difficulty breakdown in results
   - Isolated SQLite DB per run (no cross-run state leakage)
 
-Requires: pip install shadow-agent[yc-bench]
+Requires: pip install yousef shtiwe-agent[yc-bench]
 """
 
 import asyncio
@@ -62,8 +62,8 @@ from pydantic import Field
 from atroposlib.envs.base import EvalHandlingEnum
 from atroposlib.envs.server_handling.server_manager import APIServerConfig
 
-from environments.agent_loop import SHADOWAgentLoop
-from environments.shadow_base_env import SHADOWAgentBaseEnv, SHADOWAgentEnvConfig
+from environments.agent_loop import YOUSEF SHTIWEAgentLoop
+from environments.yousef shtiwe_base_env import YOUSEF SHTIWEAgentBaseEnv, YOUSEF SHTIWEAgentEnvConfig
 
 logger = logging.getLogger(__name__)
 
@@ -176,11 +176,11 @@ _PRESET_HORIZONS = {
 # Configuration
 # =============================================================================
 
-class YCBenchEvalConfig(SHADOWAgentEnvConfig):
+class YCBenchEvalConfig(YOUSEF SHTIWEAgentEnvConfig):
     """
     Configuration for the YC-Bench evaluation environment.
 
-    Extends SHADOWAgentEnvConfig with YC-Bench-specific settings for
+    Extends YOUSEF SHTIWEAgentEnvConfig with YC-Bench-specific settings for
     preset selection, seed control, scoring, and simulation parameters.
     """
 
@@ -326,13 +326,13 @@ def _compute_composite_score(
 # Main Environment
 # =============================================================================
 
-class YCBenchEvalEnv(SHADOWAgentBaseEnv):
+class YCBenchEvalEnv(YOUSEF SHTIWEAgentBaseEnv):
     """
     YC-Bench long-horizon agent benchmark environment (eval-only).
 
     Each eval item is a (preset, seed) pair. The environment initialises the
     simulation via ``yc-bench sim init`` (NOT ``yc-bench run`` which would start
-    a competing built-in agent loop). The SHADOWAgentLoop then drives the
+    a competing built-in agent loop). The YOUSEF SHTIWEAgentLoop then drives the
     interaction by calling individual yc-bench CLI commands via the terminal tool.
 
     After the agent loop ends, the SQLite DB is read to extract the final score.
@@ -366,7 +366,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
             group_size=1,
             steps_per_eval=1,
             total_steps=1,
-            tokenizer_name="SHADOW-OVERLORD/SHADOW-3-Llama-3.1-8B",
+            tokenizer_name="YOUSEF SHTIWE-OVERLORD/YOUSEF SHTIWE-3-Llama-3.1-8B",
             use_wandb=True,
             wandb_name="yc-bench",
             ensure_scores_are_not_same=False,
@@ -400,7 +400,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
         except (FileNotFoundError, subprocess.TimeoutExpired):
             raise RuntimeError(
                 "yc-bench CLI not found. Install with:\n"
-                '  pip install "shadow-agent[yc-bench]"\n'
+                '  pip install "yousef shtiwe-agent[yc-bench]"\n'
                 "Or: git clone https://github.com/collinear-ai/yc-bench "
                 "&& cd yc-bench && pip install -e ."
             )
@@ -485,7 +485,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
 
         1. Sets DATABASE_URL and YC_BENCH_EXPERIMENT env vars
         2. Initialises the simulation via ``yc-bench sim init`` (NOT ``run``)
-        3. Runs SHADOWAgentLoop with terminal tool
+        3. Runs YOUSEF SHTIWEAgentLoop with terminal tool
         4. Reads SQLite DB to compute final score
         5. Returns result dict with survival, funds, and composite score
         """
@@ -511,7 +511,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
             # Step 1: Initialise the simulation via CLI
             # IMPORTANT: We use `sim init`, NOT `yc-bench run`.
             # `yc-bench run` starts yc-bench's own LLM agent loop (via
-            # LiteLLM), which would compete with our SHADOWAgentLoop.
+            # LiteLLM), which would compete with our YOUSEF SHTIWEAgentLoop.
             # `sim init` just sets up the world and returns.
             # ----------------------------------------------------------
             init_cmd = [
@@ -531,7 +531,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
             tqdm.write(f"    Simulation initialized (horizon={horizon}yr)")
 
             # ----------------------------------------------------------
-            # Step 2: Run the SHADOWAgentLoop
+            # Step 2: Run the YOUSEF SHTIWEAgentLoop
             # ----------------------------------------------------------
             tools, valid_names = self._resolve_tools_for_group()
 
@@ -540,7 +540,7 @@ class YCBenchEvalEnv(SHADOWAgentBaseEnv):
                 {"role": "user", "content": self.format_prompt(eval_item)},
             ]
 
-            agent = SHADOWAgentLoop(
+            agent = YOUSEF SHTIWEAgentLoop(
                 server=self.server,
                 tool_schemas=tools,
                 valid_tool_names=valid_names,

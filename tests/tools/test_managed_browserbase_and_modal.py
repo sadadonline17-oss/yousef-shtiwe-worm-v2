@@ -46,8 +46,8 @@ def _restore_tool_and_agent_modules():
 
 
 @pytest.fixture(autouse=True)
-def _enable_managed_shadow_tools(monkeypatch):
-    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
+def _enable_managed_yousef shtiwe_tools(monkeypatch):
+    monkeypatch.setenv("YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS", "1")
 
 
 def _install_fake_tools_package():
@@ -123,8 +123,8 @@ def test_browser_use_explicit_local_mode_stays_local_even_when_managed_gateway_i
     env = os.environ.copy()
     env.pop("BROWSER_USE_API_KEY", None)
     env.update({
-        "SHADOW_HOME": str(tmp_path),
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "YOUSEF SHTIWE_HOME": str(tmp_path),
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSER_USE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 
@@ -144,7 +144,7 @@ def test_browserbase_does_not_use_gateway_only_configuration():
     env.pop("BROWSERBASE_API_KEY", None)
     env.pop("BROWSERBASE_PROJECT_ID", None)
     env.update({
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSERBASE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 
@@ -163,7 +163,7 @@ def test_browser_use_managed_gateway_adds_idempotency_key_and_persists_external_
     env = os.environ.copy()
     env.pop("BROWSER_USE_API_KEY", None)
     env.update({
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSER_USE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 
@@ -190,7 +190,7 @@ def test_browser_use_managed_gateway_adds_idempotency_key_and_persists_external_
             session = provider.create_session("task-browser-use-managed")
 
     sent_headers = post.call_args.kwargs["headers"]
-    assert sent_headers["X-Browser-Use-API-Key"] == "shadow-token"
+    assert sent_headers["X-Browser-Use-API-Key"] == "yousef shtiwe-token"
     assert sent_headers["X-Idempotency-Key"].startswith("browser-use-session-create:")
     sent_payload = post.call_args.kwargs["json"]
     assert sent_payload["timeout"] == 5
@@ -203,7 +203,7 @@ def test_browser_use_managed_gateway_reuses_pending_idempotency_key_after_timeou
     env = os.environ.copy()
     env.pop("BROWSER_USE_API_KEY", None)
     env.update({
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSER_USE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 
@@ -251,7 +251,7 @@ def test_browser_use_managed_gateway_preserves_pending_idempotency_key_for_in_pr
     env = os.environ.copy()
     env.pop("BROWSER_USE_API_KEY", None)
     env.update({
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSER_USE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 
@@ -312,7 +312,7 @@ def test_browser_use_managed_gateway_uses_new_idempotency_key_for_a_new_session_
     env = os.environ.copy()
     env.pop("BROWSER_USE_API_KEY", None)
     env.update({
-        "TOOL_GATEWAY_USER_TOKEN": "shadow-token",
+        "TOOL_GATEWAY_USER_TOKEN": "yousef shtiwe-token",
         "BROWSER_USE_GATEWAY_URL": "http://127.0.0.1:3009",
     })
 

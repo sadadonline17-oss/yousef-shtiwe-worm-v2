@@ -1,7 +1,7 @@
 """
-SHADOW Gateway - Multi-platform messaging integration.
+YOUSEF SHTIWE Gateway - Multi-platform messaging integration.
 
-This module provides a unified gateway for connecting the SHADOW agent
+This module provides a unified gateway for connecting the YOUSEF SHTIWE agent
 to various messaging platforms (Telegram, Discord, WhatsApp) with:
 - Session management (persistent conversations with reset policies)
 - Dynamic context injection (agent knows where messages come from)

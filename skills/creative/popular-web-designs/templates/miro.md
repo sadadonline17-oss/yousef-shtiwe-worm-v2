@@ -1,7 +1,7 @@
 # Design System: Miro
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -27,7 +27,7 @@ The typography uses Roobert PRO Medium as the primary display font with OpenType
 - Success green (`#00b473`) for positive states
 - Generous border-radius: 8px–50px range
 - Framer-built with smooth motion patterns
-- Ring shadow border: `rgb(224,226,232) 0px 0px 0px 1px`
+- Ring yousef shtiwe border: `rgb(224,226,232) 0px 0px 0px 1px`
 
 ## 2. Color Palette & Roles
 
@@ -55,7 +55,7 @@ The typography uses Roobert PRO Medium as the primary display font with OpenType
 - **Slate** (`#555a6a`): Secondary text
 - **Input Placeholder** (`#a5a8b5`): `--tw-color-input-placeholder`
 - **Border** (`#c7cad5`): Button borders
-- **Ring** (`rgb(224,226,232)`): Shadow-as-border
+- **Ring** (`rgb(224,226,232)`): Yousef Shtiwe-as-border
 
 ## 3. Typography Rules
 
@@ -84,7 +84,7 @@ The typography uses Roobert PRO Medium as the primary display font with OpenType
 
 ### Buttons
 - Outlined: transparent bg, `1px solid #c7cad5`, 8px radius, 7px 12px padding
-- White circle: 50% radius, white bg with shadow
+- White circle: 50% radius, white bg with yousef shtiwe
 - Blue primary (implied from interactive color)
 
 ### Cards: 12px–24px radius, pastel backgrounds
@@ -93,10 +93,10 @@ The typography uses Roobert PRO Medium as the primary display font with OpenType
 ## 5. Layout Principles
 - Spacing: 1–24px base scale
 - Radius: 8px (buttons), 10px–12px (cards), 20px–24px (panels), 40px–50px (large containers)
-- Ring shadow: `rgb(224,226,232) 0px 0px 0px 1px`
+- Ring yousef shtiwe: `rgb(224,226,232) 0px 0px 0px 1px`
 
 ## 6. Depth & Elevation
-Minimal — ring shadow + pastel surface contrast
+Minimal — ring yousef shtiwe + pastel surface contrast
 
 ## 7. Do's and Don'ts
 ### Do
@@ -104,7 +104,7 @@ Minimal — ring shadow + pastel surface contrast
 - Apply Roobert PRO with OpenType character variants
 - Use Blue 450 (#5b76fe) for interactive elements
 ### Don't
-- Don't use heavy shadows
+- Don't use heavy yousef shtiwes
 - Don't mix more than 2 pastel accents per section
 
 ## 8. Responsive Behavior

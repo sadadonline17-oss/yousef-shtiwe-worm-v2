@@ -1,6 +1,6 @@
 /* =========================================================================
-   SHADOW Agent Landing Page
-   Colors: Shadow Blue (#3050FF) palette
+   YOUSEF SHTIWE Agent Landing Page
+   Colors: Yousef Shtiwe Blue (#3050FF) palette
    ========================================================================= */
 
 /* --- Reset & Base --- */
@@ -163,7 +163,7 @@ strong {
 }
 .nav-logo:hover { color: var(--primary-light); }
 
-.nav-shadow-logo {
+.nav-yousef shtiwe-logo {
     width: 22px;
     height: 22px;
     border-radius: 4px;
@@ -313,7 +313,7 @@ strong {
     line-height: 1.15;
     color: var(--primary-light);
     text-align: center;
-    text-shadow: 0 0 20px rgba(48, 80, 255, 0.3);
+    text-yousef shtiwe: 0 0 20px rgba(48, 80, 255, 0.3);
     opacity: 0.85;
     transition: opacity 0.3s var(--ease-out-cubic);
     overflow-x: auto;

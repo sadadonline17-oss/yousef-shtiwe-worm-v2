@@ -8,8 +8,8 @@ from unittest.mock import patch
 
 from tools.checkpoint_manager import (
     CheckpointManager,
-    _shadow_repo_path,
-    _init_shadow_repo,
+    _yousef shtiwe_repo_path,
+    _init_yousef shtiwe_repo,
     _run_git,
     _git_env,
     _dir_file_count,
@@ -35,7 +35,7 @@ def work_dir(tmp_path):
 
 @pytest.fixture()
 def checkpoint_base(tmp_path):
-    """Isolated checkpoint base — never writes to ~/.shadow/."""
+    """Isolated checkpoint base — never writes to ~/.yousef shtiwe/."""
     return tmp_path / "checkpoints"
 
 
@@ -67,28 +67,28 @@ def disabled_mgr(checkpoint_base, monkeypatch):
 
 
 # =========================================================================
-# Shadow repo path
+# Yousef Shtiwe repo path
 # =========================================================================
 
-class TestShadowRepoPath:
+class TestYousef ShtiweRepoPath:
     def test_deterministic(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        p1 = _shadow_repo_path(str(work_dir))
-        p2 = _shadow_repo_path(str(work_dir))
+        p1 = _yousef shtiwe_repo_path(str(work_dir))
+        p2 = _yousef shtiwe_repo_path(str(work_dir))
         assert p1 == p2
 
     def test_different_dirs_different_paths(self, tmp_path, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        p1 = _shadow_repo_path(str(tmp_path / "a"))
-        p2 = _shadow_repo_path(str(tmp_path / "b"))
+        p1 = _yousef shtiwe_repo_path(str(tmp_path / "a"))
+        p2 = _yousef shtiwe_repo_path(str(tmp_path / "b"))
         assert p1 != p2
 
     def test_under_checkpoint_base(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        p = _shadow_repo_path(str(work_dir))
+        p = _yousef shtiwe_repo_path(str(work_dir))
         assert str(p).startswith(str(checkpoint_base))
 
-    def test_tilde_and_expanded_home_share_shadow_repo(self, fake_home, checkpoint_base, monkeypatch):
+    def test_tilde_and_expanded_home_share_yousef shtiwe_repo(self, fake_home, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
         project = fake_home / "project"
         project.mkdir()
@@ -96,32 +96,32 @@ class TestShadowRepoPath:
         tilde_path = f"~/{project.name}"
         expanded_path = str(project)
 
-        assert _shadow_repo_path(tilde_path) == _shadow_repo_path(expanded_path)
+        assert _yousef shtiwe_repo_path(tilde_path) == _yousef shtiwe_repo_path(expanded_path)
 
 
 # =========================================================================
-# Shadow repo init
+# Yousef Shtiwe repo init
 # =========================================================================
 
-class TestShadowRepoInit:
+class TestYousef ShtiweRepoInit:
     def test_creates_git_repo(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        shadow = _shadow_repo_path(str(work_dir))
-        err = _init_shadow_repo(shadow, str(work_dir))
+        yousef shtiwe = _yousef shtiwe_repo_path(str(work_dir))
+        err = _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
         assert err is None
-        assert (shadow / "HEAD").exists()
+        assert (yousef shtiwe / "HEAD").exists()
 
     def test_no_git_in_project_dir(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        shadow = _shadow_repo_path(str(work_dir))
-        _init_shadow_repo(shadow, str(work_dir))
+        yousef shtiwe = _yousef shtiwe_repo_path(str(work_dir))
+        _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
         assert not (work_dir / ".git").exists()
 
     def test_has_exclude_file(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        shadow = _shadow_repo_path(str(work_dir))
-        _init_shadow_repo(shadow, str(work_dir))
-        exclude = shadow / "info" / "exclude"
+        yousef shtiwe = _yousef shtiwe_repo_path(str(work_dir))
+        _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
+        exclude = yousef shtiwe / "info" / "exclude"
         assert exclude.exists()
         content = exclude.read_text()
         assert "node_modules/" in content
@@ -129,17 +129,17 @@ class TestShadowRepoInit:
 
     def test_has_workdir_file(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        shadow = _shadow_repo_path(str(work_dir))
-        _init_shadow_repo(shadow, str(work_dir))
-        workdir_file = shadow / "SHADOW_WORKDIR"
+        yousef shtiwe = _yousef shtiwe_repo_path(str(work_dir))
+        _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
+        workdir_file = yousef shtiwe / "YOUSEF SHTIWE_WORKDIR"
         assert workdir_file.exists()
         assert str(work_dir.resolve()) in workdir_file.read_text()
 
     def test_idempotent(self, work_dir, checkpoint_base, monkeypatch):
         monkeypatch.setattr("tools.checkpoint_manager.CHECKPOINT_BASE", checkpoint_base)
-        shadow = _shadow_repo_path(str(work_dir))
-        err1 = _init_shadow_repo(shadow, str(work_dir))
-        err2 = _init_shadow_repo(shadow, str(work_dir))
+        yousef shtiwe = _yousef shtiwe_repo_path(str(work_dir))
+        err1 = _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
+        err2 = _init_yousef shtiwe_repo(yousef shtiwe, str(work_dir))
         assert err1 is None
         assert err2 is None
 
@@ -386,28 +386,28 @@ class TestWorkingDirResolution:
 
 class TestGitEnvIsolation:
     def test_sets_git_dir(self, tmp_path):
-        shadow = tmp_path / "shadow"
-        env = _git_env(shadow, str(tmp_path / "work"))
-        assert env["GIT_DIR"] == str(shadow)
+        yousef shtiwe = tmp_path / "yousef shtiwe"
+        env = _git_env(yousef shtiwe, str(tmp_path / "work"))
+        assert env["GIT_DIR"] == str(yousef shtiwe)
 
     def test_sets_work_tree(self, tmp_path):
-        shadow = tmp_path / "shadow"
+        yousef shtiwe = tmp_path / "yousef shtiwe"
         work = tmp_path / "work"
-        env = _git_env(shadow, str(work))
+        env = _git_env(yousef shtiwe, str(work))
         assert env["GIT_WORK_TREE"] == str(work.resolve())
 
     def test_clears_index_file(self, tmp_path, monkeypatch):
         monkeypatch.setenv("GIT_INDEX_FILE", "/some/index")
-        shadow = tmp_path / "shadow"
-        env = _git_env(shadow, str(tmp_path))
+        yousef shtiwe = tmp_path / "yousef shtiwe"
+        env = _git_env(yousef shtiwe, str(tmp_path))
         assert "GIT_INDEX_FILE" not in env
 
     def test_expands_tilde_in_work_tree(self, fake_home, tmp_path):
-        shadow = tmp_path / "shadow"
+        yousef shtiwe = tmp_path / "yousef shtiwe"
         work = fake_home / "work"
         work.mkdir()
 
-        env = _git_env(shadow, f"~/{work.name}")
+        env = _git_env(yousef shtiwe, f"~/{work.name}")
         assert env["GIT_WORK_TREE"] == str(work.resolve())
 
 
@@ -473,7 +473,7 @@ class TestErrorResilience:
             with caplog.at_level(logging.ERROR, logger="tools.checkpoint_manager"):
                 ok, stdout, stderr = _run_git(
                     ["diff", "--cached", "--quiet"],
-                    tmp_path / "shadow",
+                    tmp_path / "yousef shtiwe",
                     str(work),
                     allowed_returncodes={1},
                 )
@@ -487,7 +487,7 @@ class TestErrorResilience:
         with caplog.at_level(logging.ERROR, logger="tools.checkpoint_manager"):
             ok, stdout, stderr = _run_git(
                 ["status"],
-                tmp_path / "shadow",
+                tmp_path / "yousef shtiwe",
                 str(missing),
             )
         assert ok is False
@@ -506,7 +506,7 @@ class TestErrorResilience:
         with caplog.at_level(logging.ERROR, logger="tools.checkpoint_manager"):
             ok, stdout, stderr = _run_git(
                 ["status"],
-                tmp_path / "shadow",
+                tmp_path / "yousef shtiwe",
                 str(work),
             )
         assert ok is False

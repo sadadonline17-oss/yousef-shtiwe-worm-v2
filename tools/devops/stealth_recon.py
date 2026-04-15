@@ -2,7 +2,7 @@ import requests
 import json
 import re
 
-def shadow_recon_emails(domain: str) -> list:
+def yousef shtiwe_recon_emails(domain: str) -> list:
     """Extract potential emails associated with a domain using public search patterns."""
     from nexttoken import NextToken
     client = NextToken()
@@ -16,10 +16,10 @@ def shadow_recon_emails(domain: str) -> list:
         emails.update(found)
     return list(emails)
 
-def shadow_stealth_rotator():
+def yousef shtiwe_stealth_rotator():
     """Rotate proxy configurations for stealth operations."""
     # Logic for rotating through a list of public/private proxies
     # For now, we simulate the rotation and return the active relay
-    proxies = ["proxy1.shadow.void:8080", "proxy2.shadow.void:3128"]
+    proxies = ["proxy1.yousef shtiwe.void:8080", "proxy2.yousef shtiwe.void:3128"]
     selected = random.choice(proxies)
     return {"active_proxy": selected, "status": "stealth_active"}

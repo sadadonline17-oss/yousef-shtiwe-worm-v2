@@ -6,20 +6,20 @@
 { inputs, ... }: {
   perSystem = { pkgs, system, lib, ... }:
     let
-      shadow-agent = inputs.self.packages.${system}.default;
-      shadowVenv = pkgs.callPackage ./python.nix {
+      yousef shtiwe-agent = inputs.self.packages.${system}.default;
+      yousef shtiweVenv = pkgs.callPackage ./python.nix {
         inherit (inputs) uv2nix pyproject-nix pyproject-build-systems;
       };
 
       configMergeScript = pkgs.callPackage ./configMergeScript.nix { };
 
       # Auto-generated config key reference — always in sync with Python
-      configKeys = pkgs.runCommand "shadow-config-keys" {} ''
+      configKeys = pkgs.runCommand "yousef shtiwe-config-keys" {} ''
         set -euo pipefail
         export HOME=$TMPDIR
-        ${shadowVenv}/bin/python3 -c '
+        ${yousef shtiweVenv}/bin/python3 -c '
 import json, sys
-from shadow_cli.config import DEFAULT_CONFIG
+from yousef shtiwe_cli.config import DEFAULT_CONFIG
 
 def leaf_paths(d, prefix=""):
     paths = []
@@ -39,15 +39,15 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
 
       checks = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
         # Verify binaries exist and are executable
-        package-contents = pkgs.runCommand "shadow-package-contents" { } ''
+        package-contents = pkgs.runCommand "yousef shtiwe-package-contents" { } ''
           set -e
           echo "=== Checking binaries ==="
-          test -x ${shadow-agent}/bin/shadow || (echo "FAIL: shadow binary missing"; exit 1)
-          test -x ${shadow-agent}/bin/shadow-agent || (echo "FAIL: shadow-agent binary missing"; exit 1)
+          test -x ${yousef shtiwe-agent}/bin/yousef shtiwe || (echo "FAIL: yousef shtiwe binary missing"; exit 1)
+          test -x ${yousef shtiwe-agent}/bin/yousef shtiwe-agent || (echo "FAIL: yousef shtiwe-agent binary missing"; exit 1)
           echo "PASS: All binaries present"
 
           echo "=== Checking version ==="
-          ${shadow-agent}/bin/shadow version 2>&1 | grep -qi "shadow" || (echo "FAIL: version check"; exit 1)
+          ${yousef shtiwe-agent}/bin/yousef shtiwe version 2>&1 | grep -qi "yousef shtiwe" || (echo "FAIL: version check"; exit 1)
           echo "PASS: Version check"
 
           echo "=== All checks passed ==="
@@ -56,11 +56,11 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
         '';
 
         # Verify every pyproject.toml [project.scripts] entry has a wrapped binary
-        entry-points-sync = pkgs.runCommand "shadow-entry-points-sync" { } ''
+        entry-points-sync = pkgs.runCommand "yousef shtiwe-entry-points-sync" { } ''
           set -e
           echo "=== Checking entry points match pyproject.toml [project.scripts] ==="
-          for bin in shadow shadow-agent shadow-acp; do
-            test -x ${shadow-agent}/bin/$bin || (echo "FAIL: $bin binary missing from Nix package"; exit 1)
+          for bin in yousef shtiwe yousef shtiwe-agent yousef shtiwe-acp; do
+            test -x ${yousef shtiwe-agent}/bin/$bin || (echo "FAIL: $bin binary missing from Nix package"; exit 1)
             echo "PASS: $bin present"
           done
 
@@ -69,13 +69,13 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
         '';
 
         # Verify CLI subcommands are accessible
-        cli-commands = pkgs.runCommand "shadow-cli-commands" { } ''
+        cli-commands = pkgs.runCommand "yousef shtiwe-cli-commands" { } ''
           set -e
           export HOME=$(mktemp -d)
 
-          echo "=== Checking shadow --help ==="
-          ${shadow-agent}/bin/shadow --help 2>&1 | grep -q "gateway" || (echo "FAIL: gateway subcommand missing"; exit 1)
-          ${shadow-agent}/bin/shadow --help 2>&1 | grep -q "config" || (echo "FAIL: config subcommand missing"; exit 1)
+          echo "=== Checking yousef shtiwe --help ==="
+          ${yousef shtiwe-agent}/bin/yousef shtiwe --help 2>&1 | grep -q "gateway" || (echo "FAIL: gateway subcommand missing"; exit 1)
+          ${yousef shtiwe-agent}/bin/yousef shtiwe --help 2>&1 | grep -q "config" || (echo "FAIL: config subcommand missing"; exit 1)
           echo "PASS: All subcommands accessible"
 
           echo "=== All CLI checks passed ==="
@@ -84,41 +84,41 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
         '';
 
         # Verify bundled skills are present in the package
-        bundled-skills = pkgs.runCommand "shadow-bundled-skills" { } ''
+        bundled-skills = pkgs.runCommand "yousef shtiwe-bundled-skills" { } ''
           set -e
           echo "=== Checking bundled skills ==="
-          test -d ${shadow-agent}/share/shadow-agent/skills || (echo "FAIL: skills directory missing"; exit 1)
+          test -d ${yousef shtiwe-agent}/share/yousef shtiwe-agent/skills || (echo "FAIL: skills directory missing"; exit 1)
           echo "PASS: skills directory exists"
 
-          SKILL_COUNT=$(find ${shadow-agent}/share/shadow-agent/skills -name "SKILL.md" | wc -l)
+          SKILL_COUNT=$(find ${yousef shtiwe-agent}/share/yousef shtiwe-agent/skills -name "SKILL.md" | wc -l)
           test "$SKILL_COUNT" -gt 0 || (echo "FAIL: no SKILL.md files found in skills directory"; exit 1)
           echo "PASS: $SKILL_COUNT bundled skills found"
 
-          grep -q "SHADOW_BUNDLED_SKILLS" ${shadow-agent}/bin/shadow || \
-            (echo "FAIL: SHADOW_BUNDLED_SKILLS not in wrapper"; exit 1)
-          echo "PASS: SHADOW_BUNDLED_SKILLS set in wrapper"
+          grep -q "YOUSEF SHTIWE_BUNDLED_SKILLS" ${yousef shtiwe-agent}/bin/yousef shtiwe || \
+            (echo "FAIL: YOUSEF SHTIWE_BUNDLED_SKILLS not in wrapper"; exit 1)
+          echo "PASS: YOUSEF SHTIWE_BUNDLED_SKILLS set in wrapper"
 
           echo "=== All bundled skills checks passed ==="
           mkdir -p $out
           echo "ok" > $out/result
         '';
 
-        # Verify SHADOW_MANAGED guard works on all mutation commands
-        managed-guard = pkgs.runCommand "shadow-managed-guard" { } ''
+        # Verify YOUSEF SHTIWE_MANAGED guard works on all mutation commands
+        managed-guard = pkgs.runCommand "yousef shtiwe-managed-guard" { } ''
           set -e
           export HOME=$(mktemp -d)
 
           check_blocked() {
             local label="$1"
             shift
-            OUTPUT=$(SHADOW_MANAGED=true "$@" 2>&1 || true)
+            OUTPUT=$(YOUSEF SHTIWE_MANAGED=true "$@" 2>&1 || true)
             echo "$OUTPUT" | grep -q "managed by NixOS" || (echo "FAIL: $label not guarded"; echo "$OUTPUT"; exit 1)
             echo "PASS: $label blocked in managed mode"
           }
 
-          echo "=== Checking SHADOW_MANAGED guards ==="
-          check_blocked "config set" ${shadow-agent}/bin/shadow config set model foo
-          check_blocked "config edit" ${shadow-agent}/bin/shadow config edit
+          echo "=== Checking YOUSEF SHTIWE_MANAGED guards ==="
+          check_blocked "config set" ${yousef shtiwe-agent}/bin/yousef shtiwe config set model foo
+          check_blocked "config edit" ${yousef shtiwe-agent}/bin/yousef shtiwe config edit
 
           echo "=== All guard checks passed ==="
           mkdir -p $out
@@ -185,7 +185,7 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
                 - USER_VAR
           '';
 
-        in pkgs.runCommand "shadow-config-roundtrip" {
+        in pkgs.runCommand "yousef shtiwe-config-roundtrip" {
           nativeBuildInputs = [ pkgs.jq ];
         } ''
           set -e
@@ -196,12 +196,12 @@ json.dump(sorted(leaf_paths(DEFAULT_CONFIG)), sys.stdout, indent=2)
 
           # Helper: run merge then load with Python, output merged JSON
           merge_and_load() {
-            local shadow_home="$1"
-            export SHADOW_HOME="$shadow_home"
-            ${configMergeScript} ${nixSettings} "$shadow_home/config.yaml"
-            ${shadowVenv}/bin/python3 -c '
+            local yousef shtiwe_home="$1"
+            export YOUSEF SHTIWE_HOME="$yousef shtiwe_home"
+            ${configMergeScript} ${nixSettings} "$yousef shtiwe_home/config.yaml"
+            ${yousef shtiweVenv}/bin/python3 -c '
 import json, sys
-from shadow_cli.config import load_config
+from yousef shtiwe_cli.config import load_config
 json.dump(load_config(), sys.stdout, default=str)
 '
           }

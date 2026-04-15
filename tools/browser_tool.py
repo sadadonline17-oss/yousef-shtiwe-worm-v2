@@ -3,7 +3,7 @@
 Browser Tool Module
 
 This module provides browser automation tools using agent-browser CLI.  It
-supports multiple backends — **Browser Use** (cloud, default for Shadow
+supports multiple backends — **Browser Use** (cloud, default for Yousef Shtiwe
 subscribers), **Browserbase** (cloud, direct credentials), and **local
 Chromium** — with identical agent-facing behaviour.  The backend is
 auto-detected from config and available credentials.
@@ -66,7 +66,7 @@ import requests
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 from agent.auxiliary_client import call_llm
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 
 try:
     from tools.website_policy import check_website_access
@@ -157,7 +157,7 @@ def _get_command_timeout() -> int:
     _command_timeout_resolved = True
     result = DEFAULT_COMMAND_TIMEOUT
     try:
-        from shadow_cli.config import read_raw_config
+        from yousef shtiwe_cli.config import read_raw_config
         cfg = read_raw_config()
         val = cfg.get("browser", {}).get("command_timeout")
         if val is not None:
@@ -269,7 +269,7 @@ def _get_cloud_provider() -> Optional[CloudBrowserProvider]:
 
     _cloud_provider_resolved = True
     try:
-        from shadow_cli.config import read_raw_config
+        from yousef shtiwe_cli.config import read_raw_config
         cfg = read_raw_config()
         browser_cfg = cfg.get("browser", {})
         provider_key = None
@@ -286,7 +286,7 @@ def _get_cloud_provider() -> Optional[CloudBrowserProvider]:
         logger.debug("Could not read cloud_provider from config: %s", e)
 
     if _cached_cloud_provider is None:
-        # Prefer Browser Use (managed Shadow gateway or direct API key),
+        # Prefer Browser Use (managed Yousef Shtiwe gateway or direct API key),
         # fall back to Browserbase (direct credentials only).
         fallback_provider = BrowserUseProvider()
         if fallback_provider.is_configured():
@@ -299,7 +299,7 @@ def _get_cloud_provider() -> Optional[CloudBrowserProvider]:
     return _cached_cloud_provider
 
 
-from shadow_constants import is_termux as _is_termux_environment
+from yousef shtiwe_constants import is_termux as _is_termux_environment
 
 
 def _browser_install_hint() -> str:
@@ -352,7 +352,7 @@ def _allow_private_urls() -> bool:
     _allow_private_urls_resolved = True
     _cached_allow_private_urls = False  # safe default
     try:
-        from shadow_cli.config import read_raw_config
+        from yousef shtiwe_cli.config import read_raw_config
         cfg = read_raw_config()
         _cached_allow_private_urls = bool(cfg.get("browser", {}).get("allow_private_urls"))
     except Exception as e:
@@ -364,7 +364,7 @@ def _socket_safe_tmpdir() -> str:
     """Return a short temp directory path suitable for Unix domain sockets.
 
     macOS sets ``TMPDIR`` to ``/var/folders/xx/.../T/`` (~51 chars).  When we
-    append ``agent-browser-shadow_…`` the resulting socket path exceeds the
+    append ``agent-browser-yousef shtiwe_…`` the resulting socket path exceeds the
     104-byte macOS limit for ``AF_UNIX`` addresses, causing agent-browser to
     fail with "Failed to create socket directory" or silent screenshot failures.
 
@@ -864,7 +864,7 @@ def _find_agent_browser() -> str:
     """
     Find the agent-browser CLI executable.
     
-    Checks in order: current PATH, Homebrew/common bin dirs, SHADOW-managed
+    Checks in order: current PATH, Homebrew/common bin dirs, YOUSEF SHTIWE-managed
     node, local node_modules/.bin/, npx fallback.
     
     Returns:
@@ -895,7 +895,7 @@ def _find_agent_browser() -> str:
         _agent_browser_resolved = True
         return which_result
 
-    # Build an extended search PATH including Homebrew and SHADOW-managed dirs.
+    # Build an extended search PATH including Homebrew and YOUSEF SHTIWE-managed dirs.
     # This covers macOS where the process PATH may not include Homebrew paths.
     extra_dirs: list[str] = []
     for d in ["/opt/homebrew/bin", "/usr/local/bin"]:
@@ -903,10 +903,10 @@ def _find_agent_browser() -> str:
             extra_dirs.append(d)
     extra_dirs.extend(_discover_homebrew_node_dirs())
 
-    shadow_home = get_shadow_home()
-    shadow_node_bin = str(shadow_home / "node" / "bin")
-    if os.path.isdir(shadow_node_bin):
-        extra_dirs.append(shadow_node_bin)
+    yousef shtiwe_home = get_yousef shtiwe_home()
+    yousef shtiwe_node_bin = str(yousef shtiwe_home / "node" / "bin")
+    if os.path.isdir(yousef shtiwe_node_bin):
+        extra_dirs.append(yousef shtiwe_node_bin)
 
     if extra_dirs:
         extended_path = os.pathsep.join(extra_dirs)
@@ -1046,15 +1046,15 @@ def _run_browser_command(
         
         browser_env = {**os.environ}
 
-        # Ensure PATH includes SHADOW-managed Node first, Homebrew versioned
+        # Ensure PATH includes YOUSEF SHTIWE-managed Node first, Homebrew versioned
         # node dirs (for macOS ``brew install node@24``), then standard system dirs.
-        shadow_home = get_shadow_home()
-        shadow_node_bin = str(shadow_home / "node" / "bin")
+        yousef shtiwe_home = get_yousef shtiwe_home()
+        yousef shtiwe_node_bin = str(yousef shtiwe_home / "node" / "bin")
 
         existing_path = browser_env.get("PATH", "")
         path_parts = [p for p in existing_path.split(":") if p]
         candidate_dirs = (
-            [shadow_node_bin]
+            [yousef shtiwe_node_bin]
             + list(_discover_homebrew_node_dirs())
             + [p for p in _SANE_PATH.split(":") if p]
         )
@@ -1782,15 +1782,15 @@ def _maybe_start_recording(task_id: str):
         if task_id in _recording_sessions:
             return
     try:
-        from shadow_cli.config import read_raw_config
-        shadow_home = get_shadow_home()
+        from yousef shtiwe_cli.config import read_raw_config
+        yousef shtiwe_home = get_yousef shtiwe_home()
         cfg = read_raw_config()
         record_enabled = cfg.get("browser", {}).get("record_sessions", False)
         
         if not record_enabled:
             return
         
-        recordings_dir = shadow_home / "browser_recordings"
+        recordings_dir = yousef shtiwe_home / "browser_recordings"
         recordings_dir.mkdir(parents=True, exist_ok=True)
         _cleanup_old_recordings(max_age_hours=72)
         
@@ -1915,8 +1915,8 @@ def browser_vision(question: str, annotate: bool = False, task_id: Optional[str]
     effective_task_id = task_id or "default"
     
     # Save screenshot to persistent location so it can be shared with users
-    from shadow_constants import get_shadow_dir
-    screenshots_dir = get_shadow_dir("cache/screenshots", "browser_screenshots")
+    from yousef shtiwe_constants import get_yousef shtiwe_dir
+    screenshots_dir = get_yousef shtiwe_dir("cache/screenshots", "browser_screenshots")
     screenshot_path = screenshots_dir / f"browser_screenshot_{uuid_mod.uuid4().hex}.png"
     
     try:
@@ -1988,7 +1988,7 @@ def browser_vision(question: str, annotate: bool = False, task_id: Optional[str]
         # screenshot analysis, so the default must be generous.
         vision_timeout = 120.0
         try:
-            from shadow_cli.config import load_config
+            from yousef shtiwe_cli.config import load_config
             _cfg = load_config()
             _vt = _cfg.get("auxiliary", {}).get("vision", {}).get("timeout")
             if _vt is not None:
@@ -2090,8 +2090,8 @@ def _cleanup_old_recordings(max_age_hours=72):
     """Remove browser recordings older than max_age_hours to prevent disk bloat."""
     import time
     try:
-        shadow_home = get_shadow_home()
-        recordings_dir = shadow_home / "browser_recordings"
+        yousef shtiwe_home = get_yousef shtiwe_home()
+        recordings_dir = yousef shtiwe_home / "browser_recordings"
         if not recordings_dir.exists():
             return
         cutoff = time.time() - (max_age_hours * 3600)

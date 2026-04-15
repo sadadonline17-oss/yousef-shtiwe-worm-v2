@@ -39,7 +39,7 @@ from urllib.parse import urlencode
 import fal_client
 from tools.debug_helpers import DebugSession
 from tools.managed_tool_gateway import resolve_managed_tool_gateway
-from tools.tool_backend_helpers import managed_shadow_tools_enabled
+from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -185,14 +185,14 @@ def _get_managed_fal_client(managed_gateway):
 
     client_config = (
         managed_gateway.gateway_origin.rstrip("/"),
-        managed_gateway.shadow_user_token,
+        managed_gateway.yousef shtiwe_user_token,
     )
     with _managed_fal_client_lock:
         if _managed_fal_client is not None and _managed_fal_client_config == client_config:
             return _managed_fal_client
 
         _managed_fal_client = _ManagedFalSyncClient(
-            key=managed_gateway.shadow_user_token,
+            key=managed_gateway.yousef shtiwe_user_token,
             queue_run_origin=managed_gateway.gateway_origin,
         )
         _managed_fal_client_config = client_config
@@ -291,7 +291,7 @@ def _upscale_image(image_url: str, original_prompt: str) -> Dict[str, Any]:
     """
     Upscale an image using FAL.ai's Clarity Upscaler.
     
-    Uses the synchroshadow fal_client API to avoid event loop lifecycle issues
+    Uses the synchroyousef shtiwe fal_client API to avoid event loop lifecycle issues
     when called from threaded contexts (e.g. gateway thread pool).
     
     Args:
@@ -360,7 +360,7 @@ def image_generate_tool(
     """
     Generate images from text prompts using FAL.ai's FLUX 2 Pro model with automatic upscaling.
     
-    Uses the synchroshadow fal_client API to avoid event loop lifecycle issues.
+    Uses the synchroyousef shtiwe fal_client API to avoid event loop lifecycle issues.
     The async API's global httpx.AsyncClient (cached via @cached_property) breaks
     when asyncio.run() destroys and recreates event loops between calls, which
     happens in the gateway's thread-pool pattern.
@@ -417,7 +417,7 @@ def image_generate_tool(
         # Check API key availability
         if not (os.getenv("FAL_KEY") or _resolve_managed_fal_gateway()):
             message = "FAL_KEY environment variable not set"
-            if managed_shadow_tools_enabled():
+            if managed_yousef shtiwe_tools_enabled():
                 message += " and managed FAL gateway is unavailable"
             raise ValueError(message)
         

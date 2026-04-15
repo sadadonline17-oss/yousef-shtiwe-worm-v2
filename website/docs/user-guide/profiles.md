@@ -4,18 +4,18 @@ sidebar_position: 2
 
 # Profiles: Running Multiple Agents
 
-Run multiple independent SHADOW agents on the same machine — each with its own config, API keys, memory, sessions, skills, and gateway.
+Run multiple independent YOUSEF SHTIWE agents on the same machine — each with its own config, API keys, memory, sessions, skills, and gateway.
 
 ## What are profiles?
 
-A profile is a fully isolated SHADOW environment. Each profile gets its own directory containing its own `config.yaml`, `.env`, `SOUL.md`, memories, sessions, skills, cron jobs, and state database. Profiles let you run separate agents for different purposes — a coding assistant, a personal bot, a research agent — without any cross-contamination.
+A profile is a fully isolated YOUSEF SHTIWE environment. Each profile gets its own directory containing its own `config.yaml`, `.env`, `SOUL.md`, memories, sessions, skills, cron jobs, and state database. Profiles let you run separate agents for different purposes — a coding assistant, a personal bot, a research agent — without any cross-contamination.
 
 When you create a profile, it automatically becomes its own command. Create a profile called `coder` and you immediately have `coder chat`, `coder setup`, `coder gateway start`, etc.
 
 ## Quick start
 
 ```bash
-shadow profile create coder       # creates profile + "coder" command alias
+yousef shtiwe profile create coder       # creates profile + "coder" command alias
 coder setup                       # configure API keys and model
 coder chat                        # start chatting
 ```
@@ -27,7 +27,7 @@ That's it. `coder` is now a fully independent agent. It has its own config, its 
 ### Blank profile
 
 ```bash
-shadow profile create mybot
+yousef shtiwe profile create mybot
 ```
 
 Creates a fresh profile with bundled skills seeded. Run `mybot setup` to configure API keys, model, and gateway tokens.
@@ -35,15 +35,15 @@ Creates a fresh profile with bundled skills seeded. Run `mybot setup` to configu
 ### Clone config only (`--clone`)
 
 ```bash
-shadow profile create work --clone
+yousef shtiwe profile create work --clone
 ```
 
-Copies your current profile's `config.yaml`, `.env`, and `SOUL.md` into the new profile. Same API keys and model, but fresh sessions and memory. Edit `~/.shadow/profiles/work/.env` for different API keys, or `~/.shadow/profiles/work/SOUL.md` for a different personality.
+Copies your current profile's `config.yaml`, `.env`, and `SOUL.md` into the new profile. Same API keys and model, but fresh sessions and memory. Edit `~/.yousef shtiwe/profiles/work/.env` for different API keys, or `~/.yousef shtiwe/profiles/work/SOUL.md` for a different personality.
 
 ### Clone everything (`--clone-all`)
 
 ```bash
-shadow profile create backup --clone-all
+yousef shtiwe profile create backup --clone-all
 ```
 
 Copies **everything** — config, API keys, personality, all memories, full session history, skills, cron jobs, plugins. A complete snapshot. Useful for backups or forking an agent that already has context.
@@ -51,7 +51,7 @@ Copies **everything** — config, API keys, personality, all memories, full sess
 ### Clone from a specific profile
 
 ```bash
-shadow profile create work --clone --clone-from coder
+yousef shtiwe profile create work --clone --clone-from coder
 ```
 
 :::tip Honcho memory + profiles
@@ -73,28 +73,28 @@ coder skills list             # list coder's skills
 coder config set model.model anthropic/claude-sonnet-4
 ```
 
-The alias works with every shadow subcommand — it's just `shadow -p <name>` under the hood.
+The alias works with every yousef shtiwe subcommand — it's just `yousef shtiwe -p <name>` under the hood.
 
 ### The `-p` flag
 
 You can also target a profile explicitly with any command:
 
 ```bash
-shadow -p coder chat
-shadow --profile=coder doctor
-shadow chat -p coder -q "hello"    # works in any position
+yousef shtiwe -p coder chat
+yousef shtiwe --profile=coder doctor
+yousef shtiwe chat -p coder -q "hello"    # works in any position
 ```
 
-### Sticky default (`shadow profile use`)
+### Sticky default (`yousef shtiwe profile use`)
 
 ```bash
-shadow profile use coder
-shadow chat                   # now targets coder
-shadow tools                  # configures coder's tools
-shadow profile use default    # switch back
+yousef shtiwe profile use coder
+yousef shtiwe chat                   # now targets coder
+yousef shtiwe tools                  # configures coder's tools
+yousef shtiwe profile use default    # switch back
 ```
 
-Sets a default so plain `shadow` commands target that profile. Like `kubectl config use-context`.
+Sets a default so plain `yousef shtiwe` commands target that profile. Like `kubectl config use-context`.
 
 ### Knowing where you are
 
@@ -102,7 +102,7 @@ The CLI always shows which profile is active:
 
 - **Prompt**: `coder ❯` instead of `❯`
 - **Banner**: Shows `Profile: coder` on startup
-- **`shadow profile`**: Shows current profile name, path, model, gateway status
+- **`yousef shtiwe profile`**: Shows current profile name, path, model, gateway status
 
 ## Running gateways
 
@@ -119,10 +119,10 @@ Each profile has its own `.env` file. Configure a different Telegram/Discord/Sla
 
 ```bash
 # Edit coder's tokens
-nano ~/.shadow/profiles/coder/.env
+nano ~/.yousef shtiwe/profiles/coder/.env
 
 # Edit assistant's tokens
-nano ~/.shadow/profiles/assistant/.env
+nano ~/.yousef shtiwe/profiles/assistant/.env
 ```
 
 ### Safety: token locks
@@ -132,8 +132,8 @@ If two profiles accidentally use the same bot token, the second gateway will be 
 ### Persistent services
 
 ```bash
-coder gateway install         # creates shadow-gateway-coder systemd/launchd service
-assistant gateway install     # creates shadow-gateway-assistant service
+coder gateway install         # creates yousef shtiwe-gateway-coder systemd/launchd service
+assistant gateway install     # creates yousef shtiwe-gateway-assistant service
 ```
 
 Each profile gets its own service name. They run independently.
@@ -148,15 +148,15 @@ Each profile has its own:
 
 ```bash
 coder config set model.model anthropic/claude-sonnet-4
-echo "You are a focused coding assistant." > ~/.shadow/profiles/coder/SOUL.md
+echo "You are a focused coding assistant." > ~/.yousef shtiwe/profiles/coder/SOUL.md
 ```
 
 ## Updating
 
-`shadow update` pulls code once (shared) and syncs new bundled skills to **all** profiles automatically:
+`yousef shtiwe update` pulls code once (shared) and syncs new bundled skills to **all** profiles automatically:
 
 ```bash
-shadow update
+yousef shtiwe update
 # → Code updated (12 commits)
 # → Skills synced: default (up to date), coder (+2 new), assistant (+2 new)
 ```
@@ -166,41 +166,41 @@ User-modified skills are never overwritten.
 ## Managing profiles
 
 ```bash
-shadow profile list           # show all profiles with status
-shadow profile show coder     # detailed info for one profile
-shadow profile rename coder dev-bot   # rename (updates alias + service)
-shadow profile export coder   # export to coder.tar.gz
-shadow profile import coder.tar.gz   # import from archive
+yousef shtiwe profile list           # show all profiles with status
+yousef shtiwe profile show coder     # detailed info for one profile
+yousef shtiwe profile rename coder dev-bot   # rename (updates alias + service)
+yousef shtiwe profile export coder   # export to coder.tar.gz
+yousef shtiwe profile import coder.tar.gz   # import from archive
 ```
 
 ## Deleting a profile
 
 ```bash
-shadow profile delete coder
+yousef shtiwe profile delete coder
 ```
 
 This stops the gateway, removes the systemd/launchd service, removes the command alias, and deletes all profile data. You'll be asked to type the profile name to confirm.
 
-Use `--yes` to skip confirmation: `shadow profile delete coder --yes`
+Use `--yes` to skip confirmation: `yousef shtiwe profile delete coder --yes`
 
 :::note
-You cannot delete the default profile (`~/.shadow`). To remove everything, use `shadow uninstall`.
+You cannot delete the default profile (`~/.yousef shtiwe`). To remove everything, use `yousef shtiwe uninstall`.
 :::
 
 ## Tab completion
 
 ```bash
 # Bash
-eval "$(shadow completion bash)"
+eval "$(yousef shtiwe completion bash)"
 
 # Zsh
-eval "$(shadow completion zsh)"
+eval "$(yousef shtiwe completion zsh)"
 ```
 
 Add the line to your `~/.bashrc` or `~/.zshrc` for persistent completion. Completes profile names after `-p`, profile subcommands, and top-level commands.
 
 ## How it works
 
-Profiles use the `SHADOW_HOME` environment variable. When you run `coder chat`, the wrapper script sets `SHADOW_HOME=~/.shadow/profiles/coder` before launching shadow. Since 119+ files in the codebase resolve paths via `get_shadow_home()`, everything automatically scopes to the profile's directory — config, sessions, memory, skills, state database, gateway PID, logs, and cron jobs.
+Profiles use the `YOUSEF SHTIWE_HOME` environment variable. When you run `coder chat`, the wrapper script sets `YOUSEF SHTIWE_HOME=~/.yousef shtiwe/profiles/coder` before launching yousef shtiwe. Since 119+ files in the codebase resolve paths via `get_yousef shtiwe_home()`, everything automatically scopes to the profile's directory — config, sessions, memory, skills, state database, gateway PID, logs, and cron jobs.
 
-The default profile is simply `~/.shadow` itself. No migration needed — existing installs work identically.
+The default profile is simply `~/.yousef shtiwe` itself. No migration needed — existing installs work identically.

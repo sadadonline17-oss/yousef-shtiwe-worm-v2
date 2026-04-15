@@ -1,15 +1,15 @@
 """Regression tests for interactive setup provider/model persistence.
 
 Since setup_model_provider delegates to select_provider_and_model()
-from shadow_cli.main, these tests mock the delegation point and verify
+from yousef shtiwe_cli.main, these tests mock the delegation point and verify
 that the setup wizard correctly syncs config from disk after the call.
 """
 
 from __future__ import annotations
 
-from shadow_cli.config import load_config, save_config, save_env_value
-from shadow_cli.shadow_subscription import ShadowFeatureState, ShadowSubscriptionFeatures
-from shadow_cli.setup import _print_setup_summary, setup_model_provider
+from yousef shtiwe_cli.config import load_config, save_config, save_env_value
+from yousef shtiwe_cli.yousef shtiwe_subscription import Yousef ShtiweFeatureState, Yousef ShtiweSubscriptionFeatures
+from yousef shtiwe_cli.setup import _print_setup_summary, setup_model_provider
 
 
 def _maybe_keep_current_tts(question, choices):
@@ -21,7 +21,7 @@ def _maybe_keep_current_tts(question, choices):
 
 def _clear_provider_env(monkeypatch):
     for key in (
-        "SHADOW_INFERENCE_PROVIDER",
+        "YOUSEF SHTIWE_INFERENCE_PROVIDER",
         "OPENAI_BASE_URL",
         "OPENAI_API_KEY",
         "OPENROUTER_API_KEY",
@@ -38,11 +38,11 @@ def _clear_provider_env(monkeypatch):
 
 
 def _stub_tts(monkeypatch):
-    monkeypatch.setattr("shadow_cli.setup.prompt_choice", lambda q, c, d=0: (
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_choice", lambda q, c, d=0: (
         _maybe_keep_current_tts(q, c) if _maybe_keep_current_tts(q, c) is not None
         else d
     ))
-    monkeypatch.setattr("shadow_cli.setup.prompt_yes_no", lambda *a, **kw: False)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_yes_no", lambda *a, **kw: False)
 
 
 def _write_model_config(provider, base_url="", model_name="test-model"):
@@ -65,7 +65,7 @@ def _write_model_config(provider, base_url="", model_name="test-model"):
 
 def test_setup_keep_current_custom_from_config_does_not_fall_through(tmp_path, monkeypatch):
     """Keep-current custom should not fall through to the generic model menu."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -78,7 +78,7 @@ def test_setup_keep_current_custom_from_config_does_not_fall_through(tmp_path, m
     def fake_select():
         pass  # user chose "cancel" or "keep current"
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -93,7 +93,7 @@ def test_setup_keep_current_config_provider_uses_provider_specific_model_menu(
     tmp_path, monkeypatch
 ):
     """Keeping current provider preserves the config on disk."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -104,7 +104,7 @@ def test_setup_keep_current_config_provider_uses_provider_specific_model_menu(
     def fake_select():
         pass  # keep current
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -115,7 +115,7 @@ def test_setup_keep_current_config_provider_uses_provider_specific_model_menu(
 
 
 def test_setup_same_provider_rotation_strategy_saved_for_multi_credential_pool(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     save_env_value("OPENROUTER_API_KEY", "or-key")
 
@@ -147,8 +147,8 @@ def test_setup_same_provider_rotation_strategy_saved_for_multi_credential_pool(t
         return False
 
     # Patch directly on the module objects to ensure local imports pick them up.
-    import shadow_cli.main as _main_mod
-    import shadow_cli.setup as _setup_mod
+    import yousef shtiwe_cli.main as _main_mod
+    import yousef shtiwe_cli.setup as _setup_mod
     import agent.credential_pool as _pool_mod
     import agent.auxiliary_client as _aux_mod
 
@@ -169,7 +169,7 @@ def test_setup_same_provider_rotation_strategy_saved_for_multi_credential_pool(t
 
 
 def test_setup_same_provider_fallback_can_add_another_credential(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     save_env_value("OPENROUTER_API_KEY", "or-key")
 
@@ -215,13 +215,13 @@ def test_setup_same_provider_fallback_can_add_another_credential(tmp_path, monke
             return next(yes_no_answers)
         return False
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
     _stub_tts(monkeypatch)
-    monkeypatch.setattr("shadow_cli.setup.prompt_choice", fake_prompt_choice)
-    monkeypatch.setattr("shadow_cli.setup.prompt_yes_no", fake_prompt_yes_no)
-    monkeypatch.setattr("shadow_cli.setup.prompt", lambda *args, **kwargs: "")
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_choice", fake_prompt_choice)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_yes_no", fake_prompt_yes_no)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt", lambda *args, **kwargs: "")
     monkeypatch.setattr("agent.credential_pool.load_pool", fake_load_pool)
-    monkeypatch.setattr("shadow_cli.auth_commands.auth_add_command", fake_auth_add_command)
+    monkeypatch.setattr("yousef shtiwe_cli.auth_commands.auth_add_command", fake_auth_add_command)
     monkeypatch.setattr("agent.auxiliary_client.get_available_vision_backends", lambda: [])
 
     setup_model_provider(config)
@@ -231,7 +231,7 @@ def test_setup_same_provider_fallback_can_add_another_credential(tmp_path, monke
 
 
 def test_setup_same_provider_single_credential_keeps_existing_rotation_strategy(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     save_env_value("OPENROUTER_API_KEY", "or-key")
 
@@ -252,9 +252,9 @@ def test_setup_same_provider_single_credential_keeps_existing_rotation_strategy(
     def fake_select():
         pass
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
     _stub_tts(monkeypatch)
-    monkeypatch.setattr("shadow_cli.setup.prompt", lambda *args, **kwargs: "")
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt", lambda *args, **kwargs: "")
     monkeypatch.setattr("agent.credential_pool.load_pool", lambda provider: _Pool())
     monkeypatch.setattr("agent.auxiliary_client.get_available_vision_backends", lambda: [])
 
@@ -264,7 +264,7 @@ def test_setup_same_provider_single_credential_keeps_existing_rotation_strategy(
 
 
 def test_setup_pool_step_shows_manual_vs_auto_detected_counts(tmp_path, monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     save_env_value("OPENROUTER_API_KEY", "or-key")
 
@@ -297,11 +297,11 @@ def test_setup_pool_step_shows_manual_vs_auto_detected_counts(tmp_path, monkeypa
             return tts_idx
         return default
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
     _stub_tts(monkeypatch)
-    monkeypatch.setattr("shadow_cli.setup.prompt_choice", fake_prompt_choice)
-    monkeypatch.setattr("shadow_cli.setup.prompt_yes_no", lambda *args, **kwargs: False)
-    monkeypatch.setattr("shadow_cli.setup.prompt", lambda *args, **kwargs: "")
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_choice", fake_prompt_choice)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_yes_no", lambda *args, **kwargs: False)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt", lambda *args, **kwargs: "")
     monkeypatch.setattr("agent.credential_pool.load_pool", lambda provider: _Pool())
     monkeypatch.setattr("agent.auxiliary_client.get_available_vision_backends", lambda: [])
 
@@ -312,7 +312,7 @@ def test_setup_pool_step_shows_manual_vs_auto_detected_counts(tmp_path, monkeypa
 
 
 def test_setup_copilot_acp_skips_same_provider_pool_step(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
 
     config = load_config()
@@ -334,10 +334,10 @@ def test_setup_copilot_acp_skips_same_provider_pool_step(tmp_path, monkeypatch):
             raise AssertionError("same-provider pool prompt should not appear for copilot-acp")
         return False
 
-    monkeypatch.setattr("shadow_cli.setup.prompt_choice", fake_prompt_choice)
-    monkeypatch.setattr("shadow_cli.setup.prompt_yes_no", fake_prompt_yes_no)
-    monkeypatch.setattr("shadow_cli.setup.prompt", lambda *args, **kwargs: "")
-    monkeypatch.setattr("shadow_cli.auth.get_active_provider", lambda: None)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_choice", fake_prompt_choice)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt_yes_no", fake_prompt_yes_no)
+    monkeypatch.setattr("yousef shtiwe_cli.setup.prompt", lambda *args, **kwargs: "")
+    monkeypatch.setattr("yousef shtiwe_cli.auth.get_active_provider", lambda: None)
     monkeypatch.setattr("agent.auxiliary_client.get_available_vision_backends", lambda: [])
 
     setup_model_provider(config)
@@ -347,7 +347,7 @@ def test_setup_copilot_acp_skips_same_provider_pool_step(tmp_path, monkeypatch):
 
 def test_setup_copilot_uses_gh_auth_and_saves_provider(tmp_path, monkeypatch):
     """Copilot provider saves correctly through delegation."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -356,7 +356,7 @@ def test_setup_copilot_uses_gh_auth_and_saves_provider(tmp_path, monkeypatch):
     def fake_select():
         _write_model_config("copilot", "https://models.github.ai/inference/v1", "gpt-4o")
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -368,7 +368,7 @@ def test_setup_copilot_uses_gh_auth_and_saves_provider(tmp_path, monkeypatch):
 
 def test_setup_copilot_acp_uses_model_picker_and_saves_provider(tmp_path, monkeypatch):
     """Copilot ACP provider saves correctly through delegation."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -377,7 +377,7 @@ def test_setup_copilot_acp_uses_model_picker_and_saves_provider(tmp_path, monkey
     def fake_select():
         _write_model_config("copilot-acp", "", "claude-sonnet-4")
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -391,7 +391,7 @@ def test_setup_switch_custom_to_codex_clears_custom_endpoint_and_updates_config(
     tmp_path, monkeypatch
 ):
     """Switching from custom to codex updates config correctly."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -404,7 +404,7 @@ def test_setup_switch_custom_to_codex_clears_custom_endpoint_and_updates_config(
     def fake_select():
         _write_model_config("openai-codex", "https://api.openai.com/v1", "gpt-4o")
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -417,7 +417,7 @@ def test_setup_switch_custom_to_codex_clears_custom_endpoint_and_updates_config(
 
 def test_setup_switch_preserves_non_model_config(tmp_path, monkeypatch):
     """Provider switch preserves other config sections (terminal, display, etc.)."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     _stub_tts(monkeypatch)
 
@@ -430,7 +430,7 @@ def test_setup_switch_preserves_non_model_config(tmp_path, monkeypatch):
     def fake_select():
         _write_model_config("openrouter", model_name="gpt-4o")
 
-    monkeypatch.setattr("shadow_cli.main.select_provider_and_model", fake_select)
+    monkeypatch.setattr("yousef shtiwe_cli.main.select_provider_and_model", fake_select)
 
     setup_model_provider(config)
     save_config(config)
@@ -441,7 +441,7 @@ def test_setup_switch_preserves_non_model_config(tmp_path, monkeypatch):
 
 
 def test_setup_summary_marks_anthropic_auth_as_vision_available(tmp_path, monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-api03-key")
     monkeypatch.setattr("shutil.which", lambda _name: None)
@@ -451,24 +451,24 @@ def test_setup_summary_marks_anthropic_auth_as_vision_available(tmp_path, monkey
     output = capsys.readouterr().out
 
     assert "Vision (image analysis)" in output
-    assert "missing run 'shadow setup' to configure" not in output
+    assert "missing run 'yousef shtiwe setup' to configure" not in output
 
 
 def test_setup_summary_shows_camofox_when_browser_feature_is_camofox(tmp_path, monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     monkeypatch.setattr(
-        "shadow_cli.setup.get_shadow_subscription_features",
-        lambda config: ShadowSubscriptionFeatures(
+        "yousef shtiwe_cli.setup.get_yousef shtiwe_subscription_features",
+        lambda config: Yousef ShtiweSubscriptionFeatures(
             subscribed=False,
-            shadow_auth_present=False,
-            provider_is_shadow=False,
+            yousef shtiwe_auth_present=False,
+            provider_is_yousef shtiwe=False,
             features={
-                "web": ShadowFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
-                "image_gen": ShadowFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
-                "tts": ShadowFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
-                "browser": ShadowFeatureState("browser", "Browser automation", True, True, True, False, True, True, "Camofox"),
-                "modal": ShadowFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
+                "web": Yousef ShtiweFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
+                "image_gen": Yousef ShtiweFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
+                "tts": Yousef ShtiweFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
+                "browser": Yousef ShtiweFeatureState("browser", "Browser automation", True, True, True, False, True, True, "Camofox"),
+                "modal": Yousef ShtiweFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
             },
         ),
     )
@@ -481,21 +481,21 @@ def test_setup_summary_shows_camofox_when_browser_feature_is_camofox(tmp_path, m
 
 
 def test_setup_summary_does_not_mark_incomplete_browserbase_as_available(tmp_path, monkeypatch, capsys):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     _clear_provider_env(monkeypatch)
     monkeypatch.setenv("BROWSERBASE_API_KEY", "bb-key")
     monkeypatch.setattr(
-        "shadow_cli.setup.get_shadow_subscription_features",
-        lambda config: ShadowSubscriptionFeatures(
+        "yousef shtiwe_cli.setup.get_yousef shtiwe_subscription_features",
+        lambda config: Yousef ShtiweSubscriptionFeatures(
             subscribed=False,
-            shadow_auth_present=False,
-            provider_is_shadow=False,
+            yousef shtiwe_auth_present=False,
+            provider_is_yousef shtiwe=False,
             features={
-                "web": ShadowFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
-                "image_gen": ShadowFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
-                "tts": ShadowFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
-                "browser": ShadowFeatureState("browser", "Browser automation", True, False, False, False, False, True, "Browserbase"),
-                "modal": ShadowFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
+                "web": Yousef ShtiweFeatureState("web", "Web tools", True, False, False, False, False, True, ""),
+                "image_gen": Yousef ShtiweFeatureState("image_gen", "Image generation", True, False, False, False, False, True, ""),
+                "tts": Yousef ShtiweFeatureState("tts", "OpenAI TTS", True, False, False, False, False, True, ""),
+                "browser": Yousef ShtiweFeatureState("browser", "Browser automation", True, False, False, False, False, True, "Browserbase"),
+                "modal": Yousef ShtiweFeatureState("modal", "Modal execution", False, False, False, False, False, True, "local"),
             },
         ),
     )

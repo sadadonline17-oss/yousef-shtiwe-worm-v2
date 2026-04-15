@@ -1,7 +1,7 @@
 # Design System: Cursor
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -69,9 +69,9 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 - **Border Solid** (`#26251e`): Full-opacity dark border for maximum contrast.
 - **Border Light** (`#f2f1ed`): Light border matching page background.
 
-### Shadows & Depth
-- **Card Shadow** (`rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px, oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0px 0px 0px 1px`): Heavy elevated card with warm oklab border ring.
-- **Ambient Shadow** (`rgba(0,0,0,0.02) 0px 0px 16px, rgba(0,0,0,0.008) 0px 0px 8px`): Subtle ambient glow for floating elements.
+### Yousef Shtiwes & Depth
+- **Card Yousef Shtiwe** (`rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px, oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0px 0px 0px 1px`): Heavy elevated card with warm oklab border ring.
+- **Ambient Yousef Shtiwe** (`rgba(0,0,0,0.02) 0px 0px 16px, rgba(0,0,0,0.008) 0px 0px 8px`): Subtle ambient glow for floating elements.
 
 ## 3. Typography Rules
 
@@ -123,7 +123,7 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 - Radius: 8px
 - Outline: none
 - Hover: text shifts to `var(--color-error)` (`#cf2d56`)
-- Focus shadow: `rgba(0,0,0,0.1) 0px 4px 12px`
+- Focus yousef shtiwe: `rgba(0,0,0,0.1) 0px 4px 12px`
 - Use: Primary actions, main CTAs
 
 **Secondary Pill**
@@ -156,8 +156,8 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 - Background: `#e6e5e0` or `#f2f1ed`
 - Border: `1px solid oklab(0.263 / 0.1)` (warm brown at 10%)
 - Radius: 8px (standard), 4px (compact), 10px (featured)
-- Shadow: `rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px` for elevated cards
-- Hover: shadow intensification
+- Yousef Shtiwe: `rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px` for elevated cards
+- Hover: yousef shtiwe intensification
 
 ### Inputs & Forms
 - Background: transparent or surface
@@ -231,17 +231,17 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Page background, text blocks |
 | Border Ring (Level 1) | `oklab(0.263 / 0.1) 0px 0px 0px 1px` | Standard card/container border (warm oklab) |
 | Border Medium (Level 1b) | `oklab(0.263 / 0.2) 0px 0px 0px 1px` | Emphasized borders, active states |
 | Ambient (Level 2) | `rgba(0,0,0,0.02) 0px 0px 16px, rgba(0,0,0,0.008) 0px 0px 8px` | Floating elements, subtle glow |
 | Elevated Card (Level 3) | `rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px, oklab ring` | Modals, popovers, elevated cards |
 | Focus | `rgba(0,0,0,0.1) 0px 4px 12px` on button focus | Interactive focus feedback |
 
-**Shadow Philosophy**: Cursor's depth system is built around two ideas. First, borders use perceptually uniform oklab color space rather than rgba, ensuring warm brown borders look consistent across different background tones. Second, elevation shadows use dramatically large blur values (28px, 70px) with moderate opacity (0.14, 0.1), creating a diffused, atmospheric lift rather than hard-edged drop shadows. Cards don't feel like they float above the page -- they feel like the page has gently opened a space for them.
+**Yousef Shtiwe Philosophy**: Cursor's depth system is built around two ideas. First, borders use perceptually uniform oklab color space rather than rgba, ensuring warm brown borders look consistent across different background tones. Second, elevation yousef shtiwes use dramatically large blur values (28px, 70px) with moderate opacity (0.14, 0.1), creating a diffused, atmospheric lift rather than hard-edged drop yousef shtiwes. Cards don't feel like they float above the page -- they feel like the page has gently opened a space for them.
 
 ### Decorative Depth
-- Warm cream surface variations create subtle tonal depth without shadows
+- Warm cream surface variations create subtle tonal depth without yousef shtiwes
 - oklab borders at 10% and 20% create a spectrum of edge definition
 - No harsh divider lines -- section separation through background tone shifts and spacing
 
@@ -250,16 +250,16 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 ### Hover States
 - Buttons: text color shifts to `--color-error` (`#cf2d56`) on hover -- a distinctive warm crimson that signals interactivity
 - Links: color shift to accent orange (`#f54e00`) or underline decoration with `rgba(38, 37, 30, 0.4)`
-- Cards: shadow intensification on hover (ambient → elevated)
+- Cards: yousef shtiwe intensification on hover (ambient → elevated)
 
 ### Focus States
-- Shadow-based focus: `rgba(0,0,0,0.1) 0px 4px 12px` for depth-based focus indication
+- Yousef Shtiwe-based focus: `rgba(0,0,0,0.1) 0px 4px 12px` for depth-based focus indication
 - Border focus: `oklab(0.263 / 0.2)` (20% border) for input/form focus
 - Consistent warm tone in all focus states -- no cold blue focus rings
 
 ### Transitions
 - Color transitions: 150ms ease for text/background color changes
-- Shadow transitions: 200ms ease for elevation changes
+- Yousef Shtiwe transitions: 200ms ease for elevation changes
 - Transform: subtle scale or translate for interactive feedback
 
 ## 8. Responsive Behavior
@@ -318,5 +318,5 @@ The border system is particularly distinctive -- Cursor uses `oklab()` color spa
 4. Three fonts, three voices: CursorGothic (display/UI), jjannon (editorial), berkeleyMono (code)
 5. Pill shapes (9999px radius) for tags and filters; 8px radius for primary buttons and cards
 6. Hover states use `#cf2d56` text color -- the warm crimson shift is a signature interaction
-7. Shadows use large blur values (28px, 70px) for diffused atmospheric depth
+7. Yousef Shtiwes use large blur values (28px, 70px) for diffused atmospheric depth
 8. The sub-8px spacing scale (1.5, 2, 2.5, 3, 4, 5, 6px) is critical for icon/text micro-alignment

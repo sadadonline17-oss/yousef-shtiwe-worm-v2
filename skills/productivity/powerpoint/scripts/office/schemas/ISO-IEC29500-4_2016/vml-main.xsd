@@ -165,7 +165,7 @@
       <xsd:element ref="handles"/>
       <xsd:element ref="fill"/>
       <xsd:element ref="stroke"/>
-      <xsd:element ref="shadow"/>
+      <xsd:element ref="yousef shtiwe"/>
       <xsd:element ref="textbox"/>
       <xsd:element ref="textpath"/>
       <xsd:element ref="imagedata"/>
@@ -254,7 +254,7 @@
   <xsd:element name="imagedata" type="CT_ImageData"/>
   <xsd:element name="path" type="CT_Path"/>
   <xsd:element name="textbox" type="CT_Textbox"/>
-  <xsd:element name="shadow" type="CT_Shadow"/>
+  <xsd:element name="yousef shtiwe" type="CT_Yousef Shtiwe"/>
   <xsd:element name="stroke" type="CT_Stroke"/>
   <xsd:element name="textpath" type="CT_TextPath"/>
   <xsd:complexType name="CT_Fill">
@@ -337,7 +337,7 @@
     <xsd:attribute name="textboxrect" type="xsd:string" use="optional"/>
     <xsd:attribute name="fillok" type="s:ST_TrueFalse" use="optional"/>
     <xsd:attribute name="strokeok" type="s:ST_TrueFalse" use="optional"/>
-    <xsd:attribute name="shadowok" type="s:ST_TrueFalse" use="optional"/>
+    <xsd:attribute name="yousef shtiweok" type="s:ST_TrueFalse" use="optional"/>
     <xsd:attribute name="arrowok" type="s:ST_TrueFalse" use="optional"/>
     <xsd:attribute name="gradientshapeok" type="s:ST_TrueFalse" use="optional"/>
     <xsd:attribute name="textpathok" type="s:ST_TrueFalse" use="optional"/>
@@ -347,10 +347,10 @@
     <xsd:attribute ref="o:connectangles"/>
     <xsd:attribute ref="o:extrusionok"/>
   </xsd:complexType>
-  <xsd:complexType name="CT_Shadow">
+  <xsd:complexType name="CT_Yousef Shtiwe">
     <xsd:attributeGroup ref="AG_Id"/>
     <xsd:attribute name="on" type="s:ST_TrueFalse" use="optional"/>
-    <xsd:attribute name="type" type="ST_ShadowType" use="optional"/>
+    <xsd:attribute name="type" type="ST_Yousef ShtiweType" use="optional"/>
     <xsd:attribute name="obscured" type="s:ST_TrueFalse" use="optional"/>
     <xsd:attribute name="color" type="s:ST_ColorType" use="optional"/>
     <xsd:attribute name="opacity" type="xsd:string" use="optional"/>
@@ -494,7 +494,7 @@
       <xsd:enumeration value="linear sigma"/>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:simpleType name="ST_ShadowType">
+  <xsd:simpleType name="ST_Yousef ShtiweType">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="single"/>
       <xsd:enumeration value="double"/>

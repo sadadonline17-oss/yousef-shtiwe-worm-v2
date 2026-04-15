@@ -78,6 +78,6 @@ let
         pythonPackageOverrides
       ]);
 in
-pythonSet.mkVirtualEnv "shadow-agent-env" {
-  shadow-agent = [ "all" ];
+pythonSet.mkVirtualEnv "yousef shtiwe-agent-env" {
+  yousef shtiwe-agent = [ "all" ];
 }

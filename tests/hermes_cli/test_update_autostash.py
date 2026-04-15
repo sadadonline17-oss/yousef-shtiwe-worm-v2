@@ -4,8 +4,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from shadow_cli import config as shadow_config
-from shadow_cli import main as shadow_main
+from yousef shtiwe_cli import config as yousef shtiwe_config
+from yousef shtiwe_cli import main as yousef shtiwe_main
 
 
 def test_stash_local_changes_if_needed_returns_none_when_tree_clean(monkeypatch, tmp_path):
@@ -17,9 +17,9 @@ def test_stash_local_changes_if_needed_returns_none_when_tree_clean(monkeypatch,
             return SimpleNamespace(stdout="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    stash_ref = shadow_main._stash_local_changes_if_needed(["git"], tmp_path)
+    stash_ref = yousef shtiwe_main._stash_local_changes_if_needed(["git"], tmp_path)
 
     assert stash_ref is None
     assert [cmd[-2:] for cmd, _ in calls] == [["status", "--porcelain"]]
@@ -31,7 +31,7 @@ def test_stash_local_changes_if_needed_returns_specific_stash_commit(monkeypatch
     def fake_run(cmd, **kwargs):
         calls.append((cmd, kwargs))
         if cmd[-2:] == ["status", "--porcelain"]:
-            return SimpleNamespace(stdout=" M shadow_cli/main.py\n?? notes.txt\n", returncode=0)
+            return SimpleNamespace(stdout=" M yousef shtiwe_cli/main.py\n?? notes.txt\n", returncode=0)
         if cmd[-2:] == ["ls-files", "--unmerged"]:
             return SimpleNamespace(stdout="", returncode=0)
         if cmd[1:4] == ["stash", "push", "--include-untracked"]:
@@ -40,9 +40,9 @@ def test_stash_local_changes_if_needed_returns_specific_stash_commit(monkeypatch
             return SimpleNamespace(stdout="abc123\n", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    stash_ref = shadow_main._stash_local_changes_if_needed(["git"], tmp_path)
+    stash_ref = yousef shtiwe_main._stash_local_changes_if_needed(["git"], tmp_path)
 
     assert stash_ref == "abc123"
     assert calls[1][0][-2:] == ["ls-files", "--unmerged"]
@@ -58,9 +58,9 @@ def test_resolve_stash_selector_returns_matching_entry(monkeypatch, tmp_path):
             returncode=0,
         )
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    assert shadow_main._resolve_stash_selector(["git"], tmp_path, "abc123") == "stash@{1}"
+    assert yousef shtiwe_main._resolve_stash_selector(["git"], tmp_path, "abc123") == "stash@{1}"
 
 
 
@@ -79,10 +79,10 @@ def test_restore_stashed_changes_prompts_before_applying(monkeypatch, tmp_path, 
             return SimpleNamespace(stdout="dropped\n", stderr="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
     monkeypatch.setattr("builtins.input", lambda: "")
 
-    restored = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
+    restored = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
 
     assert restored is True
     assert calls[0][0] == ["git", "stash", "apply", "abc123"]
@@ -103,10 +103,10 @@ def test_restore_stashed_changes_can_skip_restore_and_keep_stash(monkeypatch, tm
         calls.append((cmd, kwargs))
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
     monkeypatch.setattr("builtins.input", lambda: "n")
 
-    restored = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
+    restored = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
 
     assert restored is False
     assert calls == []
@@ -131,9 +131,9 @@ def test_restore_stashed_changes_applies_without_prompt_when_disabled(monkeypatc
             return SimpleNamespace(stdout="dropped\n", stderr="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    restored = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
+    restored = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
 
     assert restored is True
     assert calls[0][0] == ["git", "stash", "apply", "abc123"]
@@ -145,7 +145,7 @@ def test_restore_stashed_changes_applies_without_prompt_when_disabled(monkeypatc
 
 
 def test_print_stash_cleanup_guidance_with_selector(capsys):
-    shadow_main._print_stash_cleanup_guidance("abc123", "stash@{2}")
+    yousef shtiwe_main._print_stash_cleanup_guidance("abc123", "stash@{2}")
 
     out = capsys.readouterr().out
     assert "Check `git status` first" in out
@@ -167,9 +167,9 @@ def test_restore_stashed_changes_keeps_going_when_stash_entry_cannot_be_resolved
             return SimpleNamespace(stdout="stash@{0} def456\n", stderr="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    restored = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
+    restored = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
 
     assert restored is True
     assert calls[0] == (["git", "stash", "apply", "abc123"], {"cwd": tmp_path, "capture_output": True, "text": True})
@@ -199,9 +199,9 @@ def test_restore_stashed_changes_keeps_going_when_drop_fails(monkeypatch, tmp_pa
             return SimpleNamespace(stdout="", stderr="drop failed\n", returncode=1)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    restored = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
+    restored = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
 
     assert restored is True
     assert calls[3][0] == ["git", "stash", "drop", "stash@{0}"]
@@ -216,7 +216,7 @@ def test_restore_stashed_changes_keeps_going_when_drop_fails(monkeypatch, tmp_pa
 def test_restore_stashed_changes_always_resets_on_conflict(monkeypatch, tmp_path, capsys):
     """Conflicts always auto-reset (no prompt) and return False, even interactively.
 
-    Leaving conflict markers in source files makes shadow unrunnable (SyntaxError).
+    Leaving conflict markers in source files makes yousef shtiwe unrunnable (SyntaxError).
     The stash is preserved for manual recovery; cmd_update continues normally.
     """
     calls = []
@@ -226,20 +226,20 @@ def test_restore_stashed_changes_always_resets_on_conflict(monkeypatch, tmp_path
         if cmd[1:3] == ["stash", "apply"]:
             return SimpleNamespace(stdout="conflict output\n", stderr="conflict stderr\n", returncode=1)
         if cmd[1:3] == ["diff", "--name-only"]:
-            return SimpleNamespace(stdout="shadow_cli/main.py\n", stderr="", returncode=0)
+            return SimpleNamespace(stdout="yousef shtiwe_cli/main.py\n", stderr="", returncode=0)
         if cmd[1:3] == ["reset", "--hard"]:
             return SimpleNamespace(stdout="", stderr="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
     monkeypatch.setattr("builtins.input", lambda: "y")
 
-    result = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
+    result = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=True)
 
     assert result is False
     out = capsys.readouterr().out
     assert "Conflicted files:" in out
-    assert "shadow_cli/main.py" in out
+    assert "yousef shtiwe_cli/main.py" in out
     assert "stashed changes are preserved" in out
     assert "Working tree reset to clean state" in out
     assert "git stash apply abc123" in out
@@ -262,9 +262,9 @@ def test_restore_stashed_changes_auto_resets_non_interactive(monkeypatch, tmp_pa
             return SimpleNamespace(stdout="", stderr="", returncode=0)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    result = shadow_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
+    result = yousef shtiwe_main._restore_stashed_changes(["git"], tmp_path, "abc123", prompt_user=False)
 
     assert result is False
     out = capsys.readouterr().out
@@ -276,7 +276,7 @@ def test_restore_stashed_changes_auto_resets_non_interactive(monkeypatch, tmp_pa
 def test_stash_local_changes_if_needed_raises_when_stash_ref_missing(monkeypatch, tmp_path):
     def fake_run(cmd, **kwargs):
         if cmd[-2:] == ["status", "--porcelain"]:
-            return SimpleNamespace(stdout=" M shadow_cli/main.py\n", returncode=0)
+            return SimpleNamespace(stdout=" M yousef shtiwe_cli/main.py\n", returncode=0)
         if cmd[-2:] == ["ls-files", "--unmerged"]:
             return SimpleNamespace(stdout="", returncode=0)
         if cmd[1:4] == ["stash", "push", "--include-untracked"]:
@@ -285,10 +285,10 @@ def test_stash_local_changes_if_needed_raises_when_stash_ref_missing(monkeypatch
             raise CalledProcessError(returncode=128, cmd=cmd)
         raise AssertionError(f"unexpected command: {cmd}")
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
     with pytest.raises(CalledProcessError):
-        shadow_main._stash_local_changes_if_needed(["git"], Path(tmp_path))
+        yousef shtiwe_main._stash_local_changes_if_needed(["git"], Path(tmp_path))
 
 
 # ---------------------------------------------------------------------------
@@ -298,20 +298,20 @@ def test_stash_local_changes_if_needed_raises_when_stash_ref_missing(monkeypatch
 def _setup_update_mocks(monkeypatch, tmp_path):
     """Common setup for cmd_update tests."""
     (tmp_path / ".git").mkdir()
-    monkeypatch.setattr(shadow_main, "PROJECT_ROOT", tmp_path)
-    monkeypatch.setattr(shadow_main, "_stash_local_changes_if_needed", lambda *a, **kw: None)
-    monkeypatch.setattr(shadow_main, "_restore_stashed_changes", lambda *a, **kw: True)
-    monkeypatch.setattr(shadow_config, "get_missing_env_vars", lambda required_only=True: [])
-    monkeypatch.setattr(shadow_config, "get_missing_config_fields", lambda: [])
-    monkeypatch.setattr(shadow_config, "check_config_version", lambda: (5, 5))
-    monkeypatch.setattr(shadow_config, "migrate_config", lambda **kw: {"env_added": [], "config_added": []})
+    monkeypatch.setattr(yousef shtiwe_main, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(yousef shtiwe_main, "_stash_local_changes_if_needed", lambda *a, **kw: None)
+    monkeypatch.setattr(yousef shtiwe_main, "_restore_stashed_changes", lambda *a, **kw: True)
+    monkeypatch.setattr(yousef shtiwe_config, "get_missing_env_vars", lambda required_only=True: [])
+    monkeypatch.setattr(yousef shtiwe_config, "get_missing_config_fields", lambda: [])
+    monkeypatch.setattr(yousef shtiwe_config, "check_config_version", lambda: (5, 5))
+    monkeypatch.setattr(yousef shtiwe_config, "migrate_config", lambda **kw: {"env_added": [], "config_added": []})
 
 
 def test_cmd_update_retries_optional_extras_individually_when_all_fails(monkeypatch, tmp_path, capsys):
     """When .[all] fails, update should keep base deps and retry extras individually."""
     _setup_update_mocks(monkeypatch, tmp_path)
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
-    monkeypatch.setattr(shadow_main, "_load_installable_optional_extras", lambda: ["matrix", "mcp"])
+    monkeypatch.setattr(yousef shtiwe_main, "_load_installable_optional_extras", lambda: ["matrix", "mcp"])
 
     recorded = []
 
@@ -335,9 +335,9 @@ def test_cmd_update_retries_optional_extras_individually_when_all_fails(monkeypa
             return SimpleNamespace(returncode=0)
         return SimpleNamespace(returncode=0)
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     install_cmds = [c for c in recorded if "pip" in c and "install" in c]
     assert install_cmds == [
@@ -372,9 +372,9 @@ def test_cmd_update_succeeds_with_extras(monkeypatch, tmp_path):
             return SimpleNamespace(stdout="Updating\n", stderr="", returncode=0)
         return SimpleNamespace(returncode=0)
 
-    monkeypatch.setattr(shadow_main.subprocess, "run", fake_run)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", fake_run)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     install_cmds = [c for c in recorded if "pip" in c and "install" in c]
     assert len(install_cmds) == 1
@@ -432,9 +432,9 @@ def test_cmd_update_falls_back_to_reset_when_ff_only_fails(monkeypatch, tmp_path
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
 
     side_effect, recorded = _make_update_side_effect(ff_only_fails=True)
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     reset_calls = [c for c in recorded if "reset" in c and "--hard" in c]
     assert len(reset_calls) == 1
@@ -450,9 +450,9 @@ def test_cmd_update_no_reset_when_ff_only_succeeds(monkeypatch, tmp_path):
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
 
     side_effect, recorded = _make_update_side_effect()
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     reset_calls = [c for c in recorded if "reset" in c and "--hard" in c]
     assert len(reset_calls) == 0
@@ -468,9 +468,9 @@ def test_cmd_update_switches_to_main_from_feature_branch(monkeypatch, tmp_path, 
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
 
     side_effect, recorded = _make_update_side_effect(current_branch="fix/something")
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     checkout_calls = [c for c in recorded if "checkout" in c and "main" in c]
     assert len(checkout_calls) == 1
@@ -486,9 +486,9 @@ def test_cmd_update_switches_to_main_from_detached_head(monkeypatch, tmp_path, c
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
 
     side_effect, recorded = _make_update_side_effect(current_branch="HEAD")
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     checkout_calls = [c for c in recorded if "checkout" in c and "main" in c]
     assert len(checkout_calls) == 1
@@ -504,21 +504,21 @@ def test_cmd_update_restores_stash_and_branch_when_already_up_to_date(monkeypatc
 
     # Enable stash so it returns a ref
     monkeypatch.setattr(
-        shadow_main, "_stash_local_changes_if_needed",
+        yousef shtiwe_main, "_stash_local_changes_if_needed",
         lambda *a, **kw: "abc123deadbeef",
     )
     restore_calls = []
     monkeypatch.setattr(
-        shadow_main, "_restore_stashed_changes",
+        yousef shtiwe_main, "_restore_stashed_changes",
         lambda *a, **kw: restore_calls.append(1) or True,
     )
 
     side_effect, recorded = _make_update_side_effect(
         current_branch="fix/something", commit_count="0",
     )
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     # Stash should have been restored
     assert len(restore_calls) == 1
@@ -537,9 +537,9 @@ def test_cmd_update_no_checkout_when_already_on_main(monkeypatch, tmp_path):
     monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/uv" if name == "uv" else None)
 
     side_effect, recorded = _make_update_side_effect()
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
-    shadow_main.cmd_update(SimpleNamespace())
+    yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     checkout_calls = [c for c in recorded if "checkout" in c]
     assert len(checkout_calls) == 0
@@ -557,10 +557,10 @@ def test_cmd_update_network_error_shows_friendly_message(monkeypatch, tmp_path, 
         fetch_fails=True,
         fetch_stderr="fatal: unable to access 'https://...': Could not resolve host: github.com",
     )
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
     with pytest.raises(SystemExit, match="1"):
-        shadow_main.cmd_update(SimpleNamespace())
+        yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     out = capsys.readouterr().out
     assert "Network error" in out
@@ -574,10 +574,10 @@ def test_cmd_update_auth_error_shows_friendly_message(monkeypatch, tmp_path, cap
         fetch_fails=True,
         fetch_stderr="fatal: Authentication failed for 'https://...'",
     )
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
     with pytest.raises(SystemExit, match="1"):
-        shadow_main.cmd_update(SimpleNamespace())
+        yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     out = capsys.readouterr().out
     assert "Authentication failed" in out
@@ -592,20 +592,20 @@ def test_cmd_update_skips_stash_restore_when_reset_fails(monkeypatch, tmp_path, 
     _setup_update_mocks(monkeypatch, tmp_path)
     # Re-enable stash so it actually returns a ref
     monkeypatch.setattr(
-        shadow_main, "_stash_local_changes_if_needed",
+        yousef shtiwe_main, "_stash_local_changes_if_needed",
         lambda *a, **kw: "abc123deadbeef",
     )
     restore_calls = []
     monkeypatch.setattr(
-        shadow_main, "_restore_stashed_changes",
+        yousef shtiwe_main, "_restore_stashed_changes",
         lambda *a, **kw: restore_calls.append(1) or True,
     )
 
     side_effect, _ = _make_update_side_effect(ff_only_fails=True, reset_fails=True)
-    monkeypatch.setattr(shadow_main.subprocess, "run", side_effect)
+    monkeypatch.setattr(yousef shtiwe_main.subprocess, "run", side_effect)
 
     with pytest.raises(SystemExit, match="1"):
-        shadow_main.cmd_update(SimpleNamespace())
+        yousef shtiwe_main.cmd_update(SimpleNamespace())
 
     # Stash restore should NOT have been called
     assert len(restore_calls) == 0

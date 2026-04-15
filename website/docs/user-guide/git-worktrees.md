@@ -2,25 +2,25 @@
 sidebar_position: 3
 sidebar_label: "Git Worktrees"
 title: "Git Worktrees"
-description: "Run multiple SHADOW agents safely on the same repository using git worktrees and isolated checkouts"
+description: "Run multiple YOUSEF SHTIWE agents safely on the same repository using git worktrees and isolated checkouts"
 ---
 
 # Git Worktrees
 
-SHADOW Agent is often used on large, long‑lived repositories. When you want to:
+YOUSEF SHTIWE Agent is often used on large, long‑lived repositories. When you want to:
 
 - Run **multiple agents in parallel** on the same project, or
 - Keep experimental refactors isolated from your main branch,
 
 Git **worktrees** are the safest way to give each agent its own checkout without duplicating the entire repository.
 
-This page shows how to combine worktrees with SHADOW so each session has a clean, isolated working directory.
+This page shows how to combine worktrees with YOUSEF SHTIWE so each session has a clean, isolated working directory.
 
-## Why Use Worktrees with SHADOW?
+## Why Use Worktrees with YOUSEF SHTIWE?
 
-SHADOW treats the **current working directory** as the project root:
+YOUSEF SHTIWE treats the **current working directory** as the project root:
 
-- CLI: the directory where you run `shadow` or `shadow chat`
+- CLI: the directory where you run `yousef shtiwe` or `yousef shtiwe chat`
 - Messaging gateways: the directory set by `MESSAGING_CWD`
 
 If you run multiple agents in the **same checkout**, their changes can interfere with each other:
@@ -44,24 +44,24 @@ From your main repository (containing `.git/`), create a new worktree for a feat
 cd /path/to/your/repo
 
 # Create a new branch and worktree in ../repo-feature
-git worktree add ../repo-feature feature/shadow-experiment
+git worktree add ../repo-feature feature/yousef shtiwe-experiment
 ```
 
 This creates:
 
 - A new directory: `../repo-feature`
-- A new branch: `feature/shadow-experiment` checked out in that directory
+- A new branch: `feature/yousef shtiwe-experiment` checked out in that directory
 
-Now you can `cd` into the new worktree and run SHADOW there:
+Now you can `cd` into the new worktree and run YOUSEF SHTIWE there:
 
 ```bash
 cd ../repo-feature
 
-# Start SHADOW in the worktree
-shadow
+# Start YOUSEF SHTIWE in the worktree
+yousef shtiwe
 ```
 
-SHADOW will:
+YOUSEF SHTIWE will:
 
 - See `../repo-feature` as the project root.
 - Use that directory for context files, code edits, and tools.
@@ -74,8 +74,8 @@ You can create multiple worktrees, each with its own branch:
 ```bash
 cd /path/to/your/repo
 
-git worktree add ../repo-experiment-a feature/shadow-a
-git worktree add ../repo-experiment-b feature/shadow-b
+git worktree add ../repo-experiment-a feature/yousef shtiwe-a
+git worktree add ../repo-experiment-b feature/yousef shtiwe-b
 ```
 
 In separate terminals:
@@ -83,17 +83,17 @@ In separate terminals:
 ```bash
 # Terminal 1
 cd ../repo-experiment-a
-shadow
+yousef shtiwe
 
 # Terminal 2
 cd ../repo-experiment-b
-shadow
+yousef shtiwe
 ```
 
-Each SHADOW process:
+Each YOUSEF SHTIWE process:
 
-- Works on its own branch (`feature/shadow-a` vs `feature/shadow-b`).
-- Writes checkpoints under a different shadow repo hash (derived from the worktree path).
+- Works on its own branch (`feature/yousef shtiwe-a` vs `feature/yousef shtiwe-b`).
+- Writes checkpoints under a different yousef shtiwe repo hash (derived from the worktree path).
 - Can use `/rollback` independently without affecting the other.
 
 This is especially useful when:
@@ -122,47 +122,47 @@ Notes:
 
 - `git worktree remove` will refuse to remove a worktree with uncommitted changes unless you force it.
 - Removing a worktree does **not** automatically delete the branch; you can delete or keep the branch using normal `git branch` commands.
-- SHADOW checkpoint data under `~/.shadow/checkpoints/` is not automatically pruned when you remove a worktree, but it is usually very small.
+- YOUSEF SHTIWE checkpoint data under `~/.yousef shtiwe/checkpoints/` is not automatically pruned when you remove a worktree, but it is usually very small.
 
 ## Best Practices
 
-- **One worktree per SHADOW experiment**
+- **One worktree per YOUSEF SHTIWE experiment**
   - Create a dedicated branch/worktree for each substantial change.
   - This keeps diffs focused and PRs small and reviewable.
 - **Name branches after the experiment**
-  - e.g. `feature/shadow-checkpoints-docs`, `feature/shadow-refactor-tests`.
+  - e.g. `feature/yousef shtiwe-checkpoints-docs`, `feature/yousef shtiwe-refactor-tests`.
 - **Commit frequently**
   - Use git commits for high‑level milestones.
   - Use [checkpoints and /rollback](./checkpoints-and-rollback.md) as a safety net for tool‑driven edits in between.
-- **Avoid running SHADOW from the bare repo root when using worktrees**
+- **Avoid running YOUSEF SHTIWE from the bare repo root when using worktrees**
   - Prefer the worktree directories instead, so each agent has a clear scope.
 
-## Using `shadow -w` (Automatic Worktree Mode)
+## Using `yousef shtiwe -w` (Automatic Worktree Mode)
 
-SHADOW has a built‑in `-w` flag that **automatically creates a disposable git worktree** with its own branch. You don't need to set up worktrees manually — just `cd` into your repo and run:
+YOUSEF SHTIWE has a built‑in `-w` flag that **automatically creates a disposable git worktree** with its own branch. You don't need to set up worktrees manually — just `cd` into your repo and run:
 
 ```bash
 cd /path/to/your/repo
-shadow -w
+yousef shtiwe -w
 ```
 
-SHADOW will:
+YOUSEF SHTIWE will:
 
 - Create a temporary worktree under `.worktrees/` inside your repo.
-- Check out an isolated branch (e.g. `shadow/shadow-<hash>`).
+- Check out an isolated branch (e.g. `yousef shtiwe/yousef shtiwe-<hash>`).
 - Run the full CLI session inside that worktree.
 
 This is the easiest way to get worktree isolation. You can also combine it with a single query:
 
 ```bash
-shadow -w -q "Fix issue #123"
+yousef shtiwe -w -q "Fix issue #123"
 ```
 
-For parallel agents, open multiple terminals and run `shadow -w` in each — every invocation gets its own worktree and branch automatically.
+For parallel agents, open multiple terminals and run `yousef shtiwe -w` in each — every invocation gets its own worktree and branch automatically.
 
 ## Putting It All Together
 
-- Use **git worktrees** to give each SHADOW session its own clean checkout.
+- Use **git worktrees** to give each YOUSEF SHTIWE session its own clean checkout.
 - Use **branches** to capture the high‑level history of your experiments.
 - Use **checkpoints + `/rollback`** to recover from mistakes inside each worktree.
 

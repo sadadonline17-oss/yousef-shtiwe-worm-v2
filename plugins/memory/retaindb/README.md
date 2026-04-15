@@ -10,13 +10,13 @@ Cloud memory API with hybrid search (Vector + BM25 + Reranking) and 7 memory typ
 ## Setup
 
 ```bash
-shadow memory setup    # select "retaindb"
+yousef shtiwe memory setup    # select "retaindb"
 ```
 
 Or manually:
 ```bash
-shadow config set memory.provider retaindb
-echo "RETAINDB_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider retaindb
+echo "RETAINDB_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 ## Config

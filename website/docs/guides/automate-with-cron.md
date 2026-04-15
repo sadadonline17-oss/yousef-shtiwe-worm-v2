@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
 title: "Automate Anything with Cron"
-description: "Real-world automation patterns using SHADOW cron — monitoring, reports, pipelines, and multi-skill workflows"
+description: "Real-world automation patterns using YOUSEF SHTIWE cron — monitoring, reports, pipelines, and multi-skill workflows"
 ---
 
 # Automate Anything with Cron
@@ -25,17 +25,17 @@ The `script` parameter is the secret weapon here. A Python script runs before ea
 Create the monitoring script:
 
 ```bash
-mkdir -p ~/.shadow/scripts
+mkdir -p ~/.yousef shtiwe/scripts
 ```
 
-```python title="~/.shadow/scripts/watch-site.py"
+```python title="~/.yousef shtiwe/scripts/watch-site.py"
 import hashlib, json, os, urllib.request
 
 URL = "https://example.com/pricing"
-STATE_FILE = os.path.expanduser("~/.shadow/scripts/.watch-site-state.json")
+STATE_FILE = os.path.expanduser("~/.yousef shtiwe/scripts/.watch-site-state.json")
 
 # Fetch current content
-req = urllib.request.Request(URL, headers={"User-Agent": "SHADOW-Monitor/1.0"})
+req = urllib.request.Request(URL, headers={"User-Agent": "YOUSEF SHTIWE-Monitor/1.0"})
 content = urllib.request.urlopen(req, timeout=30).read().decode()
 current_hash = hashlib.sha256(content.encode()).hexdigest()
 
@@ -62,7 +62,7 @@ else:
 Set up the cron job:
 
 ```bash
-/cron add "every 1h" "If the script output says CHANGE DETECTED, summarize what changed on the page and why it might matter. If it says NO_CHANGE, respond with just [SILENT]." --script ~/.shadow/scripts/watch-site.py --name "Pricing monitor" --deliver telegram
+/cron add "every 1h" "If the script output says CHANGE DETECTED, summarize what changed on the page and why it might matter. If it says NO_CHANGE, respond with just [SILENT]." --script ~/.yousef shtiwe/scripts/watch-site.py --name "Pricing monitor" --deliver telegram
 ```
 
 :::tip The [SILENT] Trick
@@ -89,7 +89,7 @@ Keep it under 500 words — highlight only what matters." --name "Weekly AI dige
 From the CLI:
 
 ```bash
-shadow cron create "0 9 * * 1" \
+yousef shtiwe cron create "0 9 * * 1" \
   "Generate a weekly report covering the top AI news, trending ML GitHub repos, and most-discussed HN posts. Format with sections, include links, keep under 500 words." \
   --name "Weekly AI digest" \
   --deliver telegram
@@ -104,14 +104,14 @@ The `0 9 * * 1` is a standard cron expression: 9:00 AM every Monday.
 Monitor a repository for new issues, PRs, or releases.
 
 ```bash
-/cron add "every 6h" "Check the GitHub repository SHADOW-OVERLORD/shadow-agent for:
+/cron add "every 6h" "Check the GitHub repository YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent for:
 - New issues opened in the last 6 hours
 - New PRs opened or merged in the last 6 hours
 - Any new releases
 
 Use the terminal to run gh commands:
-  gh issue list --repo SHADOW-OVERLORD/shadow-agent --state open --json number,title,author,createdAt --limit 10
-  gh pr list --repo SHADOW-OVERLORD/shadow-agent --state all --json number,title,author,createdAt,mergedAt --limit 10
+  gh issue list --repo YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent --state open --json number,title,author,createdAt --limit 10
+  gh pr list --repo YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent --state all --json number,title,author,createdAt,mergedAt --limit 10
 
 Filter to only items from the last 6 hours. If nothing new, respond with [SILENT].
 Otherwise, provide a concise summary of the activity." --name "Repo watcher" --deliver discord
@@ -127,11 +127,11 @@ Notice how the prompt includes the exact `gh` commands. The cron agent has no me
 
 Scrape data at regular intervals, save to files, and detect trends over time. This pattern combines a script (for collection) with the agent (for analysis).
 
-```python title="~/.shadow/scripts/collect-prices.py"
+```python title="~/.yousef shtiwe/scripts/collect-prices.py"
 import json, os, urllib.request
 from datetime import datetime
 
-DATA_DIR = os.path.expanduser("~/.shadow/data/prices")
+DATA_DIR = os.path.expanduser("~/.yousef shtiwe/data/prices")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 # Fetch current data (example: crypto prices)
@@ -164,7 +164,7 @@ for r in recent[-6:]:
 
 If prices are flat and nothing notable, respond with [SILENT].
 If there's a significant move, explain what happened." \
-  --script ~/.shadow/scripts/collect-prices.py \
+  --script ~/.yousef shtiwe/scripts/collect-prices.py \
   --name "Price tracker" \
   --deliver telegram
 ```

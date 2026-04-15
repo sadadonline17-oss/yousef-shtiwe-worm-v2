@@ -43,7 +43,7 @@ class TestMem0FiltersV2:
         provider = Mem0MemoryProvider()
         provider.initialize("test-session")
         provider._user_id = "u123"
-        provider._agent_id = "shadow"
+        provider._agent_id = "yousef shtiwe"
         monkeypatch.setattr(provider, "_get_client", lambda: client)
         return provider
 
@@ -90,7 +90,7 @@ class TestMem0FiltersV2:
         assert len(client.captured_add) == 1
         call = client.captured_add[0]
         assert call["user_id"] == "u123"
-        assert call["agent_id"] == "shadow"
+        assert call["agent_id"] == "yousef shtiwe"
 
     def test_conclude_uses_write_filters(self, monkeypatch):
         client = FakeClientV2()
@@ -101,22 +101,22 @@ class TestMem0FiltersV2:
         assert len(client.captured_add) == 1
         call = client.captured_add[0]
         assert call["user_id"] == "u123"
-        assert call["agent_id"] == "shadow"
+        assert call["agent_id"] == "yousef shtiwe"
         assert call["infer"] is False
 
     def test_read_filters_no_agent_id(self):
         """Read filters should use user_id only — cross-session recall across agents."""
         provider = Mem0MemoryProvider()
         provider._user_id = "u123"
-        provider._agent_id = "shadow"
+        provider._agent_id = "yousef shtiwe"
         assert provider._read_filters() == {"user_id": "u123"}
 
     def test_write_filters_include_agent_id(self):
         """Write filters should include agent_id for attribution."""
         provider = Mem0MemoryProvider()
         provider._user_id = "u123"
-        provider._agent_id = "shadow"
-        assert provider._write_filters() == {"user_id": "u123", "agent_id": "shadow"}
+        provider._agent_id = "yousef shtiwe"
+        assert provider._write_filters() == {"user_id": "u123", "agent_id": "yousef shtiwe"}
 
 
 # ---------------------------------------------------------------------------
@@ -206,22 +206,22 @@ class TestMem0ResponseUnwrapping:
 class TestMem0Defaults:
     """Ensure we don't break existing users' defaults."""
 
-    def test_default_user_id_shadow_user(self, monkeypatch, tmp_path):
+    def test_default_user_id_yousef shtiwe_user(self, monkeypatch, tmp_path):
         monkeypatch.setenv("MEM0_API_KEY", "test-key")
         monkeypatch.delenv("MEM0_USER_ID", raising=False)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
 
         provider = Mem0MemoryProvider()
         provider.initialize("test")
 
-        assert provider._user_id == "shadow-user"
+        assert provider._user_id == "yousef shtiwe-user"
 
-    def test_default_agent_id_shadow(self, monkeypatch, tmp_path):
+    def test_default_agent_id_yousef shtiwe(self, monkeypatch, tmp_path):
         monkeypatch.setenv("MEM0_API_KEY", "test-key")
         monkeypatch.delenv("MEM0_AGENT_ID", raising=False)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
 
         provider = Mem0MemoryProvider()
         provider.initialize("test")
 
-        assert provider._agent_id == "shadow"
+        assert provider._agent_id == "yousef shtiwe"

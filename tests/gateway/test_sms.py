@@ -181,19 +181,19 @@ class TestSmsRequirements:
 # ── Toolset verification ───────────────────────────────────────────
 
 class TestSmsToolset:
-    def test_shadow_sms_toolset_exists(self):
+    def test_yousef shtiwe_sms_toolset_exists(self):
         from toolsets import get_toolset
 
-        ts = get_toolset("shadow-sms")
+        ts = get_toolset("yousef shtiwe-sms")
         assert ts is not None
         assert "tools" in ts
 
-    def test_shadow_sms_in_gateway_includes(self):
+    def test_yousef shtiwe_sms_in_gateway_includes(self):
         from toolsets import get_toolset
 
-        gw = get_toolset("shadow-gateway")
+        gw = get_toolset("yousef shtiwe-gateway")
         assert gw is not None
-        assert "shadow-sms" in gw["includes"]
+        assert "yousef shtiwe-sms" in gw["includes"]
 
     def test_sms_platform_hint_exists(self):
         from agent.prompt_builder import PLATFORM_HINTS

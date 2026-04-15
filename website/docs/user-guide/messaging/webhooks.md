@@ -1,12 +1,12 @@
 ---
 sidebar_position: 13
 title: "Webhooks"
-description: "Receive events from GitHub, GitLab, and other services to trigger SHADOW agent runs"
+description: "Receive events from GitHub, GitLab, and other services to trigger YOUSEF SHTIWE agent runs"
 ---
 
 # Webhooks
 
-Receive events from external services (GitHub, GitLab, JIRA, Stripe, etc.) and trigger SHADOW agent runs automatically. The webhook adapter runs an HTTP server that accepts POST requests, validates HMAC signatures, transforms payloads into agent prompts, and routes responses back to the source or to another configured platform.
+Receive events from external services (GitHub, GitLab, JIRA, Stripe, etc.) and trigger YOUSEF SHTIWE agent runs automatically. The webhook adapter runs an HTTP server that accepts POST requests, validates HMAC signatures, transforms payloads into agent prompts, and routes responses back to the source or to another configured platform.
 
 The agent processes the event and can respond by posting comments on PRs, sending messages to Telegram/Discord, or logging the result.
 
@@ -14,8 +14,8 @@ The agent processes the event and can respond by posting comments on PRs, sendin
 
 ## Quick Start
 
-1. Enable via `shadow gateway setup` or environment variables
-2. Define routes in `config.yaml` **or** create them dynamically with `shadow webhook subscribe`
+1. Enable via `yousef shtiwe gateway setup` or environment variables
+2. Define routes in `config.yaml` **or** create them dynamically with `yousef shtiwe webhook subscribe`
 3. Point your service at `http://your-server:8644/webhooks/<route-name>`
 
 ---
@@ -27,14 +27,14 @@ There are two ways to enable the webhook adapter.
 ### Via setup wizard
 
 ```bash
-shadow gateway setup
+yousef shtiwe gateway setup
 ```
 
 Follow the prompts to enable webhooks, set the port, and set a global HMAC secret.
 
 ### Via environment variables
 
-Add to `~/.shadow/.env`:
+Add to `~/.yousef shtiwe/.env`:
 
 ```bash
 WEBHOOK_ENABLED=true
@@ -161,7 +161,7 @@ This walkthrough sets up automatic code review on every pull request.
 
 ### 2. Add the route config
 
-Add the `github-pr` route to your `~/.shadow/config.yaml` as shown in the example above.
+Add the `github-pr` route to your `~/.yousef shtiwe/config.yaml` as shown in the example above.
 
 ### 3. Ensure `gh` CLI is authenticated
 
@@ -173,7 +173,7 @@ gh auth login
 
 ### 4. Test it
 
-Open a pull request on the repository. The webhook fires, SHADOW processes the event, and posts a review comment on the PR.
+Open a pull request on the repository. The webhook fires, YOUSEF SHTIWE processes the event, and posts a review comment on the PR.
 
 ---
 
@@ -242,12 +242,12 @@ For cross-platform delivery, the target platform must also be enabled and connec
 
 ## Dynamic Subscriptions (CLI) {#dynamic-subscriptions}
 
-In addition to static routes in `config.yaml`, you can create webhook subscriptions dynamically using the `shadow webhook` CLI command. This is especially useful when the agent itself needs to set up event-driven triggers.
+In addition to static routes in `config.yaml`, you can create webhook subscriptions dynamically using the `yousef shtiwe webhook` CLI command. This is especially useful when the agent itself needs to set up event-driven triggers.
 
 ### Create a subscription
 
 ```bash
-shadow webhook subscribe github-issues \
+yousef shtiwe webhook subscribe github-issues \
   --events "issues" \
   --prompt "New issue #{issue.number}: {issue.title}\nBy: {issue.user.login}\n\n{issue.body}" \
   --deliver telegram \
@@ -260,25 +260,25 @@ This returns the webhook URL and an auto-generated HMAC secret. Configure your s
 ### List subscriptions
 
 ```bash
-shadow webhook list
+yousef shtiwe webhook list
 ```
 
 ### Remove a subscription
 
 ```bash
-shadow webhook remove github-issues
+yousef shtiwe webhook remove github-issues
 ```
 
 ### Test a subscription
 
 ```bash
-shadow webhook test github-issues
-shadow webhook test github-issues --payload '{"issue": {"number": 42, "title": "Test"}}'
+yousef shtiwe webhook test github-issues
+yousef shtiwe webhook test github-issues --payload '{"issue": {"number": 42, "title": "Test"}}'
 ```
 
 ### How dynamic subscriptions work
 
-- Subscriptions are stored in `~/.shadow/webhook_subscriptions.json`
+- Subscriptions are stored in `~/.yousef shtiwe/webhook_subscriptions.json`
 - The webhook adapter hot-reloads this file on each incoming request (mtime-gated, negligible overhead)
 - Static routes from `config.yaml` always take precedence over dynamic ones with the same name
 - Dynamic subscriptions use the same route format and capabilities as static routes (events, prompt templates, skills, delivery)
@@ -286,7 +286,7 @@ shadow webhook test github-issues --payload '{"issue": {"number": 42, "title": "
 
 ### Agent-driven subscriptions
 
-The agent can create subscriptions via the terminal tool when guided by the `webhook-subscriptions` skill. Ask the agent to "set up a webhook for GitHub issues" and it will run the appropriate `shadow webhook subscribe` command.
+The agent can create subscriptions via the terminal tool when guided by the `webhook-subscriptions` skill. Ask the agent to "set up a webhook for GitHub issues" and it will run the appropriate `yousef shtiwe webhook subscribe` command.
 
 ---
 
@@ -369,7 +369,7 @@ Webhook payloads contain attacker-controlled data — PR titles, commit messages
 
 ### Agent not responding
 
-- Run the gateway in foreground to see logs: `shadow gateway run`
+- Run the gateway in foreground to see logs: `yousef shtiwe gateway run`
 - Check that the prompt template is rendering correctly
 - Verify the delivery target is configured and connected
 

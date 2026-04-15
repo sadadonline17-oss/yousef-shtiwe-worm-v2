@@ -4,7 +4,7 @@ Date: 2026-03-16
 
 ## Goal
 
-SHADOW should only show dollar costs when they are backed by an official source for the user's actual billing path.
+YOUSEF SHTIWE should only show dollar costs when they are backed by an official source for the user's actual billing path.
 
 This design replaces the current static, heuristic pricing flow in:
 
@@ -22,7 +22,7 @@ with a provider-aware pricing system that:
 
 ## Problems In The Current Design
 
-Current SHADOW behavior has four structural issues:
+Current YOUSEF SHTIWE behavior has four structural issues:
 
 1. It stores only `prompt_tokens` and `completion_tokens`, which is insufficient for providers that bill cache reads and cache writes separately.
 2. It uses a static model price table and fuzzy heuristics, which can drift from current official pricing.
@@ -166,7 +166,7 @@ Tokens are tracked normally. Cost depends on billing mode, not on whether usage 
 
 ## Billing Route Model
 
-SHADOW must stop keying pricing solely by `model`.
+YOUSEF SHTIWE must stop keying pricing solely by `model`.
 
 Introduce a billing route descriptor:
 
@@ -367,24 +367,24 @@ Cache pricing entries locally with:
 
 - startup warm cache
 - background refresh every 6 to 24 hours depending on source
-- manual `shadow pricing sync`
+- manual `yousef shtiwe pricing sync`
 
 ## Reconciliation Architecture
 
-Live requests may produce only an estimate initially. SHADOW should reconcile them later when a provider exposes actual billed cost.
+Live requests may produce only an estimate initially. YOUSEF SHTIWE should reconcile them later when a provider exposes actual billed cost.
 
 Suggested flow:
 
 1. Agent call completes.
-2. SHADOW stores canonical usage plus reconciliation ids.
-3. SHADOW computes an immediate estimate if a pricing source exists.
+2. YOUSEF SHTIWE stores canonical usage plus reconciliation ids.
+3. YOUSEF SHTIWE computes an immediate estimate if a pricing source exists.
 4. A reconciliation worker fetches actual cost when supported.
 5. Session and message records are updated with `actual` cost.
 
 This can run:
 
 - inline for cheap lookups
-- asynchroshadowly for delayed provider accounting
+- asynchroyousef shtiwely for delayed provider accounting
 
 ## Persistence Changes
 
@@ -428,7 +428,7 @@ session_cost_events
   updated_at
 ```
 
-## SHADOW Touchpoints
+## YOUSEF SHTIWE Touchpoints
 
 ### `run_agent.py`
 
@@ -598,11 +598,11 @@ Current tests that assume heuristic pricing should be replaced with route-aware 
 
 Do not expand the existing `MODEL_PRICING` dict.
 
-That path cannot satisfy the product requirement. SHADOW should instead migrate to:
+That path cannot satisfy the product requirement. YOUSEF SHTIWE should instead migrate to:
 
 - canonical usage normalization
 - route-aware pricing sources
 - estimate-then-reconcile cost lifecycle
 - explicit certainty states in the UI
 
-This is the minimum architecture that makes the statement "SHADOW pricing is backed by official sources where possible, and otherwise clearly labeled" defensible.
+This is the minimum architecture that makes the statement "YOUSEF SHTIWE pricing is backed by official sources where possible, and otherwise clearly labeled" defensible.

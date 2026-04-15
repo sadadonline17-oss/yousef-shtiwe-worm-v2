@@ -2,11 +2,11 @@
 name: ascii-art
 description: Generate ASCII art using pyfiglet (571 fonts), cowsay, boxes, toilet, image-to-ascii, remote APIs (asciified, ascii.co.uk), and LLM fallback. No API keys required.
 version: 4.0.0
-author: 0xbyt4, SHADOW Agent
+author: 0xbyt4, YOUSEF SHTIWE Agent
 license: MIT
 dependencies: []
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [ASCII, Art, Banners, Creative, Unicode, Text-Art, pyfiglet, figlet, cowsay, boxes]
     related_skills: [excalidraw]
 
@@ -155,9 +155,9 @@ boxes -l                                       # List all 70+ designs
 ### Combine with pyfiglet or asciified
 
 ```bash
-python3 -m pyfiglet "SHADOW" -f slant | boxes -d stone
+python3 -m pyfiglet "YOUSEF SHTIWE" -f slant | boxes -d stone
 # Or without pyfiglet installed:
-curl -s "https://asciified.thelicato.io/api/v2/ascii?text=SHADOW&font=Slant" | boxes -d stone
+curl -s "https://asciified.thelicato.io/api/v2/ascii?text=YOUSEF SHTIWE&font=Slant" | boxes -d stone
 ```
 
 ## Tool 5: TOIlet (Colored Text Art)

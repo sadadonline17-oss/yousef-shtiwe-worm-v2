@@ -1,11 +1,11 @@
 ---
 name: plan
-description: Plan mode for SHADOW — inspect context, write a markdown plan into the active workspace's `.shadow/plans/` directory, and do not execute the work.
+description: Plan mode for YOUSEF SHTIWE — inspect context, write a markdown plan into the active workspace's `.yousef shtiwe/plans/` directory, and do not execute the work.
 version: 1.0.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [planning, plan-mode, implementation, workflow]
     related_skills: [writing-plans, subagent-driven-development]
 ---
@@ -22,7 +22,7 @@ For this turn, you are planning only.
 - Do not edit project files except the plan markdown file.
 - Do not run mutating terminal commands, commit, push, or perform external actions.
 - You may inspect the repo or other context with read-only commands/tools when needed.
-- Your deliverable is a markdown plan saved inside the active workspace under `.shadow/plans/`.
+- Your deliverable is a markdown plan saved inside the active workspace under `.yousef shtiwe/plans/`.
 
 ## Output requirements
 
@@ -42,12 +42,12 @@ If the task is code-related, include exact file paths, likely test targets, and 
 ## Save location
 
 Save the plan with `write_file` under:
-- `.shadow/plans/YYYY-MM-DD_HHMMSS-<slug>.md`
+- `.yousef shtiwe/plans/YYYY-MM-DD_HHMMSS-<slug>.md`
 
-Treat that as relative to the active working directory / backend workspace. SHADOW file tools are backend-aware, so using this relative path keeps the plan with the workspace on local, docker, ssh, modal, and daytona backends.
+Treat that as relative to the active working directory / backend workspace. YOUSEF SHTIWE file tools are backend-aware, so using this relative path keeps the plan with the workspace on local, docker, ssh, modal, and daytona backends.
 
 If the runtime provides a specific target path, use that exact path.
-If not, create a sensible timestamped filename yourself under `.shadow/plans/`.
+If not, create a sensible timestamped filename yourself under `.yousef shtiwe/plans/`.
 
 ## Interaction style
 

@@ -1832,7 +1832,7 @@
       <xsd:element name="i" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="strike" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="outline" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="shadow" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="yousef shtiwe" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="condense" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="extend" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="color" type="CT_Color" minOccurs="0" maxOccurs="1"/>
@@ -3787,7 +3787,7 @@
       <xsd:element name="i" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="strike" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="outline" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="shadow" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="yousef shtiwe" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="condense" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="extend" type="CT_BooleanProperty" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="color" type="CT_Color" minOccurs="0" maxOccurs="1"/>

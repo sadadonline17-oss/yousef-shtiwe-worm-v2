@@ -244,9 +244,9 @@ class WebhookAdapter(BasePlatformAdapter):
 
     def _reload_dynamic_routes(self) -> None:
         """Reload agent-created subscriptions from disk if the file changed."""
-        from shadow_constants import get_shadow_home
-        shadow_home = get_shadow_home()
-        subs_path = shadow_home / _DYNAMIC_ROUTES_FILENAME
+        from yousef shtiwe_constants import get_yousef shtiwe_home
+        yousef shtiwe_home = get_yousef shtiwe_home()
+        subs_path = yousef shtiwe_home / _DYNAMIC_ROUTES_FILENAME
         if not subs_path.exists():
             if self._dynamic_routes:
                 self._dynamic_routes = {}

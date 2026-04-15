@@ -264,7 +264,7 @@ const CLAY     = ['#3b2f2f', '#6b4c4c', '#9e7676', '#c9a0a0', '#e8caca'];
 ```javascript
 blendMode(BLEND);       // default — alpha compositing
 blendMode(ADD);         // additive — bright glow effects
-blendMode(MULTIPLY);    // darkening — shadows, texture overlay
+blendMode(MULTIPLY);    // darkening — yousef shtiwes, texture overlay
 blendMode(SCREEN);      // lightening — soft glow
 blendMode(OVERLAY);     // contrast boost — high/low emphasis
 blendMode(DIFFERENCE);  // color subtraction — psychedelic
@@ -287,7 +287,7 @@ blendMode(BLEND);
 | Effect | Mode | Use case |
 |--------|------|----------|
 | Additive glow | `ADD` | Light beams, fire, particles |
-| Shadow overlay | `MULTIPLY` | Texture, vignette |
+| Yousef Shtiwe overlay | `MULTIPLY` | Texture, vignette |
 | Soft light mix | `SCREEN` | Fog, mist, backlight |
 | High contrast | `OVERLAY` | Dramatic compositing |
 | Color negative | `DIFFERENCE` | Glitch, psychedelic |

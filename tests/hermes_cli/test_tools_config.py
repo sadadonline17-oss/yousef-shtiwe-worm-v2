@@ -1,8 +1,8 @@
-"""Tests for shadow_cli.tools_config platform tool persistence."""
+"""Tests for yousef shtiwe_cli.tools_config platform tool persistence."""
 
 from unittest.mock import patch
 
-from shadow_cli.tools_config import (
+from yousef shtiwe_cli.tools_config import (
     _configure_provider,
     _get_platform_tools,
     _platform_toolset_summary,
@@ -112,7 +112,7 @@ def test_get_platform_tools_no_mcp_sentinel_does_not_affect_other_platforms():
 
 
 def test_toolset_has_keys_for_vision_accepts_codex_auth(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     (tmp_path / "auth.json").write_text(
         '{"active_provider":"openai-codex","providers":{"openai-codex":{"tokens":{"access_token": "codex-...oken","refresh_token": "codex-...oken"}}}}'
     )
@@ -131,7 +131,7 @@ def test_toolset_has_keys_for_vision_accepts_codex_auth(tmp_path, monkeypatch):
 def test_save_platform_tools_preserves_mcp_server_names():
     """Ensure MCP server names are preserved when saving platform tools.
 
-    Regression test for https://github.com/SHADOW-OVERLORD/shadow-agent/issues/1247
+    Regression test for https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/issues/1247
     """
     config = {
         "platform_toolsets": {
@@ -141,7 +141,7 @@ def test_save_platform_tools_preserves_mcp_server_names():
 
     new_selection = {"web", "browser"}
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "cli", new_selection)
 
     saved_toolsets = config["platform_toolsets"]["cli"]
@@ -158,7 +158,7 @@ def test_save_platform_tools_handles_empty_existing_config():
     """Saving platform tools works when no existing config exists."""
     config = {}
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "telegram", {"web", "terminal"})
 
     saved_toolsets = config["platform_toolsets"]["telegram"]
@@ -174,7 +174,7 @@ def test_save_platform_tools_handles_invalid_existing_config():
         }
     }
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "cli", {"web"})
 
     saved_toolsets = config["platform_toolsets"]["cli"]
@@ -182,7 +182,7 @@ def test_save_platform_tools_handles_invalid_existing_config():
 
 
 def test_save_platform_tools_does_not_preserve_platform_default_toolsets():
-    """Platform default toolsets (shadow-cli, shadow-telegram, etc.) must NOT
+    """Platform default toolsets (yousef shtiwe-cli, yousef shtiwe-telegram, etc.) must NOT
     be preserved across saves.
 
     These "super" toolsets resolve to ALL tools, so if they survive in the
@@ -192,14 +192,14 @@ def test_save_platform_tools_does_not_preserve_platform_default_toolsets():
     (like MCP server names), causing them to be kept unconditionally.
 
     Regression test: user unchecks image_gen and homeassistant via
-    ``shadow tools``, but shadow-cli stays in the config and re-enables
+    ``yousef shtiwe tools``, but yousef shtiwe-cli stays in the config and re-enables
     everything on the next read.
     """
     config = {
         "platform_toolsets": {
             "cli": [
                 "browser", "clarify", "code_execution", "cronjob",
-                "delegation", "file", "shadow-cli",  # <-- the culprit
+                "delegation", "file", "yousef shtiwe-cli",  # <-- the culprit
                 "memory", "session_search", "skills", "terminal",
                 "todo", "tts", "vision", "web",
             ]
@@ -213,13 +213,13 @@ def test_save_platform_tools_does_not_preserve_platform_default_toolsets():
         "skills", "terminal", "todo", "tts", "vision", "web",
     }
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "cli", new_selection)
 
     saved = config["platform_toolsets"]["cli"]
 
-    # shadow-cli must NOT survive — it's a platform default, not an MCP server
-    assert "shadow-cli" not in saved
+    # yousef shtiwe-cli must NOT survive — it's a platform default, not an MCP server
+    assert "yousef shtiwe-cli" not in saved
 
     # The individual toolset keys the user selected must be present
     assert "web" in saved
@@ -232,23 +232,23 @@ def test_save_platform_tools_does_not_preserve_platform_default_toolsets():
     assert "moa" not in saved
 
 
-def test_save_platform_tools_does_not_preserve_shadow_telegram():
-    """Same bug for Telegram — shadow-telegram must not be preserved."""
+def test_save_platform_tools_does_not_preserve_yousef shtiwe_telegram():
+    """Same bug for Telegram — yousef shtiwe-telegram must not be preserved."""
     config = {
         "platform_toolsets": {
             "telegram": [
-                "browser", "file", "shadow-telegram", "terminal", "web",
+                "browser", "file", "yousef shtiwe-telegram", "terminal", "web",
             ]
         }
     }
 
     new_selection = {"browser", "file", "terminal", "web"}
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "telegram", new_selection)
 
     saved = config["platform_toolsets"]["telegram"]
-    assert "shadow-telegram" not in saved
+    assert "yousef shtiwe-telegram" not in saved
     assert "web" in saved
 
 
@@ -258,14 +258,14 @@ def test_save_platform_tools_still_preserves_mcp_with_platform_default_present()
     config = {
         "platform_toolsets": {
             "cli": [
-                "web", "terminal", "shadow-cli", "my-mcp-server", "github-tools",
+                "web", "terminal", "yousef shtiwe-cli", "my-mcp-server", "github-tools",
             ]
         }
     }
 
     new_selection = {"web", "browser"}
 
-    with patch("shadow_cli.tools_config.save_config"):
+    with patch("yousef shtiwe_cli.tools_config.save_config"):
         _save_platform_tools(config, "cli", new_selection)
 
     saved = config["platform_toolsets"]["cli"]
@@ -275,7 +275,7 @@ def test_save_platform_tools_still_preserves_mcp_with_platform_default_present()
     assert "github-tools" in saved
 
     # Platform default stripped
-    assert "shadow-cli" not in saved
+    assert "yousef shtiwe-cli" not in saved
 
     # User selections present
     assert "web" in saved
@@ -285,32 +285,32 @@ def test_save_platform_tools_still_preserves_mcp_with_platform_default_present()
     assert "terminal" not in saved
 
 
-def test_visible_providers_include_shadow_subscription_when_logged_in(monkeypatch):
-    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
-    config = {"model": {"provider": "shadow"}}
+def test_visible_providers_include_yousef shtiwe_subscription_when_logged_in(monkeypatch):
+    monkeypatch.setenv("YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS", "1")
+    config = {"model": {"provider": "yousef shtiwe"}}
 
     monkeypatch.setattr(
-        "shadow_cli.shadow_subscription.get_shadow_auth_status",
+        "yousef shtiwe_cli.yousef shtiwe_subscription.get_yousef shtiwe_auth_status",
         lambda: {"logged_in": True},
     )
 
     providers = _visible_providers(TOOL_CATEGORIES["browser"], config)
 
-    assert providers[0]["name"].startswith("Shadow Subscription")
+    assert providers[0]["name"].startswith("Yousef Shtiwe Subscription")
 
 
-def test_visible_providers_hide_shadow_subscription_when_feature_flag_is_off(monkeypatch):
-    monkeypatch.delenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", raising=False)
-    config = {"model": {"provider": "shadow"}}
+def test_visible_providers_hide_yousef shtiwe_subscription_when_feature_flag_is_off(monkeypatch):
+    monkeypatch.delenv("YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS", raising=False)
+    config = {"model": {"provider": "yousef shtiwe"}}
 
     monkeypatch.setattr(
-        "shadow_cli.shadow_subscription.get_shadow_auth_status",
+        "yousef shtiwe_cli.yousef shtiwe_subscription.get_yousef shtiwe_auth_status",
         lambda: {"logged_in": True},
     )
 
     providers = _visible_providers(TOOL_CATEGORIES["browser"], config)
 
-    assert all(not provider["name"].startswith("Shadow Subscription") for provider in providers)
+    assert all(not provider["name"].startswith("Yousef Shtiwe Subscription") for provider in providers)
 
 
 def test_local_browser_provider_is_saved_explicitly(monkeypatch):
@@ -320,17 +320,17 @@ def test_local_browser_provider_is_saved_explicitly(monkeypatch):
         for provider in TOOL_CATEGORIES["browser"]["providers"]
         if provider.get("browser_provider") == "local"
     )
-    monkeypatch.setattr("shadow_cli.tools_config._run_post_setup", lambda key: None)
+    monkeypatch.setattr("yousef shtiwe_cli.tools_config._run_post_setup", lambda key: None)
 
     _configure_provider(local_provider, config)
 
     assert config["browser"]["cloud_provider"] == "local"
 
 
-def test_first_install_shadow_auto_configures_managed_defaults(monkeypatch):
-    monkeypatch.setenv("SHADOW_ENABLE_Shadow_MANAGED_TOOLS", "1")
+def test_first_install_yousef shtiwe_auto_configures_managed_defaults(monkeypatch):
+    monkeypatch.setenv("YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS", "1")
     config = {
-        "model": {"provider": "shadow"},
+        "model": {"provider": "yousef shtiwe"},
         "platform_toolsets": {"cli": []},
     }
     for env_var in (
@@ -349,26 +349,26 @@ def test_first_install_shadow_auto_configures_managed_defaults(monkeypatch):
         monkeypatch.delenv(env_var, raising=False)
 
     monkeypatch.setattr(
-        "shadow_cli.tools_config._prompt_toolset_checklist",
+        "yousef shtiwe_cli.tools_config._prompt_toolset_checklist",
         lambda *args, **kwargs: {"web", "image_gen", "tts", "browser"},
     )
-    monkeypatch.setattr("shadow_cli.tools_config.save_config", lambda config: None)
+    monkeypatch.setattr("yousef shtiwe_cli.tools_config.save_config", lambda config: None)
     # Prevent leaked platform tokens (e.g. DISCORD_BOT_TOKEN from gateway.run
     # import) from adding extra platforms. The loop in tools_command runs
-    # apply_shadow_managed_defaults per platform; a second iteration sees values
+    # apply_yousef shtiwe_managed_defaults per platform; a second iteration sees values
     # set by the first as "explicit" and skips them.
     monkeypatch.setattr(
-        "shadow_cli.tools_config._get_enabled_platforms",
+        "yousef shtiwe_cli.tools_config._get_enabled_platforms",
         lambda: ["cli"],
     )
     monkeypatch.setattr(
-        "shadow_cli.shadow_subscription.get_shadow_auth_status",
+        "yousef shtiwe_cli.yousef shtiwe_subscription.get_yousef shtiwe_auth_status",
         lambda: {"logged_in": True},
     )
 
     configured = []
     monkeypatch.setattr(
-        "shadow_cli.tools_config._configure_toolset",
+        "yousef shtiwe_cli.tools_config._configure_toolset",
         lambda ts_key, config: configured.append(ts_key),
     )
 
@@ -387,7 +387,7 @@ class TestPlatformToolsetConsistency:
 
     def test_all_platforms_have_toolset_definitions(self):
         """Each platform's default_toolset must exist in TOOLSETS."""
-        from shadow_cli.tools_config import PLATFORMS
+        from yousef shtiwe_cli.tools_config import PLATFORMS
         from toolsets import TOOLSETS
 
         for platform, meta in PLATFORMS.items():
@@ -398,11 +398,11 @@ class TestPlatformToolsetConsistency:
             )
 
     def test_gateway_toolset_includes_all_messaging_platforms(self):
-        """shadow-gateway includes list should cover all messaging platforms."""
-        from shadow_cli.tools_config import PLATFORMS
+        """yousef shtiwe-gateway includes list should cover all messaging platforms."""
+        from yousef shtiwe_cli.tools_config import PLATFORMS
         from toolsets import TOOLSETS
 
-        gateway_includes = set(TOOLSETS["shadow-gateway"]["includes"])
+        gateway_includes = set(TOOLSETS["yousef shtiwe-gateway"]["includes"])
         # Exclude non-messaging platforms from the check
         non_messaging = {"cli", "api_server"}
         for platform, meta in PLATFORMS.items():
@@ -411,13 +411,13 @@ class TestPlatformToolsetConsistency:
             ts_name = meta["default_toolset"]
             assert ts_name in gateway_includes, (
                 f"Platform {platform!r} toolset {ts_name!r} missing from "
-                f"shadow-gateway includes"
+                f"yousef shtiwe-gateway includes"
             )
 
     def test_skills_config_covers_tools_config_platforms(self):
         """skills_config.PLATFORMS should have entries for all gateway platforms."""
-        from shadow_cli.tools_config import PLATFORMS as TOOLS_PLATFORMS
-        from shadow_cli.skills_config import PLATFORMS as SKILLS_PLATFORMS
+        from yousef shtiwe_cli.tools_config import PLATFORMS as TOOLS_PLATFORMS
+        from yousef shtiwe_cli.skills_config import PLATFORMS as SKILLS_PLATFORMS
 
         non_messaging = {"api_server"}
         for platform in TOOLS_PLATFORMS:
@@ -435,7 +435,7 @@ def test_numeric_mcp_server_name_does_not_crash_sorted():
     _get_platform_tools must normalise them to str so that sorted()
     on the returned set never raises TypeError on mixed int/str.
 
-    Regression test for https://github.com/SHADOW-OVERLORD/shadow-agent/issues/6901
+    Regression test for https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/issues/6901
     """
     config = {
         "platform_toolsets": {"cli": ["web", 12306]},

@@ -1,7 +1,7 @@
 # Design System: Raycast
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `Geist Mono`
@@ -15,20 +15,20 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Raycast's marketing site feels like the dark interior of a precision instrument — a Swiss watch case carved from obsidian. The background isn't just dark, it's an almost-black blue-tint (`#07080a`) that creates a sense of being inside a macOS native application rather than a website. Every surface, every border, every shadow is calibrated to evoke the feeling of a high-performance desktop utility: fast, minimal, trustworthy.
+Raycast's marketing site feels like the dark interior of a precision instrument — a Swiss watch case carved from obsidian. The background isn't just dark, it's an almost-black blue-tint (`#07080a`) that creates a sense of being inside a macOS native application rather than a website. Every surface, every border, every yousef shtiwe is calibrated to evoke the feeling of a high-performance desktop utility: fast, minimal, trustworthy.
 
-The signature move is the layered shadow system borrowed from macOS window chrome: multi-layer box-shadows with inset highlights that simulate physical depth, as if cards and buttons are actual pressed or raised glass elements on a dark desk. Combined with Raycast Red (`#FF6363`) — deployed almost exclusively in the hero's iconic diagonal stripe pattern — the palette creates a brand that reads as "powerful tool with personality." The red doesn't dominate; it punctuates.
+The signature move is the layered yousef shtiwe system borrowed from macOS window chrome: multi-layer box-yousef shtiwes with inset highlights that simulate physical depth, as if cards and buttons are actual pressed or raised glass elements on a dark desk. Combined with Raycast Red (`#FF6363`) — deployed almost exclusively in the hero's iconic diagonal stripe pattern — the palette creates a brand that reads as "powerful tool with personality." The red doesn't dominate; it punctuates.
 
 Inter is used everywhere — headings, body, buttons, captions — with extensive OpenType features (`calt`, `kern`, `liga`, `ss03`) creating a consistent, readable typographic voice. The positive letter-spacing (0.2px–0.4px on body text) is unusual for a dark UI and gives the text an airy, breathable quality that counterbalances the dense, dark surfaces. GeistMono appears for code elements, reinforcing the developer-tool identity.
 
 **Key Characteristics:**
 - Near-black blue-tinted background (`#07080a`) — not pure black, subtly blue-shifted
-- macOS-native shadow system with multi-layer inset highlights simulating physical depth
+- macOS-native yousef shtiwe system with multi-layer inset highlights simulating physical depth
 - Raycast Red (`#FF6363`) as a punctuation color — hero stripes, not pervasive
 - Inter with positive letter-spacing (0.2px) for an airy, readable dark-mode experience
 - Radix UI component primitives powering the interaction layer
 - Subtle rgba white borders (0.06–0.1 opacity) for containment on dark surfaces
-- Keyboard shortcut styling with gradient key caps and heavy shadows
+- Keyboard shortcut styling with gradient key caps and heavy yousef shtiwes
 
 ## 2. Color Palette & Roles
 
@@ -110,17 +110,17 @@ Inter is used everywhere — headings, body, buttons, captions — with extensiv
 ## 4. Component Stylings
 
 ### Buttons
-- **Primary Pill**: Transparent background, white text, pill shape (86px radius), multi-layer inset shadow (`rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset`). Hover: opacity 0.6
-- **Secondary Button**: Transparent background, white text, 6px radius, `1px solid rgba(255, 255, 255, 0.1)` border, subtle drop shadow (`rgba(0, 0, 0, 0.03) 0px 7px 3px`). Hover: opacity 0.6
-- **Ghost Button**: No background or border, gray text (`#6a6b6c`), 86px radius, same inset shadow. Hover: opacity 0.6, text brightens to white
+- **Primary Pill**: Transparent background, white text, pill shape (86px radius), multi-layer inset yousef shtiwe (`rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset`). Hover: opacity 0.6
+- **Secondary Button**: Transparent background, white text, 6px radius, `1px solid rgba(255, 255, 255, 0.1)` border, subtle drop yousef shtiwe (`rgba(0, 0, 0, 0.03) 0px 7px 3px`). Hover: opacity 0.6
+- **Ghost Button**: No background or border, gray text (`#6a6b6c`), 86px radius, same inset yousef shtiwe. Hover: opacity 0.6, text brightens to white
 - **CTA (Download)**: Semi-transparent white background (`hsla(0, 0%, 100%, 0.815)`), dark text (`#18191a`), pill shape. Hover: full white background (`hsl(0, 0%, 100%)`)
 - **Transition**: All buttons use opacity transition for hover rather than background-color change — a signature Raycast interaction pattern
 
 ### Cards & Containers
 - **Standard Card**: `#101111` surface, `1px solid rgba(255, 255, 255, 0.06)` border, 12px–16px border-radius
-- **Elevated Card**: Ring shadow `rgb(27, 28, 30) 0px 0px 0px 1px` outer + `rgb(7, 8, 10) 0px 0px 0px 1px inset` inner — creates a double-ring containment
+- **Elevated Card**: Ring yousef shtiwe `rgb(27, 28, 30) 0px 0px 0px 1px` outer + `rgb(7, 8, 10) 0px 0px 0px 1px inset` inner — creates a double-ring containment
 - **Feature Card**: 16px–20px border-radius, subtle warm glow (`rgba(215, 201, 175, 0.05) 0px 0px 20px 5px`) behind hero elements
-- **Hover**: Cards brighten slightly via border opacity increase or subtle shadow enhancement
+- **Hover**: Cards brighten slightly via border opacity increase or subtle yousef shtiwe enhancement
 
 ### Inputs & Forms
 - Dark input fields with `#07080a` background, `1px solid rgba(255, 255, 255, 0.08)` border, 8px border-radius
@@ -136,13 +136,13 @@ Inter is used everywhere — headings, body, buttons, captions — with extensiv
 - **Sticky**: Nav fixed at top with subtle border separator
 
 ### Image Treatment
-- **Product screenshots**: macOS window chrome style — rounded corners (12px), deep shadows simulating floating windows
+- **Product screenshots**: macOS window chrome style — rounded corners (12px), deep yousef shtiwes simulating floating windows
 - **Full-bleed sections**: Dark screenshots blend seamlessly into the dark background
 - **Hero illustration**: Diagonal stripe pattern in Raycast Red — abstract, geometric, brand-defining
 - **App UI embeds**: Showing actual Raycast command palette and extensions — product as content
 
 ### Keyboard Shortcut Keys
-- **Key cap styling**: Gradient background (`#121212` → `#0d0d0d`), heavy multi-layer shadow (`rgba(0, 0, 0, 0.4) 0px 1.5px 0.5px 2.5px` + inset shadows), creating realistic physical key appearance
+- **Key cap styling**: Gradient background (`#121212` → `#0d0d0d`), heavy multi-layer yousef shtiwe (`rgba(0, 0, 0, 0.4) 0px 1.5px 0.5px 2.5px` + inset yousef shtiwes), creating realistic physical key appearance
 - Border-radius: 4px–6px for individual keys
 
 ### Badges & Tags
@@ -183,18 +183,18 @@ Inter is used everywhere — headings, body, buttons, captions — with extensiv
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Void) | No shadow, `#07080a` surface | Page background |
+| Level 0 (Void) | No yousef shtiwe, `#07080a` surface | Page background |
 | Level 1 (Subtle) | `rgba(0, 0, 0, 0.28) 0px 1.189px 2.377px` | Minimal lift, inline elements |
 | Level 2 (Ring) | `rgb(27, 28, 30) 0px 0px 0px 1px` outer + `rgb(7, 8, 10) 0px 0px 0px 1px inset` inner | Card containment, double-ring technique |
 | Level 3 (Button) | `rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset` + `rgba(255, 255, 255, 0.25) 0px 0px 0px 1px` + `rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset` | macOS-native button press — white highlight top, dark inset bottom |
-| Level 4 (Key) | 5-layer shadow stack with inset press effects | Keyboard shortcut key caps — physical 3D appearance |
+| Level 4 (Key) | 5-layer yousef shtiwe stack with inset press effects | Keyboard shortcut key caps — physical 3D appearance |
 | Level 5 (Floating) | `rgba(0, 0, 0, 0.5) 0px 0px 0px 2px` + `rgba(255, 255, 255, 0.19) 0px 0px 14px` + insets | Command palette, floating panels — heavy depth with glow |
 
-### Shadow Philosophy
-Raycast's shadow system is the most macOS-native on the web. Multi-layer shadows combine:
+### Yousef Shtiwe Philosophy
+Raycast's yousef shtiwe system is the most macOS-native on the web. Multi-layer yousef shtiwes combine:
 - **Outer rings** for containment (replacing traditional borders)
 - **Inset top highlights** (`rgba(255, 255, 255, 0.05–0.25)`) simulating light source from above
-- **Inset bottom darks** (`rgba(0, 0, 0, 0.2)`) simulating shadow underneath
+- **Inset bottom darks** (`rgba(0, 0, 0, 0.2)`) simulating yousef shtiwe underneath
 - The effect is physical: elements feel like glass or brushed metal, not flat rectangles
 
 ### Decorative Depth
@@ -207,7 +207,7 @@ Raycast's shadow system is the most macOS-native on the web. Multi-layer shadows
 ### Do
 - Use `#07080a` (not pure black) as the background — the blue-cold tint is essential to the Raycast feel
 - Apply positive letter-spacing (+0.2px) on body text — this is deliberately different from most dark UIs
-- Use multi-layer shadows with inset highlights for interactive elements — the macOS-native depth is signature
+- Use multi-layer yousef shtiwes with inset highlights for interactive elements — the macOS-native depth is signature
 - Keep Raycast Red (`#FF6363`) as punctuation, not pervasive — reserve it for hero moments and error states
 - Use `rgba(255, 255, 255, 0.06)` borders for card containment — barely visible, structurally essential
 - Apply weight 500 as the body text baseline — medium weight improves dark-mode legibility
@@ -219,10 +219,10 @@ Raycast's shadow system is the most macOS-native on the web. Multi-layer shadows
 - Use pure black (`#000000`) as the background — the blue tint differentiates Raycast from generic dark themes
 - Apply negative letter-spacing on body text — Raycast deliberately uses positive spacing for readability
 - Use Raycast Blue as the primary accent for everything — blue is for interactive/info, red is the brand color
-- Create single-layer flat shadows — the multi-layer inset system is core to the macOS-native aesthetic
+- Create single-layer flat yousef shtiwes — the multi-layer inset system is core to the macOS-native aesthetic
 - Use regular weight (400) for body text when 500 is available — the extra weight prevents dark-mode text from feeling thin
 - Mix warm and cool borders — stick to the cool gray (`hsl(195, 5%, 15%)`) border palette
-- Apply heavy drop shadows without inset companions — shadows always come in pairs (outer + inset)
+- Apply heavy drop yousef shtiwes without inset companions — yousef shtiwes always come in pairs (outer + inset)
 - Use decorative elements, gradients, or colorful backgrounds — the dark void is the stage, content is the performer
 
 ## 8. Responsive Behavior
@@ -267,15 +267,15 @@ Raycast's shadow system is the most macOS-native on the web. Multi-layer shadows
 
 ### Example Component Prompts
 - "Create a hero section on #07080a background with 64px Inter heading (weight 600, line-height 1.1), near-white text (#f9f9f9), and a semi-transparent white pill CTA button (hsla(0,0%,100%,0.815), 86px radius, dark text #18191a)"
-- "Design a feature card with #101111 background, 1px solid rgba(255,255,255,0.06) border, 16px border-radius, double-ring shadow (rgb(27,28,30) 0px 0px 0px 1px outer), 22px Inter heading, and #9c9c9d body text"
+- "Design a feature card with #101111 background, 1px solid rgba(255,255,255,0.06) border, 16px border-radius, double-ring yousef shtiwe (rgb(27,28,30) 0px 0px 0px 1px outer), 22px Inter heading, and #9c9c9d body text"
 - "Build a navigation bar on dark background (#07080a), Inter links at 16px weight 500 in #9c9c9d, hover to white, and a translucent white pill button at the right end"
-- "Create a keyboard shortcut display with key caps using gradient background (#121212→#0d0d0d), 5-layer shadow for physical depth, 4px radius, Inter 12px weight 600 text"
+- "Create a keyboard shortcut display with key caps using gradient background (#121212→#0d0d0d), 5-layer yousef shtiwe for physical depth, 4px radius, Inter 12px weight 600 text"
 - "Design an alert card with #101111 surface, Raycast Red (#FF6363) left border accent, translucent red glow (hsla(0,100%,69%,0.15)), white heading, and #cecece description text"
 
 ### Iteration Guide
 When refining existing screens generated with this design system:
 1. Check the background is `#07080a` not pure black — the blue tint is critical
 2. Verify letter-spacing is positive (+0.2px) on body text — negative spacing breaks the Raycast aesthetic
-3. Ensure shadows have both outer and inset layers — single-layer shadows look flat and wrong
+3. Ensure yousef shtiwes have both outer and inset layers — single-layer yousef shtiwes look flat and wrong
 4. Confirm Inter has OpenType features `calt`, `kern`, `liga`, `ss03` enabled
 5. Test that hover states use opacity transitions (0.6) not color swaps — this is a core interaction pattern

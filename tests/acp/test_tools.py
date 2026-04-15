@@ -25,13 +25,13 @@ from acp.schema import (
 # ---------------------------------------------------------------------------
 
 
-COMMON_SHADOW_TOOLS = ["read_file", "search_files", "terminal", "patch", "write_file", "process"]
+COMMON_YOUSEF SHTIWE_TOOLS = ["read_file", "search_files", "terminal", "patch", "write_file", "process"]
 
 
 class TestToolKindMap:
-    def test_all_shadow_tools_have_kind(self):
-        """Every common shadow tool should appear in TOOL_KIND_MAP."""
-        for tool in COMMON_SHADOW_TOOLS:
+    def test_all_yousef shtiwe_tools_have_kind(self):
+        """Every common yousef shtiwe tool should appear in TOOL_KIND_MAP."""
+        for tool in COMMON_YOUSEF SHTIWE_TOOLS:
             assert tool in TOOL_KIND_MAP, f"{tool} missing from TOOL_KIND_MAP"
 
     def test_tool_kind_read_file(self):

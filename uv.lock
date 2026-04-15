@@ -300,7 +300,7 @@ wheels = [
 [[package]]
 name = "atroposlib"
 version = "0.4.0"
-source = { git = "https://github.com/SHADOW-OVERLORD/atropos.git#c421582b6f7ce8a32f751aab3117d3824ac8f709" }
+source = { git = "https://github.com/YOUSEF SHTIWE-OVERLORD/atropos.git#c421582b6f7ce8a32f751aab3117d3824ac8f709" }
 dependencies = [
     { name = "aiofiles" },
     { name = "aiohttp" },
@@ -1698,7 +1698,7 @@ wheels = [
 ]
 
 [[package]]
-name = "shadow-agent"
+name = "yousef shtiwe-agent"
 version = "0.8.0"
 source = { editable = "." }
 dependencies = [
@@ -1855,7 +1855,7 @@ requires-dist = [
     { name = "aiosqlite", marker = "extra == 'matrix'", specifier = ">=0.20" },
     { name = "anthropic", specifier = ">=0.39.0,<1" },
     { name = "asyncpg", marker = "extra == 'matrix'", specifier = ">=0.29" },
-    { name = "atroposlib", marker = "extra == 'rl'", git = "https://github.com/SHADOW-OVERLORD/atropos.git" },
+    { name = "atroposlib", marker = "extra == 'rl'", git = "https://github.com/YOUSEF SHTIWE-OVERLORD/atropos.git" },
     { name = "croniter", marker = "extra == 'cron'", specifier = ">=6.0.0,<7" },
     { name = "daytona", marker = "extra == 'daytona'", specifier = ">=0.148.0,<1" },
     { name = "debugpy", marker = "extra == 'dev'", specifier = ">=1.8.0,<2" },
@@ -1869,31 +1869,31 @@ requires-dist = [
     { name = "faster-whisper", marker = "extra == 'voice'", specifier = ">=1.0.0,<2" },
     { name = "fire", specifier = ">=0.7.1,<1" },
     { name = "firecrawl-py", specifier = ">=4.16.0,<5" },
-    { name = "shadow-agent", extras = ["acp"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["acp"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["cli"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["cli"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["cron"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["cron"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["daytona"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["dev"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["dingtalk"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["feishu"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["homeassistant"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["honcho"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["honcho"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["matrix"], marker = "sys_platform == 'linux' and extra == 'all'" },
-    { name = "shadow-agent", extras = ["mcp"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["mcp"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["messaging"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["mistral"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["modal"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["pty"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["pty"], marker = "extra == 'termux'" },
-    { name = "shadow-agent", extras = ["slack"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["sms"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["tts-premium"], marker = "extra == 'all'" },
-    { name = "shadow-agent", extras = ["voice"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["acp"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["acp"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["cli"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["cli"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["cron"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["cron"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["daytona"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["dev"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["dingtalk"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["feishu"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["homeassistant"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["honcho"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["honcho"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["matrix"], marker = "sys_platform == 'linux' and extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["mcp"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["mcp"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["messaging"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["mistral"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["modal"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["pty"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["pty"], marker = "extra == 'termux'" },
+    { name = "yousef shtiwe-agent", extras = ["slack"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["sms"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["tts-premium"], marker = "extra == 'all'" },
+    { name = "yousef shtiwe-agent", extras = ["voice"], marker = "extra == 'all'" },
     { name = "honcho-ai", marker = "extra == 'honcho'", specifier = ">=2.0.1,<3" },
     { name = "httpx", extras = ["socks"], specifier = ">=0.28.1,<1" },
     { name = "jinja2", specifier = ">=3.1.5,<4" },

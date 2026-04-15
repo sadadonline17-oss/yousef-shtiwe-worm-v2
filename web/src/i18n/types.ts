@@ -122,7 +122,7 @@ export interface Translations {
     input: string;
     output: string;
     total: string;
-    shadowageData: string;
+    yousef shtiweageData: string;
     startSession: string;
     date: string;
     model: string;

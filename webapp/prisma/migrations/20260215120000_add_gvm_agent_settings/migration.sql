@@ -1,5 +1,5 @@
 -- Add columns that were previously applied via prisma db push but lacked migrations.
--- This ensures the shadow database matches the production schema.
+-- This ensures the yousef shtiwe database matches the production schema.
 
 -- Stealth mode
 ALTER TABLE "projects" ADD COLUMN "stealth_mode" BOOLEAN NOT NULL DEFAULT false;

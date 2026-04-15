@@ -2,34 +2,34 @@
 sidebar_position: 11
 sidebar_label: "Plugins"
 title: "Plugins"
-description: "Extend SHADOW with custom tools, hooks, and integrations via the plugin system"
+description: "Extend YOUSEF SHTIWE with custom tools, hooks, and integrations via the plugin system"
 ---
 
 # Plugins
 
-SHADOW has a plugin system for adding custom tools, hooks, and integrations without modifying core code.
+YOUSEF SHTIWE has a plugin system for adding custom tools, hooks, and integrations without modifying core code.
 
-**→ [Build a SHADOW Plugin](/docs/guides/build-a-shadow-plugin)** — step-by-step guide with a complete working example.
+**→ [Build a YOUSEF SHTIWE Plugin](/docs/guides/build-a-yousef shtiwe-plugin)** — step-by-step guide with a complete working example.
 
 ## Quick overview
 
-Drop a directory into `~/.shadow/plugins/` with a `plugin.yaml` and Python code:
+Drop a directory into `~/.yousef shtiwe/plugins/` with a `plugin.yaml` and Python code:
 
 ```
-~/.shadow/plugins/my-plugin/
+~/.yousef shtiwe/plugins/my-plugin/
 ├── plugin.yaml      # manifest
 ├── __init__.py      # register() — wires schemas to handlers
 ├── schemas.py       # tool schemas (what the LLM sees)
 └── tools.py         # tool handlers (what runs when called)
 ```
 
-Start SHADOW — your tools appear alongside built-in tools. The model can call them immediately.
+Start YOUSEF SHTIWE — your tools appear alongside built-in tools. The model can call them immediately.
 
 ### Minimal working example
 
 Here is a complete plugin that adds a `hello_world` tool and logs every tool call via a hook.
 
-**`~/.shadow/plugins/hello-world/plugin.yaml`**
+**`~/.yousef shtiwe/plugins/hello-world/plugin.yaml`**
 
 ```yaml
 name: hello-world
@@ -37,10 +37,10 @@ version: "1.0"
 description: A minimal example plugin
 ```
 
-**`~/.shadow/plugins/hello-world/__init__.py`**
+**`~/.yousef shtiwe/plugins/hello-world/__init__.py`**
 
 ```python
-"""Minimal SHADOW plugin — registers a tool and a hook."""
+"""Minimal YOUSEF SHTIWE plugin — registers a tool and a hook."""
 
 
 def register(ctx):
@@ -73,9 +73,9 @@ def register(ctx):
     ctx.register_hook("post_tool_call", on_tool_call)
 ```
 
-Drop both files into `~/.shadow/plugins/hello-world/`, restart SHADOW, and the model can immediately call `hello_world`. The hook prints a log line after every tool invocation.
+Drop both files into `~/.yousef shtiwe/plugins/hello-world/`, restart YOUSEF SHTIWE, and the model can immediately call `hello_world`. The hook prints a log line after every tool invocation.
 
-Project-local plugins under `./.shadow/plugins/` are disabled by default. Enable them only for trusted repositories by setting `SHADOW_ENABLE_PROJECT_PLUGINS=true` before starting SHADOW.
+Project-local plugins under `./.yousef shtiwe/plugins/` are disabled by default. Enable them only for trusted repositories by setting `YOUSEF SHTIWE_ENABLE_PROJECT_PLUGINS=true` before starting YOUSEF SHTIWE.
 
 ## What plugins can do
 
@@ -83,20 +83,20 @@ Project-local plugins under `./.shadow/plugins/` are disabled by default. Enable
 |-----------|-----|
 | Add tools | `ctx.register_tool(name, schema, handler)` |
 | Add hooks | `ctx.register_hook("post_tool_call", callback)` |
-| Add CLI commands | `ctx.register_cli_command(name, help, setup_fn, handler_fn)` — adds `shadow <plugin> <subcommand>` |
+| Add CLI commands | `ctx.register_cli_command(name, help, setup_fn, handler_fn)` — adds `yousef shtiwe <plugin> <subcommand>` |
 | Inject messages | `ctx.inject_message(content, role="user")` — see [Injecting Messages](#injecting-messages) |
 | Ship data files | `Path(__file__).parent / "data" / "file.yaml"` |
 | Bundle skills | `ctx.register_skill(name, path)` — namespaced as `plugin:skill`, loaded via `skill_view("plugin:skill")` |
-| Gate on env vars | `requires_env: [API_KEY]` in plugin.yaml — prompted during `shadow plugins install` |
-| Distribute via pip | `[project.entry-points."shadow_agent.plugins"]` |
+| Gate on env vars | `requires_env: [API_KEY]` in plugin.yaml — prompted during `yousef shtiwe plugins install` |
+| Distribute via pip | `[project.entry-points."yousef shtiwe_agent.plugins"]` |
 
 ## Plugin discovery
 
 | Source | Path | Use case |
 |--------|------|----------|
-| User | `~/.shadow/plugins/` | Personal plugins |
-| Project | `.shadow/plugins/` | Project-specific plugins (requires `SHADOW_ENABLE_PROJECT_PLUGINS=true`) |
-| pip | `shadow_agent.plugins` entry_points | Distributed packages |
+| User | `~/.yousef shtiwe/plugins/` | Personal plugins |
+| Project | `.yousef shtiwe/plugins/` | Project-specific plugins (requires `YOUSEF SHTIWE_ENABLE_PROJECT_PLUGINS=true`) |
+| pip | `yousef shtiwe_agent.plugins` entry_points | Distributed packages |
 
 ## Available hooks
 
@@ -113,11 +113,11 @@ Plugins can register callbacks for these lifecycle events. See the **[Event Hook
 
 ## Plugin types
 
-SHADOW has three kinds of plugins:
+YOUSEF SHTIWE has three kinds of plugins:
 
 | Type | What it does | Selection | Location |
 |------|-------------|-----------|----------|
-| **General plugins** | Add tools, hooks, CLI commands | Multi-select (enable/disable) | `~/.shadow/plugins/` |
+| **General plugins** | Add tools, hooks, CLI commands | Multi-select (enable/disable) | `~/.yousef shtiwe/plugins/` |
 | **Memory providers** | Replace or augment built-in memory | Single-select (one active) | `plugins/memory/` |
 | **Context engines** | Replace the built-in context compressor | Single-select (one active) | `plugins/context_engine/` |
 
@@ -126,18 +126,18 @@ Memory providers and context engines are **provider plugins** — only one of ea
 ## Managing plugins
 
 ```bash
-shadow plugins                  # unified interactive UI
-shadow plugins list             # table view with enabled/disabled status
-shadow plugins install user/repo  # install from Git
-shadow plugins update my-plugin   # pull latest
-shadow plugins remove my-plugin   # uninstall
-shadow plugins enable my-plugin   # re-enable a disabled plugin
-shadow plugins disable my-plugin  # disable without removing
+yousef shtiwe plugins                  # unified interactive UI
+yousef shtiwe plugins list             # table view with enabled/disabled status
+yousef shtiwe plugins install user/repo  # install from Git
+yousef shtiwe plugins update my-plugin   # pull latest
+yousef shtiwe plugins remove my-plugin   # uninstall
+yousef shtiwe plugins enable my-plugin   # re-enable a disabled plugin
+yousef shtiwe plugins disable my-plugin  # disable without removing
 ```
 
 ### Interactive UI
 
-Running `shadow plugins` with no arguments opens a composite interactive screen:
+Running `yousef shtiwe plugins` with no arguments opens a composite interactive screen:
 
 ```
 Plugins
@@ -200,4 +200,4 @@ This enables plugins like remote control viewers, messaging bridges, or webhook 
 `inject_message` is only available in CLI mode. In gateway mode, there is no CLI reference and the method returns `False`.
 :::
 
-See the **[full guide](/docs/guides/build-a-shadow-plugin)** for handler contracts, schema format, hook behavior, error handling, and common mistakes.
+See the **[full guide](/docs/guides/build-a-yousef shtiwe-plugin)** for handler contracts, schema format, hook behavior, error handling, and common mistakes.

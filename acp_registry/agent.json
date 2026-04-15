@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "name": "shadow-agent",
-  "display_name": "SHADOW Agent",
-  "description": "AI agent by SHADOW-OVERLORD with 90+ tools, persistent memory, and multi-platform support",
+  "name": "yousef shtiwe-agent",
+  "display_name": "YOUSEF SHTIWE Agent",
+  "description": "AI agent by YOUSEF SHTIWE-OVERLORD with 90+ tools, persistent memory, and multi-platform support",
   "icon": "icon.svg",
   "distribution": {
     "type": "command",
-    "command": "shadow",
+    "command": "yousef shtiwe",
     "args": ["acp"]
   }
 }

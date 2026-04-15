@@ -8,7 +8,7 @@ import pytest
 # ── CLI tests ──────────────────────────────────────────────────────────────
 
 class TestCLIQuickCommands:
-    """Test quick command dispatch in SHADOWCLI.process_command."""
+    """Test quick command dispatch in YOUSEF SHTIWECLI.process_command."""
 
     @staticmethod
     def _printed_plain(call_arg):
@@ -17,8 +17,8 @@ class TestCLIQuickCommands:
         return str(call_arg)
 
     def _make_cli(self, quick_commands):
-        from cli import SHADOWCLI
-        cli = SHADOWCLI.__new__(SHADOWCLI)
+        from cli import YOUSEF SHTIWECLI
+        cli = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
         cli.config = {"quick_commands": quick_commands}
         cli.console = MagicMock()
         cli.agent = None

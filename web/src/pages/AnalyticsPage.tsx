@@ -97,7 +97,7 @@ function TokenBarChart({ daily }: { daily: AnalyticsDailyEntry[] }) {
               >
                 {/* Tooltip */}
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10 pointer-events-none">
-                  <div className="bg-card border border-border px-2.5 py-1.5 text-[10px] text-foreground shadow-lg whitespace-nowrap">
+                  <div className="bg-card border border-border px-2.5 py-1.5 text-[10px] text-foreground yousef shtiwe-lg whitespace-nowrap">
                     <div className="font-medium">{formatDate(d.day)}</div>
                     <div>{t.analytics.input}: {formatTokens(d.input_tokens)}</div>
                     <div>{t.analytics.output}: {formatTokens(d.output_tokens)}</div>
@@ -318,7 +318,7 @@ export default function AnalyticsPage() {
           <CardContent className="py-12">
             <div className="flex flex-col items-center text-muted-foreground">
               <BarChart3 className="h-8 w-8 mb-3 opacity-40" />
-              <p className="text-sm font-medium">{t.analytics.shadowageData}</p>
+              <p className="text-sm font-medium">{t.analytics.yousef shtiweageData}</p>
               <p className="text-xs mt-1 text-muted-foreground/60">{t.analytics.startSession}</p>
             </div>
           </CardContent>

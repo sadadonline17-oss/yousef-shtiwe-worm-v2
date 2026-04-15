@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* SHADOW Agent — Design tokens                                        */
-/* Matched to shadow-agent.shadow-overlord.com (dark teal theme)          */
+/* YOUSEF SHTIWE Agent — Design tokens                                        */
+/* Matched to yousef shtiwe-agent.yousef shtiwe-overlord.com (dark teal theme)          */
 /* ------------------------------------------------------------------ */
 
 /* --- Font faces --- */
@@ -17,7 +17,7 @@
 @font-face { font-family: "Mondwest"; src: url("/fonts/Mondwest-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
 @theme {
-  /* ---- SHADOW palette (dark teal, from live site) ---- */
+  /* ---- YOUSEF SHTIWE palette (dark teal, from live site) ---- */
   --color-background: #041C1C;
   --color-foreground: #ffe6cb;
   --color-card: #062424;

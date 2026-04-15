@@ -421,7 +421,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **httpx PATH shadowing** -- ProjectDiscovery Go httpx was shadowed by Python httpx CLI wrapper in the Kali sandbox PATH; fixed via symlink override
+- **httpx PATH yousef shtiweing** -- ProjectDiscovery Go httpx was yousef shtiweed by Python httpx CLI wrapper in the Kali sandbox PATH; fixed via symlink override
 - **Python httpx removal** -- removed incorrect `pip uninstall httpx` from Dockerfile that would have broken MCP server SSE transport
 
 ---

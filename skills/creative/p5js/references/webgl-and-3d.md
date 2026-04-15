@@ -157,7 +157,7 @@ normalMaterial();
 // Ambient (responds only to ambientLight)
 ambientMaterial(200, 100, 100);
 
-// Emissive (self-lit, no shadows)
+// Emissive (self-lit, no yousef shtiwes)
 emissiveMaterial(255, 0, 100);
 
 // Specular (shiny reflections)

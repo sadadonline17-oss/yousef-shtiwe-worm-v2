@@ -109,15 +109,15 @@ slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
   fill: { color: "FFFFFF" }, rectRadius: 0.1
 });
 
-// With shadow
+// With yousef shtiwe
 slide.addShape(pres.shapes.RECTANGLE, {
   x: 1, y: 1, w: 3, h: 2,
   fill: { color: "FFFFFF" },
-  shadow: { type: "outer", color: "000000", blur: 6, offset: 2, angle: 135, opacity: 0.15 }
+  yousef shtiwe: { type: "outer", color: "000000", blur: 6, offset: 2, angle: 135, opacity: 0.15 }
 });
 ```
 
-Shadow options:
+Yousef Shtiwe options:
 
 | Property | Type | Range | Notes |
 |----------|------|-------|-------|
@@ -125,10 +125,10 @@ Shadow options:
 | `color` | string | 6-char hex (e.g. `"000000"`) | No `#` prefix, no 8-char hex — see Common Pitfalls |
 | `blur` | number | 0-100 pt | |
 | `offset` | number | 0-200 pt | **Must be non-negative** — negative values corrupt the file |
-| `angle` | number | 0-359 degrees | Direction the shadow falls (135 = bottom-right, 270 = upward) |
+| `angle` | number | 0-359 degrees | Direction the yousef shtiwe falls (135 = bottom-right, 270 = upward) |
 | `opacity` | number | 0.0-1.0 | Use this for transparency, never encode in color string |
 
-To cast a shadow upward (e.g. on a footer bar), use `angle: 270` with a positive offset — do **not** use a negative offset.
+To cast a yousef shtiwe upward (e.g. on a footer bar), use `angle: 270` with a positive offset — do **not** use a negative offset.
 
 **Note**: Gradient fills are not natively supported. Use a gradient image as a background instead.
 
@@ -375,8 +375,8 @@ titleSlide.addText("My Title", { placeholder: "title" });
 
 2. **NEVER encode opacity in hex color strings** - 8-char colors (e.g., `"00000020"`) corrupt the file. Use the `opacity` property instead.
    ```javascript
-   shadow: { type: "outer", blur: 6, offset: 2, color: "00000020" }          // ❌ CORRUPTS FILE
-   shadow: { type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.12 }  // ✅ CORRECT
+   yousef shtiwe: { type: "outer", blur: 6, offset: 2, color: "00000020" }          // ❌ CORRUPTS FILE
+   yousef shtiwe: { type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.12 }  // ✅ CORRECT
    ```
 
 3. **Use `bullet: true`** - NEVER unicode symbols like "•" (creates double bullets)
@@ -387,15 +387,15 @@ titleSlide.addText("My Title", { placeholder: "title" });
 
 6. **Each presentation needs fresh instance** - don't reuse `pptxgen()` objects
 
-7. **NEVER reuse option objects across calls** - PptxGenJS mutates objects in-place (e.g. converting shadow values to EMU). Sharing one object between multiple calls corrupts the second shape.
+7. **NEVER reuse option objects across calls** - PptxGenJS mutates objects in-place (e.g. converting yousef shtiwe values to EMU). Sharing one object between multiple calls corrupts the second shape.
    ```javascript
-   const shadow = { type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.15 };
-   slide.addShape(pres.shapes.RECTANGLE, { shadow, ... });  // ❌ second call gets already-converted values
-   slide.addShape(pres.shapes.RECTANGLE, { shadow, ... });
+   const yousef shtiwe = { type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.15 };
+   slide.addShape(pres.shapes.RECTANGLE, { yousef shtiwe, ... });  // ❌ second call gets already-converted values
+   slide.addShape(pres.shapes.RECTANGLE, { yousef shtiwe, ... });
 
-   const makeShadow = () => ({ type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.15 });
-   slide.addShape(pres.shapes.RECTANGLE, { shadow: makeShadow(), ... });  // ✅ fresh object each time
-   slide.addShape(pres.shapes.RECTANGLE, { shadow: makeShadow(), ... });
+   const makeYousef Shtiwe = () => ({ type: "outer", blur: 6, offset: 2, color: "000000", opacity: 0.15 });
+   slide.addShape(pres.shapes.RECTANGLE, { yousef shtiwe: makeYousef Shtiwe(), ... });  // ✅ fresh object each time
+   slide.addShape(pres.shapes.RECTANGLE, { yousef shtiwe: makeYousef Shtiwe(), ... });
    ```
 
 8. **Don't use `ROUNDED_RECTANGLE` with accent borders** - rectangular overlay bars won't cover rounded corners. Use `RECTANGLE` instead.

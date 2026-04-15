@@ -69,7 +69,7 @@ class HonchoSessionManager:
     """
     Manages conversation sessions using Honcho.
 
-    Runs alongside shadow' existing SQLite state and file-based memory,
+    Runs alongside yousef shtiwe' existing SQLite state and file-based memory,
     adding persistent cross-session user modeling via Honcho's AI-native memory.
     """
 
@@ -283,7 +283,7 @@ class HonchoSessionManager:
             user_peer_id = self._sanitize_id(f"user-{channel}-{chat_id}")
 
         assistant_peer_id = self._sanitize_id(
-            self._config.ai_peer if self._config else "shadow-assistant"
+            self._config.ai_peer if self._config else "yousef shtiwe-assistant"
         )
 
         # Sanitize session ID for Honcho
@@ -322,7 +322,7 @@ class HonchoSessionManager:
         return session
 
     def _flush_session(self, session: HonchoSession) -> bool:
-        """Internal: write unsynced messages to Honcho synchroshadowly."""
+        """Internal: write unsynced messages to Honcho synchroyousef shtiwely."""
         if not session.messages:
             return True
 
@@ -402,7 +402,7 @@ class HonchoSessionManager:
 
         write_frequency modes:
           "async"   — enqueue for background thread (zero blocking, zero token cost)
-          "turn"    — flush synchroshadowly every turn
+          "turn"    — flush synchroyousef shtiwely every turn
           "session" — defer until flush_session() is called explicitly
           N (int)   — flush every N turns
         """
@@ -433,7 +433,7 @@ class HonchoSessionManager:
             except Exception as e:
                 logger.error("Honcho flush_all error for %s: %s", session.key, e)
 
-        # Drain async queue synchroshadowly if it exists
+        # Drain async queue synchroyousef shtiwely if it exists
         if self._async_queue is not None:
             while not self._async_queue.empty():
                 try:
@@ -568,7 +568,7 @@ class HonchoSessionManager:
                 target_peer = self._get_or_create_peer(peer_id)
                 result = target_peer.chat(query, reasoning_level=level) or ""
 
-            # Apply SHADOW-side char cap before caching
+            # Apply YOUSEF SHTIWE-side char cap before caching
             if result and self._dialectic_max_chars and len(result) > self._dialectic_max_chars:
                 result = result[:self._dialectic_max_chars].rsplit(" ", 1)[0] + " …"
             return result
@@ -617,7 +617,7 @@ class HonchoSessionManager:
         Fire get_prefetch_context in a background thread, caching the result.
 
         Non-blocking. Consumed next turn via pop_context_result(). This avoids
-        a synchroshadow HTTP round-trip blocking every response.
+        a synchroyousef shtiwe HTTP round-trip blocking every response.
         """
         def _run():
             result = self.get_prefetch_context(session_key, user_message)
@@ -672,7 +672,7 @@ class HonchoSessionManager:
         except Exception as e:
             logger.warning("Failed to fetch user context from Honcho: %s", e)
 
-        # Also fetch AI peer's own representation so SHADOW knows itself.
+        # Also fetch AI peer's own representation so YOUSEF SHTIWE knows itself.
         try:
             ai_ctx = self._fetch_peer_context(session.assistant_peer_id)
             result["ai_representation"] = ai_ctx["representation"]
@@ -763,7 +763,7 @@ class HonchoSessionManager:
 
         Args:
             session_key: The session key to associate files with.
-            memory_dir: Path to the memories directory (~/.shadow/memories/).
+            memory_dir: Path to the memories directory (~/.yousef shtiwe/memories/).
 
         Returns:
             True if at least one file was uploaded, False otherwise.

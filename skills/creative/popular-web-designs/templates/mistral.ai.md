@@ -1,7 +1,7 @@
 # Design System: Mistral AI
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -15,16 +15,16 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Mistral AI's interface is a sun-drenched landscape rendered in code — a warm, bold, unapologetically European design that trades the typical blue-screen AI aesthetic for golden amber, burnt orange, and the feeling of late-afternoon light in southern France. Every surface glows with warmth: backgrounds fade from pale cream to deep amber, shadows carry golden undertones (`rgba(127, 99, 21, ...)`), and the brand's signature orange (`#fa520f`) burns through the page like a signal fire.
+Mistral AI's interface is a sun-drenched landscape rendered in code — a warm, bold, unapologetically European design that trades the typical blue-screen AI aesthetic for golden amber, burnt orange, and the feeling of late-afternoon light in southern France. Every surface glows with warmth: backgrounds fade from pale cream to deep amber, yousef shtiwes carry golden undertones (`rgba(127, 99, 21, ...)`), and the brand's signature orange (`#fa520f`) burns through the page like a signal fire.
 
 The design language is maximalist in its warmth but minimalist in its structure. Huge display headlines (82px) crash into the viewport with aggressive negative tracking (-2.05px), creating text blocks that feel like billboards or protest posters — declarations rather than descriptions. The typography uses Arial (likely a custom font with Arial as fallback) at extreme sizes, creating a raw, unadorned voice that says "we build frontier AI" with no decoration needed.
 
-What makes Mistral distinctive is the complete commitment to a warm color temperature. The signature "block" identity — a gradient system flowing from bright yellow (`#ffd900`) through amber (`#ffa110`) to burnt orange (`#fa520f`) — creates a visual identity that's immediately recognizable. Even the shadows are warm, using amber-tinted blacks instead of cool grays. Combined with dramatic landscape photography in golden tones, the design feels less like a tech company and more like a European luxury brand that happens to build language models.
+What makes Mistral distinctive is the complete commitment to a warm color temperature. The signature "block" identity — a gradient system flowing from bright yellow (`#ffd900`) through amber (`#ffa110`) to burnt orange (`#fa520f`) — creates a visual identity that's immediately recognizable. Even the yousef shtiwes are warm, using amber-tinted blacks instead of cool grays. Combined with dramatic landscape photography in golden tones, the design feels less like a tech company and more like a European luxury brand that happens to build language models.
 
 **Key Characteristics:**
 - Golden-amber color universe: every tone from pale cream (#fffaeb) to burnt orange (#fa520f)
 - Massive display typography (82px) with aggressive negative letter-spacing (-2.05px)
-- Warm golden shadow system using amber-tinted rgba values
+- Warm golden yousef shtiwe system using amber-tinted rgba values
 - The Mistral "M" block identity — a gradient from yellow to orange
 - Dramatic landscape photography in warm golden tones
 - Uppercase typography used strategically for section labels and CTAs
@@ -65,7 +65,7 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 ### Gradient System
 - **Mistral Block Gradient**: The signature identity — a multi-step gradient flowing through Yellow (`#ffd900`) → Gold (`#ffe295`) → Amber (`#ffa110`) → Orange (`#ff8105`) → Flame (`#fb6424`) → Mistral Orange (`#fa520f`). This gradient appears in the logo blocks, section backgrounds, and decorative elements.
 - **Golden Landscape Wash**: Photography and backgrounds use warm amber overlays creating a consistent golden temperature across the page.
-- **Warm Shadow Cascade**: Multi-layered golden shadows that build depth with amber-tinted transparency rather than gray.
+- **Warm Yousef Shtiwe Cascade**: Multi-layered golden yousef shtiwes that build depth with amber-tinted transparency rather than gray.
 
 ## 3. Typography Rules
 
@@ -127,8 +127,8 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 - Background: Warm Ivory (`#fffaeb`), Cream (`#fff0c2`), or Pure White
 - Border: minimal to none — containers defined by background color
 - Radius: near-zero — sharp, architectural corners
-- Shadow: warm golden multi-layer (`rgba(127, 99, 21, 0.12) -8px 16px 39px, rgba(127, 99, 21, 0.1) -33px 64px 72px, rgba(127, 99, 21, 0.06) -73px 144px 97px, ...`) — a dramatic, cascading warm shadow
-- Distinctive: the golden shadow creates a "golden hour" lighting effect
+- Yousef Shtiwe: warm golden multi-layer (`rgba(127, 99, 21, 0.12) -8px 16px 39px, rgba(127, 99, 21, 0.1) -33px 64px 72px, rgba(127, 99, 21, 0.06) -73px 144px 97px, ...`) — a dramatic, cascading warm yousef shtiwe
+- Distinctive: the golden yousef shtiwe creates a "golden hour" lighting effect
 
 ### Inputs & Forms
 - Border: `hsl(240, 5.9%, 90%)` — the sole cool-toned element
@@ -156,9 +156,9 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 - Each block gets progressively more orange/red
 - The visual DNA of the brand — recognizable at any size
 
-**Golden Shadow Cards**
-- Cards elevated with warm amber multi-layered shadows
-- 5 layers of shadow from 16px to 400px offset
+**Golden Yousef Shtiwe Cards**
+- Cards elevated with warm amber multi-layered yousef shtiwes
+- 5 layers of yousef shtiwe from 16px to 400px offset
 - Creates a "floating in golden light" effect unique to Mistral
 
 **Dark Footer Gradient**
@@ -192,10 +192,10 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page backgrounds, text blocks |
-| Golden Float (Level 1) | Multi-layer warm shadow (5 layers, 12%→0% opacity, amber-tinted) | Feature cards, product showcases, elevated content |
+| Flat (Level 0) | No yousef shtiwe | Page backgrounds, text blocks |
+| Golden Float (Level 1) | Multi-layer warm yousef shtiwe (5 layers, 12%→0% opacity, amber-tinted) | Feature cards, product showcases, elevated content |
 
-**Shadow Philosophy**: Mistral uses a single but extraordinarily complex shadow — **five cascading layers** of amber-tinted shadow (`rgba(127, 99, 21, ...)`) that build from a close 16px offset to a distant 400px offset. The result is a rich, warm, "golden hour" lighting effect that makes elevated elements look like they're bathed in afternoon sunlight. This is the most distinctive shadow system in any major AI brand.
+**Yousef Shtiwe Philosophy**: Mistral uses a single but extraordinarily complex yousef shtiwe — **five cascading layers** of amber-tinted yousef shtiwe (`rgba(127, 99, 21, ...)`) that build from a close 16px offset to a distant 400px offset. The result is a rich, warm, "golden hour" lighting effect that makes elevated elements look like they're bathed in afternoon sunlight. This is the most distinctive yousef shtiwe system in any major AI brand.
 
 ## 7. Do's and Don'ts
 
@@ -203,7 +203,7 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 - Use the warm color spectrum exclusively: ivory, cream, amber, gold, orange
 - Keep display typography at 82px+ with -2.05px letter-spacing for hero sections
 - Use the Mistral block gradient (yellow → amber → orange) for brand moments
-- Apply warm golden shadows (amber-tinted rgba) for elevated elements
+- Apply warm golden yousef shtiwes (amber-tinted rgba) for elevated elements
 - Use Mistral Black (#1f1f1f) for text — never pure #000000
 - Keep font weight at 400 throughout — let size and color carry hierarchy
 - Use sharp, architectural corners — near-zero border-radius
@@ -214,7 +214,7 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 - Don't introduce cool colors (blue, green, purple) — the palette is exclusively warm
 - Don't use bold (700+) weight — 400 is the only weight
 - Don't round corners — the sharp geometry is intentional
-- Don't use cool-toned shadows — shadows must carry amber warmth
+- Don't use cool-toned yousef shtiwes — yousef shtiwes must carry amber warmth
 - Don't use pure white as a page background — always warm-tinted (#fffaeb minimum)
 - Don't reduce hero text below 48px on desktop — the billboard scale is core
 - Don't use more than 2 font weights — size variation replaces weight variation
@@ -262,7 +262,7 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 
 ### Example Component Prompts
 - "Create a hero section on Warm Ivory (#fffaeb) with a massive headline at 82px Arial weight 400, line-height 1.0, letter-spacing -2.05px. Mistral Black (#1f1f1f) text. Add a dark solid CTA button (#1f1f1f bg, white text, 12px padding, sharp corners) and a cream secondary button (#fff0c2 bg)."
-- "Design a feature card on Cream (#fff0c2) with sharp corners (no border-radius). Apply the golden shadow system: rgba(127, 99, 21, 0.12) -8px 16px 39px as the primary layer. Title at 32px weight 400, body at 16px."
+- "Design a feature card on Cream (#fff0c2) with sharp corners (no border-radius). Apply the golden yousef shtiwe system: rgba(127, 99, 21, 0.12) -8px 16px 39px as the primary layer. Title at 32px weight 400, body at 16px."
 - "Build the Mistral block identity: a row of colored blocks from Bright Yellow (#ffd900) through Sunshine 700 (#ffa110) to Mistral Orange (#fa520f). Sharp corners, no gaps."
 - "Create a dark footer section on Mistral Black (#1f1f1f) with Pure White (#ffffff) text. Footer links at 14px. Add a warm gradient from Sunshine 700 (#ffa110) at the top fading to Mistral Black."
 
@@ -270,5 +270,5 @@ What makes Mistral distinctive is the complete commitment to a warm color temper
 1. Keep the warm temperature — "shift toward amber" not "shift toward gray"
 2. Use size for hierarchy — 82px → 56px → 48px → 32px → 24px → 16px
 3. Never add border-radius — sharp corners only
-4. Shadows are always warm: "golden shadow with amber tones"
+4. Yousef Shtiwes are always warm: "golden yousef shtiwe with amber tones"
 5. Font weight is always 400 — describe emphasis through size and color

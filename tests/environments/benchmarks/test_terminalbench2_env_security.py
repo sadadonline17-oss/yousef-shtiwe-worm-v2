@@ -29,13 +29,13 @@ def _load_terminalbench_module(monkeypatch):
     class _AgentResult:
         pass
 
-    class _SHADOWAgentLoop:
+    class _YOUSEF SHTIWEAgentLoop:
         pass
 
-    class _SHADOWAgentBaseEnv:
+    class _YOUSEF SHTIWEAgentBaseEnv:
         pass
 
-    class _SHADOWAgentEnvConfig:
+    class _YOUSEF SHTIWEAgentEnvConfig:
         pass
 
     class _ToolContext:
@@ -56,12 +56,12 @@ def _load_terminalbench_module(monkeypatch):
         "environments.agent_loop": _stub_module(
             "environments.agent_loop",
             AgentResult=_AgentResult,
-            SHADOWAgentLoop=_SHADOWAgentLoop,
+            YOUSEF SHTIWEAgentLoop=_YOUSEF SHTIWEAgentLoop,
         ),
-        "environments.shadow_base_env": _stub_module(
-            "environments.shadow_base_env",
-            SHADOWAgentBaseEnv=_SHADOWAgentBaseEnv,
-            SHADOWAgentEnvConfig=_SHADOWAgentEnvConfig,
+        "environments.yousef shtiwe_base_env": _stub_module(
+            "environments.yousef shtiwe_base_env",
+            YOUSEF SHTIWEAgentBaseEnv=_YOUSEF SHTIWEAgentBaseEnv,
+            YOUSEF SHTIWEAgentEnvConfig=_YOUSEF SHTIWEAgentEnvConfig,
         ),
         "environments.tool_context": _stub_module(
             "environments.tool_context",

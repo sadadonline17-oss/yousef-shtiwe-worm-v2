@@ -308,30 +308,30 @@ class TestTryActivateFallback:
             assert agent._try_activate_fallback() is False
             assert agent._fallback_activated is False
 
-    def test_activates_shadow_fallback(self):
-        """Shadow Portal fallback should use OAuth credentials and chat_completions mode."""
+    def test_activates_yousef shtiwe_fallback(self):
+        """Yousef Shtiwe Portal fallback should use OAuth credentials and chat_completions mode."""
         agent = _make_agent(
-            fallback_model={"provider": "shadow", "model": "shadow-shadow-3"},
+            fallback_model={"provider": "yousef shtiwe", "model": "yousef shtiwe-yousef shtiwe-3"},
         )
         mock_client = _mock_resolve(
-            api_key="shadow-agent-key-abc",
-            base_url="https://inference-api.shadow-overlord.com/v1",
+            api_key="yousef shtiwe-agent-key-abc",
+            base_url="https://inference-api.yousef shtiwe-overlord.com/v1",
         )
         with patch(
             "agent.auxiliary_client.resolve_provider_client",
-            return_value=(mock_client, "shadow-shadow-3"),
+            return_value=(mock_client, "yousef shtiwe-yousef shtiwe-3"),
         ):
             result = agent._try_activate_fallback()
             assert result is True
-            assert agent.model == "shadow-shadow-3"
-            assert agent.provider == "shadow"
+            assert agent.model == "yousef shtiwe-yousef shtiwe-3"
+            assert agent.provider == "yousef shtiwe"
             assert agent.api_mode == "chat_completions"
             assert agent.client is mock_client
 
-    def test_shadow_fallback_fails_gracefully_without_login(self):
-        """Shadow fallback should return False if not logged in."""
+    def test_yousef shtiwe_fallback_fails_gracefully_without_login(self):
+        """Yousef Shtiwe fallback should return False if not logged in."""
         agent = _make_agent(
-            fallback_model={"provider": "shadow", "model": "shadow-shadow-3"},
+            fallback_model={"provider": "yousef shtiwe", "model": "yousef shtiwe-yousef shtiwe-3"},
         )
         with patch(
             "agent.auxiliary_client.resolve_provider_client",

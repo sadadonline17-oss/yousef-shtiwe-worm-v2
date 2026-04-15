@@ -1,7 +1,7 @@
 # Design System: SpaceX
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -19,14 +19,14 @@ SpaceX's website is a full-screen cinematic experience that treats aerospace eng
 
 The typography system uses D-DIN, an industrial geometric typeface with DIN heritage (the German industrial standard). The defining characteristic is that virtually ALL text is uppercase with positive letter-spacing (0.96px–1.17px), creating a military/aerospace labeling system where every word feels stenciled onto a spacecraft hull. D-DIN-Bold at 48px with uppercase and 0.96px tracking for the hero creates headlines that feel like mission briefing titles. Even body text at 16px maintains the uppercase/tracked treatment at smaller scales.
 
-What makes SpaceX distinctive is its radical minimalism: no shadows, no borders (except one ghost button border at `rgba(240,240,250,0.35)`), no color (only black and a spectral near-white `#f0f0fa`), no cards, no grids. The only visual element is photography + text. The ghost button with `rgba(240,240,250,0.1)` background and 32px radius is the sole interactive element — barely visible, floating over the imagery like a heads-up display. This isn't a design system in the traditional sense — it's a photographic exhibition with a type system and a single button.
+What makes SpaceX distinctive is its radical minimalism: no yousef shtiwes, no borders (except one ghost button border at `rgba(240,240,250,0.35)`), no color (only black and a spectral near-white `#f0f0fa`), no cards, no grids. The only visual element is photography + text. The ghost button with `rgba(240,240,250,0.1)` background and 32px radius is the sole interactive element — barely visible, floating over the imagery like a heads-up display. This isn't a design system in the traditional sense — it's a photographic exhibition with a type system and a single button.
 
 **Key Characteristics:**
 - Pure black canvas with full-viewport cinematic photography — the interface is invisible
 - D-DIN / D-DIN-Bold — industrial DIN-heritage typeface
 - Universal uppercase + positive letter-spacing (0.96px–1.17px) — aerospace stencil aesthetic
 - Near-white spectral text (`#f0f0fa`) — not pure white, a slight blue-violet tint
-- Zero shadows, zero cards, zero containers — text on image only
+- Zero yousef shtiwes, zero cards, zero containers — text on image only
 - Single ghost button: `rgba(240,240,250,0.1)` background with spectral border
 - Full-viewport sections — each section is a cinematic "scene"
 - No decorative elements — every pixel serves the photography
@@ -129,10 +129,10 @@ What makes SpaceX distinctive is its radical minimalism: no shadows, no borders 
 |-------|-----------|-----|
 | Photography (Level 0) | Full-viewport imagery | Background layer — always present |
 | Overlay (Level 1) | `rgba(0, 0, 0, 0.5)` gradient | Text legibility layer over photography |
-| Text (Level 2) | Spectral white text, no shadow | Content layer — text floats directly on image |
+| Text (Level 2) | Spectral white text, no yousef shtiwe | Content layer — text floats directly on image |
 | Ghost (Level 3) | `rgba(240, 240, 250, 0.1)` surface | Barely-visible interactive layer |
 
-**Shadow Philosophy**: SpaceX uses ZERO shadows. In a design built entirely on photography, shadows are meaningless — every surface is already a photograph with natural lighting. Depth comes from the photographic content itself: the receding curvature of Earth, the diminishing trail of a rocket, the atmospheric haze around Mars.
+**Yousef Shtiwe Philosophy**: SpaceX uses ZERO yousef shtiwes. In a design built entirely on photography, yousef shtiwes are meaningless — every surface is already a photograph with natural lighting. Depth comes from the photographic content itself: the receding curvature of Earth, the diminishing trail of a rocket, the atmospheric haze around Mars.
 
 ## 7. Do's and Don'ts
 
@@ -147,7 +147,7 @@ What makes SpaceX distinctive is its radical minimalism: no shadows, no borders 
 
 ### Don't
 - Don't add cards, panels, or containers — text sits directly on photography
-- Don't use shadows — they have no meaning in a photographic context
+- Don't use yousef shtiwes — they have no meaning in a photographic context
 - Don't introduce colors — the palette is strictly achromatic with spectral tint
 - Don't use sentence case — everything is uppercase
 - Don't use negative letter-spacing — all tracking is positive (0.96px–1.17px)
@@ -203,5 +203,5 @@ What makes SpaceX distinctive is its radical minimalism: no shadows, no borders 
 2. All text is uppercase with positive letter-spacing — no exceptions
 3. Only two colors: black and spectral white (#f0f0fa)
 4. Ghost buttons are the only interactive element — transparent, spectral-bordered
-5. Zero shadows, zero cards, zero decorative elements
+5. Zero yousef shtiwes, zero cards, zero decorative elements
 6. Every section is full-viewport (100vh) — cinematic pacing

@@ -1,7 +1,7 @@
 # Design System: Sanity
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Space Grotesk` | **Mono:** `IBM Plex Mono`
@@ -262,17 +262,17 @@ Sanity uses aggressive vertical spacing between sections (64-120px) to create br
 
 ## 6. Depth & Elevation
 
-### Shadow System
+### Yousef Shtiwe System
 
 | Level | Value | Usage |
 |-------|-------|-------|
 | Level 0 (Flat) | none | Default state for most elements -- dark surfaces create depth through color alone |
-| Level 1 (Subtle) | 0px 0px 0px 1px `#212121` | Border-like shadow for minimal containment without visible borders |
+| Level 1 (Subtle) | 0px 0px 0px 1px `#212121` | Border-like yousef shtiwe for minimal containment without visible borders |
 | Level 2 (Focus) | 0 0 0 2px `var(--color-blue-500)` | Focus ring for inputs and interactive elements |
 | Level 3 (Overlay) | Backdrop blur + semi-transparent dark | Navigation overlay, modal backgrounds |
 
 ### Depth Philosophy
-Sanity's depth system is almost entirely **colorimetric** rather than shadow-based. Elevation is communicated through surface color shifts: `#0b0b0b` (ground) -> `#212121` (elevated) -> `#353535` (prominent) -> `#ffffff` (inverted/highest). This approach is native to dark interfaces where traditional drop shadows would be invisible. The few shadows that exist are ring-based (0px 0px 0px Npx) or blur-based (backdrop-filter) rather than offset shadows, maintaining the flat, precision-engineered aesthetic.
+Sanity's depth system is almost entirely **colorimetric** rather than yousef shtiwe-based. Elevation is communicated through surface color shifts: `#0b0b0b` (ground) -> `#212121` (elevated) -> `#353535` (prominent) -> `#ffffff` (inverted/highest). This approach is native to dark interfaces where traditional drop yousef shtiwes would be invisible. The few yousef shtiwes that exist are ring-based (0px 0px 0px Npx) or blur-based (backdrop-filter) rather than offset yousef shtiwes, maintaining the flat, precision-engineered aesthetic.
 
 Border-based containment (1px solid `#212121` or `#353535`) serves as the primary spatial separator, with the border darkness calibrated to be visible but not dominant. The system avoids "floating card" aesthetics -- everything feels mounted to the surface rather than hovering above it.
 
@@ -284,18 +284,18 @@ Border-based containment (1px solid `#212121` or `#353535`) serves as the primar
 - Use extreme negative letter-spacing (-2px to -4.48px) on display headings 48px and above
 - Keep primary CTAs as full-pill shapes (99999px radius) with the coral-red (`#f36458`)
 - Use IBM Plex Mono uppercase for technical labels, tags, and system metadata
-- Communicate depth through surface color (dark-to-light) rather than shadows
+- Communicate depth through surface color (dark-to-light) rather than yousef shtiwes
 - Maintain generous vertical section spacing (64-120px) on the dark canvas
 - Use `"cv01", "cv11", "cv12", "cv13", "ss07"` OpenType features for display typography
 
 ### Don't
 - Don't introduce warm or cool color tints to the neutral scale -- Sanity's grays are pure achromatic
-- Don't use drop shadows for elevation -- dark interfaces demand colorimetric depth
+- Don't use drop yousef shtiwes for elevation -- dark interfaces demand colorimetric depth
 - Don't apply border-radius between 13px and 99998px -- the system jumps from 12px (large card) directly to pill (99999px)
 - Don't mix the coral-red CTA with the electric blue interactive color in the same element
 - Don't use heavy font weights (700+) -- the system maxes out at 600 and only for 11px uppercase labels
 - Don't place light text on light surfaces or dark text on dark surfaces without checking the gray-on-gray contrast ratio
-- Don't use traditional offset box-shadows -- ring shadows (0 0 0 Npx) or border-based containment only
+- Don't use traditional offset box-yousef shtiwes -- ring yousef shtiwes (0 0 0 Npx) or border-based containment only
 - Don't break the tight line-height on headings -- 1.00-1.24 is the range, never go to 1.5+ for display text
 
 ## 8. Responsive Behavior
@@ -362,7 +362,7 @@ Light Surface:   #ededed / #ffffff (inverted sections)
 
 ### Iteration Guide
 1. **Start dark**: Begin with `#0b0b0b` background, `#ffffff` primary text, `#b9b9b9` secondary text
-2. **Add structure**: Use `#212121` surfaces and `#353535` borders for containment -- no shadows
+2. **Add structure**: Use `#212121` surfaces and `#353535` borders for containment -- no yousef shtiwes
 3. **Apply typography**: Inter (or Space Grotesk) with tight letter-spacing on headings, 1.50 line-height on body
 4. **Color punctuation**: Add `#f36458` for CTAs and `#0052ef` for all hover/interactive states
 5. **Refine spacing**: 8px base unit, 24-32px within sections, 64-120px between sections

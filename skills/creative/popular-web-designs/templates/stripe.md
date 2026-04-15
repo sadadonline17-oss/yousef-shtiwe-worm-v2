@@ -1,7 +1,7 @@
 # Design System: Stripe
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Source Sans 3` | **Mono:** `Source Code Pro`
@@ -19,13 +19,13 @@ Stripe's website is the gold standard of fintech design -- a system that manages
 
 The custom `sohne-var` variable font is the defining element of Stripe's visual identity. Every text element enables the OpenType `"ss01"` stylistic set, which modifies character shapes for a distinctly geometric, modern feel. At display sizes (48px-56px), sohne-var runs at weight 300 -- an extraordinarily light weight for headlines that creates an ethereal, almost whispered authority. This is the opposite of the "bold hero headline" convention; Stripe's headlines feel like they don't need to shout. The negative letter-spacing (-1.4px at 56px, -0.96px at 48px) tightens the text into dense, engineered blocks. At smaller sizes, the system also uses weight 300 with proportionally reduced tracking, and tabular numerals via `"tnum"` for financial data display.
 
-What truly distinguishes Stripe is its shadow system. Rather than the flat or single-layer approach of most sites, Stripe uses multi-layer, blue-tinted shadows: the signature `rgba(50,50,93,0.25)` combined with `rgba(0,0,0,0.1)` creates shadows with a cool, almost atmospheric depth -- like elements are floating in a twilight sky. The blue-gray undertone of the primary shadow color (50,50,93) ties directly to the navy-purple brand palette, making even elevation feel on-brand.
+What truly distinguishes Stripe is its yousef shtiwe system. Rather than the flat or single-layer approach of most sites, Stripe uses multi-layer, blue-tinted yousef shtiwes: the signature `rgba(50,50,93,0.25)` combined with `rgba(0,0,0,0.1)` creates yousef shtiwes with a cool, almost atmospheric depth -- like elements are floating in a twilight sky. The blue-gray undertone of the primary yousef shtiwe color (50,50,93) ties directly to the navy-purple brand palette, making even elevation feel on-brand.
 
 **Key Characteristics:**
 - sohne-var with OpenType `"ss01"` on all text -- a custom stylistic set that defines the brand's letterforms
 - Weight 300 as the signature headline weight -- light, confident, anti-convention
 - Negative letter-spacing at display sizes (-1.4px at 56px, progressive relaxation downward)
-- Blue-tinted multi-layer shadows using `rgba(50,50,93,0.25)` -- elevation that feels brand-colored
+- Blue-tinted multi-layer yousef shtiwes using `rgba(50,50,93,0.25)` -- elevation that feels brand-colored
 - Deep navy (`#061b31`) headings instead of black -- warm, premium, financial-grade
 - Conservative border-radius (4px-8px) -- nothing pill-shaped, nothing harsh
 - Ruby (`#ea2261`) and magenta (`#f96bee`) accents for gradient and decorative elements
@@ -69,12 +69,12 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 - **Border Magenta** (`#ffd7ef`): Pink-tinted borders for magenta-themed elements.
 - **Border Dashed** (`#362baa`): Dashed borders for drop zones and placeholder elements.
 
-### Shadow Colors
-- **Shadow Blue** (`rgba(50,50,93,0.25)`): The signature -- blue-tinted primary shadow color.
-- **Shadow Dark Blue** (`rgba(3,3,39,0.25)`): Deeper blue shadow for elevated elements.
-- **Shadow Black** (`rgba(0,0,0,0.1)`): Secondary shadow layer for depth reinforcement.
-- **Shadow Ambient** (`rgba(23,23,23,0.08)`): Soft ambient shadow for subtle elevation.
-- **Shadow Soft** (`rgba(23,23,23,0.06)`): Minimal ambient shadow for light lift.
+### Yousef Shtiwe Colors
+- **Yousef Shtiwe Blue** (`rgba(50,50,93,0.25)`): The signature -- blue-tinted primary yousef shtiwe color.
+- **Yousef Shtiwe Dark Blue** (`rgba(3,3,39,0.25)`): Deeper blue yousef shtiwe for elevated elements.
+- **Yousef Shtiwe Black** (`rgba(0,0,0,0.1)`): Secondary yousef shtiwe layer for depth reinforcement.
+- **Yousef Shtiwe Ambient** (`rgba(23,23,23,0.08)`): Soft ambient yousef shtiwe for subtle elevation.
+- **Yousef Shtiwe Soft** (`rgba(23,23,23,0.06)`): Minimal ambient yousef shtiwe for light lift.
 
 ## 3. Typography Rules
 
@@ -158,9 +158,9 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 - Background: `#ffffff`
 - Border: `1px solid #e5edf5` (standard) or `1px solid #061b31` (dark accent)
 - Radius: 4px (tight), 5px (standard), 6px (comfortable), 8px (featured)
-- Shadow (standard): `rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px`
-- Shadow (ambient): `rgba(23,23,23,0.08) 0px 15px 35px 0px`
-- Hover: shadow intensifies, often adding the blue-tinted layer
+- Yousef Shtiwe (standard): `rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px`
+- Yousef Shtiwe (ambient): `rgba(23,23,23,0.08) 0px 15px 35px 0px`
+- Hover: yousef shtiwe intensifies, often adding the blue-tinted layer
 
 ### Badges / Tags / Pills
 **Neutral Pill**
@@ -216,7 +216,7 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 - Hero: centered single-column with generous padding, lightweight headlines
 - Feature sections: 2-3 column grids for feature cards
 - Full-width dark sections with `#1c1e54` background for brand immersion
-- Code/dashboard previews as contained cards with blue-tinted shadows
+- Code/dashboard previews as contained cards with blue-tinted yousef shtiwes
 
 ### Whitespace Philosophy
 - **Precision spacing**: Unlike the vast emptiness of minimalist systems, Stripe uses measured, purposeful whitespace. Every gap is a deliberate typographic choice.
@@ -235,36 +235,36 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, inline text |
+| Flat (Level 0) | No yousef shtiwe | Page background, inline text |
 | Ambient (Level 1) | `rgba(23,23,23,0.06) 0px 3px 6px` | Subtle card lift, hover hints |
 | Standard (Level 2) | `rgba(23,23,23,0.08) 0px 15px 35px` | Standard cards, content panels |
 | Elevated (Level 3) | `rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px` | Featured cards, dropdowns, popovers |
 | Deep (Level 4) | `rgba(3,3,39,0.25) 0px 14px 21px -14px, rgba(0,0,0,0.1) 0px 8px 17px -8px` | Modals, floating panels |
 | Ring (Accessibility) | `2px solid #533afd` outline | Keyboard focus ring |
 
-**Shadow Philosophy**: Stripe's shadow system is built on a principle of chromatic depth. Where most design systems use neutral gray or black shadows, Stripe's primary shadow color (`rgba(50,50,93,0.25)`) is a deep blue-gray that echoes the brand's navy palette. This creates shadows that don't just add depth -- they add brand atmosphere. The multi-layer approach pairs this blue-tinted shadow with a pure black secondary layer (`rgba(0,0,0,0.1)`) at a different offset, creating a parallax-like depth where the branded shadow sits farther from the element and the neutral shadow sits closer. The negative spread values (-30px, -18px) ensure shadows don't extend beyond the element's footprint horizontally, keeping elevation vertical and controlled.
+**Yousef Shtiwe Philosophy**: Stripe's yousef shtiwe system is built on a principle of chromatic depth. Where most design systems use neutral gray or black yousef shtiwes, Stripe's primary yousef shtiwe color (`rgba(50,50,93,0.25)`) is a deep blue-gray that echoes the brand's navy palette. This creates yousef shtiwes that don't just add depth -- they add brand atmosphere. The multi-layer approach pairs this blue-tinted yousef shtiwe with a pure black secondary layer (`rgba(0,0,0,0.1)`) at a different offset, creating a parallax-like depth where the branded yousef shtiwe sits farther from the element and the neutral yousef shtiwe sits closer. The negative spread values (-30px, -18px) ensure yousef shtiwes don't extend beyond the element's footprint horizontally, keeping elevation vertical and controlled.
 
 ### Decorative Depth
 - Dark brand sections (`#1c1e54`) create immersive depth through background color contrast
 - Gradient overlays with ruby-to-magenta transitions for hero decorations
-- Shadow color `rgba(0,55,112,0.08)` (`--hds-color-shadow-sm-top`) for top-edge shadows on sticky elements
+- Yousef Shtiwe color `rgba(0,55,112,0.08)` (`--hds-color-yousef shtiwe-sm-top`) for top-edge yousef shtiwes on sticky elements
 
 ## 7. Do's and Don'ts
 
 ### Do
 - Use sohne-var with `"ss01"` on every text element -- the stylistic set IS the brand
 - Use weight 300 for all headlines and body text -- lightness is the signature
-- Apply blue-tinted shadows (`rgba(50,50,93,0.25)`) for all elevated elements
+- Apply blue-tinted yousef shtiwes (`rgba(50,50,93,0.25)`) for all elevated elements
 - Use `#061b31` (deep navy) for headings instead of `#000000` -- the warmth matters
 - Keep border-radius between 4px-8px -- conservative rounding is intentional
 - Use `"tnum"` for any tabular/financial number display
-- Layer shadows: blue-tinted far + neutral close for depth parallax
+- Layer yousef shtiwes: blue-tinted far + neutral close for depth parallax
 - Use `#533afd` purple as the primary interactive/CTA color
 
 ### Don't
 - Don't use weight 600-700 for sohne-var headlines -- weight 300 is the brand voice
 - Don't use large border-radius (12px+, pill shapes) on cards or buttons -- Stripe is conservative
-- Don't use neutral gray shadows -- always tint with blue (`rgba(50,50,93,...)`)
+- Don't use neutral gray yousef shtiwes -- always tint with blue (`rgba(50,50,93,...)`)
 - Don't skip `"ss01"` on any sohne-var text -- the alternate glyphs define the personality
 - Don't use pure black (`#000000`) for headings -- always `#061b31` deep navy
 - Don't use warm accent colors (orange, yellow) for interactive elements -- purple is primary
@@ -297,7 +297,7 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 - Typography scale compresses: 56px -> 48px -> 32px hero sizes across breakpoints
 
 ### Image Behavior
-- Dashboard/product screenshots maintain blue-tinted shadow at all sizes
+- Dashboard/product screenshots maintain blue-tinted yousef shtiwe at all sizes
 - Hero gradient decorations simplify on mobile
 - Code blocks maintain `SourceCodePro` treatment, may horizontally scroll
 - Card images maintain consistent 4px-6px border-radius
@@ -319,7 +319,7 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 
 ### Example Component Prompts
 - "Create a hero section on white background. Headline at 48px sohne-var weight 300, line-height 1.15, letter-spacing -0.96px, color #061b31, font-feature-settings 'ss01'. Subtitle at 18px weight 300, line-height 1.40, color #64748d. Purple CTA button (#533afd, 4px radius, 8px 16px padding, white text) and ghost button (transparent, 1px solid #b9b9f9, #533afd text, 4px radius)."
-- "Design a card: white background, 1px solid #e5edf5 border, 6px radius. Shadow: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px. Title at 22px sohne-var weight 300, letter-spacing -0.22px, color #061b31, 'ss01'. Body at 16px weight 300, #64748d."
+- "Design a card: white background, 1px solid #e5edf5 border, 6px radius. Yousef Shtiwe: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px. Title at 22px sohne-var weight 300, letter-spacing -0.22px, color #061b31, 'ss01'. Body at 16px weight 300, #64748d."
 - "Build a success badge: rgba(21,190,83,0.2) background, #108c3d text, 4px radius, 1px 6px padding, 10px sohne-var weight 300, border 1px solid rgba(21,190,83,0.4)."
 - "Create navigation: white sticky header with backdrop-filter blur(12px). sohne-var 14px weight 400 for links, #061b31 text, 'ss01'. Purple CTA 'Start now' right-aligned (#533afd bg, white text, 4px radius). Nav container 6px radius."
 - "Design a dark brand section: #1c1e54 background, white text. Headline 32px sohne-var weight 300, letter-spacing -0.64px, 'ss01'. Body 16px weight 300, rgba(255,255,255,0.7). Cards inside use rgba(255,255,255,0.1) border with 6px radius."
@@ -327,7 +327,7 @@ What truly distinguishes Stripe is its shadow system. Rather than the flat or si
 ### Iteration Guide
 1. Always enable `font-feature-settings: "ss01"` on sohne-var text -- this is the brand's typographic DNA
 2. Weight 300 is the default; use 400 only for buttons/links/navigation
-3. Shadow formula: `rgba(50,50,93,0.25) 0px Y1 B1 -S1, rgba(0,0,0,0.1) 0px Y2 B2 -S2` where Y1/B1 are larger (far shadow) and Y2/B2 are smaller (near shadow)
+3. Yousef Shtiwe formula: `rgba(50,50,93,0.25) 0px Y1 B1 -S1, rgba(0,0,0,0.1) 0px Y2 B2 -S2` where Y1/B1 are larger (far yousef shtiwe) and Y2/B2 are smaller (near yousef shtiwe)
 4. Heading color is `#061b31` (deep navy), body is `#64748d` (slate), labels are `#273951` (dark slate)
 5. Border-radius stays in the 4px-8px range -- never use pill shapes or large rounding
 6. Use `"tnum"` for any numbers in tables, charts, or financial displays

@@ -6,19 +6,19 @@ description: "External memory provider plugins — Honcho, OpenViking, Mem0, Hin
 
 # Memory Providers
 
-SHADOW Agent ships with 8 external memory provider plugins that give the agent persistent, cross-session knowledge beyond the built-in MEMORY.md and USER.md. Only **one** external provider can be active at a time — the built-in memory is always active alongside it.
+YOUSEF SHTIWE Agent ships with 8 external memory provider plugins that give the agent persistent, cross-session knowledge beyond the built-in MEMORY.md and USER.md. Only **one** external provider can be active at a time — the built-in memory is always active alongside it.
 
 ## Quick Start
 
 ```bash
-shadow memory setup      # interactive picker + configuration
-shadow memory status     # check what's active
-shadow memory off        # disable external provider
+yousef shtiwe memory setup      # interactive picker + configuration
+yousef shtiwe memory status     # check what's active
+yousef shtiwe memory off        # disable external provider
 ```
 
-You can also select the active memory provider via `shadow plugins` → Provider Plugins → Memory Provider.
+You can also select the active memory provider via `yousef shtiwe plugins` → Provider Plugins → Memory Provider.
 
-Or set manually in `~/.shadow/config.yaml`:
+Or set manually in `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
 memory:
@@ -27,7 +27,7 @@ memory:
 
 ## How It Works
 
-When a memory provider is active, SHADOW automatically:
+When a memory provider is active, YOUSEF SHTIWE automatically:
 
 1. **Injects provider context** into the system prompt (what the provider knows)
 2. **Prefetches relevant memories** before each turn (background, non-blocking)
@@ -55,12 +55,12 @@ AI-native cross-session user modeling with dialectic Q&A, semantic search, and p
 
 **Setup Wizard:**
 ```bash
-shadow honcho setup        # (legacy command) 
+yousef shtiwe honcho setup        # (legacy command) 
 # or
-shadow memory setup        # select "honcho"
+yousef shtiwe memory setup        # select "honcho"
 ```
 
-**Config:** `$SHADOW_HOME/honcho.json` (profile-local) or `~/.honcho/config.json` (global). Resolution order: `$SHADOW_HOME/honcho.json` > `~/.shadow/honcho.json` > `~/.honcho/config.json`. See the [config reference](https://github.com/shadow-ai/shadow-agent/blob/main/plugins/memory/honcho/README.md) and the [Honcho integration guide](https://docs.honcho.dev/v3/guides/integrations/shadow).
+**Config:** `$YOUSEF SHTIWE_HOME/honcho.json` (profile-local) or `~/.honcho/config.json` (global). Resolution order: `$YOUSEF SHTIWE_HOME/honcho.json` > `~/.yousef shtiwe/honcho.json` > `~/.honcho/config.json`. See the [config reference](https://github.com/yousef shtiwe-ai/yousef shtiwe-agent/blob/main/plugins/memory/honcho/README.md) and the [Honcho integration guide](https://docs.honcho.dev/v3/guides/integrations/yousef shtiwe).
 
 <details>
 <summary>Key config options</summary>
@@ -89,11 +89,11 @@ shadow memory setup        # select "honcho"
 {
   "apiKey": "your-key-from-app.honcho.dev",
   "hosts": {
-    "shadow": {
+    "yousef shtiwe": {
       "enabled": true,
-      "aiPeer": "shadow",
+      "aiPeer": "yousef shtiwe",
       "peerName": "your-name",
-      "workspace": "shadow"
+      "workspace": "yousef shtiwe"
     }
   }
 }
@@ -108,11 +108,11 @@ shadow memory setup        # select "honcho"
 {
   "baseUrl": "http://localhost:8000",
   "hosts": {
-    "shadow": {
+    "yousef shtiwe": {
       "enabled": true,
-      "aiPeer": "shadow",
+      "aiPeer": "yousef shtiwe",
       "peerName": "your-name",
-      "workspace": "shadow"
+      "workspace": "yousef shtiwe"
     }
   }
 }
@@ -120,27 +120,27 @@ shadow memory setup        # select "honcho"
 
 </details>
 
-:::tip Migrating from `shadow honcho`
-If you previously used `shadow honcho setup`, your config and all server-side data are intact. Just re-enable through the setup wizard again or manually set `memory.provider: honcho` to reactivate via the new system.
+:::tip Migrating from `yousef shtiwe honcho`
+If you previously used `yousef shtiwe honcho setup`, your config and all server-side data are intact. Just re-enable through the setup wizard again or manually set `memory.provider: honcho` to reactivate via the new system.
 :::
 
 **Multi-agent / Profiles:**
 
-Each SHADOW profile gets its own Honcho AI peer while sharing the same workspace -- all profiles see the same user representation, but each agent builds its own identity and observations.
+Each YOUSEF SHTIWE profile gets its own Honcho AI peer while sharing the same workspace -- all profiles see the same user representation, but each agent builds its own identity and observations.
 
 ```bash
-shadow profile create coder --clone   # creates honcho peer "coder", inherits config from default
+yousef shtiwe profile create coder --clone   # creates honcho peer "coder", inherits config from default
 ```
 
-What `--clone` does: creates a `shadow.coder` host block in `honcho.json` with `aiPeer: "coder"`, shared `workspace`, inherited `peerName`, `recallMode`, `writeFrequency`, `observation`, etc. The peer is eagerly created in Honcho so it exists before first message.
+What `--clone` does: creates a `yousef shtiwe.coder` host block in `honcho.json` with `aiPeer: "coder"`, shared `workspace`, inherited `peerName`, `recallMode`, `writeFrequency`, `observation`, etc. The peer is eagerly created in Honcho so it exists before first message.
 
 For profiles created before Honcho was set up:
 
 ```bash
-shadow honcho sync   # scans all profiles, creates host blocks for any missing ones
+yousef shtiwe honcho sync   # scans all profiles, creates host blocks for any missing ones
 ```
 
-This inherits settings from the default `shadow` host block and creates new AI peers for each profile. Idempotent -- skips profiles that already have a host block.
+This inherits settings from the default `yousef shtiwe` host block and creates new AI peers for each profile. Idempotent -- skips profiles that already have a host block.
 
 <details>
 <summary>Full honcho.json example (multi-profile)</summary>
@@ -148,13 +148,13 @@ This inherits settings from the default `shadow` host block and creates new AI p
 ```json
 {
   "apiKey": "your-key",
-  "workspace": "shadow",
+  "workspace": "yousef shtiwe",
   "peerName": "eri",
   "hosts": {
-    "shadow": {
+    "yousef shtiwe": {
       "enabled": true,
-      "aiPeer": "shadow",
-      "workspace": "shadow",
+      "aiPeer": "yousef shtiwe",
+      "workspace": "yousef shtiwe",
       "peerName": "eri",
       "recallMode": "hybrid",
       "writeFrequency": "async",
@@ -169,10 +169,10 @@ This inherits settings from the default `shadow` host block and creates new AI p
       "messageMaxChars": 25000,
       "saveMessages": true
     },
-    "shadow.coder": {
+    "yousef shtiwe.coder": {
       "enabled": true,
       "aiPeer": "coder",
-      "workspace": "shadow",
+      "workspace": "yousef shtiwe",
       "peerName": "eri",
       "recallMode": "tools",
       "observation": {
@@ -180,10 +180,10 @@ This inherits settings from the default `shadow` host block and creates new AI p
         "ai": { "observeMe": true, "observeOthers": true }
       }
     },
-    "shadow.writer": {
+    "yousef shtiwe.writer": {
       "enabled": true,
       "aiPeer": "writer",
-      "workspace": "shadow",
+      "workspace": "yousef shtiwe",
       "peerName": "eri"
     }
   },
@@ -195,7 +195,7 @@ This inherits settings from the default `shadow` host block and creates new AI p
 
 </details>
 
-See the [config reference](https://github.com/shadow-ai/shadow-agent/blob/main/plugins/memory/honcho/README.md) and [Honcho integration guide](https://docs.honcho.dev/v3/guides/integrations/shadow).
+See the [config reference](https://github.com/yousef shtiwe-ai/yousef shtiwe-agent/blob/main/plugins/memory/honcho/README.md) and [Honcho integration guide](https://docs.honcho.dev/v3/guides/integrations/yousef shtiwe).
 
 
 ---
@@ -219,11 +219,11 @@ Context database by Volcengine (ByteDance) with filesystem-style knowledge hiera
 pip install openviking
 openviking-server
 
-# Then configure SHADOW
-shadow memory setup    # select "openviking"
+# Then configure YOUSEF SHTIWE
+yousef shtiwe memory setup    # select "openviking"
 # Or manually:
-shadow config set memory.provider openviking
-echo "OPENVIKING_ENDPOINT=http://localhost:1933" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider openviking
+echo "OPENVIKING_ENDPOINT=http://localhost:1933" >> ~/.yousef shtiwe/.env
 ```
 
 **Key features:**
@@ -248,18 +248,18 @@ Server-side LLM fact extraction with semantic search, reranking, and automatic d
 
 **Setup:**
 ```bash
-shadow memory setup    # select "mem0"
+yousef shtiwe memory setup    # select "mem0"
 # Or manually:
-shadow config set memory.provider mem0
-echo "MEM0_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider mem0
+echo "MEM0_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
-**Config:** `$SHADOW_HOME/mem0.json`
+**Config:** `$YOUSEF SHTIWE_HOME/mem0.json`
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `user_id` | `shadow-user` | User identifier |
-| `agent_id` | `shadow` | Agent identifier |
+| `user_id` | `yousef shtiwe-user` | User identifier |
+| `agent_id` | `yousef shtiwe` | Agent identifier |
 
 ---
 
@@ -278,31 +278,31 @@ Long-term memory with knowledge graph, entity resolution, and multi-strategy ret
 
 **Setup:**
 ```bash
-shadow memory setup    # select "hindsight"
+yousef shtiwe memory setup    # select "hindsight"
 # Or manually:
-shadow config set memory.provider hindsight
-echo "HINDSIGHT_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider hindsight
+echo "HINDSIGHT_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 The setup wizard installs dependencies automatically and only installs what's needed for the selected mode (`hindsight-client` for cloud, `hindsight-all` for local). Requires `hindsight-client >= 0.4.22` (auto-upgraded on session start if outdated).
 
-**Local mode UI:** `hindsight-embed -p shadow ui start`
+**Local mode UI:** `hindsight-embed -p yousef shtiwe ui start`
 
-**Config:** `$SHADOW_HOME/hindsight/config.json`
+**Config:** `$YOUSEF SHTIWE_HOME/hindsight/config.json`
 
 | Key | Default | Description |
 |-----|---------|-------------|
 | `mode` | `cloud` | `cloud` or `local` |
-| `bank_id` | `shadow` | Memory bank identifier |
+| `bank_id` | `yousef shtiwe` | Memory bank identifier |
 | `recall_budget` | `mid` | Recall thoroughness: `low` / `mid` / `high` |
 | `memory_mode` | `hybrid` | `hybrid` (context + tools), `context` (auto-inject only), `tools` (tools only) |
 | `auto_retain` | `true` | Automatically retain conversation turns |
 | `auto_recall` | `true` | Automatically recall memories before each turn |
-| `retain_async` | `true` | Process retain asynchroshadowly on the server |
+| `retain_async` | `true` | Process retain asynchroyousef shtiwely on the server |
 | `tags` | — | Tags applied when storing memories |
 | `recall_tags` | — | Tags to filter on recall |
 
-See [plugin README](https://github.com/SHADOW-OVERLORD/shadow-agent/blob/main/plugins/memory/hindsight/README.md) for the full configuration reference.
+See [plugin README](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/blob/main/plugins/memory/hindsight/README.md) for the full configuration reference.
 
 ---
 
@@ -321,16 +321,16 @@ Local SQLite fact store with FTS5 full-text search, trust scoring, and HRR (Holo
 
 **Setup:**
 ```bash
-shadow memory setup    # select "holographic"
+yousef shtiwe memory setup    # select "holographic"
 # Or manually:
-shadow config set memory.provider holographic
+yousef shtiwe config set memory.provider holographic
 ```
 
-**Config:** `config.yaml` under `plugins.shadow-memory-store`
+**Config:** `config.yaml` under `plugins.yousef shtiwe-memory-store`
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `db_path` | `$SHADOW_HOME/memory_store.db` | SQLite database path |
+| `db_path` | `$YOUSEF SHTIWE_HOME/memory_store.db` | SQLite database path |
 | `auto_extract` | `false` | Auto-extract facts at session end |
 | `default_trust` | `0.5` | Default trust score (0.0–1.0) |
 
@@ -357,10 +357,10 @@ Cloud memory API with hybrid search (Vector + BM25 + Reranking), 7 memory types,
 
 **Setup:**
 ```bash
-shadow memory setup    # select "retaindb"
+yousef shtiwe memory setup    # select "retaindb"
 # Or manually:
-shadow config set memory.provider retaindb
-echo "RETAINDB_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider retaindb
+echo "RETAINDB_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 ---
@@ -383,15 +383,15 @@ Persistent memory via the `brv` CLI — hierarchical knowledge tree with tiered 
 # Install the CLI first
 curl -fsSL https://byterover.dev/install.sh | sh
 
-# Then configure SHADOW
-shadow memory setup    # select "byterover"
+# Then configure YOUSEF SHTIWE
+yousef shtiwe memory setup    # select "byterover"
 # Or manually:
-shadow config set memory.provider byterover
+yousef shtiwe config set memory.provider byterover
 ```
 
 **Key features:**
 - Automatic pre-compression extraction (saves insights before context compression discards them)
-- Knowledge tree stored at `$SHADOW_HOME/byterover/` (profile-scoped)
+- Knowledge tree stored at `$YOUSEF SHTIWE_HOME/byterover/` (profile-scoped)
 - SOC2 Type II certified cloud sync (optional)
 
 ---
@@ -411,17 +411,17 @@ Semantic long-term memory with profile recall, semantic search, explicit memory 
 
 **Setup:**
 ```bash
-shadow memory setup    # select "supermemory"
+yousef shtiwe memory setup    # select "supermemory"
 # Or manually:
-shadow config set memory.provider supermemory
-echo 'SUPERMEMORY_API_KEY=***' >> ~/.shadow/.env
+yousef shtiwe config set memory.provider supermemory
+echo 'SUPERMEMORY_API_KEY=***' >> ~/.yousef shtiwe/.env
 ```
 
-**Config:** `$SHADOW_HOME/supermemory.json`
+**Config:** `$YOUSEF SHTIWE_HOME/supermemory.json`
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `container_tag` | `shadow` | Container tag used for search and writes. Supports `{identity}` template for profile-scoped tags. |
+| `container_tag` | `yousef shtiwe` | Container tag used for search and writes. Supports `{identity}` template for profile-scoped tags. |
 | `auto_recall` | `true` | Inject relevant memory context before turns |
 | `auto_capture` | `true` | Store cleaned user-assistant turns after each response |
 | `max_recall_results` | `10` | Max recalled items to format into context |
@@ -437,7 +437,7 @@ echo 'SUPERMEMORY_API_KEY=***' >> ~/.shadow/.env
 - Session-end conversation ingest for richer graph-level knowledge building
 - Profile facts injected on first turn and at configurable intervals
 - Trivial message filtering (skips "ok", "thanks", etc.)
-- **Profile-scoped containers** — use `{identity}` in `container_tag` (e.g. `shadow-{identity}` → `shadow-coder`) to isolate memories per SHADOW profile
+- **Profile-scoped containers** — use `{identity}` in `container_tag` (e.g. `yousef shtiwe-{identity}` → `yousef shtiwe-coder`) to isolate memories per YOUSEF SHTIWE profile
 - **Multi-container mode** — enable `enable_custom_container_tags` with a `custom_containers` list to let the agent read/write across named containers. Automatic operations (sync, prefetch) stay on the primary container.
 
 <details>
@@ -445,7 +445,7 @@ echo 'SUPERMEMORY_API_KEY=***' >> ~/.shadow/.env
 
 ```json
 {
-  "container_tag": "shadow",
+  "container_tag": "yousef shtiwe",
   "enable_custom_container_tags": true,
   "custom_containers": ["project-alpha", "shared-knowledge"],
   "custom_container_instructions": "Use project-alpha for coding context."
@@ -475,8 +475,8 @@ echo 'SUPERMEMORY_API_KEY=***' >> ~/.shadow/.env
 
 Each provider's data is isolated per [profile](/docs/user-guide/profiles):
 
-- **Local storage providers** (Holographic, ByteRover) use `$SHADOW_HOME/` paths which differ per profile
-- **Config file providers** (Honcho, Mem0, Hindsight, Supermemory) store config in `$SHADOW_HOME/` so each profile has its own credentials
+- **Local storage providers** (Holographic, ByteRover) use `$YOUSEF SHTIWE_HOME/` paths which differ per profile
+- **Config file providers** (Honcho, Mem0, Hindsight, Supermemory) store config in `$YOUSEF SHTIWE_HOME/` so each profile has its own credentials
 - **Cloud providers** (RetainDB) auto-derive profile-scoped project names
 - **Env var providers** (OpenViking) are configured via each profile's `.env` file
 

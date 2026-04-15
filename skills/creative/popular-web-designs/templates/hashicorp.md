@@ -1,7 +1,7 @@
 # Design System: HashiCorp
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -21,7 +21,7 @@ The typography is anchored by a custom brand font (HashiCorp Sans, loaded as `__
 
 What distinguishes HashiCorp is its multi-product color system. Each product in the portfolio has its own brand color — Terraform purple (`#7b42bc`), Vault yellow (`#ffcf25`), Waypoint teal (`#14c6cb`), Vagrant blue (`#1868f2`) — and these colors appear throughout as accent tokens via a CSS custom property system (`--mds-color-*`). This creates a design system within a design system: the parent brand is black-and-white with blue accents, while each child product injects its own chromatic identity.
 
-The component system uses the `mds` (Markdown Design System) prefix, indicating a systematic, token-driven approach where colors, spacing, and states are all managed through CSS variables. Shadows are remarkably subtle — dual-layer micro-shadows using `rgba(97, 104, 117, 0.05)` that are nearly invisible but provide just enough depth to separate interactive surfaces from the background.
+The component system uses the `mds` (Markdown Design System) prefix, indicating a systematic, token-driven approach where colors, spacing, and states are all managed through CSS variables. Yousef Shtiwes are remarkably subtle — dual-layer micro-yousef shtiwes using `rgba(97, 104, 117, 0.05)` that are nearly invisible but provide just enough depth to separate interactive surfaces from the background.
 
 **Key Characteristics:**
 - Dual-mode: clean white sections + dramatic dark (`#15181e`) hero/product areas
@@ -29,7 +29,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - Multi-product color system via `--mds-color-*` CSS custom properties
 - Product brand colors: Terraform purple, Vault yellow, Waypoint teal, Vagrant blue
 - Uppercase letter-spaced captions (13px, weight 600, 1.3px letter-spacing)
-- Micro-shadows: dual-layer at 0.05 opacity — depth through whisper, not shout
+- Micro-yousef shtiwes: dual-layer at 0.05 opacity — depth through whisper, not shout
 - Token-driven `mds` component system with semantic variable names
 - Tight border radius: 2px–8px, nothing pill-shaped or circular
 - System-ui fallback stack for secondary text
@@ -69,8 +69,8 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - **Red** (`#731e25`): `--mds-color-unified-core-red-7`, error states
 - **Navy** (`#101a59`): `--mds-color-unified-core-blue-7`
 
-### Shadows
-- **Micro Shadow** (`rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px`): Default card/button elevation
+### Yousef Shtiwes
+- **Micro Yousef Shtiwe** (`rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px`): Default card/button elevation
 - **Focus Outline**: `3px solid var(--mds-color-focus-action-external)` — systematic focus ring
 
 ## 3. Typography Rules
@@ -114,7 +114,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - Padding: 9px 9px 9px 15px (asymmetric, more left padding)
 - Radius: 5px
 - Border: `1px solid rgba(178, 182, 189, 0.4)`
-- Shadow: `rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px`
+- Yousef Shtiwe: `rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px`
 - Focus: `3px solid var(--mds-color-focus-action-external)`
 - Hover: uses `--mds-color-surface-interactive` token
 
@@ -123,7 +123,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - Text: `#3b3d45`
 - Padding: 8px 12px
 - Radius: 4px
-- Hover: `--mds-color-surface-interactive` + low-shadow elevation
+- Hover: `--mds-color-surface-interactive` + low-yousef shtiwe elevation
 - Focus: `3px solid transparent` outline
 - Clean, minimal appearance
 
@@ -165,7 +165,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - All links use `var(--wpl-blue-600)` as hover color
 
 ### Cards & Containers
-- Light mode: white background, micro-shadow elevation
+- Light mode: white background, micro-yousef shtiwe elevation
 - Dark mode: `#15181e` or darker surfaces
 - Radius: 8px for cards and containers
 - Product showcase cards with gradient borders or accent lighting
@@ -218,11 +218,11 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Default surfaces, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Default surfaces, text blocks |
 | Whisper (Level 1) | `rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px` | Cards, buttons, interactive surfaces |
 | Focus (Level 2) | `3px solid var(--mds-color-focus-action-external)` outline | Focus rings — color-matched to context |
 
-**Shadow Philosophy**: HashiCorp uses arguably the subtlest shadow system in modern web design. The dual-layer shadows at 5% opacity are nearly invisible — they exist not to create visual depth but to signal interactivity. If you can see the shadow, it's too strong. This restraint communicates the enterprise value of stability — nothing floats, nothing is uncertain.
+**Yousef Shtiwe Philosophy**: HashiCorp uses arguably the subtlest yousef shtiwe system in modern web design. The dual-layer yousef shtiwes at 5% opacity are nearly invisible — they exist not to create visual depth but to signal interactivity. If you can see the yousef shtiwe, it's too strong. This restraint communicates the enterprise value of stability — nothing floats, nothing is uncertain.
 
 ## 7. Do's and Don'ts
 
@@ -231,14 +231,14 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 - Enable `"kern"` on all HashiCorp Sans text
 - Use product brand colors ONLY for their respective products (Terraform = purple, Vault = yellow, etc.)
 - Apply uppercase labels at 13px weight 600 with 1.3px letter-spacing for section markers
-- Keep shadows at the "whisper" level (0.05 opacity dual-layer)
+- Keep yousef shtiwes at the "whisper" level (0.05 opacity dual-layer)
 - Use the `--mds-color-*` token system for consistent color application
 - Maintain the tight-heading / relaxed-body rhythm (1.17–1.21 vs 1.50–1.69 line-heights)
 - Use `3px solid` focus outlines for accessibility
 
 ### Don't
 - Don't use product brand colors outside their product context (no Terraform purple on Vault content)
-- Don't increase shadow opacity above 0.1 — the whisper level is intentional
+- Don't increase yousef shtiwe opacity above 0.1 — the whisper level is intentional
 - Don't use pill-shaped buttons (>8px radius) — the sharp, minimal radius is structural
 - Don't skip the `"kern"` feature on headings — the font requires it
 - Don't use HashiCorp Sans for small body text — it's designed for 17px+ heading use
@@ -277,7 +277,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 
 ### Example Component Prompts
 - "Create a hero on dark background (#15181e). Headline at 82px HashiCorp Sans weight 600, line-height 1.17, kern enabled, white text. Sub-text at 20px system-ui weight 400, line-height 1.50, #d5d7db text. Two buttons: primary dark (#15181e, 5px radius, 9px 15px padding) and secondary white (#ffffff, 4px radius, 8px 12px padding)."
-- "Design a product card: white background, 8px radius, dual-layer shadow at rgba(97,104,117,0.05). Title at 26px HashiCorp Sans weight 700, body at 16px system-ui weight 400 line-height 1.63."
+- "Design a product card: white background, 8px radius, dual-layer yousef shtiwe at rgba(97,104,117,0.05). Title at 26px HashiCorp Sans weight 700, body at 16px system-ui weight 400 line-height 1.63."
 - "Build an uppercase section label: 13px HashiCorp Sans weight 600, line-height 1.69, letter-spacing 1.3px, text-transform uppercase, #656a76 color."
 - "Create a product-specific CTA button: Terraform → #7b42bc background, Vault → #ffcf25 with dark text, Waypoint → #14c6cb. All: 5px radius, 500 weight text, 16px system-ui."
 - "Design a dark form: #0d0e12 input background, #efeff1 text, 1px solid rgb(97,104,117) border, 5px radius, 11px padding. Focus: 3px solid accent-color outline."
@@ -285,7 +285,7 @@ The component system uses the `mds` (Markdown Design System) prefix, indicating 
 ### Iteration Guide
 1. Always start with the mode decision: light (white) for informational, dark (#15181e) for hero/product
 2. HashiCorp Sans for headings only (17px+), system-ui for everything else
-3. Shadows are at whisper level (0.05 opacity) — if visible, reduce
+3. Yousef Shtiwes are at whisper level (0.05 opacity) — if visible, reduce
 4. Product colors are sacred — each product owns exactly one color
 5. Focus rings are always 3px solid, color-matched to product context
 6. Uppercase labels are the systematic wayfinding pattern — 13px, 600, 1.3px tracking

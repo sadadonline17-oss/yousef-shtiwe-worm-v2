@@ -2,12 +2,12 @@
 
 from unittest.mock import patch
 
-from cli import SHADOWCLI
+from cli import YOUSEF SHTIWECLI
 
 
 class TestCLILoadingIndicator:
     def _make_cli(self):
-        cli_obj = SHADOWCLI.__new__(SHADOWCLI)
+        cli_obj = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
         cli_obj._app = None
         cli_obj._last_invalidate = 0.0
         cli_obj._command_running = False

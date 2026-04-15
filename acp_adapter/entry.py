@@ -1,6 +1,6 @@
-"""CLI entry point for the shadow-agent ACP adapter.
+"""CLI entry point for the yousef shtiwe-agent ACP adapter.
 
-Loads environment variables from ``~/.shadow/.env``, configures logging
+Loads environment variables from ``~/.yousef shtiwe/.env``, configures logging
 to write to stderr (so stdout is reserved for ACP JSON-RPC transport),
 and starts the ACP agent server.
 
@@ -8,16 +8,16 @@ Usage::
 
     python -m acp_adapter.entry
     # or
-    shadow acp
+    yousef shtiwe acp
     # or
-    shadow-acp
+    yousef shtiwe-acp
 """
 
 import asyncio
 import logging
 import sys
 from pathlib import Path
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 
 
 def _setup_logging() -> None:
@@ -41,17 +41,17 @@ def _setup_logging() -> None:
 
 
 def _load_env() -> None:
-    """Load .env from SHADOW_HOME (default ``~/.shadow``)."""
-    from shadow_cli.env_loader import load_shadow_dotenv
+    """Load .env from YOUSEF SHTIWE_HOME (default ``~/.yousef shtiwe``)."""
+    from yousef shtiwe_cli.env_loader import load_yousef shtiwe_dotenv
 
-    shadow_home = get_shadow_home()
-    loaded = load_shadow_dotenv(shadow_home=shadow_home)
+    yousef shtiwe_home = get_yousef shtiwe_home()
+    loaded = load_yousef shtiwe_dotenv(yousef shtiwe_home=yousef shtiwe_home)
     if loaded:
         for env_file in loaded:
             logging.getLogger(__name__).info("Loaded env from %s", env_file)
     else:
         logging.getLogger(__name__).info(
-            "No .env found at %s, using system env", shadow_home / ".env"
+            "No .env found at %s, using system env", yousef shtiwe_home / ".env"
         )
 
 
@@ -61,7 +61,7 @@ def main() -> None:
     _load_env()
 
     logger = logging.getLogger(__name__)
-    logger.info("Starting shadow-agent ACP adapter")
+    logger.info("Starting yousef shtiwe-agent ACP adapter")
 
     # Ensure the project root is on sys.path so ``from run_agent import AIAgent`` works
     project_root = str(Path(__file__).resolve().parent.parent)
@@ -69,9 +69,9 @@ def main() -> None:
         sys.path.insert(0, project_root)
 
     import acp
-    from .server import SHADOWACPAgent
+    from .server import YOUSEF SHTIWEACPAgent
 
-    agent = SHADOWACPAgent()
+    agent = YOUSEF SHTIWEACPAgent()
     try:
         asyncio.run(acp.run_agent(agent, use_unstable_protocol=True))
     except KeyboardInterrupt:

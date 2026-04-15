@@ -553,8 +553,8 @@ class QQAdapter(BasePlatformAdapter):
                 "shard": [0, 1],
                 "properties": {
                     "$os": "macOS",
-                    "$browser": "shadow-agent",
-                    "$device": "shadow-agent",
+                    "$browser": "yousef shtiwe-agent",
+                    "$device": "yousef shtiwe-agent",
                 },
             },
         }
@@ -599,7 +599,7 @@ class QQAdapter(BasePlatformAdapter):
         """Schedule a coroutine, silently skipping if no event loop is running.
 
         This avoids ``RuntimeError: no running event loop`` when tests call
-        ``_dispatch_payload`` synchroshadowly outside of ``asyncio.run()``.
+        ``_dispatch_payload`` synchroyousef shtiwely outside of ``asyncio.run()``.
         """
         try:
             loop = asyncio.get_running_loop()
@@ -608,7 +608,7 @@ class QQAdapter(BasePlatformAdapter):
             return None
 
     def _dispatch_payload(self, payload: Dict[str, Any]) -> None:
-        """Route inbound WebSocket payloads (dispatch synchroshadowly, spawn async handlers)."""
+        """Route inbound WebSocket payloads (dispatch synchroyousef shtiwely, spawn async handlers)."""
         op = payload.get("op")
         t = payload.get("t")
         s = payload.get("s")
@@ -1346,7 +1346,7 @@ class QQAdapter(BasePlatformAdapter):
                         "model": model or ("glm-asr" if provider in ("zai", "glm") else "whisper-1"),
                     }
 
-        # 2. QQ-specific env vars (set by `shadow setup gateway` / `shadow gateway`)
+        # 2. QQ-specific env vars (set by `yousef shtiwe setup gateway` / `yousef shtiwe gateway`)
         qq_stt_key = os.getenv("QQ_STT_API_KEY", "")
         if qq_stt_key:
             base_url = os.getenv(

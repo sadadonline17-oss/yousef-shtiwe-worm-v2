@@ -2,10 +2,10 @@
 name: test-driven-development
 description: Use when implementing any feature or bugfix, before writing implementation code. Enforces RED-GREEN-REFACTOR cycle with test-first approach.
 version: 1.1.0
-author: SHADOW Agent (adapted from obra/superpowers)
+author: YOUSEF SHTIWE Agent (adapted from obra/superpowers)
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [testing, tdd, development, quality, red-green-refactor]
     related_skills: [systematic-debugging, writing-plans, subagent-driven-development]
 ---
@@ -279,7 +279,7 @@ Can't check all boxes? You skipped TDD. Start over.
 | Must mock everything | Code too coupled. Use dependency injection. |
 | Test setup huge | Extract helpers. Still complex? Simplify the design. |
 
-## SHADOW Agent Integration
+## YOUSEF SHTIWE Agent Integration
 
 ### Running Tests
 

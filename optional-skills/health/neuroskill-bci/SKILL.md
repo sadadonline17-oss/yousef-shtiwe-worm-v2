@@ -7,10 +7,10 @@ description: >
   Requires a BCI wearable (Muse 2/S or OpenBCI) and the NeuroSkill desktop app
   running locally.
 version: 1.0.0
-author: SHADOW Agent + SHADOW-OVERLORD
+author: YOUSEF SHTIWE Agent + YOUSEF SHTIWE-OVERLORD
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [BCI, neurofeedback, health, focus, EEG, cognitive-state, biometrics, neuroskill]
     category: health
     related_skills: []
@@ -18,7 +18,7 @@ metadata:
 
 # NeuroSkill BCI Integration
 
-Connect SHADOW to a running [NeuroSkill](https://neuroskill.com/) instance to read
+Connect YOUSEF SHTIWE to a running [NeuroSkill](https://neuroskill.com/) instance to read
 real-time brain and body metrics from a BCI wearable. Use this to give
 cognitively-aware responses, suggest interventions, and track mental performance
 over time.

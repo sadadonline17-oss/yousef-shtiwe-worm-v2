@@ -1,7 +1,7 @@
 # Design System: Lovable
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -25,10 +25,10 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Warm parchment background (`#f7f4ed`) — not white, not beige, a deliberate cream that feels hand-selected
 - Camera Plain Variable typeface with humanist warmth and editorial letter-spacing at display sizes
 - Opacity-driven color system: all grays derived from `#1c1c1c` at varying transparency levels
-- Inset shadow technique on buttons: `rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset`
+- Inset yousef shtiwe technique on buttons: `rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset`
 - Warm neutral border palette: `#eceae4` for subtle, `rgba(28,28,28,0.4)` for interactive elements
 - Full-pill radius (`9999px`) used extensively for action buttons and icon containers
-- Focus state uses `rgba(0,0,0,0.1) 0px 4px 12px` shadow for soft, warm emphasis
+- Focus state uses `rgba(0,0,0,0.1) 0px 4px 12px` yousef shtiwe for soft, warm emphasis
 - shadcn/ui + Radix UI component primitives with Tailwind CSS utility styling
 
 ## 2. Color Palette & Roles
@@ -53,10 +53,10 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 ### Interactive
 - **Ring Blue** (`#3b82f6` at 50% opacity): `--tw-ring-color`, Tailwind focus ring.
-- **Focus Shadow** (`rgba(0,0,0,0.1) 0px 4px 12px`): Focus and active state shadow — soft, warm, diffused.
+- **Focus Yousef Shtiwe** (`rgba(0,0,0,0.1) 0px 4px 12px`): Focus and active state yousef shtiwe — soft, warm, diffused.
 
-### Inset Shadows
-- **Button Inset** (`rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`): The signature multi-layer inset shadow on dark buttons.
+### Inset Yousef Shtiwes
+- **Button Inset** (`rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`): The signature multi-layer inset yousef shtiwe on dark buttons.
 
 ## 3. Typography Rules
 
@@ -92,14 +92,14 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 ### Buttons
 
-**Primary Dark (Inset Shadow)**
+**Primary Dark (Inset Yousef Shtiwe)**
 - Background: `#1c1c1c`
 - Text: `#fcfbf8`
 - Padding: 8px 16px
 - Radius: 6px
-- Shadow: `rgba(0,0,0,0) 0px 0px 0px 0px, rgba(0,0,0,0) 0px 0px 0px 0px, rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`
+- Yousef Shtiwe: `rgba(0,0,0,0) 0px 0px 0px 0px, rgba(0,0,0,0) 0px 0px 0px 0px, rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px 0px`
 - Active: opacity 0.8
-- Focus: `rgba(0,0,0,0.1) 0px 4px 12px` shadow
+- Focus: `rgba(0,0,0,0.1) 0px 4px 12px` yousef shtiwe
 - Use: Primary CTA ("Start Building", "Get Started")
 
 **Ghost / Outline**
@@ -109,7 +109,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Radius: 6px
 - Border: `1px solid rgba(28,28,28,0.4)`
 - Active: opacity 0.8
-- Focus: `rgba(0,0,0,0.1) 0px 4px 12px` shadow
+- Focus: `rgba(0,0,0,0.1) 0px 4px 12px` yousef shtiwe
 - Use: Secondary actions ("Log In", "Documentation")
 
 **Cream Surface**
@@ -125,7 +125,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Background: `#f7f4ed`
 - Text: `#1c1c1c`
 - Radius: 9999px (full pill)
-- Shadow: same inset pattern as primary dark
+- Yousef Shtiwe: same inset pattern as primary dark
 - Opacity: 0.5 (default), 0.8 (active)
 - Use: Additional actions, plan mode toggle, voice recording
 
@@ -133,7 +133,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Background: `#f7f4ed` (matches page)
 - Border: `1px solid #eceae4`
 - Radius: 12px (standard), 16px (featured), 8px (compact)
-- No box-shadow by default — borders define boundaries
+- No box-yousef shtiwe by default — borders define boundaries
 - Image cards: `1px solid #eceae4` with 12px radius
 
 ### Inputs & Forms
@@ -148,7 +148,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Clean horizontal nav on cream background, fixed
 - Logo/wordmark left-aligned (128.75 x 22px)
 - Links: Camera Plain 14–16px weight 400, `#1c1c1c` text
-- CTA: dark button with inset shadow, 6px radius
+- CTA: dark button with inset yousef shtiwe, 6px radius
 - Mobile: hamburger menu with 6px radius button
 - Subtle border or no border on scroll
 
@@ -175,7 +175,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 **Template Gallery**
 - Card grid showing project templates
 - Each card: image + title, `1px solid #eceae4` border, 12px radius
-- Hover: subtle shadow or border darkening
+- Hover: subtle yousef shtiwe or border darkening
 - Category labels as text links
 
 **Stats Bar**
@@ -214,13 +214,13 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, cream background | Page surface, most content |
+| Flat (Level 0) | No yousef shtiwe, cream background | Page surface, most content |
 | Bordered (Level 1) | `1px solid #eceae4` | Cards, images, dividers |
 | Inset (Level 2) | `rgba(255,255,255,0.2) 0px 0.5px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.05) 0px 1px 2px` | Dark buttons, primary actions |
 | Focus (Level 3) | `rgba(0,0,0,0.1) 0px 4px 12px` | Active/focus states |
 | Ring (Accessibility) | `rgba(59,130,246,0.5)` 2px ring | Keyboard focus on inputs |
 
-**Shadow Philosophy**: Lovable's depth system is intentionally shallow. Instead of floating cards with dramatic drop-shadows, the system relies on warm borders (`#eceae4`) against the cream surface to create gentle containment. The only notable shadow pattern is the inset shadow on dark buttons — a subtle multi-layer technique where a white highlight line sits at the top edge while a dark ring and soft drop handle the bottom. This creates a tactile, pressed-into-surface feeling rather than a hovering-above-surface feeling. The warm focus shadow (`rgba(0,0,0,0.1) 0px 4px 12px`) is deliberately diffused and large, creating a soft glow rather than a sharp outline.
+**Yousef Shtiwe Philosophy**: Lovable's depth system is intentionally shallow. Instead of floating cards with dramatic drop-yousef shtiwes, the system relies on warm borders (`#eceae4`) against the cream surface to create gentle containment. The only notable yousef shtiwe pattern is the inset yousef shtiwe on dark buttons — a subtle multi-layer technique where a white highlight line sits at the top edge while a dark ring and soft drop handle the bottom. This creates a tactile, pressed-into-surface feeling rather than a hovering-above-surface feeling. The warm focus yousef shtiwe (`rgba(0,0,0,0.1) 0px 4px 12px`) is deliberately diffused and large, creating a soft glow rather than a sharp outline.
 
 ### Decorative Depth
 - Hero: soft, warm multi-color gradient wash (pinks, oranges, blues) behind hero — atmospheric, barely visible
@@ -233,19 +233,19 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Use the warm cream background (`#f7f4ed`) as the page foundation — it's the brand's signature warmth
 - Use Camera Plain Variable at display sizes with negative letter-spacing (-0.9px to -1.5px)
 - Derive all grays from `#1c1c1c` at varying opacity levels for tonal unity
-- Use the inset shadow technique on dark buttons for tactile depth
-- Use `#eceae4` borders instead of shadows for card containment
+- Use the inset yousef shtiwe technique on dark buttons for tactile depth
+- Use `#eceae4` borders instead of yousef shtiwes for card containment
 - Keep the weight system narrow: 400 for body/UI, 600 for headings
 - Use full-pill radius (9999px) only for action pills and icon buttons
 - Apply opacity 0.8 on active states for responsive tactile feedback
 
 ### Don't
 - Don't use pure white (`#ffffff`) as a page background — the cream is intentional
-- Don't use heavy box-shadows for cards — borders are the containment mechanism
+- Don't use heavy box-yousef shtiwes for cards — borders are the containment mechanism
 - Don't introduce saturated accent colors — the palette is intentionally warm-neutral
 - Don't use weight 700 (bold) — 600 is the maximum weight in the system
 - Don't apply 9999px radius on rectangular buttons — pills are for icon/action toggles
-- Don't use sharp focus outlines — the system uses soft shadow-based focus indicators
+- Don't use sharp focus outlines — the system uses soft yousef shtiwe-based focus indicators
 - Don't mix border styles — `#eceae4` for passive, `rgba(28,28,28,0.4)` for interactive
 - Don't increase letter-spacing on headings — Camera Plain is designed to run tight at scale
 
@@ -295,17 +295,17 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Button text on dark: `#fcfbf8`
 
 ### Example Component Prompts
-- "Create a hero section on cream background (#f7f4ed). Headline at 60px Camera Plain Variable weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Dark CTA button (#1c1c1c bg, #fcfbf8 text, 6px radius, 8px 16px padding, inset shadow) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
-- "Design a card on cream (#f7f4ed) background. Border: 1px solid #eceae4. Radius 12px. No box-shadow. Title at 20px Camera Plain Variable weight 400, line-height 1.25, color #1c1c1c. Body at 14px weight 400, color #5f5f5d."
+- "Create a hero section on cream background (#f7f4ed). Headline at 60px Camera Plain Variable weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Dark CTA button (#1c1c1c bg, #fcfbf8 text, 6px radius, 8px 16px padding, inset yousef shtiwe) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
+- "Design a card on cream (#f7f4ed) background. Border: 1px solid #eceae4. Radius 12px. No box-yousef shtiwe. Title at 20px Camera Plain Variable weight 400, line-height 1.25, color #1c1c1c. Body at 14px weight 400, color #5f5f5d."
 - "Build a template gallery: grid of cards with 12px radius, 1px solid #eceae4 border, cream backgrounds. Each card: image with 12px top radius, title below. Hover: subtle border darkening."
-- "Create navigation: sticky on cream (#f7f4ed). Camera Plain 16px weight 400 for links, #1c1c1c text. Dark CTA button right-aligned with inset shadow. Mobile: hamburger menu with 6px radius."
+- "Create navigation: sticky on cream (#f7f4ed). Camera Plain 16px weight 400 for links, #1c1c1c text. Dark CTA button right-aligned with inset yousef shtiwe. Mobile: hamburger menu with 6px radius."
 - "Design a stats section: large numbers at 48px Camera Plain weight 600, letter-spacing -1.2px, #1c1c1c. Labels below at 16px weight 400, #5f5f5d. Horizontal layout with 32px gap."
 
 ### Iteration Guide
 1. Always use cream (`#f7f4ed`) as the base — never pure white
 2. Derive grays from `#1c1c1c` at opacity levels rather than using distinct hex values
-3. Use `#eceae4` borders for containment, not shadows
+3. Use `#eceae4` borders for containment, not yousef shtiwes
 4. Letter-spacing scales with size: -1.5px at 60px, -1.2px at 48px, -0.9px at 36px, normal at 16px
 5. Two weights: 400 (everything except headings) and 600 (headings)
-6. The inset shadow on dark buttons is the signature detail — don't skip it
+6. The inset yousef shtiwe on dark buttons is the signature detail — don't skip it
 7. Camera Plain Variable at weight 480 is for special display moments only

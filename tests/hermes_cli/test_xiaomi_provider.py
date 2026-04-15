@@ -12,7 +12,7 @@ if "dotenv" not in sys.modules:
     fake_dotenv.load_dotenv = lambda *args, **kwargs: None
     sys.modules["dotenv"] = fake_dotenv
 
-from shadow_cli.auth import (
+from yousef shtiwe_cli.auth import (
     PROVIDER_REGISTRY,
     resolve_provider,
     get_api_key_provider_status,
@@ -67,12 +67,12 @@ class TestXiaomiAliases:
         assert resolve_provider(alias) == "xiaomi"
 
     def test_normalize_provider_models_py(self):
-        from shadow_cli.models import normalize_provider
+        from yousef shtiwe_cli.models import normalize_provider
         assert normalize_provider("mimo") == "xiaomi"
         assert normalize_provider("xiaomi-mimo") == "xiaomi"
 
     def test_normalize_provider_providers_py(self):
-        from shadow_cli.providers import normalize_provider
+        from yousef shtiwe_cli.providers import normalize_provider
         assert normalize_provider("mimo") == "xiaomi"
         assert normalize_provider("xiaomi-mimo") == "xiaomi"
 
@@ -145,7 +145,7 @@ class TestXiaomiModelCatalog:
 
     def test_static_model_list_fallback(self):
         """Static _PROVIDER_MODELS fallback must exist for model picker."""
-        from shadow_cli.models import _PROVIDER_MODELS
+        from yousef shtiwe_cli.models import _PROVIDER_MODELS
         assert "xiaomi" in _PROVIDER_MODELS
         models = _PROVIDER_MODELS["xiaomi"]
         assert "mimo-v2-pro" in models
@@ -193,21 +193,21 @@ class TestXiaomiNormalization:
     """Model name normalization — Xiaomi is a direct provider."""
 
     def test_vendor_prefix_mapping(self):
-        from shadow_cli.model_normalize import _VENDOR_PREFIXES
+        from yousef shtiwe_cli.model_normalize import _VENDOR_PREFIXES
         assert _VENDOR_PREFIXES.get("mimo") == "xiaomi"
 
     def test_matching_prefix_strip(self):
         """xiaomi/mimo-v2-pro should normalize to mimo-v2-pro for direct API."""
-        from shadow_cli.model_normalize import _MATCHING_PREFIX_STRIP_PROVIDERS
+        from yousef shtiwe_cli.model_normalize import _MATCHING_PREFIX_STRIP_PROVIDERS
         assert "xiaomi" in _MATCHING_PREFIX_STRIP_PROVIDERS
 
     def test_normalize_strips_provider_prefix(self):
-        from shadow_cli.model_normalize import normalize_model_for_provider
+        from yousef shtiwe_cli.model_normalize import normalize_model_for_provider
         result = normalize_model_for_provider("xiaomi/mimo-v2-pro", "xiaomi")
         assert result == "mimo-v2-pro"
 
     def test_normalize_bare_name_unchanged(self):
-        from shadow_cli.model_normalize import normalize_model_for_provider
+        from yousef shtiwe_cli.model_normalize import normalize_model_for_provider
         result = normalize_model_for_provider("mimo-v2-pro", "xiaomi")
         assert result == "mimo-v2-pro"
 
@@ -251,26 +251,26 @@ class TestXiaomiProvidersModule:
     """Test Xiaomi in the unified providers module."""
 
     def test_overlay_exists(self):
-        from shadow_cli.providers import SHADOW_OVERLAYS
-        assert "xiaomi" in SHADOW_OVERLAYS
-        overlay = SHADOW_OVERLAYS["xiaomi"]
+        from yousef shtiwe_cli.providers import YOUSEF SHTIWE_OVERLAYS
+        assert "xiaomi" in YOUSEF SHTIWE_OVERLAYS
+        overlay = YOUSEF SHTIWE_OVERLAYS["xiaomi"]
         assert overlay.transport == "openai_chat"
         assert overlay.base_url_env_var == "XIAOMI_BASE_URL"
         assert not overlay.is_aggregator
 
     def test_alias_resolves(self):
-        from shadow_cli.providers import normalize_provider
+        from yousef shtiwe_cli.providers import normalize_provider
         assert normalize_provider("mimo") == "xiaomi"
         assert normalize_provider("xiaomi-mimo") == "xiaomi"
 
     def test_label(self):
-        from shadow_cli.providers import get_label
+        from yousef shtiwe_cli.providers import get_label
         assert get_label("xiaomi") == "Xiaomi MiMo"
 
     def test_get_provider(self):
         pdef = None
         try:
-            from shadow_cli.providers import get_provider
+            from yousef shtiwe_cli.providers import get_provider
             pdef = get_provider("xiaomi")
         except Exception:
             pass
@@ -305,10 +305,10 @@ class TestXiaomiAuxiliary:
 
 
 class TestXiaomiDoctor:
-    """Verify shadow doctor recognizes Xiaomi env vars."""
+    """Verify yousef shtiwe doctor recognizes Xiaomi env vars."""
 
     def test_provider_env_hints(self):
-        from shadow_cli.doctor import _PROVIDER_ENV_HINTS
+        from yousef shtiwe_cli.doctor import _PROVIDER_ENV_HINTS
         assert "XIAOMI_API_KEY" in _PROVIDER_ENV_HINTS
 
 
@@ -321,7 +321,7 @@ class TestXiaomiAgentInit:
         importlib.import_module("run_agent")
 
     def test_api_mode_is_chat_completions(self):
-        from shadow_cli.providers import SHADOW_OVERLAYS, TRANSPORT_TO_API_MODE
-        overlay = SHADOW_OVERLAYS["xiaomi"]
+        from yousef shtiwe_cli.providers import YOUSEF SHTIWE_OVERLAYS, TRANSPORT_TO_API_MODE
+        overlay = YOUSEF SHTIWE_OVERLAYS["xiaomi"]
         api_mode = TRANSPORT_TO_API_MODE[overlay.transport]
         assert api_mode == "chat_completions"

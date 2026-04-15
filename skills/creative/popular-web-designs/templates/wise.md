@@ -1,7 +1,7 @@
 # Design System: Wise
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -19,7 +19,7 @@ Wise's website is a bold, confident fintech platform that communicates "money wi
 
 The typography uses Wise Sans — a proprietary font used at extreme weight 900 (black) for display headings with a remarkably tight line-height of 0.85 and OpenType `"calt"` (contextual alternates). At 126px, the text is so dense it feels like a protest sign — bold, urgent, and impossible to ignore. Inter serves as the body font with weight 600 as the default for emphasis, creating a consistently confident voice.
 
-What distinguishes Wise is its green-on-white-on-black material palette. Lime Green (`#9fe870`) appears on buttons with dark green text (`#163300`), creating a nature-inspired CTA that feels fresh. Hover states use `scale(1.05)` expansion rather than color changes — buttons physically grow on interaction. The border-radius system uses 9999px for buttons (pill), 30px–40px for cards, and the shadow system is minimal — just `rgba(14,15,12,0.12) 0px 0px 0px 1px` ring shadows.
+What distinguishes Wise is its green-on-white-on-black material palette. Lime Green (`#9fe870`) appears on buttons with dark green text (`#163300`), creating a nature-inspired CTA that feels fresh. Hover states use `scale(1.05)` expansion rather than color changes — buttons physically grow on interaction. The border-radius system uses 9999px for buttons (pill), 30px–40px for cards, and the yousef shtiwe system is minimal — just `rgba(14,15,12,0.12) 0px 0px 0px 1px` ring yousef shtiwes.
 
 **Key Characteristics:**
 - Wise Sans at weight 900, 0.85 line-height — billboard-scale bold headlines
@@ -104,7 +104,7 @@ What distinguishes Wise is its green-on-white-on-black material palette. Lime Gr
 ### Cards & Containers
 - Radius: 16px (small), 30px (medium), 40px (large cards/tables)
 - Border: `1px solid rgba(14,15,12,0.12)` or `1px solid #9fe870` (green accent)
-- Shadow: `rgba(14,15,12,0.12) 0px 0px 0px 1px` (ring shadow)
+- Yousef Shtiwe: `rgba(14,15,12,0.12) 0px 0px 0px 1px` (ring yousef shtiwe)
 
 ### Navigation
 - Green-tinted navigation hover: `rgba(211,242,192,0.4)`
@@ -132,11 +132,11 @@ What distinguishes Wise is its green-on-white-on-black material palette. Lime Gr
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Default |
+| Flat (Level 0) | No yousef shtiwe | Default |
 | Ring (Level 1) | `rgba(14,15,12,0.12) 0px 0px 0px 1px` | Card borders |
 | Inset (Level 2) | `rgb(134,134,133) 0px 0px 0px 1px inset` | Input focus |
 
-**Shadow Philosophy**: Wise uses minimal shadows — ring shadows only. Depth comes from the bold green accent against the neutral canvas.
+**Yousef Shtiwe Philosophy**: Wise uses minimal yousef shtiwes — ring yousef shtiwes only. Depth comes from the bold green accent against the neutral canvas.
 
 ## 7. Do's and Don'ts
 
@@ -153,7 +153,7 @@ What distinguishes Wise is its green-on-white-on-black material palette. Lime Gr
 - Don't relax the 0.85 line-height on display — the density is the identity
 - Don't use the Wise Green as background for large surfaces — it's for buttons and accents
 - Don't skip the scale animation on buttons
-- Don't use traditional shadows — ring shadows only
+- Don't use traditional yousef shtiwes — ring yousef shtiwes only
 
 ## 8. Responsive Behavior
 

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
 title: "Nix & NixOS Setup"
-description: "Install and deploy SHADOW Agent with Nix — from quick `nix run` to fully declarative NixOS module with container mode"
+description: "Install and deploy YOUSEF SHTIWE Agent with Nix — from quick `nix run` to fully declarative NixOS module with container mode"
 ---
 
 # Nix & NixOS Setup
 
-SHADOW Agent ships a Nix flake with three levels of integration:
+YOUSEF SHTIWE Agent ships a Nix flake with three levels of integration:
 
 | Level | Who it's for | What you get |
 |-------|-------------|--------------|
@@ -17,9 +17,9 @@ SHADOW Agent ships a Nix flake with three levels of integration:
 :::info What's different from the standard install
 The `curl | bash` installer manages Python, Node, and dependencies itself. The Nix flake replaces all of that — every Python dependency is a Nix derivation built by [uv2nix](https://github.com/pyproject-nix/uv2nix), and runtime tools (Node.js, git, ripgrep, ffmpeg) are wrapped into the binary's PATH. There is no runtime pip, no venv activation, no `npm install`.
 
-**For non-NixOS users**, this only changes the install step. Everything after (`shadow setup`, `shadow gateway install`, config editing) works identically to the standard install.
+**For non-NixOS users**, this only changes the install step. Everything after (`yousef shtiwe setup`, `yousef shtiwe gateway install`, config editing) works identically to the standard install.
 
-**For NixOS module users**, the entire lifecycle is different: configuration lives in `configuration.nix`, secrets go through sops-nix/agenix, the service is a systemd unit, and CLI config commands are blocked. You manage shadow the same way you manage any other NixOS service.
+**For NixOS module users**, the entire lifecycle is different: configuration lives in `configuration.nix`, secrets go through sops-nix/agenix, the service is a systemd unit, and CLI config commands are blocked. You manage yousef shtiwe the same way you manage any other NixOS service.
 :::
 
 ## Prerequisites
@@ -35,25 +35,25 @@ No clone needed. Nix fetches, builds, and runs everything:
 
 ```bash
 # Run directly (builds on first use, cached after)
-nix run github:SHADOW-OVERLORD/shadow-agent -- setup
-nix run github:SHADOW-OVERLORD/shadow-agent -- chat
+nix run github:YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent -- setup
+nix run github:YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent -- chat
 
 # Or install persistently
-nix profile install github:SHADOW-OVERLORD/shadow-agent
-shadow setup
-shadow chat
+nix profile install github:YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent
+yousef shtiwe setup
+yousef shtiwe chat
 ```
 
-After `nix profile install`, `shadow`, `shadow-agent`, and `shadow-acp` are on your PATH. From here, the workflow is identical to the [standard installation](./installation.md) — `shadow setup` walks you through provider selection, `shadow gateway install` sets up a launchd (macOS) or systemd user service, and config lives in `~/.shadow/`.
+After `nix profile install`, `yousef shtiwe`, `yousef shtiwe-agent`, and `yousef shtiwe-acp` are on your PATH. From here, the workflow is identical to the [standard installation](./installation.md) — `yousef shtiwe setup` walks you through provider selection, `yousef shtiwe gateway install` sets up a launchd (macOS) or systemd user service, and config lives in `~/.yousef shtiwe/`.
 
 <details>
 <summary><strong>Building from a local clone</strong></summary>
 
 ```bash
-git clone https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 nix build
-./result/bin/shadow setup
+./result/bin/yousef shtiwe setup
 ```
 
 </details>
@@ -75,14 +75,14 @@ This module requires NixOS. For non-NixOS systems (macOS, other Linux distros), 
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    shadow-agent.url = "github:SHADOW-OVERLORD/shadow-agent";
+    yousef shtiwe-agent.url = "github:YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent";
   };
 
-  outputs = { nixpkgs, shadow-agent, ... }: {
+  outputs = { nixpkgs, yousef shtiwe-agent, ... }: {
     nixosConfigurations.your-host = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        shadow-agent.nixosModules.default
+        yousef shtiwe-agent.nixosModules.default
         ./configuration.nix
       ];
     };
@@ -95,52 +95,52 @@ This module requires NixOS. For non-NixOS systems (macOS, other Linux distros), 
 ```nix
 # configuration.nix
 { config, ... }: {
-  services.shadow-agent = {
+  services.yousef shtiwe-agent = {
     enable = true;
     settings.model.default = "anthropic/claude-sonnet-4";
-    environmentFiles = [ config.sops.secrets."shadow-env".path ];
+    environmentFiles = [ config.sops.secrets."yousef shtiwe-env".path ];
     addToSystemPackages = true;
   };
 }
 ```
 
-That's it. `nixos-rebuild switch` creates the `shadow` user, generates `config.yaml`, wires up secrets, and starts the gateway — a long-running service that connects the agent to messaging platforms (Telegram, Discord, etc.) and listens for incoming messages.
+That's it. `nixos-rebuild switch` creates the `yousef shtiwe` user, generates `config.yaml`, wires up secrets, and starts the gateway — a long-running service that connects the agent to messaging platforms (Telegram, Discord, etc.) and listens for incoming messages.
 
 :::warning Secrets are required
 The `environmentFiles` line above assumes you have [sops-nix](https://github.com/Mic92/sops-nix) or [agenix](https://github.com/ryantm/agenix) configured. The file should contain at least one LLM provider key (e.g., `OPENROUTER_API_KEY=sk-or-...`). See [Secrets Management](#secrets-management) for full setup. If you don't have a secrets manager yet, you can use a plain file as a starting point — just ensure it's not world-readable:
 
 ```bash
-echo "OPENROUTER_API_KEY=sk-or-your-key" | sudo install -m 0600 -o shadow /dev/stdin /var/lib/shadow/env
+echo "OPENROUTER_API_KEY=sk-or-your-key" | sudo install -m 0600 -o yousef shtiwe /dev/stdin /var/lib/yousef shtiwe/env
 ```
 
 ```nix
-services.shadow-agent.environmentFiles = [ "/var/lib/shadow/env" ];
+services.yousef shtiwe-agent.environmentFiles = [ "/var/lib/yousef shtiwe/env" ];
 ```
 :::
 
 :::tip addToSystemPackages
-Setting `addToSystemPackages = true` does two things: puts the `shadow` CLI on your system PATH **and** sets `SHADOW_HOME` system-wide so the interactive CLI shares state (sessions, skills, cron) with the gateway service. Without it, running `shadow` in your shell creates a separate `~/.shadow/` directory.
+Setting `addToSystemPackages = true` does two things: puts the `yousef shtiwe` CLI on your system PATH **and** sets `YOUSEF SHTIWE_HOME` system-wide so the interactive CLI shares state (sessions, skills, cron) with the gateway service. Without it, running `yousef shtiwe` in your shell creates a separate `~/.yousef shtiwe/` directory.
 :::
 
 :::info Container-aware CLI
-When `container.enable = true` and `addToSystemPackages = true`, **every** `shadow` command on the host automatically routes into the managed container. This means your interactive CLI session runs inside the same environment as the gateway service — with access to all container-installed packages and tools.
+When `container.enable = true` and `addToSystemPackages = true`, **every** `yousef shtiwe` command on the host automatically routes into the managed container. This means your interactive CLI session runs inside the same environment as the gateway service — with access to all container-installed packages and tools.
 
-- The routing is transparent: `shadow chat`, `shadow sessions list`, `shadow version`, etc. all exec into the container under the hood
+- The routing is transparent: `yousef shtiwe chat`, `yousef shtiwe sessions list`, `yousef shtiwe version`, etc. all exec into the container under the hood
 - All CLI flags are forwarded as-is
 - If the container isn't running, the CLI retries briefly (5s with a spinner for interactive use, 10s silently for scripts) then fails with a clear error — no silent fallback
-- For developers working on the shadow codebase, set `SHADOW_DEV=1` to bypass container routing and run the local checkout directly
+- For developers working on the yousef shtiwe codebase, set `YOUSEF SHTIWE_DEV=1` to bypass container routing and run the local checkout directly
 
-Set `container.hostUsers` to create a `~/.shadow` symlink to the service state directory, so the host CLI and the container share sessions, config, and memories:
+Set `container.hostUsers` to create a `~/.yousef shtiwe` symlink to the service state directory, so the host CLI and the container share sessions, config, and memories:
 
 ```nix
-services.shadow-agent = {
+services.yousef shtiwe-agent = {
   container.enable = true;
   container.hostUsers = [ "your-username" ];
   addToSystemPackages = true;
 };
 ```
 
-Users listed in `hostUsers` are automatically added to the `shadow` group for file permission access.
+Users listed in `hostUsers` are automatically added to the `yousef shtiwe` group for file permission access.
 
 **Podman users:** The NixOS service runs the container as root. Docker users get access via the `docker` group socket, but Podman's rootful containers require sudo. Grant passwordless sudo for your container runtime:
 
@@ -154,7 +154,7 @@ security.sudo.extraRules = [{
 }];
 ```
 
-The CLI auto-detects when sudo is needed and uses it transparently. Without this, you'll need to run `sudo shadow chat` manually.
+The CLI auto-detects when sudo is needed and uses it transparently. Without this, you'll need to run `sudo yousef shtiwe chat` manually.
 :::
 
 ### Verify It Works
@@ -163,14 +163,14 @@ After `nixos-rebuild switch`, check that the service is running:
 
 ```bash
 # Check service status
-systemctl status shadow-agent
+systemctl status yousef shtiwe-agent
 
 # Watch logs (Ctrl+C to stop)
-journalctl -u shadow-agent -f
+journalctl -u yousef shtiwe-agent -f
 
 # If addToSystemPackages is true, test the CLI
-shadow version
-shadow config       # shows the generated config
+yousef shtiwe version
+yousef shtiwe config       # shows the generated config
 ```
 
 ### Choosing a Deployment Mode
@@ -189,7 +189,7 @@ To enable container mode, add one line:
 
 ```nix
 {
-  services.shadow-agent = {
+  services.yousef shtiwe-agent = {
     enable = true;
     container.enable = true;
     # ... rest of config is identical
@@ -211,14 +211,14 @@ The `settings` option accepts an arbitrary attrset that is rendered as `config.y
 
 ```nix
 # base.nix
-services.shadow-agent.settings = {
+services.yousef shtiwe-agent.settings = {
   model.default = "anthropic/claude-sonnet-4";
   toolsets = [ "all" ];
   terminal = { backend = "local"; timeout = 180; };
 };
 
 # personality.nix
-services.shadow-agent.settings = {
+services.yousef shtiwe-agent.settings = {
   display = { compact = false; personality = "kawaii"; };
   memory = { memory_enabled = true; user_profile_enabled = true; };
 };
@@ -227,7 +227,7 @@ services.shadow-agent.settings = {
 Both are deep-merged at evaluation time. Nix-declared keys always win over keys in an existing `config.yaml` on disk, but **user-added keys that Nix doesn't touch are preserved**. This means if the agent or a manual edit adds keys like `skills.disabled` or `streaming.enabled`, they survive `nixos-rebuild switch`.
 
 :::note Model naming
-`settings.model.default` uses the model identifier your provider expects. With [OpenRouter](https://openrouter.ai) (the default), these look like `"anthropic/claude-sonnet-4"` or `"google/gemini-3-flash"`. If you're using a provider directly (Anthropic, OpenAI), set `settings.model.base_url` to point at their API and use their native model IDs (e.g., `"claude-sonnet-4-20250514"`). When no `base_url` is set, SHADOW defaults to OpenRouter.
+`settings.model.default` uses the model identifier your provider expects. With [OpenRouter](https://openrouter.ai) (the default), these look like `"anthropic/claude-sonnet-4"` or `"google/gemini-3-flash"`. If you're using a provider directly (Anthropic, OpenAI), set `settings.model.base_url` to point at their API and use their native model IDs (e.g., `"claude-sonnet-4-20250514"`). When no `base_url` is set, YOUSEF SHTIWE defaults to OpenRouter.
 :::
 
 :::tip Discovering available config keys
@@ -239,7 +239,7 @@ Run `nix build .#configKeys && cat result` to see every leaf config key extracte
 
 ```nix
 { config, ... }: {
-  services.shadow-agent = {
+  services.yousef shtiwe-agent = {
     enable = true;
     container.enable = true;
 
@@ -263,11 +263,11 @@ Run `nix build .#configKeys && cat result` to see every leaf config key extracte
     };
 
     # ── Secrets ────────────────────────────────────────────────────────
-    environmentFiles = [ config.sops.secrets."shadow-env".path ];
+    environmentFiles = [ config.sops.secrets."yousef shtiwe-env".path ];
 
     # ── Documents ──────────────────────────────────────────────────────
     documents = {
-      "SOUL.md" = builtins.readFile /home/user/.shadow/SOUL.md;
+      "SOUL.md" = builtins.readFile /home/user/.yousef shtiwe/SOUL.md;
       "USER.md" = ./documents/USER.md;
     };
 
@@ -302,10 +302,10 @@ Run `nix build .#configKeys && cat result` to see every leaf config key extracte
 If you'd rather manage `config.yaml` entirely outside Nix, use `configFile`:
 
 ```nix
-services.shadow-agent.configFile = /etc/shadow/config.yaml;
+services.yousef shtiwe-agent.configFile = /etc/yousef shtiwe/config.yaml;
 ```
 
-This bypasses `settings` entirely — no merge, no generation. The file is copied as-is to `$SHADOW_HOME/config.yaml` on each activation.
+This bypasses `settings` entirely — no merge, no generation. The file is copied as-is to `$YOUSEF SHTIWE_HOME/config.yaml` on each activation.
 
 ### Customization Cheatsheet
 
@@ -315,7 +315,7 @@ Quick reference for the most common things Nix users want to customize:
 |---|---|---|
 | Change the LLM model | `settings.model.default` | `"anthropic/claude-sonnet-4"` |
 | Use a different provider endpoint | `settings.model.base_url` | `"https://openrouter.ai/api/v1"` |
-| Add API keys | `environmentFiles` | `[ config.sops.secrets."shadow-env".path ]` |
+| Add API keys | `environmentFiles` | `[ config.sops.secrets."yousef shtiwe-env".path ]` |
 | Give the agent a personality | `documents."SOUL.md"` | `builtins.readFile ./my-soul.md` |
 | Add MCP tool servers | `mcpServers.<name>` | See [MCP Servers](#mcp-servers) |
 | Mount host directories into container | `container.extraVolumes` | `[ "/data:/data:rw" ]` |
@@ -324,8 +324,8 @@ Quick reference for the most common things Nix users want to customize:
 | Share state between host CLI and container | `container.hostUsers` | `[ "sidbin" ]` |
 | Add tools to the service PATH (native only) | `extraPackages` | `[ pkgs.pandoc pkgs.imagemagick ]` |
 | Use a custom base image | `container.image` | `"ubuntu:24.04"` |
-| Override the shadow package | `package` | `inputs.shadow-agent.packages.${system}.default.override { ... }` |
-| Change state directory | `stateDir` | `"/opt/shadow"` |
+| Override the yousef shtiwe package | `package` | `inputs.yousef shtiwe-agent.packages.${system}.default.override { ... }` |
+| Change state directory | `stateDir` | `"/opt/yousef shtiwe"` |
 | Set the agent's working directory | `workingDirectory` | `"/home/user/projects"` |
 
 ---
@@ -336,20 +336,20 @@ Quick reference for the most common things Nix users want to customize:
 Values in Nix expressions end up in `/nix/store`, which is world-readable. Always use `environmentFiles` with a secrets manager.
 :::
 
-Both `environment` (non-secret vars) and `environmentFiles` (secret files) are merged into `$SHADOW_HOME/.env` at activation time (`nixos-rebuild switch`). SHADOW reads this file on every startup, so changes take effect with a `systemctl restart shadow-agent` — no container recreation needed.
+Both `environment` (non-secret vars) and `environmentFiles` (secret files) are merged into `$YOUSEF SHTIWE_HOME/.env` at activation time (`nixos-rebuild switch`). YOUSEF SHTIWE reads this file on every startup, so changes take effect with a `systemctl restart yousef shtiwe-agent` — no container recreation needed.
 
 ### sops-nix
 
 ```nix
 {
   sops = {
-    defaultSopsFile = ./secrets/shadow.yaml;
+    defaultSopsFile = ./secrets/yousef shtiwe.yaml;
     age.keyFile = "/home/user/.config/sops/age/keys.txt";
-    secrets."shadow-env" = { format = "yaml"; };
+    secrets."yousef shtiwe-env" = { format = "yaml"; };
   };
 
-  services.shadow-agent.environmentFiles = [
-    config.sops.secrets."shadow-env".path
+  services.yousef shtiwe-agent.environmentFiles = [
+    config.sops.secrets."yousef shtiwe-env".path
   ];
 }
 ```
@@ -357,8 +357,8 @@ Both `environment` (non-secret vars) and `environmentFiles` (secret files) are m
 The secrets file contains key-value pairs:
 
 ```yaml
-# secrets/shadow.yaml (encrypted with sops)
-shadow-env: |
+# secrets/yousef shtiwe.yaml (encrypted with sops)
+yousef shtiwe-env: |
     OPENROUTER_API_KEY=sk-or-...
     TELEGRAM_BOT_TOKEN=123456:ABC...
     ANTHROPIC_API_KEY=sk-ant-...
@@ -368,10 +368,10 @@ shadow-env: |
 
 ```nix
 {
-  age.secrets.shadow-env.file = ./secrets/shadow-env.age;
+  age.secrets.yousef shtiwe-env.file = ./secrets/yousef shtiwe-env.age;
 
-  services.shadow-agent.environmentFiles = [
-    config.age.secrets.shadow-env.path
+  services.yousef shtiwe-agent.environmentFiles = [
+    config.age.secrets.yousef shtiwe-env.path
   ];
 }
 ```
@@ -382,8 +382,8 @@ For platforms requiring OAuth (e.g., Discord), use `authFile` to seed credential
 
 ```nix
 {
-  services.shadow-agent = {
-    authFile = config.sops.secrets."shadow/auth.json".path;
+  services.yousef shtiwe-agent = {
+    authFile = config.sops.secrets."yousef shtiwe/auth.json".path;
     # authFileForceOverwrite = true;  # overwrite on every activation
   };
 }
@@ -395,15 +395,15 @@ The file is only copied if `auth.json` doesn't already exist (unless `authFileFo
 
 ## Documents
 
-The `documents` option installs files into the agent's working directory (the `workingDirectory`, which the agent reads as its workspace). SHADOW looks for specific filenames by convention:
+The `documents` option installs files into the agent's working directory (the `workingDirectory`, which the agent reads as its workspace). YOUSEF SHTIWE looks for specific filenames by convention:
 
-- **`SOUL.md`** — the agent's system prompt / personality. SHADOW reads this on startup and uses it as persistent instructions that shape its behavior across all conversations.
+- **`SOUL.md`** — the agent's system prompt / personality. YOUSEF SHTIWE reads this on startup and uses it as persistent instructions that shape its behavior across all conversations.
 - **`USER.md`** — context about the user the agent is interacting with.
 - Any other files you place here are visible to the agent as workspace files.
 
 ```nix
 {
-  services.shadow-agent.documents = {
+  services.yousef shtiwe-agent.documents = {
     "SOUL.md" = ''
       You are a helpful research assistant specializing in NixOS packaging.
       Always cite sources and prefer reproducible solutions.
@@ -425,7 +425,7 @@ The `mcpServers` option declaratively configures [MCP (Model Context Protocol)](
 
 ```nix
 {
-  services.shadow-agent.mcpServers = {
+  services.yousef shtiwe-agent.mcpServers = {
     filesystem = {
       command = "npx";
       args = [ "-y" "@modelcontextprotocol/server-filesystem" "/data/workspace" ];
@@ -440,14 +440,14 @@ The `mcpServers` option declaratively configures [MCP (Model Context Protocol)](
 ```
 
 :::tip
-Environment variables in `env` values are resolved from `$SHADOW_HOME/.env` at runtime. Use `environmentFiles` to inject secrets — never put tokens directly in Nix config.
+Environment variables in `env` values are resolved from `$YOUSEF SHTIWE_HOME/.env` at runtime. Use `environmentFiles` to inject secrets — never put tokens directly in Nix config.
 :::
 
 ### HTTP Transport (Remote Servers)
 
 ```nix
 {
-  services.shadow-agent.mcpServers.remote-api = {
+  services.yousef shtiwe-agent.mcpServers.remote-api = {
     url = "https://mcp.example.com/v1/mcp";
     headers.Authorization = "Bearer \${MCP_REMOTE_API_KEY}";
     timeout = 180;
@@ -457,34 +457,34 @@ Environment variables in `env` values are resolved from `$SHADOW_HOME/.env` at r
 
 ### HTTP Transport with OAuth
 
-Set `auth = "oauth"` for servers using OAuth 2.1. SHADOW implements the full PKCE flow — metadata discovery, dynamic client registration, token exchange, and automatic refresh.
+Set `auth = "oauth"` for servers using OAuth 2.1. YOUSEF SHTIWE implements the full PKCE flow — metadata discovery, dynamic client registration, token exchange, and automatic refresh.
 
 ```nix
 {
-  services.shadow-agent.mcpServers.my-oauth-server = {
+  services.yousef shtiwe-agent.mcpServers.my-oauth-server = {
     url = "https://mcp.example.com/mcp";
     auth = "oauth";
   };
 }
 ```
 
-Tokens are stored in `$SHADOW_HOME/mcp-tokens/<server-name>.json` and persist across restarts and rebuilds.
+Tokens are stored in `$YOUSEF SHTIWE_HOME/mcp-tokens/<server-name>.json` and persist across restarts and rebuilds.
 
 <details>
 <summary><strong>Initial OAuth authorization on headless servers</strong></summary>
 
-The first OAuth authorization requires a browser-based consent flow. In a headless deployment, SHADOW prints the authorization URL to stdout/logs instead of opening a browser.
+The first OAuth authorization requires a browser-based consent flow. In a headless deployment, YOUSEF SHTIWE prints the authorization URL to stdout/logs instead of opening a browser.
 
-**Option A: Interactive bootstrap** — run the flow once via `docker exec` (container) or `sudo -u shadow` (native):
+**Option A: Interactive bootstrap** — run the flow once via `docker exec` (container) or `sudo -u yousef shtiwe` (native):
 
 ```bash
 # Container mode
-docker exec -it shadow-agent \
-  shadow mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
+docker exec -it yousef shtiwe-agent \
+  yousef shtiwe mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
 
 # Native mode
-sudo -u shadow SHADOW_HOME=/var/lib/shadow/.shadow \
-  shadow mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
+sudo -u yousef shtiwe YOUSEF SHTIWE_HOME=/var/lib/yousef shtiwe/.yousef shtiwe \
+  yousef shtiwe mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
 ```
 
 The container uses `--network=host`, so the OAuth callback listener on `127.0.0.1` is reachable from the host browser.
@@ -492,10 +492,10 @@ The container uses `--network=host`, so the OAuth callback listener on `127.0.0.
 **Option B: Pre-seed tokens** — complete the flow on a workstation, then copy tokens:
 
 ```bash
-shadow mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
-scp ~/.shadow/mcp-tokens/my-oauth-server{,.client}.json \
-    server:/var/lib/shadow/.shadow/mcp-tokens/
-# Ensure: chown shadow:shadow, chmod 0600
+yousef shtiwe mcp add my-oauth-server --url https://mcp.example.com/mcp --auth oauth
+scp ~/.yousef shtiwe/mcp-tokens/my-oauth-server{,.client}.json \
+    server:/var/lib/yousef shtiwe/.yousef shtiwe/mcp-tokens/
+# Ensure: chown yousef shtiwe:yousef shtiwe, chmod 0600
 ```
 
 </details>
@@ -506,7 +506,7 @@ Some MCP servers can request LLM completions from the agent:
 
 ```nix
 {
-  services.shadow-agent.mcpServers.analysis = {
+  services.yousef shtiwe-agent.mcpServers.analysis = {
     command = "npx";
     args = [ "-y" "analysis-server" ];
     sampling = {
@@ -524,20 +524,20 @@ Some MCP servers can request LLM completions from the agent:
 
 ## Managed Mode
 
-When shadow runs via the NixOS module, the following CLI commands are **blocked** with a descriptive error pointing you to `configuration.nix`:
+When yousef shtiwe runs via the NixOS module, the following CLI commands are **blocked** with a descriptive error pointing you to `configuration.nix`:
 
 | Blocked command | Why |
 |---|---|
-| `shadow setup` | Config is declarative — edit `settings` in your Nix config |
-| `shadow config edit` | Config is generated from `settings` |
-| `shadow config set <key> <value>` | Config is generated from `settings` |
-| `shadow gateway install` | The systemd service is managed by NixOS |
-| `shadow gateway uninstall` | The systemd service is managed by NixOS |
+| `yousef shtiwe setup` | Config is declarative — edit `settings` in your Nix config |
+| `yousef shtiwe config edit` | Config is generated from `settings` |
+| `yousef shtiwe config set <key> <value>` | Config is generated from `settings` |
+| `yousef shtiwe gateway install` | The systemd service is managed by NixOS |
+| `yousef shtiwe gateway uninstall` | The systemd service is managed by NixOS |
 
 This prevents drift between what Nix declares and what's on disk. Detection uses two signals:
 
-1. **`SHADOW_MANAGED=true`** environment variable — set by the systemd service, visible to the gateway process
-2. **`.managed` marker file** in `SHADOW_HOME` — set by the activation script, visible to interactive shells (e.g., `docker exec -it shadow-agent shadow config set ...` is also blocked)
+1. **`YOUSEF SHTIWE_MANAGED=true`** environment variable — set by the systemd service, visible to the gateway process
+2. **`.managed` marker file** in `YOUSEF SHTIWE_HOME` — set by the activation script, visible to interactive shells (e.g., `docker exec -it yousef shtiwe-agent yousef shtiwe config set ...` is also blocked)
 
 To change configuration, edit your Nix config and run `sudo nixos-rebuild switch`.
 
@@ -549,25 +549,25 @@ To change configuration, edit your Nix config and run `sudo nixos-rebuild switch
 This section is only relevant if you're using `container.enable = true`. Skip it for native mode deployments.
 :::
 
-When container mode is enabled, shadow runs inside a persistent Ubuntu container with the Nix-built binary bind-mounted read-only from the host:
+When container mode is enabled, yousef shtiwe runs inside a persistent Ubuntu container with the Nix-built binary bind-mounted read-only from the host:
 
 ```
 Host                                    Container
 ────                                    ─────────
-/nix/store/...-shadow-agent-0.1.0  ──►  /nix/store/... (ro)
-~/.shadow -> /var/lib/shadow/.shadow       (symlink bridge, per hostUsers)
-/var/lib/shadow/                    ──►  /data/          (rw)
+/nix/store/...-yousef shtiwe-agent-0.1.0  ──►  /nix/store/... (ro)
+~/.yousef shtiwe -> /var/lib/yousef shtiwe/.yousef shtiwe       (symlink bridge, per hostUsers)
+/var/lib/yousef shtiwe/                    ──►  /data/          (rw)
   ├── current-package -> /nix/store/...    (symlink, updated each rebuild)
   ├── .gc-root -> /nix/store/...           (prevents nix-collect-garbage)
   ├── .container-identity                  (sha256 hash, triggers recreation)
-  ├── .shadow/                             (SHADOW_HOME)
+  ├── .yousef shtiwe/                             (YOUSEF SHTIWE_HOME)
   │   ├── .env                             (merged from environment + environmentFiles)
   │   ├── config.yaml                      (Nix-generated, deep-merged by activation)
   │   ├── .managed                         (marker file)
   │   ├── .container-mode                  (routing metadata: backend, exec_user, etc.)
   │   ├── state.db, sessions/, memories/   (runtime state)
   │   └── mcp-tokens/                      (OAuth tokens for MCP servers)
-  ├── home/                                ──►  /home/shadow    (rw)
+  ├── home/                                ──►  /home/yousef shtiwe    (rw)
   └── workspace/                           (MESSAGING_CWD)
       ├── SOUL.md                          (from documents option)
       └── (agent-created files)
@@ -575,13 +575,13 @@ Host                                    Container
 Container writable layer (apt/pip/npm):   /usr, /usr/local, /tmp
 ```
 
-The Nix-built binary works inside the Ubuntu container because `/nix/store` is bind-mounted — it brings its own interpreter and all dependencies, so there's no reliance on the container's system libraries. The container entrypoint resolves through a `current-package` symlink: `/data/current-package/bin/shadow gateway run --replace`. On `nixos-rebuild switch`, only the symlink is updated — the container keeps running.
+The Nix-built binary works inside the Ubuntu container because `/nix/store` is bind-mounted — it brings its own interpreter and all dependencies, so there's no reliance on the container's system libraries. The container entrypoint resolves through a `current-package` symlink: `/data/current-package/bin/yousef shtiwe gateway run --replace`. On `nixos-rebuild switch`, only the symlink is updated — the container keeps running.
 
 ### What Persists Across What
 
-| Event | Container recreated? | `/data` (state) | `/home/shadow` | Writable layer (`apt`/`pip`/`npm`) |
+| Event | Container recreated? | `/data` (state) | `/home/yousef shtiwe` | Writable layer (`apt`/`pip`/`npm`) |
 |---|---|---|---|---|
-| `systemctl restart shadow-agent` | No | Persists | Persists | Persists |
+| `systemctl restart yousef shtiwe-agent` | No | Persists | Persists | Persists |
 | `nixos-rebuild switch` (code change) | No (symlink updated) | Persists | Persists | Persists |
 | Host reboot | No | Persists | Persists | Persists |
 | `nix-collect-garbage` | No (GC root) | Persists | Persists | Persists |
@@ -589,17 +589,17 @@ The Nix-built binary works inside the Ubuntu container because `/nix/store` is b
 | Volume/options change | **Yes** | Persists | Persists | **Lost** |
 | `environment`/`environmentFiles` change | No | Persists | Persists | Persists |
 
-The container is only recreated when its **identity hash** changes. The hash covers: schema version, image, `extraVolumes`, `extraOptions`, and the entrypoint script. Changes to environment variables, settings, documents, or the shadow package itself do **not** trigger recreation.
+The container is only recreated when its **identity hash** changes. The hash covers: schema version, image, `extraVolumes`, `extraOptions`, and the entrypoint script. Changes to environment variables, settings, documents, or the yousef shtiwe package itself do **not** trigger recreation.
 
 :::warning Writable layer loss
-When the identity hash changes (image upgrade, new volumes, new container options), the container is destroyed and recreated from a fresh pull of `container.image`. Any `apt install`, `pip install`, or `npm install` packages in the writable layer are lost. State in `/data` and `/home/shadow` is preserved (these are bind mounts).
+When the identity hash changes (image upgrade, new volumes, new container options), the container is destroyed and recreated from a fresh pull of `container.image`. Any `apt install`, `pip install`, or `npm install` packages in the writable layer are lost. State in `/data` and `/home/yousef shtiwe` is preserved (these are bind mounts).
 
-If the agent relies on specific packages, consider baking them into a custom image (`container.image = "my-registry/shadow-base:latest"`) or scripting their installation in the agent's SOUL.md.
+If the agent relies on specific packages, consider baking them into a custom image (`container.image = "my-registry/yousef shtiwe-base:latest"`) or scripting their installation in the agent's SOUL.md.
 :::
 
 ### GC Root Protection
 
-The `preStart` script creates a GC root at `${stateDir}/.gc-root` pointing to the current shadow package. This prevents `nix-collect-garbage` from removing the running binary. If the GC root somehow breaks, restarting the service recreates it.
+The `preStart` script creates a GC root at `${stateDir}/.gc-root` pointing to the current yousef shtiwe package. This prevents `nix-collect-garbage` from removing the running binary. If the GC root somehow breaks, restarting the service recreates it.
 
 ---
 
@@ -610,7 +610,7 @@ The `preStart` script creates a GC root at `${stateDir}/.gc-root` pointing to th
 The flake provides a development shell with Python 3.11, uv, Node.js, and all runtime tools:
 
 ```bash
-cd shadow-agent
+cd yousef shtiwe-agent
 nix develop
 
 # Shell provides:
@@ -618,8 +618,8 @@ nix develop
 #   - Node.js 20, ripgrep, git, openssh, ffmpeg on PATH
 #   - Stamp-file optimization: re-entry is near-instant if deps haven't changed
 
-shadow setup
-shadow chat
+yousef shtiwe setup
+yousef shtiwe chat
 ```
 
 ### direnv (Recommended)
@@ -627,7 +627,7 @@ shadow chat
 The included `.envrc` activates the dev shell automatically:
 
 ```bash
-cd shadow-agent
+cd yousef shtiwe-agent
 direnv allow    # one-time
 # Subsequent entries are near-instant (stamp file skips dep install)
 ```
@@ -644,7 +644,7 @@ nix flake check
 nix build .#checks.x86_64-linux.package-contents   # binaries exist + version
 nix build .#checks.x86_64-linux.entry-points-sync  # pyproject.toml ↔ Nix package sync
 nix build .#checks.x86_64-linux.cli-commands        # gateway/config subcommands
-nix build .#checks.x86_64-linux.managed-guard       # SHADOW_MANAGED blocks mutation
+nix build .#checks.x86_64-linux.managed-guard       # YOUSEF SHTIWE_MANAGED blocks mutation
 nix build .#checks.x86_64-linux.bundled-skills      # skills present in package
 nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves user keys
 ```
@@ -654,11 +654,11 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 
 | Check | What it tests |
 |---|---|
-| `package-contents` | `shadow` and `shadow-agent` binaries exist and `shadow version` runs |
+| `package-contents` | `yousef shtiwe` and `yousef shtiwe-agent` binaries exist and `yousef shtiwe version` runs |
 | `entry-points-sync` | Every `[project.scripts]` entry in `pyproject.toml` has a wrapped binary in the Nix package |
-| `cli-commands` | `shadow --help` exposes `gateway` and `config` subcommands |
-| `managed-guard` | `SHADOW_MANAGED=true shadow config set ...` prints the NixOS error |
-| `bundled-skills` | Skills directory exists, contains SKILL.md files, `SHADOW_BUNDLED_SKILLS` is set in wrapper |
+| `cli-commands` | `yousef shtiwe --help` exposes `gateway` and `config` subcommands |
+| `managed-guard` | `YOUSEF SHTIWE_MANAGED=true yousef shtiwe config set ...` prints the NixOS error |
+| `bundled-skills` | Skills directory exists, contains SKILL.md files, `YOUSEF SHTIWE_BUNDLED_SKILLS` is set in wrapper |
 | `config-roundtrip` | 7 merge scenarios: fresh install, Nix override, user key preservation, mixed merge, MCP additive merge, nested deep merge, idempotency |
 
 </details>
@@ -671,14 +671,14 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `enable` | `bool` | `false` | Enable the shadow-agent service |
-| `package` | `package` | `shadow-agent` | The shadow-agent package to use |
-| `user` | `str` | `"shadow"` | System user |
-| `group` | `str` | `"shadow"` | System group |
+| `enable` | `bool` | `false` | Enable the yousef shtiwe-agent service |
+| `package` | `package` | `yousef shtiwe-agent` | The yousef shtiwe-agent package to use |
+| `user` | `str` | `"yousef shtiwe"` | System user |
+| `group` | `str` | `"yousef shtiwe"` | System group |
 | `createUser` | `bool` | `true` | Auto-create user/group |
-| `stateDir` | `str` | `"/var/lib/shadow"` | State directory (`SHADOW_HOME` parent) |
+| `stateDir` | `str` | `"/var/lib/yousef shtiwe"` | State directory (`YOUSEF SHTIWE_HOME` parent) |
 | `workingDirectory` | `str` | `"${stateDir}/workspace"` | Agent working directory (`MESSAGING_CWD`) |
-| `addToSystemPackages` | `bool` | `false` | Add `shadow` CLI to system PATH and set `SHADOW_HOME` system-wide |
+| `addToSystemPackages` | `bool` | `false` | Add `yousef shtiwe` CLI to system PATH and set `YOUSEF SHTIWE_HOME` system-wide |
 
 ### Configuration
 
@@ -691,7 +691,7 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `environmentFiles` | `listOf str` | `[]` | Paths to env files with secrets. Merged into `$SHADOW_HOME/.env` at activation time |
+| `environmentFiles` | `listOf str` | `[]` | Paths to env files with secrets. Merged into `$YOUSEF SHTIWE_HOME/.env` at activation time |
 | `environment` | `attrsOf str` | `{}` | Non-secret env vars. **Visible in Nix store** — do not put secrets here |
 | `authFile` | `null` or `path` | `null` | OAuth credentials seed. Only copied on first deploy |
 | `authFileForceOverwrite` | `bool` | `false` | Always overwrite `auth.json` from `authFile` on activation |
@@ -723,7 +723,7 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `extraArgs` | `listOf str` | `[]` | Extra args for `shadow gateway` |
+| `extraArgs` | `listOf str` | `[]` | Extra args for `yousef shtiwe gateway` |
 | `extraPackages` | `listOf package` | `[]` | Extra packages on service PATH (native mode only) |
 | `restart` | `str` | `"always"` | systemd `Restart=` policy |
 | `restartSec` | `int` | `5` | systemd `RestartSec=` value |
@@ -737,7 +737,7 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 | `container.image` | `str` | `"ubuntu:24.04"` | Base image (pulled at runtime) |
 | `container.extraVolumes` | `listOf str` | `[]` | Extra volume mounts (`host:container:mode`) |
 | `container.extraOptions` | `listOf str` | `[]` | Extra args passed to `docker create` |
-| `container.hostUsers` | `listOf str` | `[]` | Interactive users who get a `~/.shadow` symlink to the service stateDir and are auto-added to the `shadow` group |
+| `container.hostUsers` | `listOf str` | `[]` | Interactive users who get a `~/.yousef shtiwe` symlink to the service stateDir and are auto-added to the `yousef shtiwe` group |
 
 ---
 
@@ -746,8 +746,8 @@ nix build .#checks.x86_64-linux.config-roundtrip    # merge script preserves use
 ### Native Mode
 
 ```
-/var/lib/shadow/                     # stateDir (owned by shadow:shadow, 0750)
-├── .shadow/                         # SHADOW_HOME
+/var/lib/yousef shtiwe/                     # stateDir (owned by yousef shtiwe:yousef shtiwe, 0750)
+├── .yousef shtiwe/                         # YOUSEF SHTIWE_HOME
 │   ├── config.yaml                  # Nix-generated (deep-merged each rebuild)
 │   ├── .managed                     # Marker: CLI config mutation blocked
 │   ├── .env                         # Merged from environment + environmentFiles
@@ -772,9 +772,9 @@ Same layout, mounted into the container:
 
 | Container path | Host path | Mode | Notes |
 |---|---|---|---|
-| `/nix/store` | `/nix/store` | `ro` | SHADOW binary + all Nix deps |
-| `/data` | `/var/lib/shadow` | `rw` | All state, config, workspace |
-| `/home/shadow` | `${stateDir}/home` | `rw` | Persistent agent home — `pip install --user`, tool caches |
+| `/nix/store` | `/nix/store` | `ro` | YOUSEF SHTIWE binary + all Nix deps |
+| `/data` | `/var/lib/yousef shtiwe` | `rw` | All state, config, workspace |
+| `/home/yousef shtiwe` | `${stateDir}/home` | `rw` | Persistent agent home — `pip install --user`, tool caches |
 | `/usr`, `/usr/local`, `/tmp` | (writable layer) | `rw` | `apt`/`pip`/`npm` installs — persists across restarts, lost on recreation |
 
 ---
@@ -783,7 +783,7 @@ Same layout, mounted into the container:
 
 ```bash
 # Update the flake input
-nix flake update shadow-agent --flake /etc/nixos
+nix flake update yousef shtiwe-agent --flake /etc/nixos
 
 # Rebuild
 sudo nixos-rebuild switch
@@ -803,21 +803,21 @@ All `docker` commands below work the same with `podman`. Substitute accordingly 
 
 ```bash
 # Both modes use the same systemd unit
-journalctl -u shadow-agent -f
+journalctl -u yousef shtiwe-agent -f
 
 # Container mode: also available directly
-docker logs -f shadow-agent
+docker logs -f yousef shtiwe-agent
 ```
 
 ### Container Inspection
 
 ```bash
-systemctl status shadow-agent
-docker ps -a --filter name=shadow-agent
-docker inspect shadow-agent --format='{{.State.Status}}'
-docker exec -it shadow-agent bash
-docker exec shadow-agent readlink /data/current-package
-docker exec shadow-agent cat /data/.container-identity
+systemctl status yousef shtiwe-agent
+docker ps -a --filter name=yousef shtiwe-agent
+docker inspect yousef shtiwe-agent --format='{{.State.Status}}'
+docker exec -it yousef shtiwe-agent bash
+docker exec yousef shtiwe-agent readlink /data/current-package
+docker exec yousef shtiwe-agent cat /data/.container-identity
 ```
 
 ### Force Container Recreation
@@ -825,10 +825,10 @@ docker exec shadow-agent cat /data/.container-identity
 If you need to reset the writable layer (fresh Ubuntu):
 
 ```bash
-sudo systemctl stop shadow-agent
-docker rm -f shadow-agent
-sudo rm /var/lib/shadow/.container-identity
-sudo systemctl start shadow-agent
+sudo systemctl stop yousef shtiwe-agent
+docker rm -f yousef shtiwe-agent
+sudo rm /var/lib/yousef shtiwe/.container-identity
+sudo systemctl start yousef shtiwe-agent
 ```
 
 ### Verify Secrets Are Loaded
@@ -837,16 +837,16 @@ If the agent starts but can't authenticate with the LLM provider, check that the
 
 ```bash
 # Native mode
-sudo -u shadow cat /var/lib/shadow/.shadow/.env
+sudo -u yousef shtiwe cat /var/lib/yousef shtiwe/.yousef shtiwe/.env
 
 # Container mode
-docker exec shadow-agent cat /data/.shadow/.env
+docker exec yousef shtiwe-agent cat /data/.yousef shtiwe/.env
 ```
 
 ### GC Root Verification
 
 ```bash
-nix-store --query --roots $(docker exec shadow-agent readlink /data/current-package)
+nix-store --query --roots $(docker exec yousef shtiwe-agent readlink /data/current-package)
 ```
 
 ### Common Issues
@@ -855,8 +855,8 @@ nix-store --query --roots $(docker exec shadow-agent readlink /data/current-pack
 |---|---|---|
 | `Cannot save configuration: managed by NixOS` | CLI guards active | Edit `configuration.nix` and `nixos-rebuild switch` |
 | Container recreated unexpectedly | `extraVolumes`, `extraOptions`, or `image` changed | Expected — writable layer resets. Reinstall packages or use a custom image |
-| `shadow version` shows old version | Container not restarted | `systemctl restart shadow-agent` |
-| Permission denied on `/var/lib/shadow` | State dir is `0750 shadow:shadow` | Use `docker exec` or `sudo -u shadow` |
-| `nix-collect-garbage` removed shadow | GC root missing | Restart the service (preStart recreates the GC root) |
-| `no container with name or ID "shadow-agent"` (Podman) | Podman rootful container not visible to regular user | Add passwordless sudo for podman (see [Container-aware CLI](#container-aware-cli) section) |
-| `unable to find user shadow` | Container still starting (entrypoint hasn't created user yet) | Wait a few seconds and retry — the CLI retries automatically |
+| `yousef shtiwe version` shows old version | Container not restarted | `systemctl restart yousef shtiwe-agent` |
+| Permission denied on `/var/lib/yousef shtiwe` | State dir is `0750 yousef shtiwe:yousef shtiwe` | Use `docker exec` or `sudo -u yousef shtiwe` |
+| `nix-collect-garbage` removed yousef shtiwe | GC root missing | Restart the service (preStart recreates the GC root) |
+| `no container with name or ID "yousef shtiwe-agent"` (Podman) | Podman rootful container not visible to regular user | Add passwordless sudo for podman (see [Container-aware CLI](#container-aware-cli) section) |
+| `unable to find user yousef shtiwe` | Container still starting (entrypoint hasn't created user yet) | Wait a few seconds and retry — the CLI retries automatically |

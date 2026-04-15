@@ -5,7 +5,7 @@ version: 1.0.0
 author: unmodeled-tyler
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [osint, security, username, social-media, reconnaissance]
     category: security
 prerequisites:

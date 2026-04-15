@@ -12,7 +12,7 @@ curl -fsSL https://byterover.dev/install.sh | sh).
 Config via environment variables (profile-scoped via each profile's .env):
   BRV_API_KEY   — ByteRover API key (for cloud features, optional for local)
 
-Working directory: $SHADOW_HOME/byterover/ (profile-scoped context tree)
+Working directory: $YOUSEF SHTIWE_HOME/byterover/ (profile-scoped context tree)
 """
 
 from __future__ import annotations
@@ -115,8 +115,8 @@ def _run_brv(args: List[str], timeout: int = _QUERY_TIMEOUT,
 
 def _get_brv_cwd() -> Path:
     """Profile-scoped working directory for the brv context tree."""
-    from shadow_constants import get_shadow_home
-    return get_shadow_home() / "byterover"
+    from yousef shtiwe_constants import get_yousef shtiwe_home
+    return get_yousef shtiwe_home() / "byterover"
 
 
 # ---------------------------------------------------------------------------
@@ -213,7 +213,7 @@ class ByteRoverMemoryProvider(MemoryProvider):
         )
 
     def prefetch(self, query: str, *, session_id: str = "") -> str:
-        """Run brv query synchroshadowly before the agent's first LLM call.
+        """Run brv query synchroyousef shtiwely before the agent's first LLM call.
 
         Blocks until the query completes (up to _QUERY_TIMEOUT seconds), ensuring
         the result is available as context before the model is called.
@@ -231,7 +231,7 @@ class ByteRoverMemoryProvider(MemoryProvider):
         return ""
 
     def queue_prefetch(self, query: str, *, session_id: str = "") -> None:
-        """No-op: prefetch() now runs synchroshadowly at turn start."""
+        """No-op: prefetch() now runs synchroyousef shtiwely at turn start."""
         pass
 
     def sync_turn(self, user_content: str, assistant_content: str, *, session_id: str = "") -> None:

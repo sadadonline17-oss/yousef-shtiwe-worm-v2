@@ -2,7 +2,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from cli import (
-    SHADOWCLI,
+    YOUSEF SHTIWECLI,
     _collect_query_images,
     _format_image_attachment_badges,
     _termux_example_image_path,
@@ -10,7 +10,7 @@ from cli import (
 
 
 def _make_cli():
-    cli_obj = SHADOWCLI.__new__(SHADOWCLI)
+    cli_obj = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
     cli_obj._attached_images = []
     return cli_obj
 

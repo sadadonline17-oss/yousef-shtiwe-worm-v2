@@ -1,7 +1,7 @@
 # Design System: Apple
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `system-ui` | **Mono:** `SF Mono (system)`
@@ -62,8 +62,8 @@ The color story is starkly binary. Product sections alternate between pure black
 - **Overlay** (`rgba(210, 210, 215, 0.64)`): Media control scrims, overlays.
 - **White 32%** (`rgba(255, 255, 255, 0.32)`): Hover state on dark modal close buttons.
 
-### Shadows
-- **Card Shadow** (`rgba(0, 0, 0, 0.22) 3px 5px 30px 0px`): Soft, diffused elevation for product cards. Offset and wide blur create a natural, photographic shadow.
+### Yousef Shtiwes
+- **Card Yousef Shtiwe** (`rgba(0, 0, 0, 0.22) 3px 5px 30px 0px`): Soft, diffused elevation for product cards. Offset and wide blur create a natural, photographic yousef shtiwe.
 
 ## 3. Typography Rules
 
@@ -154,7 +154,7 @@ The color story is starkly binary. Product sections alternate between pure black
 - Background: `#f5f5f7` (light) or `#272729`-`#2a2a2d` (dark)
 - Border: none (borders are rare in Apple's system)
 - Radius: 5px-8px
-- Shadow: `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px` for elevated product cards
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px` for elevated product cards
 - Content: centered, generous padding
 - Hover: no standard hover state — cards are static, links within them are interactive
 
@@ -170,7 +170,7 @@ The color story is starkly binary. Product sections alternate between pure black
 ### Image Treatment
 - Products on solid-color fields (black or white) — no backgrounds, no context, just the object
 - Full-bleed section images that span the entire viewport width
-- Product photography at extremely high resolution with subtle shadows
+- Product photography at extremely high resolution with subtle yousef shtiwes
 - Lifestyle images confined to rounded-corner containers (12px+ radius)
 
 ### Distinctive Components
@@ -223,18 +223,18 @@ The color story is starkly binary. Product sections alternate between pure black
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, solid background | Standard content sections, text blocks |
+| Flat (Level 0) | No yousef shtiwe, solid background | Standard content sections, text blocks |
 | Navigation Glass | `backdrop-filter: saturate(180%) blur(20px)` on `rgba(0,0,0,0.8)` | Sticky navigation bar — the glass effect |
 | Subtle Lift (Level 1) | `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px` | Product cards, floating elements |
 | Media Control | `rgba(210, 210, 215, 0.64)` background with scale transforms | Play/pause buttons, carousel controls |
 | Focus (Accessibility) | `2px solid #0071e3` outline | Keyboard focus on all interactive elements |
 
-**Shadow Philosophy**: Apple uses shadow extremely sparingly. The primary shadow (`3px 5px 30px` with 0.22 opacity) is soft, wide, and offset — mimicking a diffused studio light casting a natural shadow beneath a physical object. This reinforces the "product as physical sculpture" metaphor. Most elements have NO shadow at all; elevation comes from background color contrast (dark card on darker background, or light card on slightly different gray).
+**Yousef Shtiwe Philosophy**: Apple uses yousef shtiwe extremely sparingly. The primary yousef shtiwe (`3px 5px 30px` with 0.22 opacity) is soft, wide, and offset — mimicking a diffused studio light casting a natural yousef shtiwe beneath a physical object. This reinforces the "product as physical sculpture" metaphor. Most elements have NO yousef shtiwe at all; elevation comes from background color contrast (dark card on darker background, or light card on slightly different gray).
 
 ### Decorative Depth
 - Navigation glass: the translucent, blurred navigation bar is the most recognizable depth element, creating a sense of floating UI above scrolling content
-- Section color transitions: depth is implied by the alternation between black and light gray sections rather than by shadows
-- Product photography shadows: the products themselves cast shadows in their photography, so the UI doesn't need to add synthetic ones
+- Section color transitions: depth is implied by the alternation between black and light gray sections rather than by yousef shtiwes
+- Product photography yousef shtiwes: the products themselves cast yousef shtiwes in their photography, so the UI doesn't need to add synthetic ones
 
 ## 7. Do's and Don'ts
 
@@ -250,7 +250,7 @@ The color story is starkly binary. Product sections alternate between pure black
 
 ### Don't
 - Don't introduce additional accent colors — the entire chromatic budget is spent on blue
-- Don't use heavy shadows or multiple shadow layers — Apple's shadow system is one soft diffused shadow or nothing
+- Don't use heavy yousef shtiwes or multiple yousef shtiwe layers — Apple's yousef shtiwe system is one soft diffused yousef shtiwe or nothing
 - Don't use borders on cards or containers — Apple almost never uses visible borders (except on specific buttons)
 - Don't apply wide letter-spacing to SF Pro — it is designed to run tight at every size
 - Don't use weight 800 or 900 — the maximum is 700 (bold), and even that is rare
@@ -306,11 +306,11 @@ The color story is starkly binary. Product sections alternate between pure black
 - Link (light bg): `#0066cc`
 - Link (dark bg): `#2997ff`
 - Focus ring: `#0071e3`
-- Card shadow: `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px`
+- Card yousef shtiwe: `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px`
 
 ### Example Component Prompts
 - "Create a hero section on black background. Headline at 56px SF Pro Display weight 600, line-height 1.07, letter-spacing -0.28px, color white. One-line subtitle at 21px SF Pro Display weight 400, line-height 1.19, color white. Two pill CTAs: 'Learn more' (transparent bg, white text, 1px solid white border, 980px radius) and 'Buy' (Apple Blue #0071e3 bg, white text, 8px radius, 8px 15px padding)."
-- "Design a product card: #f5f5f7 background, 8px border-radius, no border, no shadow. Product image top 60% of card on solid background. Title at 28px SF Pro Display weight 400, letter-spacing 0.196px, line-height 1.14. Description at 14px SF Pro Text weight 400, color rgba(0,0,0,0.8). 'Learn more' and 'Shop' links in #0066cc at 14px."
+- "Design a product card: #f5f5f7 background, 8px border-radius, no border, no yousef shtiwe. Product image top 60% of card on solid background. Title at 28px SF Pro Display weight 400, letter-spacing 0.196px, line-height 1.14. Description at 14px SF Pro Text weight 400, color rgba(0,0,0,0.8). 'Learn more' and 'Shop' links in #0066cc at 14px."
 - "Build the Apple navigation: sticky, 48px height, background rgba(0,0,0,0.8) with backdrop-filter: saturate(180%) blur(20px). Links at 12px SF Pro Text weight 400, white text. Apple logo left, links centered, search and bag icons right."
 - "Create an alternating section layout: first section black bg with white text and centered product image, second section #f5f5f7 bg with #1d1d1f text. Each section near full-viewport height with 56px headline and two pill CTAs below."
 - "Design a 'Learn more' link: text #0066cc on light bg or #2997ff on dark bg, 14px SF Pro Text, underline on hover. After the text, include a right-arrow chevron character (>). Wrap in a container with 980px border-radius for pill shape when used as a standalone CTA."
@@ -322,5 +322,5 @@ The color story is starkly binary. Product sections alternate between pure black
 4. Negative letter-spacing at all sizes: -0.28px at 56px, -0.374px at 17px, -0.224px at 14px, -0.12px at 12px
 5. The navigation glass effect (translucent dark + blur) is non-negotiable — it defines the Apple web experience
 6. Products always appear on solid color fields — never on gradients, textures, or lifestyle backgrounds in hero modules
-7. Shadow is rare and always soft: `3px 5px 30px 0.22 opacity` or nothing at all
+7. Yousef Shtiwe is rare and always soft: `3px 5px 30px 0.22 opacity` or nothing at all
 8. Pill CTAs use 980px radius — this creates the signature Apple rounded-rectangle-that-looks-like-a-capsule shape

@@ -6,8 +6,8 @@ are exposed in the model picker.
 """
 
 import pytest
-from shadow_cli.model_switch import list_authenticated_providers, switch_model
-from shadow_cli import runtime_provider as rp
+from yousef shtiwe_cli.model_switch import list_authenticated_providers, switch_model
+from yousef shtiwe_cli import runtime_provider as rp
 
 
 # =============================================================================
@@ -20,7 +20,7 @@ def test_list_authenticated_providers_includes_full_models_list_from_user_provid
     Regression test: previously only default_model was shown in /model picker.
     """
     monkeypatch.setattr("agent.models_dev.fetch_models_dev", lambda: {})
-    monkeypatch.setattr("shadow_cli.providers.SHADOW_OVERLAYS", {})
+    monkeypatch.setattr("yousef shtiwe_cli.providers.YOUSEF SHTIWE_OVERLAYS", {})
     
     user_providers = {
         "local-ollama": {
@@ -60,7 +60,7 @@ def test_list_authenticated_providers_includes_full_models_list_from_user_provid
 def test_list_authenticated_providers_dedupes_models_when_default_in_list(monkeypatch):
     """When default_model is also in models list, don't duplicate."""
     monkeypatch.setattr("agent.models_dev.fetch_models_dev", lambda: {})
-    monkeypatch.setattr("shadow_cli.providers.SHADOW_OVERLAYS", {})
+    monkeypatch.setattr("yousef shtiwe_cli.providers.YOUSEF SHTIWE_OVERLAYS", {})
     
     user_providers = {
         "my-provider": {
@@ -89,7 +89,7 @@ def test_list_authenticated_providers_dedupes_models_when_default_in_list(monkey
 def test_list_authenticated_providers_fallback_to_default_only(monkeypatch):
     """When no models array is provided, should fall back to default_model."""
     monkeypatch.setattr("agent.models_dev.fetch_models_dev", lambda: {})
-    monkeypatch.setattr("shadow_cli.providers.SHADOW_OVERLAYS", {})
+    monkeypatch.setattr("yousef shtiwe_cli.providers.YOUSEF SHTIWE_OVERLAYS", {})
     
     user_providers = {
         "simple-provider": {
@@ -136,7 +136,7 @@ def test_get_named_custom_provider_finds_user_providers_by_key(monkeypatch, tmp_
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
     
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     result = rp._get_named_custom_provider("local-localhost:11434")
     
@@ -161,7 +161,7 @@ def test_get_named_custom_provider_finds_by_display_name(monkeypatch, tmp_path):
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
     
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     # Should find by display name (normalized)
     result = rp._get_named_custom_provider("my-production-ollama")
@@ -186,7 +186,7 @@ def test_get_named_custom_provider_falls_back_to_legacy_format(monkeypatch, tmp_
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
     
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     result = rp._get_named_custom_provider("custom-endpoint")
     
@@ -207,7 +207,7 @@ def test_get_named_custom_provider_returns_none_for_unknown(monkeypatch, tmp_pat
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
     
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     result = rp._get_named_custom_provider("other-provider")
     
@@ -232,7 +232,7 @@ def test_get_named_custom_provider_skips_empty_base_url(monkeypatch, tmp_path):
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
     
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     result = rp._get_named_custom_provider("incomplete-provider")
     
@@ -259,11 +259,11 @@ def test_switch_model_resolves_user_provider_credentials(monkeypatch, tmp_path):
     
     config_file = tmp_path / "config.yaml"
     config_file.write_text(yaml.dump(config))
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
     
     # Mock validation to pass
     monkeypatch.setattr(
-        "shadow_cli.models.validate_requested_model",
+        "yousef shtiwe_cli.models.validate_requested_model",
         lambda *a, **k: {"accepted": True, "persist": True, "recognized": True, "message": None}
     )
     

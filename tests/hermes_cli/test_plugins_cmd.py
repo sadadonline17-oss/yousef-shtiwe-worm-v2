@@ -1,4 +1,4 @@
-"""Tests for shadow_cli.plugins_cmd — the ``shadow plugins`` CLI subcommand."""
+"""Tests for yousef shtiwe_cli.plugins_cmd — the ``yousef shtiwe plugins`` CLI subcommand."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import yaml
 
-from shadow_cli.plugins_cmd import (
+from yousef shtiwe_cli.plugins_cmd import (
     _copy_example_files,
     _read_manifest,
     _repo_name_from_url,
@@ -136,43 +136,43 @@ class TestPluginsCommandDispatch:
             setattr(args, k, v)
         return args
 
-    @patch("shadow_cli.plugins_cmd.cmd_remove")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_remove")
     def test_rm_alias(self, mock_remove):
         args = self._make_args("rm", name="some-plugin")
         plugins_command(args)
         mock_remove.assert_called_once_with("some-plugin")
 
-    @patch("shadow_cli.plugins_cmd.cmd_remove")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_remove")
     def test_uninstall_alias(self, mock_remove):
         args = self._make_args("uninstall", name="some-plugin")
         plugins_command(args)
         mock_remove.assert_called_once_with("some-plugin")
 
-    @patch("shadow_cli.plugins_cmd.cmd_list")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_list")
     def test_ls_alias(self, mock_list):
         args = self._make_args("ls")
         plugins_command(args)
         mock_list.assert_called_once()
 
-    @patch("shadow_cli.plugins_cmd.cmd_toggle")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_toggle")
     def test_none_falls_through_to_toggle(self, mock_toggle):
         args = self._make_args(None)
         plugins_command(args)
         mock_toggle.assert_called_once()
 
-    @patch("shadow_cli.plugins_cmd.cmd_install")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_install")
     def test_install_dispatches(self, mock_install):
         args = self._make_args("install", identifier="owner/repo", force=False)
         plugins_command(args)
         mock_install.assert_called_once_with("owner/repo", force=False)
 
-    @patch("shadow_cli.plugins_cmd.cmd_update")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_update")
     def test_update_dispatches(self, mock_update):
         args = self._make_args("update", name="foo")
         plugins_command(args)
         mock_update.assert_called_once_with("foo")
 
-    @patch("shadow_cli.plugins_cmd.cmd_remove")
+    @patch("yousef shtiwe_cli.plugins_cmd.cmd_remove")
     def test_remove_dispatches(self, mock_remove):
         args = self._make_args("remove", name="bar")
         plugins_command(args)
@@ -198,7 +198,7 @@ class TestReadManifest:
 
     def test_invalid_yaml_returns_empty_and_logs(self, tmp_path, caplog):
         (tmp_path / "plugin.yaml").write_text(": : : bad yaml [[[")
-        with caplog.at_level(logging.WARNING, logger="shadow_cli.plugins_cmd"):
+        with caplog.at_level(logging.WARNING, logger="yousef shtiwe_cli.plugins_cmd"):
             result = _read_manifest(tmp_path)
         assert result == {}
         assert any("Failed to read plugin.yaml" in r.message for r in caplog.records)
@@ -216,15 +216,15 @@ class TestCmdInstall:
     """Test the install command."""
 
     def test_install_requires_identifier(self):
-        from shadow_cli.plugins_cmd import cmd_install
+        from yousef shtiwe_cli.plugins_cmd import cmd_install
         import argparse
 
         with pytest.raises(SystemExit):
             cmd_install("")
 
-    @patch("shadow_cli.plugins_cmd._resolve_git_url")
+    @patch("yousef shtiwe_cli.plugins_cmd._resolve_git_url")
     def test_install_validates_identifier(self, mock_resolve):
-        from shadow_cli.plugins_cmd import cmd_install
+        from yousef shtiwe_cli.plugins_cmd import cmd_install
 
         mock_resolve.side_effect = ValueError("Invalid identifier")
 
@@ -232,12 +232,12 @@ class TestCmdInstall:
             cmd_install("invalid")
         assert exc_info.value.code == 1
 
-    @patch("shadow_cli.plugins_cmd._display_after_install")
-    @patch("shadow_cli.plugins_cmd.shutil.move")
-    @patch("shadow_cli.plugins_cmd.shutil.rmtree")
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
-    @patch("shadow_cli.plugins_cmd._read_manifest")
-    @patch("shadow_cli.plugins_cmd.subprocess.run")
+    @patch("yousef shtiwe_cli.plugins_cmd._display_after_install")
+    @patch("yousef shtiwe_cli.plugins_cmd.shutil.move")
+    @patch("yousef shtiwe_cli.plugins_cmd.shutil.rmtree")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd._read_manifest")
+    @patch("yousef shtiwe_cli.plugins_cmd.subprocess.run")
     def test_install_rejects_manifest_name_pointing_at_plugins_root(
         self,
         mock_run,
@@ -248,7 +248,7 @@ class TestCmdInstall:
         mock_display_after_install,
         tmp_path,
     ):
-        from shadow_cli.plugins_cmd import cmd_install
+        from yousef shtiwe_cli.plugins_cmd import cmd_install
 
         plugins_dir = tmp_path / "plugins"
         plugins_dir.mkdir()
@@ -271,11 +271,11 @@ class TestCmdInstall:
 class TestCmdUpdate:
     """Test the update command."""
 
-    @patch("shadow_cli.plugins_cmd._sanitize_plugin_name")
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
-    @patch("shadow_cli.plugins_cmd.subprocess.run")
+    @patch("yousef shtiwe_cli.plugins_cmd._sanitize_plugin_name")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd.subprocess.run")
     def test_update_git_pull_success(self, mock_run, mock_plugins_dir, mock_sanitize):
-        from shadow_cli.plugins_cmd import cmd_update
+        from yousef shtiwe_cli.plugins_cmd import cmd_update
 
         mock_plugins_dir_val = MagicMock()
         mock_plugins_dir.return_value = mock_plugins_dir_val
@@ -292,10 +292,10 @@ class TestCmdUpdate:
 
         mock_run.assert_called_once()
 
-    @patch("shadow_cli.plugins_cmd._sanitize_plugin_name")
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd._sanitize_plugin_name")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
     def test_update_plugin_not_found(self, mock_plugins_dir, mock_sanitize):
-        from shadow_cli.plugins_cmd import cmd_update
+        from yousef shtiwe_cli.plugins_cmd import cmd_update
 
         mock_plugins_dir_val = MagicMock()
         mock_plugins_dir_val.iterdir.return_value = []
@@ -316,11 +316,11 @@ class TestCmdUpdate:
 class TestCmdRemove:
     """Test the remove command."""
 
-    @patch("shadow_cli.plugins_cmd._sanitize_plugin_name")
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
-    @patch("shadow_cli.plugins_cmd.shutil.rmtree")
+    @patch("yousef shtiwe_cli.plugins_cmd._sanitize_plugin_name")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd.shutil.rmtree")
     def test_remove_deletes_plugin(self, mock_rmtree, mock_plugins_dir, mock_sanitize):
-        from shadow_cli.plugins_cmd import cmd_remove
+        from yousef shtiwe_cli.plugins_cmd import cmd_remove
 
         mock_plugins_dir.return_value = MagicMock()
         mock_target = MagicMock()
@@ -331,10 +331,10 @@ class TestCmdRemove:
 
         mock_rmtree.assert_called_once_with(mock_target)
 
-    @patch("shadow_cli.plugins_cmd._sanitize_plugin_name")
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd._sanitize_plugin_name")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
     def test_remove_plugin_not_found(self, mock_plugins_dir, mock_sanitize):
-        from shadow_cli.plugins_cmd import cmd_remove
+        from yousef shtiwe_cli.plugins_cmd import cmd_remove
 
         mock_plugins_dir_val = MagicMock()
         mock_plugins_dir_val.iterdir.return_value = []
@@ -355,9 +355,9 @@ class TestCmdRemove:
 class TestCmdList:
     """Test the list command."""
 
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
     def test_list_empty_plugins_dir(self, mock_plugins_dir):
-        from shadow_cli.plugins_cmd import cmd_list
+        from yousef shtiwe_cli.plugins_cmd import cmd_list
 
         mock_plugins_dir_val = MagicMock()
         mock_plugins_dir_val.iterdir.return_value = []
@@ -365,10 +365,10 @@ class TestCmdList:
 
         cmd_list()
 
-    @patch("shadow_cli.plugins_cmd._plugins_dir")
-    @patch("shadow_cli.plugins_cmd._read_manifest")
+    @patch("yousef shtiwe_cli.plugins_cmd._plugins_dir")
+    @patch("yousef shtiwe_cli.plugins_cmd._read_manifest")
     def test_list_with_plugins(self, mock_read_manifest, mock_plugins_dir):
-        from shadow_cli.plugins_cmd import cmd_list
+        from yousef shtiwe_cli.plugins_cmd import cmd_list
 
         mock_plugins_dir_val = MagicMock()
         mock_plugin_dir = MagicMock()
@@ -391,7 +391,7 @@ class TestCopyExampleFiles:
     """Test example file copying."""
 
     def test_copies_example_files(self, tmp_path):
-        from shadow_cli.plugins_cmd import _copy_example_files
+        from yousef shtiwe_cli.plugins_cmd import _copy_example_files
         from unittest.mock import MagicMock
 
         console = MagicMock()
@@ -407,7 +407,7 @@ class TestCopyExampleFiles:
         console.print.assert_called()
 
     def test_skips_existing_files(self, tmp_path):
-        from shadow_cli.plugins_cmd import _copy_example_files
+        from yousef shtiwe_cli.plugins_cmd import _copy_example_files
         from unittest.mock import MagicMock
 
         console = MagicMock()
@@ -424,7 +424,7 @@ class TestCopyExampleFiles:
         assert real_file.read_text() == "existing: true"
 
     def test_handles_copy_error_gracefully(self, tmp_path):
-        from shadow_cli.plugins_cmd import _copy_example_files
+        from yousef shtiwe_cli.plugins_cmd import _copy_example_files
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
@@ -435,7 +435,7 @@ class TestCopyExampleFiles:
 
         # Mock shutil.copy2 to raise an error
         with patch(
-            "shadow_cli.plugins_cmd.shutil.copy2",
+            "yousef shtiwe_cli.plugins_cmd.shutil.copy2",
             side_effect=OSError("Permission denied"),
         ):
             # Should not raise, just warn
@@ -449,7 +449,7 @@ class TestPromptPluginEnvVars:
     """Tests for _prompt_plugin_env_vars."""
 
     def test_skips_when_no_requires_env(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock
 
         console = MagicMock()
@@ -457,17 +457,17 @@ class TestPromptPluginEnvVars:
         console.print.assert_not_called()
 
     def test_skips_already_set_vars(self, monkeypatch):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
-        with patch("shadow_cli.config.get_env_value", return_value="already-set"):
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value="already-set"):
             _prompt_plugin_env_vars({"requires_env": ["MY_KEY"]}, console)
         # No prompt should appear — all vars are set
         console.print.assert_not_called()
 
     def test_prompts_for_missing_var_simple_format(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
@@ -476,15 +476,15 @@ class TestPromptPluginEnvVars:
             "requires_env": ["MY_API_KEY"],
         }
 
-        with patch("shadow_cli.config.get_env_value", return_value=None), \
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value=None), \
              patch("builtins.input", return_value="sk-test-123"), \
-             patch("shadow_cli.config.save_env_value") as mock_save:
+             patch("yousef shtiwe_cli.config.save_env_value") as mock_save:
             _prompt_plugin_env_vars(manifest, console)
 
         mock_save.assert_called_once_with("MY_API_KEY", "sk-test-123")
 
     def test_prompts_for_missing_var_rich_format(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
@@ -500,9 +500,9 @@ class TestPromptPluginEnvVars:
             ],
         }
 
-        with patch("shadow_cli.config.get_env_value", return_value=None), \
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value=None), \
              patch("builtins.input", return_value="pk-lf-123"), \
-             patch("shadow_cli.config.save_env_value") as mock_save:
+             patch("yousef shtiwe_cli.config.save_env_value") as mock_save:
             _prompt_plugin_env_vars(manifest, console)
 
         mock_save.assert_called_once_with("LANGFUSE_PUBLIC_KEY", "pk-lf-123")
@@ -511,7 +511,7 @@ class TestPromptPluginEnvVars:
         assert "langfuse.com" in printed
 
     def test_secret_uses_getpass(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
@@ -520,37 +520,37 @@ class TestPromptPluginEnvVars:
             "requires_env": [{"name": "SECRET_KEY", "secret": True}],
         }
 
-        with patch("shadow_cli.config.get_env_value", return_value=None), \
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value=None), \
              patch("getpass.getpass", return_value="s3cret") as mock_gp, \
-             patch("shadow_cli.config.save_env_value"):
+             patch("yousef shtiwe_cli.config.save_env_value"):
             _prompt_plugin_env_vars(manifest, console)
 
         mock_gp.assert_called_once()
 
     def test_empty_input_skips(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
         manifest = {"name": "test", "requires_env": ["OPTIONAL_VAR"]}
 
-        with patch("shadow_cli.config.get_env_value", return_value=None), \
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value=None), \
              patch("builtins.input", return_value=""), \
-             patch("shadow_cli.config.save_env_value") as mock_save:
+             patch("yousef shtiwe_cli.config.save_env_value") as mock_save:
             _prompt_plugin_env_vars(manifest, console)
 
         mock_save.assert_not_called()
 
     def test_keyboard_interrupt_skips_gracefully(self):
-        from shadow_cli.plugins_cmd import _prompt_plugin_env_vars
+        from yousef shtiwe_cli.plugins_cmd import _prompt_plugin_env_vars
         from unittest.mock import MagicMock, patch
 
         console = MagicMock()
         manifest = {"name": "test", "requires_env": ["KEY1", "KEY2"]}
 
-        with patch("shadow_cli.config.get_env_value", return_value=None), \
+        with patch("yousef shtiwe_cli.config.get_env_value", return_value=None), \
              patch("builtins.input", side_effect=KeyboardInterrupt), \
-             patch("shadow_cli.config.save_env_value") as mock_save:
+             patch("yousef shtiwe_cli.config.save_env_value") as mock_save:
             _prompt_plugin_env_vars(manifest, console)
 
         # Should not crash, and not save anything
@@ -564,14 +564,14 @@ class TestCursesRadiolist:
     """Test the curses_radiolist function (non-TTY fallback path)."""
 
     def test_non_tty_returns_default(self):
-        from shadow_cli.curses_ui import curses_radiolist
+        from yousef shtiwe_cli.curses_ui import curses_radiolist
         with patch("sys.stdin") as mock_stdin:
             mock_stdin.isatty.return_value = False
             result = curses_radiolist("Pick one", ["a", "b", "c"], selected=1)
             assert result == 1
 
     def test_non_tty_returns_cancel_value(self):
-        from shadow_cli.curses_ui import curses_radiolist
+        from yousef shtiwe_cli.curses_ui import curses_radiolist
         with patch("sys.stdin") as mock_stdin:
             mock_stdin.isatty.return_value = False
             result = curses_radiolist("Pick", ["x", "y"], selected=0, cancel_returns=1)
@@ -586,38 +586,38 @@ class TestProviderDiscovery:
 
     def test_get_current_memory_provider_default(self, tmp_path, monkeypatch):
         """Empty config returns empty string."""
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         config_file = tmp_path / "config.yaml"
         config_file.write_text("memory:\n  provider: ''\n")
-        from shadow_cli.plugins_cmd import _get_current_memory_provider
+        from yousef shtiwe_cli.plugins_cmd import _get_current_memory_provider
         result = _get_current_memory_provider()
         assert result == ""
 
     def test_get_current_context_engine_default(self, tmp_path, monkeypatch):
         """Default config returns 'compressor'."""
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         config_file = tmp_path / "config.yaml"
         config_file.write_text("context:\n  engine: compressor\n")
-        from shadow_cli.plugins_cmd import _get_current_context_engine
+        from yousef shtiwe_cli.plugins_cmd import _get_current_context_engine
         result = _get_current_context_engine()
         assert result == "compressor"
 
     def test_save_memory_provider(self, tmp_path, monkeypatch):
         """Saving a memory provider persists to config.yaml."""
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         config_file = tmp_path / "config.yaml"
         config_file.write_text("memory:\n  provider: ''\n")
-        from shadow_cli.plugins_cmd import _save_memory_provider
+        from yousef shtiwe_cli.plugins_cmd import _save_memory_provider
         _save_memory_provider("honcho")
         content = yaml.safe_load(config_file.read_text())
         assert content["memory"]["provider"] == "honcho"
 
     def test_save_context_engine(self, tmp_path, monkeypatch):
         """Saving a context engine persists to config.yaml."""
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         config_file = tmp_path / "config.yaml"
         config_file.write_text("context:\n  engine: compressor\n")
-        from shadow_cli.plugins_cmd import _save_context_engine
+        from yousef shtiwe_cli.plugins_cmd import _save_context_engine
         _save_context_engine("lcm")
         content = yaml.safe_load(config_file.read_text())
         assert content["context"]["engine"] == "lcm"
@@ -626,7 +626,7 @@ class TestProviderDiscovery:
         """Discovery returns empty list when import fails."""
         with patch("plugins.memory.discover_memory_providers",
                     side_effect=ImportError("no module")):
-            from shadow_cli.plugins_cmd import _discover_memory_providers
+            from yousef shtiwe_cli.plugins_cmd import _discover_memory_providers
             result = _discover_memory_providers()
             assert result == []
 
@@ -634,7 +634,7 @@ class TestProviderDiscovery:
         """Discovery returns empty list when import fails."""
         with patch("plugins.context_engine.discover_context_engines",
                     side_effect=ImportError("no module")):
-            from shadow_cli.plugins_cmd import _discover_context_engines
+            from yousef shtiwe_cli.plugins_cmd import _discover_context_engines
             result = _discover_context_engines()
             assert result == []
 

@@ -136,7 +136,7 @@ def blend_canvas_linear(base, top, mode="normal", opacity=1.0):
 | Screen-blending two bright layers | `linear` | sRGB screen over-brightens highlights |
 | Add mode for glow/bloom effects | `linear` | Additive light follows linear physics |
 | Blending text overlay at low opacity | `srgb` | Perceptual blending looks more natural for text |
-| Multiply for shadow/darkening | `srgb` | Differences are minimal for darken ops |
+| Multiply for yousef shtiwe/darkening | `srgb` | Differences are minimal for darken ops |
 | Color-critical work (matching reference) | `linear` | Avoids sRGB hue shifts in midtones |
 | Performance-critical inner loop | `srgb` | ~2x faster, good enough for most ASCII art |
 
@@ -287,7 +287,7 @@ def tonemap(canvas, target_mean=90, gamma=0.75, black_point=2, white_point=253):
     1. Compute 1st and 99.5th percentile on 4x subsample (16x fewer values,
        negligible accuracy loss, major speedup at 1080p+)
     2. Stretch that range to [0, 1]
-    3. Apply gamma curve (< 1 lifts shadows, > 1 darkens)
+    3. Apply gamma curve (< 1 lifts yousef shtiwes, > 1 darkens)
     4. Rescale to [black_point, white_point]
     """
     f = canvas.astype(np.float32)
@@ -319,7 +319,7 @@ input 0.39 -> output 0.50 (moderate lift)
 input 0.78 -> output 0.84 (gentle lift, no clipping)
 ```
 
-Gamma < 1 compresses the highlights and expands the shadows. This is exactly what we need: lift dark ASCII content into visibility without blowing out the bright parts.
+Gamma < 1 compresses the highlights and expands the yousef shtiwes. This is exactly what we need: lift dark ASCII content into visibility without blowing out the bright parts.
 
 ### Pipeline Ordering
 

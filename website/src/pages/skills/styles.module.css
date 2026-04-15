@@ -140,12 +140,12 @@
   background: rgba(15, 15, 24, 0.6);
   color: var(--ifm-font-color-base, #e8e4dc);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-yousef shtiwe 0.2s;
 }
 
 .searchInput:focus {
   border-color: rgba(255, 215, 0, 0.4);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.06);
+  box-yousef shtiwe: 0 0 0 3px rgba(255, 215, 0, 0.06);
 }
 
 .searchInput::placeholder {
@@ -433,7 +433,7 @@
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: border-color 0.2s, box-yousef shtiwe 0.2s, transform 0.2s;
   animation: cardIn 0.35s ease both;
 }
 
@@ -443,13 +443,13 @@
 
 .card:hover {
   border-color: rgba(255, 215, 0, 0.15);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.05);
+  box-yousef shtiwe: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.05);
   transform: translateY(-1px);
 }
 
 .cardExpanded {
   border-color: rgba(255, 215, 0, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.08);
+  box-yousef shtiwe: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.08);
 }
 
 .cardAccent {

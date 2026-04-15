@@ -6,7 +6,7 @@ author: Orchestra Research
 license: MIT
 dependencies: [torch, transformers, datasets, trl, accelerate]
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [Post-Training, SimPO, Preference Optimization, Alignment, DPO Alternative, Reference-Free, LLM Alignment, Efficient Training]
 
 ---

@@ -75,8 +75,8 @@ class DaytonaEnvironment(BaseEnvironment):
             disk_gib = 10
         resources = Resources(cpu=cpu, memory=memory_gib, disk=disk_gib)
 
-        labels = {"shadow_task_id": task_id}
-        sandbox_name = f"shadow-{task_id}"
+        labels = {"yousef shtiwe_task_id": task_id}
+        sandbox_name = f"yousef shtiwe-{task_id}"
 
         if self._persistent:
             try:
@@ -130,7 +130,7 @@ class DaytonaEnvironment(BaseEnvironment):
         logger.info("Daytona: resolved home to %s, cwd to %s", self._remote_home, self.cwd)
 
         self._sync_manager = FileSyncManager(
-            get_files_fn=lambda: iter_sync_files(f"{self._remote_home}/.shadow"),
+            get_files_fn=lambda: iter_sync_files(f"{self._remote_home}/.yousef shtiwe"),
             upload_fn=self._daytona_upload,
             delete_fn=self._daytona_delete,
             bulk_upload_fn=self._daytona_bulk_upload,

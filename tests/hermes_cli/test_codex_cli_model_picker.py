@@ -1,12 +1,12 @@
 """Regression test: openai-codex must appear in /model picker when
 credentials are only in the Codex CLI shared file (~/.codex/auth.json)
-and haven't been migrated to the SHADOW auth store yet.
+and haven't been migrated to the YOUSEF SHTIWE auth store yet.
 
-Root cause: list_authenticated_providers() checked the raw SHADOW auth
+Root cause: list_authenticated_providers() checked the raw YOUSEF SHTIWE auth
 store but didn't know about the Codex CLI fallback import path.
 
 Fix: _seed_from_singletons() now imports from the Codex CLI when the
-SHADOW auth store has no openai-codex tokens, and
+YOUSEF SHTIWE auth store has no openai-codex tokens, and
 list_authenticated_providers() falls back to load_pool() for OAuth
 providers.
 """
@@ -34,17 +34,17 @@ def _make_fake_jwt(expiry_offset: int = 3600) -> str:
 @pytest.fixture()
 def codex_cli_only_env(tmp_path, monkeypatch):
     """Set up an environment where Codex tokens exist only in ~/.codex/auth.json,
-    NOT in the SHADOW auth store."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
+    NOT in the YOUSEF SHTIWE auth store."""
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
     codex_home = tmp_path / ".codex"
     codex_home.mkdir()
 
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     monkeypatch.setenv("CODEX_HOME", str(codex_home))
 
-    # Empty SHADOW auth store
-    (shadow_home / "auth.json").write_text(
+    # Empty YOUSEF SHTIWE auth store
+    (yousef shtiwe_home / "auth.json").write_text(
         json.dumps({"version": 2, "providers": {}})
     )
 
@@ -62,17 +62,17 @@ def codex_cli_only_env(tmp_path, monkeypatch):
     # Clear provider env vars so only OAuth is a detection path
     for var in [
         "OPENROUTER_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY",
-        "Shadow_API_KEY", "DEEPSEEK_API_KEY", "COPILOT_GITHUB_TOKEN",
+        "Yousef Shtiwe_API_KEY", "DEEPSEEK_API_KEY", "COPILOT_GITHUB_TOKEN",
         "GH_TOKEN", "GEMINI_API_KEY",
     ]:
         monkeypatch.delenv(var, raising=False)
 
-    return shadow_home
+    return yousef shtiwe_home
 
 
 def test_codex_cli_tokens_detected_by_model_picker(codex_cli_only_env):
     """openai-codex should appear when tokens only exist in ~/.codex/auth.json."""
-    from shadow_cli.model_switch import list_authenticated_providers
+    from yousef shtiwe_cli.model_switch import list_authenticated_providers
 
     providers = list_authenticated_providers(
         current_provider="openai-codex",
@@ -90,18 +90,18 @@ def test_codex_cli_tokens_detected_by_model_picker(codex_cli_only_env):
 
 def test_codex_cli_tokens_migrated_after_detection(codex_cli_only_env):
     """After the /model picker detects Codex CLI tokens, they should be
-    migrated into the SHADOW auth store for subsequent fast lookups."""
-    from shadow_cli.model_switch import list_authenticated_providers
+    migrated into the YOUSEF SHTIWE auth store for subsequent fast lookups."""
+    from yousef shtiwe_cli.model_switch import list_authenticated_providers
 
     # First call triggers migration
     list_authenticated_providers(current_provider="openai-codex")
 
-    # Verify tokens are now in SHADOW auth store
+    # Verify tokens are now in YOUSEF SHTIWE auth store
     auth_path = codex_cli_only_env / "auth.json"
     store = json.loads(auth_path.read_text())
     providers = store.get("providers", {})
     assert "openai-codex" in providers, (
-        f"openai-codex not migrated to SHADOW auth store: {list(providers.keys())}"
+        f"openai-codex not migrated to YOUSEF SHTIWE auth store: {list(providers.keys())}"
     )
     tokens = providers["openai-codex"].get("tokens", {})
     assert tokens.get("access_token"), "access_token missing after migration"
@@ -109,16 +109,16 @@ def test_codex_cli_tokens_migrated_after_detection(codex_cli_only_env):
 
 
 @pytest.fixture()
-def shadow_auth_only_env(tmp_path, monkeypatch):
-    """Tokens already in SHADOW auth store (no Codex CLI needed)."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
+def yousef shtiwe_auth_only_env(tmp_path, monkeypatch):
+    """Tokens already in YOUSEF SHTIWE auth store (no Codex CLI needed)."""
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
 
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     # Point CODEX_HOME to nonexistent dir to prove it's not needed
     monkeypatch.setenv("CODEX_HOME", str(tmp_path / "no_codex"))
 
-    (shadow_home / "auth.json").write_text(json.dumps({
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({
         "version": 2,
         "providers": {
             "openai-codex": {
@@ -133,16 +133,16 @@ def shadow_auth_only_env(tmp_path, monkeypatch):
 
     for var in [
         "OPENROUTER_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY",
-        "Shadow_API_KEY", "DEEPSEEK_API_KEY",
+        "Yousef Shtiwe_API_KEY", "DEEPSEEK_API_KEY",
     ]:
         monkeypatch.delenv(var, raising=False)
 
-    return shadow_home
+    return yousef shtiwe_home
 
 
-def test_normal_path_still_works(shadow_auth_only_env):
-    """openai-codex appears when tokens are already in SHADOW auth store."""
-    from shadow_cli.model_switch import list_authenticated_providers
+def test_normal_path_still_works(yousef shtiwe_auth_only_env):
+    """openai-codex appears when tokens are already in YOUSEF SHTIWE auth store."""
+    from yousef shtiwe_cli.model_switch import list_authenticated_providers
 
     providers = list_authenticated_providers(
         current_provider="openai-codex",
@@ -155,16 +155,16 @@ def test_normal_path_still_works(shadow_auth_only_env):
 @pytest.fixture()
 def claude_code_only_env(tmp_path, monkeypatch):
     """Set up an environment where Anthropic credentials only exist in
-    ~/.claude/.credentials.json (Claude Code) — not in env vars or SHADOW
+    ~/.claude/.credentials.json (Claude Code) — not in env vars or YOUSEF SHTIWE
     auth store."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
 
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     # No Codex CLI
     monkeypatch.setenv("CODEX_HOME", str(tmp_path / "no_codex"))
 
-    (shadow_home / "auth.json").write_text(
+    (yousef shtiwe_home / "auth.json").write_text(
         json.dumps({"version": 2, "providers": {}})
     )
 
@@ -185,16 +185,16 @@ def claude_code_only_env(tmp_path, monkeypatch):
     for var in [
         "OPENROUTER_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY",
         "ANTHROPIC_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN",
-        "Shadow_API_KEY", "DEEPSEEK_API_KEY",
+        "Yousef Shtiwe_API_KEY", "DEEPSEEK_API_KEY",
     ]:
         monkeypatch.delenv(var, raising=False)
 
-    return shadow_home
+    return yousef shtiwe_home
 
 
 def test_claude_code_file_detected_by_model_picker(claude_code_only_env):
     """anthropic should appear when credentials only exist in ~/.claude/.credentials.json."""
-    from shadow_cli.model_switch import list_authenticated_providers
+    from yousef shtiwe_cli.model_switch import list_authenticated_providers
 
     providers = list_authenticated_providers(
         current_provider="anthropic",
@@ -212,24 +212,24 @@ def test_claude_code_file_detected_by_model_picker(claude_code_only_env):
 
 def test_no_codex_when_no_credentials(tmp_path, monkeypatch):
     """openai-codex should NOT appear when no credentials exist anywhere."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
 
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     monkeypatch.setenv("CODEX_HOME", str(tmp_path / "no_codex"))
 
-    (shadow_home / "auth.json").write_text(
+    (yousef shtiwe_home / "auth.json").write_text(
         json.dumps({"version": 2, "providers": {}})
     )
 
     for var in [
         "OPENROUTER_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY",
-        "Shadow_API_KEY", "DEEPSEEK_API_KEY", "COPILOT_GITHUB_TOKEN",
+        "Yousef Shtiwe_API_KEY", "DEEPSEEK_API_KEY", "COPILOT_GITHUB_TOKEN",
         "GH_TOKEN", "GEMINI_API_KEY",
     ]:
         monkeypatch.delenv(var, raising=False)
 
-    from shadow_cli.model_switch import list_authenticated_providers
+    from yousef shtiwe_cli.model_switch import list_authenticated_providers
 
     providers = list_authenticated_providers(
         current_provider="openrouter",

@@ -10,7 +10,7 @@
   <xsd:complexType name="CT_Border">
     <xsd:attribute name="type" type="ST_BorderType" use="optional"/>
     <xsd:attribute name="width" type="xsd:positiveInteger" use="optional"/>
-    <xsd:attribute name="shadow" type="ST_BorderShadow" use="optional"/>
+    <xsd:attribute name="yousef shtiwe" type="ST_BorderYousef Shtiwe" use="optional"/>
   </xsd:complexType>
   <xsd:element name="wrap" type="CT_Wrap"/>
   <xsd:complexType name="CT_Wrap">
@@ -52,7 +52,7 @@
       <xsd:enumeration value="HTMLInset"/>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:simpleType name="ST_BorderShadow">
+  <xsd:simpleType name="ST_BorderYousef Shtiwe">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="t"/>
       <xsd:enumeration value="true"/>

@@ -1,46 +1,46 @@
-# nix/nixosModules.nix — NixOS module for shadow-agent
+# nix/nixosModules.nix — NixOS module for yousef shtiwe-agent
 #
 # Two modes:
 #   container.enable = false (default) → native systemd service
 #   container.enable = true            → OCI container (persistent writable layer)
 #
-# Container mode: shadow runs from /nix/store bind-mounted read-only into a
+# Container mode: yousef shtiwe runs from /nix/store bind-mounted read-only into a
 # plain Ubuntu container. The writable layer (apt/pip/npm installs) persists
 # across restarts and agent updates. Only image/volume/options changes trigger
-# container recreation. Environment variables are written to $SHADOW_HOME/.env
-# and read by shadow at startup — no container recreation needed for env changes.
+# container recreation. Environment variables are written to $YOUSEF SHTIWE_HOME/.env
+# and read by yousef shtiwe at startup — no container recreation needed for env changes.
 #
-# Tool resolution: the shadow wrapper uses --suffix PATH for nix store tools,
+# Tool resolution: the yousef shtiwe wrapper uses --suffix PATH for nix store tools,
 # so apt/uv-installed versions take priority. The container entrypoint provisions
 # extensible tools on first boot: nodejs/npm via apt, uv via curl, and a Python
 # 3.11 venv (bootstrapped entirely by uv) at ~/.venv with pip seeded. Agents get
 # writable tool prefixes for npm i -g, pip install, uv tool install, etc.
 #
 # Usage:
-#   services.shadow-agent = {
+#   services.yousef shtiwe-agent = {
 #     enable = true;
 #     settings.model = "anthropic/claude-sonnet-4";
-#     environmentFiles = [ config.sops.secrets."shadow/env".path ];
+#     environmentFiles = [ config.sops.secrets."yousef shtiwe/env".path ];
 #   };
 #
 { inputs, ... }: {
   flake.nixosModules.default = { config, lib, pkgs, ... }:
 
   let
-    cfg = config.services.shadow-agent;
-    shadow-agent = inputs.self.packages.${pkgs.system}.default;
+    cfg = config.services.yousef shtiwe-agent;
+    yousef shtiwe-agent = inputs.self.packages.${pkgs.system}.default;
 
-    # Deep-merge config type (from 0xrsydn/nix-shadow-agent)
+    # Deep-merge config type (from 0xrsydn/nix-yousef shtiwe-agent)
     deepConfigType = lib.types.mkOptionType {
-      name = "shadow-config-attrs";
-      description = "SHADOW YAML config (attrset), merged deeply via lib.recursiveUpdate.";
+      name = "yousef shtiwe-config-attrs";
+      description = "YOUSEF SHTIWE YAML config (attrset), merged deeply via lib.recursiveUpdate.";
       check = builtins.isAttrs;
       merge = _loc: defs: lib.foldl' lib.recursiveUpdate { } (map (d: d.value) defs);
     };
 
     # Generate config.yaml from Nix attrset (YAML is a superset of JSON)
     configJson = builtins.toJSON cfg.settings;
-    generatedConfigFile = pkgs.writeText "shadow-config.yaml" configJson;
+    generatedConfigFile = pkgs.writeText "yousef shtiwe-config.yaml" configJson;
     configFile = if cfg.configFile != null then cfg.configFile else generatedConfigFile;
 
     configMergeScript = pkgs.callPackage ./configMergeScript.nix { };
@@ -50,21 +50,21 @@
       lib.mapAttrsToList (k: v: "${k}=${v}") cfg.environment
     );
     # Build documents derivation (from 0xrsydn)
-    documentDerivation = pkgs.runCommand "shadow-documents" { } (
+    documentDerivation = pkgs.runCommand "yousef shtiwe-documents" { } (
       ''
         mkdir -p $out
       '' + lib.concatStringsSep "\n" (
         lib.mapAttrsToList (name: value:
           if builtins.isPath value || lib.isStorePath value
           then "cp ${value} $out/${name}"
-          else "cat > $out/${name} <<'SHADOW_DOC_EOF'\n${value}\nSHADOW_DOC_EOF"
+          else "cat > $out/${name} <<'YOUSEF SHTIWE_DOC_EOF'\n${value}\nYOUSEF SHTIWE_DOC_EOF"
         ) cfg.documents
       )
     );
 
-    containerName = "shadow-agent";
+    containerName = "yousef shtiwe-agent";
     containerDataDir = "/data";     # stateDir mount point inside container
-    containerHomeDir = "/home/shadow";
+    containerHomeDir = "/home/yousef shtiwe";
 
     # ── Container mode helpers ──────────────────────────────────────────
     containerBin = if cfg.container.backend == "docker"
@@ -72,67 +72,67 @@
       else "${pkgs.podman}/bin/podman";
 
     # Runs as root inside the container on every start. Provisions the
-    # shadow user + sudo on first boot (writable layer persists), then
+    # yousef shtiwe user + sudo on first boot (writable layer persists), then
     # drops privileges. Supports arbitrary base images (Debian, Alpine, etc).
-    containerEntrypoint = pkgs.writeShellScript "shadow-container-entrypoint" ''
+    containerEntrypoint = pkgs.writeShellScript "yousef shtiwe-container-entrypoint" ''
       set -eu
 
-      SHADOW_UID="''${SHADOW_UID:?SHADOW_UID must be set}"
-      SHADOW_GID="''${SHADOW_GID:?SHADOW_GID must be set}"
+      YOUSEF SHTIWE_UID="''${YOUSEF SHTIWE_UID:?YOUSEF SHTIWE_UID must be set}"
+      YOUSEF SHTIWE_GID="''${YOUSEF SHTIWE_GID:?YOUSEF SHTIWE_GID must be set}"
 
-      # ── Group: ensure a group with GID=$SHADOW_GID exists ──
+      # ── Group: ensure a group with GID=$YOUSEF SHTIWE_GID exists ──
       # Check by GID (not name) to avoid collisions with pre-existing groups
       # (e.g. GID 100 = "users" on Ubuntu)
-      EXISTING_GROUP=$(getent group "$SHADOW_GID" 2>/dev/null | cut -d: -f1 || true)
+      EXISTING_GROUP=$(getent group "$YOUSEF SHTIWE_GID" 2>/dev/null | cut -d: -f1 || true)
       if [ -n "$EXISTING_GROUP" ]; then
         GROUP_NAME="$EXISTING_GROUP"
       else
-        GROUP_NAME="shadow"
+        GROUP_NAME="yousef shtiwe"
         if command -v groupadd >/dev/null 2>&1; then
-          groupadd -g "$SHADOW_GID" "$GROUP_NAME"
+          groupadd -g "$YOUSEF SHTIWE_GID" "$GROUP_NAME"
         elif command -v addgroup >/dev/null 2>&1; then
-          addgroup -g "$SHADOW_GID" "$GROUP_NAME" 2>/dev/null || true
+          addgroup -g "$YOUSEF SHTIWE_GID" "$GROUP_NAME" 2>/dev/null || true
         fi
       fi
 
-      # ── User: ensure a user with UID=$SHADOW_UID exists ──
-      PASSWD_ENTRY=$(getent passwd "$SHADOW_UID" 2>/dev/null || true)
+      # ── User: ensure a user with UID=$YOUSEF SHTIWE_UID exists ──
+      PASSWD_ENTRY=$(getent passwd "$YOUSEF SHTIWE_UID" 2>/dev/null || true)
       if [ -n "$PASSWD_ENTRY" ]; then
         TARGET_USER=$(echo "$PASSWD_ENTRY" | cut -d: -f1)
         TARGET_HOME=$(echo "$PASSWD_ENTRY" | cut -d: -f6)
       else
-        TARGET_USER="shadow"
-        TARGET_HOME="/home/shadow"
+        TARGET_USER="yousef shtiwe"
+        TARGET_HOME="/home/yousef shtiwe"
         if command -v useradd >/dev/null 2>&1; then
-          useradd -u "$SHADOW_UID" -g "$SHADOW_GID" -m -d "$TARGET_HOME" -s /bin/bash "$TARGET_USER"
+          useradd -u "$YOUSEF SHTIWE_UID" -g "$YOUSEF SHTIWE_GID" -m -d "$TARGET_HOME" -s /bin/bash "$TARGET_USER"
         elif command -v adduser >/dev/null 2>&1; then
-          adduser -u "$SHADOW_UID" -D -h "$TARGET_HOME" -s /bin/sh -G "$GROUP_NAME" "$TARGET_USER" 2>/dev/null || true
+          adduser -u "$YOUSEF SHTIWE_UID" -D -h "$TARGET_HOME" -s /bin/sh -G "$GROUP_NAME" "$TARGET_USER" 2>/dev/null || true
         fi
       fi
       mkdir -p "$TARGET_HOME"
-      chown "$SHADOW_UID:$SHADOW_GID" "$TARGET_HOME"
+      chown "$YOUSEF SHTIWE_UID:$YOUSEF SHTIWE_GID" "$TARGET_HOME"
       chmod 0750 "$TARGET_HOME"
 
-      # Ensure SHADOW_HOME is owned by the target user
-      if [ -n "''${SHADOW_HOME:-}" ] && [ -d "$SHADOW_HOME" ]; then
-        chown -R "$SHADOW_UID:$SHADOW_GID" "$SHADOW_HOME"
+      # Ensure YOUSEF SHTIWE_HOME is owned by the target user
+      if [ -n "''${YOUSEF SHTIWE_HOME:-}" ] && [ -d "$YOUSEF SHTIWE_HOME" ]; then
+        chown -R "$YOUSEF SHTIWE_UID:$YOUSEF SHTIWE_GID" "$YOUSEF SHTIWE_HOME"
       fi
 
       # ── Provision apt packages (first boot only, cached in writable layer) ──
       # sudo: agent self-modification
       # nodejs/npm: writable node so npm i -g works (nix store copies are read-only)
       # curl: needed for uv installer
-      if [ ! -f /var/lib/shadow-tools-provisioned ] && command -v apt-get >/dev/null 2>&1; then
+      if [ ! -f /var/lib/yousef shtiwe-tools-provisioned ] && command -v apt-get >/dev/null 2>&1; then
         echo "First boot: provisioning agent tools..."
         apt-get update -qq
         apt-get install -y -qq sudo nodejs npm curl
-        touch /var/lib/shadow-tools-provisioned
+        touch /var/lib/yousef shtiwe-tools-provisioned
       fi
 
-      if command -v sudo >/dev/null 2>&1 && [ ! -f /etc/sudoers.d/shadow ]; then
+      if command -v sudo >/dev/null 2>&1 && [ ! -f /etc/sudoers.d/yousef shtiwe ]; then
         mkdir -p /etc/sudoers.d
-        echo "$TARGET_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/shadow
-        chmod 0440 /etc/sudoers.d/shadow
+        echo "$TARGET_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/yousef shtiwe
+        chmod 0440 /etc/sudoers.d/yousef shtiwe
       fi
 
       # uv (Python manager) — not in Ubuntu repos, retry-safe outside the sentinel
@@ -158,7 +158,7 @@
       fi
 
       if command -v setpriv >/dev/null 2>&1; then
-        exec setpriv --reuid="$SHADOW_UID" --regid="$SHADOW_GID" --init-groups "$@"
+        exec setpriv --reuid="$YOUSEF SHTIWE_UID" --regid="$YOUSEF SHTIWE_GID" --init-groups "$@"
       elif command -v su >/dev/null 2>&1; then
         exec su -s /bin/sh "$TARGET_USER" -c 'exec "$0" "$@"' -- "$@"
       else
@@ -169,7 +169,7 @@
 
     # Identity hash — only recreate container when structural config changes.
     # Package and entrypoint use stable symlinks (current-package, current-entrypoint)
-    # so they can update without recreation. Env vars go through $SHADOW_HOME/.env.
+    # so they can update without recreation. Env vars go through $YOUSEF SHTIWE_HOME/.env.
     containerIdentity = builtins.hashString "sha256" (builtins.toJSON {
       schema = 3; # bump when identity inputs change
       image = cfg.container.image;
@@ -179,7 +179,7 @@
 
     identityFile = "${cfg.stateDir}/.container-identity";
 
-    # Default: /var/lib/shadow/workspace → /data/workspace.
+    # Default: /var/lib/yousef shtiwe/workspace → /data/workspace.
     # Custom paths outside stateDir pass through unchanged (user must add extraVolumes).
     containerWorkDir =
       if lib.hasPrefix "${cfg.stateDir}/" cfg.workingDirectory
@@ -187,26 +187,26 @@
       else cfg.workingDirectory;
 
   in {
-    options.services.shadow-agent = with lib; {
-      enable = mkEnableOption "SHADOW Agent gateway service";
+    options.services.yousef shtiwe-agent = with lib; {
+      enable = mkEnableOption "YOUSEF SHTIWE Agent gateway service";
 
       # ── Package ──────────────────────────────────────────────────────────
       package = mkOption {
         type = types.package;
-        default = shadow-agent;
-        description = "The shadow-agent package to use.";
+        default = yousef shtiwe-agent;
+        description = "The yousef shtiwe-agent package to use.";
       };
 
       # ── Service identity ─────────────────────────────────────────────────
       user = mkOption {
         type = types.str;
-        default = "shadow";
+        default = "yousef shtiwe";
         description = "System user running the gateway.";
       };
 
       group = mkOption {
         type = types.str;
-        default = "shadow";
+        default = "yousef shtiwe";
         description = "System group running the gateway.";
       };
 
@@ -219,8 +219,8 @@
       # ── Directories ──────────────────────────────────────────────────────
       stateDir = mkOption {
         type = types.str;
-        default = "/var/lib/shadow";
-        description = "State directory. Contains .shadow/ subdir (SHADOW_HOME).";
+        default = "/var/lib/yousef shtiwe";
+        description = "State directory. Contains .yousef shtiwe/ subdir (YOUSEF SHTIWE_HOME).";
       };
 
       workingDirectory = mkOption {
@@ -244,7 +244,7 @@
         type = deepConfigType;
         default = { };
         description = ''
-          Declarative SHADOW config (attrset). Deep-merged across module
+          Declarative YOUSEF SHTIWE config (attrset). Deep-merged across module
           definitions and rendered as config.yaml.
         '';
         example = literalExpression ''
@@ -263,8 +263,8 @@
         default = [ ];
         description = ''
           Paths to environment files containing secrets (API keys, tokens).
-          Contents are merged into $SHADOW_HOME/.env at activation time.
-          SHADOW reads this file on every startup via load_shadow_dotenv().
+          Contents are merged into $YOUSEF SHTIWE_HOME/.env at activation time.
+          YOUSEF SHTIWE reads this file on every startup via load_yousef shtiwe_dotenv().
         '';
       };
 
@@ -272,7 +272,7 @@
         type = types.attrsOf types.str;
         default = { };
         description = ''
-          Non-secret environment variables. Merged into $SHADOW_HOME/.env
+          Non-secret environment variables. Merged into $YOUSEF SHTIWE_HOME/.env
           at activation time. Do NOT put secrets here — use environmentFiles.
         '';
       };
@@ -347,7 +347,7 @@
               default = null;
               description = ''
                 Authentication method. Set to "oauth" for OAuth 2.1 PKCE flow
-                (remote MCP servers). Tokens are stored in $SHADOW_HOME/mcp-tokens/.
+                (remote MCP servers). Tokens are stored in $YOUSEF SHTIWE_HOME/mcp-tokens/.
               '';
             };
 
@@ -440,7 +440,7 @@
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = "Extra command-line arguments for `shadow gateway`.";
+        description = "Extra command-line arguments for `yousef shtiwe gateway`.";
       };
 
       extraPackages = mkOption {
@@ -465,8 +465,8 @@
         type = types.bool;
         default = false;
         description = ''
-          Add the shadow CLI to environment.systemPackages and export
-          SHADOW_HOME system-wide (via environment.variables) so interactive
+          Add the yousef shtiwe CLI to environment.systemPackages and export
+          YOUSEF SHTIWE_HOME system-wide (via environment.variables) so interactive
           shells share state with the gateway service.
         '';
       };
@@ -504,8 +504,8 @@
           type = types.listOf types.str;
           default = [ ];
           description = ''
-            Interactive users who get a ~/.shadow symlink to the service
-            stateDir. These users are automatically added to the shadow group.
+            Interactive users who get a ~/.yousef shtiwe symlink to the service
+            stateDir. These users are automatically added to the yousef shtiwe group.
           '';
           example = [ "sidbin" ];
         };
@@ -516,7 +516,7 @@
 
       # ── Merge MCP servers into settings ────────────────────────────────
       (lib.mkIf (cfg.mcpServers != { }) {
-        services.shadow-agent.settings.mcp_servers = lib.mapAttrs (_name: srv:
+        services.yousef shtiwe-agent.settings.mcp_servers = lib.mapAttrs (_name: srv:
           # Stdio transport
           lib.optionalAttrs (srv.command != null) { inherit (srv) command args; }
           // lib.optionalAttrs (srv.env != { }) { inherit (srv) env; }
@@ -559,12 +559,12 @@
       })
 
       # ── Host CLI ──────────────────────────────────────────────────────
-      # Add the shadow CLI to system PATH and export SHADOW_HOME system-wide
+      # Add the yousef shtiwe CLI to system PATH and export YOUSEF SHTIWE_HOME system-wide
       # so interactive shells share state (sessions, skills, cron) with the
-      # gateway service instead of creating a separate ~/.shadow/.
+      # gateway service instead of creating a separate ~/.yousef shtiwe/.
       (lib.mkIf cfg.addToSystemPackages {
         environment.systemPackages = [ cfg.package ];
-        environment.variables.SHADOW_HOME = "${cfg.stateDir}/.shadow";
+        environment.variables.YOUSEF SHTIWE_HOME = "${cfg.stateDir}/.yousef shtiwe";
       })
 
       # ── Host user group membership ─────────────────────────────────────
@@ -578,10 +578,10 @@
       (lib.mkIf (cfg.container.enable && !cfg.addToSystemPackages && cfg.container.hostUsers != []) {
         warnings = [
           ''
-            services.shadow-agent: container.enable is true and container.hostUsers
-            is set, but addToSystemPackages is false. Without a host-installed shadow
+            services.yousef shtiwe-agent: container.enable is true and container.hostUsers
+            is set, but addToSystemPackages is false. Without a host-installed yousef shtiwe
             binary, container routing will not work for interactive users.
-            Set addToSystemPackages = true or ensure shadow is on PATH.
+            Set addToSystemPackages = true or ensure yousef shtiwe is on PATH.
           ''
         ];
       })
@@ -590,11 +590,11 @@
       {
         systemd.tmpfiles.rules = [
           "d ${cfg.stateDir}                2770 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.stateDir}/.shadow        2770 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.stateDir}/.shadow/cron   2770 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.stateDir}/.shadow/sessions 2770 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.stateDir}/.shadow/logs   2770 ${cfg.user} ${cfg.group} - -"
-          "d ${cfg.stateDir}/.shadow/memories 2770 ${cfg.user} ${cfg.group} - -"
+          "d ${cfg.stateDir}/.yousef shtiwe        2770 ${cfg.user} ${cfg.group} - -"
+          "d ${cfg.stateDir}/.yousef shtiwe/cron   2770 ${cfg.user} ${cfg.group} - -"
+          "d ${cfg.stateDir}/.yousef shtiwe/sessions 2770 ${cfg.user} ${cfg.group} - -"
+          "d ${cfg.stateDir}/.yousef shtiwe/logs   2770 ${cfg.user} ${cfg.group} - -"
+          "d ${cfg.stateDir}/.yousef shtiwe/memories 2770 ${cfg.user} ${cfg.group} - -"
           "d ${cfg.stateDir}/home           0750 ${cfg.user} ${cfg.group} - -"
           "d ${cfg.workingDirectory}         2770 ${cfg.user} ${cfg.group} - -"
         ];
@@ -602,25 +602,25 @@
 
       # ── Activation: link config + auth + documents ────────────────────
       {
-        system.activationScripts."shadow-agent-setup" = lib.stringAfter ([ "users" ] ++ lib.optional (config.system.activationScripts ? setupSecrets) "setupSecrets") ''
+        system.activationScripts."yousef shtiwe-agent-setup" = lib.stringAfter ([ "users" ] ++ lib.optional (config.system.activationScripts ? setupSecrets) "setupSecrets") ''
           # Ensure directories exist (activation runs before tmpfiles)
-          mkdir -p ${cfg.stateDir}/.shadow
+          mkdir -p ${cfg.stateDir}/.yousef shtiwe
           mkdir -p ${cfg.stateDir}/home
           mkdir -p ${cfg.workingDirectory}
-          chown ${cfg.user}:${cfg.group} ${cfg.stateDir} ${cfg.stateDir}/.shadow ${cfg.stateDir}/home ${cfg.workingDirectory}
-          chmod 2770 ${cfg.stateDir} ${cfg.stateDir}/.shadow ${cfg.workingDirectory}
+          chown ${cfg.user}:${cfg.group} ${cfg.stateDir} ${cfg.stateDir}/.yousef shtiwe ${cfg.stateDir}/home ${cfg.workingDirectory}
+          chmod 2770 ${cfg.stateDir} ${cfg.stateDir}/.yousef shtiwe ${cfg.workingDirectory}
           chmod 0750 ${cfg.stateDir}/home
 
           # Create subdirs, set setgid + group-writable, migrate existing files.
           # Nix-managed files (config.yaml, .env, .managed) stay 0640/0644.
-          find ${cfg.stateDir}/.shadow -maxdepth 1 \
+          find ${cfg.stateDir}/.yousef shtiwe -maxdepth 1 \
             \( -name "*.db" -o -name "*.db-wal" -o -name "*.db-shm" -o -name "SOUL.md" \) \
             -exec chmod g+rw {} + 2>/dev/null || true
           for _subdir in cron sessions logs memories; do
-            mkdir -p "${cfg.stateDir}/.shadow/$_subdir"
-            chown ${cfg.user}:${cfg.group} "${cfg.stateDir}/.shadow/$_subdir"
-            chmod 2770 "${cfg.stateDir}/.shadow/$_subdir"
-            find "${cfg.stateDir}/.shadow/$_subdir" -type f \
+            mkdir -p "${cfg.stateDir}/.yousef shtiwe/$_subdir"
+            chown ${cfg.user}:${cfg.group} "${cfg.stateDir}/.yousef shtiwe/$_subdir"
+            chmod 2770 "${cfg.stateDir}/.yousef shtiwe/$_subdir"
+            find "${cfg.stateDir}/.yousef shtiwe/$_subdir" -type f \
               -exec chmod g+rw {} + 2>/dev/null || true
           done
 
@@ -628,63 +628,63 @@
           # Preserves user-added keys (skills, streaming, etc.); Nix keys win.
           # If configFile is user-provided (not generated), overwrite instead of merge.
           ${if cfg.configFile != null then ''
-            install -o ${cfg.user} -g ${cfg.group} -m 0640 -D ${configFile} ${cfg.stateDir}/.shadow/config.yaml
+            install -o ${cfg.user} -g ${cfg.group} -m 0640 -D ${configFile} ${cfg.stateDir}/.yousef shtiwe/config.yaml
           '' else ''
-            ${configMergeScript} ${generatedConfigFile} ${cfg.stateDir}/.shadow/config.yaml
-            chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.shadow/config.yaml
-            chmod 0640 ${cfg.stateDir}/.shadow/config.yaml
+            ${configMergeScript} ${generatedConfigFile} ${cfg.stateDir}/.yousef shtiwe/config.yaml
+            chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.yousef shtiwe/config.yaml
+            chmod 0640 ${cfg.stateDir}/.yousef shtiwe/config.yaml
           ''}
 
           # Managed mode marker (so interactive shells also detect NixOS management)
-          touch ${cfg.stateDir}/.shadow/.managed
-          chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.shadow/.managed
-          chmod 0644 ${cfg.stateDir}/.shadow/.managed
+          touch ${cfg.stateDir}/.yousef shtiwe/.managed
+          chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.yousef shtiwe/.managed
+          chmod 0644 ${cfg.stateDir}/.yousef shtiwe/.managed
 
           # Container mode metadata — tells the host CLI to exec into the
           # container instead of running locally. Removed when container mode
           # is disabled so the host CLI falls back to native execution.
           ${if cfg.container.enable then ''
-            cat > ${cfg.stateDir}/.shadow/.container-mode <<'SHADOW_CONTAINER_MODE_EOF'
+            cat > ${cfg.stateDir}/.yousef shtiwe/.container-mode <<'YOUSEF SHTIWE_CONTAINER_MODE_EOF'
 # Written by NixOS activation script. Do not edit manually.
 backend=${cfg.container.backend}
 container_name=${containerName}
 exec_user=${cfg.user}
-shadow_bin=${containerDataDir}/current-package/bin/shadow
-SHADOW_CONTAINER_MODE_EOF
-            chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.shadow/.container-mode
-            chmod 0644 ${cfg.stateDir}/.shadow/.container-mode
+yousef shtiwe_bin=${containerDataDir}/current-package/bin/yousef shtiwe
+YOUSEF SHTIWE_CONTAINER_MODE_EOF
+            chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/.yousef shtiwe/.container-mode
+            chmod 0644 ${cfg.stateDir}/.yousef shtiwe/.container-mode
           '' else ''
-            rm -f ${cfg.stateDir}/.shadow/.container-mode
+            rm -f ${cfg.stateDir}/.yousef shtiwe/.container-mode
 
             # Remove symlink bridge for hostUsers
             ${lib.concatStringsSep "\n" (map (user:
               let
                 userHome = config.users.users.${user}.home;
-                symlinkPath = "${userHome}/.shadow";
+                symlinkPath = "${userHome}/.yousef shtiwe";
               in ''
-                if [ -L "${symlinkPath}" ] && [ "$(readlink "${symlinkPath}")" = "${cfg.stateDir}/.shadow" ]; then
+                if [ -L "${symlinkPath}" ] && [ "$(readlink "${symlinkPath}")" = "${cfg.stateDir}/.yousef shtiwe" ]; then
                   rm -f "${symlinkPath}"
-                  echo "shadow-agent: removed symlink ${symlinkPath}"
+                  echo "yousef shtiwe-agent: removed symlink ${symlinkPath}"
                 fi
               '') cfg.container.hostUsers)}
           ''}
 
           # ── Symlink bridge for interactive users ───────────────────────
-          # Create ~/.shadow -> stateDir/.shadow for each hostUser so the
+          # Create ~/.yousef shtiwe -> stateDir/.yousef shtiwe for each hostUser so the
           # host CLI shares state with the container service.
           # Only runs when container mode is enabled.
           ${lib.optionalString cfg.container.enable
             (lib.concatStringsSep "\n" (map (user:
               let
                 userHome = config.users.users.${user}.home;
-                symlinkPath = "${userHome}/.shadow";
-                target = "${cfg.stateDir}/.shadow";
+                symlinkPath = "${userHome}/.yousef shtiwe";
+                target = "${cfg.stateDir}/.yousef shtiwe";
               in ''
                 if [ -d "${symlinkPath}" ] && [ ! -L "${symlinkPath}" ]; then
                   # Real directory — back it up, then create symlink.
                   # (ln -sfn cannot atomically replace a directory.)
                   _backup="${symlinkPath}.bak.$(date +%s)"
-                  echo "shadow-agent: backing up existing ${symlinkPath} to $_backup"
+                  echo "yousef shtiwe-agent: backing up existing ${symlinkPath} to $_backup"
                   mv "${symlinkPath}" "$_backup"
                 fi
                 # For everything else (existing symlink, doesn't exist, etc.)
@@ -696,23 +696,23 @@ SHADOW_CONTAINER_MODE_EOF
           # Seed auth file if provided
           ${lib.optionalString (cfg.authFile != null) ''
             ${if cfg.authFileForceOverwrite then ''
-              install -o ${cfg.user} -g ${cfg.group} -m 0600 ${cfg.authFile} ${cfg.stateDir}/.shadow/auth.json
+              install -o ${cfg.user} -g ${cfg.group} -m 0600 ${cfg.authFile} ${cfg.stateDir}/.yousef shtiwe/auth.json
             '' else ''
-              if [ ! -f ${cfg.stateDir}/.shadow/auth.json ]; then
-                install -o ${cfg.user} -g ${cfg.group} -m 0600 ${cfg.authFile} ${cfg.stateDir}/.shadow/auth.json
+              if [ ! -f ${cfg.stateDir}/.yousef shtiwe/auth.json ]; then
+                install -o ${cfg.user} -g ${cfg.group} -m 0600 ${cfg.authFile} ${cfg.stateDir}/.yousef shtiwe/auth.json
               fi
             ''}
           ''}
 
           # Seed .env from Nix-declared environment + environmentFiles.
-          # SHADOW reads $SHADOW_HOME/.env at startup via load_shadow_dotenv(),
+          # YOUSEF SHTIWE reads $YOUSEF SHTIWE_HOME/.env at startup via load_yousef shtiwe_dotenv(),
           # so this is the single source of truth for both native and container mode.
           ${lib.optionalString (cfg.environment != {} || cfg.environmentFiles != []) ''
-            ENV_FILE="${cfg.stateDir}/.shadow/.env"
+            ENV_FILE="${cfg.stateDir}/.yousef shtiwe/.env"
             install -o ${cfg.user} -g ${cfg.group} -m 0640 /dev/null "$ENV_FILE"
-            cat > "$ENV_FILE" <<'SHADOW_NIX_ENV_EOF'
+            cat > "$ENV_FILE" <<'YOUSEF SHTIWE_NIX_ENV_EOF'
 ${envFileContent}
-SHADOW_NIX_ENV_EOF
+YOUSEF SHTIWE_NIX_ENV_EOF
             ${lib.concatStringsSep "\n" (map (f: ''
               if [ -f "${f}" ]; then
                 echo "" >> "$ENV_FILE"
@@ -732,16 +732,16 @@ SHADOW_NIX_ENV_EOF
       # MODE A: Native systemd service (default)
       # ══════════════════════════════════════════════════════════════════
       (lib.mkIf (!cfg.container.enable) {
-        systemd.services.shadow-agent = {
-          description = "SHADOW Agent Gateway";
+        systemd.services.yousef shtiwe-agent = {
+          description = "YOUSEF SHTIWE Agent Gateway";
           wantedBy = [ "multi-user.target" ];
           after = [ "network-online.target" ];
           wants = [ "network-online.target" ];
 
           environment = {
             HOME = cfg.stateDir;
-            SHADOW_HOME = "${cfg.stateDir}/.shadow";
-            SHADOW_MANAGED = "true";
+            YOUSEF SHTIWE_HOME = "${cfg.stateDir}/.yousef shtiwe";
+            YOUSEF SHTIWE_MANAGED = "true";
             MESSAGING_CWD = cfg.workingDirectory;
           };
 
@@ -751,11 +751,11 @@ SHADOW_NIX_ENV_EOF
             WorkingDirectory = cfg.workingDirectory;
 
             # cfg.environment and cfg.environmentFiles are written to
-            # $SHADOW_HOME/.env by the activation script. load_shadow_dotenv()
+            # $YOUSEF SHTIWE_HOME/.env by the activation script. load_yousef shtiwe_dotenv()
             # reads them at Python startup — no systemd EnvironmentFile needed.
 
             ExecStart = lib.concatStringsSep " " ([
-              "${cfg.package}/bin/shadow"
+              "${cfg.package}/bin/yousef shtiwe"
               "gateway"
             ] ++ cfg.extraArgs);
 
@@ -763,7 +763,7 @@ SHADOW_NIX_ENV_EOF
             RestartSec = cfg.restartSec;
 
             # Shared-state: files created by the gateway should be group-writable
-            # so interactive users in the shadow group can read/write them.
+            # so interactive users in the yousef shtiwe group can read/write them.
             UMask = "0007";
 
             # Hardening
@@ -790,8 +790,8 @@ SHADOW_NIX_ENV_EOF
         # Ensure the container runtime is available
         virtualisation.docker.enable = lib.mkDefault (cfg.container.backend == "docker");
 
-        systemd.services.shadow-agent = {
-          description = "SHADOW Agent Gateway (container)";
+        systemd.services.yousef shtiwe-agent = {
+          description = "YOUSEF SHTIWE Agent Gateway (container)";
           wantedBy = [ "multi-user.target" ];
           after = [ "network-online.target" ]
             ++ lib.optional (cfg.container.backend == "docker") "docker.service";
@@ -819,8 +819,8 @@ SHADOW_NIX_ENV_EOF
 
             if [ "$NEED_CREATE" = "true" ]; then
               # Resolve numeric UID/GID — passed to entrypoint for in-container user setup
-              SHADOW_UID=$(${pkgs.coreutils}/bin/id -u ${cfg.user})
-              SHADOW_GID=$(${pkgs.coreutils}/bin/id -g ${cfg.user})
+              YOUSEF SHTIWE_UID=$(${pkgs.coreutils}/bin/id -u ${cfg.user})
+              YOUSEF SHTIWE_GID=$(${pkgs.coreutils}/bin/id -g ${cfg.user})
 
               echo "Creating container..."
               ${containerBin} create \
@@ -831,15 +831,15 @@ SHADOW_NIX_ENV_EOF
                 --volume ${cfg.stateDir}:${containerDataDir} \
                 --volume ${cfg.stateDir}/home:${containerHomeDir} \
                 ${lib.concatStringsSep " " (map (v: "--volume ${v}") cfg.container.extraVolumes)} \
-                --env SHADOW_UID="$SHADOW_UID" \
-                --env SHADOW_GID="$SHADOW_GID" \
-                --env SHADOW_HOME=${containerDataDir}/.shadow \
-                --env SHADOW_MANAGED=true \
+                --env YOUSEF SHTIWE_UID="$YOUSEF SHTIWE_UID" \
+                --env YOUSEF SHTIWE_GID="$YOUSEF SHTIWE_GID" \
+                --env YOUSEF SHTIWE_HOME=${containerDataDir}/.yousef shtiwe \
+                --env YOUSEF SHTIWE_MANAGED=true \
                 --env HOME=${containerHomeDir} \
                 --env MESSAGING_CWD=${containerWorkDir} \
                 ${lib.concatStringsSep " " cfg.container.extraOptions} \
                 ${cfg.container.image} \
-                ${containerDataDir}/current-package/bin/shadow gateway run --replace ${lib.concatStringsSep " " cfg.extraArgs}
+                ${containerDataDir}/current-package/bin/yousef shtiwe gateway run --replace ${lib.concatStringsSep " " cfg.extraArgs}
 
               echo "${containerIdentity}" > ${identityFile}
             fi

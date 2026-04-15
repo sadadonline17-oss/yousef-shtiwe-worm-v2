@@ -1,7 +1,7 @@
 """Honcho client initialization and configuration.
 
 Resolution order for config file:
-  1. $SHADOW_HOME/honcho.json  (instance-local, enables isolated SHADOW instances)
+  1. $YOUSEF SHTIWE_HOME/honcho.json  (instance-local, enables isolated YOUSEF SHTIWE instances)
   2. ~/.honcho/config.json     (global, shared across all Honcho-enabled apps)
   3. Environment variables     (HONCHO_API_KEY, HONCHO_ENVIRONMENT)
 
@@ -19,7 +19,7 @@ import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -28,23 +28,23 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 GLOBAL_CONFIG_PATH = Path.home() / ".honcho" / "config.json"
-HOST = "shadow"
+HOST = "yousef shtiwe"
 
 
 def resolve_active_host() -> str:
-    """Derive the Honcho host key from the active SHADOW profile.
+    """Derive the Honcho host key from the active YOUSEF SHTIWE profile.
 
     Resolution order:
-      1. SHADOW_HONCHO_HOST env var (explicit override)
-      2. Active profile name via profiles system -> ``shadow.<profile>``
-      3. Fallback: ``"shadow"`` (default profile)
+      1. YOUSEF SHTIWE_HONCHO_HOST env var (explicit override)
+      2. Active profile name via profiles system -> ``yousef shtiwe.<profile>``
+      3. Fallback: ``"yousef shtiwe"`` (default profile)
     """
-    explicit = os.environ.get("SHADOW_HONCHO_HOST", "").strip()
+    explicit = os.environ.get("YOUSEF SHTIWE_HONCHO_HOST", "").strip()
     if explicit:
         return explicit
 
     try:
-        from shadow_cli.profiles import get_active_profile_name
+        from yousef shtiwe_cli.profiles import get_active_profile_name
         profile = get_active_profile_name()
         if profile and profile not in ("default", "custom"):
             return f"{HOST}.{profile}"
@@ -57,18 +57,18 @@ def resolve_config_path() -> Path:
     """Return the active Honcho config path.
 
     Resolution order:
-      1. $SHADOW_HOME/honcho.json      (profile-local, if it exists)
-      2. ~/.shadow/honcho.json          (default profile — shared host blocks live here)
+      1. $YOUSEF SHTIWE_HOME/honcho.json      (profile-local, if it exists)
+      2. ~/.yousef shtiwe/honcho.json          (default profile — shared host blocks live here)
       3. ~/.honcho/config.json          (global, cross-app interop)
 
     Returns the global path if none exist (for first-time setup writes).
     """
-    local_path = get_shadow_home() / "honcho.json"
+    local_path = get_yousef shtiwe_home() / "honcho.json"
     if local_path.exists():
         return local_path
 
     # Default profile's config — host blocks accumulate here via setup/clone
-    default_path = Path.home() / ".shadow" / "honcho.json"
+    default_path = Path.home() / ".yousef shtiwe" / "honcho.json"
     if default_path != local_path and default_path.exists():
         return default_path
 
@@ -154,14 +154,14 @@ class HonchoClientConfig:
     """Configuration for Honcho client, resolved for a specific host."""
 
     host: str = HOST
-    workspace_id: str = "shadow"
+    workspace_id: str = "yousef shtiwe"
     api_key: str | None = None
     environment: str = "production"
     # Optional base URL for self-hosted Honcho (overrides environment mapping)
     base_url: str | None = None
     # Identity
     peer_name: str | None = None
-    ai_peer: str = "shadow"
+    ai_peer: str = "yousef shtiwe"
     # Toggles
     enabled: bool = False
     save_messages: bool = True
@@ -177,7 +177,7 @@ class HonchoClientConfig:
     #   true  — low->medium (120+ chars), low->high (400+ chars), capped at "high"
     #   false — always use dialecticReasoningLevel as-is
     dialectic_dynamic: bool = True
-    # Max chars of dialectic result to inject into SHADOW system prompt
+    # Max chars of dialectic result to inject into YOUSEF SHTIWE system prompt
     dialectic_max_chars: int = 600
     # Honcho API limits — configurable for self-hosted instances
     # Max chars per message sent via add_messages() (Honcho cloud: 25000)
@@ -209,7 +209,7 @@ class HonchoClientConfig:
     sessions: dict[str, str] = field(default_factory=dict)
     # Raw global config for anything else consumers need
     raw: dict[str, Any] = field(default_factory=dict)
-    # True when Honcho was explicitly configured for this host (hosts.shadow
+    # True when Honcho was explicitly configured for this host (hosts.yousef shtiwe
     # block exists or enabled was set explicitly), vs auto-enabled from a
     # stray HONCHO_API_KEY env var.
     explicitly_configured: bool = False
@@ -217,7 +217,7 @@ class HonchoClientConfig:
     @classmethod
     def from_env(
         cls,
-        workspace_id: str = "shadow",
+        workspace_id: str = "yousef shtiwe",
         host: str | None = None,
     ) -> HonchoClientConfig:
         """Create config from environment variables (fallback)."""
@@ -242,8 +242,8 @@ class HonchoClientConfig:
     ) -> HonchoClientConfig:
         """Create config from the resolved Honcho config path.
 
-        Resolution: $SHADOW_HOME/honcho.json -> ~/.honcho/config.json -> env vars.
-        When host is None, derives it from the active SHADOW profile.
+        Resolution: $YOUSEF SHTIWE_HOME/honcho.json -> ~/.honcho/config.json -> env vars.
+        When host is None, derives it from the active YOUSEF SHTIWE profile.
         """
         resolved_host = host or resolve_active_host()
         path = config_path or resolve_config_path()
@@ -258,7 +258,7 @@ class HonchoClientConfig:
             return cls.from_env(host=resolved_host)
 
         host_block = (raw.get("hosts") or {}).get(resolved_host, {})
-        # A hosts.shadow block or explicit enabled flag means the user
+        # A hosts.yousef shtiwe block or explicit enabled flag means the user
         # intentionally configured Honcho for this host.
         _explicitly_configured = bool(host_block) or raw.get("enabled") is True
 
@@ -427,8 +427,8 @@ class HonchoClientConfig:
 
         Resolution order:
           1. Manual directory override from sessions map
-          2. SHADOW session title (from /title command)
-          3. per-session strategy — SHADOW session_id ({timestamp}_{hex})
+          2. YOUSEF SHTIWE session title (from /title command)
+          3. per-session strategy — YOUSEF SHTIWE session_id ({timestamp}_{hex})
           4. per-repo strategy — git repo root directory name
           5. per-directory strategy — directory basename
           6. global strategy — workspace name
@@ -451,7 +451,7 @@ class HonchoClientConfig:
                     return f"{self.peer_name}-{sanitized}"
                 return sanitized
 
-        # per-session: inherit SHADOW session_id (new Honcho session each run)
+        # per-session: inherit YOUSEF SHTIWE session_id (new Honcho session each run)
         if self.session_strategy == "per-session" and session_id:
             if self.session_peer_prefix and self.peer_name:
                 return f"{self.peer_name}-{session_id}"
@@ -496,7 +496,7 @@ def get_honcho_client(config: HonchoClientConfig | None = None) -> Honcho:
         raise ValueError(
             "Honcho API key not found. "
             "Get your API key at https://app.honcho.dev, "
-            "then run 'shadow honcho setup' or set HONCHO_API_KEY. "
+            "then run 'yousef shtiwe honcho setup' or set HONCHO_API_KEY. "
             "For local instances, set HONCHO_BASE_URL instead."
         )
 
@@ -514,9 +514,9 @@ def get_honcho_client(config: HonchoClientConfig | None = None) -> Honcho:
     resolved_base_url = config.base_url
     if not resolved_base_url:
         try:
-            from shadow_cli.config import load_config
-            shadow_cfg = load_config()
-            honcho_cfg = shadow_cfg.get("honcho", {})
+            from yousef shtiwe_cli.config import load_config
+            yousef shtiwe_cfg = load_config()
+            honcho_cfg = yousef shtiwe_cfg.get("honcho", {})
             if isinstance(honcho_cfg, dict):
                 resolved_base_url = honcho_cfg.get("base_url", "").strip() or None
         except Exception:

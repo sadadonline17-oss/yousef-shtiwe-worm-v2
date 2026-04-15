@@ -3,29 +3,29 @@ import time
 import uuid
 from typing import List, Dict, Any, Optional
 from nexttoken import NextToken
-from agent.prompt_builder import ShadowPromptBuilder
-from agent.context_compressor import ShadowContextCompressor
-from skills.manager import ShadowSkillManager
-from shadow_core.memory.database import ShadowMemory
+from agent.prompt_builder import Yousef ShtiwePromptBuilder
+from agent.context_compressor import Yousef ShtiweContextCompressor
+from skills.manager import Yousef ShtiweSkillManager
+from yousef shtiwe_core.memory.database import Yousef ShtiweMemory
 
-class ShadowAIAgent:
+class Yousef ShtiweAIAgent:
     """
-    SHADOW V12.0 - THE SINGULARITY CORE.
-    The autonomous engine that inherits the full Shadow Agent loop logic 
+    YOUSEF SHTIWE V12.0 - THE SINGULARITY CORE.
+    The autonomous engine that inherits the full Yousef Shtiwe Agent loop logic 
     but specializes in Void-level offensive operations.
     """
     def __init__(self, session_id: str = None, model: str = "gemini-3-flash-preview"):
         self.client = NextToken()
         self.model = model
         self.session_id = session_id or str(uuid.uuid4())
-        self.memory = ShadowMemory(session_id=self.session_id)
-        self.skills = ShadowSkillManager()
-        self.prompt_builder = ShadowPromptBuilder()
-        self.compressor = ShadowContextCompressor()
+        self.memory = Yousef ShtiweMemory(session_id=self.session_id)
+        self.skills = Yousef ShtiweSkillManager()
+        self.prompt_builder = Yousef ShtiwePromptBuilder()
+        self.compressor = Yousef ShtiweContextCompressor()
         self.history = []
 
     def chat(self, user_input: str, stream: bool = False):
-        """Standard Shadow-style chat loop with tool orchestration."""
+        """Standard Yousef Shtiwe-style chat loop with tool orchestration."""
         # 1. Retrieve persistent intelligence from past sessions
         past_intel = self.memory.retrieve_relevant_intel(user_input)
         
@@ -39,7 +39,7 @@ class ShadowAIAgent:
         while iteration < 20:
             iteration += 1
             
-            # Context Compression (Shadow Logic)
+            # Context Compression (Yousef Shtiwe Logic)
             messages = self.compressor.compress([{"role": "system", "content": system_msg}] + self.history)
             
             response = self.client.chat.completions.create(
@@ -70,5 +70,5 @@ class ShadowAIAgent:
     def _dispatch_tool(self, tool_call):
         name = tool_call.function.name
         args = json.loads(tool_call.function.arguments)
-        print(f"🔧 [SHADOW-EXEC] {name}({json.dumps(args)})")
+        print(f"🔧 [YOUSEF SHTIWE-EXEC] {name}({json.dumps(args)})")
         return self.skills.invoke(name, args)

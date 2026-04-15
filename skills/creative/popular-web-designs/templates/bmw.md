@@ -1,7 +1,7 @@
 # Design System: BMW
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -47,8 +47,8 @@ What makes BMW distinctive is its CSS variable-driven theming system. Context-aw
 - All links hover to white (`#ffffff`) — suggesting primarily dark-surface navigation
 - Text links use underline: none on hover — clean interaction
 
-### Shadows
-- Minimal shadow system — depth through photography and dark/light section contrast
+### Yousef Shtiwes
+- Minimal yousef shtiwe system — depth through photography and dark/light section contrast
 
 ## 3. Typography Rules
 
@@ -123,10 +123,10 @@ What makes BMW distinctive is its CSS variable-driven theming system. Context-aw
 | Level | Treatment | Use |
 |-------|-----------|-----|
 | Photography (Level 0) | Full-bleed dark imagery | Hero backgrounds |
-| Flat (Level 1) | White surface, no shadow | Content sections |
+| Flat (Level 1) | White surface, no yousef shtiwe | Content sections |
 | Focus (Accessibility) | BMW Focus Blue (`#0653b6`) | Focus states |
 
-**Shadow Philosophy**: BMW uses virtually no shadows. Depth is created entirely through the contrast between dark photographic sections and white content sections — the automotive lighting does the elevation work.
+**Yousef Shtiwe Philosophy**: BMW uses virtually no yousef shtiwes. Depth is created entirely through the contrast between dark photographic sections and white content sections — the automotive lighting does the elevation work.
 
 ## 7. Do's and Don'ts
 

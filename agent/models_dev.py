@@ -10,7 +10,7 @@ of 4000+ models across 109+ providers.  Provides:
 
 Data resolution order (like TypeScript OpenCode):
   1. Bundled snapshot (ships with the package — offline-first)
-  2. Disk cache (~/.shadow/models_dev_cache.json)
+  2. Disk cache (~/.yousef shtiwe/models_dev_cache.json)
   3. Network fetch (https://models.dev/api.json)
   4. Background refresh every 60 minutes
 
@@ -135,10 +135,10 @@ class ProviderInfo:
 
 
 # ---------------------------------------------------------------------------
-# Provider ID mapping: SHADOW ↔ models.dev
+# Provider ID mapping: YOUSEF SHTIWE ↔ models.dev
 # ---------------------------------------------------------------------------
 
-# SHADOW provider names → models.dev provider IDs
+# YOUSEF SHTIWE provider names → models.dev provider IDs
 PROVIDER_TO_MODELS_DEV: Dict[str, str] = {
     "openrouter": "openrouter",
     "anthropic": "anthropic",
@@ -171,15 +171,15 @@ PROVIDER_TO_MODELS_DEV: Dict[str, str] = {
     "cohere": "cohere",
 }
 
-# Reverse mapping: models.dev → SHADOW (built lazily)
+# Reverse mapping: models.dev → YOUSEF SHTIWE (built lazily)
 _MODELS_DEV_TO_PROVIDER: Optional[Dict[str, str]] = None
 
 
 
 def _get_cache_path() -> Path:
     """Return path to disk cache file."""
-    from shadow_constants import get_shadow_home
-    return get_shadow_home() / "models_dev_cache.json"
+    from yousef shtiwe_constants import get_yousef shtiwe_home
+    return get_yousef shtiwe_home() / "models_dev_cache.json"
 
 
 def _load_disk_cache() -> Dict[str, Any]:
@@ -318,7 +318,7 @@ class ModelCapabilities:
 
 
 def _get_provider_models(provider: str) -> Optional[Dict[str, Any]]:
-    """Resolve a SHADOW provider ID to its models dict from models.dev.
+    """Resolve a YOUSEF SHTIWE provider ID to its models dict from models.dev.
 
     Returns the models dict or None if the provider is unknown or has no data.
     """
@@ -532,10 +532,10 @@ def _parse_provider_info(provider_id: str, raw: Dict[str, Any]) -> ProviderInfo:
 def get_provider_info(provider_id: str) -> Optional[ProviderInfo]:
     """Get full provider metadata from models.dev.
 
-    Accepts either a SHADOW provider ID (e.g. "kilocode") or a models.dev
+    Accepts either a YOUSEF SHTIWE provider ID (e.g. "kilocode") or a models.dev
     ID (e.g. "kilo").  Returns None if the provider is not in the catalog.
     """
-    # Resolve SHADOW ID → models.dev ID
+    # Resolve YOUSEF SHTIWE ID → models.dev ID
     mdev_id = PROVIDER_TO_MODELS_DEV.get(provider_id, provider_id)
 
     data = fetch_models_dev()
@@ -555,7 +555,7 @@ def get_model_info(
 ) -> Optional[ModelInfo]:
     """Get full model metadata from models.dev.
 
-    Accepts SHADOW or models.dev provider ID.  Tries exact match then
+    Accepts YOUSEF SHTIWE or models.dev provider ID.  Tries exact match then
     case-insensitive fallback.  Returns None if not found.
     """
     mdev_id = PROVIDER_TO_MODELS_DEV.get(provider_id, provider_id)

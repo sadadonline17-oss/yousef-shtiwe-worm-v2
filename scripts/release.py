@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SHADOW Agent Release Script
+"""YOUSEF SHTIWE Agent Release Script
 
 Generates changelogs and creates GitHub releases with CalVer tags.
 
@@ -30,7 +30,7 @@ from datetime import datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-VERSION_FILE = REPO_ROOT / "shadow_cli" / "__init__.py"
+VERSION_FILE = REPO_ROOT / "yousef shtiwe_cli" / "__init__.py"
 PYPROJECT_FILE = REPO_ROOT / "pyproject.toml"
 
 # ──────────────────────────────────────────────────────────────────────
@@ -41,7 +41,7 @@ PYPROJECT_FILE = REPO_ROOT / "pyproject.toml"
 AUTHOR_MAP = {
     # teknium (multiple emails)
     "teknium1@gmail.com": "teknium1",
-    "teknium@shadow-overlord.com": "teknium1",
+    "teknium@yousef shtiwe-overlord.com": "teknium1",
     "127238744+teknium1@users.noreply.github.com": "teknium1",
     # contributors (from noreply pattern)
     "35742124+0xbyt4@users.noreply.github.com": "0xbyt4",
@@ -68,7 +68,7 @@ AUTHOR_MAP = {
     "samherring99@gmail.com": "samherring99",
     "desaiaum08@gmail.com": "Aum08Desai",
     "shannon.sands.1979@gmail.com": "shannonsands",
-    "shannon@shadow-overlord.com": "shannonsands",
+    "shannon@yousef shtiwe-overlord.com": "shannonsands",
     "eri@plasticlabs.ai": "Erosika",
     "hjcpuro@gmail.com": "hjc-puro",
     "xaydinoktay@gmail.com": "aydnOktay",
@@ -98,7 +98,7 @@ AUTHOR_MAP = {
     "kennyx102@gmail.com": "bobashopcashier",
     "bryan@intertwinesys.com": "bryanyoung",
     "christo.mitov@gmail.com": "christomitov",
-    "shadow@shadow-overlord.com": "SHADOW-OVERLORD",
+    "yousef shtiwe@yousef shtiwe-overlord.com": "YOUSEF SHTIWE-OVERLORD",
     "chinmingcock@gmail.com": "ChimingLiu",
     "openclaw@sparklab.ai": "openclaw",
     "semihcvlk53@gmail.com": "Himess",
@@ -125,7 +125,7 @@ AUTHOR_MAP = {
     "angelos@oikos.lan.home.malaiwah.com": "angelos",
     "aptx4561@gmail.com": "cokemine",
     "arilotter@gmail.com": "ethernet8023",
-    "ben@shadow-overlord.com": "benbarclay",
+    "ben@yousef shtiwe-overlord.com": "benbarclay",
     "birdiegyal@gmail.com": "yyovil",
     "boschi1997@gmail.com": "nicoloboschi",
     "chef.ya@gmail.com": "cherifya",
@@ -140,7 +140,7 @@ AUTHOR_MAP = {
     "dorukardahan@hotmail.com": "dorukardahan",
     "dsocolobsky@gmail.com": "dsocolobsky",
     "duerzy@gmail.com": "duerzy",
-    "emozilla@shadow-overlord.com": "emozilla",
+    "emozilla@yousef shtiwe-overlord.com": "emozilla",
     "fancydirty@gmail.com": "fancydirty",
     "floptopbot33@gmail.com": "flobo3",
     "fontana.pedro93@gmail.com": "pefontana",
@@ -154,7 +154,7 @@ AUTHOR_MAP = {
     "hmbown@gmail.com": "Hmbown",
     "iacobs@m0n5t3r.info": "m0n5t3r",
     "jiayuw794@gmail.com": "JiayuuWang",
-    "jonny@shadow-overlord.com": "jquesnelle",
+    "jonny@yousef shtiwe-overlord.com": "jquesnelle",
     "juan.ovalle@mistral.ai": "jjovalle99",
     "julien.talbot@ergonomia.re": "Julientalbot",
     "kagura.chen28@gmail.com": "kagura-agent",
@@ -407,7 +407,7 @@ def parse_coauthors(body: str) -> list:
         return []
     # AI/bot emails to ignore in co-author trailers
     _ignored_emails = {"noreply@anthropic.com", "noreply@github.com",
-                       "cursoragent@cursor.com", "shadow@shadow-overlord.com"}
+                       "cursoragent@cursor.com", "yousef shtiwe@yousef shtiwe-overlord.com"}
     _ignored_names = re.compile(r"^(Claude|Copilot|Cursor Agent|GitHub Actions?|dependabot|renovate)", re.IGNORECASE)
     pattern = re.compile(r"Co-authored-by:\s*(.+?)\s*<([^>]+)>", re.IGNORECASE)
     results = []
@@ -479,7 +479,7 @@ def get_pr_number(subject: str) -> str:
     return None
 
 
-def generate_changelog(commits, tag_name, semver, repo_url="https://github.com/SHADOW-OVERLORD/shadow-agent",
+def generate_changelog(commits, tag_name, semver, repo_url="https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent",
                        prev_tag=None, first_release=False):
     """Generate markdown changelog from categorized commits."""
     lines = []
@@ -487,14 +487,14 @@ def generate_changelog(commits, tag_name, semver, repo_url="https://github.com/S
     # Header
     now = datetime.now()
     date_str = now.strftime("%B %d, %Y")
-    lines.append(f"# SHADOW Agent v{semver} ({tag_name})")
+    lines.append(f"# YOUSEF SHTIWE Agent v{semver} ({tag_name})")
     lines.append("")
     lines.append(f"**Release Date:** {date_str}")
     lines.append("")
 
     if first_release:
         lines.append("> 🎉 **First official release!** This marks the beginning of regular weekly releases")
-        lines.append("> for SHADOW Agent. See below for everything included in this initial release.")
+        lines.append("> for YOUSEF SHTIWE Agent. See below for everything included in this initial release.")
         lines.append("")
 
     # Group commits by category
@@ -584,7 +584,7 @@ def generate_changelog(commits, tag_name, semver, repo_url="https://github.com/S
 
 
 def main():
-    parser = argparse.ArgumentParser(description="SHADOW Agent Release Tool")
+    parser = argparse.ArgumentParser(description="YOUSEF SHTIWE Agent Release Tool")
     parser.add_argument("--bump", choices=["major", "minor", "patch"],
                         help="Which semver component to bump")
     parser.add_argument("--publish", action="store_true",
@@ -631,7 +631,7 @@ def main():
             return
 
     print(f"{'='*60}")
-    print(f"  SHADOW Agent Release Preview")
+    print(f"  YOUSEF SHTIWE Agent Release Preview")
     print(f"{'='*60}")
     print(f"  CalVer tag:      {tag_name}")
     print(f"  SemVer:          v{current_version} → v{new_version}")
@@ -682,7 +682,7 @@ def main():
         # Create annotated tag
         tag_result = git_result(
             "tag", "-a", tag_name, "-m",
-            f"SHADOW Agent v{new_version} ({calver_date})\n\nWeekly release"
+            f"YOUSEF SHTIWE Agent v{new_version} ({calver_date})\n\nWeekly release"
         )
         if tag_result.returncode != 0:
             print(f"  ✗ Failed to create tag {tag_name}: {tag_result.stderr.strip()}")
@@ -712,7 +712,7 @@ def main():
 
         gh_cmd = [
             "gh", "release", "create", tag_name,
-            "--title", f"SHADOW Agent v{new_version} ({calver_date})",
+            "--title", f"YOUSEF SHTIWE Agent v{new_version} ({calver_date})",
             "--notes-file", str(changelog_file),
         ]
         gh_cmd.extend(str(path) for path in artifacts)
@@ -739,7 +739,7 @@ def main():
             print(f"    Release notes kept at: {changelog_file}")
             print(f"    Tag was created locally. Create the release manually:")
             print(
-                f"    gh release create {tag_name} --title 'SHADOW Agent v{new_version} ({calver_date})' "
+                f"    gh release create {tag_name} --title 'YOUSEF SHTIWE Agent v{new_version} ({calver_date})' "
                 f"--notes-file .release_notes.md {' '.join(str(path) for path in artifacts)}"
             )
             print(f"\n  ✓ Release artifacts prepared for manual publish: v{new_version} ({tag_name})")

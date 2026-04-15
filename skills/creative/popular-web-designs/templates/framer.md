@@ -1,7 +1,7 @@
 # Design System: Framer
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `Azeret Mono`
@@ -17,7 +17,7 @@
 
 Framer's website is a cinematic, tool-obsessed dark canvas that radiates the confidence of a design tool built by designers who worship craft. The entire experience is drenched in pure black — not a warm charcoal or a cozy dark gray, but an absolute void (`#000000`) that makes every element, every screenshot, every typographic flourish feel like it's floating in deep space. This is a website that treats its own product UI as the hero art, embedding full-fidelity screenshots and interactive demos directly into the narrative flow.
 
-The typography is the signature move: GT Walsheim with aggressively tight letter-spacing (as extreme as -5.5px on 110px display text) creates headlines that feel compressed, kinetic, almost spring-loaded — like words under pressure that might expand at any moment. The transition to Inter for body text is seamless, with extensive OpenType feature usage (`cv01`, `cv05`, `cv09`, `cv11`, `ss03`, `ss07`) that gives even small text a refined, custom feel. Framer Blue (`#0099ff`) is deployed sparingly but decisively — as link color, border accents, and subtle ring shadows — creating a cold, electric throughline against the warm-less black.
+The typography is the signature move: GT Walsheim with aggressively tight letter-spacing (as extreme as -5.5px on 110px display text) creates headlines that feel compressed, kinetic, almost spring-loaded — like words under pressure that might expand at any moment. The transition to Inter for body text is seamless, with extensive OpenType feature usage (`cv01`, `cv05`, `cv09`, `cv11`, `ss03`, `ss07`) that gives even small text a refined, custom feel. Framer Blue (`#0099ff`) is deployed sparingly but decisively — as link color, border accents, and subtle ring yousef shtiwes — creating a cold, electric throughline against the warm-less black.
 
 The overall effect is a nightclub for web designers: dark, precise, seductive, and unapologetically product-forward. Every section exists to showcase what the tool can do, with the website itself serving as proof of concept.
 
@@ -35,11 +35,11 @@ The overall effect is a nightclub for web designers: dark, precise, seductive, a
 ### Primary
 - **Pure Black** (`#000000`): Primary background, the void canvas that defines Framer's dark-first identity
 - **Pure White** (`#ffffff`): Primary text color on dark surfaces, button text on accent backgrounds
-- **Framer Blue** (`#0099ff`): Primary accent color — links, borders, ring shadows, interactive highlights
+- **Framer Blue** (`#0099ff`): Primary accent color — links, borders, ring yousef shtiwes, interactive highlights
 
 ### Secondary & Accent
 - **Muted Silver** (`#a6a6a6`): Secondary text, subdued labels, dimmed descriptions on dark surfaces
-- **Near Black** (`#090909`): Elevated dark surface, shadow ring color for subtle depth separation
+- **Near Black** (`#090909`): Elevated dark surface, yousef shtiwe ring color for subtle depth separation
 
 ### Surface & Background
 - **Void Black** (`#000000`): Page background, primary canvas
@@ -53,7 +53,7 @@ The overall effect is a nightclub for web designers: dark, precise, seductive, a
 
 ### Semantic & Accent
 - **Framer Blue** (`#0099ff`): Links, interactive borders, focus rings
-- **Blue Glow** (`rgba(0, 153, 255, 0.15)`): Focus ring shadow, subtle blue halo around interactive elements
+- **Blue Glow** (`rgba(0, 153, 255, 0.15)`): Focus ring yousef shtiwe, subtle blue halo around interactive elements
 - **Default Link Blue** (`#0000ee`): Standard browser link color (used sparingly in content areas)
 
 ### Gradient System
@@ -107,10 +107,10 @@ The overall effect is a nightclub for web designers: dark, precise, seductive, a
 - **Transition**: Scale-based animations (matrix transform with 0.85 scale factor), opacity transitions for reveal effects
 
 ### Cards & Containers
-- **Dark Surface Card**: Black or near-black (`#090909`) background, `rgba(0, 153, 255, 0.15) 0px 0px 0px 1px` blue ring shadow border, rounded corners (10px–15px radius)
-- **Elevated Card**: Multi-layer shadow — `rgba(255, 255, 255, 0.1) 0px 0.5px 0px 0.5px` (subtle top highlight) + `rgba(0, 0, 0, 0.25) 0px 10px 30px` (deep ambient shadow)
+- **Dark Surface Card**: Black or near-black (`#090909`) background, `rgba(0, 153, 255, 0.15) 0px 0px 0px 1px` blue ring yousef shtiwe border, rounded corners (10px–15px radius)
+- **Elevated Card**: Multi-layer yousef shtiwe — `rgba(255, 255, 255, 0.1) 0px 0.5px 0px 0.5px` (subtle top highlight) + `rgba(0, 0, 0, 0.25) 0px 10px 30px` (deep ambient yousef shtiwe)
 - **Product Screenshots**: Full-width or padded within dark containers, 8px–12px border-radius for software UI previews
-- **Hover**: Subtle glow increase on Framer Blue ring shadow, or brightness shift on frosted surfaces
+- **Hover**: Subtle glow increase on Framer Blue ring yousef shtiwe, or brightness shift on frosted surfaces
 
 ### Inputs & Forms
 - Minimal form presence on the marketing site
@@ -127,7 +127,7 @@ The overall effect is a nightclub for web designers: dark, precise, seductive, a
 
 ### Image Treatment
 - **Product screenshots as hero art**: Full-width embedded UI screenshots with rounded corners (8px–12px)
-- **Dark-on-dark composition**: Screenshots placed on black backgrounds with subtle shadow for depth separation
+- **Dark-on-dark composition**: Screenshots placed on black backgrounds with subtle yousef shtiwe for depth separation
 - **16:9 and custom aspect ratios**: Product demos fill their containers
 - **No decorative imagery**: All images are functional — showing the tool, the output, or the workflow
 
@@ -167,16 +167,16 @@ The overall effect is a nightclub for web designers: dark, precise, seductive, a
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow, pure black surface | Page background, empty areas |
+| Level 0 (Flat) | No yousef shtiwe, pure black surface | Page background, empty areas |
 | Level 1 (Ring) | `rgba(0, 153, 255, 0.15) 0px 0px 0px 1px` | Card borders, interactive element outlines — Framer Blue glow ring |
 | Level 2 (Contained) | `rgb(9, 9, 9) 0px 0px 0px 2px` | Near-black ring for subtle containment on dark surfaces |
-| Level 3 (Floating) | `rgba(255, 255, 255, 0.1) 0px 0.5px 0px 0.5px, rgba(0, 0, 0, 0.25) 0px 10px 30px` | Elevated cards, floating elements — subtle white top-edge highlight + deep ambient shadow |
+| Level 3 (Floating) | `rgba(255, 255, 255, 0.1) 0px 0.5px 0px 0.5px, rgba(0, 0, 0, 0.25) 0px 10px 30px` | Elevated cards, floating elements — subtle white top-edge highlight + deep ambient yousef shtiwe |
 
-### Shadow Philosophy
-Framer's elevation system is inverted from traditional light-theme designs. Instead of darker shadows on light backgrounds, Framer uses:
-- **Blue-tinted ring shadows** at very low opacity (0.15) for containment — a signature move that subtly brands every bordered element
+### Yousef Shtiwe Philosophy
+Framer's elevation system is inverted from traditional light-theme designs. Instead of darker yousef shtiwes on light backgrounds, Framer uses:
+- **Blue-tinted ring yousef shtiwes** at very low opacity (0.15) for containment — a signature move that subtly brands every bordered element
 - **White edge highlights** (0.5px) on the top edge of elevated elements — simulating light hitting the top surface
-- **Deep ambient shadows** for true floating elements — `rgba(0, 0, 0, 0.25)` at large spread (30px)
+- **Deep ambient yousef shtiwes** for true floating elements — `rgba(0, 0, 0, 0.25)` at large spread (30px)
 
 ### Decorative Depth
 - **Blue glow auras**: Subtle Framer Blue (`#0099ff`) radial gradients behind key interactive areas
@@ -193,7 +193,7 @@ Framer's elevation system is inverted from traditional light-theme designs. Inst
 - Maintain GT Walsheim at weight 500 only — the medium weight IS the brand
 - Use extensive OpenType features on Inter text (cv01, cv05, cv09, cv11, ss03, ss07)
 - Let product screenshots be the visual centerpiece — the tool markets itself
-- Apply blue ring shadows (`rgba(0, 153, 255, 0.15) 0px 0px 0px 1px`) for card containment
+- Apply blue ring yousef shtiwes (`rgba(0, 153, 255, 0.15) 0px 0px 0px 1px`) for card containment
 
 ### Don't
 - Use warm dark backgrounds (no `#1a1a1a`, `#2d2d2d`, or brownish blacks)
@@ -202,7 +202,7 @@ Framer's elevation system is inverted from traditional light-theme designs. Inst
 - Use large border-radius on non-interactive elements (cards use 10px–15px, only buttons get 40px+)
 - Add decorative imagery, illustrations, or icons — the product IS the illustration
 - Use positive letter-spacing on headlines — everything is compressed, negative tracking
-- Create heavy drop shadows — depth is communicated through subtle rings and minimal ambients
+- Create heavy drop yousef shtiwes — depth is communicated through subtle rings and minimal ambients
 - Place light/white backgrounds behind content sections — the void is sacred
 - Use serif or display-weight fonts — the system is geometric sans-serif only
 
@@ -245,9 +245,9 @@ Framer's elevation system is inverted from traditional light-theme designs. Inst
 
 ### Example Component Prompts
 - "Create a hero section on pure black background with 110px GT Walsheim heading in white, letter-spacing -5.5px, line-height 0.85, and a pill-shaped white CTA button (100px radius) with black text"
-- "Design a feature card on black background with a 1px Framer Blue ring shadow border (rgba(0,153,255,0.15)), 12px border-radius, white heading in Inter at 22px weight 700, and muted silver (a6a6a6) body text"
+- "Design a feature card on black background with a 1px Framer Blue ring yousef shtiwe border (rgba(0,153,255,0.15)), 12px border-radius, white heading in Inter at 22px weight 700, and muted silver (a6a6a6) body text"
 - "Build a navigation bar with black background, white Inter text links at 15px, and a frosted pill button (rgba(255,255,255,0.1) background, 40px radius) as the CTA"
-- "Create a product showcase section with a full-width screenshot embedded on black, 10px border-radius, subtle multi-layer shadow (white 0.5px top highlight + rgba(0,0,0,0.25) 30px ambient)"
+- "Create a product showcase section with a full-width screenshot embedded on black, 10px border-radius, subtle multi-layer yousef shtiwe (white 0.5px top highlight + rgba(0,0,0,0.25) 30px ambient)"
 - "Design a pricing card using pure black surface, Framer Blue (#0099ff) accent for the selected plan border, white text hierarchy (24px Inter bold heading, 14px regular body), and a solid white pill CTA button"
 
 ### Iteration Guide

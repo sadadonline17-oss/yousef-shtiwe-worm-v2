@@ -1,15 +1,15 @@
 ---
 sidebar_position: 8
 title: "Memory Provider Plugins"
-description: "How to build a memory provider plugin for SHADOW Agent"
+description: "How to build a memory provider plugin for YOUSEF SHTIWE Agent"
 ---
 
 # Building a Memory Provider Plugin
 
-Memory provider plugins give SHADOW Agent persistent, cross-session knowledge beyond the built-in MEMORY.md and USER.md. This guide covers how to build one.
+Memory provider plugins give YOUSEF SHTIWE Agent persistent, cross-session knowledge beyond the built-in MEMORY.md and USER.md. This guide covers how to build one.
 
 :::tip
-Memory providers are one of two **provider plugin** types. The other is [Context Engine Plugins](/docs/developer-guide/context-engine-plugin), which replace the built-in context compressor. Both follow the same pattern: single-select, config-driven, managed via `shadow plugins`.
+Memory providers are one of two **provider plugin** types. The other is [Context Engine Plugins](/docs/developer-guide/context-engine-plugin), which replace the built-in context compressor. Both follow the same pattern: single-select, config-driven, managed via `yousef shtiwe plugins`.
 :::
 
 ## Directory Structure
@@ -43,7 +43,7 @@ class MyMemoryProvider(MemoryProvider):
         """Called once at agent startup.
 
         kwargs always includes:
-          shadow_home (str): Active SHADOW_HOME path. Use for storage.
+          yousef shtiwe_home (str): Active YOUSEF SHTIWE_HOME path. Use for storage.
         """
         self._api_key = os.environ.get("MY_API_KEY", "")
         self._session_id = session_id
@@ -67,8 +67,8 @@ class MyMemoryProvider(MemoryProvider):
 
 | Method | Purpose | Must Implement? |
 |--------|---------|-----------------|
-| `get_config_schema()` | Declare config fields for `shadow memory setup` | **Yes** |
-| `save_config(values, shadow_home)` | Write non-secret config to native location | **Yes** (unless env-var-only) |
+| `get_config_schema()` | Declare config fields for `yousef shtiwe memory setup` | **Yes** |
+| `save_config(values, yousef shtiwe_home)` | Write non-secret config to native location | **Yes** (unless env-var-only) |
 
 ### Optional Hooks
 
@@ -85,7 +85,7 @@ class MyMemoryProvider(MemoryProvider):
 
 ## Config Schema
 
-`get_config_schema()` returns a list of field descriptors used by `shadow memory setup`:
+`get_config_schema()` returns a list of field descriptors used by `yousef shtiwe memory setup`:
 
 ```python
 def get_config_schema(self):
@@ -107,7 +107,7 @@ def get_config_schema(self):
         {
             "key": "project",
             "description": "Project identifier",
-            "default": "shadow",
+            "default": "yousef shtiwe",
         },
     ]
 ```
@@ -115,17 +115,17 @@ def get_config_schema(self):
 Fields with `secret: True` and `env_var` go to `.env`. Non-secret fields are passed to `save_config()`.
 
 :::tip Minimal vs Full Schema
-Every field in `get_config_schema()` is prompted during `shadow memory setup`. Providers with many options should keep the schema minimal — only include fields the user **must** configure (API key, required credentials). Document optional settings in a config file reference (e.g. `$SHADOW_HOME/myprovider.json`) rather than prompting for them all during setup. This keeps the setup wizard fast while still supporting advanced configuration. See the Supermemory provider for an example — it only prompts for the API key; all other options live in `supermemory.json`.
+Every field in `get_config_schema()` is prompted during `yousef shtiwe memory setup`. Providers with many options should keep the schema minimal — only include fields the user **must** configure (API key, required credentials). Document optional settings in a config file reference (e.g. `$YOUSEF SHTIWE_HOME/myprovider.json`) rather than prompting for them all during setup. This keeps the setup wizard fast while still supporting advanced configuration. See the Supermemory provider for an example — it only prompts for the API key; all other options live in `supermemory.json`.
 :::
 
 ## Save Config
 
 ```python
-def save_config(self, values: dict, shadow_home: str) -> None:
+def save_config(self, values: dict, yousef shtiwe_home: str) -> None:
     """Write non-secret config to your native location."""
     import json
     from pathlib import Path
-    config_path = Path(shadow_home) / "my-provider.json"
+    config_path = Path(yousef shtiwe_home) / "my-provider.json"
     config_path.write_text(json.dumps(values, indent=2))
 ```
 
@@ -169,15 +169,15 @@ def sync_turn(self, user_content, assistant_content):
 
 ## Profile Isolation
 
-All storage paths **must** use the `shadow_home` kwarg from `initialize()`, not hardcoded `~/.shadow`:
+All storage paths **must** use the `yousef shtiwe_home` kwarg from `initialize()`, not hardcoded `~/.yousef shtiwe`:
 
 ```python
 # CORRECT — profile-scoped
-from shadow_constants import get_shadow_home
-data_dir = get_shadow_home() / "my-provider"
+from yousef shtiwe_constants import get_yousef shtiwe_home
+data_dir = get_yousef shtiwe_home() / "my-provider"
 
 # WRONG — shared across all profiles
-data_dir = Path("~/.shadow/my-provider").expanduser()
+data_dir = Path("~/.yousef shtiwe/my-provider").expanduser()
 ```
 
 ## Testing
@@ -202,16 +202,16 @@ mgr.shutdown_all()
 
 ## Adding CLI Commands
 
-Memory provider plugins can register their own CLI subcommand tree (e.g. `shadow my-provider status`, `shadow my-provider config`). This uses a convention-based discovery system — no changes to core files needed.
+Memory provider plugins can register their own CLI subcommand tree (e.g. `yousef shtiwe my-provider status`, `yousef shtiwe my-provider config`). This uses a convention-based discovery system — no changes to core files needed.
 
 ### How it works
 
 1. Add a `cli.py` file to your plugin directory
 2. Define a `register_cli(subparser)` function that builds the argparse tree
 3. The memory plugin system discovers it at startup via `discover_plugin_cli_commands()`
-4. Your commands appear under `shadow <provider-name> <subcommand>`
+4. Your commands appear under `yousef shtiwe <provider-name> <subcommand>`
 
-**Active-provider gating:** Your CLI commands only appear when your provider is the active `memory.provider` in config. If a user hasn't configured your provider, your commands won't show in `shadow --help`.
+**Active-provider gating:** Your CLI commands only appear when your provider is the active `memory.provider` in config. If a user hasn't configured your provider, your commands won't show in `yousef shtiwe --help`.
 
 ### Example
 
@@ -226,10 +226,10 @@ def my_command(args):
     elif sub == "config":
         print("Showing config...")
     else:
-        print("Usage: shadow my-provider <status|config>")
+        print("Usage: yousef shtiwe my-provider <status|config>")
 
 def register_cli(subparser) -> None:
-    """Build the shadow my-provider argparse tree.
+    """Build the yousef shtiwe my-provider argparse tree.
 
     Called by discover_plugin_cli_commands() at argparse setup time.
     """

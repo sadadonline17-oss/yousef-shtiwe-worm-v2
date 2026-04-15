@@ -75,8 +75,8 @@ SAMPLE_REGISTRY = {
 
 class TestProviderMapping:
     def test_all_mapped_providers_are_strings(self):
-        for shadow_id, mdev_id in PROVIDER_TO_MODELS_DEV.items():
-            assert isinstance(shadow_id, str)
+        for yousef shtiwe_id, mdev_id in PROVIDER_TO_MODELS_DEV.items():
+            assert isinstance(yousef shtiwe_id, str)
             assert isinstance(mdev_id, str)
 
     def test_known_providers_mapped(self):
@@ -86,7 +86,7 @@ class TestProviderMapping:
         assert PROVIDER_TO_MODELS_DEV["ai-gateway"] == "vercel"
 
     def test_unmapped_provider_not_in_dict(self):
-        assert "shadow" not in PROVIDER_TO_MODELS_DEV
+        assert "yousef shtiwe" not in PROVIDER_TO_MODELS_DEV
 
     def test_openai_codex_mapped_to_openai(self):
         assert PROVIDER_TO_MODELS_DEV["openai"] == "openai"
@@ -127,7 +127,7 @@ class TestLookupModelsDevContext:
     @patch("agent.models_dev.fetch_models_dev")
     def test_provider_not_mapped(self, mock_fetch):
         mock_fetch.return_value = SAMPLE_REGISTRY
-        assert lookup_models_dev_context("shadow", "some-model") is None
+        assert lookup_models_dev_context("yousef shtiwe", "some-model") is None
 
     @patch("agent.models_dev.fetch_models_dev")
     def test_model_not_found(self, mock_fetch):

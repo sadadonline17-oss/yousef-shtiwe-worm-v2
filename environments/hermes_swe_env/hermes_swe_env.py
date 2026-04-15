@@ -1,5 +1,5 @@
 """
-SHADOWSweEnv -- SWE-Bench Style Environment with Modal Sandboxes
+YOUSEF SHTIWESweEnv -- SWE-Bench Style Environment with Modal Sandboxes
 
 A concrete environment for software engineering tasks where the model writes code
 and the reward function runs tests to verify correctness. Uses Modal terminal
@@ -11,9 +11,9 @@ the model's tool calls is preserved for verification.
 
 Usage:
     # Phase 1: OpenAI server type
-    vllm serve YourModel --tool-parser shadow
+    vllm serve YourModel --tool-parser yousef shtiwe
     run-api
-    python environments/shadow_swe_env.py serve \\
+    python environments/yousef shtiwe_swe_env.py serve \\
         --openai.base_url http://localhost:8000/v1 \\
         --openai.model_name YourModel \\
         --openai.server_type openai \\
@@ -21,11 +21,11 @@ Usage:
         --env.terminal_backend modal
 
     # Phase 2: VLLM server type (full RL training)
-    python environments/shadow_swe_env.py serve \\
+    python environments/yousef shtiwe_swe_env.py serve \\
         --openai.base_url http://localhost:8000/v1 \\
         --openai.model_name YourModel \\
         --openai.server_type vllm \\
-        --env.tool_call_parser shadow \\
+        --env.tool_call_parser yousef shtiwe \\
         --env.terminal_backend modal
 """
 
@@ -47,19 +47,19 @@ from atroposlib.envs.server_handling.server_manager import APIServerConfig
 from atroposlib.type_definitions import Item
 
 from environments.agent_loop import AgentResult
-from environments.shadow_base_env import SHADOWAgentBaseEnv, SHADOWAgentEnvConfig
+from environments.yousef shtiwe_base_env import YOUSEF SHTIWEAgentBaseEnv, YOUSEF SHTIWEAgentEnvConfig
 from environments.tool_context import ToolContext
 
 logger = logging.getLogger(__name__)
 
 
-class SHADOWSweEnvConfig(SHADOWAgentEnvConfig):
+class YOUSEF SHTIWESweEnvConfig(YOUSEF SHTIWEAgentEnvConfig):
     """Config with defaults for SWE-bench style tasks."""
 
     pass  # Inherits all fields, overrides defaults in config_init
 
 
-class SHADOWSweEnv(SHADOWAgentBaseEnv):
+class YOUSEF SHTIWESweEnv(YOUSEF SHTIWEAgentBaseEnv):
     """
     SWE-bench style environment using Modal terminal backend.
 
@@ -70,17 +70,17 @@ class SHADOWSweEnv(SHADOWAgentBaseEnv):
     and customize format_prompt() and compute_reward() as needed.
     """
 
-    name = "shadow-swe"
-    env_config_cls = SHADOWSweEnvConfig
+    name = "yousef shtiwe-swe"
+    env_config_cls = YOUSEF SHTIWESweEnvConfig
 
     @classmethod
-    def config_init(cls) -> Tuple[SHADOWSweEnvConfig, List[APIServerConfig]]:
+    def config_init(cls) -> Tuple[YOUSEF SHTIWESweEnvConfig, List[APIServerConfig]]:
         """
         Default configuration for the SWE environment.
 
         Uses Modal terminal backend for cloud isolation and terminal + file + web toolsets.
         """
-        env_config = SHADOWSweEnvConfig(
+        env_config = YOUSEF SHTIWESweEnvConfig(
             # Toolsets: terminal for running code, file for reading/writing, web for docs
             enabled_toolsets=["terminal", "file", "web"],
             disabled_toolsets=None,
@@ -102,18 +102,18 @@ class SHADOWSweEnv(SHADOWAgentBaseEnv):
             prompt_field="prompt",
             # Atropos settings
             group_size=4,
-            tokenizer_name="SHADOW-OVERLORD/DeepSHADOW-3-Llama-3-3B-Preview",
-            tool_call_parser="shadow",
+            tokenizer_name="YOUSEF SHTIWE-OVERLORD/DeepYOUSEF SHTIWE-3-Llama-3-3B-Preview",
+            tool_call_parser="yousef shtiwe",
             steps_per_eval=50,
             total_steps=500,
             use_wandb=True,
-            wandb_name="shadow-swe",
+            wandb_name="yousef shtiwe-swe",
         )
 
         server_configs = [
             APIServerConfig(
                 base_url="http://localhost:8000/v1",
-                model_name="SHADOW-OVERLORD/DeepSHADOW-3-Llama-3-3B-Preview",
+                model_name="YOUSEF SHTIWE-OVERLORD/DeepYOUSEF SHTIWE-3-Llama-3-3B-Preview",
                 server_type="openai",  # Phase 1; switch to "vllm" for Phase 2
                 api_key="",
             )
@@ -226,4 +226,4 @@ class SHADOWSweEnv(SHADOWAgentBaseEnv):
 
 
 if __name__ == "__main__":
-    SHADOWSweEnv.cli()
+    YOUSEF SHTIWESweEnv.cli()

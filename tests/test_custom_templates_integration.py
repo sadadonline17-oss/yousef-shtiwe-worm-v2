@@ -17,13 +17,13 @@ from pathlib import Path
 from unittest.mock import patch
 
 # Add project paths — order matters: recon before agentic to avoid
-# agentic/project_settings.py shadowing recon/project_settings.py
+# agentic/project_settings.py yousef shtiweing recon/project_settings.py
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "mcp" / "servers"))
 sys.path.insert(0, str(PROJECT_ROOT / "recon"))
 sys.path.insert(0, str(PROJECT_ROOT / "agentic"))
 
-# Pre-import recon's project_settings before agentic's can shadow it
+# Pre-import recon's project_settings before agentic's can yousef shtiwe it
 import importlib.util
 _recon_ps_spec = importlib.util.spec_from_file_location(
     "recon_project_settings",

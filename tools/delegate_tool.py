@@ -39,12 +39,12 @@ DELEGATE_BLOCKED_TOOLS = frozenset([
 
 # Build a description fragment listing toolsets available for subagents.
 # Excludes toolsets where ALL tools are blocked, composite/platform toolsets
-# (shadow-* prefixed), and scenario toolsets.
+# (yousef shtiwe-* prefixed), and scenario toolsets.
 _EXCLUDED_TOOLSET_NAMES = frozenset({"debugging", "safe", "delegation", "moa", "rl"})
 _SUBAGENT_TOOLSETS = sorted(
     name for name, defn in TOOLSETS.items()
     if name not in _EXCLUDED_TOOLSET_NAMES
-    and not name.startswith("shadow-")
+    and not name.startswith("yousef shtiwe-")
     and not all(t in DELEGATE_BLOCKED_TOOLS for t in defn.get("tools", []))
 )
 _TOOLSET_LIST_STR = ", ".join(f"'{n}'" for n in _SUBAGENT_TOOLSETS)
@@ -259,7 +259,7 @@ def _build_child_agent(
     When override_* params are set (from delegation config), the child uses
     those credentials instead of inheriting from the parent.  This enables
     routing subagents to a different provider:model pair (e.g. cheap/fast
-    model on OpenRouter while the parent runs on Shadow Portal).
+    model on OpenRouter while the parent runs on Yousef Shtiwe Portal).
     """
     from run_agent import AIAgent
 
@@ -292,7 +292,7 @@ def _build_child_agent(
 
     workspace_hint = _resolve_workspace_hint(parent_agent)
     child_prompt = _build_child_system_prompt(goal, context, workspace_path=workspace_hint)
-    # Extract parent's API key so subagents inherit auth (e.g. Shadow Portal).
+    # Extract parent's API key so subagents inherit auth (e.g. Yousef Shtiwe Portal).
     parent_api_key = getattr(parent_agent, "api_key", None)
     if (not parent_api_key) and hasattr(parent_agent, "_client_kwargs"):
         parent_api_key = parent_agent._client_kwargs.get("api_key")
@@ -333,7 +333,7 @@ def _build_child_agent(
         delegation_cfg = _load_config()
         delegation_effort = str(delegation_cfg.get("reasoning_effort") or "").strip()
         if delegation_effort:
-            from shadow_constants import parse_reasoning_effort
+            from yousef shtiwe_constants import parse_reasoning_effort
             parsed = parse_reasoning_effort(delegation_effort)
             if parsed is not None:
                 child_reasoning = parsed
@@ -906,21 +906,21 @@ def _resolve_delegation_credentials(cfg: dict, parent_agent) -> dict:
 
     # Provider is configured — resolve full credentials
     try:
-        from shadow_cli.runtime_provider import resolve_runtime_provider
+        from yousef shtiwe_cli.runtime_provider import resolve_runtime_provider
         runtime = resolve_runtime_provider(requested=configured_provider)
     except Exception as exc:
         raise ValueError(
             f"Cannot resolve delegation provider '{configured_provider}': {exc}. "
             f"Check that the provider is configured (API key set, valid provider name), "
             f"or set delegation.base_url/delegation.api_key for a direct endpoint. "
-            f"Available providers: openrouter, shadow, zai, kimi-coding, minimax."
+            f"Available providers: openrouter, yousef shtiwe, zai, kimi-coding, minimax."
         ) from exc
 
     api_key = runtime.get("api_key", "")
     if not api_key:
         raise ValueError(
             f"Delegation provider '{configured_provider}' resolved but has no API key. "
-            f"Set the appropriate environment variable or run 'shadow auth'."
+            f"Set the appropriate environment variable or run 'yousef shtiwe auth'."
         )
 
     return {
@@ -938,7 +938,7 @@ def _load_config() -> dict:
     """Load delegation config from CLI_CONFIG or persistent config.
 
     Checks the runtime config (cli.py CLI_CONFIG) first, then falls back
-    to the persistent config (shadow_cli/config.py load_config()) so that
+    to the persistent config (yousef shtiwe_cli/config.py load_config()) so that
     ``delegation.model`` / ``delegation.provider`` are picked up regardless
     of the entry point (CLI, gateway, cron).
     """
@@ -950,7 +950,7 @@ def _load_config() -> dict:
     except Exception:
         pass
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         full = load_config()
         return full.get("delegation", {})
     except Exception:

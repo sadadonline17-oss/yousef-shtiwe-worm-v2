@@ -1,25 +1,25 @@
 ---
 sidebar_position: 10
 title: "Voice Mode"
-description: "Real-time voice conversations with SHADOW Agent — CLI, Telegram, Discord (DMs, text channels, and voice channels)"
+description: "Real-time voice conversations with YOUSEF SHTIWE Agent — CLI, Telegram, Discord (DMs, text channels, and voice channels)"
 ---
 
 # Voice Mode
 
-SHADOW Agent supports full voice interaction across CLI and messaging platforms. Talk to the agent using your microphone, hear spoken replies, and have live voice conversations in Discord voice channels.
+YOUSEF SHTIWE Agent supports full voice interaction across CLI and messaging platforms. Talk to the agent using your microphone, hear spoken replies, and have live voice conversations in Discord voice channels.
 
-If you want a practical setup walkthrough with recommended configurations and real usage patterns, see [Use Voice Mode with SHADOW](/docs/guides/use-voice-mode-with-shadow).
+If you want a practical setup walkthrough with recommended configurations and real usage patterns, see [Use Voice Mode with YOUSEF SHTIWE](/docs/guides/use-voice-mode-with-yousef shtiwe).
 
 ## Prerequisites
 
 Before using voice features, make sure you have:
 
-1. **SHADOW Agent installed** — `pip install shadow-agent` (see [Installation](/docs/getting-started/installation))
-2. **An LLM provider configured** — run `shadow model` or set your preferred provider credentials in `~/.shadow/.env`
-3. **A working base setup** — run `shadow` to verify the agent responds to text before enabling voice
+1. **YOUSEF SHTIWE Agent installed** — `pip install yousef shtiwe-agent` (see [Installation](/docs/getting-started/installation))
+2. **An LLM provider configured** — run `yousef shtiwe model` or set your preferred provider credentials in `~/.yousef shtiwe/.env`
+3. **A working base setup** — run `yousef shtiwe` to verify the agent responds to text before enabling voice
 
 :::tip
-The `~/.shadow/` directory and default `config.yaml` are created automatically the first time you run `shadow`. You only need to create `~/.shadow/.env` manually for API keys.
+The `~/.yousef shtiwe/` directory and default `config.yaml` are created automatically the first time you run `yousef shtiwe`. You only need to create `~/.yousef shtiwe/.env` manually for API keys.
 :::
 
 ## Overview
@@ -36,19 +36,19 @@ The `~/.shadow/` directory and default `config.yaml` are created automatically t
 
 ```bash
 # CLI voice mode (microphone + audio playback)
-pip install "shadow-agent[voice]"
+pip install "yousef shtiwe-agent[voice]"
 
 # Discord + Telegram messaging (includes discord.py[voice] for VC support)
-pip install "shadow-agent[messaging]"
+pip install "yousef shtiwe-agent[messaging]"
 
 # Premium TTS (ElevenLabs)
-pip install "shadow-agent[tts-premium]"
+pip install "yousef shtiwe-agent[tts-premium]"
 
 # Local TTS (NeuTTS, optional)
 python -m pip install -U neutts[all]
 
 # Everything at once
-pip install "shadow-agent[all]"
+pip install "yousef shtiwe-agent[all]"
 ```
 
 | Extra | Packages | Required For |
@@ -84,7 +84,7 @@ sudo apt install espeak-ng   # for NeuTTS
 
 ### API Keys
 
-Add to `~/.shadow/.env`:
+Add to `~/.yousef shtiwe/.env`:
 
 ```bash
 # Speech-to-Text — local provider needs NO key at all
@@ -110,7 +110,7 @@ If `faster-whisper` is installed, voice mode works with **zero API keys** for ST
 Start the CLI and enable voice mode:
 
 ```bash
-shadow                # Start the interactive CLI
+yousef shtiwe                # Start the interactive CLI
 ```
 
 Then use these commands inside the CLI:
@@ -125,7 +125,7 @@ Then use these commands inside the CLI:
 
 ### How It Works
 
-1. Start the CLI with `shadow` and enable voice mode with `/voice on`
+1. Start the CLI with `yousef shtiwe` and enable voice mode with `/voice on`
 2. **Press Ctrl+B** — a beep plays (880Hz), recording starts
 3. **Speak** — a live audio level bar shows your input: `● [▁▂▃▅▇▇▅▂] ❯`
 4. **Stop speaking** — after 3 seconds of silence, recording auto-stops
@@ -137,7 +137,7 @@ Then use these commands inside the CLI:
 This loop continues until you press **Ctrl+B** during recording (exits continuous mode) or 3 consecutive recordings detect no speech.
 
 :::tip
-The record key is configurable via `voice.record_key` in `~/.shadow/config.yaml` (default: `ctrl+b`).
+The record key is configurable via `voice.record_key` in `~/.yousef shtiwe/config.yaml` (default: `ctrl+b`).
 :::
 
 ### Silence Detection
@@ -174,8 +174,8 @@ If you haven't set up your messaging bots yet, see the platform-specific guides:
 Start the gateway to connect to your messaging platforms:
 
 ```bash
-shadow gateway        # Start the gateway (connects to configured platforms)
-shadow gateway setup  # Interactive setup wizard for first-time configuration
+yousef shtiwe gateway        # Start the gateway (connects to configured platforms)
+yousef shtiwe gateway setup  # Interactive setup wizard for first-time configuration
 ```
 
 ### Discord: Channels vs DMs
@@ -189,10 +189,10 @@ The bot supports two interaction modes on Discord:
 
 **DM (recommended for personal use):** Just open a DM with the bot and type — no @mention needed. Voice replies and all commands work the same as in channels.
 
-**Server channels:** The bot only responds when you @mention it (e.g. `@shadowbyt4 hello`). Make sure you select the **bot user** from the mention popup, not the role with the same name.
+**Server channels:** The bot only responds when you @mention it (e.g. `@yousef shtiwebyt4 hello`). Make sure you select the **bot user** from the mention popup, not the role with the same name.
 
 :::tip
-To disable the mention requirement in server channels, add to `~/.shadow/.env`:
+To disable the mention requirement in server channels, add to `~/.yousef shtiwe/.env`:
 ```bash
 DISCORD_REQUIRE_MENTION=false
 ```
@@ -303,7 +303,7 @@ The bot auto-loads the codec from:
 #### 4. Environment Variables
 
 ```bash
-# ~/.shadow/.env
+# ~/.yousef shtiwe/.env
 
 # Discord bot (already configured for text)
 DISCORD_BOT_TOKEN=your-bot-token
@@ -320,7 +320,7 @@ DISCORD_ALLOWED_USERS=your-user-id
 ### Start the Gateway
 
 ```bash
-shadow gateway        # Start with existing configuration
+yousef shtiwe gateway        # Start with existing configuration
 ```
 
 The bot should come online in Discord within a few seconds.
@@ -367,7 +367,7 @@ The bot automatically pauses its audio listener while playing TTS replies, preve
 Only users listed in `DISCORD_ALLOWED_USERS` can interact via voice. Other users' audio is silently ignored.
 
 ```bash
-# ~/.shadow/.env
+# ~/.yousef shtiwe/.env
 DISCORD_ALLOWED_USERS=284102345871466496
 ```
 
@@ -479,7 +479,7 @@ The bot requires an @mention by default in server channels. Make sure you:
 
 1. Type `@` and select the **bot user** (with the #discriminator), not the **role** with the same name
 2. Or use DMs instead — no mention needed
-3. Or set `DISCORD_REQUIRE_MENTION=false` in `~/.shadow/.env`
+3. Or set `DISCORD_REQUIRE_MENTION=false` in `~/.yousef shtiwe/.env`
 
 ### Bot joins VC but doesn't hear me
 
@@ -491,7 +491,7 @@ The bot requires an @mention by default in server channels. Make sure you:
 
 - Verify STT is available: install `faster-whisper` (no key needed) or set `GROQ_API_KEY` / `VOICE_TOOLS_OPENAI_KEY`
 - Check the LLM model is configured and accessible
-- Review gateway logs: `tail -f ~/.shadow/logs/gateway.log`
+- Review gateway logs: `tail -f ~/.yousef shtiwe/logs/gateway.log`
 
 ### Bot responds in text but not in voice channel
 

@@ -1,5 +1,5 @@
 """
-Checkpoint Manager — Transparent filesystem snapshots via shadow git repos.
+Checkpoint Manager — Transparent filesystem snapshots via yousef shtiwe git repos.
 
 Creates automatic snapshots of working directories before file-mutating
 operations (write_file, patch), triggered once per conversation turn.
@@ -9,12 +9,12 @@ This is NOT a tool — the LLM never sees it.  It's transparent infrastructure
 controlled by the ``checkpoints`` config flag or ``--checkpoints`` CLI flag.
 
 Architecture:
-    ~/.shadow/checkpoints/{sha256(abs_dir)[:16]}/   — shadow git repo
+    ~/.yousef shtiwe/checkpoints/{sha256(abs_dir)[:16]}/   — yousef shtiwe git repo
         HEAD, refs/, objects/                        — standard git internals
-        SHADOW_WORKDIR                               — original dir path
+        YOUSEF SHTIWE_WORKDIR                               — original dir path
         info/exclude                                 — default excludes
 
-The shadow repo uses GIT_DIR + GIT_WORK_TREE so no git state leaks
+The yousef shtiwe repo uses GIT_DIR + GIT_WORK_TREE so no git state leaks
 into the user's project directory.
 """
 
@@ -25,7 +25,7 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from typing import Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-CHECKPOINT_BASE = get_shadow_home() / "checkpoints"
+CHECKPOINT_BASE = get_yousef shtiwe_home() / "checkpoints"
 
 DEFAULT_EXCLUDES = [
     "node_modules/",
@@ -60,7 +60,7 @@ DEFAULT_EXCLUDES = [
 ]
 
 # Git subprocess timeout (seconds).
-_GIT_TIMEOUT: int = max(10, min(60, int(os.getenv("SHADOW_CHECKPOINT_TIMEOUT", "30"))))
+_GIT_TIMEOUT: int = max(10, min(60, int(os.getenv("YOUSEF SHTIWE_CHECKPOINT_TIMEOUT", "30"))))
 
 # Max files to snapshot — skip huge directories to avoid slowdowns.
 _MAX_FILES = 50_000
@@ -110,7 +110,7 @@ def _validate_file_path(file_path: str, working_dir: str) -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
-# Shadow repo helpers
+# Yousef Shtiwe repo helpers
 # ---------------------------------------------------------------------------
 
 def _normalize_path(path_value: str) -> Path:
@@ -118,18 +118,18 @@ def _normalize_path(path_value: str) -> Path:
     return Path(path_value).expanduser().resolve()
 
 
-def _shadow_repo_path(working_dir: str) -> Path:
-    """Deterministic shadow repo path: sha256(abs_path)[:16]."""
+def _yousef shtiwe_repo_path(working_dir: str) -> Path:
+    """Deterministic yousef shtiwe repo path: sha256(abs_path)[:16]."""
     abs_path = str(_normalize_path(working_dir))
     dir_hash = hashlib.sha256(abs_path.encode()).hexdigest()[:16]
     return CHECKPOINT_BASE / dir_hash
 
 
-def _git_env(shadow_repo: Path, working_dir: str) -> dict:
-    """Build env dict that redirects git to the shadow repo."""
+def _git_env(yousef shtiwe_repo: Path, working_dir: str) -> dict:
+    """Build env dict that redirects git to the yousef shtiwe repo."""
     normalized_working_dir = _normalize_path(working_dir)
     env = os.environ.copy()
-    env["GIT_DIR"] = str(shadow_repo)
+    env["GIT_DIR"] = str(yousef shtiwe_repo)
     env["GIT_WORK_TREE"] = str(normalized_working_dir)
     env.pop("GIT_INDEX_FILE", None)
     env.pop("GIT_NAMESPACE", None)
@@ -139,12 +139,12 @@ def _git_env(shadow_repo: Path, working_dir: str) -> dict:
 
 def _run_git(
     args: List[str],
-    shadow_repo: Path,
+    yousef shtiwe_repo: Path,
     working_dir: str,
     timeout: int = _GIT_TIMEOUT,
     allowed_returncodes: Optional[Set[int]] = None,
 ) -> tuple:
-    """Run a git command against the shadow repo.  Returns (ok, stdout, stderr).
+    """Run a git command against the yousef shtiwe repo.  Returns (ok, stdout, stderr).
 
     ``allowed_returncodes`` suppresses error logging for known/expected non-zero
     exits while preserving the normal ``ok = (returncode == 0)`` contract.
@@ -160,7 +160,7 @@ def _run_git(
         logger.error("Git command skipped: %s (%s)", " ".join(["git"] + list(args)), msg)
         return False, "", msg
 
-    env = _git_env(shadow_repo, str(normalized_working_dir))
+    env = _git_env(yousef shtiwe_repo, str(normalized_working_dir))
     cmd = ["git"] + list(args)
     allowed_returncodes = allowed_returncodes or set()
     try:
@@ -198,31 +198,31 @@ def _run_git(
         return False, "", str(exc)
 
 
-def _init_shadow_repo(shadow_repo: Path, working_dir: str) -> Optional[str]:
-    """Initialise shadow repo if needed.  Returns error string or None."""
-    if (shadow_repo / "HEAD").exists():
+def _init_yousef shtiwe_repo(yousef shtiwe_repo: Path, working_dir: str) -> Optional[str]:
+    """Initialise yousef shtiwe repo if needed.  Returns error string or None."""
+    if (yousef shtiwe_repo / "HEAD").exists():
         return None
 
-    shadow_repo.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_repo.mkdir(parents=True, exist_ok=True)
 
-    ok, _, err = _run_git(["init"], shadow_repo, working_dir)
+    ok, _, err = _run_git(["init"], yousef shtiwe_repo, working_dir)
     if not ok:
-        return f"Shadow repo init failed: {err}"
+        return f"Yousef Shtiwe repo init failed: {err}"
 
-    _run_git(["config", "user.email", "shadow@local"], shadow_repo, working_dir)
-    _run_git(["config", "user.name", "SHADOW Checkpoint"], shadow_repo, working_dir)
+    _run_git(["config", "user.email", "yousef shtiwe@local"], yousef shtiwe_repo, working_dir)
+    _run_git(["config", "user.name", "YOUSEF SHTIWE Checkpoint"], yousef shtiwe_repo, working_dir)
 
-    info_dir = shadow_repo / "info"
+    info_dir = yousef shtiwe_repo / "info"
     info_dir.mkdir(exist_ok=True)
     (info_dir / "exclude").write_text(
         "\n".join(DEFAULT_EXCLUDES) + "\n", encoding="utf-8"
     )
 
-    (shadow_repo / "SHADOW_WORKDIR").write_text(
+    (yousef shtiwe_repo / "YOUSEF SHTIWE_WORKDIR").write_text(
         str(_normalize_path(working_dir)) + "\n", encoding="utf-8"
     )
 
-    logger.debug("Initialised checkpoint repo at %s for %s", shadow_repo, working_dir)
+    logger.debug("Initialised checkpoint repo at %s for %s", yousef shtiwe_repo, working_dir)
     return None
 
 
@@ -320,14 +320,14 @@ class CheckpointManager:
         files_changed, insertions, deletions.  Most recent first.
         """
         abs_dir = str(_normalize_path(working_dir))
-        shadow = _shadow_repo_path(abs_dir)
+        yousef shtiwe = _yousef shtiwe_repo_path(abs_dir)
 
-        if not (shadow / "HEAD").exists():
+        if not (yousef shtiwe / "HEAD").exists():
             return []
 
         ok, stdout, _ = _run_git(
             ["log", "--format=%H|%h|%aI|%s", "-n", str(self.max_snapshots)],
-            shadow, abs_dir,
+            yousef shtiwe, abs_dir,
         )
 
         if not ok or not stdout:
@@ -349,7 +349,7 @@ class CheckpointManager:
                 # Get diffstat for this commit
                 stat_ok, stat_out, _ = _run_git(
                     ["diff", "--shortstat", f"{parts[0]}~1", parts[0]],
-                    shadow, abs_dir,
+                    yousef shtiwe, abs_dir,
                     allowed_returncodes={128, 129},  # first commit has no parent
                 )
                 if stat_ok and stat_out:
@@ -382,35 +382,35 @@ class CheckpointManager:
             return {"success": False, "error": hash_err}
 
         abs_dir = str(_normalize_path(working_dir))
-        shadow = _shadow_repo_path(abs_dir)
+        yousef shtiwe = _yousef shtiwe_repo_path(abs_dir)
 
-        if not (shadow / "HEAD").exists():
+        if not (yousef shtiwe / "HEAD").exists():
             return {"success": False, "error": "No checkpoints exist for this directory"}
 
         # Verify the commit exists
         ok, _, err = _run_git(
-            ["cat-file", "-t", commit_hash], shadow, abs_dir,
+            ["cat-file", "-t", commit_hash], yousef shtiwe, abs_dir,
         )
         if not ok:
             return {"success": False, "error": f"Checkpoint '{commit_hash}' not found"}
 
         # Stage current state to compare against checkpoint
-        _run_git(["add", "-A"], shadow, abs_dir, timeout=_GIT_TIMEOUT * 2)
+        _run_git(["add", "-A"], yousef shtiwe, abs_dir, timeout=_GIT_TIMEOUT * 2)
 
         # Get stat summary: checkpoint vs current working tree
         ok_stat, stat_out, _ = _run_git(
             ["diff", "--stat", commit_hash, "--cached"],
-            shadow, abs_dir,
+            yousef shtiwe, abs_dir,
         )
 
         # Get actual diff (limited to avoid terminal flood)
         ok_diff, diff_out, _ = _run_git(
             ["diff", commit_hash, "--cached", "--no-color"],
-            shadow, abs_dir,
+            yousef shtiwe, abs_dir,
         )
 
-        # Unstage to avoid polluting the shadow repo index
-        _run_git(["reset", "HEAD", "--quiet"], shadow, abs_dir)
+        # Unstage to avoid polluting the yousef shtiwe repo index
+        _run_git(["reset", "HEAD", "--quiet"], yousef shtiwe, abs_dir)
 
         if not ok_stat and not ok_diff:
             return {"success": False, "error": "Could not generate diff"}
@@ -447,14 +447,14 @@ class CheckpointManager:
             if path_err:
                 return {"success": False, "error": path_err}
 
-        shadow = _shadow_repo_path(abs_dir)
+        yousef shtiwe = _yousef shtiwe_repo_path(abs_dir)
 
-        if not (shadow / "HEAD").exists():
+        if not (yousef shtiwe / "HEAD").exists():
             return {"success": False, "error": "No checkpoints exist for this directory"}
 
         # Verify the commit exists
         ok, _, err = _run_git(
-            ["cat-file", "-t", commit_hash], shadow, abs_dir,
+            ["cat-file", "-t", commit_hash], yousef shtiwe, abs_dir,
         )
         if not ok:
             return {"success": False, "error": f"Checkpoint '{commit_hash}' not found", "debug": err or None}
@@ -466,7 +466,7 @@ class CheckpointManager:
         restore_target = file_path if file_path else "."
         ok, stdout, err = _run_git(
             ["checkout", commit_hash, "--", restore_target],
-            shadow, abs_dir, timeout=_GIT_TIMEOUT * 2,
+            yousef shtiwe, abs_dir, timeout=_GIT_TIMEOUT * 2,
         )
 
         if not ok:
@@ -474,7 +474,7 @@ class CheckpointManager:
 
         # Get info about what was restored
         ok2, reason_out, _ = _run_git(
-            ["log", "--format=%s", "-1", commit_hash], shadow, abs_dir,
+            ["log", "--format=%s", "-1", commit_hash], yousef shtiwe, abs_dir,
         )
         reason = reason_out if ok2 else "unknown"
 
@@ -519,10 +519,10 @@ class CheckpointManager:
 
     def _take(self, working_dir: str, reason: str) -> bool:
         """Take a snapshot.  Returns True on success."""
-        shadow = _shadow_repo_path(working_dir)
+        yousef shtiwe = _yousef shtiwe_repo_path(working_dir)
 
         # Init if needed
-        err = _init_shadow_repo(shadow, working_dir)
+        err = _init_yousef shtiwe_repo(yousef shtiwe, working_dir)
         if err:
             logger.debug("Checkpoint init failed: %s", err)
             return False
@@ -534,7 +534,7 @@ class CheckpointManager:
 
         # Stage everything
         ok, _, err = _run_git(
-            ["add", "-A"], shadow, working_dir, timeout=_GIT_TIMEOUT * 2,
+            ["add", "-A"], yousef shtiwe, working_dir, timeout=_GIT_TIMEOUT * 2,
         )
         if not ok:
             logger.debug("Checkpoint git-add failed: %s", err)
@@ -543,7 +543,7 @@ class CheckpointManager:
         # Check if there's anything to commit
         ok_diff, diff_out, _ = _run_git(
             ["diff", "--cached", "--quiet"],
-            shadow,
+            yousef shtiwe,
             working_dir,
             allowed_returncodes={1},
         )
@@ -555,7 +555,7 @@ class CheckpointManager:
         # Commit
         ok, _, err = _run_git(
             ["commit", "-m", reason, "--allow-empty-message"],
-            shadow, working_dir, timeout=_GIT_TIMEOUT * 2,
+            yousef shtiwe, working_dir, timeout=_GIT_TIMEOUT * 2,
         )
         if not ok:
             logger.debug("Checkpoint commit failed: %s", err)
@@ -564,14 +564,14 @@ class CheckpointManager:
         logger.debug("Checkpoint taken in %s: %s", working_dir, reason)
 
         # Prune old snapshots
-        self._prune(shadow, working_dir)
+        self._prune(yousef shtiwe, working_dir)
 
         return True
 
-    def _prune(self, shadow_repo: Path, working_dir: str) -> None:
+    def _prune(self, yousef shtiwe_repo: Path, working_dir: str) -> None:
         """Keep only the last max_snapshots commits via orphan reset."""
         ok, stdout, _ = _run_git(
-            ["rev-list", "--count", "HEAD"], shadow_repo, working_dir,
+            ["rev-list", "--count", "HEAD"], yousef shtiwe_repo, working_dir,
         )
         if not ok:
             return

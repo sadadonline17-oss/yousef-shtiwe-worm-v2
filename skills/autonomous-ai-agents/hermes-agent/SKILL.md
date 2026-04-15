@@ -1,55 +1,55 @@
 ---
-name: shadow-agent
-description: Complete guide to using and extending SHADOW Agent — CLI usage, setup, configuration, spawning additional agents, gateway platforms, skills, voice, tools, profiles, and a concise contributor reference. Load this skill when helping users configure SHADOW, troubleshoot issues, spawn agent instances, or make code contributions.
+name: yousef shtiwe-agent
+description: Complete guide to using and extending YOUSEF SHTIWE Agent — CLI usage, setup, configuration, spawning additional agents, gateway platforms, skills, voice, tools, profiles, and a concise contributor reference. Load this skill when helping users configure YOUSEF SHTIWE, troubleshoot issues, spawn agent instances, or make code contributions.
 version: 2.0.0
-author: SHADOW Agent + Teknium
+author: YOUSEF SHTIWE Agent + Teknium
 license: MIT
 metadata:
-  shadow:
-    tags: [shadow, setup, configuration, multi-agent, spawning, cli, gateway, development]
-    homepage: https://github.com/SHADOW-OVERLORD/shadow-agent
+  yousef shtiwe:
+    tags: [yousef shtiwe, setup, configuration, multi-agent, spawning, cli, gateway, development]
+    homepage: https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent
     related_skills: [claude-code, codex, opencode]
 ---
 
-# SHADOW Agent
+# YOUSEF SHTIWE Agent
 
-SHADOW Agent is an open-source AI agent framework by SHADOW-OVERLORD that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. SHADOW works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
+YOUSEF SHTIWE Agent is an open-source AI agent framework by YOUSEF SHTIWE-OVERLORD that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. YOUSEF SHTIWE works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
 
-What makes SHADOW different:
+What makes YOUSEF SHTIWE different:
 
-- **Self-improving through skills** — SHADOW learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
+- **Self-improving through skills** — YOUSEF SHTIWE learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
 - **Persistent memory across sessions** — remembers who you are, your preferences, environment details, and lessons learned. Pluggable memory backends (built-in, Honcho, Mem0, and more) let you choose how memory works.
 - **Multi-platform gateway** — the same agent runs on Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, and 10+ other platforms with full tool access, not just chat.
 - **Provider-agnostic** — swap models and providers mid-workflow without changing anything else. Credential pools rotate across multiple API keys automatically.
-- **Profiles** — run multiple independent SHADOW instances with isolated configs, sessions, skills, and memory.
+- **Profiles** — run multiple independent YOUSEF SHTIWE instances with isolated configs, sessions, skills, and memory.
 - **Extensible** — plugins, MCP servers, custom tools, webhook triggers, cron scheduling, and the full Python ecosystem.
 
-People use SHADOW for software development, research, system administration, data analysis, content creation, home automation, and anything else that benefits from an AI agent with persistent context and full system access.
+People use YOUSEF SHTIWE for software development, research, system administration, data analysis, content creation, home automation, and anything else that benefits from an AI agent with persistent context and full system access.
 
-**This skill helps you work with SHADOW Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
+**This skill helps you work with YOUSEF SHTIWE Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
 
-**Docs:** https://shadow-agent.shadow-overlord.com/docs/
+**Docs:** https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/
 
 ## Quick Start
 
 ```bash
 # Install
-curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.sh | bash
 
 # Interactive chat (default)
-shadow
+yousef shtiwe
 
 # Single query
-shadow chat -q "What is the capital of France?"
+yousef shtiwe chat -q "What is the capital of France?"
 
 # Setup wizard
-shadow setup
+yousef shtiwe setup
 
 # Change model/provider
-shadow model
+yousef shtiwe model
 
 # Check health
-shadow doctor
+yousef shtiwe doctor
 ```
 
 ---
@@ -59,7 +59,7 @@ shadow doctor
 ### Global Flags
 
 ```
-shadow [flags] [command]
+yousef shtiwe [flags] [command]
 
   --version, -V             Show version
   --resume, -r SESSION      Resume session by ID or title
@@ -76,11 +76,11 @@ No subcommand defaults to `chat`.
 ### Chat
 
 ```
-shadow chat [flags]
+yousef shtiwe chat [flags]
   -q, --query TEXT          Single query, non-interactive
   -m, --model MODEL         Model (e.g. anthropic/claude-sonnet-4)
   -t, --toolsets LIST       Comma-separated toolsets
-  --provider PROVIDER       Force provider (openrouter, anthropic, shadow, etc.)
+  --provider PROVIDER       Force provider (openrouter, anthropic, yousef shtiwe, etc.)
   -v, --verbose             Verbose output
   -Q, --quiet               Suppress banner, spinner, tool previews
   --checkpoints             Enable filesystem checkpoints (/rollback)
@@ -90,137 +90,137 @@ shadow chat [flags]
 ### Configuration
 
 ```
-shadow setup [section]      Interactive wizard (model|terminal|gateway|tools|agent)
-shadow model                Interactive model/provider picker
-shadow config               View current config
-shadow config edit          Open config.yaml in $EDITOR
-shadow config set KEY VAL   Set a config value
-shadow config path          Print config.yaml path
-shadow config env-path      Print .env path
-shadow config check         Check for missing/outdated config
-shadow config migrate       Update config with new options
-shadow login [--provider P] OAuth login (shadow, openai-codex)
-shadow logout               Clear stored auth
-shadow doctor [--fix]       Check dependencies and config
-shadow status [--all]       Show component status
+yousef shtiwe setup [section]      Interactive wizard (model|terminal|gateway|tools|agent)
+yousef shtiwe model                Interactive model/provider picker
+yousef shtiwe config               View current config
+yousef shtiwe config edit          Open config.yaml in $EDITOR
+yousef shtiwe config set KEY VAL   Set a config value
+yousef shtiwe config path          Print config.yaml path
+yousef shtiwe config env-path      Print .env path
+yousef shtiwe config check         Check for missing/outdated config
+yousef shtiwe config migrate       Update config with new options
+yousef shtiwe login [--provider P] OAuth login (yousef shtiwe, openai-codex)
+yousef shtiwe logout               Clear stored auth
+yousef shtiwe doctor [--fix]       Check dependencies and config
+yousef shtiwe status [--all]       Show component status
 ```
 
 ### Tools & Skills
 
 ```
-shadow tools                Interactive tool enable/disable (curses UI)
-shadow tools list           Show all tools and status
-shadow tools enable NAME    Enable a toolset
-shadow tools disable NAME   Disable a toolset
+yousef shtiwe tools                Interactive tool enable/disable (curses UI)
+yousef shtiwe tools list           Show all tools and status
+yousef shtiwe tools enable NAME    Enable a toolset
+yousef shtiwe tools disable NAME   Disable a toolset
 
-shadow skills list          List installed skills
-shadow skills search QUERY  Search the skills hub
-shadow skills install ID    Install a skill
-shadow skills inspect ID    Preview without installing
-shadow skills config        Enable/disable skills per platform
-shadow skills check         Check for updates
-shadow skills update        Update outdated skills
-shadow skills uninstall N   Remove a hub skill
-shadow skills publish PATH  Publish to registry
-shadow skills browse        Browse all available skills
-shadow skills tap add REPO  Add a GitHub repo as skill source
+yousef shtiwe skills list          List installed skills
+yousef shtiwe skills search QUERY  Search the skills hub
+yousef shtiwe skills install ID    Install a skill
+yousef shtiwe skills inspect ID    Preview without installing
+yousef shtiwe skills config        Enable/disable skills per platform
+yousef shtiwe skills check         Check for updates
+yousef shtiwe skills update        Update outdated skills
+yousef shtiwe skills uninstall N   Remove a hub skill
+yousef shtiwe skills publish PATH  Publish to registry
+yousef shtiwe skills browse        Browse all available skills
+yousef shtiwe skills tap add REPO  Add a GitHub repo as skill source
 ```
 
 ### MCP Servers
 
 ```
-shadow mcp serve            Run SHADOW as an MCP server
-shadow mcp add NAME         Add an MCP server (--url or --command)
-shadow mcp remove NAME      Remove an MCP server
-shadow mcp list             List configured servers
-shadow mcp test NAME        Test connection
-shadow mcp configure NAME   Toggle tool selection
+yousef shtiwe mcp serve            Run YOUSEF SHTIWE as an MCP server
+yousef shtiwe mcp add NAME         Add an MCP server (--url or --command)
+yousef shtiwe mcp remove NAME      Remove an MCP server
+yousef shtiwe mcp list             List configured servers
+yousef shtiwe mcp test NAME        Test connection
+yousef shtiwe mcp configure NAME   Toggle tool selection
 ```
 
 ### Gateway (Messaging Platforms)
 
 ```
-shadow gateway run          Start gateway foreground
-shadow gateway install      Install as background service
-shadow gateway start/stop   Control the service
-shadow gateway restart      Restart the service
-shadow gateway status       Check status
-shadow gateway setup        Configure platforms
+yousef shtiwe gateway run          Start gateway foreground
+yousef shtiwe gateway install      Install as background service
+yousef shtiwe gateway start/stop   Control the service
+yousef shtiwe gateway restart      Restart the service
+yousef shtiwe gateway status       Check status
+yousef shtiwe gateway setup        Configure platforms
 ```
 
 Supported platforms: Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Matrix, Mattermost, Home Assistant, DingTalk, Feishu, WeCom, BlueBubbles (iMessage), Weixin (WeChat), API Server, Webhooks. Open WebUI connects via the API Server adapter.
 
-Platform docs: https://shadow-agent.shadow-overlord.com/docs/user-guide/messaging/
+Platform docs: https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/messaging/
 
 ### Sessions
 
 ```
-shadow sessions list        List recent sessions
-shadow sessions browse      Interactive picker
-shadow sessions export OUT  Export to JSONL
-shadow sessions rename ID T Rename a session
-shadow sessions delete ID   Delete a session
-shadow sessions prune       Clean up old sessions (--older-than N days)
-shadow sessions stats       Session store statistics
+yousef shtiwe sessions list        List recent sessions
+yousef shtiwe sessions browse      Interactive picker
+yousef shtiwe sessions export OUT  Export to JSONL
+yousef shtiwe sessions rename ID T Rename a session
+yousef shtiwe sessions delete ID   Delete a session
+yousef shtiwe sessions prune       Clean up old sessions (--older-than N days)
+yousef shtiwe sessions stats       Session store statistics
 ```
 
 ### Cron Jobs
 
 ```
-shadow cron list            List jobs (--all for disabled)
-shadow cron create SCHED    Create: '30m', 'every 2h', '0 9 * * *'
-shadow cron edit ID         Edit schedule, prompt, delivery
-shadow cron pause/resume ID Control job state
-shadow cron run ID          Trigger on next tick
-shadow cron remove ID       Delete a job
-shadow cron status          Scheduler status
+yousef shtiwe cron list            List jobs (--all for disabled)
+yousef shtiwe cron create SCHED    Create: '30m', 'every 2h', '0 9 * * *'
+yousef shtiwe cron edit ID         Edit schedule, prompt, delivery
+yousef shtiwe cron pause/resume ID Control job state
+yousef shtiwe cron run ID          Trigger on next tick
+yousef shtiwe cron remove ID       Delete a job
+yousef shtiwe cron status          Scheduler status
 ```
 
 ### Webhooks
 
 ```
-shadow webhook subscribe N  Create route at /webhooks/<name>
-shadow webhook list         List subscriptions
-shadow webhook remove NAME  Remove a subscription
-shadow webhook test NAME    Send a test POST
+yousef shtiwe webhook subscribe N  Create route at /webhooks/<name>
+yousef shtiwe webhook list         List subscriptions
+yousef shtiwe webhook remove NAME  Remove a subscription
+yousef shtiwe webhook test NAME    Send a test POST
 ```
 
 ### Profiles
 
 ```
-shadow profile list         List all profiles
-shadow profile create NAME  Create (--clone, --clone-all, --clone-from)
-shadow profile use NAME     Set sticky default
-shadow profile delete NAME  Delete a profile
-shadow profile show NAME    Show details
-shadow profile alias NAME   Manage wrapper scripts
-shadow profile rename A B   Rename a profile
-shadow profile export NAME  Export to tar.gz
-shadow profile import FILE  Import from archive
+yousef shtiwe profile list         List all profiles
+yousef shtiwe profile create NAME  Create (--clone, --clone-all, --clone-from)
+yousef shtiwe profile use NAME     Set sticky default
+yousef shtiwe profile delete NAME  Delete a profile
+yousef shtiwe profile show NAME    Show details
+yousef shtiwe profile alias NAME   Manage wrapper scripts
+yousef shtiwe profile rename A B   Rename a profile
+yousef shtiwe profile export NAME  Export to tar.gz
+yousef shtiwe profile import FILE  Import from archive
 ```
 
 ### Credential Pools
 
 ```
-shadow auth add             Interactive credential wizard
-shadow auth list [PROVIDER] List pooled credentials
-shadow auth remove P INDEX  Remove by provider + index
-shadow auth reset PROVIDER  Clear exhaustion status
+yousef shtiwe auth add             Interactive credential wizard
+yousef shtiwe auth list [PROVIDER] List pooled credentials
+yousef shtiwe auth remove P INDEX  Remove by provider + index
+yousef shtiwe auth reset PROVIDER  Clear exhaustion status
 ```
 
 ### Other
 
 ```
-shadow insights [--days N]  Usage analytics
-shadow update               Update to latest version
-shadow pairing list/approve/revoke  DM authorization
-shadow plugins list/install/remove  Plugin management
-shadow honcho setup/status  Honcho memory integration (requires honcho plugin)
-shadow memory setup/status/off  Memory provider config
-shadow completion bash|zsh  Shell completions
-shadow acp                  ACP server (IDE integration)
-shadow claw migrate         Migrate from OpenClaw
-shadow uninstall            Uninstall SHADOW
+yousef shtiwe insights [--days N]  Usage analytics
+yousef shtiwe update               Update to latest version
+yousef shtiwe pairing list/approve/revoke  DM authorization
+yousef shtiwe plugins list/install/remove  Plugin management
+yousef shtiwe honcho setup/status  Honcho memory integration (requires honcho plugin)
+yousef shtiwe memory setup/status/off  Memory provider config
+yousef shtiwe completion bash|zsh  Shell completions
+yousef shtiwe acp                  ACP server (IDE integration)
+yousef shtiwe claw migrate         Migrate from OpenClaw
+yousef shtiwe uninstall            Uninstall YOUSEF SHTIWE
 ```
 
 ---
@@ -275,7 +275,7 @@ Type these during an interactive chat session.
 /deny                Deny a pending command (gateway)
 /restart             Restart gateway (gateway)
 /sethome             Set current chat as home channel (gateway)
-/update              Update SHADOW to latest (gateway)
+/update              Update YOUSEF SHTIWE to latest (gateway)
 /platforms (/gateway) Show platform connection status (gateway)
 ```
 
@@ -311,20 +311,20 @@ Type these during an interactive chat session.
 ## Key Paths & Config
 
 ```
-~/.shadow/config.yaml       Main configuration
-~/.shadow/.env              API keys and secrets
-~/.shadow/skills/           Installed skills
-~/.shadow/sessions/         Session transcripts
-~/.shadow/logs/             Gateway and error logs
-~/.shadow/auth.json         OAuth tokens and credential pools
-~/.shadow/shadow-agent/     Source code (if git-installed)
+~/.yousef shtiwe/config.yaml       Main configuration
+~/.yousef shtiwe/.env              API keys and secrets
+~/.yousef shtiwe/skills/           Installed skills
+~/.yousef shtiwe/sessions/         Session transcripts
+~/.yousef shtiwe/logs/             Gateway and error logs
+~/.yousef shtiwe/auth.json         OAuth tokens and credential pools
+~/.yousef shtiwe/yousef shtiwe-agent/     Source code (if git-installed)
 ```
 
-Profiles use `~/.shadow/profiles/<name>/` with the same layout.
+Profiles use `~/.yousef shtiwe/profiles/<name>/` with the same layout.
 
 ### Config Sections
 
-Edit with `shadow config edit` or `shadow config set section.key value`.
+Edit with `yousef shtiwe config edit` or `yousef shtiwe config set section.key value`.
 
 | Section | Key options |
 |---------|-------------|
@@ -341,18 +341,18 @@ Edit with `shadow config edit` or `shadow config set section.key value`.
 | `smart_model_routing` | `enabled`, `cheap_model` |
 | `checkpoints` | `enabled`, `max_snapshots` (50) |
 
-Full config reference: https://shadow-agent.shadow-overlord.com/docs/user-guide/configuration
+Full config reference: https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/configuration
 
 ### Providers
 
-20+ providers supported. Set via `shadow model` or `shadow setup`.
+20+ providers supported. Set via `yousef shtiwe model` or `yousef shtiwe setup`.
 
 | Provider | Auth | Key env var |
 |----------|------|-------------|
 | OpenRouter | API key | `OPENROUTER_API_KEY` |
 | Anthropic | API key | `ANTHROPIC_API_KEY` |
-| Shadow Portal | OAuth | `shadow login --provider shadow` |
-| OpenAI Codex | OAuth | `shadow login --provider openai-codex` |
+| Yousef Shtiwe Portal | OAuth | `yousef shtiwe login --provider yousef shtiwe` |
+| OpenAI Codex | OAuth | `yousef shtiwe login --provider openai-codex` |
 | GitHub Copilot | Token | `COPILOT_GITHUB_TOKEN` |
 | Google Gemini | API key | `GOOGLE_API_KEY` or `GEMINI_API_KEY` |
 | DeepSeek | API key | `DEEPSEEK_API_KEY` |
@@ -368,15 +368,15 @@ Full config reference: https://shadow-agent.shadow-overlord.com/docs/user-guide/
 | AI Gateway (Vercel) | API key | `AI_GATEWAY_API_KEY` |
 | OpenCode Zen | API key | `OPENCODE_ZEN_API_KEY` |
 | OpenCode Go | API key | `OPENCODE_GO_API_KEY` |
-| Qwen OAuth | OAuth | `shadow login --provider qwen-oauth` |
+| Qwen OAuth | OAuth | `yousef shtiwe login --provider qwen-oauth` |
 | Custom endpoint | Config | `model.base_url` + `model.api_key` in config.yaml |
 | GitHub Copilot ACP | External | `COPILOT_CLI_PATH` or Copilot CLI |
 
-Full provider docs: https://shadow-agent.shadow-overlord.com/docs/integrations/providers
+Full provider docs: https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/integrations/providers
 
 ### Toolsets
 
-Enable/disable via `shadow tools` (interactive) or `shadow tools enable/disable NAME`.
+Enable/disable via `yousef shtiwe tools` (interactive) or `yousef shtiwe tools enable/disable NAME`.
 
 | Toolset | What it provides |
 |---------|-----------------|
@@ -441,13 +441,13 @@ Voice commands: `/voice on` (voice-to-voice), `/voice tts` (always voice), `/voi
 
 ---
 
-## Spawning Additional SHADOW Instances
+## Spawning Additional YOUSEF SHTIWE Instances
 
-Run additional SHADOW processes as fully independent subprocesses — separate sessions, tools, and environments.
+Run additional YOUSEF SHTIWE processes as fully independent subprocesses — separate sessions, tools, and environments.
 
 ### When to Use This vs delegate_task
 
-| | `delegate_task` | Spawning `shadow` process |
+| | `delegate_task` | Spawning `yousef shtiwe` process |
 |-|-----------------|--------------------------|
 | Isolation | Separate conversation, shared process | Fully independent process |
 | Duration | Minutes (bounded by parent loop) | Hours/days |
@@ -458,19 +458,19 @@ Run additional SHADOW processes as fully independent subprocesses — separate s
 ### One-Shot Mode
 
 ```
-terminal(command="shadow chat -q 'Research GRPO papers and write summary to ~/research/grpo.md'", timeout=300)
+terminal(command="yousef shtiwe chat -q 'Research GRPO papers and write summary to ~/research/grpo.md'", timeout=300)
 
 # Background for long tasks:
-terminal(command="shadow chat -q 'Set up CI/CD for ~/myapp'", background=true)
+terminal(command="yousef shtiwe chat -q 'Set up CI/CD for ~/myapp'", background=true)
 ```
 
 ### Interactive PTY Mode (via tmux)
 
-SHADOW uses prompt_toolkit, which requires a real terminal. Use tmux for interactive spawning:
+YOUSEF SHTIWE uses prompt_toolkit, which requires a real terminal. Use tmux for interactive spawning:
 
 ```
 # Start
-terminal(command="tmux new-session -d -s agent1 -x 120 -y 40 'shadow'", timeout=10)
+terminal(command="tmux new-session -d -s agent1 -x 120 -y 40 'yousef shtiwe'", timeout=10)
 
 # Wait for startup, then send a message
 terminal(command="sleep 8 && tmux send-keys -t agent1 'Build a FastAPI auth service' Enter", timeout=15)
@@ -489,11 +489,11 @@ terminal(command="tmux send-keys -t agent1 '/exit' Enter && sleep 2 && tmux kill
 
 ```
 # Agent A: backend
-terminal(command="tmux new-session -d -s backend -x 120 -y 40 'shadow -w'", timeout=10)
+terminal(command="tmux new-session -d -s backend -x 120 -y 40 'yousef shtiwe -w'", timeout=10)
 terminal(command="sleep 8 && tmux send-keys -t backend 'Build REST API for user management' Enter", timeout=15)
 
 # Agent B: frontend
-terminal(command="tmux new-session -d -s frontend -x 120 -y 40 'shadow -w'", timeout=10)
+terminal(command="tmux new-session -d -s frontend -x 120 -y 40 'yousef shtiwe -w'", timeout=10)
 terminal(command="sleep 8 && tmux send-keys -t frontend 'Build React dashboard for user management' Enter", timeout=15)
 
 # Check progress, relay context between them
@@ -505,10 +505,10 @@ terminal(command="tmux send-keys -t frontend 'Here is the API schema from the ba
 
 ```
 # Resume most recent session
-terminal(command="tmux new-session -d -s resumed 'shadow --continue'", timeout=10)
+terminal(command="tmux new-session -d -s resumed 'yousef shtiwe --continue'", timeout=10)
 
 # Resume specific session
-terminal(command="tmux new-session -d -s resumed 'shadow --resume 20260225_143052_a1b2c3'", timeout=10)
+terminal(command="tmux new-session -d -s resumed 'yousef shtiwe --resume 20260225_143052_a1b2c3'", timeout=10)
 ```
 
 ### Tips
@@ -516,7 +516,7 @@ terminal(command="tmux new-session -d -s resumed 'shadow --resume 20260225_14305
 - **Prefer `delegate_task` for quick subtasks** — less overhead than spawning a full process
 - **Use `-w` (worktree mode)** when spawning agents that edit code — prevents git conflicts
 - **Set timeouts** for one-shot mode — complex tasks can take 5-10 minutes
-- **Use `shadow chat -q` for fire-and-forget** — no PTY needed
+- **Use `yousef shtiwe chat -q` for fire-and-forget** — no PTY needed
 - **Use tmux for interactive sessions** — raw PTY mode has `\r` vs `\n` issues with prompt_toolkit
 - **For scheduled tasks**, use the `cronjob` tool instead of spawning — handles delivery and retry
 
@@ -530,15 +530,15 @@ terminal(command="tmux new-session -d -s resumed 'shadow --resume 20260225_14305
 3. In gateway: `/restart`. In CLI: exit and relaunch.
 
 ### Tool not available
-1. `shadow tools` — check if toolset is enabled for your platform
+1. `yousef shtiwe tools` — check if toolset is enabled for your platform
 2. Some tools need env vars (check `.env`)
 3. `/reset` after enabling tools
 
 ### Model/provider issues
-1. `shadow doctor` — check config and dependencies
-2. `shadow login` — re-authenticate OAuth providers
+1. `yousef shtiwe doctor` — check config and dependencies
+2. `yousef shtiwe login` — re-authenticate OAuth providers
 3. Check `.env` has the right API key
-4. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `shadow model` → GitHub Copilot.
+4. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `yousef shtiwe model` → GitHub Copilot.
 
 ### Changes not taking effect
 - **Tools/skills:** `/reset` starts a new session with updated toolset
@@ -546,20 +546,20 @@ terminal(command="tmux new-session -d -s resumed 'shadow --resume 20260225_14305
 - **Code changes:** Restart the CLI or gateway process
 
 ### Skills not showing
-1. `shadow skills list` — verify installed
-2. `shadow skills config` — check platform enablement
-3. Load explicitly: `/skill name` or `shadow -s name`
+1. `yousef shtiwe skills list` — verify installed
+2. `yousef shtiwe skills config` — check platform enablement
+3. Load explicitly: `/skill name` or `yousef shtiwe -s name`
 
 ### Gateway issues
 Check logs first:
 ```bash
-grep -i "failed to send\|error" ~/.shadow/logs/gateway.log | tail -20
+grep -i "failed to send\|error" ~/.yousef shtiwe/logs/gateway.log | tail -20
 ```
 
 Common gateway problems:
 - **Gateway dies on SSH logout**: Enable linger: `sudo loginctl enable-linger $USER`
 - **Gateway dies on WSL2 close**: WSL2 requires `systemd=true` in `/etc/wsl.conf` for systemd services to work. Without it, gateway falls back to `nohup` (dies when session closes).
-- **Gateway crash loop**: Reset the failed state: `systemctl --user reset-failed shadow-gateway`
+- **Gateway crash loop**: Reset the failed state: `systemctl --user reset-failed yousef shtiwe-gateway`
 
 ### Platform-specific issues
 - **Discord bot silent**: Must enable **Message Content Intent** in Bot → Privileged Gateway Intents.
@@ -569,8 +569,8 @@ Common gateway problems:
 ### Auxiliary models not working
 If `auxiliary` tasks (vision, compression, session_search) fail silently, the `auto` provider can't find a backend. Either set `OPENROUTER_API_KEY` or `GOOGLE_API_KEY`, or explicitly configure each auxiliary task's provider:
 ```bash
-shadow config set auxiliary.vision.provider <your_provider>
-shadow config set auxiliary.vision.model <model_name>
+yousef shtiwe config set auxiliary.vision.provider <your_provider>
+yousef shtiwe config set auxiliary.vision.model <model_name>
 ```
 
 ---
@@ -579,39 +579,39 @@ shadow config set auxiliary.vision.model <model_name>
 
 | Looking for... | Location |
 |----------------|----------|
-| Config options | `shadow config edit` or [Configuration docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/configuration) |
-| Available tools | `shadow tools list` or [Tools reference](https://shadow-agent.shadow-overlord.com/docs/reference/tools-reference) |
-| Slash commands | `/help` in session or [Slash commands reference](https://shadow-agent.shadow-overlord.com/docs/reference/slash-commands) |
-| Skills catalog | `shadow skills browse` or [Skills catalog](https://shadow-agent.shadow-overlord.com/docs/reference/skills-catalog) |
-| Provider setup | `shadow model` or [Providers guide](https://shadow-agent.shadow-overlord.com/docs/integrations/providers) |
-| Platform setup | `shadow gateway setup` or [Messaging docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/messaging/) |
-| MCP servers | `shadow mcp list` or [MCP guide](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/mcp) |
-| Profiles | `shadow profile list` or [Profiles docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/profiles) |
-| Cron jobs | `shadow cron list` or [Cron docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/cron) |
-| Memory | `shadow memory status` or [Memory docs](https://shadow-agent.shadow-overlord.com/docs/user-guide/features/memory) |
-| Env variables | `shadow config env-path` or [Env vars reference](https://shadow-agent.shadow-overlord.com/docs/reference/environment-variables) |
-| CLI commands | `shadow --help` or [CLI reference](https://shadow-agent.shadow-overlord.com/docs/reference/cli-commands) |
-| Gateway logs | `~/.shadow/logs/gateway.log` |
-| Session files | `~/.shadow/sessions/` or `shadow sessions browse` |
-| Source code | `~/.shadow/shadow-agent/` |
+| Config options | `yousef shtiwe config edit` or [Configuration docs](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/configuration) |
+| Available tools | `yousef shtiwe tools list` or [Tools reference](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/reference/tools-reference) |
+| Slash commands | `/help` in session or [Slash commands reference](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/reference/slash-commands) |
+| Skills catalog | `yousef shtiwe skills browse` or [Skills catalog](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/reference/skills-catalog) |
+| Provider setup | `yousef shtiwe model` or [Providers guide](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/integrations/providers) |
+| Platform setup | `yousef shtiwe gateway setup` or [Messaging docs](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/messaging/) |
+| MCP servers | `yousef shtiwe mcp list` or [MCP guide](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/features/mcp) |
+| Profiles | `yousef shtiwe profile list` or [Profiles docs](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/profiles) |
+| Cron jobs | `yousef shtiwe cron list` or [Cron docs](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/features/cron) |
+| Memory | `yousef shtiwe memory status` or [Memory docs](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/user-guide/features/memory) |
+| Env variables | `yousef shtiwe config env-path` or [Env vars reference](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/reference/environment-variables) |
+| CLI commands | `yousef shtiwe --help` or [CLI reference](https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/reference/cli-commands) |
+| Gateway logs | `~/.yousef shtiwe/logs/gateway.log` |
+| Session files | `~/.yousef shtiwe/sessions/` or `yousef shtiwe sessions browse` |
+| Source code | `~/.yousef shtiwe/yousef shtiwe-agent/` |
 
 ---
 
 ## Contributor Quick Reference
 
-For occasional contributors and PR authors. Full developer docs: https://shadow-agent.shadow-overlord.com/docs/developer-guide/
+For occasional contributors and PR authors. Full developer docs: https://yousef shtiwe-agent.yousef shtiwe-overlord.com/docs/developer-guide/
 
 ### Project Layout
 
 ```
-shadow-agent/
+yousef shtiwe-agent/
 ├── run_agent.py          # AIAgent — core conversation loop
 ├── model_tools.py        # Tool discovery and dispatch
 ├── toolsets.py           # Toolset definitions
-├── cli.py                # Interactive CLI (SHADOWCLI)
-├── shadow_state.py       # SQLite session store
+├── cli.py                # Interactive CLI (YOUSEF SHTIWECLI)
+├── yousef shtiwe_state.py       # SQLite session store
 ├── agent/                # Prompt builder, context compression, memory, model routing, credential pooling, skill dispatch
-├── shadow_cli/           # CLI subcommands, config, setup, commands
+├── yousef shtiwe_cli/           # CLI subcommands, config, setup, commands
 │   ├── commands.py       # Slash command registry (CommandDef)
 │   ├── config.py         # DEFAULT_CONFIG, env var definitions
 │   └── main.py           # CLI entry point and argparse
@@ -624,7 +624,7 @@ shadow-agent/
 └── website/              # Docusaurus docs site
 ```
 
-Config: `~/.shadow/config.yaml` (settings), `~/.shadow/.env` (API keys).
+Config: `~/.yousef shtiwe/config.yaml` (settings), `~/.yousef shtiwe/.env` (API keys).
 
 ### Adding a Tool (3 files)
 
@@ -652,13 +652,13 @@ registry.register(
 
 **2. Add import** in `model_tools.py` → `_discover_tools()` list.
 
-**3. Add to `toolsets.py`** → `_SHADOW_CORE_TOOLS` list.
+**3. Add to `toolsets.py`** → `_YOUSEF SHTIWE_CORE_TOOLS` list.
 
-All handlers must return JSON strings. Use `get_shadow_home()` for paths, never hardcode `~/.shadow`.
+All handlers must return JSON strings. Use `get_yousef shtiwe_home()` for paths, never hardcode `~/.yousef shtiwe`.
 
 ### Adding a Slash Command
 
-1. Add `CommandDef` to `COMMAND_REGISTRY` in `shadow_cli/commands.py`
+1. Add `CommandDef` to `COMMAND_REGISTRY` in `yousef shtiwe_cli/commands.py`
 2. Add handler in `cli.py` → `process_command()`
 3. (Optional) Add gateway handler in `gateway/run.py`
 
@@ -683,7 +683,7 @@ python -m pytest tests/ -o 'addopts=' -q   # Full suite
 python -m pytest tests/tools/ -q            # Specific area
 ```
 
-- Tests auto-redirect `SHADOW_HOME` to temp dirs — never touch real `~/.shadow/`
+- Tests auto-redirect `YOUSEF SHTIWE_HOME` to temp dirs — never touch real `~/.yousef shtiwe/`
 - Run full suite before pushing any change
 - Use `-o 'addopts='` to clear any baked-in pytest flags
 
@@ -701,6 +701,6 @@ Types: `fix:`, `feat:`, `refactor:`, `docs:`, `chore:`
 
 - **Never break prompt caching** — don't change context, tools, or system prompt mid-conversation
 - **Message role alternation** — never two assistant or two user messages in a row
-- Use `get_shadow_home()` from `shadow_constants` for all paths (profile-safe)
+- Use `get_yousef shtiwe_home()` from `yousef shtiwe_constants` for all paths (profile-safe)
 - Config values go in `config.yaml`, secrets go in `.env`
 - New tools need a `check_fn` so they only appear when requirements are met

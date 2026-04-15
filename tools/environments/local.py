@@ -12,8 +12,8 @@ from tools.environments.base import BaseEnvironment, _pipe_stdin
 _IS_WINDOWS = platform.system() == "Windows"
 
 
-# SHADOW-internal env vars that should NOT leak into terminal subprocesses.
-_SHADOW_PROVIDER_ENV_FORCE_PREFIX = "_SHADOW_FORCE_"
+# YOUSEF SHTIWE-internal env vars that should NOT leak into terminal subprocesses.
+_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX = "_YOUSEF SHTIWE_FORCE_"
 
 
 def _build_provider_env_blocklist() -> frozenset:
@@ -21,7 +21,7 @@ def _build_provider_env_blocklist() -> frozenset:
     blocked: set[str] = set()
 
     try:
-        from shadow_cli.auth import PROVIDER_REGISTRY
+        from yousef shtiwe_cli.auth import PROVIDER_REGISTRY
         for pconfig in PROVIDER_REGISTRY.values():
             blocked.update(pconfig.api_key_env_vars)
             if pconfig.base_url_env_var:
@@ -30,7 +30,7 @@ def _build_provider_env_blocklist() -> frozenset:
         pass
 
     try:
-        from shadow_cli.config import OPTIONAL_ENV_VARS
+        from yousef shtiwe_cli.config import OPTIONAL_ENV_VARS
         for name, metadata in OPTIONAL_ENV_VARS.items():
             category = metadata.get("category")
             if category in {"tool", "messaging"}:
@@ -104,11 +104,11 @@ def _build_provider_env_blocklist() -> frozenset:
     return frozenset(blocked)
 
 
-_SHADOW_PROVIDER_ENV_BLOCKLIST = _build_provider_env_blocklist()
+_YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST = _build_provider_env_blocklist()
 
 
 def _sanitize_subprocess_env(base_env: dict | None, extra_env: dict | None = None) -> dict:
-    """Filter SHADOW-managed secrets from a subprocess environment."""
+    """Filter YOUSEF SHTIWE-managed secrets from a subprocess environment."""
     try:
         from tools.env_passthrough import is_env_passthrough as _is_passthrough
     except Exception:
@@ -117,20 +117,20 @@ def _sanitize_subprocess_env(base_env: dict | None, extra_env: dict | None = Non
     sanitized: dict[str, str] = {}
 
     for key, value in (base_env or {}).items():
-        if key.startswith(_SHADOW_PROVIDER_ENV_FORCE_PREFIX):
+        if key.startswith(_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX):
             continue
-        if key not in _SHADOW_PROVIDER_ENV_BLOCKLIST or _is_passthrough(key):
+        if key not in _YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST or _is_passthrough(key):
             sanitized[key] = value
 
     for key, value in (extra_env or {}).items():
-        if key.startswith(_SHADOW_PROVIDER_ENV_FORCE_PREFIX):
-            real_key = key[len(_SHADOW_PROVIDER_ENV_FORCE_PREFIX):]
+        if key.startswith(_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX):
+            real_key = key[len(_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX):]
             sanitized[real_key] = value
-        elif key not in _SHADOW_PROVIDER_ENV_BLOCKLIST or _is_passthrough(key):
+        elif key not in _YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST or _is_passthrough(key):
             sanitized[key] = value
 
     # Per-profile HOME isolation for background processes (same as _make_run_env).
-    from shadow_constants import get_subprocess_home
+    from yousef shtiwe_constants import get_subprocess_home
     _profile_home = get_subprocess_home()
     if _profile_home:
         sanitized["HOME"] = _profile_home
@@ -149,7 +149,7 @@ def _find_bash() -> str:
             or "/bin/sh"
         )
 
-    custom = os.environ.get("SHADOW_GIT_BASH_PATH")
+    custom = os.environ.get("YOUSEF SHTIWE_GIT_BASH_PATH")
     if custom and os.path.isfile(custom):
         return custom
 
@@ -166,9 +166,9 @@ def _find_bash() -> str:
             return candidate
 
     raise RuntimeError(
-        "Git Bash not found. SHADOW Agent requires Git for Windows on Windows.\n"
+        "Git Bash not found. YOUSEF SHTIWE Agent requires Git for Windows on Windows.\n"
         "Install it from: https://git-scm.com/download/win\n"
-        "Or set SHADOW_GIT_BASH_PATH to your bash.exe location."
+        "Or set YOUSEF SHTIWE_GIT_BASH_PATH to your bash.exe location."
     )
 
 
@@ -193,19 +193,19 @@ def _make_run_env(env: dict) -> dict:
     merged = dict(os.environ | env)
     run_env = {}
     for k, v in merged.items():
-        if k.startswith(_SHADOW_PROVIDER_ENV_FORCE_PREFIX):
-            real_key = k[len(_SHADOW_PROVIDER_ENV_FORCE_PREFIX):]
+        if k.startswith(_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX):
+            real_key = k[len(_YOUSEF SHTIWE_PROVIDER_ENV_FORCE_PREFIX):]
             run_env[real_key] = v
-        elif k not in _SHADOW_PROVIDER_ENV_BLOCKLIST or _is_passthrough(k):
+        elif k not in _YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST or _is_passthrough(k):
             run_env[k] = v
     existing_path = run_env.get("PATH", "")
     if "/usr/bin" not in existing_path.split(":"):
         run_env["PATH"] = f"{existing_path}:{_SANE_PATH}" if existing_path else _SANE_PATH
 
     # Per-profile HOME isolation: redirect system tool configs (git, ssh, gh,
-    # npm …) into {SHADOW_HOME}/home/ when that directory exists.  Only the
+    # npm …) into {YOUSEF SHTIWE_HOME}/home/ when that directory exists.  Only the
     # subprocess sees the override — the Python process keeps the real HOME.
-    from shadow_constants import get_subprocess_home
+    from yousef shtiwe_constants import get_subprocess_home
     _profile_home = get_subprocess_home()
     if _profile_home:
         run_env["HOME"] = _profile_home

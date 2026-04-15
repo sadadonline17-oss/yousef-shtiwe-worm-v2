@@ -2,7 +2,7 @@
 
 AI-native cross-session user modeling with dialectic Q&A, semantic search, peer cards, and persistent conclusions.
 
-> **Honcho docs:** <https://docs.honcho.dev/v3/guides/integrations/shadow>
+> **Honcho docs:** <https://docs.honcho.dev/v3/guides/integrations/yousef shtiwe>
 
 ## Requirements
 
@@ -12,14 +12,14 @@ AI-native cross-session user modeling with dialectic Q&A, semantic search, peer 
 ## Setup
 
 ```bash
-shadow honcho setup    # full interactive wizard (cloud or local)
-shadow memory setup    # generic picker, also works
+yousef shtiwe honcho setup    # full interactive wizard (cloud or local)
+yousef shtiwe memory setup    # generic picker, also works
 ```
 
 Or manually:
 ```bash
-shadow config set memory.provider honcho
-echo "HONCHO_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider honcho
+echo "HONCHO_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 ## Config Resolution
@@ -28,11 +28,11 @@ Config is read from the first file that exists:
 
 | Priority | Path | Scope |
 |----------|------|-------|
-| 1 | `$SHADOW_HOME/honcho.json` | Profile-local (isolated SHADOW instances) |
-| 2 | `~/.shadow/honcho.json` | Default profile (shared host blocks) |
+| 1 | `$YOUSEF SHTIWE_HOME/honcho.json` | Profile-local (isolated YOUSEF SHTIWE instances) |
+| 2 | `~/.yousef shtiwe/honcho.json` | Default profile (shared host blocks) |
 | 3 | `~/.honcho/config.json` | Global (cross-app interop) |
 
-Host key is derived from the active SHADOW profile: `shadow` (default) or `shadow.<profile>`.
+Host key is derived from the active YOUSEF SHTIWE profile: `yousef shtiwe` (default) or `yousef shtiwe.<profile>`.
 
 ## Tools
 
@@ -93,7 +93,7 @@ Per-profile example -- coder profile observes the user but user doesn't observe 
 
 ```json
 "hosts": {
-  "shadow.coder": {
+  "yousef shtiwe.coder": {
     "observation": {
       "user": { "observeMe": true, "observeOthers": false },
       "ai":   { "observeMe": true, "observeOthers": true }
@@ -152,7 +152,7 @@ These are read from the root config object, not the host block. Must be set manu
 
 For every key, resolution order is: **host block > root > env var > default**.
 
-Host key derivation: `SHADOW_HONCHO_HOST` env > active profile (`shadow.<profile>`) > `"shadow"`.
+Host key derivation: `YOUSEF SHTIWE_HONCHO_HOST` env > active profile (`yousef shtiwe.<profile>`) > `"yousef shtiwe"`.
 
 ## Environment Variables
 
@@ -161,35 +161,35 @@ Host key derivation: `SHADOW_HONCHO_HOST` env > active profile (`shadow.<profile
 | `HONCHO_API_KEY` | `apiKey` |
 | `HONCHO_BASE_URL` | `baseUrl` |
 | `HONCHO_ENVIRONMENT` | `environment` |
-| `SHADOW_HONCHO_HOST` | Host key override |
+| `YOUSEF SHTIWE_HONCHO_HOST` | Host key override |
 
 ## CLI Commands
 
 | Command | Description |
 |---------|-------------|
-| `shadow honcho setup` | Full interactive setup wizard |
-| `shadow honcho status` | Show resolved config for active profile |
-| `shadow honcho enable` / `disable` | Toggle Honcho for active profile |
-| `shadow honcho mode <mode>` | Change recall or observation mode |
-| `shadow honcho peer --user <name>` | Update user peer name |
-| `shadow honcho peer --ai <name>` | Update AI peer name |
-| `shadow honcho tokens --context <N>` | Set context token budget |
-| `shadow honcho tokens --dialectic <N>` | Set dialectic max chars |
-| `shadow honcho map <name>` | Map current directory to a session name |
-| `shadow honcho sync` | Create host blocks for all SHADOW profiles |
+| `yousef shtiwe honcho setup` | Full interactive setup wizard |
+| `yousef shtiwe honcho status` | Show resolved config for active profile |
+| `yousef shtiwe honcho enable` / `disable` | Toggle Honcho for active profile |
+| `yousef shtiwe honcho mode <mode>` | Change recall or observation mode |
+| `yousef shtiwe honcho peer --user <name>` | Update user peer name |
+| `yousef shtiwe honcho peer --ai <name>` | Update AI peer name |
+| `yousef shtiwe honcho tokens --context <N>` | Set context token budget |
+| `yousef shtiwe honcho tokens --dialectic <N>` | Set dialectic max chars |
+| `yousef shtiwe honcho map <name>` | Map current directory to a session name |
+| `yousef shtiwe honcho sync` | Create host blocks for all YOUSEF SHTIWE profiles |
 
 ## Example Config
 
 ```json
 {
   "apiKey": "your-key",
-  "workspace": "shadow",
+  "workspace": "yousef shtiwe",
   "peerName": "eri",
   "hosts": {
-    "shadow": {
+    "yousef shtiwe": {
       "enabled": true,
-      "aiPeer": "shadow",
-      "workspace": "shadow",
+      "aiPeer": "yousef shtiwe",
+      "workspace": "yousef shtiwe",
       "peerName": "eri",
       "recallMode": "hybrid",
       "observation": {
@@ -202,10 +202,10 @@ Host key derivation: `SHADOW_HONCHO_HOST` env > active profile (`shadow.<profile
       "dialecticMaxChars": 600,
       "saveMessages": true
     },
-    "shadow.coder": {
+    "yousef shtiwe.coder": {
       "enabled": true,
       "aiPeer": "coder",
-      "workspace": "shadow",
+      "workspace": "yousef shtiwe",
       "peerName": "eri",
       "observation": {
         "user": { "observeMe": true, "observeOthers": false },

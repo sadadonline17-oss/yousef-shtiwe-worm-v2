@@ -1,7 +1,7 @@
-"""Tests for shadow_cli/tips.py — random tip display at session start."""
+"""Tests for yousef shtiwe_cli/tips.py — random tip display at session start."""
 
 import pytest
-from shadow_cli.tips import TIPS, get_random_tip
+from yousef shtiwe_cli.tips import TIPS, get_random_tip
 
 
 class TestTipsCorpus:
@@ -59,7 +59,7 @@ class TestTipIntegrationInCLI:
 
     def test_tip_import_works(self):
         """The import used in cli.py must succeed."""
-        from shadow_cli.tips import get_random_tip
+        from yousef shtiwe_cli.tips import get_random_tip
         assert callable(get_random_tip)
 
     def test_tip_display_format(self):

@@ -1,6 +1,6 @@
-# Contributing to SHADOW Agent
+# Contributing to YOUSEF SHTIWE Agent
 
-Thank you for contributing to SHADOW Agent! This guide covers everything you need: setting up your dev environment, understanding the architecture, deciding what to build, and getting your PR merged.
+Thank you for contributing to YOUSEF SHTIWE Agent! This guide covers everything you need: setting up your dev environment, understanding the architecture, deciding what to build, and getting your PR merged.
 
 ---
 
@@ -9,7 +9,7 @@ Thank you for contributing to SHADOW Agent! This guide covers everything you nee
 We value contributions in this order:
 
 1. **Bug fixes** — crashes, incorrect behavior, data loss. Always top priority.
-2. **Cross-platform compatibility** — Windows, macOS, different Linux distros, different terminal emulators. We want SHADOW to work everywhere.
+2. **Cross-platform compatibility** — Windows, macOS, different Linux distros, different terminal emulators. We want YOUSEF SHTIWE to work everywhere.
 3. **Security hardening** — shell injection, prompt injection, path traversal, privilege escalation. See [Security](#security-considerations).
 4. **Performance and robustness** — retry logic, error handling, graceful degradation.
 5. **New skills** — but only broadly useful ones. See [Should it be a Skill or a Tool?](#should-it-be-a-skill-or-a-tool)
@@ -38,14 +38,14 @@ This is the most common question for new contributors. The answer is almost alwa
 
 ### Should the Skill be bundled?
 
-Bundled skills (in `skills/`) ship with every SHADOW install. They should be **broadly useful to most users**:
+Bundled skills (in `skills/`) ship with every YOUSEF SHTIWE install. They should be **broadly useful to most users**:
 
 - Document handling, web research, common dev workflows, system administration
 - Used regularly by a wide range of people
 
-If your skill is official and useful but not universally needed (e.g., a paid service integration, a heavyweight dependency), put it in **`optional-skills/`** — it ships with the repo but isn't activated by default. Users can discover it via `shadow skills browse` (labeled "official") and install it with `shadow skills install` (no third-party warning, builtin trust).
+If your skill is official and useful but not universally needed (e.g., a paid service integration, a heavyweight dependency), put it in **`optional-skills/`** — it ships with the repo but isn't activated by default. Users can discover it via `yousef shtiwe skills browse` (labeled "official") and install it with `yousef shtiwe skills install` (no third-party warning, builtin trust).
 
-If your skill is specialized, community-contributed, or niche, it's better suited for a **Skills Hub** — upload it to a skills registry and share it in the [SHADOW-OVERLORD Discord](https://discord.gg/SHADOW-OVERLORD). Users can install it with `shadow skills install`.
+If your skill is specialized, community-contributed, or niche, it's better suited for a **Skills Hub** — upload it to a skills registry and share it in the [YOUSEF SHTIWE-OVERLORD Discord](https://discord.gg/YOUSEF SHTIWE-OVERLORD). Users can install it with `yousef shtiwe skills install`.
 
 ---
 
@@ -63,8 +63,8 @@ If your skill is specialized, community-contributed, or niche, it's better suite
 ### Clone and install
 
 ```bash
-git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone --recurse-submodules https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 
 # Create venv with Python 3.11
 uv venv venv --python 3.11
@@ -83,12 +83,12 @@ npm install
 ### Configure for development
 
 ```bash
-mkdir -p ~/.shadow/{cron,sessions,logs,memories,skills}
-cp cli-config.yaml.example ~/.shadow/config.yaml
-touch ~/.shadow/.env
+mkdir -p ~/.yousef shtiwe/{cron,sessions,logs,memories,skills}
+cp cli-config.yaml.example ~/.yousef shtiwe/config.yaml
+touch ~/.yousef shtiwe/.env
 
 # Add at minimum an LLM provider key:
-echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.shadow/.env
+echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.yousef shtiwe/.env
 ```
 
 ### Run
@@ -96,11 +96,11 @@ echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.shadow/.env
 ```bash
 # Symlink for global access
 mkdir -p ~/.local/bin
-ln -sf "$(pwd)/venv/bin/shadow" ~/.local/bin/shadow
+ln -sf "$(pwd)/venv/bin/yousef shtiwe" ~/.local/bin/yousef shtiwe
 
 # Verify
-shadow doctor
-shadow chat -q "Hello"
+yousef shtiwe doctor
+yousef shtiwe chat -q "Hello"
 ```
 
 ### Run tests
@@ -114,12 +114,12 @@ pytest tests/ -v
 ## Project Structure
 
 ```
-shadow-agent/
+yousef shtiwe-agent/
 ├── run_agent.py              # AIAgent class — core conversation loop, tool dispatch, session persistence
-├── cli.py                    # SHADOWCLI class — interactive TUI, prompt_toolkit integration
+├── cli.py                    # YOUSEF SHTIWECLI class — interactive TUI, prompt_toolkit integration
 ├── model_tools.py            # Tool orchestration (thin layer over tools/registry.py)
-├── toolsets.py               # Tool groupings and presets (shadow-cli, shadow-telegram, etc.)
-├── shadow_state.py           # SQLite session database with FTS5 full-text search, session titles
+├── toolsets.py               # Tool groupings and presets (yousef shtiwe-cli, yousef shtiwe-telegram, etc.)
+├── yousef shtiwe_state.py           # SQLite session database with FTS5 full-text search, session titles
 ├── batch_runner.py           # Parallel batch processing for trajectory generation
 │
 ├── agent/                    # Agent internals (extracted modules)
@@ -130,11 +130,11 @@ shadow-agent/
 │   ├── model_metadata.py         # Model context lengths, token estimation
 │   └── trajectory.py             # Trajectory saving helpers
 │
-├── shadow_cli/               # CLI command implementations
+├── yousef shtiwe_cli/               # CLI command implementations
 │   ├── main.py                   # Entry point, argument parsing, command dispatch
 │   ├── config.py                 # Config management, migration, env var definitions
 │   ├── setup.py                  # Interactive setup wizard
-│   ├── auth.py                   # Provider resolution, OAuth, Shadow Portal
+│   ├── auth.py                   # Provider resolution, OAuth, Yousef Shtiwe Portal
 │   ├── models.py                 # OpenRouter model selection lists
 │   ├── banner.py                 # Welcome banner, ASCII art
 │   ├── commands.py               # Central slash command registry (CommandDef), autocomplete, gateway helpers
@@ -171,29 +171,29 @@ shadow-agent/
 │   ├── install.ps1               # Windows PowerShell installer
 │   └── whatsapp-bridge/          # Node.js WhatsApp bridge (Baileys)
 │
-├── skills/                   # Bundled skills (copied to ~/.shadow/skills/ on install)
+├── skills/                   # Bundled skills (copied to ~/.yousef shtiwe/skills/ on install)
 ├── optional-skills/          # Official optional skills (discoverable via hub, not activated by default)
 ├── environments/             # RL training environments (Atropos integration)
 ├── tests/                    # Test suite
-├── website/                  # Documentation site (shadow-agent.shadow-overlord.com)
+├── website/                  # Documentation site (yousef shtiwe-agent.yousef shtiwe-overlord.com)
 │
-├── cli-config.yaml.example   # Example configuration (copied to ~/.shadow/config.yaml)
+├── cli-config.yaml.example   # Example configuration (copied to ~/.yousef shtiwe/config.yaml)
 └── AGENTS.md                 # Development guide for AI coding assistants
 ```
 
-### User configuration (stored in `~/.shadow/`)
+### User configuration (stored in `~/.yousef shtiwe/`)
 
 | Path | Purpose |
 |------|---------|
-| `~/.shadow/config.yaml` | Settings (model, terminal, toolsets, compression, etc.) |
-| `~/.shadow/.env` | API keys and secrets |
-| `~/.shadow/auth.json` | OAuth credentials (Shadow Portal) |
-| `~/.shadow/skills/` | All active skills (bundled + hub-installed + agent-created) |
-| `~/.shadow/memories/` | Persistent memory (MEMORY.md, USER.md) |
-| `~/.shadow/state.db` | SQLite session database |
-| `~/.shadow/sessions/` | JSON session logs |
-| `~/.shadow/cron/` | Scheduled job data |
-| `~/.shadow/whatsapp/session/` | WhatsApp bridge credentials |
+| `~/.yousef shtiwe/config.yaml` | Settings (model, terminal, toolsets, compression, etc.) |
+| `~/.yousef shtiwe/.env` | API keys and secrets |
+| `~/.yousef shtiwe/auth.json` | OAuth credentials (Yousef Shtiwe Portal) |
+| `~/.yousef shtiwe/skills/` | All active skills (bundled + hub-installed + agent-created) |
+| `~/.yousef shtiwe/memories/` | Persistent memory (MEMORY.md, USER.md) |
+| `~/.yousef shtiwe/state.db` | SQLite session database |
+| `~/.yousef shtiwe/sessions/` | JSON session logs |
+| `~/.yousef shtiwe/cron/` | Scheduled job data |
+| `~/.yousef shtiwe/whatsapp/session/` | WhatsApp bridge credentials |
 
 ---
 
@@ -220,9 +220,9 @@ User message → AIAgent._run_agent_loop()
 
 - **Self-registering tools**: Each tool file calls `registry.register()` at import time. `model_tools.py` triggers discovery by importing all tool modules.
 - **Toolset grouping**: Tools are grouped into toolsets (`web`, `terminal`, `file`, `browser`, etc.) that can be enabled/disabled per platform.
-- **Session persistence**: All conversations are stored in SQLite (`shadow_state.py`) with full-text search and unique session titles. JSON logs go to `~/.shadow/sessions/`.
+- **Session persistence**: All conversations are stored in SQLite (`yousef shtiwe_state.py`) with full-text search and unique session titles. JSON logs go to `~/.yousef shtiwe/sessions/`.
 - **Ephemeral injection**: System prompts and prefill messages are injected at API call time, never persisted to the database or logs.
-- **Provider abstraction**: The agent works with any OpenAI-compatible API. Provider resolution happens at init time (Shadow Portal OAuth, OpenRouter API key, or custom endpoint).
+- **Provider abstraction**: The agent works with any OpenAI-compatible API. Provider resolution happens at init time (Yousef Shtiwe Portal OAuth, OpenRouter API key, or custom endpoint).
 - **Provider routing**: When using OpenRouter, `provider_routing` in config.yaml controls provider selection (sort by throughput/latency/price, allow/ignore specific providers, data retention policies). These are injected as `extra_body.provider` in API requests.
 
 ---
@@ -339,7 +339,7 @@ prerequisites:                     # Optional legacy runtime requirements
   env_vars: [MY_API_KEY]           #   Backward-compatible alias for required env vars
   commands: [curl, jq]             #   Advisory only; does not hide the skill
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [Category, Subcategory, Keywords]
     related_skills: [other-skill-name]
     fallback_for_toolsets: [web]       # Optional — show only when toolset is unavailable
@@ -382,11 +382,11 @@ If the field is omitted or empty, the skill loads on all platforms (backward com
 
 Skills can declare conditions that control when they appear in the system prompt, based on which tools and toolsets are available in the current session. This is primarily used for **fallback skills** — alternatives that should only be shown when a primary tool is unavailable.
 
-Four fields are supported under `metadata.shadow`:
+Four fields are supported under `metadata.yousef shtiwe`:
 
 ```yaml
 metadata:
-  shadow:
+  yousef shtiwe:
     fallback_for_toolsets: [web]      # Show ONLY when these toolsets are unavailable
     requires_toolsets: [terminal]     # Show ONLY when these toolsets are available
     fallback_for_tools: [web_search]  # Show ONLY when these specific tools are unavailable
@@ -404,17 +404,17 @@ metadata:
 ```yaml
 # DuckDuckGo search — shown when Firecrawl (web toolset) is unavailable
 metadata:
-  shadow:
+  yousef shtiwe:
     fallback_for_toolsets: [web]
 
 # Smart home skill — only useful when terminal is available
 metadata:
-  shadow:
+  yousef shtiwe:
     requires_toolsets: [terminal]
 
 # Local browser fallback — shown when Browserbase is unavailable
 metadata:
-  shadow:
+  yousef shtiwe:
     fallback_for_toolsets: [browser]
 ```
 
@@ -432,7 +432,7 @@ required_environment_variables:
     required_for: full functionality
 ```
 
-The user may skip setup and keep loading the skill. SHADOW only exposes metadata (`stored_as`, `skipped`, `validated`) to the model — never the secret value.
+The user may skip setup and keep loading the skill. YOUSEF SHTIWE only exposes metadata (`stored_as`, `skipped`, `validated`) to the model — never the secret value.
 
 Legacy `prerequisites.env_vars` remains supported and is normalized into the new representation.
 
@@ -442,7 +442,7 @@ prerequisites:
   commands: [curl, jq]            # Advisory CLI checks
 ```
 
-Gateway and messaging sessions never collect secrets in-band; they instruct the user to run `shadow setup` or update `~/.shadow/.env` locally.
+Gateway and messaging sessions never collect secrets in-band; they instruct the user to run `yousef shtiwe setup` or update `~/.yousef shtiwe/.env` locally.
 
 **When to declare required environment variables:**
 - The skill uses an API key or token that should be collected securely at load time
@@ -456,20 +456,20 @@ See `skills/gifs/gif-search/` and `skills/email/himalaya/` for examples.
 
 ### Skill guidelines
 
-- **No external dependencies unless absolutely necessary.** Prefer stdlib Python, curl, and existing SHADOW tools (`web_extract`, `terminal`, `read_file`).
+- **No external dependencies unless absolutely necessary.** Prefer stdlib Python, curl, and existing YOUSEF SHTIWE tools (`web_extract`, `terminal`, `read_file`).
 - **Progressive disclosure.** Put the most common workflow first. Edge cases and advanced usage go at the bottom.
 - **Include helper scripts** for XML/JSON parsing or complex logic — don't expect the LLM to write parsers inline every time.
-- **Test it.** Run `shadow --toolsets skills -q "Use the X skill to do Y"` and verify the agent follows the instructions correctly.
+- **Test it.** Run `yousef shtiwe --toolsets skills -q "Use the X skill to do Y"` and verify the agent follows the instructions correctly.
 
 ---
 
 ## Adding a Skin / Theme
 
-SHADOW uses a data-driven skin system — no code changes needed to add a new skin.
+YOUSEF SHTIWE uses a data-driven skin system — no code changes needed to add a new skin.
 
 **Option A: User skin (YAML file)**
 
-Create `~/.shadow/skins/<name>.yaml`:
+Create `~/.yousef shtiwe/skins/<name>.yaml`:
 
 ```yaml
 name: mytheme
@@ -503,19 +503,19 @@ All fields are optional — missing values inherit from the default skin.
 
 **Option B: Built-in skin**
 
-Add to `_BUILTIN_SKINS` dict in `shadow_cli/skin_engine.py`. Use the same schema as above but as a Python dict. Built-in skins ship with the package and are always available.
+Add to `_BUILTIN_SKINS` dict in `yousef shtiwe_cli/skin_engine.py`. Use the same schema as above but as a Python dict. Built-in skins ship with the package and are always available.
 
 **Activating:**
 - CLI: `/skin mytheme` or set `display.skin: mytheme` in config.yaml
 - Config: `display: { skin: mytheme }`
 
-See `shadow_cli/skin_engine.py` for the full schema and existing skins as examples.
+See `yousef shtiwe_cli/skin_engine.py` for the full schema and existing skins as examples.
 
 ---
 
 ## Cross-Platform Compatibility
 
-SHADOW runs on Linux, macOS, and Windows. When writing code that touches the OS:
+YOUSEF SHTIWE runs on Linux, macOS, and Windows. When writing code that touches the OS:
 
 ### Critical rules
 
@@ -555,7 +555,7 @@ SHADOW runs on Linux, macOS, and Windows. When writing code that touches the OS:
 
 ## Security Considerations
 
-SHADOW has terminal access. Security matters.
+YOUSEF SHTIWE has terminal access. Security matters.
 
 ### Existing protections
 
@@ -564,7 +564,7 @@ SHADOW has terminal access. Security matters.
 | **Sudo password piping** | Uses `shlex.quote()` to prevent shell injection |
 | **Dangerous command detection** | Regex patterns in `tools/approval.py` with user approval flow |
 | **Cron prompt injection** | Scanner in `tools/cronjob_tools.py` blocks instruction-override patterns |
-| **Write deny list** | Protected paths (`~/.ssh/authorized_keys`, `/etc/shadow`) resolved via `os.path.realpath()` to prevent symlink bypass |
+| **Write deny list** | Protected paths (`~/.ssh/authorized_keys`, `/etc/yousef shtiwe`) resolved via `os.path.realpath()` to prevent symlink bypass |
 | **Skills guard** | Security scanner for hub-installed skills (`tools/skills_guard.py`) |
 | **Code execution sandbox** | `execute_code` child process runs with API keys stripped from environment |
 | **Container hardening** | Docker: all capabilities dropped, no privilege escalation, PID limits, size-limited tmpfs |
@@ -596,7 +596,7 @@ refactor/description   # Code restructuring
 ### Before submitting
 
 1. **Run tests**: `pytest tests/ -v`
-2. **Test manually**: Run `shadow` and exercise the code path you changed
+2. **Test manually**: Run `yousef shtiwe` and exercise the code path you changed
 3. **Check cross-platform impact**: If you touch file I/O, process management, or terminal handling, consider Windows and macOS
 4. **Keep PRs focused**: One logical change per PR. Don't mix a bug fix with a refactor with a new feature.
 
@@ -639,8 +639,8 @@ test(tools): add unit tests for file_operations
 
 ## Reporting Issues
 
-- Use [GitHub Issues](https://github.com/SHADOW-OVERLORD/shadow-agent/issues)
-- Include: OS, Python version, SHADOW version (`shadow version`), full error traceback
+- Use [GitHub Issues](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/issues)
+- Include: OS, Python version, YOUSEF SHTIWE version (`yousef shtiwe version`), full error traceback
 - Include steps to reproduce
 - Check existing issues before creating duplicates
 - For security vulnerabilities, please report privately
@@ -649,7 +649,7 @@ test(tools): add unit tests for file_operations
 
 ## Community
 
-- **Discord**: [discord.gg/SHADOW-OVERLORD](https://discord.gg/SHADOW-OVERLORD) — for questions, showcasing projects, and sharing skills
+- **Discord**: [discord.gg/YOUSEF SHTIWE-OVERLORD](https://discord.gg/YOUSEF SHTIWE-OVERLORD) — for questions, showcasing projects, and sharing skills
 - **GitHub Discussions**: For design proposals and architecture discussions
 - **Skills Hub**: Upload specialized skills to a registry and share them with the community
 

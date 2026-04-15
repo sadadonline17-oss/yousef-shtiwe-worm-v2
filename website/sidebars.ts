@@ -17,7 +17,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Using SHADOW',
+      label: 'Using YOUSEF SHTIWE',
       collapsed: true,
       items: [
         'user-guide/cli',
@@ -148,10 +148,10 @@ const sidebars: SidebarsConfig = {
         'guides/daily-briefing-bot',
         'guides/team-telegram-assistant',
         'guides/python-library',
-        'guides/use-mcp-with-shadow',
-        'guides/use-soul-with-shadow',
-        'guides/use-voice-mode-with-shadow',
-        'guides/build-a-shadow-plugin',
+        'guides/use-mcp-with-yousef shtiwe',
+        'guides/use-soul-with-yousef shtiwe',
+        'guides/use-voice-mode-with-yousef shtiwe',
+        'guides/build-a-yousef shtiwe-plugin',
         'guides/automate-with-cron',
         'guides/automation-templates',
         'guides/cron-troubleshooting',

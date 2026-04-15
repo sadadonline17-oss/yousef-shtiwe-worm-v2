@@ -5,7 +5,7 @@ import pwd
 from pathlib import Path
 from types import SimpleNamespace
 
-import shadow_cli.gateway as gateway_cli
+import yousef shtiwe_cli.gateway as gateway_cli
 from gateway.restart import (
     DEFAULT_GATEWAY_RESTART_DRAIN_TIMEOUT,
     GATEWAY_SERVICE_RESTART_EXIT_CODE,
@@ -14,7 +14,7 @@ from gateway.restart import (
 
 class TestSystemdServiceRefresh:
     def test_systemd_install_repairs_outdated_unit_without_force(self, tmp_path, monkeypatch):
-        unit_path = tmp_path / "shadow-gateway.service"
+        unit_path = tmp_path / "yousef shtiwe-gateway.service"
         unit_path.write_text("old unit\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "get_systemd_unit_path", lambda system=False: unit_path)
@@ -37,7 +37,7 @@ class TestSystemdServiceRefresh:
         ]
 
     def test_systemd_start_refreshes_outdated_unit(self, tmp_path, monkeypatch):
-        unit_path = tmp_path / "shadow-gateway.service"
+        unit_path = tmp_path / "yousef shtiwe-gateway.service"
         unit_path.write_text("old unit\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "get_systemd_unit_path", lambda system=False: unit_path)
@@ -60,7 +60,7 @@ class TestSystemdServiceRefresh:
         ]
 
     def test_systemd_restart_refreshes_outdated_unit(self, tmp_path, monkeypatch):
-        unit_path = tmp_path / "shadow-gateway.service"
+        unit_path = tmp_path / "yousef shtiwe-gateway.service"
         unit_path.write_text("old unit\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "get_systemd_unit_path", lambda system=False: unit_path)
@@ -115,7 +115,7 @@ class TestGatewayStopCleanup:
     def test_stop_only_kills_current_profile_by_default(self, tmp_path, monkeypatch):
         """Without --all, stop uses systemd (if available) and does NOT call
         the global kill_gateway_processes()."""
-        unit_path = tmp_path / "shadow-gateway.service"
+        unit_path = tmp_path / "yousef shtiwe-gateway.service"
         unit_path.write_text("unit\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "supports_systemd_services", lambda: True)
@@ -141,7 +141,7 @@ class TestGatewayStopCleanup:
 
     def test_stop_all_sweeps_all_gateway_processes(self, tmp_path, monkeypatch):
         """With --all, stop uses systemd AND calls the global kill_gateway_processes()."""
-        unit_path = tmp_path / "shadow-gateway.service"
+        unit_path = tmp_path / "yousef shtiwe-gateway.service"
         unit_path.write_text("unit\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "supports_systemd_services", lambda: True)
@@ -167,7 +167,7 @@ class TestGatewayStopCleanup:
 
 class TestLaunchdServiceRecovery:
     def test_get_restart_drain_timeout_prefers_env_then_config_then_default(self, monkeypatch):
-        monkeypatch.delenv("SHADOW_RESTART_DRAIN_TIMEOUT", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", raising=False)
         monkeypatch.setattr(gateway_cli, "read_raw_config", lambda: {})
 
         assert (
@@ -182,17 +182,17 @@ class TestLaunchdServiceRecovery:
         )
         assert gateway_cli._get_restart_drain_timeout() == 14.0
 
-        monkeypatch.setenv("SHADOW_RESTART_DRAIN_TIMEOUT", "9")
+        monkeypatch.setenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", "9")
         assert gateway_cli._get_restart_drain_timeout() == 9.0
 
-        monkeypatch.setenv("SHADOW_RESTART_DRAIN_TIMEOUT", "invalid")
+        monkeypatch.setenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", "invalid")
         assert (
             gateway_cli._get_restart_drain_timeout()
             == DEFAULT_GATEWAY_RESTART_DRAIN_TIMEOUT
         )
 
     def test_launchd_install_repairs_outdated_plist_without_force(self, tmp_path, monkeypatch):
-        plist_path = tmp_path / "ai.shadow.gateway.plist"
+        plist_path = tmp_path / "ai.yousef shtiwe.gateway.plist"
         plist_path.write_text("<plist>old content</plist>", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "get_launchd_plist_path", lambda: plist_path)
@@ -216,7 +216,7 @@ class TestLaunchdServiceRecovery:
         ]
 
     def test_launchd_start_reloads_unloaded_job_and_retries(self, tmp_path, monkeypatch):
-        plist_path = tmp_path / "ai.shadow.gateway.plist"
+        plist_path = tmp_path / "ai.yousef shtiwe.gateway.plist"
         plist_path.write_text(gateway_cli.generate_launchd_plist(), encoding="utf-8")
         label = gateway_cli.get_launchd_label()
 
@@ -243,7 +243,7 @@ class TestLaunchdServiceRecovery:
 
     def test_launchd_start_reloads_on_kickstart_exit_code_113(self, tmp_path, monkeypatch):
         """Exit code 113 (\"Could not find service\") should also trigger bootstrap recovery."""
-        plist_path = tmp_path / "ai.shadow.gateway.plist"
+        plist_path = tmp_path / "ai.yousef shtiwe.gateway.plist"
         plist_path.write_text(gateway_cli.generate_launchd_plist(), encoding="utf-8")
         label = gateway_cli.get_launchd_label()
 
@@ -375,7 +375,7 @@ class TestLaunchdServiceRecovery:
         assert wait_called[0] == {"timeout": 10.0, "force_after": 5.0}
 
     def test_launchd_status_reports_local_stale_plist_when_unloaded(self, tmp_path, monkeypatch, capsys):
-        plist_path = tmp_path / "ai.shadow.gateway.plist"
+        plist_path = tmp_path / "ai.yousef shtiwe.gateway.plist"
         plist_path.write_text("<plist>old content</plist>", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "get_launchd_plist_path", lambda: plist_path)
@@ -511,7 +511,7 @@ class TestGatewaySystemServiceRouting:
 
         out = capsys.readouterr().out
         assert "not supported on Termux" in out
-        assert "Run manually: shadow gateway" in out
+        assert "Run manually: yousef shtiwe gateway" in out
 
     def test_gateway_status_prefers_system_service_when_only_system_unit_exists(self, monkeypatch):
         user_unit = SimpleNamespace(exists=lambda: False)
@@ -544,11 +544,11 @@ class TestGatewaySystemServiceRouting:
 
         out = capsys.readouterr().out
         assert "Gateway is not running" in out
-        assert "nohup shadow gateway" in out
+        assert "nohup yousef shtiwe gateway" in out
         assert "install as user service" not in out
 
     def test_gateway_restart_does_not_fallback_to_foreground_when_launchd_restart_fails(self, tmp_path, monkeypatch):
-        plist_path = tmp_path / "ai.shadow.gateway.plist"
+        plist_path = tmp_path / "ai.yousef shtiwe.gateway.plist"
         plist_path.write_text("plist\n", encoding="utf-8")
 
         monkeypatch.setattr(gateway_cli, "is_linux", lambda: False)
@@ -558,7 +558,7 @@ class TestGatewaySystemServiceRouting:
             gateway_cli,
             "launchd_restart",
             lambda: (_ for _ in ()).throw(
-                gateway_cli.subprocess.CalledProcessError(5, ["launchctl", "kickstart", "-k", "gui/501/ai.shadow.gateway"])
+                gateway_cli.subprocess.CalledProcessError(5, ["launchctl", "kickstart", "-k", "gui/501/ai.yousef shtiwe.gateway"])
             ),
         )
 
@@ -631,13 +631,13 @@ class TestDetectVenvDir:
         assert result is None
 
 
-class TestSystemUnitSHADOWHome:
-    """SHADOW_HOME in system units must reference the target user, not root."""
+class TestSystemUnitYOUSEF SHTIWEHome:
+    """YOUSEF SHTIWE_HOME in system units must reference the target user, not root."""
 
     def test_system_unit_uses_target_user_home_not_calling_user(self, monkeypatch):
         # Simulate sudo: Path.home() returns /root, target user is alice
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.delenv("SHADOW_HOME", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_HOME", raising=False)
         monkeypatch.setattr(
             gateway_cli, "_system_service_identity",
             lambda run_as_user=None: ("alice", "alice", "/home/alice"),
@@ -649,13 +649,13 @@ class TestSystemUnitSHADOWHome:
 
         unit = gateway_cli.generate_systemd_unit(system=True, run_as_user="alice")
 
-        assert 'SHADOW_HOME=/home/alice/.shadow' in unit
-        assert '/root/.shadow' not in unit
+        assert 'YOUSEF SHTIWE_HOME=/home/alice/.yousef shtiwe' in unit
+        assert '/root/.yousef shtiwe' not in unit
 
     def test_system_unit_remaps_profile_to_target_user(self, monkeypatch):
-        # Simulate sudo with a profile: SHADOW_HOME was resolved under root
+        # Simulate sudo with a profile: YOUSEF SHTIWE_HOME was resolved under root
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.setenv("SHADOW_HOME", "/root/.shadow/profiles/coder")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", "/root/.yousef shtiwe/profiles/coder")
         monkeypatch.setattr(
             gateway_cli, "_system_service_identity",
             lambda run_as_user=None: ("alice", "alice", "/home/alice"),
@@ -667,13 +667,13 @@ class TestSystemUnitSHADOWHome:
 
         unit = gateway_cli.generate_systemd_unit(system=True, run_as_user="alice")
 
-        assert 'SHADOW_HOME=/home/alice/.shadow/profiles/coder' in unit
+        assert 'YOUSEF SHTIWE_HOME=/home/alice/.yousef shtiwe/profiles/coder' in unit
         assert '/root/' not in unit
 
-    def test_system_unit_preserves_custom_shadow_home(self, monkeypatch):
-        # Custom SHADOW_HOME not under any user's home — keep as-is
+    def test_system_unit_preserves_custom_yousef shtiwe_home(self, monkeypatch):
+        # Custom YOUSEF SHTIWE_HOME not under any user's home — keep as-is
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.setenv("SHADOW_HOME", "/opt/shadow-shared")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", "/opt/yousef shtiwe-shared")
         monkeypatch.setattr(
             gateway_cli, "_system_service_identity",
             lambda run_as_user=None: ("alice", "alice", "/home/alice"),
@@ -685,46 +685,46 @@ class TestSystemUnitSHADOWHome:
 
         unit = gateway_cli.generate_systemd_unit(system=True, run_as_user="alice")
 
-        assert 'SHADOW_HOME=/opt/shadow-shared' in unit
+        assert 'YOUSEF SHTIWE_HOME=/opt/yousef shtiwe-shared' in unit
 
     def test_user_unit_unaffected_by_change(self):
-        # User-scope units should still use the calling user's SHADOW_HOME
+        # User-scope units should still use the calling user's YOUSEF SHTIWE_HOME
         unit = gateway_cli.generate_systemd_unit(system=False)
 
-        shadow_home = str(gateway_cli.get_shadow_home().resolve())
-        assert f'SHADOW_HOME={shadow_home}' in unit
+        yousef shtiwe_home = str(gateway_cli.get_yousef shtiwe_home().resolve())
+        assert f'YOUSEF SHTIWE_HOME={yousef shtiwe_home}' in unit
 
 
-class TestSHADOWHomeForTargetUser:
-    """Unit tests for _shadow_home_for_target_user()."""
+class TestYOUSEF SHTIWEHomeForTargetUser:
+    """Unit tests for _yousef shtiwe_home_for_target_user()."""
 
     def test_remaps_default_home(self, monkeypatch):
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.delenv("SHADOW_HOME", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_HOME", raising=False)
 
-        result = gateway_cli._shadow_home_for_target_user("/home/alice")
-        assert result == "/home/alice/.shadow"
+        result = gateway_cli._yousef shtiwe_home_for_target_user("/home/alice")
+        assert result == "/home/alice/.yousef shtiwe"
 
     def test_remaps_profile_path(self, monkeypatch):
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.setenv("SHADOW_HOME", "/root/.shadow/profiles/coder")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", "/root/.yousef shtiwe/profiles/coder")
 
-        result = gateway_cli._shadow_home_for_target_user("/home/alice")
-        assert result == "/home/alice/.shadow/profiles/coder"
+        result = gateway_cli._yousef shtiwe_home_for_target_user("/home/alice")
+        assert result == "/home/alice/.yousef shtiwe/profiles/coder"
 
     def test_keeps_custom_path(self, monkeypatch):
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/root")))
-        monkeypatch.setenv("SHADOW_HOME", "/opt/shadow")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", "/opt/yousef shtiwe")
 
-        result = gateway_cli._shadow_home_for_target_user("/home/alice")
-        assert result == "/opt/shadow"
+        result = gateway_cli._yousef shtiwe_home_for_target_user("/home/alice")
+        assert result == "/opt/yousef shtiwe"
 
     def test_noop_when_same_user(self, monkeypatch):
         monkeypatch.setattr(Path, "home", staticmethod(lambda: Path("/home/alice")))
-        monkeypatch.delenv("SHADOW_HOME", raising=False)
+        monkeypatch.delenv("YOUSEF SHTIWE_HOME", raising=False)
 
-        result = gateway_cli._shadow_home_for_target_user("/home/alice")
-        assert result == "/home/alice/.shadow"
+        result = gateway_cli._yousef shtiwe_home_for_target_user("/home/alice")
+        assert result == "/home/alice/.yousef shtiwe"
 
 
 class TestGeneratedUnitUsesDetectedVenv:
@@ -890,75 +890,75 @@ class TestEnsureUserSystemdEnv:
 class TestProfileArg:
     """Tests for _profile_arg — returns '--profile <name>' for named profiles."""
 
-    def test_default_shadow_home_returns_empty(self, tmp_path, monkeypatch):
-        """Default ~/.shadow should not produce a --profile flag."""
-        shadow_home = tmp_path / ".shadow"
-        shadow_home.mkdir()
+    def test_default_yousef shtiwe_home_returns_empty(self, tmp_path, monkeypatch):
+        """Default ~/.yousef shtiwe should not produce a --profile flag."""
+        yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
-        result = gateway_cli._profile_arg(str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
+        result = gateway_cli._profile_arg(str(yousef shtiwe_home))
         assert result == ""
 
     def test_named_profile_returns_flag(self, tmp_path, monkeypatch):
-        """~/.shadow/profiles/mybot should return '--profile mybot'."""
-        profile_dir = tmp_path / ".shadow" / "profiles" / "mybot"
+        """~/.yousef shtiwe/profiles/mybot should return '--profile mybot'."""
+        profile_dir = tmp_path / ".yousef shtiwe" / "profiles" / "mybot"
         profile_dir.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
         result = gateway_cli._profile_arg(str(profile_dir))
         assert result == "--profile mybot"
 
     def test_hash_path_returns_empty(self, tmp_path, monkeypatch):
-        """Arbitrary non-profile SHADOW_HOME should return empty string."""
-        custom_home = tmp_path / "custom" / "shadow"
+        """Arbitrary non-profile YOUSEF SHTIWE_HOME should return empty string."""
+        custom_home = tmp_path / "custom" / "yousef shtiwe"
         custom_home.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
         result = gateway_cli._profile_arg(str(custom_home))
         assert result == ""
 
     def test_nested_profile_path_returns_empty(self, tmp_path, monkeypatch):
-        """~/.shadow/profiles/mybot/subdir should NOT match — too deep."""
-        nested = tmp_path / ".shadow" / "profiles" / "mybot" / "subdir"
+        """~/.yousef shtiwe/profiles/mybot/subdir should NOT match — too deep."""
+        nested = tmp_path / ".yousef shtiwe" / "profiles" / "mybot" / "subdir"
         nested.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
         result = gateway_cli._profile_arg(str(nested))
         assert result == ""
 
     def test_invalid_profile_name_returns_empty(self, tmp_path, monkeypatch):
         """Profile names with invalid chars should not match the regex."""
-        bad_profile = tmp_path / ".shadow" / "profiles" / "My Bot!"
+        bad_profile = tmp_path / ".yousef shtiwe" / "profiles" / "My Bot!"
         bad_profile.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
         result = gateway_cli._profile_arg(str(bad_profile))
         assert result == ""
 
     def test_systemd_unit_includes_profile(self, tmp_path, monkeypatch):
         """generate_systemd_unit should include --profile in ExecStart for named profiles."""
-        profile_dir = tmp_path / ".shadow" / "profiles" / "mybot"
+        profile_dir = tmp_path / ".yousef shtiwe" / "profiles" / "mybot"
         profile_dir.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(profile_dir))
-        monkeypatch.setattr(gateway_cli, "get_shadow_home", lambda: profile_dir)
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(profile_dir))
+        monkeypatch.setattr(gateway_cli, "get_yousef shtiwe_home", lambda: profile_dir)
         unit = gateway_cli.generate_systemd_unit(system=False)
         assert "--profile mybot" in unit
         assert "gateway run --replace" in unit
 
     def test_launchd_plist_includes_profile(self, tmp_path, monkeypatch):
         """generate_launchd_plist should include --profile in ProgramArguments for named profiles."""
-        profile_dir = tmp_path / ".shadow" / "profiles" / "mybot"
+        profile_dir = tmp_path / ".yousef shtiwe" / "profiles" / "mybot"
         profile_dir.mkdir(parents=True)
         monkeypatch.setattr(Path, "home", lambda: tmp_path)
-        monkeypatch.setenv("SHADOW_HOME", str(profile_dir))
-        monkeypatch.setattr(gateway_cli, "get_shadow_home", lambda: profile_dir)
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(profile_dir))
+        monkeypatch.setattr(gateway_cli, "get_yousef shtiwe_home", lambda: profile_dir)
         plist = gateway_cli.generate_launchd_plist()
         assert "<string>--profile</string>" in plist
         assert "<string>mybot</string>" in plist
 
     def test_launchd_plist_path_uses_real_user_home_not_profile_home(self, tmp_path, monkeypatch):
-        profile_dir = tmp_path / ".shadow" / "profiles" / "orcha"
+        profile_dir = tmp_path / ".yousef shtiwe" / "profiles" / "orcha"
         profile_dir.mkdir(parents=True)
         machine_home = tmp_path / "machine-home"
         machine_home.mkdir()
@@ -966,13 +966,13 @@ class TestProfileArg:
         profile_home.mkdir()
 
         monkeypatch.setattr(Path, "home", lambda: profile_home)
-        monkeypatch.setenv("SHADOW_HOME", str(profile_dir))
-        monkeypatch.setattr(gateway_cli, "get_shadow_home", lambda: profile_dir)
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(profile_dir))
+        monkeypatch.setattr(gateway_cli, "get_yousef shtiwe_home", lambda: profile_dir)
         monkeypatch.setattr(pwd, "getpwuid", lambda uid: SimpleNamespace(pw_dir=str(machine_home)))
 
         plist_path = gateway_cli.get_launchd_plist_path()
 
-        assert plist_path == machine_home / "Library" / "LaunchAgents" / "ai.shadow.gateway-orcha.plist"
+        assert plist_path == machine_home / "Library" / "LaunchAgents" / "ai.yousef shtiwe.gateway-orcha.plist"
 
 
 class TestRemapPathForUser:
@@ -982,21 +982,21 @@ class TestRemapPathForUser:
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "root")
         (tmp_path / "root").mkdir()
         result = gateway_cli._remap_path_for_user(
-            str(tmp_path / "root" / ".shadow" / "shadow-agent"),
+            str(tmp_path / "root" / ".yousef shtiwe" / "yousef shtiwe-agent"),
             str(tmp_path / "alice"),
         )
-        assert result == str(tmp_path / "alice" / ".shadow" / "shadow-agent")
+        assert result == str(tmp_path / "alice" / ".yousef shtiwe" / "yousef shtiwe-agent")
 
     def test_keeps_system_path_unchanged(self, monkeypatch, tmp_path):
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "root")
         (tmp_path / "root").mkdir()
-        result = gateway_cli._remap_path_for_user("/opt/shadow", str(tmp_path / "alice"))
-        assert result == "/opt/shadow"
+        result = gateway_cli._remap_path_for_user("/opt/yousef shtiwe", str(tmp_path / "alice"))
+        assert result == "/opt/yousef shtiwe"
 
     def test_noop_when_same_user(self, monkeypatch, tmp_path):
         monkeypatch.setattr(Path, "home", lambda: tmp_path / "alice")
         (tmp_path / "alice").mkdir()
-        original = str(tmp_path / "alice" / ".shadow" / "shadow-agent")
+        original = str(tmp_path / "alice" / ".yousef shtiwe" / "yousef shtiwe-agent")
         result = gateway_cli._remap_path_for_user(original, str(tmp_path / "alice"))
         assert result == original
 
@@ -1007,7 +1007,7 @@ class TestSystemUnitPathRemapping:
     def test_system_unit_has_no_root_paths(self, monkeypatch, tmp_path):
         root_home = tmp_path / "root"
         root_home.mkdir()
-        project = root_home / ".shadow" / "shadow-agent"
+        project = root_home / ".yousef shtiwe" / "yousef shtiwe-agent"
         project.mkdir(parents=True)
         venv_bin = project / "venv" / "bin"
         venv_bin.mkdir(parents=True)
@@ -1016,8 +1016,8 @@ class TestSystemUnitPathRemapping:
         target_home = "/home/alice"
 
         monkeypatch.setattr(Path, "home", lambda: root_home)
-        monkeypatch.setenv("SHADOW_HOME", str(root_home / ".shadow"))
-        monkeypatch.setattr(gateway_cli, "get_shadow_home", lambda: root_home / ".shadow")
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(root_home / ".yousef shtiwe"))
+        monkeypatch.setattr(gateway_cli, "get_yousef shtiwe_home", lambda: root_home / ".yousef shtiwe")
         monkeypatch.setattr(gateway_cli, "PROJECT_ROOT", project)
         monkeypatch.setattr(gateway_cli, "_detect_venv_dir", lambda: project / "venv")
         monkeypatch.setattr(gateway_cli, "get_python_path", lambda: str(venv_bin / "python"))
@@ -1032,7 +1032,7 @@ class TestSystemUnitPathRemapping:
         assert str(root_home) not in unit
         # Target user paths should be present
         assert "/home/alice" in unit
-        assert "WorkingDirectory=/home/alice/.shadow/shadow-agent" in unit
+        assert "WorkingDirectory=/home/alice/.yousef shtiwe/yousef shtiwe-agent" in unit
 
 
 class TestDockerAwareGateway:
@@ -1048,7 +1048,7 @@ class TestDockerAwareGateway:
         monkeypatch.setattr(gateway_cli.subprocess, "run", fake_run)
 
         with pytest.raises(RuntimeError, match="systemctl is not available"):
-            gateway_cli._run_systemctl(["start", "shadow-gateway"])
+            gateway_cli._run_systemctl(["start", "yousef shtiwe-gateway"])
 
     def test_run_systemctl_passes_through_on_success(self, monkeypatch):
         """_run_systemctl delegates to subprocess.run when systemctl exists."""
@@ -1060,13 +1060,13 @@ class TestDockerAwareGateway:
 
         monkeypatch.setattr(gateway_cli.subprocess, "run", fake_run)
 
-        result = gateway_cli._run_systemctl(["status", "shadow-gateway"])
+        result = gateway_cli._run_systemctl(["status", "yousef shtiwe-gateway"])
         assert result.returncode == 0
         assert len(calls) == 1
         assert "status" in calls[0]
 
     def test_install_in_container_prints_docker_guidance(self, monkeypatch, capsys):
-        """'shadow gateway install' inside Docker exits 0 with container guidance."""
+        """'yousef shtiwe gateway install' inside Docker exits 0 with container guidance."""
         import pytest
 
         monkeypatch.setattr(gateway_cli, "is_managed", lambda: False)
@@ -1086,7 +1086,7 @@ class TestDockerAwareGateway:
         assert "restart" in out.lower()
 
     def test_uninstall_in_container_prints_docker_guidance(self, monkeypatch, capsys):
-        """'shadow gateway uninstall' inside Docker exits 0 with container guidance."""
+        """'yousef shtiwe gateway uninstall' inside Docker exits 0 with container guidance."""
         import pytest
 
         monkeypatch.setattr(gateway_cli, "is_managed", lambda: False)
@@ -1104,7 +1104,7 @@ class TestDockerAwareGateway:
         assert "docker" in out.lower()
 
     def test_start_in_container_prints_docker_guidance(self, monkeypatch, capsys):
-        """'shadow gateway start' inside Docker exits 0 with container guidance."""
+        """'yousef shtiwe gateway start' inside Docker exits 0 with container guidance."""
         import pytest
 
         monkeypatch.setattr(gateway_cli, "is_termux", lambda: False)
@@ -1120,4 +1120,4 @@ class TestDockerAwareGateway:
         assert exc_info.value.code == 0
         out = capsys.readouterr().out
         assert "docker" in out.lower()
-        assert "shadow gateway run" in out
+        assert "yousef shtiwe gateway run" in out

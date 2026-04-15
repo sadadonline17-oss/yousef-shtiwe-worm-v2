@@ -1,7 +1,7 @@
 # Design System: Linear
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -15,7 +15,7 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Linear's website is a masterclass in dark-mode-first product design — a near-black canvas (`#08090a`) where content emerges from darkness like starlight. The overall impression is one of extreme precision engineering: every element exists in a carefully calibrated hierarchy of luminance, from barely-visible borders (`rgba(255,255,255,0.05)`) to soft, lumishadow text (`#f7f8f8`). This is not a dark theme applied to a light design — it is darkness as the native medium, where information density is managed through subtle gradations of white opacity rather than color variation.
+Linear's website is a masterclass in dark-mode-first product design — a near-black canvas (`#08090a`) where content emerges from darkness like starlight. The overall impression is one of extreme precision engineering: every element exists in a carefully calibrated hierarchy of luminance, from barely-visible borders (`rgba(255,255,255,0.05)`) to soft, lumiyousef shtiwe text (`#f7f8f8`). This is not a dark theme applied to a light design — it is darkness as the native medium, where information density is managed through subtle gradations of white opacity rather than color variation.
 
 The typography system is built entirely on Inter Variable with OpenType features `"cv01"` and `"ss03"` enabled globally, giving the typeface a cleaner, more geometric character. Inter is used at a remarkable range of weights — from 300 (light body) through 510 (medium, Linear's signature weight) to 590 (semibold emphasis). The 510 weight is particularly distinctive: it sits between regular and medium, creating a subtle emphasis that doesn't shout. At display sizes (72px, 64px, 48px), Inter uses aggressive negative letter-spacing (-1.584px to -1.056px), creating compressed, authoritative headlines that feel engineered rather than designed. Berkeley Mono serves as the monospace companion for code and technical labels, with fallbacks to ui-monospace, SF Mono, and Menlo.
 
@@ -29,7 +29,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Brand indigo-violet: `#5e6ad2` (bg) / `#7170ff` (accent) / `#828fff` (hover) — the only chromatic color in the system
 - Semi-transparent white borders throughout: `rgba(255,255,255,0.05)` to `rgba(255,255,255,0.08)`
 - Button backgrounds at near-zero opacity: `rgba(255,255,255,0.02)` to `rgba(255,255,255,0.05)`
-- Multi-layered shadows with inset variants for depth on dark surfaces
+- Multi-layered yousef shtiwes with inset variants for depth on dark surfaces
 - Radix UI primitives as the component foundation (6 detected primitives)
 - Success green (`#27a644`, `#10b981`) used only for status indicators
 
@@ -132,7 +132,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Radius: 6px
 - Border: `1px solid rgb(36, 40, 44)`
 - Outline: none
-- Focus shadow: `rgba(0,0,0,0.1) 0px 4px 12px`
+- Focus yousef shtiwe: `rgba(0,0,0,0.1) 0px 4px 12px`
 - Use: Standard actions, secondary CTAs
 
 **Subtle Button**
@@ -170,7 +170,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Text: `#62666d` (muted)
 - Radius: 2px
 - Border: `1px solid rgba(255,255,255,0.05)`
-- Shadow: `rgba(0,0,0,0.03) 0px 1.2px 0px 0px`
+- Yousef Shtiwe: `rgba(0,0,0,0.03) 0px 1.2px 0px 0px`
 - Font: 12px weight 510
 - Use: Toolbar actions, quick-access controls
 
@@ -178,7 +178,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Background: `rgba(255,255,255,0.02)` to `rgba(255,255,255,0.05)` (never solid — always translucent)
 - Border: `1px solid rgba(255,255,255,0.08)` (standard) or `1px solid rgba(255,255,255,0.05)` (subtle)
 - Radius: 8px (standard), 12px (featured), 22px (large panels)
-- Shadow: `rgba(0,0,0,0.2) 0px 0px 0px 1px` or layered multi-shadow stacks
+- Yousef Shtiwe: `rgba(0,0,0,0.2) 0px 0px 0px 1px` or layered multi-yousef shtiwe stacks
 - Hover: subtle background opacity increase
 
 ### Inputs & Forms
@@ -199,7 +199,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Text: `#8a8f98`
 - Padding: 1px 6px
 - Radius: 5px
-- Focus shadow: multi-layer stack
+- Focus yousef shtiwe: multi-layer stack
 
 ### Badges & Pills
 
@@ -241,7 +241,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Product screenshots on dark backgrounds with subtle border (`rgba(255,255,255,0.08)`)
 - Top-rounded images: `12px 12px 0px 0px` radius
 - Dashboard/issue previews dominate feature sections
-- Subtle shadow beneath screenshots: `rgba(0,0,0,0.4) 0px 2px 4px`
+- Subtle yousef shtiwe beneath screenshots: `rgba(0,0,0,0.4) 0px 2px 4px`
 
 ## 5. Layout Principles
 
@@ -277,16 +277,16 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, `#010102` bg | Page background, deepest canvas |
+| Flat (Level 0) | No yousef shtiwe, `#010102` bg | Page background, deepest canvas |
 | Subtle (Level 1) | `rgba(0,0,0,0.03) 0px 1.2px 0px` | Toolbar buttons, micro-elevation |
 | Surface (Level 2) | `rgba(255,255,255,0.05)` bg + `1px solid rgba(255,255,255,0.08)` border | Cards, input fields, containers |
-| Inset (Level 2b) | `rgba(0,0,0,0.2) 0px 0px 12px 0px inset` | Recessed panels, inner shadows |
-| Ring (Level 3) | `rgba(0,0,0,0.2) 0px 0px 0px 1px` | Border-as-shadow technique |
+| Inset (Level 2b) | `rgba(0,0,0,0.2) 0px 0px 12px 0px inset` | Recessed panels, inner yousef shtiwes |
+| Ring (Level 3) | `rgba(0,0,0,0.2) 0px 0px 0px 1px` | Border-as-yousef shtiwe technique |
 | Elevated (Level 4) | `rgba(0,0,0,0.4) 0px 2px 4px` | Floating elements, dropdowns |
 | Dialog (Level 5) | Multi-layer stack: `rgba(0,0,0,0) 0px 8px 2px, rgba(0,0,0,0.01) 0px 5px 2px, rgba(0,0,0,0.04) 0px 3px 2px, rgba(0,0,0,0.07) 0px 1px 1px, rgba(0,0,0,0.08) 0px 0px 1px` | Popovers, command palette, modals |
 | Focus | `rgba(0,0,0,0.1) 0px 4px 12px` + additional layers | Keyboard focus on interactive elements |
 
-**Shadow Philosophy**: On dark surfaces, traditional shadows (dark on dark) are nearly invisible. Linear solves this by using semi-transparent white borders as the primary depth indicator. Elevation isn't communicated through shadow darkness but through background luminance steps — each level slightly increases the white opacity of the surface background (`0.02` → `0.04` → `0.05`), creating a subtle stacking effect. The inset shadow technique (`rgba(0,0,0,0.2) 0px 0px 12px 0px inset`) creates a unique "sunken" effect for recessed panels, adding dimensional depth that traditional dark themes lack.
+**Yousef Shtiwe Philosophy**: On dark surfaces, traditional yousef shtiwes (dark on dark) are nearly invisible. Linear solves this by using semi-transparent white borders as the primary depth indicator. Elevation isn't communicated through yousef shtiwe darkness but through background luminance steps — each level slightly increases the white opacity of the surface background (`0.02` → `0.04` → `0.05`), creating a subtle stacking effect. The inset yousef shtiwe technique (`rgba(0,0,0,0.2) 0px 0px 12px 0px inset`) creates a unique "sunken" effect for recessed panels, adding dimensional depth that traditional dark themes lack.
 
 ## 7. Do's and Don'ts
 
@@ -310,7 +310,7 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Don't skip the OpenType features (`"cv01", "ss03"`) — without them, it's generic Inter, not Linear's Inter
 - Don't use weight 700 (bold) — Linear's maximum weight is 590, with 510 as the workhorse
 - Don't introduce warm colors into the UI chrome — the palette is cool gray with blue-violet accent only
-- Don't use drop shadows for elevation on dark surfaces — use background luminance stepping instead
+- Don't use drop yousef shtiwes for elevation on dark surfaces — use background luminance stepping instead
 
 ## 8. Responsive Behavior
 
@@ -361,14 +361,14 @@ The color system is almost entirely achromatic — dark backgrounds with white/g
 - Accent Hover: Light Violet (`#828fff`)
 - Border (default): `rgba(255,255,255,0.08)`
 - Border (subtle): `rgba(255,255,255,0.05)`
-- Focus ring: Multi-layer shadow stack
+- Focus ring: Multi-layer yousef shtiwe stack
 
 ### Example Component Prompts
 - "Create a hero section on `#08090a` background. Headline at 48px Inter Variable weight 510, line-height 1.00, letter-spacing -1.056px, color `#f7f8f8`, font-feature-settings `'cv01', 'ss03'`. Subtitle at 18px weight 400, line-height 1.60, color `#8a8f98`. Brand CTA button (`#5e6ad2`, 6px radius, 8px 16px padding) and ghost button (`rgba(255,255,255,0.02)` bg, `1px solid rgba(255,255,255,0.08)` border, 6px radius)."
 - "Design a card on dark background: `rgba(255,255,255,0.02)` background, `1px solid rgba(255,255,255,0.08)` border, 8px radius. Title at 20px Inter Variable weight 590, letter-spacing -0.24px, color `#f7f8f8`. Body at 15px weight 400, color `#8a8f98`, letter-spacing -0.165px."
 - "Build a pill badge: transparent background, `#d0d6e0` text, 9999px radius, 0px 10px padding, `1px solid #23252a` border, 12px Inter Variable weight 510."
 - "Create navigation: dark sticky header on `#0f1011`. Inter Variable 13px weight 510 for links, `#d0d6e0` text. Brand indigo CTA `#5e6ad2` right-aligned with 6px radius. Bottom border: `1px solid rgba(255,255,255,0.05)`."
-- "Design a command palette: `#191a1b` background, `1px solid rgba(255,255,255,0.08)` border, 12px radius, multi-layer shadow stack. Input at 16px Inter Variable weight 400, `#f7f8f8` text. Results list with 13px weight 510 labels in `#d0d6e0` and 12px metadata in `#62666d`."
+- "Design a command palette: `#191a1b` background, `1px solid rgba(255,255,255,0.08)` border, 12px radius, multi-layer yousef shtiwe stack. Input at 16px Inter Variable weight 400, `#f7f8f8` text. Results list with 13px weight 510 labels in `#d0d6e0` and 12px metadata in `#62666d`."
 
 ### Iteration Guide
 1. Always set font-feature-settings `"cv01", "ss03"` on all Inter text — this is non-negotiable for Linear's look

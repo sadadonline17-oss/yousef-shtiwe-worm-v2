@@ -1,4 +1,4 @@
-"""Tests for the top-level `./shadow` launcher script."""
+"""Tests for the top-level `./yousef shtiwe` launcher script."""
 
 import runpy
 import sys
@@ -7,17 +7,17 @@ from pathlib import Path
 
 
 def test_launcher_delegates_to_argparse_entrypoint(monkeypatch):
-    """`./shadow` should use `shadow_cli.main`, not the legacy Fire wrapper."""
-    launcher_path = Path(__file__).resolve().parents[2] / "shadow"
+    """`./yousef shtiwe` should use `yousef shtiwe_cli.main`, not the legacy Fire wrapper."""
+    launcher_path = Path(__file__).resolve().parents[2] / "yousef shtiwe"
     called = []
 
-    fake_main_module = types.ModuleType("shadow_cli.main")
+    fake_main_module = types.ModuleType("yousef shtiwe_cli.main")
 
     def fake_main():
-        called.append("shadow_cli.main")
+        called.append("yousef shtiwe_cli.main")
 
     fake_main_module.main = fake_main
-    monkeypatch.setitem(sys.modules, "shadow_cli.main", fake_main_module)
+    monkeypatch.setitem(sys.modules, "yousef shtiwe_cli.main", fake_main_module)
 
     fake_cli_module = types.ModuleType("cli")
 
@@ -39,4 +39,4 @@ def test_launcher_delegates_to_argparse_entrypoint(monkeypatch):
 
     runpy.run_path(str(launcher_path), run_name="__main__")
 
-    assert called == ["shadow_cli.main"]
+    assert called == ["yousef shtiwe_cli.main"]

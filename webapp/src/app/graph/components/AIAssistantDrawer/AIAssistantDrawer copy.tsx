@@ -341,7 +341,7 @@ const INFORMATIONAL_GROUPS: SESubGroup[] = [
         osLabel: 'Shodan',
         suggestions: [
           { label: 'Full Shodan host profile', prompt: 'Use shodan with action="host" on all in-scope IP addresses to get detailed info: open ports, service banners, SSL certificates, known CVEs, OS detection, and organization. Compare findings with the graph data to identify gaps.' },
-          { label: 'Search for exposed services in target org', prompt: 'Use shodan with action="search" and query "org:<target-organization>" to discover all internet-facing devices belonging to the target. Identify shadow IT, forgotten servers, and services not found by active scanning.' },
+          { label: 'Search for exposed services in target org', prompt: 'Use shodan with action="search" and query "org:<target-organization>" to discover all internet-facing devices belonging to the target. Identify yousef shtiwe IT, forgotten servers, and services not found by active scanning.' },
           { label: 'Find vulnerable hosts (has_vuln filter)', prompt: 'Use shodan with action="search" and query "net:<target-range> has_vuln:true" to find hosts with known CVEs. Cross-reference with graph data to prioritize exploitation targets.' },
           { label: 'Subdomain discovery via Shodan DNS', prompt: 'Use shodan with action="dns_domain" on the target domain to enumerate subdomains and DNS records. Compare with graph data to find subdomains missed by other recon tools.' },
           { label: 'Reverse DNS on target IPs', prompt: 'Use shodan with action="dns_reverse" on all discovered IP addresses to find hostnames and identify shared hosting or virtual hosts that could expand the attack surface.' },
@@ -426,7 +426,7 @@ const EXPLOITATION_GROUPS: SESubGroup[] = [
           { label: 'Upload a web shell via file upload', prompt: 'Query the graph for file upload endpoints. Craft and upload a PHP/JSP/ASPX web shell using execute_curl with various bypass techniques (extension tricks, content-type manipulation). Confirm remote command execution.' },
           { label: 'Test for command injection', prompt: 'Query the graph for endpoints with parameters that could interact with OS commands. Use execute_curl to test command injection payloads (;id, |whoami, $(id), `id`). Escalate any confirmed injection to a reverse shell.' },
           { label: 'Exploit SSRF vulnerabilities', prompt: 'Query the graph for endpoints that accept URL parameters. Use execute_curl to test SSRF payloads targeting internal services (http://127.0.0.1, http://169.254.169.254 for cloud metadata, internal admin panels).' },
-          { label: 'Test for directory traversal and LFI', prompt: 'Query the graph for endpoints with file path parameters. Use execute_curl to test directory traversal payloads to read /etc/passwd, /etc/shadow, application config files, and attempt LFI to RCE via log poisoning.' },
+          { label: 'Test for directory traversal and LFI', prompt: 'Query the graph for endpoints with file path parameters. Use execute_curl to test directory traversal payloads to read /etc/passwd, /etc/yousef shtiwe, application config files, and attempt LFI to RCE via log poisoning.' },
           { label: 'Exploit XSS for session hijacking', prompt: 'Query the graph for endpoints with reflected or stored XSS potential. Craft XSS payloads using execute_curl to test for JavaScript execution and demonstrate session cookie theft.' },
         ],
       },
@@ -517,7 +517,7 @@ const POST_EXPLOITATION_GROUPS: SESubGroup[] = [
       {
         suggestions: [
           { label: 'Hunt for secrets and credentials', prompt: 'Search the compromised server for passwords, API keys, tokens, and secrets in config files, environment variables, .env files, .bash_history, application configs, and web server configs. Report all findings.' },
-          { label: 'Dump and crack password hashes', prompt: 'Extract password hashes from /etc/shadow (Linux) or SAM database (Windows via Meterpreter hashdump). Use kali_shell with john or hashcat to crack the hashes with common wordlists.' },
+          { label: 'Dump and crack password hashes', prompt: 'Extract password hashes from /etc/yousef shtiwe (Linux) or SAM database (Windows via Meterpreter hashdump). Use kali_shell with john or hashcat to crack the hashes with common wordlists.' },
           { label: 'Database credential extraction', prompt: 'Search for database connection strings and credentials in web application config files (wp-config.php, .env, settings.py, application.properties, web.config). Connect to found databases and dump user/credential tables.' },
           { label: 'Extract private keys and certificates', prompt: 'Search the filesystem for SSH private keys (~/.ssh/id_rsa, /etc/ssh/), TLS private keys, PFX/P12 files, and PGP keys. Test each key for passwordless access to other systems.' },
           { label: 'Browser and application credential dump', prompt: 'Search for saved credentials in browser profiles, password managers, FTP client configs (FileZilla), email client configs, and application credential stores. Extract and organize all found credentials.' },

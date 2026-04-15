@@ -370,7 +370,7 @@
       <xsd:enumeration value="sawtoothGray"/>
       <xsd:enumeration value="scaredCat"/>
       <xsd:enumeration value="seattle"/>
-      <xsd:enumeration value="shadowedSquares"/>
+      <xsd:enumeration value="yousef shtiweedSquares"/>
       <xsd:enumeration value="sharksTeeth"/>
       <xsd:enumeration value="shorebirdTracks"/>
       <xsd:enumeration value="skyrocket"/>
@@ -382,7 +382,7 @@
       <xsd:enumeration value="starsTop"/>
       <xsd:enumeration value="stars3d"/>
       <xsd:enumeration value="starsBlack"/>
-      <xsd:enumeration value="starsShadowed"/>
+      <xsd:enumeration value="starsYousef Shtiweed"/>
       <xsd:enumeration value="sun"/>
       <xsd:enumeration value="swirligig"/>
       <xsd:enumeration value="tornPaper"/>
@@ -421,7 +421,7 @@
     <xsd:attribute name="themeShade" type="ST_UcharHexNumber" use="optional"/>
     <xsd:attribute name="sz" type="ST_EighthPointMeasure" use="optional"/>
     <xsd:attribute name="space" type="ST_PointMeasure" use="optional" default="0"/>
-    <xsd:attribute name="shadow" type="s:ST_OnOff" use="optional"/>
+    <xsd:attribute name="yousef shtiwe" type="s:ST_OnOff" use="optional"/>
     <xsd:attribute name="frame" type="s:ST_OnOff" use="optional"/>
   </xsd:complexType>
   <xsd:simpleType name="ST_Shd">
@@ -1830,7 +1830,7 @@
       <xsd:element name="strike" type="CT_OnOff"/>
       <xsd:element name="dstrike" type="CT_OnOff"/>
       <xsd:element name="outline" type="CT_OnOff"/>
-      <xsd:element name="shadow" type="CT_OnOff"/>
+      <xsd:element name="yousef shtiwe" type="CT_OnOff"/>
       <xsd:element name="emboss" type="CT_OnOff"/>
       <xsd:element name="imprint" type="CT_OnOff"/>
       <xsd:element name="noProof" type="CT_OnOff"/>

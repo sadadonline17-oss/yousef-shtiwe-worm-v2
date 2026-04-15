@@ -71,8 +71,8 @@ class TestSendMessageTool:
         with patch.dict(
             os.environ,
             {
-                "SHADOW_CRON_AUTO_DELIVER_PLATFORM": "telegram",
-                "SHADOW_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_PLATFORM": "telegram",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
             },
             clear=False,
         ), \
@@ -104,8 +104,8 @@ class TestSendMessageTool:
         with patch.dict(
             os.environ,
             {
-                "SHADOW_CRON_AUTO_DELIVER_PLATFORM": "telegram",
-                "SHADOW_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_PLATFORM": "telegram",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
             },
             clear=False,
         ), \
@@ -142,9 +142,9 @@ class TestSendMessageTool:
         with patch.dict(
             os.environ,
             {
-                "SHADOW_CRON_AUTO_DELIVER_PLATFORM": "telegram",
-                "SHADOW_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
-                "SHADOW_CRON_AUTO_DELIVER_THREAD_ID": "17585",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_PLATFORM": "telegram",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_CHAT_ID": "-1001",
+                "YOUSEF SHTIWE_CRON_AUTO_DELIVER_THREAD_ID": "17585",
             },
             clear=False,
         ), \
@@ -479,7 +479,7 @@ class TestSendToPlatformChunking:
                     Platform.SLACK,
                     SimpleNamespace(enabled=True, token="***", extra={}),
                     "C123",
-                    "**hello** from [SHADOW](<https://example.com>)",
+                    "**hello** from [YOUSEF SHTIWE](<https://example.com>)",
                 )
             )
 
@@ -487,7 +487,7 @@ class TestSendToPlatformChunking:
         send.assert_awaited_once_with(
             "***",
             "C123",
-            "*hello* from <https://example.com|SHADOW>",
+            "*hello* from <https://example.com|YOUSEF SHTIWE>",
         )
 
     def test_slack_bold_italic_formatted_before_send(self, monkeypatch):
@@ -611,12 +611,12 @@ class TestSendToPlatformWhatsapp:
                     Platform.WHATSAPP,
                     SimpleNamespace(enabled=True, token=None, extra={"bridge_port": 3000}),
                     chat_id,
-                    "hello from shadow",
+                    "hello from yousef shtiwe",
                 )
             )
 
         assert result["success"] is True
-        async_mock.assert_awaited_once_with({"bridge_port": 3000}, chat_id, "hello from shadow")
+        async_mock.assert_awaited_once_with({"bridge_port": 3000}, chat_id, "hello from yousef shtiwe")
 
 
 class TestSendTelegramHtmlDetection:

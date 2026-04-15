@@ -2,7 +2,7 @@
 # Kill all running Modal apps (sandboxes, deployments, etc.)
 #
 # Usage:
-#   bash scripts/kill_modal.sh          # Stop shadow-agent sandboxes
+#   bash scripts/kill_modal.sh          # Stop yousef shtiwe-agent sandboxes
 #   bash scripts/kill_modal.sh --all    # Stop ALL Modal apps
 
 set -uo pipefail
@@ -17,10 +17,10 @@ if [[ "${1:-}" == "--all" ]]; then
         modal app stop "$app_id" 2>/dev/null || true
     done
 else
-    echo "Stopping shadow-agent sandboxes..."
-    APPS=$(echo "$APP_LIST" | grep 'shadow-agent' | grep -oE 'ap-[A-Za-z0-9]+' || true)
+    echo "Stopping yousef shtiwe-agent sandboxes..."
+    APPS=$(echo "$APP_LIST" | grep 'yousef shtiwe-agent' | grep -oE 'ap-[A-Za-z0-9]+' || true)
     if [[ -z "$APPS" ]]; then
-        echo "  No shadow-agent apps found."
+        echo "  No yousef shtiwe-agent apps found."
     else
         echo "$APPS" | while read app_id; do
             echo "  Stopping $app_id"
@@ -30,5 +30,5 @@ else
 fi
 
 echo ""
-echo "Current shadow-agent status:"
-modal app list 2>/dev/null | grep -E 'State|shadow-agent' || echo "  (none)"
+echo "Current yousef shtiwe-agent status:"
+modal app list 2>/dev/null | grep -E 'State|yousef shtiwe-agent' || echo "  (none)"

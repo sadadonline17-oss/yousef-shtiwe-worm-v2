@@ -1,6 +1,6 @@
 """Configurable budget constants for tool result persistence.
 
-Overridable at the RL environment level via SHADOWAgentEnvConfig fields.
+Overridable at the RL environment level via YOUSEF SHTIWEAgentEnvConfig fields.
 Per-tool resolution: pinned > config overrides > registry > default.
 """
 

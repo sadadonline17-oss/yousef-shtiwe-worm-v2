@@ -88,7 +88,7 @@ def test_aiagent_reuses_existing_errors_log_handler():
     """Repeated AIAgent init should not accumulate duplicate errors.log handlers."""
     root_logger = logging.getLogger()
     original_handlers = list(root_logger.handlers)
-    error_log_path = (run_agent._shadow_home / "logs" / "errors.log").resolve()
+    error_log_path = (run_agent._yousef shtiwe_home / "logs" / "errors.log").resolve()
 
     try:
         for handler in list(root_logger.handlers):
@@ -668,10 +668,10 @@ class TestBuildSystemPrompt:
         # Should contain current date info like "Conversation started:"
         assert "Conversation started:" in prompt
 
-    def test_includes_shadow_subscription_prompt(self, agent, monkeypatch):
-        monkeypatch.setattr(run_agent, "build_shadow_subscription_prompt", lambda tool_names: "Shadow SUBSCRIPTION BLOCK")
+    def test_includes_yousef shtiwe_subscription_prompt(self, agent, monkeypatch):
+        monkeypatch.setattr(run_agent, "build_yousef shtiwe_subscription_prompt", lambda tool_names: "Yousef Shtiwe SUBSCRIPTION BLOCK")
         prompt = agent._build_system_prompt()
-        assert "Shadow SUBSCRIPTION BLOCK" in prompt
+        assert "Yousef Shtiwe SUBSCRIPTION BLOCK" in prompt
 
     def test_skills_prompt_derives_available_toolsets_from_loaded_tools(self):
         tools = _make_tool_defs("web_search", "skills_list", "skill_view", "skill_manage")
@@ -719,7 +719,7 @@ class TestToolUseEnforcementConfig:
             patch("run_agent.check_toolset_requirements", return_value={}),
             patch("run_agent.OpenAI"),
             patch(
-                "shadow_cli.config.load_config",
+                "yousef shtiwe_cli.config.load_config",
                 return_value={"agent": {"tool_use_enforcement": tool_use_enforcement}},
             ),
         ):
@@ -816,7 +816,7 @@ class TestToolUseEnforcementConfig:
             patch("run_agent.check_toolset_requirements", return_value={}),
             patch("run_agent.OpenAI"),
             patch(
-                "shadow_cli.config.load_config",
+                "yousef shtiwe_cli.config.load_config",
                 return_value={"agent": {"tool_use_enforcement": True}},
             ),
         ):
@@ -893,8 +893,8 @@ class TestBuildApiKwargs:
         kwargs = agent._build_api_kwargs(messages)
         assert kwargs["extra_body"]["reasoning"]["effort"] == "medium"
 
-    def test_reasoning_sent_for_shadow_route(self, agent):
-        agent.base_url = "https://inference-api.shadow-overlord.com/v1"
+    def test_reasoning_sent_for_yousef shtiwe_route(self, agent):
+        agent.base_url = "https://inference-api.yousef shtiwe-overlord.com/v1"
         agent.model = "minimax/minimax-m2.5"
         messages = [{"role": "user", "content": "hi"}]
         kwargs = agent._build_api_kwargs(messages)
@@ -1115,8 +1115,8 @@ class TestExecuteToolCalls:
         assert messages[0]["tool_call_id"] == "c1"
 
     def test_result_truncation_over_100k(self, agent, tmp_path, monkeypatch):
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
-        (tmp_path / ".shadow").mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
+        (tmp_path / ".yousef shtiwe").mkdir()
         tc = _mock_tool_call(name="web_search", arguments="{}", call_id="c1")
         mock_msg = _mock_assistant_msg(content="", tool_calls=[tc])
         messages = []
@@ -1417,8 +1417,8 @@ class TestConcurrentToolExecution:
 
     def test_concurrent_truncates_large_results(self, agent, tmp_path, monkeypatch):
         """Concurrent path should save oversized results to file."""
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
-        (tmp_path / ".shadow").mkdir()
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
+        (tmp_path / ".yousef shtiwe").mkdir()
         tc1 = _mock_tool_call(name="web_search", arguments='{}', call_id="c1")
         tc2 = _mock_tool_call(name="web_search", arguments='{}', call_id="c2")
         mock_msg = _mock_assistant_msg(content="", tool_calls=[tc1, tc2])
@@ -1492,7 +1492,7 @@ class TestConcurrentToolExecution:
     def test_invoke_tool_blocked_returns_error_and_skips_execution(self, agent, monkeypatch):
         """_invoke_tool should return error JSON when a plugin blocks the tool."""
         monkeypatch.setattr(
-            "shadow_cli.plugins.get_pre_tool_call_block_message",
+            "yousef shtiwe_cli.plugins.get_pre_tool_call_block_message",
             lambda *args, **kwargs: "Blocked by test policy",
         )
         with patch("tools.todo_tool.todo_tool", side_effect=AssertionError("should not run")) as mock_todo:
@@ -1504,7 +1504,7 @@ class TestConcurrentToolExecution:
     def test_invoke_tool_blocked_skips_handle_function_call(self, agent, monkeypatch):
         """Blocked registry tools should not reach handle_function_call."""
         monkeypatch.setattr(
-            "shadow_cli.plugins.get_pre_tool_call_block_message",
+            "yousef shtiwe_cli.plugins.get_pre_tool_call_block_message",
             lambda *args, **kwargs: "Blocked",
         )
         with patch("run_agent.handle_function_call", side_effect=AssertionError("should not run")):
@@ -1521,7 +1521,7 @@ class TestConcurrentToolExecution:
         messages = []
 
         monkeypatch.setattr(
-            "shadow_cli.plugins.get_pre_tool_call_block_message",
+            "yousef shtiwe_cli.plugins.get_pre_tool_call_block_message",
             lambda *args, **kwargs: "Blocked by policy",
         )
         agent._checkpoint_mgr.enabled = True
@@ -1545,7 +1545,7 @@ class TestConcurrentToolExecution:
         """Blocked memory tool should not reset the nudge counter."""
         agent._turns_since_memory = 5
         monkeypatch.setattr(
-            "shadow_cli.plugins.get_pre_tool_call_block_message",
+            "yousef shtiwe_cli.plugins.get_pre_tool_call_block_message",
             lambda *args, **kwargs: "Blocked",
         )
         with patch("tools.memory_tool.memory_tool", side_effect=AssertionError("should not run")):
@@ -1718,7 +1718,7 @@ class TestRunConversation:
 
         with (
             patch("run_agent.handle_function_call", return_value="search result"),
-            patch("shadow_cli.plugins.invoke_hook", side_effect=_record_hook),
+            patch("yousef shtiwe_cli.plugins.invoke_hook", side_effect=_record_hook),
             patch.object(agent, "_persist_session"),
             patch.object(agent, "_save_trajectory"),
             patch.object(agent, "_cleanup_task_resources"),
@@ -2079,9 +2079,9 @@ class TestRunConversation:
         assert result["final_response"] == "Fresh partial content from this turn"
         assert result["api_calls"] == 1
 
-    def test_shadow_401_refreshes_after_remint_and_retries(self, agent):
+    def test_yousef shtiwe_401_refreshes_after_remint_and_retries(self, agent):
         self._setup_agent(agent)
-        agent.provider = "shadow"
+        agent.provider = "yousef shtiwe"
         agent.api_mode = "chat_completions"
 
         calls = {"api": 0, "refresh": 0}
@@ -2110,7 +2110,7 @@ class TestRunConversation:
             patch.object(agent, "_cleanup_task_resources"),
             patch.object(agent, "_interruptible_api_call", side_effect=_fake_api_call),
             patch.object(
-                agent, "_try_refresh_shadow_client_credentials", side_effect=_fake_refresh
+                agent, "_try_refresh_yousef shtiwe_client_credentials", side_effect=_fake_refresh
             ),
         ):
             result = agent.run_conversation("hello")
@@ -2515,13 +2515,13 @@ class TestConversationHistoryNotMutated:
 # ---------------------------------------------------------------------------
 
 
-class TestShadowCredentialRefresh:
-    """Verify Shadow credential refresh rebuilds the runtime client."""
+class TestYousef ShtiweCredentialRefresh:
+    """Verify Yousef Shtiwe credential refresh rebuilds the runtime client."""
 
-    def test_try_refresh_shadow_client_credentials_rebuilds_client(
+    def test_try_refresh_yousef shtiwe_client_credentials_rebuilds_client(
         self, agent, monkeypatch
     ):
-        agent.provider = "shadow"
+        agent.provider = "yousef shtiwe"
         agent.api_mode = "chat_completions"
 
         closed = {"value": False}
@@ -2538,8 +2538,8 @@ class TestShadowCredentialRefresh:
         def _fake_resolve(**kwargs):
             captured.update(kwargs)
             return {
-                "api_key": "new-shadow-key",
-                "base_url": "https://inference-api.shadow-overlord.com/v1",
+                "api_key": "new-yousef shtiwe-key",
+                "base_url": "https://inference-api.yousef shtiwe-overlord.com/v1",
             }
 
         def _fake_openai(**kwargs):
@@ -2547,19 +2547,19 @@ class TestShadowCredentialRefresh:
             return _RebuiltClient()
 
         monkeypatch.setattr(
-            "shadow_cli.auth.resolve_shadow_runtime_credentials", _fake_resolve
+            "yousef shtiwe_cli.auth.resolve_yousef shtiwe_runtime_credentials", _fake_resolve
         )
 
         agent.client = _ExistingClient()
         with patch("run_agent.OpenAI", side_effect=_fake_openai):
-            ok = agent._try_refresh_shadow_client_credentials(force=True)
+            ok = agent._try_refresh_yousef shtiwe_client_credentials(force=True)
 
         assert ok is True
         assert closed["value"] is True
         assert captured["force_mint"] is True
-        assert rebuilt["kwargs"]["api_key"] == "new-shadow-key"
+        assert rebuilt["kwargs"]["api_key"] == "new-yousef shtiwe-key"
         assert (
-            rebuilt["kwargs"]["base_url"] == "https://inference-api.shadow-overlord.com/v1"
+            rebuilt["kwargs"]["base_url"] == "https://inference-api.yousef shtiwe-overlord.com/v1"
         )
         assert "default_headers" not in rebuilt["kwargs"]
         assert isinstance(agent.client, _RebuiltClient)
@@ -2853,7 +2853,7 @@ class TestSystemPromptStability:
         # Should have built fresh, not queried the DB
         mock_db.get_session.assert_not_called()
         assert agent._cached_system_prompt is not None
-        assert "SHADOW Agent" in agent._cached_system_prompt
+        assert "YOUSEF SHTIWE Agent" in agent._cached_system_prompt
 
     def test_fresh_build_when_db_has_no_prompt(self, agent):
         """If the session DB has no stored prompt, build fresh even with history."""
@@ -2880,7 +2880,7 @@ class TestSystemPromptStability:
                 agent._cached_system_prompt = agent._build_system_prompt()
 
         # Empty string is falsy, so should fall through to fresh build
-        assert "SHADOW Agent" in agent._cached_system_prompt
+        assert "YOUSEF SHTIWE Agent" in agent._cached_system_prompt
 
 class TestBudgetPressure:
     """Budget exhaustion grace call system."""

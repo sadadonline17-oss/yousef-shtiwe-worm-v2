@@ -1,21 +1,21 @@
 ---
 name: honcho
-description: Configure and use Honcho memory with SHADOW -- cross-session user modeling, multi-profile peer isolation, observation config, and dialectic reasoning. Use when setting up Honcho, troubleshooting memory, managing profiles with Honcho peers, or tuning observation and recall settings.
+description: Configure and use Honcho memory with YOUSEF SHTIWE -- cross-session user modeling, multi-profile peer isolation, observation config, and dialectic reasoning. Use when setting up Honcho, troubleshooting memory, managing profiles with Honcho peers, or tuning observation and recall settings.
 version: 1.0.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [Honcho, Memory, Profiles, Observation, Dialectic, User-Modeling]
     homepage: https://docs.honcho.dev
-    related_skills: [shadow-agent]
+    related_skills: [yousef shtiwe-agent]
 prerequisites:
   pip: [honcho-ai]
 ---
 
-# Honcho Memory for SHADOW
+# Honcho Memory for YOUSEF SHTIWE
 
-Honcho provides AI-native cross-session user modeling. It learns who the user is across conversations and gives every SHADOW profile its own peer identity while sharing a unified view of the user.
+Honcho provides AI-native cross-session user modeling. It learns who the user is across conversations and gives every YOUSEF SHTIWE profile its own peer identity while sharing a unified view of the user.
 
 ## When to Use
 
@@ -30,33 +30,33 @@ Honcho provides AI-native cross-session user modeling. It learns who the user is
 ### Cloud (app.honcho.dev)
 
 ```bash
-shadow honcho setup
+yousef shtiwe honcho setup
 # select "cloud", paste API key from https://app.honcho.dev
 ```
 
 ### Self-hosted
 
 ```bash
-shadow honcho setup
+yousef shtiwe honcho setup
 # select "local", enter base URL (e.g. http://localhost:8000)
 ```
 
-See: https://docs.honcho.dev/v3/guides/integrations/shadow#running-honcho-locally-with-shadow
+See: https://docs.honcho.dev/v3/guides/integrations/yousef shtiwe#running-honcho-locally-with-yousef shtiwe
 
 ### Verify
 
 ```bash
-shadow honcho status    # shows resolved config, connection test, peer info
+yousef shtiwe honcho status    # shows resolved config, connection test, peer info
 ```
 
 ## Architecture
 
 ### Peers
 
-Honcho models conversations as interactions between **peers**. SHADOW creates two peers per session:
+Honcho models conversations as interactions between **peers**. YOUSEF SHTIWE creates two peers per session:
 
 - **User peer** (`peerName`): represents the human. Honcho builds a user representation from observed messages.
-- **AI peer** (`aiPeer`): represents this SHADOW instance. Each profile gets its own AI peer so agents develop independent views.
+- **AI peer** (`aiPeer`): represents this YOUSEF SHTIWE instance. Each profile gets its own AI peer so agents develop independent views.
 
 ### Observation
 
@@ -97,10 +97,10 @@ Honcho sessions scope where messages and observations land. Strategy options:
 |----------|----------|
 | `per-directory` (default) | One session per working directory |
 | `per-repo` | One session per git repository root |
-| `per-session` | New Honcho session each SHADOW run |
+| `per-session` | New Honcho session each YOUSEF SHTIWE run |
 | `global` | Single session across all directories |
 
-Manual override: `shadow honcho map my-project-name`
+Manual override: `yousef shtiwe honcho map my-project-name`
 
 ### Recall Modes
 
@@ -114,7 +114,7 @@ How the agent accesses Honcho memory:
 
 ## Multi-Profile Setup
 
-Each SHADOW profile gets its own Honcho AI peer while sharing the same workspace (user context). This means:
+Each YOUSEF SHTIWE profile gets its own Honcho AI peer while sharing the same workspace (user context). This means:
 
 - All profiles see the same user representation
 - Each profile builds its own AI identity and observations
@@ -123,12 +123,12 @@ Each SHADOW profile gets its own Honcho AI peer while sharing the same workspace
 ### Create a profile with Honcho peer
 
 ```bash
-shadow profile create coder --clone
-# creates host block shadow.coder, AI peer "coder", inherits config from default
+yousef shtiwe profile create coder --clone
+# creates host block yousef shtiwe.coder, AI peer "coder", inherits config from default
 ```
 
 What `--clone` does for Honcho:
-1. Creates a `shadow.coder` host block in `honcho.json`
+1. Creates a `yousef shtiwe.coder` host block in `honcho.json`
 2. Sets `aiPeer: "coder"` (the profile name)
 3. Inherits `workspace`, `peerName`, `writeFrequency`, `recallMode`, etc. from default
 4. Eagerly creates the peer in Honcho so it exists before first message
@@ -136,7 +136,7 @@ What `--clone` does for Honcho:
 ### Backfill existing profiles
 
 ```bash
-shadow honcho sync    # creates host blocks for all profiles that don't have one yet
+yousef shtiwe honcho sync    # creates host blocks for all profiles that don't have one yet
 ```
 
 ### Per-profile config
@@ -146,7 +146,7 @@ Override any setting in the host block:
 ```json
 {
   "hosts": {
-    "shadow.coder": {
+    "yousef shtiwe.coder": {
       "aiPeer": "coder",
       "recallMode": "tools",
       "observation": {
@@ -176,7 +176,7 @@ Write a persistent fact about the user. Conclusions build the user's profile ove
 
 ## Config Reference
 
-Config file: `$SHADOW_HOME/honcho.json` (profile-local) or `~/.honcho/config.json` (global).
+Config file: `$YOUSEF SHTIWE_HOME/honcho.json` (profile-local) or `~/.honcho/config.json` (global).
 
 ### Key settings
 
@@ -207,13 +207,13 @@ Config file: `$SHADOW_HOME/honcho.json` (profile-local) or `~/.honcho/config.jso
 ## Troubleshooting
 
 ### "Honcho not configured"
-Run `shadow honcho setup`. Ensure `memory.provider: honcho` is in `~/.shadow/config.yaml`.
+Run `yousef shtiwe honcho setup`. Ensure `memory.provider: honcho` is in `~/.yousef shtiwe/config.yaml`.
 
 ### Memory not persisting across sessions
-Check `shadow honcho status` -- verify `saveMessages: true` and `writeFrequency` isn't `session` (which only writes on exit).
+Check `yousef shtiwe honcho status` -- verify `saveMessages: true` and `writeFrequency` isn't `session` (which only writes on exit).
 
 ### Profile not getting its own peer
-Use `--clone` when creating: `shadow profile create <name> --clone`. For existing profiles: `shadow honcho sync`.
+Use `--clone` when creating: `yousef shtiwe profile create <name> --clone`. For existing profiles: `yousef shtiwe honcho sync`.
 
 ### Observation changes in dashboard not reflected
 Observation config is synced from the server on each session init. Start a new session after changing settings in the Honcho UI.
@@ -225,19 +225,19 @@ Messages over `messageMaxChars` (default 25k) are automatically chunked with `[c
 
 | Command | Description |
 |---------|-------------|
-| `shadow honcho setup` | Interactive setup wizard (cloud/local, identity, observation, recall, sessions) |
-| `shadow honcho status` | Show resolved config, connection test, peer info for active profile |
-| `shadow honcho enable` | Enable Honcho for the active profile (creates host block if needed) |
-| `shadow honcho disable` | Disable Honcho for the active profile |
-| `shadow honcho peer` | Show or update peer names (`--user <name>`, `--ai <name>`, `--reasoning <level>`) |
-| `shadow honcho peers` | Show peer identities across all profiles |
-| `shadow honcho mode` | Show or set recall mode (`hybrid`, `context`, `tools`) |
-| `shadow honcho tokens` | Show or set token budgets (`--context <N>`, `--dialectic <N>`) |
-| `shadow honcho sessions` | List known directory-to-session-name mappings |
-| `shadow honcho map <name>` | Map current working directory to a Honcho session name |
-| `shadow honcho identity` | Seed AI peer identity or show both peer representations |
-| `shadow honcho sync` | Create host blocks for all SHADOW profiles that don't have one yet |
-| `shadow honcho migrate` | Step-by-step migration guide from OpenClaw native memory to SHADOW + Honcho |
-| `shadow memory setup` | Generic memory provider picker (selecting "honcho" runs the same wizard) |
-| `shadow memory status` | Show active memory provider and config |
-| `shadow memory off` | Disable external memory provider |
+| `yousef shtiwe honcho setup` | Interactive setup wizard (cloud/local, identity, observation, recall, sessions) |
+| `yousef shtiwe honcho status` | Show resolved config, connection test, peer info for active profile |
+| `yousef shtiwe honcho enable` | Enable Honcho for the active profile (creates host block if needed) |
+| `yousef shtiwe honcho disable` | Disable Honcho for the active profile |
+| `yousef shtiwe honcho peer` | Show or update peer names (`--user <name>`, `--ai <name>`, `--reasoning <level>`) |
+| `yousef shtiwe honcho peers` | Show peer identities across all profiles |
+| `yousef shtiwe honcho mode` | Show or set recall mode (`hybrid`, `context`, `tools`) |
+| `yousef shtiwe honcho tokens` | Show or set token budgets (`--context <N>`, `--dialectic <N>`) |
+| `yousef shtiwe honcho sessions` | List known directory-to-session-name mappings |
+| `yousef shtiwe honcho map <name>` | Map current working directory to a Honcho session name |
+| `yousef shtiwe honcho identity` | Seed AI peer identity or show both peer representations |
+| `yousef shtiwe honcho sync` | Create host blocks for all YOUSEF SHTIWE profiles that don't have one yet |
+| `yousef shtiwe honcho migrate` | Step-by-step migration guide from OpenClaw native memory to YOUSEF SHTIWE + Honcho |
+| `yousef shtiwe memory setup` | Generic memory provider picker (selecting "honcho" runs the same wizard) |
+| `yousef shtiwe memory status` | Show active memory provider and config |
+| `yousef shtiwe memory off` | Disable external memory provider |

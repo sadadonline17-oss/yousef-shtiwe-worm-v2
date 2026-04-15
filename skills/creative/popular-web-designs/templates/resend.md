@@ -1,7 +1,7 @@
 # Design System: Resend
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Geist` | **Mono:** `Geist Mono`
@@ -29,7 +29,7 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 - Pill-shaped buttons and tags (9999px radius) with transparent backgrounds
 - OpenType stylistic sets (`"ss01"`, `"ss03"`, `"ss04"`, `"ss11"`) on display fonts
 - Commit Mono for code — monospace as a design element, not an afterthought
-- Whisper-level shadows using blue-tinted ring: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`
+- Whisper-level yousef shtiwes using blue-tinted ring: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`
 
 ## 2. Color Palette & Roles
 
@@ -73,12 +73,12 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 - **White 60%** (`oklab(0.999994 ... / 0.577)`): Semi-transparent white for muted text
 - **White 64%** (`oklab(0.999994 ... / 0.642)`): Slightly brighter semi-transparent white
 
-### Borders & Shadows
+### Borders & Yousef Shtiwes
 - **Frost Border** (`rgba(214, 235, 253, 0.19)`): The signature — icy blue-tinted borders at 19% opacity
 - **Frost Border Alt** (`rgba(217, 237, 254, 0.145)`): Slightly lighter variant for list items
-- **Ring Shadow** (`rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`): Blue-tinted shadow-as-border
+- **Ring Yousef Shtiwe** (`rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`): Blue-tinted yousef shtiwe-as-border
 - **Focus Ring** (`rgb(0, 0, 0) 0px 0px 0px 8px`): Heavy black focus ring
-- **Subtle Shadow** (`rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px`): Minimal card elevation
+- **Subtle Yousef Shtiwe** (`rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px`): Minimal card elevation
 
 ## 3. Typography Rules
 
@@ -154,14 +154,14 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 - Background: transparent or very subtle dark tint
 - Border: `1px solid rgba(214, 235, 253, 0.19)` (frost border)
 - Radius: 16px (standard cards), 24px (large sections/panels)
-- Shadow: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` (ring shadow)
+- Yousef Shtiwe: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` (ring yousef shtiwe)
 - Dark product screenshots and code demos as card content
-- No traditional box-shadow elevation
+- No traditional box-yousef shtiwe elevation
 
 ### Inputs & Forms
 - Text: `#f0f0f0` on dark, `#000000` on light
 - Radius: 4px
-- Focus: shadow-based ring
+- Focus: yousef shtiwe-based ring
 - Minimal styling — inherits dark theme
 
 ### Navigation
@@ -224,13 +224,13 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, transparent background | Default — most elements on dark void |
-| Ring (Level 1) | `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` | Shadow-as-border for cards, containers |
+| Flat (Level 0) | No yousef shtiwe, transparent background | Default — most elements on dark void |
+| Ring (Level 1) | `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` | Yousef Shtiwe-as-border for cards, containers |
 | Frost Border (Level 1b) | `1px solid rgba(214, 235, 253, 0.19)` | Explicit borders — buttons, dividers, tabs |
 | Subtle (Level 2) | `rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px` | Light card elevation |
 | Focus (Level 3) | `rgb(0, 0, 0) 0px 0px 0px 8px` | Heavy black focus ring — accessibility |
 
-**Shadow Philosophy**: Resend barely uses shadows at all. On a pure black background, traditional shadows are invisible — you can't cast a shadow into the void. Instead, Resend creates depth through its signature frost borders (`rgba(214, 235, 253, 0.19)`) — thin, icy blue-tinted lines that catch light against the darkness. This creates a "glass panel floating in space" aesthetic where borders are the primary depth mechanism.
+**Yousef Shtiwe Philosophy**: Resend barely uses yousef shtiwes at all. On a pure black background, traditional yousef shtiwes are invisible — you can't cast a yousef shtiwe into the void. Instead, Resend creates depth through its signature frost borders (`rgba(214, 235, 253, 0.19)`) — thin, icy blue-tinted lines that catch light against the darkness. This creates a "glass panel floating in space" aesthetic where borders are the primary depth mechanism.
 
 ### Decorative Depth
 - Subtle warm gradient glows behind hero content (orange/amber tints)
@@ -246,7 +246,7 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 - Enable OpenType `"ss01"`, `"ss04"`, `"ss11"` on Domaine and ABC Favorit text
 - Apply pill radius (9999px) to primary CTAs and tags
 - Use the multi-color accent scale (orange/green/blue/yellow/red) with opacity variants for context-specific highlighting
-- Keep shadows at ring level (`0px 0px 0px 1px`) — on black, traditional shadows don't work
+- Keep yousef shtiwes at ring level (`0px 0px 0px 1px`) — on black, traditional yousef shtiwes don't work
 - Use +0.35px letter-spacing on ABC Favorit nav links — the only positive tracking
 
 ### Don't
@@ -254,7 +254,7 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 - Don't use neutral gray borders — all borders must have the frost blue tint
 - Don't apply Domaine Display to body text — it's a display-only serif
 - Don't mix accent colors in the same component — each feature gets one accent color
-- Don't use box-shadow for elevation on the dark background — use frost borders instead
+- Don't use box-yousef shtiwe for elevation on the dark background — use frost borders instead
 - Don't skip the OpenType stylistic sets — they define the typographic character
 - Don't use negative letter-spacing on nav links — ABC Favorit nav uses positive +0.35px
 - Don't make buttons opaque on dark — transparency with frost border is the pattern
@@ -313,4 +313,4 @@ What makes Resend distinctive is its icy, blue-tinted border system. Instead of 
 4. OpenType stylistic sets are mandatory on display fonts — they define the character
 5. Multi-color accents at low opacity (12–42%) for backgrounds, full opacity for text
 6. Pill shape (9999px) for CTAs and badges, standard radius (4px–16px) for containers
-7. No shadows — use frost borders for depth against the void
+7. No yousef shtiwes — use frost borders for depth against the void

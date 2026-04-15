@@ -7,12 +7,12 @@ Original PR #1811 by benfrank241, adapted to MemoryProvider ABC.
 
 Config via environment variables:
   HINDSIGHT_API_KEY   — API key for Hindsight Cloud
-  HINDSIGHT_BANK_ID   — memory bank identifier (default: shadow)
+  HINDSIGHT_BANK_ID   — memory bank identifier (default: yousef shtiwe)
   HINDSIGHT_BUDGET    — recall budget: low/mid/high (default: mid)
   HINDSIGHT_API_URL   — API endpoint
   HINDSIGHT_MODE      — cloud or local (default: cloud)
 
-Or via $SHADOW_HOME/hindsight/config.json (profile-scoped), falling back to
+Or via $YOUSEF SHTIWE_HOME/hindsight/config.json (profile-scoped), falling back to
 ~/.hindsight/config.json (legacy, shared) for backward compatibility.
 """
 
@@ -24,11 +24,11 @@ import logging
 import os
 import threading
 
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from typing import Any, Dict, List
 
 from agent.memory_provider import MemoryProvider
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from tools.registry import tool_error
 
 logger = logging.getLogger(__name__)
@@ -143,14 +143,14 @@ def _load_config() -> dict:
     """Load config from profile-scoped path, legacy path, or env vars.
 
     Resolution order:
-      1. $SHADOW_HOME/hindsight/config.json  (profile-scoped)
+      1. $YOUSEF SHTIWE_HOME/hindsight/config.json  (profile-scoped)
       2. ~/.hindsight/config.json             (legacy, shared)
       3. Environment variables
     """
     from pathlib import Path
 
     # Profile-scoped path (preferred)
-    profile_path = get_shadow_home() / "hindsight" / "config.json"
+    profile_path = get_yousef shtiwe_home() / "hindsight" / "config.json"
     if profile_path.exists():
         try:
             return json.loads(profile_path.read_text(encoding="utf-8"))
@@ -169,8 +169,8 @@ def _load_config() -> dict:
         "mode": os.environ.get("HINDSIGHT_MODE", "cloud"),
         "apiKey": os.environ.get("HINDSIGHT_API_KEY", ""),
         "banks": {
-            "shadow": {
-                "bankId": os.environ.get("HINDSIGHT_BANK_ID", "shadow"),
+            "yousef shtiwe": {
+                "bankId": os.environ.get("HINDSIGHT_BANK_ID", "yousef shtiwe"),
                 "budget": os.environ.get("HINDSIGHT_BUDGET", "mid"),
                 "enabled": True,
             }
@@ -189,7 +189,7 @@ class HindsightMemoryProvider(MemoryProvider):
         self._config = None
         self._api_key = None
         self._api_url = _DEFAULT_API_URL
-        self._bank_id = "shadow"
+        self._bank_id = "yousef shtiwe"
         self._budget = "mid"
         self._mode = "cloud"
         self._llm_base_url = ""
@@ -210,7 +210,7 @@ class HindsightMemoryProvider(MemoryProvider):
         # Retain controls
         self._auto_retain = True
         self._retain_every_n_turns = 1
-        self._retain_context = "conversation between SHADOW Agent and the User"
+        self._retain_context = "conversation between YOUSEF SHTIWE Agent and the User"
         self._turn_counter = 0
         self._session_turns: list[str] = []  # accumulates ALL turns for the session
 
@@ -242,11 +242,11 @@ class HindsightMemoryProvider(MemoryProvider):
         except Exception:
             return False
 
-    def save_config(self, values, shadow_home):
-        """Write config to $SHADOW_HOME/hindsight/config.json."""
+    def save_config(self, values, yousef shtiwe_home):
+        """Write config to $YOUSEF SHTIWE_HOME/hindsight/config.json."""
         import json
         from pathlib import Path
-        config_dir = Path(shadow_home) / "hindsight"
+        config_dir = Path(yousef shtiwe_home) / "hindsight"
         config_dir.mkdir(parents=True, exist_ok=True)
         config_path = config_dir / "config.json"
         existing = {}
@@ -258,7 +258,7 @@ class HindsightMemoryProvider(MemoryProvider):
         existing.update(values)
         config_path.write_text(json.dumps(existing, indent=2))
 
-    def post_setup(self, shadow_home: str, config: dict) -> None:
+    def post_setup(self, yousef shtiwe_home: str, config: dict) -> None:
         """Custom setup wizard — installs only the deps needed for the selected mode."""
         import getpass
         import subprocess
@@ -266,9 +266,9 @@ class HindsightMemoryProvider(MemoryProvider):
         import sys
         from pathlib import Path
 
-        from shadow_cli.config import save_config
+        from yousef shtiwe_cli.config import save_config
 
-        from shadow_cli.memory_setup import _curses_select
+        from yousef shtiwe_cli.memory_setup import _curses_select
 
         print("\n  Configuring Hindsight memory:\n")
 
@@ -370,16 +370,16 @@ class HindsightMemoryProvider(MemoryProvider):
                 env_writes["HINDSIGHT_LLM_API_KEY"] = llm_key
 
         # Step 4: Save everything
-        provider_config["bank_id"] = "shadow"
+        provider_config["bank_id"] = "yousef shtiwe"
         provider_config["recall_budget"] = "mid"
-        bank_id = "shadow"
+        bank_id = "yousef shtiwe"
         config["memory"]["provider"] = "hindsight"
         save_config(config)
 
-        self.save_config(provider_config, shadow_home)
+        self.save_config(provider_config, yousef shtiwe_home)
 
         if env_writes:
-            env_path = Path(shadow_home) / ".env"
+            env_path = Path(yousef shtiwe_home) / ".env"
             env_path.parent.mkdir(parents=True, exist_ok=True)
             existing_lines = []
             if env_path.exists():
@@ -417,7 +417,7 @@ class HindsightMemoryProvider(MemoryProvider):
             {"key": "llm_base_url", "description": "Endpoint URL (e.g. http://192.168.1.10:8080/v1)", "default": "", "when": {"mode": "local_embedded", "llm_provider": "openai_compatible"}},
             {"key": "llm_api_key", "description": "LLM API key (optional for openai_compatible)", "secret": True, "env_var": "HINDSIGHT_LLM_API_KEY", "when": {"mode": "local_embedded"}},
             {"key": "llm_model", "description": "LLM model", "default": "gpt-4o-mini", "default_from": {"field": "llm_provider", "map": _PROVIDER_DEFAULT_MODELS}, "when": {"mode": "local_embedded"}},
-            {"key": "bank_id", "description": "Memory bank name", "default": "shadow"},
+            {"key": "bank_id", "description": "Memory bank name", "default": "yousef shtiwe"},
             {"key": "bank_mission", "description": "Mission/purpose description for the memory bank"},
             {"key": "bank_retain_mission", "description": "Custom extraction prompt for memory retention"},
             {"key": "recall_budget", "description": "Recall thoroughness", "default": "mid", "choices": ["low", "mid", "high"]},
@@ -429,8 +429,8 @@ class HindsightMemoryProvider(MemoryProvider):
             {"key": "auto_recall", "description": "Automatically recall memories before each turn", "default": True},
             {"key": "auto_retain", "description": "Automatically retain conversation turns", "default": True},
             {"key": "retain_every_n_turns", "description": "Retain every N turns (1 = every turn)", "default": 1},
-            {"key": "retain_async","description": "Process retain asynchroshadowly on the Hindsight server", "default": True},
-            {"key": "retain_context", "description": "Context label for retained memories", "default": "conversation between SHADOW Agent and the User"},
+            {"key": "retain_async","description": "Process retain asynchroyousef shtiwely on the Hindsight server", "default": True},
+            {"key": "retain_context", "description": "Context label for retained memories", "default": "conversation between YOUSEF SHTIWE Agent and the User"},
             {"key": "recall_max_tokens", "description": "Maximum tokens for recall results", "default": 4096},
             {"key": "recall_max_input_chars", "description": "Maximum input query length for auto-recall", "default": 800},
             {"key": "recall_prompt_preamble", "description": "Custom preamble for recalled memories in context"},
@@ -446,9 +446,9 @@ class HindsightMemoryProvider(MemoryProvider):
                 if llm_provider in ("openai_compatible", "openrouter"):
                     llm_provider = "openai"
                 logger.debug("Creating HindsightEmbedded client (profile=%s, provider=%s)",
-                             self._config.get("profile", "shadow"), llm_provider)
+                             self._config.get("profile", "yousef shtiwe"), llm_provider)
                 kwargs = dict(
-                    profile=self._config.get("profile", "shadow"),
+                    profile=self._config.get("profile", "yousef shtiwe"),
                     llm_provider=llm_provider,
                     llm_api_key=self._config.get("llmApiKey") or self._config.get("llm_api_key") or os.environ.get("HINDSIGHT_LLM_API_KEY", ""),
                     llm_model=self._config.get("llm_model", ""),
@@ -505,8 +505,8 @@ class HindsightMemoryProvider(MemoryProvider):
         self._api_url = self._config.get("api_url") or os.environ.get("HINDSIGHT_API_URL", default_url)
         self._llm_base_url = self._config.get("llm_base_url", "")
 
-        banks = self._config.get("banks", {}).get("shadow", {})
-        self._bank_id = self._config.get("bank_id") or banks.get("bankId", "shadow")
+        banks = self._config.get("banks", {}).get("yousef shtiwe", {})
+        self._bank_id = self._config.get("bank_id") or banks.get("bankId", "yousef shtiwe")
         budget = self._config.get("recall_budget") or self._config.get("budget") or banks.get("budget", "mid")
         self._budget = budget if budget in _VALID_BUDGETS else "mid"
 
@@ -528,7 +528,7 @@ class HindsightMemoryProvider(MemoryProvider):
         # Retain controls
         self._auto_retain = self._config.get("auto_retain", True)
         self._retain_every_n_turns = max(1, int(self._config.get("retain_every_n_turns", 1)))
-        self._retain_context = self._config.get("retain_context", "conversation between SHADOW Agent and the User")
+        self._retain_context = self._config.get("retain_context", "conversation between YOUSEF SHTIWE Agent and the User")
 
         # Recall controls
         self._auto_recall = self._config.get("auto_recall", True)
@@ -560,7 +560,7 @@ class HindsightMemoryProvider(MemoryProvider):
         if self._mode == "local_embedded":
             def _start_daemon():
                 import traceback
-                log_dir = get_shadow_home() / "logs"
+                log_dir = get_yousef shtiwe_home() / "logs"
                 log_dir.mkdir(parents=True, exist_ok=True)
                 log_path = log_dir / "hindsight-embed.log"
                 try:
@@ -572,7 +572,7 @@ class HindsightMemoryProvider(MemoryProvider):
                     dem.console = Console(file=open(log_path, "a"), force_terminal=False)
 
                     client = self._get_client()
-                    profile = self._config.get("profile", "shadow")
+                    profile = self._config.get("profile", "yousef shtiwe")
 
                     # Update the profile .env to match our current config so
                     # the daemon always starts with the right settings.

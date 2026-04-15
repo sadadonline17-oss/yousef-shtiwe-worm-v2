@@ -6,7 +6,7 @@ description: "How the ACP adapter works: lifecycle, sessions, event bridge, appr
 
 # ACP Internals
 
-The ACP adapter wraps SHADOW' synchroshadow `AIAgent` in an async JSON-RPC stdio server.
+The ACP adapter wraps YOUSEF SHTIWE' synchroyousef shtiwe `AIAgent` in an async JSON-RPC stdio server.
 
 Key implementation files:
 
@@ -22,11 +22,11 @@ Key implementation files:
 ## Boot flow
 
 ```text
-shadow acp / shadow-acp / python -m acp_adapter
+yousef shtiwe acp / yousef shtiwe-acp / python -m acp_adapter
   -> acp_adapter.entry.main()
-  -> load ~/.shadow/.env
+  -> load ~/.yousef shtiwe/.env
   -> configure stderr logging
-  -> construct SHADOWACPAgent
+  -> construct YOUSEF SHTIWEACPAgent
   -> acp.run_agent(agent)
 ```
 
@@ -34,7 +34,7 @@ Stdout is reserved for ACP JSON-RPC transport. Human-readable logs go to stderr.
 
 ## Major components
 
-### `SHADOWACPAgent`
+### `YOUSEF SHTIWEACPAgent`
 
 `acp_adapter/server.py` implements the ACP agent protocol.
 
@@ -92,15 +92,15 @@ asyncio.run_coroutine_threadsafe(...)
 
 Mapping:
 
-- `allow_once` -> SHADOW `once`
-- `allow_always` -> SHADOW `always`
-- reject options -> SHADOW `deny`
+- `allow_once` -> YOUSEF SHTIWE `once`
+- `allow_always` -> YOUSEF SHTIWE `always`
+- reject options -> YOUSEF SHTIWE `deny`
 
 Timeouts and bridge failures deny by default.
 
 ### Tool rendering helpers
 
-`acp_adapter/tools.py` maps SHADOW tools to ACP tool kinds and builds editor-facing content.
+`acp_adapter/tools.py` maps YOUSEF SHTIWE tools to ACP tool kinds and builds editor-facing content.
 
 Examples:
 
@@ -114,7 +114,7 @@ Examples:
 ```text
 new_session(cwd)
   -> create SessionState
-  -> create AIAgent(platform="acp", enabled_toolsets=["shadow-acp"])
+  -> create AIAgent(platform="acp", enabled_toolsets=["yousef shtiwe-acp"])
   -> bind task_id/session_id to cwd override
 
 prompt(..., session_id)
@@ -142,12 +142,12 @@ prompt(..., session_id)
 
 ACP does not implement its own auth store.
 
-Instead it reuses SHADOW' runtime resolver:
+Instead it reuses YOUSEF SHTIWE' runtime resolver:
 
 - `acp_adapter/auth.py`
-- `shadow_cli/runtime_provider.py`
+- `yousef shtiwe_cli/runtime_provider.py`
 
-So ACP advertises and uses the currently configured SHADOW provider/credentials.
+So ACP advertises and uses the currently configured YOUSEF SHTIWE provider/credentials.
 
 ## Working directory binding
 
@@ -177,6 +177,6 @@ ACP temporarily installs an approval callback on the terminal tool during prompt
 ## Related files
 
 - `tests/acp/` — ACP test suite
-- `toolsets.py` — `shadow-acp` toolset definition
-- `shadow_cli/main.py` — `shadow acp` CLI subcommand
-- `pyproject.toml` — `[acp]` optional dependency + `shadow-acp` script
+- `toolsets.py` — `yousef shtiwe-acp` toolset definition
+- `yousef shtiwe_cli/main.py` — `yousef shtiwe acp` CLI subcommand
+- `pyproject.toml` — `[acp]` optional dependency + `yousef shtiwe-acp` script

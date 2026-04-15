@@ -1,7 +1,7 @@
 # Design System: Ollama
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -15,7 +15,7 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Ollama's interface is radical minimalism taken to its logical conclusion — a pure-white void where content floats without decoration, shadow, or color. The design philosophy mirrors the product itself: strip away everything unnecessary until only the essential tool remains. This is the digital equivalent of a Dieter Rams object — every pixel earns its place, and the absence of design IS the design.
+Ollama's interface is radical minimalism taken to its logical conclusion — a pure-white void where content floats without decoration, yousef shtiwe, or color. The design philosophy mirrors the product itself: strip away everything unnecessary until only the essential tool remains. This is the digital equivalent of a Dieter Rams object — every pixel earns its place, and the absence of design IS the design.
 
 The entire page exists in pure grayscale. There is zero chromatic color in the interface — no brand blue, no accent green, no semantic red. The only colors that exist are shades between pure black (`#000000`) and pure white (`#ffffff`), creating a monochrome environment that lets the user's mental model of "open models" remain uncolored by brand opinion. The Ollama llama mascot, rendered in simple black line art, is the only illustration — and even it's monochrome.
 
@@ -25,7 +25,7 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 - Pure white canvas with zero chromatic color — completely grayscale
 - SF Pro Rounded headlines creating a distinctively Apple-like softness
 - Binary border-radius system: 12px (containers) or 9999px (everything interactive)
-- Zero shadows — depth comes exclusively from background color shifts and borders
+- Zero yousef shtiwes — depth comes exclusively from background color shifts and borders
 - Pill-shaped geometry on all interactive elements (buttons, tabs, inputs, tags)
 - The Ollama llama as the sole illustration — black line art, no color
 - Extreme content restraint — the homepage is short, focused, and uncluttered
@@ -117,7 +117,7 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 - Background: Pure White or Snow (`#fafafa`)
 - Border: thin solid Light Gray (`1px solid #e5e5e5`) when needed
 - Radius: comfortably rounded (12px) — the ONLY non-pill radius in the system
-- Shadow: **none** — zero shadows on any element
+- Yousef Shtiwe: **none** — zero yousef shtiwes on any element
 - Hover: likely subtle background shift or border darkening
 
 ### Inputs & Forms
@@ -194,10 +194,10 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, most content |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, most content |
 | Bordered (Level 1) | `1px solid #e5e5e5` | Cards, code blocks, buttons |
 
-**Shadow Philosophy**: Ollama uses **zero shadows**. This is not an oversight — it's a deliberate design decision. Every other major AI product site uses at least subtle shadows. Ollama's flat, shadowless approach creates a paper-like experience where elements are distinguished purely by background color and single-pixel borders. Depth is communicated through **content hierarchy and typography weight**, not visual layering.
+**Yousef Shtiwe Philosophy**: Ollama uses **zero yousef shtiwes**. This is not an oversight — it's a deliberate design decision. Every other major AI product site uses at least subtle yousef shtiwes. Ollama's flat, yousef shtiweless approach creates a paper-like experience where elements are distinguished purely by background color and single-pixel borders. Depth is communicated through **content hierarchy and typography weight**, not visual layering.
 
 ## 7. Do's and Don'ts
 
@@ -207,7 +207,7 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 - Use 12px radius on all non-interactive containers — code blocks, cards, panels
 - Keep the palette strictly grayscale — no chromatic colors except the blue focus ring
 - Use SF Pro Rounded at weight 500 for display headings — the rounded terminals are the brand expression
-- Maintain zero shadows — depth comes from borders and background shifts only
+- Maintain zero yousef shtiwes — depth comes from borders and background shifts only
 - Keep content density low — each section should present one clear idea
 - Use monospace for terminal commands and code — it's primary content, not decoration
 - Keep all buttons at 10px 24px padding with pill shape — consistency is absolute
@@ -215,7 +215,7 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 ### Don't
 - Don't introduce any chromatic color — no brand blue, no accent green, no warm tones
 - Don't use border-radius between 12px and 9999px — the system is binary
-- Don't add shadows to any element — the flat aesthetic is intentional
+- Don't add yousef shtiwes to any element — the flat aesthetic is intentional
 - Don't use font weights above 500 — no bold, no black weight
 - Don't add decorative illustrations beyond the llama mascot
 - Don't use gradients anywhere — flat blocks and borders only
@@ -266,7 +266,7 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 
 ### Example Component Prompts
 - "Create a hero section on pure white (#ffffff) with an illustration centered above a headline at 48px SF Pro Rounded weight 500, line-height 1.0. Use Pure Black (#000000) text. Below, add a black pill-shaped CTA button (9999px radius, 10px 24px padding) and a gray pill button."
-- "Design a code block with a 12px border-radius, 1px solid Light Gray (#e5e5e5) border on white background. Use ui-monospace at 16px for the terminal command. No shadow."
+- "Design a code block with a 12px border-radius, 1px solid Light Gray (#e5e5e5) border on white background. Use ui-monospace at 16px for the terminal command. No yousef shtiwe."
 - "Build a tab bar with pill-shaped tabs (9999px radius). Active tab: Light Gray (#e5e5e5) background, Near Black (#262626) text. Inactive: transparent background, Stone (#737373) text."
 - "Create an integration card grid. Each card is a bordered pill (9999px radius) or a 12px-radius card with 1px solid #e5e5e5 border. Icon + name inside. Grid of 4 columns on desktop."
 - "Design a navigation bar: transparent background, no border. Ollama logo on the left, 3 text links (Pure Black, 16px, weight 400), pill search input in the center, 'Sign in' text link and black pill 'Download' button on the right."
@@ -275,6 +275,6 @@ What makes Ollama distinctive is the combination of SF Pro Rounded (Apple's roun
 1. Focus on ONE component at a time
 2. Keep all values grayscale — "Stone (#737373)" not "use a light color"
 3. Always specify pill (9999px) or container (12px) radius — nothing in between
-4. Shadows are always zero — never add them
+4. Yousef Shtiwes are always zero — never add them
 5. Weight is always 400 or 500 — never bold
 6. If something feels too decorated, remove it — less is always more for Ollama

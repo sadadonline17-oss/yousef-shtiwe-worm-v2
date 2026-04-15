@@ -18,7 +18,7 @@ Features:
 
 Cloud sandbox note:
 - Persistent filesystems preserve working state across sandbox recreation
-- Persistent filesystems do NOT guarantee the same live sandbox or long-running processes survive cleanup, idle reaping, or SHADOW exit
+- Persistent filesystems do NOT guarantee the same live sandbox or long-running processes survive cleanup, idle reaping, or YOUSEF SHTIWE exit
 
 Usage:
     from terminal_tool import terminal_tool
@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 # long-running subprocesses immediately instead of blocking until timeout.
 # ---------------------------------------------------------------------------
 from tools.interrupt import is_interrupted, _interrupt_event  # noqa: F401 — re-exported
-# display_shadow_home imported lazily at call site (stale-module safety during shadow update)
+# display_yousef shtiwe_home imported lazily at call site (stale-module safety during yousef shtiwe update)
 
 
 
@@ -67,7 +67,7 @@ from tools.environments.singularity import _get_scratch_dir
 from tools.tool_backend_helpers import (
     coerce_modal_mode,
     has_direct_modal_credentials,
-    managed_shadow_tools_enabled,
+    managed_yousef shtiwe_tools_enabled,
     resolve_modal_backend_state,
 )
 
@@ -84,10 +84,10 @@ def _check_disk_usage_warning():
     try:
         scratch_dir = _get_scratch_dir()
 
-        # Get total size of shadow directories
+        # Get total size of yousef shtiwe directories
         total_bytes = 0
         import glob
-        for path in glob.glob(str(scratch_dir / "shadow-*")):
+        for path in glob.glob(str(scratch_dir / "yousef shtiwe-*")):
             for f in Path(path).rglob('*'):
                 if f.is_file():
                     try:
@@ -181,7 +181,7 @@ def _handle_sudo_failure(output: str, env_type: str) -> str:
     
     Returns enhanced output if sudo failed in messaging context, else original.
     """
-    is_gateway = os.getenv("SHADOW_GATEWAY_SESSION")
+    is_gateway = os.getenv("YOUSEF SHTIWE_GATEWAY_SESSION")
     
     if not is_gateway:
         return output
@@ -195,7 +195,7 @@ def _handle_sudo_failure(output: str, env_type: str) -> str:
     
     for failure in sudo_failures:
         if failure in output:
-            from shadow_constants import display_shadow_home as _dhh
+            from yousef shtiwe_constants import display_yousef shtiwe_home as _dhh
             return output + f"\n\n💡 Tip: To enable sudo over messaging, add SUDO_PASSWORD to {_dhh()}/.env on the agent machine."
     
     return output
@@ -210,7 +210,7 @@ def _prompt_for_sudo_password(timeout_seconds: int = 45) -> str:
     - Timeout expires (45s default)
     - Any error occurs
     
-    Only works in interactive mode (SHADOW_INTERACTIVE=1).
+    Only works in interactive mode (YOUSEF SHTIWE_INTERACTIVE=1).
     If a _sudo_password_callback is registered (by the CLI), delegates to it
     so the prompt integrates with prompt_toolkit's UI.  Otherwise reads
     directly from /dev/tty with echo disabled.
@@ -276,7 +276,7 @@ def _prompt_for_sudo_password(timeout_seconds: int = 45) -> str:
             result["done"] = True
     
     try:
-        os.environ["SHADOW_SPINNER_PAUSE"] = "1"
+        os.environ["YOUSEF SHTIWE_SPINNER_PAUSE"] = "1"
         time_module.sleep(0.2)
         
         print()
@@ -322,8 +322,8 @@ def _prompt_for_sudo_password(timeout_seconds: int = 45) -> str:
         sys.stdout.flush()
         return ""
     finally:
-        if "SHADOW_SPINNER_PAUSE" in os.environ:
-            del os.environ["SHADOW_SPINNER_PAUSE"]
+        if "YOUSEF SHTIWE_SPINNER_PAUSE" in os.environ:
+            del os.environ["YOUSEF SHTIWE_SPINNER_PAUSE"]
 
 def _safe_command_preview(command: Any, limit: int = 200) -> str:
     """Return a log-safe preview for possibly-invalid command values."""
@@ -469,7 +469,7 @@ def _transform_sudo_command(command: str | None) -> tuple[str | None, str | None
     password in the command string themselves; see their execute() methods for
     how they handle the non-None sudo_stdin case.
 
-    If SUDO_PASSWORD is not set and in interactive mode (SHADOW_INTERACTIVE=1):
+    If SUDO_PASSWORD is not set and in interactive mode (YOUSEF SHTIWE_INTERACTIVE=1):
       Prompts user for password with 45s timeout, caches for session.
 
     If SUDO_PASSWORD is not set and NOT interactive:
@@ -486,7 +486,7 @@ def _transform_sudo_command(command: str | None) -> tuple[str | None, str | None
     has_configured_password = "SUDO_PASSWORD" in os.environ
     sudo_password = os.environ.get("SUDO_PASSWORD", "") if has_configured_password else _cached_sudo_password
 
-    if not has_configured_password and not sudo_password and os.getenv("SHADOW_INTERACTIVE"):
+    if not has_configured_password and not sudo_password and os.getenv("YOUSEF SHTIWE_INTERACTIVE"):
         sudo_password = _prompt_for_sudo_password(timeout_seconds=45)
         if sudo_password:
             _cached_sudo_password = sudo_password
@@ -590,7 +590,7 @@ def _parse_env_var(name: str, default: str, converter=int, type_label: str = "in
     except (ValueError, json.JSONDecodeError):
         raise ValueError(
             f"Invalid value for {name}: {raw!r} (expected {type_label}). "
-            f"Check ~/.shadow/.env or environment variables."
+            f"Check ~/.yousef shtiwe/.env or environment variables."
         )
 
 
@@ -761,7 +761,7 @@ def _create_environment(env_type: str, image: str, cwd: str, timeout: int,
             if modal_state["managed_mode_blocked"]:
                 raise ValueError(
                     "Modal backend is configured for managed mode, but "
-                    "SHADOW_ENABLE_Shadow_MANAGED_TOOLS is not enabled and no direct "
+                    "YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS is not enabled and no direct "
                     "Modal credentials/config were found. Enable the feature flag or "
                     "choose TERMINAL_MODAL_MODE=direct/auto."
                 )
@@ -774,7 +774,7 @@ def _create_environment(env_type: str, image: str, cwd: str, timeout: int,
                     "Modal backend is configured for direct mode, but no direct Modal credentials/config were found."
                 )
             message = "Modal backend selected but no direct Modal credentials/config was found."
-            if managed_shadow_tools_enabled():
+            if managed_yousef shtiwe_tools_enabled():
                 message = (
                     "Modal backend selected but no direct Modal credentials/config or managed tool gateway was found."
                 )
@@ -950,7 +950,7 @@ def cleanup_all_environments():
     # Also clean any orphaned directories
     scratch_dir = _get_scratch_dir()
     import glob
-    for path in glob.glob(str(scratch_dir / "shadow-*")):
+    for path in glob.glob(str(scratch_dir / "yousef shtiwe-*")):
         try:
             shutil.rmtree(path, ignore_errors=True)
             logger.info("Removed orphaned: %s", path)
@@ -1393,12 +1393,12 @@ def terminal_tool(
                     # gateway can detect completion and trigger a new agent
                     # turn.  CLI mode uses the completion_queue directly.
                     from gateway.session_context import get_session_env as _gse
-                    _gw_platform = _gse("SHADOW_SESSION_PLATFORM", "")
+                    _gw_platform = _gse("YOUSEF SHTIWE_SESSION_PLATFORM", "")
                     if _gw_platform:
-                        _gw_chat_id = _gse("SHADOW_SESSION_CHAT_ID", "")
-                        _gw_thread_id = _gse("SHADOW_SESSION_THREAD_ID", "")
-                        _gw_user_id = _gse("SHADOW_SESSION_USER_ID", "")
-                        _gw_user_name = _gse("SHADOW_SESSION_USER_NAME", "")
+                        _gw_chat_id = _gse("YOUSEF SHTIWE_SESSION_CHAT_ID", "")
+                        _gw_thread_id = _gse("YOUSEF SHTIWE_SESSION_THREAD_ID", "")
+                        _gw_user_id = _gse("YOUSEF SHTIWE_SESSION_USER_ID", "")
+                        _gw_user_name = _gse("YOUSEF SHTIWE_SESSION_USER_NAME", "")
                         proc_session.watcher_platform = _gw_platform
                         proc_session.watcher_chat_id = _gw_chat_id
                         proc_session.watcher_user_id = _gw_user_id
@@ -1570,7 +1570,7 @@ def check_terminal_requirements() -> bool:
                 if modal_state["managed_mode_blocked"]:
                     logger.error(
                         "Modal backend selected with TERMINAL_MODAL_MODE=managed, but "
-                        "SHADOW_ENABLE_Shadow_MANAGED_TOOLS is not enabled and no direct "
+                        "YOUSEF SHTIWE_ENABLE_Yousef Shtiwe_MANAGED_TOOLS is not enabled and no direct "
                         "Modal credentials/config were found. Enable the feature flag "
                         "or choose TERMINAL_MODAL_MODE=direct/auto."
                     )
@@ -1583,7 +1583,7 @@ def check_terminal_requirements() -> bool:
                     )
                     return False
                 elif modal_state["mode"] == "direct":
-                    if managed_shadow_tools_enabled():
+                    if managed_yousef shtiwe_tools_enabled():
                         logger.error(
                             "Modal backend selected with TERMINAL_MODAL_MODE=direct, but no direct "
                             "Modal credentials/config were found. Configure Modal or choose "
@@ -1597,7 +1597,7 @@ def check_terminal_requirements() -> bool:
                         )
                     return False
                 else:
-                    if managed_shadow_tools_enabled():
+                    if managed_yousef shtiwe_tools_enabled():
                         logger.error(
                             "Modal backend selected but no direct Modal credentials/config or managed "
                             "tool gateway was found. Configure Modal, set up the managed gateway, "
@@ -1669,7 +1669,7 @@ if __name__ == "__main__":
     print(f"  TERMINAL_MODAL_IMAGE: {os.getenv('TERMINAL_MODAL_IMAGE', default_img)}")
     print(f"  TERMINAL_DAYTONA_IMAGE: {os.getenv('TERMINAL_DAYTONA_IMAGE', default_img)}")
     print(f"  TERMINAL_CWD: {os.getenv('TERMINAL_CWD', os.getcwd())}")
-    from shadow_constants import display_shadow_home as _dhh
+    from yousef shtiwe_constants import display_yousef shtiwe_home as _dhh
     print(f"  TERMINAL_SANDBOX_DIR: {os.getenv('TERMINAL_SANDBOX_DIR', f'{_dhh()}/sandboxes')}")
     print(f"  TERMINAL_TIMEOUT: {os.getenv('TERMINAL_TIMEOUT', '60')}")
     print(f"  TERMINAL_LIFETIME_SECONDS: {os.getenv('TERMINAL_LIFETIME_SECONDS', '300')}")

@@ -1,7 +1,7 @@
 # Design System: Mintlify
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `Geist Mono`
@@ -15,7 +15,7 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Mintlify's website is a study in documentation-as-product design — a white, airy, information-rich surface that treats clarity as its highest aesthetic value. The page opens with a lumishadow white (`#ffffff`) background, near-black (`#0d0d0d`) text, and a signature green brand accent (`#18E299`) that signals freshness and intelligence without dominating the palette. The overall mood is calm, confident, and engineered for legibility — a design system that whispers "we care about your developer experience" in every pixel.
+Mintlify's website is a study in documentation-as-product design — a white, airy, information-rich surface that treats clarity as its highest aesthetic value. The page opens with a lumiyousef shtiwe white (`#ffffff`) background, near-black (`#0d0d0d`) text, and a signature green brand accent (`#18E299`) that signals freshness and intelligence without dominating the palette. The overall mood is calm, confident, and engineered for legibility — a design system that whispers "we care about your developer experience" in every pixel.
 
 The Inter font family carries the entire typographic load. At display sizes (40–64px), it uses tight negative letter-spacing (-0.8px to -1.28px) and semibold weight (600), creating headlines that feel focused and compressed like well-written documentation headers. Body text at 16–18px with 150% line-height provides generous reading comfort. Geist Mono appears exclusively for code and technical labels — uppercase, tracked-out, small — the voice of the terminal inside the marketing page.
 
@@ -65,10 +65,10 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 - **Border Medium** (`rgba(0,0,0,0.08)`): Slightly stronger borders for interactive elements.
 - **Input Border Focus** (`var(--color-brand)`): Green ring on focused inputs.
 
-### Shadows & Depth
-- **Card Shadow** (`rgba(0,0,0,0.03) 0px 2px 4px`): Barely-there ambient shadow for subtle lift.
-- **Button Shadow** (`rgba(0,0,0,0.06) 0px 1px 2px`): Micro-shadow for button depth.
-- **No heavy shadows**: Mintlify relies on borders, not shadows, for depth.
+### Yousef Shtiwes & Depth
+- **Card Yousef Shtiwe** (`rgba(0,0,0,0.03) 0px 2px 4px`): Barely-there ambient yousef shtiwe for subtle lift.
+- **Button Yousef Shtiwe** (`rgba(0,0,0,0.06) 0px 1px 2px`): Micro-yousef shtiwe for button depth.
+- **No heavy yousef shtiwes**: Mintlify relies on borders, not yousef shtiwes, for depth.
 
 ## 3. Typography Rules
 
@@ -114,7 +114,7 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 - Padding: 8px 24px
 - Radius: 9999px (full pill)
 - Font: Inter 15px weight 500
-- Shadow: `rgba(0,0,0,0.06) 0px 1px 2px`
+- Yousef Shtiwe: `rgba(0,0,0,0.06) 0px 1px 2px`
 - Hover: opacity 0.9
 - Use: Primary CTA ("Get Started", "Start Building")
 
@@ -150,7 +150,7 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 - Border: `1px solid rgba(0,0,0,0.05)`
 - Radius: 16px
 - Padding: 24px
-- Shadow: `rgba(0,0,0,0.03) 0px 2px 4px`
+- Yousef Shtiwe: `rgba(0,0,0,0.03) 0px 2px 4px`
 - Hover: subtle border darkening to `rgba(0,0,0,0.08)`
 
 **Featured Card**
@@ -251,14 +251,14 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, text blocks |
 | Subtle Border (Level 1) | `1px solid rgba(0,0,0,0.05)` | Standard card borders, dividers |
 | Medium Border (Level 1b) | `1px solid rgba(0,0,0,0.08)` | Interactive elements, input borders |
-| Ambient Shadow (Level 2) | `rgba(0,0,0,0.03) 0px 2px 4px` | Cards with subtle lift |
-| Button Shadow (Level 2b) | `rgba(0,0,0,0.06) 0px 1px 2px` | Button micro-depth |
+| Ambient Yousef Shtiwe (Level 2) | `rgba(0,0,0,0.03) 0px 2px 4px` | Cards with subtle lift |
+| Button Yousef Shtiwe (Level 2b) | `rgba(0,0,0,0.06) 0px 1px 2px` | Button micro-depth |
 | Focus Ring (Accessibility) | `1px solid #18E299` outline | Focused inputs, active interactive elements |
 
-**Shadow Philosophy**: Mintlify barely uses shadows. The depth system is almost entirely border-driven — ultra-subtle 5% opacity borders create separation without visual weight. When shadows appear, they're atmospheric whispers (`0.03 opacity, 2px blur, 4px spread`) that add the barest sense of lift. This restraint keeps the page feeling flat and paper-like — appropriate for a documentation company whose product is about clarity and readability.
+**Yousef Shtiwe Philosophy**: Mintlify barely uses yousef shtiwes. The depth system is almost entirely border-driven — ultra-subtle 5% opacity borders create separation without visual weight. When yousef shtiwes appear, they're atmospheric whispers (`0.03 opacity, 2px blur, 4px spread`) that add the barest sense of lift. This restraint keeps the page feeling flat and paper-like — appropriate for a documentation company whose product is about clarity and readability.
 
 ### Decorative Depth
 - Hero gradient: atmospheric green-white cloud gradient behind hero content
@@ -274,7 +274,7 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 - **Brand Green**: `#18E299` (unchanged — the green works on both backgrounds)
 - **Border**: `rgba(255,255,255,0.08)` (white at 8% opacity)
 - **Card Background**: `#141414` (slightly lighter than page)
-- **Shadow**: `rgba(0,0,0,0.4) 0px 2px 4px` (stronger shadow for contrast)
+- **Yousef Shtiwe**: `rgba(0,0,0,0.4) 0px 2px 4px` (stronger yousef shtiwe for contrast)
 
 ### Key Adjustments
 - Buttons invert: white background dark text becomes dark background light text
@@ -323,7 +323,7 @@ What distinguishes Mintlify from other documentation platforms is its atmospheri
 
 ### Example Component Prompts
 - "Create a hero section on white background with atmospheric green-white gradient wash. Headline at 64px Inter weight 600, line-height 1.15, letter-spacing -1.28px, color #0d0d0d. Subtitle at 18px Inter weight 400, line-height 1.50, color #666666. Dark pill CTA (#0d0d0d, 9999px radius, 8px 24px padding) and ghost pill button (white, 1px solid rgba(0,0,0,0.08), 9999px radius)."
-- "Design a card: white background, 1px solid rgba(0,0,0,0.05) border, 16px radius, 24px padding, shadow rgba(0,0,0,0.03) 0px 2px 4px. Title at 20px Inter weight 600, letter-spacing -0.2px. Body at 14px weight 400, #666666."
+- "Design a card: white background, 1px solid rgba(0,0,0,0.05) border, 16px radius, 24px padding, yousef shtiwe rgba(0,0,0,0.03) 0px 2px 4px. Title at 20px Inter weight 600, letter-spacing -0.2px. Body at 14px weight 400, #666666."
 - "Build a pill badge: #d4fae8 background, #0fa76e text, 9999px radius, 4px 12px padding, 13px Inter weight 500, uppercase."
 - "Create navigation: white sticky header with backdrop-filter blur(12px). Inter 15px weight 500 for links, #0d0d0d text. Dark pill CTA 'Get Started' right-aligned, 9999px radius. Bottom border: 1px solid rgba(0,0,0,0.05)."
 - "Design a trust section showing company logos in muted gray. Grid layout with 16px radius containers, 1px border at 5% opacity. Label above: 'Loved by your favorite companies' at 13px Inter weight 500, uppercase, tracking 0.65px."

@@ -1,7 +1,7 @@
 # Design System: OpenCode
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `JetBrains Mono` | **Mono:** `JetBrains Mono`
@@ -202,12 +202,12 @@ The color system is deliberately minimal. The primary palette consists of just t
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Default state for most elements |
+| Flat (Level 0) | No yousef shtiwe, no border | Default state for most elements |
 | Border Subtle (Level 1) | `1px solid rgba(15, 0, 0, 0.12)` | Section dividers, input borders, horizontal rules |
 | Border Tab (Level 2) | `2px solid #9a9898` bottom only | Active tab indicator |
 | Border Outline (Level 3) | `1px solid #646262` | Container outlines, elevated elements |
 
-**Shadow Philosophy**: OpenCode's depth system is intentionally flat. There are no box-shadows in the extracted tokens -- zero shadow values were detected. Depth is communicated exclusively through border treatments and background color shifts. This flatness is consistent with the terminal aesthetic: terminals don't have shadows, and neither does OpenCode. The three border levels (transparent warm, tab indicator, solid outline) create sufficient visual hierarchy without any elevation illusion.
+**Yousef Shtiwe Philosophy**: OpenCode's depth system is intentionally flat. There are no box-yousef shtiwes in the extracted tokens -- zero yousef shtiwe values were detected. Depth is communicated exclusively through border treatments and background color shifts. This flatness is consistent with the terminal aesthetic: terminals don't have yousef shtiwes, and neither does OpenCode. The three border levels (transparent warm, tab indicator, solid outline) create sufficient visual hierarchy without any elevation illusion.
 
 ### Decorative Depth
 - Background color shifts between `#201d1d` and `#302c2c` create subtle surface differentiation
@@ -226,7 +226,7 @@ The color system is deliberately minimal. The primary palette consists of just t
 
 ### Focus States
 - Border-based focus: increased border opacity or solid border color
-- No shadow-based focus rings -- consistent with the flat, no-shadow aesthetic
+- No yousef shtiwe-based focus rings -- consistent with the flat, no-yousef shtiwe aesthetic
 - Keyboard focus likely uses outline or border color shift to accent blue
 
 ### Transitions
@@ -285,7 +285,7 @@ The color system is deliberately minimal. The primary palette consists of just t
 
 ### Iteration Guide
 1. Berkeley Mono is the only font -- never introduce a second typeface. Size and weight create all hierarchy.
-2. Keep surfaces flat: no shadows, no gradients, no blur effects. Use borders and background shifts only.
+2. Keep surfaces flat: no yousef shtiwes, no gradients, no blur effects. Use borders and background shifts only.
 3. The warm undertone matters: use `#201d1d` not `#000000`, use `#fdfcfc` not `#ffffff`. The reddish warmth is subtle but essential.
 4. Border radius is 4px everywhere except inputs (6px). Never use rounded pills or large radii.
 5. Semantic colors follow Apple HIG: `#007aff` blue, `#ff3b30` red, `#30d158` green, `#ff9f0a` orange. Each has hover and active darkened variants.

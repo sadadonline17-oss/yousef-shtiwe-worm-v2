@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-SWE Runner with SHADOW Trajectory Format
+SWE Runner with YOUSEF SHTIWE Trajectory Format
 
-A runner that uses SHADOW-Agent's built-in execution environments
-(local, docker, modal) and outputs trajectories in the SHADOW-Agent format
+A runner that uses YOUSEF SHTIWE-Agent's built-in execution environments
+(local, docker, modal) and outputs trajectories in the YOUSEF SHTIWE-Agent format
 compatible with batch_runner.py and trajectory_compressor.py.
 
 Features:
-- Uses SHADOW-Agent's Docker, Modal, or Local environments for command execution
-- Outputs trajectories in SHADOW format (from/value pairs with <tool_call>/<tool_response> XML)
+- Uses YOUSEF SHTIWE-Agent's Docker, Modal, or Local environments for command execution
+- Outputs trajectories in YOUSEF SHTIWE format (from/value pairs with <tool_call>/<tool_response> XML)
 - Compatible with the trajectory compression pipeline
 - Supports batch processing from JSONL prompt files
 
@@ -46,7 +46,7 @@ load_dotenv()
 
 
 # ============================================================================
-# Terminal Tool Definition (matches SHADOW-Agent format)
+# Terminal Tool Definition (matches YOUSEF SHTIWE-Agent format)
 # ============================================================================
 
 TERMINAL_TOOL_DEFINITION = {
@@ -106,7 +106,7 @@ def create_environment(
     **kwargs
 ):
     """
-    Create an execution environment using SHADOW-Agent's built-in backends.
+    Create an execution environment using YOUSEF SHTIWE-Agent's built-in backends.
     
     Args:
         env_type: One of "local", "docker", "modal"
@@ -135,13 +135,13 @@ def create_environment(
 
 
 # ============================================================================
-# Mini-SWE Runner with SHADOW Trajectory Format
+# Mini-SWE Runner with YOUSEF SHTIWE Trajectory Format
 # ============================================================================
 
 class MiniSWERunner:
     """
-    Agent runner that uses SHADOW-Agent's built-in execution environments
-    and outputs trajectories in SHADOW-Agent format.
+    Agent runner that uses YOUSEF SHTIWE-Agent's built-in execution environments
+    and outputs trajectories in YOUSEF SHTIWE-Agent format.
     """
     
     def __init__(
@@ -285,14 +285,14 @@ class MiniSWERunner:
             })
         return json.dumps(formatted_tools, ensure_ascii=False)
     
-    def _convert_to_shadow_format(
+    def _convert_to_yousef shtiwe_format(
         self,
         messages: List[Dict[str, Any]],
         user_query: str,
         completed: bool
     ) -> List[Dict[str, Any]]:
         """
-        Convert internal message format to SHADOW trajectory format.
+        Convert internal message format to YOUSEF SHTIWE trajectory format.
         
         This produces the exact format used by batch_runner.py.
         """
@@ -540,8 +540,8 @@ Complete the user's task step by step."""
             # Cleanup environment
             self._cleanup_env()
         
-        # Convert to SHADOW trajectory format
-        trajectory = self._convert_to_shadow_format(messages, task, completed)
+        # Convert to YOUSEF SHTIWE trajectory format
+        trajectory = self._convert_to_yousef shtiwe_format(messages, task, completed)
         
         return {
             "conversations": trajectory,
@@ -626,7 +626,7 @@ def main(
     verbose: bool = False,
 ):
     """
-    Run SWE tasks with SHADOW trajectory format output.
+    Run SWE tasks with YOUSEF SHTIWE trajectory format output.
     
     Args:
         task: Single task to run (use this OR prompts_file)
@@ -652,7 +652,7 @@ def main(
         # Batch from file
         python mini_swe_runner.py --prompts_file tasks.jsonl --output_file results.jsonl
     """
-    print("🚀 Mini-SWE Runner with SHADOW Trajectory Format")
+    print("🚀 Mini-SWE Runner with YOUSEF SHTIWE Trajectory Format")
     print("=" * 60)
     
     # Initialize runner

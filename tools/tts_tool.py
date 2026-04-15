@@ -14,7 +14,7 @@ Output formats:
 - Opus (.ogg) for Telegram voice bubbles (requires ffmpeg for Edge TTS)
 - MP3 (.mp3) for everything else (CLI, Discord, WhatsApp)
 
-Configuration is loaded from ~/.shadow/config.yaml under the 'tts:' key.
+Configuration is loaded from ~/.yousef shtiwe/config.yaml under the 'tts:' key.
 The user chooses the provider and voice; the model just sends text.
 
 Usage:
@@ -42,7 +42,7 @@ from urllib.parse import urljoin
 
 logger = logging.getLogger(__name__)
 from tools.managed_tool_gateway import resolve_managed_tool_gateway
-from tools.tool_backend_helpers import managed_shadow_tools_enabled, resolve_openai_audio_api_key
+from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled, resolve_openai_audio_api_key
 
 # ---------------------------------------------------------------------------
 # Lazy imports -- providers are imported only when actually used to avoid
@@ -93,29 +93,29 @@ DEFAULT_MISTRAL_TTS_MODEL = "voxtral-mini-tts-2603"
 DEFAULT_MISTRAL_TTS_VOICE_ID = "c69964a6-ab8b-4f8a-9465-ec0925096ec8"  # Paul - Neutral
 
 def _get_default_output_dir() -> str:
-    from shadow_constants import get_shadow_dir
-    return str(get_shadow_dir("cache/audio", "audio_cache"))
+    from yousef shtiwe_constants import get_yousef shtiwe_dir
+    return str(get_yousef shtiwe_dir("cache/audio", "audio_cache"))
 
 DEFAULT_OUTPUT_DIR = _get_default_output_dir()
 MAX_TEXT_LENGTH = 4000
 
 
 # ===========================================================================
-# Config loader -- reads tts: section from ~/.shadow/config.yaml
+# Config loader -- reads tts: section from ~/.yousef shtiwe/config.yaml
 # ===========================================================================
 def _load_tts_config() -> Dict[str, Any]:
     """
-    Load TTS configuration from ~/.shadow/config.yaml.
+    Load TTS configuration from ~/.yousef shtiwe/config.yaml.
 
     Returns a dict with provider settings. Falls back to defaults
     for any missing fields.
     """
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         config = load_config()
         return config.get("tts", {})
     except ImportError:
-        logger.debug("shadow_cli.config not available, using default TTS config")
+        logger.debug("yousef shtiwe_cli.config not available, using default TTS config")
         return {}
     except Exception as e:
         logger.warning("Failed to load TTS config: %s", e, exc_info=True)
@@ -519,7 +519,7 @@ def text_to_speech_tool(
     """
     Convert text to speech audio.
 
-    Reads provider/voice config from ~/.shadow/config.yaml (tts: section).
+    Reads provider/voice config from ~/.yousef shtiwe/config.yaml (tts: section).
     The model sends text; the user configures voice and provider.
 
     On messaging platforms, the returned MEDIA:<path> tag is intercepted
@@ -549,7 +549,7 @@ def text_to_speech_tool(
     # produce Opus natively (no ffmpeg needed).  Edge TTS always outputs MP3
     # and needs ffmpeg for conversion.
     from gateway.session_context import get_session_env
-    platform = get_session_env("SHADOW_SESSION_PLATFORM", "").lower()
+    platform = get_session_env("YOUSEF SHTIWE_SESSION_PLATFORM", "").lower()
     want_opus = (platform == "telegram")
 
     # Determine output path
@@ -605,7 +605,7 @@ def text_to_speech_tool(
                 return json.dumps({
                     "success": False,
                     "error": "Mistral provider selected but 'mistralai' package not installed. "
-                             "Run: pip install 'shadow-agent[mistral]'"
+                             "Run: pip install 'yousef shtiwe-agent[mistral]'"
                 }, ensure_ascii=False)
             logger.info("Generating speech with Mistral Voxtral TTS...")
             _generate_mistral_tts(text, file_str, tts_config)
@@ -615,7 +615,7 @@ def text_to_speech_tool(
                 return json.dumps({
                     "success": False,
                     "error": "NeuTTS provider selected but neutts is not installed. "
-                             "Run shadow setup and choose NeuTTS, or install espeak-ng and run python -m pip install -U neutts[all]."
+                             "Run yousef shtiwe setup and choose NeuTTS, or install espeak-ng and run python -m pip install -U neutts[all]."
                 }, ensure_ascii=False)
             logger.info("Generating speech with NeuTTS (local)...")
             _generate_neutts(text, file_str, tts_config)
@@ -752,11 +752,11 @@ def _resolve_openai_audio_client_config() -> tuple[str, str]:
     managed_gateway = resolve_managed_tool_gateway("openai-audio")
     if managed_gateway is None:
         message = "Neither VOICE_TOOLS_OPENAI_KEY nor OPENAI_API_KEY is set"
-        if managed_shadow_tools_enabled():
+        if managed_yousef shtiwe_tools_enabled():
             message += ", and the managed OpenAI audio gateway is unavailable"
         raise ValueError(message)
 
-    return managed_gateway.shadow_user_token, urljoin(
+    return managed_gateway.yousef shtiwe_user_token, urljoin(
         f"{managed_gateway.gateway_origin.rstrip('/')}/", "v1"
     )
 
@@ -1050,7 +1050,7 @@ TTS_SCHEMA = {
             },
             "output_path": {
                 "type": "string",
-                "description": "Optional custom file path to save the audio. Defaults to ~/.shadow/audio_cache/<timestamp>.mp3"
+                "description": "Optional custom file path to save the audio. Defaults to ~/.yousef shtiwe/audio_cache/<timestamp>.mp3"
             }
         },
         "required": ["text"]

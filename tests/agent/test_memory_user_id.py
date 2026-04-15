@@ -144,8 +144,8 @@ class TestMem0UserIdScoping:
         # Mock _load_config to return a config with default user_id
         with patch("plugins.memory.mem0._load_config", return_value={
             "api_key": "test-key",
-            "user_id": "shadow-user",
-            "agent_id": "shadow",
+            "user_id": "yousef shtiwe-user",
+            "agent_id": "yousef shtiwe",
             "rerank": True,
         }):
             provider.initialize(session_id="test-sess", user_id="tg_user_99")
@@ -160,26 +160,26 @@ class TestMem0UserIdScoping:
         with patch("plugins.memory.mem0._load_config", return_value={
             "api_key": "test-key",
             "user_id": "custom-default",
-            "agent_id": "shadow",
+            "agent_id": "yousef shtiwe",
             "rerank": True,
         }):
             provider.initialize(session_id="test-sess")
 
         assert provider._user_id == "custom-default"
 
-    def test_no_user_id_no_config_uses_shadow_user(self):
-        """Without user_id or config override, should default to 'shadow-user'."""
+    def test_no_user_id_no_config_uses_yousef shtiwe_user(self):
+        """Without user_id or config override, should default to 'yousef shtiwe-user'."""
         from plugins.memory.mem0 import Mem0MemoryProvider
 
         provider = Mem0MemoryProvider()
         with patch("plugins.memory.mem0._load_config", return_value={
             "api_key": "test-key",
-            "agent_id": "shadow",
+            "agent_id": "yousef shtiwe",
             "rerank": True,
         }):
             provider.initialize(session_id="test-sess")
 
-        assert provider._user_id == "shadow-user"
+        assert provider._user_id == "yousef shtiwe-user"
 
     def test_different_users_get_different_ids(self):
         """Two providers initialized with different user_ids should be scoped differently."""
@@ -190,8 +190,8 @@ class TestMem0UserIdScoping:
 
         with patch("plugins.memory.mem0._load_config", return_value={
             "api_key": "test-key",
-            "user_id": "shadow-user",
-            "agent_id": "shadow",
+            "user_id": "yousef shtiwe-user",
+            "agent_id": "yousef shtiwe",
             "rerank": True,
         }):
             p1.initialize(session_id="sess-1", user_id="alice_123")
@@ -273,7 +273,7 @@ class TestAIAgentUserIdPropagation:
 
     def test_user_id_stored_on_agent(self):
         """AIAgent should store user_id as instance attribute."""
-        with patch.dict(os.environ, {"SHADOW_HOME": "/tmp/test_shadow"}):
+        with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": "/tmp/test_yousef shtiwe"}):
             from run_agent import AIAgent
             agent = object.__new__(AIAgent)
             # Manually set the attribute as __init__ does
@@ -282,7 +282,7 @@ class TestAIAgentUserIdPropagation:
 
     def test_user_id_none_by_default(self):
         """AIAgent should have None user_id when not provided (CLI mode)."""
-        with patch.dict(os.environ, {"SHADOW_HOME": "/tmp/test_shadow"}):
+        with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": "/tmp/test_yousef shtiwe"}):
             from run_agent import AIAgent
             agent = object.__new__(AIAgent)
             agent._user_id = None

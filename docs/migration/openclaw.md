@@ -1,20 +1,20 @@
-# Migrating from OpenClaw to SHADOW Agent
+# Migrating from OpenClaw to YOUSEF SHTIWE Agent
 
-This guide covers how to import your OpenClaw settings, memories, skills, and API keys into SHADOW Agent.
+This guide covers how to import your OpenClaw settings, memories, skills, and API keys into YOUSEF SHTIWE Agent.
 
 ## Three Ways to Migrate
 
 ### 1. Automatic (during first-time setup)
 
-When you run `shadow setup` for the first time and SHADOW detects `~/.openclaw`, it automatically offers to import your OpenClaw data before configuration begins. Just accept the prompt and everything is handled for you.
+When you run `yousef shtiwe setup` for the first time and YOUSEF SHTIWE detects `~/.openclaw`, it automatically offers to import your OpenClaw data before configuration begins. Just accept the prompt and everything is handled for you.
 
 ### 2. CLI Command (quick, scriptable)
 
 ```bash
-shadow claw migrate                      # Preview then migrate (always shows preview first)
-shadow claw migrate --dry-run            # Preview only, no changes
-shadow claw migrate --preset user-data   # Migrate without API keys/secrets
-shadow claw migrate --yes                # Skip confirmation prompt
+yousef shtiwe claw migrate                      # Preview then migrate (always shows preview first)
+yousef shtiwe claw migrate --dry-run            # Preview only, no changes
+yousef shtiwe claw migrate --preset user-data   # Migrate without API keys/secrets
+yousef shtiwe claw migrate --yes                # Skip confirmation prompt
 ```
 
 The migration always shows a full preview of what will be imported before making any changes. You review the preview and confirm before anything is written.
@@ -37,7 +37,7 @@ The migration always shows a full preview of what will be imported before making
 Ask the agent to run the migration for you:
 
 ```
-> Migrate my OpenClaw setup to SHADOW
+> Migrate my OpenClaw setup to YOUSEF SHTIWE
 ```
 
 The agent will use the `openclaw-migration` skill to:
@@ -52,24 +52,24 @@ The agent will use the `openclaw-migration` skill to:
 ### `user-data` preset
 | Item | Source | Destination |
 |------|--------|-------------|
-| SOUL.md | `~/.openclaw/workspace/SOUL.md` | `~/.shadow/SOUL.md` |
-| Memory entries | `~/.openclaw/workspace/MEMORY.md` | `~/.shadow/memories/MEMORY.md` |
-| User profile | `~/.openclaw/workspace/USER.md` | `~/.shadow/memories/USER.md` |
-| Skills | `~/.openclaw/workspace/skills/` | `~/.shadow/skills/openclaw-imports/` |
-| Command allowlist | `~/.openclaw/workspace/exec_approval_patterns.yaml` | Merged into `~/.shadow/config.yaml` |
-| Messaging settings | `~/.openclaw/config.yaml` (TELEGRAM_ALLOWED_USERS, MESSAGING_CWD) | `~/.shadow/.env` |
-| TTS assets | `~/.openclaw/workspace/tts/` | `~/.shadow/tts/` |
+| SOUL.md | `~/.openclaw/workspace/SOUL.md` | `~/.yousef shtiwe/SOUL.md` |
+| Memory entries | `~/.openclaw/workspace/MEMORY.md` | `~/.yousef shtiwe/memories/MEMORY.md` |
+| User profile | `~/.openclaw/workspace/USER.md` | `~/.yousef shtiwe/memories/USER.md` |
+| Skills | `~/.openclaw/workspace/skills/` | `~/.yousef shtiwe/skills/openclaw-imports/` |
+| Command allowlist | `~/.openclaw/workspace/exec_approval_patterns.yaml` | Merged into `~/.yousef shtiwe/config.yaml` |
+| Messaging settings | `~/.openclaw/config.yaml` (TELEGRAM_ALLOWED_USERS, MESSAGING_CWD) | `~/.yousef shtiwe/.env` |
+| TTS assets | `~/.openclaw/workspace/tts/` | `~/.yousef shtiwe/tts/` |
 
 Workspace files are also checked at `workspace.default/` and `workspace-main/` as fallback paths (OpenClaw renamed `workspace/` to `workspace-main/` in recent versions).
 
 ### `full` preset (adds to `user-data`)
 | Item | Source | Destination |
 |------|--------|-------------|
-| Telegram bot token | `openclaw.json` channels config | `~/.shadow/.env` |
-| OpenRouter API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.shadow/.env` |
-| OpenAI API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.shadow/.env` |
-| Anthropic API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.shadow/.env` |
-| ElevenLabs API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.shadow/.env` |
+| Telegram bot token | `openclaw.json` channels config | `~/.yousef shtiwe/.env` |
+| OpenRouter API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.yousef shtiwe/.env` |
+| OpenAI API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.yousef shtiwe/.env` |
+| Anthropic API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.yousef shtiwe/.env` |
+| ElevenLabs API key | `.env`, `openclaw.json`, or `openclaw.json["env"]` | `~/.yousef shtiwe/.env` |
 
 API keys are searched across four sources: inline config values, `~/.openclaw/.env`, the `openclaw.json` `"env"` sub-object, and per-agent auth profiles.
 
@@ -80,7 +80,7 @@ Only allowlisted secrets are ever imported. Other credentials are skipped and re
 The migration handles both old and current OpenClaw config layouts:
 
 - **Channel tokens**: Reads from flat paths (`channels.telegram.botToken`) and the newer `accounts.default` layout (`channels.telegram.accounts.default.botToken`)
-- **TTS provider**: OpenClaw renamed "edge" to "microsoft" — both are recognized and mapped to SHADOW' "edge"
+- **TTS provider**: OpenClaw renamed "edge" to "microsoft" — both are recognized and mapped to YOUSEF SHTIWE' "edge"
 - **Provider API types**: Both short (`openai`, `anthropic`) and hyphenated (`openai-completions`, `anthropic-messages`, `google-generative-ai`) values are mapped correctly
 - **thinkingDefault**: All enum values are handled including newer ones (`minimal`, `xhigh`, `adaptive`)
 - **Matrix**: Uses `accessToken` field (not `botToken`)
@@ -88,12 +88,12 @@ The migration handles both old and current OpenClaw config layouts:
 
 ## Conflict Handling
 
-By default, the migration **will not overwrite** existing SHADOW data:
+By default, the migration **will not overwrite** existing YOUSEF SHTIWE data:
 
-- **SOUL.md** — skipped if one already exists in `~/.shadow/`
+- **SOUL.md** — skipped if one already exists in `~/.yousef shtiwe/`
 - **Memory entries** — skipped if memories already exist (to avoid duplicates)
 - **Skills** — skipped if a skill with the same name already exists
-- **API keys** — skipped if the key is already set in `~/.shadow/.env`
+- **API keys** — skipped if the key is already set in `~/.yousef shtiwe/.env`
 
 To overwrite conflicts, use `--overwrite`. The migration creates backups before overwriting.
 
@@ -107,30 +107,30 @@ Every migration produces a report showing:
 - **Skipped items** — items not found in the source
 - **Errors** — items that failed to import
 
-For executed migrations, the full report is saved to `~/.shadow/migration/openclaw/<timestamp>/`.
+For executed migrations, the full report is saved to `~/.yousef shtiwe/migration/openclaw/<timestamp>/`.
 
 ## Post-Migration Notes
 
 - **Skills require a new session** — imported skills take effect after restarting your agent or starting a new chat.
-- **WhatsApp requires re-pairing** — WhatsApp uses QR-code pairing, not token-based auth. Run `shadow whatsapp` to pair.
-- **Archive cleanup** — after migration, you'll be offered to rename `~/.openclaw/` to `.openclaw.pre-migration/` to prevent state confusion. You can also run `shadow claw cleanup` later.
+- **WhatsApp requires re-pairing** — WhatsApp uses QR-code pairing, not token-based auth. Run `yousef shtiwe whatsapp` to pair.
+- **Archive cleanup** — after migration, you'll be offered to rename `~/.openclaw/` to `.openclaw.pre-migration/` to prevent state confusion. You can also run `yousef shtiwe claw cleanup` later.
 
 ## Troubleshooting
 
 ### "OpenClaw directory not found"
 The migration looks for `~/.openclaw` by default, then tries `~/.clawdbot` and `~/.moltbot`. If your OpenClaw is installed elsewhere, use `--source`:
 ```bash
-shadow claw migrate --source /path/to/.openclaw
+yousef shtiwe claw migrate --source /path/to/.openclaw
 ```
 
 ### "Migration script not found"
-The migration script ships with SHADOW Agent. If you installed via pip (not git clone), the `optional-skills/` directory may not be present. Install the skill from the Skills Hub:
+The migration script ships with YOUSEF SHTIWE Agent. If you installed via pip (not git clone), the `optional-skills/` directory may not be present. Install the skill from the Skills Hub:
 ```bash
-shadow skills install openclaw-migration
+yousef shtiwe skills install openclaw-migration
 ```
 
 ### Memory overflow
-If your OpenClaw MEMORY.md or USER.md exceeds SHADOW' character limits, excess entries are exported to an overflow file in the migration report directory. You can manually review and add the most important ones.
+If your OpenClaw MEMORY.md or USER.md exceeds YOUSEF SHTIWE' character limits, excess entries are exported to an overflow file in the migration report directory. You can manually review and add the most important ones.
 
 ### API keys not found
 Keys might be stored in different places depending on your OpenClaw setup:
@@ -139,4 +139,4 @@ Keys might be stored in different places depending on your OpenClaw setup:
 - In `openclaw.json` under the `"env"` or `"env.vars"` sub-objects
 - In `~/.openclaw/agents/main/agent/auth-profiles.json`
 
-The migration checks all four. If keys use `source: "file"` or `source: "exec"` SecretRefs, they can't be resolved automatically — add them via `shadow config set`.
+The migration checks all four. If keys use `source: "file"` or `source: "exec"` SecretRefs, they can't be resolved automatically — add them via `yousef shtiwe config set`.

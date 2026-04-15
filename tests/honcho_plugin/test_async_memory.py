@@ -34,7 +34,7 @@ def _make_session(**kwargs) -> HonchoSession:
     return HonchoSession(
         key=kwargs.get("key", "cli:test"),
         user_peer_id=kwargs.get("user_peer_id", "eri"),
-        assistant_peer_id=kwargs.get("assistant_peer_id", "shadow"),
+        assistant_peer_id=kwargs.get("assistant_peer_id", "yousef shtiwe"),
         honcho_session_id=kwargs.get("honcho_session_id", "cli-test"),
         messages=kwargs.get("messages", []),
     )
@@ -91,7 +91,7 @@ class TestWriteFrequencyParsing:
         cfg_file.write_text(json.dumps({
             "apiKey": "k",
             "writeFrequency": "turn",
-            "hosts": {"shadow": {"writeFrequency": "session"}},
+            "hosts": {"yousef shtiwe": {"writeFrequency": "session"}},
         }))
         cfg = HonchoClientConfig.from_global_config(config_path=cfg_file)
         assert cfg.write_frequency == "session"
@@ -208,7 +208,7 @@ class TestSaveRouting:
         sess = self._make_session_with_message(mgr)
         with patch.object(mgr, "_flush_session") as mock_flush:
             mgr.save(sess)
-            # flush_session should NOT be called synchroshadowly
+            # flush_session should NOT be called synchroyousef shtiwely
             mock_flush.assert_not_called()
         assert not mgr._async_queue.empty()
 

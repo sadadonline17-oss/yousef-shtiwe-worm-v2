@@ -593,7 +593,7 @@ class TestDelegationCredentialResolution(unittest.TestCase):
         self.assertIsNone(creds["base_url"])
         self.assertIsNone(creds["api_key"])
 
-    @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
+    @patch("yousef shtiwe_cli.runtime_provider.resolve_runtime_provider")
     def test_provider_resolves_full_credentials(self, mock_resolve):
         """When delegation.provider is set, full credentials are resolved."""
         mock_resolve.return_value = {
@@ -656,24 +656,24 @@ class TestDelegationCredentialResolution(unittest.TestCase):
                 _resolve_delegation_credentials(cfg, parent)
         self.assertIn("OPENAI_API_KEY", str(ctx.exception))
 
-    @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
-    def test_shadow_provider_resolves_shadow_credentials(self, mock_resolve):
-        """Shadow provider resolves Shadow Portal base_url and api_key."""
+    @patch("yousef shtiwe_cli.runtime_provider.resolve_runtime_provider")
+    def test_yousef shtiwe_provider_resolves_yousef shtiwe_credentials(self, mock_resolve):
+        """Yousef Shtiwe provider resolves Yousef Shtiwe Portal base_url and api_key."""
         mock_resolve.return_value = {
-            "provider": "shadow",
-            "base_url": "https://inference-api.shadow-overlord.com/v1",
-            "api_key": "shadow-agent-key-xyz",
+            "provider": "yousef shtiwe",
+            "base_url": "https://inference-api.yousef shtiwe-overlord.com/v1",
+            "api_key": "yousef shtiwe-agent-key-xyz",
             "api_mode": "chat_completions",
         }
         parent = _make_mock_parent(depth=0)
-        cfg = {"model": "shadow-3-llama-3.1-8b", "provider": "shadow"}
+        cfg = {"model": "yousef shtiwe-3-llama-3.1-8b", "provider": "yousef shtiwe"}
         creds = _resolve_delegation_credentials(cfg, parent)
-        self.assertEqual(creds["provider"], "shadow")
-        self.assertEqual(creds["base_url"], "https://inference-api.shadow-overlord.com/v1")
-        self.assertEqual(creds["api_key"], "shadow-agent-key-xyz")
-        mock_resolve.assert_called_once_with(requested="shadow")
+        self.assertEqual(creds["provider"], "yousef shtiwe")
+        self.assertEqual(creds["base_url"], "https://inference-api.yousef shtiwe-overlord.com/v1")
+        self.assertEqual(creds["api_key"], "yousef shtiwe-agent-key-xyz")
+        mock_resolve.assert_called_once_with(requested="yousef shtiwe")
 
-    @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
+    @patch("yousef shtiwe_cli.runtime_provider.resolve_runtime_provider")
     def test_provider_resolution_failure_raises_valueerror(self, mock_resolve):
         """When provider resolution fails, ValueError is raised with helpful message."""
         mock_resolve.side_effect = RuntimeError("OPENROUTER_API_KEY not set")
@@ -684,7 +684,7 @@ class TestDelegationCredentialResolution(unittest.TestCase):
         self.assertIn("openrouter", str(ctx.exception).lower())
         self.assertIn("Cannot resolve", str(ctx.exception))
 
-    @patch("shadow_cli.runtime_provider.resolve_runtime_provider")
+    @patch("yousef shtiwe_cli.runtime_provider.resolve_runtime_provider")
     def test_provider_resolves_but_no_api_key_raises(self, mock_resolve):
         """When provider resolves but has no API key, ValueError is raised."""
         mock_resolve.return_value = {
@@ -748,7 +748,7 @@ class TestDelegationProviderIntegration(unittest.TestCase):
     @patch("tools.delegate_tool._load_config")
     @patch("tools.delegate_tool._resolve_delegation_credentials")
     def test_cross_provider_delegation(self, mock_creds, mock_cfg):
-        """Parent on Shadow, subagent on OpenRouter — full credential switch."""
+        """Parent on Yousef Shtiwe, subagent on OpenRouter — full credential switch."""
         mock_cfg.return_value = {
             "max_iterations": 45,
             "model": "google/gemini-3-flash-preview",
@@ -762,9 +762,9 @@ class TestDelegationProviderIntegration(unittest.TestCase):
             "api_mode": "chat_completions",
         }
         parent = _make_mock_parent(depth=0)
-        parent.provider = "shadow"
-        parent.base_url = "https://inference-api.shadow-overlord.com/v1"
-        parent.api_key = "shadow-key-abc"
+        parent.provider = "yousef shtiwe"
+        parent.base_url = "https://inference-api.yousef shtiwe-overlord.com/v1"
+        parent.api_key = "yousef shtiwe-key-abc"
 
         with patch("run_agent.AIAgent") as MockAgent:
             mock_child = MagicMock()
@@ -776,7 +776,7 @@ class TestDelegationProviderIntegration(unittest.TestCase):
             delegate_task(goal="Cross-provider test", parent_agent=parent)
 
             _, kwargs = MockAgent.call_args
-            # Child should use OpenRouter, NOT Shadow
+            # Child should use OpenRouter, NOT Yousef Shtiwe
             self.assertEqual(kwargs["provider"], "openrouter")
             self.assertEqual(kwargs["base_url"], "https://openrouter.ai/api/v1")
             self.assertEqual(kwargs["api_key"], "sk-or-key")

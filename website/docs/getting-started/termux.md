@@ -1,19 +1,19 @@
 ---
 sidebar_position: 3
 title: "Android / Termux"
-description: "Run SHADOW Agent directly on an Android phone with Termux"
+description: "Run YOUSEF SHTIWE Agent directly on an Android phone with Termux"
 ---
 
-# SHADOW on Android with Termux
+# YOUSEF SHTIWE on Android with Termux
 
-This is the tested path for running SHADOW Agent directly on an Android phone through [Termux](https://termux.dev/).
+This is the tested path for running YOUSEF SHTIWE Agent directly on an Android phone through [Termux](https://termux.dev/).
 
 It gives you a working local CLI on the phone, plus the core extras that are currently known to install cleanly on Android.
 
 ## What is supported in the tested path?
 
 The tested Termux bundle installs:
-- the SHADOW CLI
+- the YOUSEF SHTIWE CLI
 - cron support
 - PTY/background terminal support
 - MCP support
@@ -35,23 +35,23 @@ A few features still need desktop/server-style dependencies that are not publish
 - automatic browser / Playwright bootstrap is skipped in the Termux installer
 - Docker-based terminal isolation is not available inside Termux
 
-That does not stop SHADOW from working well as a phone-native CLI agent — it just means the recommended mobile install is intentionally narrower than the desktop/server install.
+That does not stop YOUSEF SHTIWE from working well as a phone-native CLI agent — it just means the recommended mobile install is intentionally narrower than the desktop/server install.
 
 ---
 
 ## Option 1: One-line installer
 
-SHADOW now ships a Termux-aware installer path:
+YOUSEF SHTIWE now ships a Termux-aware installer path:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.sh | bash
 ```
 
 On Termux, the installer automatically:
 - uses `pkg` for system packages
 - creates the venv with `python -m venv`
 - installs `.[termux]` with `pip`
-- links `shadow` into `$PREFIX/bin` so it stays on your Termux PATH
+- links `yousef shtiwe` into `$PREFIX/bin` so it stays on your Termux PATH
 - skips the untested browser / WhatsApp bootstrap
 
 If you want the explicit commands or need to debug a failed install, use the manual path below.
@@ -75,11 +75,11 @@ Why these packages?
 - `ripgrep` — fast file search
 - `ffmpeg` — media / TTS conversions
 
-### 2. Clone SHADOW
+### 2. Clone YOUSEF SHTIWE
 
 ```bash
-git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone --recurse-submodules https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 ```
 
 If you already cloned without submodules:
@@ -111,25 +111,25 @@ If you only want the minimal core agent, this also works:
 python -m pip install -e '.' -c constraints-termux.txt
 ```
 
-### 5. Put `shadow` on your Termux PATH
+### 5. Put `yousef shtiwe` on your Termux PATH
 
 ```bash
-ln -sf "$PWD/venv/bin/shadow" "$PREFIX/bin/shadow"
+ln -sf "$PWD/venv/bin/yousef shtiwe" "$PREFIX/bin/yousef shtiwe"
 ```
 
-`$PREFIX/bin` is already on PATH in Termux, so this makes the `shadow` command persist across new shells without re-activating the venv every time.
+`$PREFIX/bin` is already on PATH in Termux, so this makes the `yousef shtiwe` command persist across new shells without re-activating the venv every time.
 
 ### 6. Verify the install
 
 ```bash
-shadow version
-shadow doctor
+yousef shtiwe version
+yousef shtiwe doctor
 ```
 
-### 7. Start SHADOW
+### 7. Start YOUSEF SHTIWE
 
 ```bash
-shadow
+yousef shtiwe
 ```
 
 ---
@@ -139,15 +139,15 @@ shadow
 ### Configure a model
 
 ```bash
-shadow model
+yousef shtiwe model
 ```
 
-Or set keys directly in `~/.shadow/.env`.
+Or set keys directly in `~/.yousef shtiwe/.env`.
 
 ### Re-run the full interactive setup wizard later
 
 ```bash
-shadow setup
+yousef shtiwe setup
 ```
 
 ### Install optional Node dependencies manually
@@ -198,7 +198,7 @@ export ANDROID_API_LEVEL="$(getprop ro.build.version.sdk)"
 python -m pip install -e '.[termux]' -c constraints-termux.txt
 ```
 
-### `shadow doctor` says ripgrep or Node is missing
+### `yousef shtiwe doctor` says ripgrep or Node is missing
 
 Install them with Termux packages:
 
@@ -233,5 +233,5 @@ If you hit a new Android-specific issue, please open a GitHub issue with:
 - your Android version
 - `termux-info`
 - `python --version`
-- `shadow doctor`
+- `yousef shtiwe doctor`
 - the exact install command and full error output

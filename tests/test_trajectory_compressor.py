@@ -17,18 +17,18 @@ from trajectory_compressor import (
 )
 
 
-def test_import_loads_env_from_shadow_home(tmp_path, monkeypatch):
-    home = tmp_path / ".shadow"
+def test_import_loads_env_from_yousef shtiwe_home(tmp_path, monkeypatch):
+    home = tmp_path / ".yousef shtiwe"
     home.mkdir()
-    (home / ".env").write_text("OPENROUTER_API_KEY=from-shadow-home\n", encoding="utf-8")
+    (home / ".env").write_text("OPENROUTER_API_KEY=from-yousef shtiwe-home\n", encoding="utf-8")
 
-    monkeypatch.setenv("SHADOW_HOME", str(home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(home))
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
 
     sys.modules.pop("trajectory_compressor", None)
     importlib.import_module("trajectory_compressor")
 
-    assert os.getenv("OPENROUTER_API_KEY") == "from-shadow-home"
+    assert os.getenv("OPENROUTER_API_KEY") == "from-yousef shtiwe-home"
 
 
 # ---------------------------------------------------------------------------

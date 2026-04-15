@@ -1,7 +1,7 @@
-"""Built-in boot-md hook — run ~/.shadow/BOOT.md on gateway startup.
+"""Built-in boot-md hook — run ~/.yousef shtiwe/BOOT.md on gateway startup.
 
 This hook is always registered. It silently skips if no BOOT.md exists.
-To activate, create ``~/.shadow/BOOT.md`` with instructions for the
+To activate, create ``~/.yousef shtiwe/BOOT.md`` with instructions for the
 agent to execute on every gateway restart.
 
 Example BOOT.md::
@@ -22,9 +22,9 @@ import threading
 
 logger = logging.getLogger("hooks.boot-md")
 
-from shadow_constants import get_shadow_home
-SHADOW_HOME = get_shadow_home()
-BOOT_FILE = SHADOW_HOME / "BOOT.md"
+from yousef shtiwe_constants import get_yousef shtiwe_home
+YOUSEF SHTIWE_HOME = get_yousef shtiwe_home()
+BOOT_FILE = YOUSEF SHTIWE_HOME / "BOOT.md"
 
 
 def _build_boot_prompt(content: str) -> str:

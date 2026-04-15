@@ -1,6 +1,6 @@
 """Auto-generate short session titles from the first user/assistant exchange.
 
-Runs asynchroshadowly after the first response is delivered so it never
+Runs asynchroyousef shtiwely after the first response is delivered so it never
 adds latency to the user-facing reply.
 """
 

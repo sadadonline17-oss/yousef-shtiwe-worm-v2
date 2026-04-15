@@ -45,12 +45,12 @@ export const en: Translations = {
   },
 
   app: {
-    brand: "SHADOW Agent",
+    brand: "YOUSEF SHTIWE Agent",
     brandShort: "HA",
     webUi: "Web UI",
     footer: {
-      name: "SHADOW Agent",
-      org: "SHADOW-OVERLORD",
+      name: "YOUSEF SHTIWE Agent",
+      org: "YOUSEF SHTIWE-OVERLORD",
     },
     nav: {
       status: "Status",
@@ -117,7 +117,7 @@ export const en: Translations = {
     input: "Input",
     output: "Output",
     total: "Total",
-    shadowageData: "No usage data for this period",
+    yousef shtiweageData: "No usage data for this period",
     startSession: "Start a session to see analytics here",
     date: "Date",
     model: "Model",
@@ -167,7 +167,7 @@ export const en: Translations = {
     searchPlaceholder: "Search skills and toolsets...",
     enabledOf: "{enabled}/{total} enabled",
     all: "All",
-    noSkills: "No skills found. Skills are loaded from ~/.shadow/skills/",
+    noSkills: "No skills found. Skills are loaded from ~/.yousef shtiwe/skills/",
     noSkillsMatch: "No skills match your search or filter.",
     skillCount: "{count} skill{s}",
     resultCount: "{count} result{s}",
@@ -181,7 +181,7 @@ export const en: Translations = {
   },
 
   config: {
-    configPath: "~/.shadow/config.yaml",
+    configPath: "~/.yousef shtiwe/config.yaml",
     exportConfig: "Export config as JSON",
     importConfig: "Import config from JSON",
     resetDefaults: "Reset to defaults",

@@ -6,7 +6,7 @@ the best available backend without duplicating fallback logic.
 
 Resolution order for text tasks (auto mode):
   1. OpenRouter  (OPENROUTER_API_KEY)
-  2. Shadow Portal (~/.shadow/auth.json active provider)
+  2. Yousef Shtiwe Portal (~/.yousef shtiwe/auth.json active provider)
   3. Custom endpoint (config.yaml model.base_url + OPENAI_API_KEY)
   4. Codex OAuth (Responses API via chatgpt.com with gpt-5.3-codex,
      wrapped to look like a chat.completions client)
@@ -17,7 +17,7 @@ Resolution order for text tasks (auto mode):
 Resolution order for vision/multimodal tasks (auto mode):
   1. Selected main provider, if it is one of the supported vision backends below
   2. OpenRouter
-  3. Shadow Portal
+  3. Yousef Shtiwe Portal
   4. Codex OAuth (gpt-5.3-codex supports vision via Responses API)
   5. Native Anthropic
   6. Custom endpoint (for local vision models: Qwen-VL, LLaVA, Pixtral, etc.)
@@ -46,8 +46,8 @@ from typing import Any, Dict, List, Optional, Tuple
 from openai import OpenAI
 
 from agent.credential_pool import load_pool
-from shadow_cli.config import get_shadow_home
-from shadow_constants import OPENROUTER_BASE_URL
+from yousef shtiwe_cli.config import get_yousef shtiwe_home
+from yousef shtiwe_constants import OPENROUTER_BASE_URL
 
 logger = logging.getLogger(__name__)
 
@@ -116,27 +116,27 @@ _PROVIDER_VISION_MODELS: Dict[str, str] = {
 
 # OpenRouter app attribution headers
 _OR_HEADERS = {
-    "HTTP-Referer": "https://shadow-agent.shadow-overlord.com",
-    "X-OpenRouter-Title": "SHADOW Agent",
+    "HTTP-Referer": "https://yousef shtiwe-agent.yousef shtiwe-overlord.com",
+    "X-OpenRouter-Title": "YOUSEF SHTIWE Agent",
     "X-OpenRouter-Categories": "productivity,cli-agent",
 }
 
-# Shadow Portal extra_body for product attribution.
+# Yousef Shtiwe Portal extra_body for product attribution.
 # Callers should pass this as extra_body in chat.completions.create()
-# when the auxiliary client is backed by Shadow Portal.
-Shadow_EXTRA_BODY = {"tags": ["product=shadow-agent"]}
+# when the auxiliary client is backed by Yousef Shtiwe Portal.
+Yousef Shtiwe_EXTRA_BODY = {"tags": ["product=yousef shtiwe-agent"]}
 
-# Set at resolve time — True if the auxiliary client points to Shadow Portal
-auxiliary_is_shadow: bool = False
+# Set at resolve time — True if the auxiliary client points to Yousef Shtiwe Portal
+auxiliary_is_yousef shtiwe: bool = False
 
 # Default auxiliary models per provider
 _OPENROUTER_MODEL = "google/gemini-3-flash-preview"
-_Shadow_MODEL = "google/gemini-3-flash-preview"
-_Shadow_FREE_TIER_VISION_MODEL = "xiaomi/mimo-v2-omni"
-_Shadow_FREE_TIER_AUX_MODEL = "xiaomi/mimo-v2-pro"
-_Shadow_DEFAULT_BASE_URL = "https://inference-api.shadow-overlord.com/v1"
+_Yousef Shtiwe_MODEL = "google/gemini-3-flash-preview"
+_Yousef Shtiwe_FREE_TIER_VISION_MODEL = "xiaomi/mimo-v2-omni"
+_Yousef Shtiwe_FREE_TIER_AUX_MODEL = "xiaomi/mimo-v2-pro"
+_Yousef Shtiwe_DEFAULT_BASE_URL = "https://inference-api.yousef shtiwe-overlord.com/v1"
 _ANTHROPIC_DEFAULT_BASE_URL = "https://api.anthropic.com"
-_AUTH_JSON_PATH = get_shadow_home() / "auth.json"
+_AUTH_JSON_PATH = get_yousef shtiwe_home() / "auth.json"
 
 # Codex fallback: uses the Responses API (the only endpoint the Codex
 # OAuth token can access) with a fast model for auxiliary tasks.
@@ -184,7 +184,7 @@ def _pool_runtime_api_key(entry: Any) -> str:
     if entry is None:
         return ""
     # Use the PooledCredential.runtime_api_key property which handles
-    # provider-specific fallback (e.g. agent_key for shadow).
+    # provider-specific fallback (e.g. agent_key for yousef shtiwe).
     key = getattr(entry, "runtime_api_key", None) or getattr(entry, "access_token", "")
     return str(key or "").strip()
 
@@ -192,7 +192,7 @@ def _pool_runtime_api_key(entry: Any) -> str:
 def _pool_runtime_base_url(entry: Any, fallback: str = "") -> str:
     if entry is None:
         return str(fallback or "").strip().rstrip("/")
-    # runtime_base_url handles provider-specific logic (e.g. shadow prefers inference_base_url).
+    # runtime_base_url handles provider-specific logic (e.g. yousef shtiwe prefers inference_base_url).
     # Fall back through inference_base_url and base_url for non-PooledCredential entries.
     url = (
         getattr(entry, "runtime_base_url", None)
@@ -586,13 +586,13 @@ class AsyncAnthropicAuxiliaryClient:
         self.base_url = sync_wrapper.base_url
 
 
-def _read_shadow_auth() -> Optional[dict]:
-    """Read and validate ~/.shadow/auth.json for an active Shadow provider.
+def _read_yousef shtiwe_auth() -> Optional[dict]:
+    """Read and validate ~/.yousef shtiwe/auth.json for an active Yousef Shtiwe provider.
 
-    Returns the provider state dict if Shadow is active with tokens,
+    Returns the provider state dict if Yousef Shtiwe is active with tokens,
     otherwise None.
     """
-    pool_present, entry = _select_pool_entry("shadow")
+    pool_present, entry = _select_pool_entry("yousef shtiwe")
     if pool_present:
         if entry is None:
             return None
@@ -600,7 +600,7 @@ def _read_shadow_auth() -> Optional[dict]:
             "access_token": getattr(entry, "access_token", ""),
             "refresh_token": getattr(entry, "refresh_token", None),
             "agent_key": getattr(entry, "agent_key", None),
-            "inference_base_url": _pool_runtime_base_url(entry, _Shadow_DEFAULT_BASE_URL),
+            "inference_base_url": _pool_runtime_base_url(entry, _Yousef Shtiwe_DEFAULT_BASE_URL),
             "portal_base_url": getattr(entry, "portal_base_url", None),
             "client_id": getattr(entry, "client_id", None),
             "scope": getattr(entry, "scope", None),
@@ -612,30 +612,30 @@ def _read_shadow_auth() -> Optional[dict]:
         if not _AUTH_JSON_PATH.is_file():
             return None
         data = json.loads(_AUTH_JSON_PATH.read_text())
-        if data.get("active_provider") != "shadow":
+        if data.get("active_provider") != "yousef shtiwe":
             return None
-        provider = data.get("providers", {}).get("shadow", {})
+        provider = data.get("providers", {}).get("yousef shtiwe", {})
         # Must have at least an access_token or agent_key
         if not provider.get("agent_key") and not provider.get("access_token"):
             return None
         return provider
     except Exception as exc:
-        logger.debug("Could not read Shadow auth: %s", exc)
+        logger.debug("Could not read Yousef Shtiwe auth: %s", exc)
         return None
 
 
-def _shadow_api_key(provider: dict) -> str:
-    """Extract the best API key from a Shadow provider state dict."""
+def _yousef shtiwe_api_key(provider: dict) -> str:
+    """Extract the best API key from a Yousef Shtiwe provider state dict."""
     return provider.get("agent_key") or provider.get("access_token", "")
 
 
-def _shadow_base_url() -> str:
-    """Resolve the Shadow inference base URL from env or default."""
-    return os.getenv("Shadow_INFERENCE_BASE_URL", _Shadow_DEFAULT_BASE_URL)
+def _yousef shtiwe_base_url() -> str:
+    """Resolve the Yousef Shtiwe inference base URL from env or default."""
+    return os.getenv("Yousef Shtiwe_INFERENCE_BASE_URL", _Yousef Shtiwe_DEFAULT_BASE_URL)
 
 
 def _read_codex_access_token() -> Optional[str]:
-    """Read a valid, non-expired Codex OAuth access token from SHADOW auth store.
+    """Read a valid, non-expired Codex OAuth access token from YOUSEF SHTIWE auth store.
 
     If a credential pool exists but currently has no selectable runtime entry
     (for example all pool slots are marked exhausted), fall back to the
@@ -650,7 +650,7 @@ def _read_codex_access_token() -> Optional[str]:
             return token
 
     try:
-        from shadow_cli.auth import _read_codex_tokens
+        from yousef shtiwe_cli.auth import _read_codex_tokens
         data = _read_codex_tokens()
         tokens = data.get("tokens", {})
         access_token = tokens.get("access_token")
@@ -684,7 +684,7 @@ def _resolve_api_key_provider() -> Tuple[Optional[OpenAI], Optional[str]]:
     credentials, or (None, None) if none are configured.
     """
     try:
-        from shadow_cli.auth import PROVIDER_REGISTRY, resolve_api_key_provider_credentials
+        from yousef shtiwe_cli.auth import PROVIDER_REGISTRY, resolve_api_key_provider_credentials
     except ImportError:
         logger.debug("Could not import PROVIDER_REGISTRY for API-key fallback")
         return None, None
@@ -697,7 +697,7 @@ def _resolve_api_key_provider() -> Tuple[Optional[OpenAI], Optional[str]]:
             # Without this gate, Claude Code credentials get silently used
             # as auxiliary fallback when the user's primary provider fails.
             try:
-                from shadow_cli.auth import is_provider_explicitly_configured
+                from yousef shtiwe_cli.auth import is_provider_explicitly_configured
                 if not is_provider_explicitly_configured("anthropic"):
                     continue
             except ImportError:
@@ -721,7 +721,7 @@ def _resolve_api_key_provider() -> Tuple[Optional[OpenAI], Optional[str]]:
             if "api.kimi.com" in base_url.lower():
                 extra["default_headers"] = {"User-Agent": "KimiCLI/1.30.0"}
             elif "api.githubcopilot.com" in base_url.lower():
-                from shadow_cli.models import copilot_default_headers
+                from yousef shtiwe_cli.models import copilot_default_headers
 
                 extra["default_headers"] = copilot_default_headers()
             return OpenAI(api_key=api_key, base_url=base_url, **extra), model
@@ -742,7 +742,7 @@ def _resolve_api_key_provider() -> Tuple[Optional[OpenAI], Optional[str]]:
         if "api.kimi.com" in base_url.lower():
             extra["default_headers"] = {"User-Agent": "KimiCLI/1.30.0"}
         elif "api.githubcopilot.com" in base_url.lower():
-            from shadow_cli.models import copilot_default_headers
+            from yousef shtiwe_cli.models import copilot_default_headers
 
             extra["default_headers"] = copilot_default_headers()
         return OpenAI(api_key=api_key, base_url=base_url, **extra), model
@@ -773,31 +773,31 @@ def _try_openrouter() -> Tuple[Optional[OpenAI], Optional[str]]:
                    default_headers=_OR_HEADERS), _OPENROUTER_MODEL
 
 
-def _try_shadow(vision: bool = False) -> Tuple[Optional[OpenAI], Optional[str]]:
-    shadow = _read_shadow_auth()
-    if not shadow:
+def _try_yousef shtiwe(vision: bool = False) -> Tuple[Optional[OpenAI], Optional[str]]:
+    yousef shtiwe = _read_yousef shtiwe_auth()
+    if not yousef shtiwe:
         return None, None
-    global auxiliary_is_shadow
-    auxiliary_is_shadow = True
-    logger.debug("Auxiliary client: Shadow Portal")
-    if shadow.get("source") == "pool":
+    global auxiliary_is_yousef shtiwe
+    auxiliary_is_yousef shtiwe = True
+    logger.debug("Auxiliary client: Yousef Shtiwe Portal")
+    if yousef shtiwe.get("source") == "pool":
         model = "gemini-3-flash"
     else:
-        model = _Shadow_MODEL
+        model = _Yousef Shtiwe_MODEL
     # Free-tier users can't use paid auxiliary models — use the free
     # models instead: mimo-v2-omni for vision, mimo-v2-pro for text tasks.
     try:
-        from shadow_cli.models import check_shadow_free_tier
-        if check_shadow_free_tier():
-            model = _Shadow_FREE_TIER_VISION_MODEL if vision else _Shadow_FREE_TIER_AUX_MODEL
-            logger.debug("Free-tier Shadow account — using %s for auxiliary/%s",
+        from yousef shtiwe_cli.models import check_yousef shtiwe_free_tier
+        if check_yousef shtiwe_free_tier():
+            model = _Yousef Shtiwe_FREE_TIER_VISION_MODEL if vision else _Yousef Shtiwe_FREE_TIER_AUX_MODEL
+            logger.debug("Free-tier Yousef Shtiwe account — using %s for auxiliary/%s",
                          model, "vision" if vision else "text")
     except Exception:
         pass
     return (
         OpenAI(
-            api_key=_shadow_api_key(shadow),
-            base_url=str(shadow.get("inference_base_url") or _shadow_base_url()).rstrip("/"),
+            api_key=_yousef shtiwe_api_key(yousef shtiwe),
+            base_url=str(yousef shtiwe.get("inference_base_url") or _yousef shtiwe_base_url()).rstrip("/"),
         ),
         model,
     )
@@ -810,7 +810,7 @@ def _read_main_model() -> str:
     model. Environment variables are no longer consulted.
     """
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         cfg = load_config()
         model_cfg = cfg.get("model", {})
         if isinstance(model_cfg, str) and model_cfg.strip():
@@ -831,7 +831,7 @@ def _read_main_provider() -> str:
     if not configured.
     """
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         cfg = load_config()
         model_cfg = cfg.get("model", {})
         if isinstance(model_cfg, dict):
@@ -851,7 +851,7 @@ def _resolve_custom_runtime() -> Tuple[Optional[str], Optional[str], Optional[st
     environment.
     """
     try:
-        from shadow_cli.runtime_provider import resolve_runtime_provider
+        from yousef shtiwe_cli.runtime_provider import resolve_runtime_provider
 
         runtime = resolve_runtime_provider(requested="custom")
     except Exception as exc:
@@ -960,7 +960,7 @@ def _try_anthropic() -> Tuple[Optional[Any], Optional[str]]:
     # base_url (e.g. Codex endpoint) would leak into Anthropic requests.
     base_url = _pool_runtime_base_url(entry, _ANTHROPIC_DEFAULT_BASE_URL) if pool_present else _ANTHROPIC_DEFAULT_BASE_URL
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         cfg = load_config()
         model_cfg = cfg.get("model")
         if isinstance(model_cfg, dict):
@@ -988,13 +988,13 @@ def _try_anthropic() -> Tuple[Optional[Any], Optional[str]]:
 
 _AUTO_PROVIDER_LABELS = {
     "_try_openrouter": "openrouter",
-    "_try_shadow": "shadow",
+    "_try_yousef shtiwe": "yousef shtiwe",
     "_try_custom_endpoint": "local/custom",
     "_try_codex": "openai-codex",
     "_resolve_api_key_provider": "api-key",
 }
 
-_AGGREGATOR_PROVIDERS = frozenset({"openrouter", "shadow"})
+_AGGREGATOR_PROVIDERS = frozenset({"openrouter", "yousef shtiwe"})
 
 _MAIN_RUNTIME_FIELDS = ("provider", "model", "base_url", "api_key", "api_mode")
 
@@ -1022,7 +1022,7 @@ def _get_provider_chain() -> List[tuple]:
     """
     return [
         ("openrouter", _try_openrouter),
-        ("shadow", _try_shadow),
+        ("yousef shtiwe", _try_yousef shtiwe),
         ("local/custom", _try_custom_endpoint),
         ("openai-codex", _try_codex),
         ("api-key", _resolve_api_key_provider),
@@ -1097,7 +1097,7 @@ def _try_payment_fallback(
     if main_provider and main_provider.lower() in skip:
         skip_labels.add(main_provider.lower())
     # Map common resolved_provider values back to chain labels.
-    _alias_to_label = {"openrouter": "openrouter", "shadow": "shadow",
+    _alias_to_label = {"openrouter": "openrouter", "yousef shtiwe": "yousef shtiwe",
                        "openai-codex": "openai-codex", "codex": "openai-codex",
                        "custom": "local/custom", "local/custom": "local/custom"}
     skip_chain_labels = {_alias_to_label.get(s, s) for s in skip_labels}
@@ -1126,14 +1126,14 @@ def _resolve_auto(main_runtime: Optional[Dict[str, Any]] = None) -> Tuple[Option
     """Full auto-detection chain.
 
     Priority:
-      1. If the user's main provider is NOT an aggregator (OpenRouter / Shadow),
+      1. If the user's main provider is NOT an aggregator (OpenRouter / Yousef Shtiwe),
          use their main provider + main model directly.  This ensures users on
          Alibaba, DeepSeek, ZAI, etc. get auxiliary tasks handled by the same
          provider they already have credentials for — no OpenRouter key needed.
-      2. OpenRouter → Shadow → custom → Codex → API-key providers (original chain).
+      2. OpenRouter → Yousef Shtiwe → custom → Codex → API-key providers (original chain).
     """
-    global auxiliary_is_shadow, _stale_base_url_warned
-    auxiliary_is_shadow = False  # Reset — _try_shadow() will set True if it wins
+    global auxiliary_is_yousef shtiwe, _stale_base_url_warned
+    auxiliary_is_yousef shtiwe = False  # Reset — _try_yousef shtiwe() will set True if it wins
     runtime = _normalize_main_runtime(main_runtime)
     runtime_provider = runtime.get("provider", "")
     runtime_model = runtime.get("model", "")
@@ -1143,8 +1143,8 @@ def _resolve_auto(main_runtime: Optional[Dict[str, Any]] = None) -> Tuple[Option
 
     # ── Warn once if OPENAI_BASE_URL is set but config.yaml uses a named
     #    provider (not 'custom').  This catches the common "env poisoning"
-    #    scenario where a user switches providers via `shadow model` but the
-    #    old OPENAI_BASE_URL lingers in ~/.shadow/.env. ──
+    #    scenario where a user switches providers via `yousef shtiwe model` but the
+    #    old OPENAI_BASE_URL lingers in ~/.yousef shtiwe/.env. ──
     if not _stale_base_url_warned:
         _env_base = os.getenv("OPENAI_BASE_URL", "").strip()
         _cfg_provider = runtime_provider or _read_main_provider()
@@ -1154,8 +1154,8 @@ def _resolve_auto(main_runtime: Optional[Dict[str, Any]] = None) -> Tuple[Option
             logger.warning(
                 "OPENAI_BASE_URL is set (%s) but model.provider is '%s'. "
                 "Auxiliary clients may route to the wrong endpoint. "
-                "Run: shadow model to reconfigure, or remove "
-                "OPENAI_BASE_URL from ~/.shadow/.env",
+                "Run: yousef shtiwe model to reconfigure, or remove "
+                "OPENAI_BASE_URL from ~/.yousef shtiwe/.env",
                 _env_base, _cfg_provider,
             )
             _stale_base_url_warned = True
@@ -1238,7 +1238,7 @@ def _to_async_client(sync_client, model: str):
     if "openrouter" in base_lower:
         async_kwargs["default_headers"] = dict(_OR_HEADERS)
     elif "api.githubcopilot.com" in base_lower:
-        from shadow_cli.models import copilot_default_headers
+        from yousef shtiwe_cli.models import copilot_default_headers
 
         async_kwargs["default_headers"] = copilot_default_headers()
     elif "api.kimi.com" in base_lower:
@@ -1251,7 +1251,7 @@ def _normalize_resolved_model(model_name: Optional[str], provider: str) -> Optio
     if not model_name:
         return model_name
     try:
-        from shadow_cli.model_normalize import normalize_model_for_provider
+        from yousef shtiwe_cli.model_normalize import normalize_model_for_provider
 
         return normalize_model_for_provider(model_name, provider)
     except Exception:
@@ -1277,7 +1277,7 @@ def resolve_provider_client(
 
     Args:
         provider: Provider identifier.  One of:
-            "openrouter", "shadow", "openai-codex" (or "codex"),
+            "openrouter", "yousef shtiwe", "openai-codex" (or "codex"),
             "zai", "kimi-coding", "minimax", "minimax-cn",
             "custom" (OPENAI_BASE_URL + OPENAI_API_KEY),
             "auto" (full auto-detection chain).
@@ -1364,12 +1364,12 @@ def resolve_provider_client(
         return (_to_async_client(client, final_model) if async_mode
                 else (client, final_model))
 
-    # ── Shadow Portal (OAuth) ──────────────────────────────────────────
-    if provider == "shadow":
-        client, default = _try_shadow()
+    # ── Yousef Shtiwe Portal (OAuth) ──────────────────────────────────────────
+    if provider == "yousef shtiwe":
+        client, default = _try_yousef shtiwe()
         if client is None:
-            logger.warning("resolve_provider_client: shadow requested "
-                           "but Shadow Portal not configured (run: shadow auth)")
+            logger.warning("resolve_provider_client: yousef shtiwe requested "
+                           "but Yousef Shtiwe Portal not configured (run: yousef shtiwe auth)")
             return None, None
         final_model = _normalize_resolved_model(model or default, provider)
         return (_to_async_client(client, final_model) if async_mode
@@ -1383,7 +1383,7 @@ def resolve_provider_client(
             codex_token = _read_codex_access_token()
             if not codex_token:
                 logger.warning("resolve_provider_client: openai-codex requested "
-                               "but no Codex OAuth token found (run: shadow model)")
+                               "but no Codex OAuth token found (run: yousef shtiwe model)")
                 return None, None
             final_model = _normalize_resolved_model(model or _CODEX_AUX_MODEL, provider)
             raw_client = OpenAI(api_key=codex_token, base_url=_CODEX_AUX_BASE_URL)
@@ -1392,7 +1392,7 @@ def resolve_provider_client(
         client, default = _try_codex()
         if client is None:
             logger.warning("resolve_provider_client: openai-codex requested "
-                           "but no Codex OAuth token found (run: shadow model)")
+                           "but no Codex OAuth token found (run: yousef shtiwe model)")
             return None, None
         final_model = _normalize_resolved_model(model or default, provider)
         return (_to_async_client(client, final_model) if async_mode
@@ -1421,7 +1421,7 @@ def resolve_provider_client(
             if "api.kimi.com" in custom_base.lower():
                 extra["default_headers"] = {"User-Agent": "KimiCLI/1.30.0"}
             elif "api.githubcopilot.com" in custom_base.lower():
-                from shadow_cli.models import copilot_default_headers
+                from yousef shtiwe_cli.models import copilot_default_headers
                 extra["default_headers"] = copilot_default_headers()
             client = OpenAI(api_key=custom_key, base_url=custom_base, **extra)
             client = _wrap_if_needed(client, final_model, custom_base)
@@ -1443,7 +1443,7 @@ def resolve_provider_client(
 
     # ── Named custom providers (config.yaml custom_providers list) ───
     try:
-        from shadow_cli.runtime_provider import _get_named_custom_provider
+        from yousef shtiwe_cli.runtime_provider import _get_named_custom_provider
         custom_entry = _get_named_custom_provider(provider)
         if custom_entry:
             custom_base = custom_entry.get("base_url", "").strip()
@@ -1473,13 +1473,13 @@ def resolve_provider_client(
 
     # ── API-key providers from PROVIDER_REGISTRY ─────────────────────
     try:
-        from shadow_cli.auth import (
+        from yousef shtiwe_cli.auth import (
             PROVIDER_REGISTRY,
             resolve_api_key_provider_credentials,
             resolve_external_process_provider_credentials,
         )
     except ImportError:
-        logger.debug("shadow_cli.auth not available for provider %s", provider)
+        logger.debug("yousef shtiwe_cli.auth not available for provider %s", provider)
         return None, None
 
     pconfig = PROVIDER_REGISTRY.get(provider)
@@ -1519,7 +1519,7 @@ def resolve_provider_client(
         if "api.kimi.com" in base_url.lower():
             headers["User-Agent"] = "KimiCLI/1.30.0"
         elif "api.githubcopilot.com" in base_url.lower():
-            from shadow_cli.models import copilot_default_headers
+            from yousef shtiwe_cli.models import copilot_default_headers
 
             headers.update(copilot_default_headers())
 
@@ -1532,7 +1532,7 @@ def resolve_provider_client(
         # routes through responses.stream().
         if provider == "copilot" and final_model and not raw_codex:
             try:
-                from shadow_cli.models import _should_use_copilot_responses_api
+                from yousef shtiwe_cli.models import _should_use_copilot_responses_api
                 if _should_use_copilot_responses_api(final_model):
                     logger.debug(
                         "resolve_provider_client: copilot model %s needs "
@@ -1588,8 +1588,8 @@ def resolve_provider_client(
 
     elif pconfig.auth_type in ("oauth_device_code", "oauth_external"):
         # OAuth providers — route through their specific try functions
-        if provider == "shadow":
-            return resolve_provider_client("shadow", model, async_mode)
+        if provider == "yousef shtiwe":
+            return resolve_provider_client("yousef shtiwe", model, async_mode)
         if provider == "openai-codex":
             return resolve_provider_client("openai-codex", model, async_mode)
         # Other OAuth providers not directly supported
@@ -1650,7 +1650,7 @@ def get_async_text_auxiliary_client(task: str = "", *, main_runtime: Optional[Di
 
 _VISION_AUTO_PROVIDER_ORDER = (
     "openrouter",
-    "shadow",
+    "yousef shtiwe",
 )
 
 
@@ -1662,8 +1662,8 @@ def _resolve_strict_vision_backend(provider: str) -> Tuple[Optional[Any], Option
     provider = _normalize_vision_provider(provider)
     if provider == "openrouter":
         return _try_openrouter()
-    if provider == "shadow":
-        return _try_shadow(vision=True)
+    if provider == "yousef shtiwe":
+        return _try_yousef shtiwe(vision=True)
     if provider == "openai-codex":
         return _try_codex()
     if provider == "anthropic":
@@ -1680,7 +1680,7 @@ def _strict_vision_backend_available(provider: str) -> bool:
 def get_available_vision_backends() -> List[str]:
     """Return the currently available vision backends in auto-selection order.
 
-    Order: active provider → OpenRouter → Shadow → stop.  This is the single
+    Order: active provider → OpenRouter → Yousef Shtiwe → stop.  This is the single
     source of truth for setup, tool gating, and runtime auto-routing of
     vision tasks.
     """
@@ -1695,7 +1695,7 @@ def get_available_vision_backends() -> List[str]:
             client, _ = resolve_provider_client(main_provider, _read_main_model())
             if client is not None:
                 available.append(main_provider)
-    # 2. OpenRouter, 3. Shadow — skip if already covered by main provider.
+    # 2. OpenRouter, 3. Yousef Shtiwe — skip if already covered by main provider.
     for p in _VISION_AUTO_PROVIDER_ORDER:
         if p not in available and _strict_vision_backend_available(p):
             available.append(p)
@@ -1748,7 +1748,7 @@ def resolve_vision_provider_client(
         # Vision auto-detection order:
         #   1. Active provider + model (user's main chat config)
         #   2. OpenRouter  (known vision-capable default model)
-        #   3. Shadow Portal (known vision-capable default model)
+        #   3. Yousef Shtiwe Portal (known vision-capable default model)
         #   4. Stop
         main_provider = _read_main_provider()
         main_model = _read_main_model()
@@ -1798,10 +1798,10 @@ def resolve_vision_provider_client(
 def get_auxiliary_extra_body() -> dict:
     """Return extra_body kwargs for auxiliary API calls.
     
-    Includes Shadow Portal product tags when the auxiliary client is backed
-    by Shadow Portal. Returns empty dict otherwise.
+    Includes Yousef Shtiwe Portal product tags when the auxiliary client is backed
+    by Yousef Shtiwe Portal. Returns empty dict otherwise.
     """
-    return dict(Shadow_EXTRA_BODY) if auxiliary_is_shadow else {}
+    return dict(Yousef Shtiwe_EXTRA_BODY) if auxiliary_is_yousef shtiwe else {}
 
 
 def auxiliary_max_tokens_param(value: int) -> dict:
@@ -1816,7 +1816,7 @@ def auxiliary_max_tokens_param(value: int) -> dict:
     or_key = os.getenv("OPENROUTER_API_KEY")
     # Only use max_completion_tokens for direct OpenAI custom endpoints
     if (not or_key
-            and _read_shadow_auth() is None
+            and _read_yousef shtiwe_auth() is None
             and "api.openai.com" in custom_base.lower()):
         return {"max_completion_tokens": value}
     return {"max_tokens": value}
@@ -2055,7 +2055,7 @@ def _resolve_task_provider_model(
 
     if task:
         try:
-            from shadow_cli.config import load_config
+            from yousef shtiwe_cli.config import load_config
             config = load_config()
         except ImportError:
             config = {}
@@ -2098,7 +2098,7 @@ def _get_task_timeout(task: str, default: float = _DEFAULT_AUX_TIMEOUT) -> float
     if not task:
         return default
     try:
-        from shadow_cli.config import load_config
+        from yousef shtiwe_cli.config import load_config
         config = load_config()
     except ImportError:
         return default
@@ -2204,7 +2204,7 @@ def _build_call_kwargs(
         kwargs["temperature"] = temperature
 
     if max_tokens is not None:
-        # Codex adapter handles max_tokens internally; OpenRouter/Shadow use max_tokens.
+        # Codex adapter handles max_tokens internally; OpenRouter/Yousef Shtiwe use max_tokens.
         # Direct OpenAI api.openai.com with newer models needs max_completion_tokens.
         if provider == "custom":
             custom_base = base_url or _current_custom_base_url()
@@ -2220,8 +2220,8 @@ def _build_call_kwargs(
 
     # Provider-specific extra_body
     merged_extra = dict(extra_body or {})
-    if provider == "shadow" or auxiliary_is_shadow:
-        merged_extra.setdefault("tags", []).extend(["product=shadow-agent"])
+    if provider == "yousef shtiwe" or auxiliary_is_yousef shtiwe:
+        merged_extra.setdefault("tags", []).extend(["product=yousef shtiwe-agent"])
     if merged_extra:
         kwargs["extra_body"] = merged_extra
 
@@ -2274,7 +2274,7 @@ def call_llm(
     timeout: float = None,
     extra_body: dict = None,
 ) -> Any:
-    """Centralized synchroshadow LLM call.
+    """Centralized synchroyousef shtiwe LLM call.
 
     Resolves provider + model (from task config, explicit args, or auto-detect),
     handles auth, request formatting, and model-specific arg adjustments.
@@ -2322,7 +2322,7 @@ def call_llm(
         if client is None:
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
-                f"Run: shadow setup"
+                f"Run: yousef shtiwe setup"
             )
         resolved_provider = effective_provider or resolved_provider
     else:
@@ -2343,7 +2343,7 @@ def call_llm(
                 raise RuntimeError(
                     f"Provider '{_explicit}' is set in config.yaml but no API key "
                     f"was found. Set the {_explicit.upper()}_API_KEY environment "
-                    f"variable, or switch to a different provider with `shadow model`."
+                    f"variable, or switch to a different provider with `yousef shtiwe model`."
                 )
             # For auto/custom with no credentials, try the full auto chain
             # rather than hardcoding OpenRouter (which may be depleted).
@@ -2357,7 +2357,7 @@ def call_llm(
         if client is None:
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
-                f"Run: shadow setup")
+                f"Run: yousef shtiwe setup")
 
     effective_timeout = timeout if timeout is not None else _get_task_timeout(task)
 
@@ -2502,7 +2502,7 @@ async def async_call_llm(
     timeout: float = None,
     extra_body: dict = None,
 ) -> Any:
-    """Centralized asynchroshadow LLM call.
+    """Centralized asynchroyousef shtiwe LLM call.
 
     Same as call_llm() but async. See call_llm() for full documentation.
     """
@@ -2530,7 +2530,7 @@ async def async_call_llm(
         if client is None:
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
-                f"Run: shadow setup"
+                f"Run: yousef shtiwe setup"
             )
         resolved_provider = effective_provider or resolved_provider
     else:
@@ -2548,7 +2548,7 @@ async def async_call_llm(
                 raise RuntimeError(
                     f"Provider '{_explicit}' is set in config.yaml but no API key "
                     f"was found. Set the {_explicit.upper()}_API_KEY environment "
-                    f"variable, or switch to a different provider with `shadow model`."
+                    f"variable, or switch to a different provider with `yousef shtiwe model`."
                 )
             if not resolved_base_url:
                 logger.info("Auxiliary %s: provider %s unavailable, trying auto-detection chain",
@@ -2557,7 +2557,7 @@ async def async_call_llm(
         if client is None:
             raise RuntimeError(
                 f"No LLM provider configured for task={task} provider={resolved_provider}. "
-                f"Run: shadow setup")
+                f"Run: yousef shtiwe setup")
 
     effective_timeout = timeout if timeout is not None else _get_task_timeout(task)
 

@@ -3,15 +3,15 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'SHADOW Agent',
+  title: 'YOUSEF SHTIWE Agent',
   tagline: 'The self-improving AI agent',
   favicon: 'img/favicon.ico',
 
-  url: 'https://shadow-agent.shadow-overlord.com',
+  url: 'https://yousef shtiwe-agent.yousef shtiwe-overlord.com',
   baseUrl: '/docs/',
 
-  organizationName: 'SHADOW-OVERLORD',
-  projectName: 'shadow-agent',
+  organizationName: 'YOUSEF SHTIWE-OVERLORD',
+  projectName: 'yousef shtiwe-agent',
 
   onBrokenLinks: 'warn',
 
@@ -49,7 +49,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',  // Docs at the root of /docs/
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/SHADOW-OVERLORD/shadow-agent/edit/main/website/',
+          editUrl: 'https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/edit/main/website/',
         },
         blog: false,
         theme: {
@@ -60,7 +60,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/shadow-agent-banner.png',
+    image: 'img/yousef shtiwe-agent-banner.png',
     colorMode: {
       defaultMode: 'dark',
       respectPrefersColorScheme: true,
@@ -72,9 +72,9 @@ const config: Config = {
       },
     },
     navbar: {
-      title: 'SHADOW Agent',
+      title: 'YOUSEF SHTIWE Agent',
       logo: {
-        alt: 'SHADOW Agent',
+        alt: 'YOUSEF SHTIWE Agent',
         src: 'img/logo.png',
       },
       items: [
@@ -90,17 +90,17 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://shadow-agent.shadow-overlord.com',
+          href: 'https://yousef shtiwe-agent.yousef shtiwe-overlord.com',
           label: 'Home',
           position: 'right',
         },
         {
-          href: 'https://github.com/SHADOW-OVERLORD/shadow-agent',
+          href: 'https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent',
           label: 'GitHub',
           position: 'right',
         },
         {
-          href: 'https://discord.gg/SHADOW-OVERLORD',
+          href: 'https://discord.gg/YOUSEF SHTIWE-OVERLORD',
           label: 'Discord',
           position: 'right',
         },
@@ -121,20 +121,20 @@ const config: Config = {
         {
           title: 'Community',
           items: [
-            { label: 'Discord', href: 'https://discord.gg/SHADOW-OVERLORD' },
-            { label: 'GitHub Discussions', href: 'https://github.com/SHADOW-OVERLORD/shadow-agent/discussions' },
+            { label: 'Discord', href: 'https://discord.gg/YOUSEF SHTIWE-OVERLORD' },
+            { label: 'GitHub Discussions', href: 'https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/discussions' },
             { label: 'Skills Hub', href: 'https://agentskills.io' },
           ],
         },
         {
           title: 'More',
           items: [
-            { label: 'GitHub', href: 'https://github.com/SHADOW-OVERLORD/shadow-agent' },
-            { label: 'SHADOW-OVERLORD', href: 'https://shadow-overlord.com' },
+            { label: 'GitHub', href: 'https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent' },
+            { label: 'YOUSEF SHTIWE-OVERLORD', href: 'https://yousef shtiwe-overlord.com' },
           ],
         },
       ],
-      copyright: `Built by <a href="https://shadow-overlord.com">SHADOW-OVERLORD</a> · MIT License · ${new Date().getFullYear()}`,
+      copyright: `Built by <a href="https://yousef shtiwe-overlord.com">YOUSEF SHTIWE-OVERLORD</a> · MIT License · ${new Date().getFullYear()}`,
     },
     prism: {
       theme: prismThemes.github,

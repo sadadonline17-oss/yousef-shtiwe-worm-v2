@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: "Toolsets Reference"
-description: "Reference for SHADOW core, composite, platform, and dynamic toolsets"
+description: "Reference for YOUSEF SHTIWE core, composite, platform, and dynamic toolsets"
 ---
 
 # Toolsets Reference
@@ -14,30 +14,30 @@ Every tool belongs to exactly one toolset. When you enable a toolset, all tools 
 
 - **Core** — A single logical group of related tools (e.g., `file` bundles `read_file`, `write_file`, `patch`, `search_files`)
 - **Composite** — Combines multiple core toolsets for a common scenario (e.g., `debugging` bundles file, terminal, and web tools)
-- **Platform** — A complete tool configuration for a specific deployment context (e.g., `shadow-cli` is the default for interactive CLI sessions)
+- **Platform** — A complete tool configuration for a specific deployment context (e.g., `yousef shtiwe-cli` is the default for interactive CLI sessions)
 
 ## Configuring Toolsets
 
 ### Per-session (CLI)
 
 ```bash
-shadow chat --toolsets web,file,terminal
-shadow chat --toolsets debugging        # composite — expands to file + terminal + web
-shadow chat --toolsets all              # everything
+yousef shtiwe chat --toolsets web,file,terminal
+yousef shtiwe chat --toolsets debugging        # composite — expands to file + terminal + web
+yousef shtiwe chat --toolsets all              # everything
 ```
 
 ### Per-platform (config.yaml)
 
 ```yaml
 toolsets:
-  - shadow-cli          # default for CLI
-  # - shadow-telegram   # override for Telegram gateway
+  - yousef shtiwe-cli          # default for CLI
+  # - yousef shtiwe-telegram   # override for Telegram gateway
 ```
 
 ### Interactive management
 
 ```bash
-shadow tools                            # curses UI to enable/disable per platform
+yousef shtiwe tools                            # curses UI to enable/disable per platform
 ```
 
 Or in-session:
@@ -54,7 +54,7 @@ Or in-session:
 |---------|-------|---------|
 | `browser` | `browser_back`, `browser_click`, `browser_console`, `browser_get_images`, `browser_navigate`, `browser_press`, `browser_scroll`, `browser_snapshot`, `browser_type`, `browser_vision`, `web_search` | Full browser automation. Includes `web_search` as a fallback for quick lookups. |
 | `clarify` | `clarify` | Ask the user a question when the agent needs clarification. |
-| `code_execution` | `execute_code` | Run Python scripts that call SHADOW tools programmatically. |
+| `code_execution` | `execute_code` | Run Python scripts that call YOUSEF SHTIWE tools programmatically. |
 | `cronjob` | `cronjob` | Schedule and manage recurring tasks. |
 | `delegation` | `delegate_task` | Spawn isolated subagent instances for parallel work. |
 | `file` | `patch`, `read_file`, `search_files`, `write_file` | File reading, writing, searching, and editing. |
@@ -84,32 +84,32 @@ These expand to multiple core toolsets, providing a convenient shorthand for com
 
 ## Platform Toolsets
 
-Platform toolsets define the complete tool configuration for a deployment target. Most messaging platforms use the same set as `shadow-cli`:
+Platform toolsets define the complete tool configuration for a deployment target. Most messaging platforms use the same set as `yousef shtiwe-cli`:
 
-| Toolset | Differences from `shadow-cli` |
+| Toolset | Differences from `yousef shtiwe-cli` |
 |---------|-------------------------------|
-| `shadow-cli` | Full toolset — all 36 tools including `clarify`. The default for interactive CLI sessions. |
-| `shadow-acp` | Drops `clarify`, `cronjob`, `image_generate`, `send_message`, `text_to_speech`, homeassistant tools. Focused on coding tasks in IDE context. |
-| `shadow-api-server` | Drops `clarify`, `send_message`, and `text_to_speech`. Adds everything else — suitable for programmatic access where user interaction isn't possible. |
-| `shadow-telegram` | Same as `shadow-cli`. |
-| `shadow-discord` | Same as `shadow-cli`. |
-| `shadow-slack` | Same as `shadow-cli`. |
-| `shadow-whatsapp` | Same as `shadow-cli`. |
-| `shadow-signal` | Same as `shadow-cli`. |
-| `shadow-matrix` | Same as `shadow-cli`. |
-| `shadow-mattermost` | Same as `shadow-cli`. |
-| `shadow-email` | Same as `shadow-cli`. |
-| `shadow-sms` | Same as `shadow-cli`. |
-| `shadow-dingtalk` | Same as `shadow-cli`. |
-| `shadow-feishu` | Same as `shadow-cli`. |
-| `shadow-wecom` | Same as `shadow-cli`. |
-| `shadow-wecom-callback` | WeCom callback toolset — enterprise self-built app messaging (full access). |
-| `shadow-weixin` | Same as `shadow-cli`. |
-| `shadow-bluebubbles` | Same as `shadow-cli`. |
-| `shadow-qqbot` | Same as `shadow-cli`. |
-| `shadow-homeassistant` | Same as `shadow-cli`. |
-| `shadow-webhook` | Same as `shadow-cli`. |
-| `shadow-gateway` | Union of all messaging platform toolsets. Used internally when the gateway needs the broadest possible tool set. |
+| `yousef shtiwe-cli` | Full toolset — all 36 tools including `clarify`. The default for interactive CLI sessions. |
+| `yousef shtiwe-acp` | Drops `clarify`, `cronjob`, `image_generate`, `send_message`, `text_to_speech`, homeassistant tools. Focused on coding tasks in IDE context. |
+| `yousef shtiwe-api-server` | Drops `clarify`, `send_message`, and `text_to_speech`. Adds everything else — suitable for programmatic access where user interaction isn't possible. |
+| `yousef shtiwe-telegram` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-discord` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-slack` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-whatsapp` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-signal` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-matrix` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-mattermost` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-email` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-sms` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-dingtalk` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-feishu` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-wecom` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-wecom-callback` | WeCom callback toolset — enterprise self-built app messaging (full access). |
+| `yousef shtiwe-weixin` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-bluebubbles` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-qqbot` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-homeassistant` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-webhook` | Same as `yousef shtiwe-cli`. |
+| `yousef shtiwe-gateway` | Union of all messaging platform toolsets. Used internally when the gateway needs the broadest possible tool set. |
 
 ## Dynamic Toolsets
 
@@ -138,7 +138,7 @@ Define custom toolsets in `config.yaml` to create project-specific bundles:
 
 ```yaml
 toolsets:
-  - shadow-cli
+  - yousef shtiwe-cli
 custom_toolsets:
   data-science:
     - file
@@ -152,8 +152,8 @@ custom_toolsets:
 
 - `all` or `*` — expands to every registered toolset (built-in + dynamic + plugin)
 
-## Relationship to `shadow tools`
+## Relationship to `yousef shtiwe tools`
 
-The `shadow tools` command provides a curses-based UI for toggling individual tools on or off per platform. This operates at the tool level (finer than toolsets) and persists to `config.yaml`. Disabled tools are filtered out even if their toolset is enabled.
+The `yousef shtiwe tools` command provides a curses-based UI for toggling individual tools on or off per platform. This operates at the tool level (finer than toolsets) and persists to `config.yaml`. Disabled tools are filtered out even if their toolset is enabled.
 
 See also: [Tools Reference](./tools-reference.md) for the complete list of individual tools and their parameters.

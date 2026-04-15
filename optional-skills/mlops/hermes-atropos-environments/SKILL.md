@@ -1,24 +1,24 @@
 ---
-name: shadow-atropos-environments
-description: Build, test, and debug SHADOW Agent RL environments for Atropos training. Covers the SHADOWAgentBaseEnv interface, reward functions, agent loop integration, evaluation with tools, wandb logging, and the three CLI modes (serve/process/evaluate). Use when creating, reviewing, or fixing RL environments in the shadow-agent repo.
+name: yousef shtiwe-atropos-environments
+description: Build, test, and debug YOUSEF SHTIWE Agent RL environments for Atropos training. Covers the YOUSEF SHTIWEAgentBaseEnv interface, reward functions, agent loop integration, evaluation with tools, wandb logging, and the three CLI modes (serve/process/evaluate). Use when creating, reviewing, or fixing RL environments in the yousef shtiwe-agent repo.
 version: 1.1.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [atropos, rl, environments, training, reinforcement-learning, reward-functions]
     related_skills: [axolotl, grpo-rl-training, trl-fine-tuning, lm-evaluation-harness]
 ---
 
-# SHADOW Agent Atropos Environments
+# YOUSEF SHTIWE Agent Atropos Environments
 
-Guide for building RL environments in the shadow-agent repo that integrate with the Atropos training framework.
+Guide for building RL environments in the yousef shtiwe-agent repo that integrate with the Atropos training framework.
 
 ## Architecture Overview
 
 ```
 Atropos BaseEnv (atroposlib/envs/base.py)
-    └── SHADOWAgentBaseEnv (environments/shadow_base_env.py)
+    └── YOUSEF SHTIWEAgentBaseEnv (environments/yousef shtiwe_base_env.py)
             ├── Handles agent loop orchestration
             ├── Handles tool resolution per group
             ├── Handles ToolContext for reward verification
@@ -27,16 +27,16 @@ Atropos BaseEnv (atroposlib/envs/base.py)
                                     compute_reward, evaluate, wandb_log
 ```
 
-SHADOW environments are special because they run a **multi-turn agent loop with tool calling** — not just single-turn completions. The base env handles the loop; you implement the task and scoring.
+YOUSEF SHTIWE environments are special because they run a **multi-turn agent loop with tool calling** — not just single-turn completions. The base env handles the loop; you implement the task and scoring.
 
 ## File Locations
 
 | File | Purpose |
 |------|---------|
-| `environments/shadow_base_env.py` | Base class with agent loop + tool resolution |
-| `environments/agent_loop.py` | `SHADOWAgentLoop` + `AgentResult` dataclass |
+| `environments/yousef shtiwe_base_env.py` | Base class with agent loop + tool resolution |
+| `environments/agent_loop.py` | `YOUSEF SHTIWEAgentLoop` + `AgentResult` dataclass |
 | `environments/tool_context.py` | `ToolContext` for reward verification |
-| `environments/tool_call_parsers.py` | Phase 2 tool call parsers (shadow, mistral, etc.) |
+| `environments/tool_call_parsers.py` | Phase 2 tool call parsers (yousef shtiwe, mistral, etc.) |
 | `environments/your_env.py` | Your environment implementation |
 
 ## Inference Setup — Ask the User First
@@ -146,12 +146,12 @@ return 1.0 if result["exit_code"] == 0 else 0.0
 ### 5. `evaluate()` — Periodic evaluation with full agent loop
 
 **MUST use the full agent loop with tools**, not single-turn chat_completion.
-The whole point of shadow-agent environments is agentic evaluation:
+The whole point of yousef shtiwe-agent environments is agentic evaluation:
 
 ```python
 async def evaluate(self, *args, **kwargs) -> None:
     import time, uuid
-    from environments.agent_loop import SHADOWAgentLoop
+    from environments.agent_loop import YOUSEF SHTIWEAgentLoop
     from environments.tool_context import ToolContext
 
     start_time = time.time()
@@ -165,7 +165,7 @@ async def evaluate(self, *args, **kwargs) -> None:
             messages.append({"role": "system", "content": self.config.system_prompt})
         messages.append({"role": "user", "content": self.format_prompt(item)})
 
-        agent = SHADOWAgentLoop(
+        agent = YOUSEF SHTIWEAgentLoop(
             server=self.server,
             tool_schemas=tools,
             valid_tool_names=valid_names,
@@ -242,7 +242,7 @@ Config priority: CLI args > YAML file > config_init() defaults.
 
 1. **AgentResult has .messages, not .final_response** — Extract the final response by iterating reversed(result.messages) looking for the last assistant message with content.
 
-2. **evaluate() must use SHADOWAgentLoop, not chat_completion** — Single-turn chat_completion has no tools. The whole point of shadow-agent benchmarks is agentic evaluation with tool use.
+2. **evaluate() must use YOUSEF SHTIWEAgentLoop, not chat_completion** — Single-turn chat_completion has no tools. The whole point of yousef shtiwe-agent benchmarks is agentic evaluation with tool use.
 
 3. **Don't call _llm_judge twice** — If compute_reward already calls it, extract the score from the buffer instead of calling judge separately in evaluate().
 
@@ -284,7 +284,7 @@ Weight correctness (0.6) + tool usage (0.2) + efficiency (0.2) + optional bonuse
 ## Minimum Implementation Checklist
 
 ```python
-class MyEnv(SHADOWAgentBaseEnv):
+class MyEnv(YOUSEF SHTIWEAgentBaseEnv):
     name = "my-env"
     env_config_cls = MyEnvConfig
 

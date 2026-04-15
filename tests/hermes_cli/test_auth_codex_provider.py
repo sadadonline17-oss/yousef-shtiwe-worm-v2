@@ -1,4 +1,4 @@
-"""Tests for Codex auth — tokens stored in SHADOW auth store (~/.shadow/auth.json)."""
+"""Tests for Codex auth — tokens stored in YOUSEF SHTIWE auth store (~/.yousef shtiwe/auth.json)."""
 
 import json
 import time
@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from shadow_cli.auth import (
+from yousef shtiwe_cli.auth import (
     AuthError,
     DEFAULT_CODEX_BASE_URL,
     PROVIDER_REGISTRY,
@@ -23,9 +23,9 @@ from shadow_cli.auth import (
 )
 
 
-def _setup_shadow_auth(shadow_home: Path, *, access_token: str = "access", refresh_token: str = "refresh"):
-    """Write Codex tokens into the SHADOW auth store."""
-    shadow_home.mkdir(parents=True, exist_ok=True)
+def _setup_yousef shtiwe_auth(yousef shtiwe_home: Path, *, access_token: str = "access", refresh_token: str = "refresh"):
+    """Write Codex tokens into the YOUSEF SHTIWE auth store."""
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     auth_store = {
         "version": 1,
         "active_provider": "openai-codex",
@@ -40,7 +40,7 @@ def _setup_shadow_auth(shadow_home: Path, *, access_token: str = "access", refre
             },
         },
     }
-    auth_file = shadow_home / "auth.json"
+    auth_file = yousef shtiwe_home / "auth.json"
     auth_file.write_text(json.dumps(auth_store, indent=2))
     return auth_file
 
@@ -52,9 +52,9 @@ def _jwt_with_exp(exp_epoch: int) -> str:
 
 
 def test_read_codex_tokens_success(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home)
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home)
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     data = _read_codex_tokens()
     assert data["tokens"]["access_token"] == "access"
@@ -62,11 +62,11 @@ def test_read_codex_tokens_success(tmp_path, monkeypatch):
 
 
 def test_read_codex_tokens_missing(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     # Empty auth store
-    (shadow_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     with pytest.raises(AuthError) as exc:
         _read_codex_tokens()
@@ -74,9 +74,9 @@ def test_read_codex_tokens_missing(tmp_path, monkeypatch):
 
 
 def test_resolve_codex_runtime_credentials_missing_access_token(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, access_token="")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, access_token="")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     with pytest.raises(AuthError) as exc:
         resolve_codex_runtime_credentials()
@@ -85,10 +85,10 @@ def test_resolve_codex_runtime_credentials_missing_access_token(tmp_path, monkey
 
 
 def test_resolve_codex_runtime_credentials_refreshes_expiring_token(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
     expiring_token = _jwt_with_exp(int(time.time()) - 10)
-    _setup_shadow_auth(shadow_home, access_token=expiring_token, refresh_token="refresh-old")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, access_token=expiring_token, refresh_token="refresh-old")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     called = {"count": 0}
 
@@ -96,7 +96,7 @@ def test_resolve_codex_runtime_credentials_refreshes_expiring_token(tmp_path, mo
         called["count"] += 1
         return {"access_token": "access-new", "refresh_token": "refresh-new"}
 
-    monkeypatch.setattr("shadow_cli.auth._refresh_codex_auth_tokens", _fake_refresh)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._refresh_codex_auth_tokens", _fake_refresh)
 
     resolved = resolve_codex_runtime_credentials()
 
@@ -105,9 +105,9 @@ def test_resolve_codex_runtime_credentials_refreshes_expiring_token(tmp_path, mo
 
 
 def test_resolve_codex_runtime_credentials_force_refresh(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home, access_token="access-current", refresh_token="refresh-old")
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home, access_token="access-current", refresh_token="refresh-old")
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     called = {"count": 0}
 
@@ -115,7 +115,7 @@ def test_resolve_codex_runtime_credentials_force_refresh(tmp_path, monkeypatch):
         called["count"] += 1
         return {"access_token": "access-forced", "refresh_token": "refresh-new"}
 
-    monkeypatch.setattr("shadow_cli.auth._refresh_codex_auth_tokens", _fake_refresh)
+    monkeypatch.setattr("yousef shtiwe_cli.auth._refresh_codex_auth_tokens", _fake_refresh)
 
     resolved = resolve_codex_runtime_credentials(force_refresh=True, refresh_if_expiring=False)
 
@@ -130,10 +130,10 @@ def test_resolve_provider_explicit_codex_does_not_fallback(monkeypatch):
 
 
 def test_save_codex_tokens_roundtrip(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
-    (shadow_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     _save_codex_tokens({"access_token": "at123", "refresh_token": "rt456"})
     data = _read_codex_tokens()
@@ -162,24 +162,24 @@ def test_import_codex_cli_tokens_missing(tmp_path, monkeypatch):
 
 
 def test_codex_tokens_not_written_to_shared_file(tmp_path, monkeypatch):
-    """Verify _save_codex_tokens writes only to SHADOW auth store, not ~/.codex/."""
-    shadow_home = tmp_path / "shadow"
+    """Verify _save_codex_tokens writes only to YOUSEF SHTIWE auth store, not ~/.codex/."""
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
     codex_home = tmp_path / "codex-cli"
-    shadow_home.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     codex_home.mkdir(parents=True, exist_ok=True)
 
-    (shadow_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     monkeypatch.setenv("CODEX_HOME", str(codex_home))
 
-    _save_codex_tokens({"access_token": "shadow-at", "refresh_token": "shadow-rt"})
+    _save_codex_tokens({"access_token": "yousef shtiwe-at", "refresh_token": "yousef shtiwe-rt"})
 
-    # ~/.codex/auth.json should NOT exist — _save_codex_tokens only touches SHADOW store
+    # ~/.codex/auth.json should NOT exist — _save_codex_tokens only touches YOUSEF SHTIWE store
     assert not (codex_home / "auth.json").exists()
 
-    # SHADOW auth store should have the tokens
+    # YOUSEF SHTIWE auth store should have the tokens
     data = _read_codex_tokens()
-    assert data["tokens"]["access_token"] == "shadow-at"
+    assert data["tokens"]["access_token"] == "yousef shtiwe-at"
 
 
 def test_write_codex_cli_tokens_creates_file(tmp_path, monkeypatch):
@@ -241,14 +241,14 @@ def test_write_codex_cli_tokens_handles_missing_dir(tmp_path, monkeypatch):
 
 def test_refresh_codex_auth_tokens_writes_back_to_cli(tmp_path, monkeypatch):
     """After refreshing, _refresh_codex_auth_tokens writes back to ~/.codex/auth.json."""
-    from shadow_cli.auth import _refresh_codex_auth_tokens
+    from yousef shtiwe_cli.auth import _refresh_codex_auth_tokens
 
-    shadow_home = tmp_path / "shadow"
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
     codex_home = tmp_path / "codex-cli"
-    shadow_home.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     codex_home.mkdir(parents=True, exist_ok=True)
-    (shadow_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
     monkeypatch.setenv("CODEX_HOME", str(codex_home))
 
     # Write initial CLI tokens
@@ -257,7 +257,7 @@ def test_refresh_codex_auth_tokens_writes_back_to_cli(tmp_path, monkeypatch):
     }))
 
     # Mock the pure refresh to return new tokens
-    monkeypatch.setattr("shadow_cli.auth.refresh_codex_oauth_pure", lambda *a, **kw: {
+    monkeypatch.setattr("yousef shtiwe_cli.auth.refresh_codex_oauth_pure", lambda *a, **kw: {
         "access_token": "refreshed-at",
         "refresh_token": "refreshed-rt",
         "last_refresh": "2026-04-12T01:00:00Z",
@@ -274,12 +274,12 @@ def test_refresh_codex_auth_tokens_writes_back_to_cli(tmp_path, monkeypatch):
     assert cli_data["tokens"]["refresh_token"] == "refreshed-rt"
 
 
-def test_resolve_returns_shadow_auth_store_source(tmp_path, monkeypatch):
-    shadow_home = tmp_path / "shadow"
-    _setup_shadow_auth(shadow_home)
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+def test_resolve_returns_yousef shtiwe_auth_store_source(tmp_path, monkeypatch):
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    _setup_yousef shtiwe_auth(yousef shtiwe_home)
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     creds = resolve_codex_runtime_credentials()
-    assert creds["source"] == "shadow-auth-store"
+    assert creds["source"] == "yousef shtiwe-auth-store"
     assert creds["provider"] == "openai-codex"
     assert creds["base_url"] == DEFAULT_CODEX_BASE_URL

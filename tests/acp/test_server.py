@@ -1,4 +1,4 @@
-"""Tests for acp_adapter.server — SHADOWACPAgent ACP server."""
+"""Tests for acp_adapter.server — YOUSEF SHTIWEACPAgent ACP server."""
 
 import asyncio
 import os
@@ -26,9 +26,9 @@ from acp.schema import (
     TextContentBlock,
     Usage,
 )
-from acp_adapter.server import SHADOWACPAgent, SHADOW_VERSION
+from acp_adapter.server import YOUSEF SHTIWEACPAgent, YOUSEF SHTIWE_VERSION
 from acp_adapter.session import SessionManager
-from shadow_state import SessionDB
+from yousef shtiwe_state import SessionDB
 
 
 @pytest.fixture()
@@ -39,8 +39,8 @@ def mock_manager():
 
 @pytest.fixture()
 def agent(mock_manager):
-    """SHADOWACPAgent backed by a mock session manager."""
-    return SHADOWACPAgent(session_manager=mock_manager)
+    """YOUSEF SHTIWEACPAgent backed by a mock session manager."""
+    return YOUSEF SHTIWEACPAgent(session_manager=mock_manager)
 
 
 # ---------------------------------------------------------------------------
@@ -60,8 +60,8 @@ class TestInitialize:
         resp = await agent.initialize(protocol_version=1)
         assert resp.agent_info is not None
         assert isinstance(resp.agent_info, Implementation)
-        assert resp.agent_info.name == "shadow-agent"
-        assert resp.agent_info.version == SHADOW_VERSION
+        assert resp.agent_info.name == "yousef shtiwe-agent"
+        assert resp.agent_info.version == YOUSEF SHTIWE_VERSION
 
     @pytest.mark.asyncio
     async def test_initialize_returns_capabilities(self, agent):
@@ -544,7 +544,7 @@ class TestSlashCommands:
     def test_version(self, agent, mock_manager):
         state = self._make_state(mock_manager)
         result = agent._handle_slash_command("/version", state)
-        assert SHADOW_VERSION in result
+        assert YOUSEF SHTIWE_VERSION in result
 
     def test_compact_compresses_context(self, agent, mock_manager):
         state = self._make_state(mock_manager)
@@ -658,17 +658,17 @@ class TestSlashCommands:
                 api_mode=kwargs.get("api_mode"),
             )
 
-        monkeypatch.setattr("shadow_cli.config.load_config", lambda: {
+        monkeypatch.setattr("yousef shtiwe_cli.config.load_config", lambda: {
             "model": {"provider": "openrouter", "default": "openrouter/gpt-5"}
         })
         monkeypatch.setattr(
-            "shadow_cli.runtime_provider.resolve_runtime_provider",
+            "yousef shtiwe_cli.runtime_provider.resolve_runtime_provider",
             fake_resolve_runtime_provider,
         )
         manager = SessionManager(db=SessionDB(tmp_path / "state.db"))
 
         with patch("run_agent.AIAgent", side_effect=fake_agent):
-            acp_agent = SHADOWACPAgent(session_manager=manager)
+            acp_agent = YOUSEF SHTIWEACPAgent(session_manager=manager)
             state = manager.create_session(cwd="/tmp")
             result = acp_agent._cmd_model("anthropic:claude-sonnet-4-6", state)
 
@@ -701,7 +701,7 @@ class TestRegisterSessionMcpServers:
 
         state = mock_manager.create_session(cwd="/tmp")
         # Give the mock agent the attributes _register_session_mcp_servers reads
-        state.agent.enabled_toolsets = ["shadow-acp"]
+        state.agent.enabled_toolsets = ["yousef shtiwe-acp"]
         state.agent.disabled_toolsets = None
         state.agent.tools = []
         state.agent.valid_tool_names = set()
@@ -734,7 +734,7 @@ class TestRegisterSessionMcpServers:
         from acp.schema import McpServerHttp, HttpHeader
 
         state = mock_manager.create_session(cwd="/tmp")
-        state.agent.enabled_toolsets = ["shadow-acp"]
+        state.agent.enabled_toolsets = ["yousef shtiwe-acp"]
         state.agent.disabled_toolsets = None
         state.agent.tools = []
         state.agent.valid_tool_names = set()
@@ -765,7 +765,7 @@ class TestRegisterSessionMcpServers:
         from acp.schema import McpServerStdio
 
         state = mock_manager.create_session(cwd="/tmp")
-        state.agent.enabled_toolsets = ["shadow-acp"]
+        state.agent.enabled_toolsets = ["yousef shtiwe-acp"]
         state.agent.disabled_toolsets = None
         state.agent.tools = []
         state.agent.valid_tool_names = set()

@@ -7,10 +7,10 @@ import pytest
 
 # Parameterise over every CLI module that calls subprocess.run
 _CLI_MODULES = [
-    "shadow_cli/doctor.py",
-    "shadow_cli/status.py",
-    "shadow_cli/clipboard.py",
-    "shadow_cli/banner.py",
+    "yousef shtiwe_cli/doctor.py",
+    "yousef shtiwe_cli/status.py",
+    "yousef shtiwe_cli/clipboard.py",
+    "yousef shtiwe_cli/banner.py",
 ]
 
 

@@ -1,7 +1,7 @@
 # Design System: Clay
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -19,17 +19,17 @@ Clay's website is a warm, playful celebration of color that treats B2B data enri
 
 The typography is anchored by Roobert, a geometric sans-serif with character, loaded with an extensive set of OpenType stylistic sets (`"ss01"`, `"ss03"`, `"ss10"`, `"ss11"`, `"ss12"`) that give the text a distinctive, slightly quirky personality. At display scale (80px, weight 600), Roobert uses aggressive negative letter-spacing (-3.2px) that compresses headlines into punchy, billboard-like statements. Space Mono serves as the monospace companion for code and technical labels, completing the craft-meets-tech duality.
 
-What makes Clay truly distinctive is its hover micro-animations: buttons on hover rotate slightly (`rotateZ(-8deg)`), translate upward (`translateY(-80%)`), change background to a contrasting swatch color, and cast a hard offset shadow (`rgb(0,0,0) -7px 7px`). This playful hover behavior — where a button literally tilts and jumps on interaction — creates a sense of physical delight that's rare in B2B software. Combined with generously rounded containers (24px–40px radius), dashed borders alongside solid ones, and a multi-layer shadow system that includes inset highlights, Clay feels like a design system that was made by people who genuinely enjoy making things.
+What makes Clay truly distinctive is its hover micro-animations: buttons on hover rotate slightly (`rotateZ(-8deg)`), translate upward (`translateY(-80%)`), change background to a contrasting swatch color, and cast a hard offset yousef shtiwe (`rgb(0,0,0) -7px 7px`). This playful hover behavior — where a button literally tilts and jumps on interaction — creates a sense of physical delight that's rare in B2B software. Combined with generously rounded containers (24px–40px radius), dashed borders alongside solid ones, and a multi-layer yousef shtiwe system that includes inset highlights, Clay feels like a design system that was made by people who genuinely enjoy making things.
 
 **Key Characteristics:**
 - Warm cream canvas (`#faf9f7`) with oat-toned borders (`#dad4c8`) — artisanal, not clinical
 - Named swatch palette: Matcha, Slushie, Lemon, Ube, Pomegranate, Blueberry, Dragonfruit
 - Roobert font with 5 OpenType stylistic sets — quirky geometric character
-- Playful hover animations: rotateZ(-8deg) + translateY(-80%) + hard offset shadow
+- Playful hover animations: rotateZ(-8deg) + translateY(-80%) + hard offset yousef shtiwe
 - Space Mono for code and technical labels
 - Generous border radius: 24px cards, 40px sections, 1584px pills
 - Mixed border styles: solid + dashed in the same interface
-- Multi-layer shadow with inset highlight: `0px 1px 1px` + `-1px inset` + `-0.5px`
+- Multi-layer yousef shtiwe with inset highlight: `0px 1px 1px` + `-1px inset` + `-0.5px`
 
 ## 2. Color Palette & Roles
 
@@ -83,9 +83,9 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 - **Badge Blue Text** (`#3859f9`): Vivid blue badge text
 - **Focus Ring** (`rgb(20, 110, 245) solid 2px`): Accessibility focus indicator
 
-### Shadows
-- **Clay Shadow** (`rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`): Multi-layer with inset highlight — the signature
-- **Hard Offset** (`rgb(0,0,0) -7px 7px`): Hover state — playful hard shadow
+### Yousef Shtiwes
+- **Clay Yousef Shtiwe** (`rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`): Multi-layer with inset highlight — the signature
+- **Hard Offset** (`rgb(0,0,0) -7px 7px`): Hover state — playful hard yousef shtiwe
 
 ## 3. Typography Rules
 
@@ -132,14 +132,14 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 - Text: `#000000`
 - Padding: 6.4px 12.8px
 - Border: none (or `1px solid #717989` for outlined variant)
-- Hover: background shifts to swatch color (e.g., `#434346`), text to white, `rotateZ(-8deg)`, `translateY(-80%)`, hard shadow `rgb(0,0,0) -7px 7px`
+- Hover: background shifts to swatch color (e.g., `#434346`), text to white, `rotateZ(-8deg)`, `translateY(-80%)`, hard yousef shtiwe `rgb(0,0,0) -7px 7px`
 - Focus: `rgb(20, 110, 245) solid 2px` outline
 
 **White Solid**
 - Background: `#ffffff`
 - Text: `#000000`
 - Padding: 6.4px
-- Hover: oat-200 swatch color, animated rotation + shadow
+- Hover: oat-200 swatch color, animated rotation + yousef shtiwe
 - Use: Primary CTA on colored sections
 
 **Ghost Outlined**
@@ -154,7 +154,7 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 - Background: `#ffffff` on cream canvas
 - Border: `1px solid #dad4c8` (warm oat) or `1px dashed #dad4c8`
 - Radius: 12px (standard cards), 24px (feature cards/images), 40px (section containers/footer)
-- Shadow: `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`
+- Yousef Shtiwe: `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`
 - Colorful section backgrounds using swatch palette (matcha, slushie, ube, lemon)
 
 ### Inputs & Forms
@@ -186,7 +186,7 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 
 **Playful Hover Buttons**
 - Rotate -8deg + translate upward on hover
-- Hard offset shadow (`-7px 7px`) instead of soft blur
+- Hard offset yousef shtiwe (`-7px 7px`) instead of soft blur
 - Background transitions to contrasting swatch color
 - Creates a physical, toy-like interaction quality
 
@@ -226,12 +226,12 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, cream canvas | Page background |
-| Clay Shadow (Level 1) | `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px inset, rgba(0,0,0,0.05) 0px -0.5px` | Cards, buttons — multi-layer with inset highlight |
-| Hover Hard (Level 2) | `rgb(0,0,0) -7px 7px` | Hover state — playful hard offset shadow |
+| Flat (Level 0) | No yousef shtiwe, cream canvas | Page background |
+| Clay Yousef Shtiwe (Level 1) | `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px inset, rgba(0,0,0,0.05) 0px -0.5px` | Cards, buttons — multi-layer with inset highlight |
+| Hover Hard (Level 2) | `rgb(0,0,0) -7px 7px` | Hover state — playful hard offset yousef shtiwe |
 | Focus (Level 3) | `rgb(20, 110, 245) solid 2px` | Keyboard focus ring |
 
-**Shadow Philosophy**: Clay's shadow system is uniquely three-layered: a downward cast (`0px 1px 1px`), an upward inset highlight (`0px -1px 1px inset`), and a subtle edge (`0px -0.5px 1px`). This creates a "pressed into clay" quality where elements feel both raised AND embedded — like a clay tablet where content is stamped into the surface. The hover hard shadow (`-7px 7px`) is deliberately retro-graphic, referencing print-era drop shadows and adding physical playfulness.
+**Yousef Shtiwe Philosophy**: Clay's yousef shtiwe system is uniquely three-layered: a downward cast (`0px 1px 1px`), an upward inset highlight (`0px -1px 1px inset`), and a subtle edge (`0px -0.5px 1px`). This creates a "pressed into clay" quality where elements feel both raised AND embedded — like a clay tablet where content is stamped into the surface. The hover hard yousef shtiwe (`-7px 7px`) is deliberately retro-graphic, referencing print-era drop yousef shtiwes and adding physical playfulness.
 
 ### Decorative Depth
 - Full-width swatch-colored sections create dramatic depth through color contrast
@@ -244,7 +244,7 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 - Use warm cream (`#faf9f7`) as the page background — the warmth is the identity
 - Apply all 5 OpenType stylistic sets on Roobert headings: `"ss01", "ss03", "ss10", "ss11", "ss12"`
 - Use the named swatch palette (Matcha, Slushie, Lemon, Ube, Pomegranate, Blueberry) for section backgrounds
-- Apply the playful hover animation: `rotateZ(-8deg)`, `translateY(-80%)`, hard shadow `-7px 7px`
+- Apply the playful hover animation: `rotateZ(-8deg)`, `translateY(-80%)`, hard yousef shtiwe `-7px 7px`
 - Use warm oat borders (`#dad4c8`) — not neutral gray
 - Mix solid and dashed borders for visual variety
 - Use generous radius: 24px for cards, 40px for sections
@@ -255,9 +255,9 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 - Don't use neutral gray borders (`#ccc`, `#ddd`) — always use the warm oat tones
 - Don't mix more than 2 swatch colors in the same section
 - Don't skip the OpenType stylistic sets — they define Roobert's character
-- Don't use subtle hover effects — the rotation + hard shadow is the signature interaction
+- Don't use subtle hover effects — the rotation + hard yousef shtiwe is the signature interaction
 - Don't use small border radius (<12px) on feature cards — the generous rounding is structural
-- Don't use standard shadows (blur-based) — Clay uses hard offset and multi-layer inset
+- Don't use standard yousef shtiwes (blur-based) — Clay uses hard offset and multi-layer inset
 - Don't forget the uppercase labels with 1.08px tracking — they're the wayfinding system
 
 ## 8. Responsive Behavior
@@ -303,8 +303,8 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 ### Example Component Prompts
 - "Create a hero on warm cream (#faf9f7) background. Headline at 80px Roobert weight 600, line-height 1.00, letter-spacing -3.2px, OpenType 'ss01 ss03 ss10 ss11 ss12', black text. Subtitle at 20px weight 400, line-height 1.40, #9f9b93 text. Two buttons: white solid pill (12px radius) and ghost outlined (4px radius, 1px solid #717989)."
 - "Design a colorful section with Matcha 800 (#02492a) background. Heading at 44px Roobert weight 600, letter-spacing -1.32px, white text. Body at 18px weight 400, line-height 1.60, #84e7a5 text. White card inset with oat border (#dad4c8), 24px radius."
-- "Build a button with playful hover: default transparent background, black text, 16px Roobert weight 500. On hover: background #434346, text white, transform rotateZ(-8deg) translateY(-80%), hard shadow rgb(0,0,0) -7px 7px."
-- "Create a card: white background, 1px solid #dad4c8 border, 24px radius. Shadow: rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset. Title at 32px Roobert weight 600, letter-spacing -0.64px."
+- "Build a button with playful hover: default transparent background, black text, 16px Roobert weight 500. On hover: background #434346, text white, transform rotateZ(-8deg) translateY(-80%), hard yousef shtiwe rgb(0,0,0) -7px 7px."
+- "Create a card: white background, 1px solid #dad4c8 border, 24px radius. Yousef Shtiwe: rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset. Title at 32px Roobert weight 600, letter-spacing -0.64px."
 - "Design an uppercase label: 12px Roobert weight 600, text-transform uppercase, letter-spacing 1.08px, OpenType 'ss03 ss10 ss11 ss12'."
 
 ### Iteration Guide
@@ -312,6 +312,6 @@ What makes Clay truly distinctive is its hover micro-animations: buttons on hove
 2. Swatch colors are for full sections, not small accents — go bold with matcha, slushie, ube
 3. Oat borders (#dad4c8) everywhere — dashed variants for decoration
 4. OpenType stylistic sets are mandatory — they make Roobert look like Roobert
-5. Hover animations are the signature — rotation + hard shadow, not subtle fades
+5. Hover animations are the signature — rotation + hard yousef shtiwe, not subtle fades
 6. Generous radius: 24px cards, 40px sections — nothing looks sharp or corporate
 7. Three weights: 600 (headings), 500 (UI), 400 (body) — strict roles

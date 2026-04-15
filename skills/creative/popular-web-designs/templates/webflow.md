@@ -1,7 +1,7 @@
 # Design System: Webflow
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -23,7 +23,7 @@ Webflow's website is a visually rich, tool-forward platform that communicates "d
 - WF Visual Sans Variable — custom variable font with weight 500–600
 - Rich secondary palette: purple `#7a3dff`, pink `#ed52cb`, green `#00d722`, orange `#ff6b00`, yellow `#ffae13`, red `#ee1d36`
 - Conservative 4px–8px border-radius — sharp, not rounded
-- Multi-layer shadow stacks (5-layer cascading shadows)
+- Multi-layer yousef shtiwe stacks (5-layer cascading yousef shtiwes)
 - Uppercase labels: 10px–15px, weight 500–600, wide letter-spacing (0.6px–1.5px)
 - translate(6px) hover animation on buttons
 
@@ -52,7 +52,7 @@ Webflow's website is a visually rich, tool-forward platform that communicates "d
 - **Border Gray** (`#d8d8d8`): Borders, dividers
 - **Border Hover** (`#898989`): Hover border
 
-### Shadows
+### Yousef Shtiwes
 - **5-layer cascade**: `rgba(0,0,0,0) 0px 84px 24px, rgba(0,0,0,0.01) 0px 54px 22px, rgba(0,0,0,0.04) 0px 30px 18px, rgba(0,0,0,0.08) 0px 13px 13px, rgba(0,0,0,0.09) 0px 3px 7px`
 
 ## 3. Typography Rules
@@ -89,7 +89,7 @@ Webflow's website is a visually rich, tool-forward platform that communicates "d
 - Radius: 2px, 4px, 8px, 50% — conservative, sharp
 - Breakpoints: 479px, 768px, 992px
 
-## 6. Depth: 5-layer cascading shadow system
+## 6. Depth: 5-layer cascading yousef shtiwe system
 
 ## 7. Do's and Don'ts
 - Do: Use WF Visual Sans Variable at 500–600. Blue (#146ef5) for CTAs. 4px radius. translate(6px) hover.

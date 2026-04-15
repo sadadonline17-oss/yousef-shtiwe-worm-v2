@@ -2,11 +2,11 @@
 name: imessage
 description: Send and receive iMessages/SMS via the imsg CLI on macOS.
 version: 1.0.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 platforms: [macos]
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [iMessage, SMS, messaging, macOS, Apple]
 prerequisites:
   commands: [imsg]

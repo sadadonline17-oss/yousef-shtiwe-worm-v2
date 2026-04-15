@@ -4,15 +4,15 @@ sidebar_position: 7
 
 # Profile Commands Reference
 
-This page covers all commands related to [SHADOW profiles](../user-guide/profiles.md). For general CLI commands, see [CLI Commands Reference](./cli-commands.md).
+This page covers all commands related to [YOUSEF SHTIWE profiles](../user-guide/profiles.md). For general CLI commands, see [CLI Commands Reference](./cli-commands.md).
 
-## `shadow profile`
+## `yousef shtiwe profile`
 
 ```bash
-shadow profile <subcommand>
+yousef shtiwe profile <subcommand>
 ```
 
-Top-level command for managing profiles. Running `shadow profile` without a subcommand shows help.
+Top-level command for managing profiles. Running `yousef shtiwe profile` without a subcommand shows help.
 
 | Subcommand | Description |
 |------------|-------------|
@@ -26,10 +26,10 @@ Top-level command for managing profiles. Running `shadow profile` without a subc
 | `export` | Export a profile to a tar.gz archive. |
 | `import` | Import a profile from a tar.gz archive. |
 
-## `shadow profile list`
+## `yousef shtiwe profile list`
 
 ```bash
-shadow profile list
+yousef shtiwe profile list
 ```
 
 Lists all profiles. The currently active profile is marked with `*`.
@@ -37,7 +37,7 @@ Lists all profiles. The currently active profile is marked with `*`.
 **Example:**
 
 ```bash
-$ shadow profile list
+$ yousef shtiwe profile list
   default
 * work
   dev
@@ -46,13 +46,13 @@ $ shadow profile list
 
 No options.
 
-## `shadow profile use`
+## `yousef shtiwe profile use`
 
 ```bash
-shadow profile use <name>
+yousef shtiwe profile use <name>
 ```
 
-Sets `<name>` as the active profile. All subsequent `shadow` commands (without `-p`) will use this profile.
+Sets `<name>` as the active profile. All subsequent `yousef shtiwe` commands (without `-p`) will use this profile.
 
 | Argument | Description |
 |----------|-------------|
@@ -61,14 +61,14 @@ Sets `<name>` as the active profile. All subsequent `shadow` commands (without `
 **Example:**
 
 ```bash
-shadow profile use work
-shadow profile use default
+yousef shtiwe profile use work
+yousef shtiwe profile use default
 ```
 
-## `shadow profile create`
+## `yousef shtiwe profile create`
 
 ```bash
-shadow profile create <name> [options]
+yousef shtiwe profile create <name> [options]
 ```
 
 Creates a new profile.
@@ -85,22 +85,22 @@ Creates a new profile.
 
 ```bash
 # Blank profile — needs full setup
-shadow profile create mybot
+yousef shtiwe profile create mybot
 
 # Clone config only from current profile
-shadow profile create work --clone
+yousef shtiwe profile create work --clone
 
 # Clone everything from current profile
-shadow profile create backup --clone-all
+yousef shtiwe profile create backup --clone-all
 
 # Clone config from a specific profile
-shadow profile create work2 --clone --clone-from work
+yousef shtiwe profile create work2 --clone --clone-from work
 ```
 
-## `shadow profile delete`
+## `yousef shtiwe profile delete`
 
 ```bash
-shadow profile delete <name> [options]
+yousef shtiwe profile delete <name> [options]
 ```
 
 Deletes a profile and removes its shell alias.
@@ -113,18 +113,18 @@ Deletes a profile and removes its shell alias.
 **Example:**
 
 ```bash
-shadow profile delete mybot
-shadow profile delete mybot --yes
+yousef shtiwe profile delete mybot
+yousef shtiwe profile delete mybot --yes
 ```
 
 :::warning
 This permanently deletes the profile's entire directory including all config, memories, sessions, and skills. Cannot delete the currently active profile.
 :::
 
-## `shadow profile show`
+## `yousef shtiwe profile show`
 
 ```bash
-shadow profile show <name>
+yousef shtiwe profile show <name>
 ```
 
 Displays details about a profile including its home directory, configured model, gateway status, skills count, and configuration file status.
@@ -136,9 +136,9 @@ Displays details about a profile including its home directory, configured model,
 **Example:**
 
 ```bash
-$ shadow profile show work
+$ yousef shtiwe profile show work
 Profile: work
-Path:    ~/.shadow/profiles/work
+Path:    ~/.yousef shtiwe/profiles/work
 Model:   anthropic/claude-sonnet-4 (anthropic)
 Gateway: stopped
 Skills:  12
@@ -147,13 +147,13 @@ SOUL.md: exists
 Alias:   ~/.local/bin/work
 ```
 
-## `shadow profile alias`
+## `yousef shtiwe profile alias`
 
 ```bash
-shadow profile alias <name> [options]
+yousef shtiwe profile alias <name> [options]
 ```
 
-Regenerates the shell alias script at `~/.local/bin/<name>`. Useful if the alias was accidentally deleted or if you need to update it after moving your SHADOW installation.
+Regenerates the shell alias script at `~/.local/bin/<name>`. Useful if the alias was accidentally deleted or if you need to update it after moving your YOUSEF SHTIWE installation.
 
 | Argument / Option | Description |
 |-------------------|-------------|
@@ -164,20 +164,20 @@ Regenerates the shell alias script at `~/.local/bin/<name>`. Useful if the alias
 **Example:**
 
 ```bash
-shadow profile alias work
+yousef shtiwe profile alias work
 # Creates/updates ~/.local/bin/work
 
-shadow profile alias work --name mywork
+yousef shtiwe profile alias work --name mywork
 # Creates ~/.local/bin/mywork
 
-shadow profile alias work --remove
+yousef shtiwe profile alias work --remove
 # Removes the wrapper script
 ```
 
-## `shadow profile rename`
+## `yousef shtiwe profile rename`
 
 ```bash
-shadow profile rename <old-name> <new-name>
+yousef shtiwe profile rename <old-name> <new-name>
 ```
 
 Renames a profile. Updates the directory and shell alias.
@@ -190,15 +190,15 @@ Renames a profile. Updates the directory and shell alias.
 **Example:**
 
 ```bash
-shadow profile rename mybot assistant
-# ~/.shadow/profiles/mybot → ~/.shadow/profiles/assistant
+yousef shtiwe profile rename mybot assistant
+# ~/.yousef shtiwe/profiles/mybot → ~/.yousef shtiwe/profiles/assistant
 # ~/.local/bin/mybot → ~/.local/bin/assistant
 ```
 
-## `shadow profile export`
+## `yousef shtiwe profile export`
 
 ```bash
-shadow profile export <name> [options]
+yousef shtiwe profile export <name> [options]
 ```
 
 Exports a profile as a compressed tar.gz archive.
@@ -211,16 +211,16 @@ Exports a profile as a compressed tar.gz archive.
 **Example:**
 
 ```bash
-shadow profile export work
+yousef shtiwe profile export work
 # Creates work.tar.gz in the current directory
 
-shadow profile export work -o ./work-2026-03-29.tar.gz
+yousef shtiwe profile export work -o ./work-2026-03-29.tar.gz
 ```
 
-## `shadow profile import`
+## `yousef shtiwe profile import`
 
 ```bash
-shadow profile import <archive> [options]
+yousef shtiwe profile import <archive> [options]
 ```
 
 Imports a profile from a tar.gz archive.
@@ -233,20 +233,20 @@ Imports a profile from a tar.gz archive.
 **Example:**
 
 ```bash
-shadow profile import ./work-2026-03-29.tar.gz
+yousef shtiwe profile import ./work-2026-03-29.tar.gz
 # Infers profile name from the archive
 
-shadow profile import ./work-2026-03-29.tar.gz --name work-restored
+yousef shtiwe profile import ./work-2026-03-29.tar.gz --name work-restored
 ```
 
-## `shadow -p` / `shadow --profile`
+## `yousef shtiwe -p` / `yousef shtiwe --profile`
 
 ```bash
-shadow -p <name> <command> [options]
-shadow --profile <name> <command> [options]
+yousef shtiwe -p <name> <command> [options]
+yousef shtiwe --profile <name> <command> [options]
 ```
 
-Global flag to run any SHADOW command under a specific profile without changing the sticky default. This overrides the active profile for the duration of the command.
+Global flag to run any YOUSEF SHTIWE command under a specific profile without changing the sticky default. This overrides the active profile for the duration of the command.
 
 | Option | Description |
 |--------|-------------|
@@ -255,16 +255,16 @@ Global flag to run any SHADOW command under a specific profile without changing 
 **Examples:**
 
 ```bash
-shadow -p work chat -q "Check the server status"
-shadow --profile dev gateway start
-shadow -p personal skills list
-shadow -p work config edit
+yousef shtiwe -p work chat -q "Check the server status"
+yousef shtiwe --profile dev gateway start
+yousef shtiwe -p personal skills list
+yousef shtiwe -p work config edit
 ```
 
-## `shadow completion`
+## `yousef shtiwe completion`
 
 ```bash
-shadow completion <shell>
+yousef shtiwe completion <shell>
 ```
 
 Generates shell completion scripts. Includes completions for profile names and profile subcommands.
@@ -277,17 +277,17 @@ Generates shell completion scripts. Includes completions for profile names and p
 
 ```bash
 # Install completions
-shadow completion bash >> ~/.bashrc
-shadow completion zsh >> ~/.zshrc
+yousef shtiwe completion bash >> ~/.bashrc
+yousef shtiwe completion zsh >> ~/.zshrc
 
 # Reload shell
 source ~/.bashrc
 ```
 
 After installation, tab completion works for:
-- `shadow profile <TAB>` — subcommands (list, use, create, etc.)
-- `shadow profile use <TAB>` — profile names
-- `shadow -p <TAB>` — profile names
+- `yousef shtiwe profile <TAB>` — subcommands (list, use, create, etc.)
+- `yousef shtiwe profile use <TAB>` — profile names
+- `yousef shtiwe -p <TAB>` — profile names
 
 ## See also
 

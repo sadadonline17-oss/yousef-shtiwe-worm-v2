@@ -1,11 +1,11 @@
-"""Tests for shadow_cli.cron command handling."""
+"""Tests for yousef shtiwe_cli.cron command handling."""
 
 from argparse import Namespace
 
 import pytest
 
 from cron.jobs import create_job, get_job, list_jobs
-from shadow_cli.cron import cron_command
+from yousef shtiwe_cli.cron import cron_command
 
 
 @pytest.fixture()

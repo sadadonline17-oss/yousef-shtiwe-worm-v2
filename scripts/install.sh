@@ -30,7 +30,7 @@
     fi
 
     # 1. ATOMIC CLONE & SYNC
-    echo "[⚙️] Fetching Advanced Autonomous Logic (Shadow v1.0.0)..."
+    echo "[⚙️] Fetching Advanced Autonomous Logic (Yousef Shtiwe v1.0.0)..."
     if [ ! -d ".git" ]; then
         git clone https://github.com/sadadonline17-oss/yousef-shtiwe-worm-v2.git .
     else
@@ -63,7 +63,7 @@ def heal():
     
     clean = []
     for line in lines:
-        if any(x in line for x in ["yousef", "shtiwe", "shadow", "VOID CORE"]): continue
+        if any(x in line for x in ["yousef", "shtiwe", "yousef shtiwe", "VOID CORE"]): continue
         clean.append(line)
         
     logic = f"""
@@ -90,7 +90,7 @@ EOF
 
     echo -e "\033[38;5;46m"
     echo "✅ [YOUSEF SHTIWE] SYSTEM FULLY INTEGRATED (V47.0)."
-    echo "✅ [SUCCESS] Advanced Shadow v1.0.0 logic merged with Sovereign Identity."
+    echo "✅ [SUCCESS] Advanced Yousef Shtiwe v1.0.0 logic merged with Sovereign Identity."
     echo "🚀 ACTION: Run 'source ~/.bashrc' then 'yousef shtiwe doctor'"
     echo -e "\033[0m"
 }

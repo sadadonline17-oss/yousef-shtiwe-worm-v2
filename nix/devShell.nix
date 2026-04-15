@@ -10,7 +10,7 @@
         ];
 
         shellHook = ''
-          echo "SHADOW Agent dev shell"
+          echo "YOUSEF SHTIWE Agent dev shell"
 
           # Composite stamp: changes when nix python or uv change
           STAMP_VALUE="${python}:${pkgs.uv}"
@@ -44,7 +44,7 @@
             echo "$STAMP_VALUE" > "$STAMP_FILE"
           fi
 
-          echo "Ready. Run 'shadow' to start."
+          echo "Ready. Run 'yousef shtiwe' to start."
         '';
       };
     };

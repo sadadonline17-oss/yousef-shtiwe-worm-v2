@@ -304,7 +304,7 @@ class TestEnsureInstalled:
                                  "tirith_timeout": 5, "tirith_fail_open": True}
         _tirith_mod._resolved_path = None
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security.threading.Thread") as MockThread:
             mock_thread = MagicMock()
@@ -321,7 +321,7 @@ class TestEnsureInstalled:
                                  "tirith_timeout": 5, "tirith_fail_open": True}
         _tirith_mod._resolved_path = None
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security.threading.Thread") as MockThread:
             mock_thread = MagicMock()
@@ -632,7 +632,7 @@ class TestBackgroundInstall:
                    return_value={"tirith_enabled": True, "tirith_path": "tirith",
                                  "tirith_timeout": 5, "tirith_fail_open": True}), \
              patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security.threading.Thread") as MockThread:
             mock_thread = MagicMock()
@@ -654,7 +654,7 @@ class TestBackgroundInstall:
                    return_value={"tirith_enabled": True, "tirith_path": "tirith",
                                  "tirith_timeout": 5, "tirith_fail_open": True}), \
              patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._read_failure_reason", return_value="download_failed"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=True):
 
@@ -674,7 +674,7 @@ class TestBackgroundInstall:
         _tirith_mod._install_thread = mock_thread
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"):
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"):
             result = _resolve_tirith_path("tirith")
             assert result == "tirith"  # returns configured default, doesn't block
 
@@ -770,7 +770,7 @@ class TestDiskFailureMarker:
     @patch("tools.tirith_security.shutil.which", return_value=None)
     def test_sync_resolve_persists_failure(self, mock_which, mock_install,
                                             mock_disk_check, mock_mark):
-        """Synchroshadow _resolve_tirith_path persists failure to disk."""
+        """Synchroyousef shtiwe _resolve_tirith_path persists failure to disk."""
         from tools.tirith_security import _resolve_tirith_path
         _tirith_mod._resolved_path = None
 
@@ -801,7 +801,7 @@ class TestDiskFailureMarker:
         _tirith_mod._resolved_path = None
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._read_failure_reason", return_value="download_failed"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=True), \
              patch("tools.tirith_security._install_tirith") as mock_install:
@@ -826,25 +826,25 @@ class TestDiskFailureMarker:
 
         _tirith_mod._resolved_path = None
 
-    def test_install_failed_recovers_from_shadow_bin(self):
-        """After _INSTALL_FAILED, manual install in SHADOW_HOME/bin is picked up."""
+    def test_install_failed_recovers_from_yousef shtiwe_bin(self):
+        """After _INSTALL_FAILED, manual install in YOUSEF SHTIWE_HOME/bin is picked up."""
         from tools.tirith_security import _resolve_tirith_path, _INSTALL_FAILED
         import tempfile
         tmpdir = tempfile.mkdtemp()
-        shadow_bin = os.path.join(tmpdir, "tirith")
+        yousef shtiwe_bin = os.path.join(tmpdir, "tirith")
         # Create a fake executable
-        with open(shadow_bin, "w") as f:
+        with open(yousef shtiwe_bin, "w") as f:
             f.write("#!/bin/sh\n")
-        os.chmod(shadow_bin, 0o755)
+        os.chmod(yousef shtiwe_bin, 0o755)
 
         _tirith_mod._resolved_path = _INSTALL_FAILED
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value=tmpdir), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value=tmpdir), \
              patch("tools.tirith_security._clear_install_failed") as mock_clear:
             result = _resolve_tirith_path("tirith")
-            assert result == shadow_bin
-            assert _tirith_mod._resolved_path == shadow_bin
+            assert result == yousef shtiwe_bin
+            assert _tirith_mod._resolved_path == yousef shtiwe_bin
             mock_clear.assert_called_once()
 
         _tirith_mod._resolved_path = None
@@ -855,7 +855,7 @@ class TestDiskFailureMarker:
         _tirith_mod._resolved_path = _INSTALL_FAILED
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._install_tirith") as mock_install:
             result = _resolve_tirith_path("tirith")
             assert result == "tirith"  # fallback to configured path
@@ -870,7 +870,7 @@ class TestDiskFailureMarker:
 
         # _is_install_failed_on_disk sees "cosign_missing" + cosign on PATH → returns False
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security._install_tirith", return_value=("/new/tirith", "")) as mock_install, \
              patch("tools.tirith_security._clear_install_failed"):
@@ -894,7 +894,7 @@ class TestDiskFailureMarker:
             return None
 
         with patch("tools.tirith_security.shutil.which", side_effect=_which_side_effect), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security._install_tirith", return_value=("/new/tirith", "")) as mock_install, \
              patch("tools.tirith_security._clear_install_failed"):
@@ -911,7 +911,7 @@ class TestDiskFailureMarker:
         _tirith_mod._install_failure_reason = "cosign_exec_failed"
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._install_tirith") as mock_install:
             result = _resolve_tirith_path("tirith")
             assert result == "tirith"  # fallback
@@ -926,7 +926,7 @@ class TestDiskFailureMarker:
         _tirith_mod._install_failure_reason = "cosign_missing"
 
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._install_tirith") as mock_install:
             result = _resolve_tirith_path("tirith")
             assert result == "tirith"  # fallback
@@ -941,7 +941,7 @@ class TestDiskFailureMarker:
 
         # First call: disk marker with cosign_missing is active, cosign still absent
         with patch("tools.tirith_security.shutil.which", return_value=None), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._read_failure_reason", return_value="cosign_missing"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=True):
             _resolve_tirith_path("tirith")
@@ -957,7 +957,7 @@ class TestDiskFailureMarker:
             return None
 
         with patch("tools.tirith_security.shutil.which", side_effect=_which_side_effect), \
-             patch("tools.tirith_security._shadow_bin_dir", return_value="/nonexistent"), \
+             patch("tools.tirith_security._yousef shtiwe_bin_dir", return_value="/nonexistent"), \
              patch("tools.tirith_security._is_install_failed_on_disk", return_value=False), \
              patch("tools.tirith_security._install_tirith", return_value=("/new/tirith", "")) as mock_install, \
              patch("tools.tirith_security._clear_install_failed"):
@@ -969,38 +969,38 @@ class TestDiskFailureMarker:
 
 
 # ---------------------------------------------------------------------------
-# SHADOW_HOME isolation
+# YOUSEF SHTIWE_HOME isolation
 # ---------------------------------------------------------------------------
 
-class TestSHADOWHomeIsolation:
-    def test_shadow_bin_dir_respects_shadow_home(self):
-        """_shadow_bin_dir must use SHADOW_HOME, not hardcoded ~/.shadow."""
-        from tools.tirith_security import _shadow_bin_dir
+class TestYOUSEF SHTIWEHomeIsolation:
+    def test_yousef shtiwe_bin_dir_respects_yousef shtiwe_home(self):
+        """_yousef shtiwe_bin_dir must use YOUSEF SHTIWE_HOME, not hardcoded ~/.yousef shtiwe."""
+        from tools.tirith_security import _yousef shtiwe_bin_dir
         import tempfile
         tmpdir = tempfile.mkdtemp()
-        with patch.dict(os.environ, {"SHADOW_HOME": tmpdir}):
-            result = _shadow_bin_dir()
+        with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": tmpdir}):
+            result = _yousef shtiwe_bin_dir()
         assert result == os.path.join(tmpdir, "bin")
         assert os.path.isdir(result)
 
-    def test_failure_marker_respects_shadow_home(self):
-        """_failure_marker_path must use SHADOW_HOME, not hardcoded ~/.shadow."""
+    def test_failure_marker_respects_yousef shtiwe_home(self):
+        """_failure_marker_path must use YOUSEF SHTIWE_HOME, not hardcoded ~/.yousef shtiwe."""
         from tools.tirith_security import _failure_marker_path
-        with patch.dict(os.environ, {"SHADOW_HOME": "/custom/shadow"}):
+        with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": "/custom/yousef shtiwe"}):
             result = _failure_marker_path()
-        assert result == "/custom/shadow/.tirith-install-failed"
+        assert result == "/custom/yousef shtiwe/.tirith-install-failed"
 
     def test_conftest_isolation_prevents_real_home_writes(self):
-        """The conftest autouse fixture sets SHADOW_HOME; verify it's active."""
-        shadow_home = os.getenv("SHADOW_HOME")
-        assert shadow_home is not None, "SHADOW_HOME should be set by conftest"
-        assert "shadow_test" in shadow_home, "Should point to test temp dir"
+        """The conftest autouse fixture sets YOUSEF SHTIWE_HOME; verify it's active."""
+        yousef shtiwe_home = os.getenv("YOUSEF SHTIWE_HOME")
+        assert yousef shtiwe_home is not None, "YOUSEF SHTIWE_HOME should be set by conftest"
+        assert "yousef shtiwe_test" in yousef shtiwe_home, "Should point to test temp dir"
 
-    def test_get_shadow_home_fallback(self):
-        """Without SHADOW_HOME set, falls back to ~/.shadow."""
-        from tools.tirith_security import _get_shadow_home
+    def test_get_yousef shtiwe_home_fallback(self):
+        """Without YOUSEF SHTIWE_HOME set, falls back to ~/.yousef shtiwe."""
+        from tools.tirith_security import _get_yousef shtiwe_home
         with patch.dict(os.environ, {}, clear=True):
-            # Remove SHADOW_HOME entirely
-            os.environ.pop("SHADOW_HOME", None)
-            result = _get_shadow_home()
-        assert result == os.path.join(os.path.expanduser("~"), ".shadow")
+            # Remove YOUSEF SHTIWE_HOME entirely
+            os.environ.pop("YOUSEF SHTIWE_HOME", None)
+            result = _get_yousef shtiwe_home()
+        assert result == os.path.join(os.path.expanduser("~"), ".yousef shtiwe")

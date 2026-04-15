@@ -10,23 +10,23 @@ Server-side LLM fact extraction with semantic search, reranking, and automatic d
 ## Setup
 
 ```bash
-shadow memory setup    # select "mem0"
+yousef shtiwe memory setup    # select "mem0"
 ```
 
 Or manually:
 ```bash
-shadow config set memory.provider mem0
-echo "MEM0_API_KEY=your-key" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider mem0
+echo "MEM0_API_KEY=your-key" >> ~/.yousef shtiwe/.env
 ```
 
 ## Config
 
-Config file: `$SHADOW_HOME/mem0.json`
+Config file: `$YOUSEF SHTIWE_HOME/mem0.json`
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `user_id` | `shadow-user` | User identifier on Mem0 |
-| `agent_id` | `shadow` | Agent identifier |
+| `user_id` | `yousef shtiwe-user` | User identifier on Mem0 |
+| `agent_id` | `yousef shtiwe` | Agent identifier |
 | `rerank` | `true` | Enable reranking for recall |
 
 ## Tools

@@ -1,4 +1,4 @@
-"""Tests for the update check mechanism in shadow_cli.banner."""
+"""Tests for the update check mechanism in yousef shtiwe_cli.banner."""
 
 import json
 import os
@@ -12,24 +12,24 @@ import pytest
 
 def test_version_string_no_v_prefix():
     """__version__ should be bare semver without a 'v' prefix."""
-    from shadow_cli import __version__
+    from yousef shtiwe_cli import __version__
     assert not __version__.startswith("v"), f"__version__ should not start with 'v', got {__version__!r}"
 
 
 def test_check_for_updates_uses_cache(tmp_path, monkeypatch):
     """When cache is fresh, check_for_updates should return cached value without calling git."""
-    from shadow_cli.banner import check_for_updates
+    from yousef shtiwe_cli.banner import check_for_updates
 
     # Create a fake git repo and fresh cache
-    repo_dir = tmp_path / "shadow-agent"
+    repo_dir = tmp_path / "yousef shtiwe-agent"
     repo_dir.mkdir()
     (repo_dir / ".git").mkdir()
 
     cache_file = tmp_path / ".update_check"
     cache_file.write_text(json.dumps({"ts": time.time(), "behind": 3}))
 
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
-    with patch("shadow_cli.banner.subprocess.run") as mock_run:
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
+    with patch("yousef shtiwe_cli.banner.subprocess.run") as mock_run:
         result = check_for_updates()
 
     assert result == 3
@@ -38,9 +38,9 @@ def test_check_for_updates_uses_cache(tmp_path, monkeypatch):
 
 def test_check_for_updates_expired_cache(tmp_path, monkeypatch):
     """When cache is expired, check_for_updates should call git fetch."""
-    from shadow_cli.banner import check_for_updates
+    from yousef shtiwe_cli.banner import check_for_updates
 
-    repo_dir = tmp_path / "shadow-agent"
+    repo_dir = tmp_path / "yousef shtiwe-agent"
     repo_dir.mkdir()
     (repo_dir / ".git").mkdir()
 
@@ -50,8 +50,8 @@ def test_check_for_updates_expired_cache(tmp_path, monkeypatch):
 
     mock_result = MagicMock(returncode=0, stdout="5\n")
 
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
-    with patch("shadow_cli.banner.subprocess.run", return_value=mock_result) as mock_run:
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
+    with patch("yousef shtiwe_cli.banner.subprocess.run", return_value=mock_result) as mock_run:
         result = check_for_updates()
 
     assert result == 5
@@ -60,32 +60,32 @@ def test_check_for_updates_expired_cache(tmp_path, monkeypatch):
 
 def test_check_for_updates_no_git_dir(tmp_path, monkeypatch):
     """Returns None when .git directory doesn't exist anywhere."""
-    import shadow_cli.banner as banner
+    import yousef shtiwe_cli.banner as banner
 
     # Create a fake banner.py so the fallback path also has no .git
-    fake_banner = tmp_path / "shadow_cli" / "banner.py"
+    fake_banner = tmp_path / "yousef shtiwe_cli" / "banner.py"
     fake_banner.parent.mkdir(parents=True, exist_ok=True)
     fake_banner.touch()
 
     monkeypatch.setattr(banner, "__file__", str(fake_banner))
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
-    with patch("shadow_cli.banner.subprocess.run") as mock_run:
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
+    with patch("yousef shtiwe_cli.banner.subprocess.run") as mock_run:
         result = banner.check_for_updates()
     assert result is None
     mock_run.assert_not_called()
 
 
 def test_check_for_updates_fallback_to_project_root(tmp_path, monkeypatch):
-    """Dev install: falls back to Path(__file__).parent.parent when SHADOW_HOME has no git repo."""
-    import shadow_cli.banner as banner
+    """Dev install: falls back to Path(__file__).parent.parent when YOUSEF SHTIWE_HOME has no git repo."""
+    import yousef shtiwe_cli.banner as banner
 
     project_root = Path(banner.__file__).parent.parent.resolve()
     if not (project_root / ".git").exists():
         pytest.skip("Not running from a git checkout")
 
-    # Point SHADOW_HOME at a temp dir with no shadow-agent/.git
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
-    with patch("shadow_cli.banner.subprocess.run") as mock_run:
+    # Point YOUSEF SHTIWE_HOME at a temp dir with no yousef shtiwe-agent/.git
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
+    with patch("yousef shtiwe_cli.banner.subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stdout="0\n")
         result = banner.check_for_updates()
     # Should have fallen back to project root and run git commands
@@ -94,7 +94,7 @@ def test_check_for_updates_fallback_to_project_root(tmp_path, monkeypatch):
 
 def test_prefetch_non_blocking():
     """prefetch_update_check() should return immediately without blocking."""
-    import shadow_cli.banner as banner
+    import yousef shtiwe_cli.banner as banner
 
     # Reset module state
     banner._update_result = None
@@ -115,7 +115,7 @@ def test_prefetch_non_blocking():
 
 def test_get_update_result_timeout():
     """get_update_result() returns None when check hasn't completed within timeout."""
-    import shadow_cli.banner as banner
+    import yousef shtiwe_cli.banner as banner
 
     # Reset module state — don't set the event
     banner._update_result = None
@@ -132,10 +132,10 @@ def test_get_update_result_timeout():
 
 def test_invalidate_update_cache_clears_all_profiles(tmp_path):
     """_invalidate_update_cache() should delete .update_check from ALL profiles."""
-    from shadow_cli.main import _invalidate_update_cache
+    from yousef shtiwe_cli.main import _invalidate_update_cache
 
-    # Build a fake ~/.shadow with default + two named profiles
-    default_home = tmp_path / ".shadow"
+    # Build a fake ~/.yousef shtiwe with default + two named profiles
+    default_home = tmp_path / ".yousef shtiwe"
     default_home.mkdir()
     (default_home / ".update_check").write_text('{"ts":1,"behind":50}')
 
@@ -146,7 +146,7 @@ def test_invalidate_update_cache_clears_all_profiles(tmp_path):
         (p / ".update_check").write_text('{"ts":1,"behind":50}')
 
     with patch.object(Path, "home", return_value=tmp_path), \
-         patch.dict(os.environ, {"SHADOW_HOME": str(default_home)}):
+         patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": str(default_home)}):
         _invalidate_update_cache()
 
     # All three caches should be gone
@@ -157,14 +157,14 @@ def test_invalidate_update_cache_clears_all_profiles(tmp_path):
 
 def test_invalidate_update_cache_no_profiles_dir(tmp_path):
     """Works fine when no profiles directory exists (single-profile setup)."""
-    from shadow_cli.main import _invalidate_update_cache
+    from yousef shtiwe_cli.main import _invalidate_update_cache
 
-    default_home = tmp_path / ".shadow"
+    default_home = tmp_path / ".yousef shtiwe"
     default_home.mkdir()
     (default_home / ".update_check").write_text('{"ts":1,"behind":5}')
 
     with patch.object(Path, "home", return_value=tmp_path), \
-         patch.dict(os.environ, {"SHADOW_HOME": str(default_home)}):
+         patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": str(default_home)}):
         _invalidate_update_cache()
 
     assert not (default_home / ".update_check").exists()

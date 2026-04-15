@@ -1,8 +1,8 @@
 """
 Longcat Flash Chat tool call parser.
 
-Same as SHADOW but uses <longcat_tool_call> tags instead of <tool_call>.
-Based on VLLM's LongcatFlashToolParser (extends SHADOW2ProToolParser).
+Same as YOUSEF SHTIWE but uses <longcat_tool_call> tags instead of <tool_call>.
+Based on VLLM's LongcatFlashToolParser (extends YOUSEF SHTIWE2ProToolParser).
 """
 
 import json
@@ -22,7 +22,7 @@ from environments.tool_call_parsers import ParseResult, ToolCallParser, register
 class LongcatToolCallParser(ToolCallParser):
     """
     Parser for Longcat Flash Chat tool calls.
-    Identical logic to SHADOW, just different tag names.
+    Identical logic to YOUSEF SHTIWE, just different tag names.
     """
 
     PATTERN = re.compile(

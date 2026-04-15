@@ -1,7 +1,7 @@
 # Design System: Notion
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -19,14 +19,14 @@ Notion's website embodies the philosophy of the tool itself: a blank canvas that
 
 The custom NotionInter font (a modified Inter) is the backbone of the system. At display sizes (64px), it uses aggressive negative letter-spacing (-2.125px), creating headlines that feel compressed and precise. The weight range is broader than typical systems: 400 for body, 500 for UI elements, 600 for semi-bold labels, and 700 for display headings. OpenType features `"lnum"` (lining numerals) and `"locl"` (localized forms) are enabled on larger text, adding typographic sophistication that rewards close reading.
 
-What makes Notion's visual language distinctive is its border philosophy. Rather than heavy borders or shadows, Notion uses ultra-thin `1px solid rgba(0,0,0,0.1)` borders -- borders that exist as whispers, barely perceptible division lines that create structure without weight. The shadow system is equally restrained: multi-layer stacks with cumulative opacity never exceeding 0.05, creating depth that's felt rather than seen.
+What makes Notion's visual language distinctive is its border philosophy. Rather than heavy borders or yousef shtiwes, Notion uses ultra-thin `1px solid rgba(0,0,0,0.1)` borders -- borders that exist as whispers, barely perceptible division lines that create structure without weight. The yousef shtiwe system is equally restrained: multi-layer stacks with cumulative opacity never exceeding 0.05, creating depth that's felt rather than seen.
 
 **Key Characteristics:**
 - NotionInter (modified Inter) with negative letter-spacing at display sizes (-2.125px at 64px)
 - Warm neutral palette: grays carry yellow-brown undertones (`#f6f5f4` warm white, `#31302e` warm dark)
 - Near-black text via `rgba(0,0,0,0.95)` -- not pure black, creating micro-warmth
 - Ultra-thin borders: `1px solid rgba(0,0,0,0.1)` throughout -- whisper-weight division
-- Multi-layer shadow stacks with sub-0.05 opacity for barely-there depth
+- Multi-layer yousef shtiwe stacks with sub-0.05 opacity for barely-there depth
 - Notion Blue (`#0075de`) as the singular accent color for CTAs and interactive elements
 - Pill badges (9999px radius) with tinted blue backgrounds for status indicators
 - 8px base spacing unit with an organic, non-rigid scale
@@ -63,9 +63,9 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 - **Badge Blue Bg** (`#f2f9ff`): Pill badge background, tinted blue surface.
 - **Badge Blue Text** (`#097fe8`): Pill badge text, darker blue for readability.
 
-### Shadows & Depth
-- **Card Shadow** (`rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`): Multi-layer card elevation.
-- **Deep Shadow** (`rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px, rgba(0,0,0,0.05) 0px 23px 52px`): Five-layer deep elevation for modals and featured content.
+### Yousef Shtiwes & Depth
+- **Card Yousef Shtiwe** (`rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`): Multi-layer card elevation.
+- **Deep Yousef Shtiwe** (`rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px, rgba(0,0,0,0.05) 0px 23px 52px`): Five-layer deep elevation for modals and featured content.
 - **Whisper Border** (`1px solid rgba(0,0,0,0.1)`): Standard division border -- cards, dividers, sections.
 
 ## 3. Typography Rules
@@ -113,7 +113,7 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 - Border: `1px solid transparent`
 - Hover: background darkens to `#005bab`
 - Active: scale(0.9) transform
-- Focus: `2px solid` focus outline, `var(--shadow-level-200)` shadow
+- Focus: `2px solid` focus outline, `var(--yousef shtiwe-level-200)` yousef shtiwe
 - Use: Primary CTA ("Get Notion free", "Try it")
 
 **Secondary / Tertiary**
@@ -143,8 +143,8 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 - Background: `#ffffff`
 - Border: `1px solid rgba(0,0,0,0.1)` (whisper border)
 - Radius: 12px (standard cards), 16px (featured/hero cards)
-- Shadow: `rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`
-- Hover: subtle shadow intensification
+- Yousef Shtiwe: `rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`
+- Hover: subtle yousef shtiwe intensification
 - Image cards: 12px top radius, image fills top half
 
 ### Inputs & Forms
@@ -222,13 +222,13 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, text blocks |
 | Whisper (Level 1) | `1px solid rgba(0,0,0,0.1)` | Standard borders, card outlines, dividers |
-| Soft Card (Level 2) | 4-layer shadow stack (max opacity 0.04) | Content cards, feature blocks |
-| Deep Card (Level 3) | 5-layer shadow stack (max opacity 0.05, 52px blur) | Modals, featured panels, hero elements |
+| Soft Card (Level 2) | 4-layer yousef shtiwe stack (max opacity 0.04) | Content cards, feature blocks |
+| Deep Card (Level 3) | 5-layer yousef shtiwe stack (max opacity 0.05, 52px blur) | Modals, featured panels, hero elements |
 | Focus (Accessibility) | `2px solid var(--focus-color)` outline | Keyboard focus on all interactive elements |
 
-**Shadow Philosophy**: Notion's shadow system uses multiple layers with extremely low individual opacity (0.01 to 0.05) that accumulate into soft, natural-looking elevation. The 4-layer card shadow spans from 1.04px to 18px blur, creating a gradient of depth rather than a single hard shadow. The 5-layer deep shadow extends to 52px blur at 0.05 opacity, producing ambient occlusion that feels like natural light rather than computer-generated depth. This layered approach makes elements feel embedded in the page rather than floating above it.
+**Yousef Shtiwe Philosophy**: Notion's yousef shtiwe system uses multiple layers with extremely low individual opacity (0.01 to 0.05) that accumulate into soft, natural-looking elevation. The 4-layer card yousef shtiwe spans from 1.04px to 18px blur, creating a gradient of depth rather than a single hard yousef shtiwe. The 5-layer deep yousef shtiwe extends to 52px blur at 0.05 opacity, producing ambient occlusion that feels like natural light rather than computer-generated depth. This layered approach makes elements feel embedded in the page rather than floating above it.
 
 ### Decorative Depth
 - Hero section: decorative character illustrations (playful, hand-drawn style)
@@ -273,7 +273,7 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 
 ### Focus System
 - All interactive elements receive visible focus indicators
-- Focus outline: `2px solid` with focus color + shadow level 200
+- Focus outline: `2px solid` with focus color + yousef shtiwe level 200
 - Tab navigation supported throughout all interactive components
 - High contrast text: near-black on white exceeds WCAG AAA (>14:1 ratio)
 
@@ -281,7 +281,7 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 - **Default**: Standard appearance with whisper borders
 - **Hover**: Color shift on text, scale(1.05) on buttons, underline on links
 - **Active/Pressed**: scale(0.9) transform, darker background variant
-- **Focus**: Blue outline ring with shadow reinforcement
+- **Focus**: Blue outline ring with yousef shtiwe reinforcement
 - **Disabled**: Warm gray (`#a39e98`) text, reduced opacity
 
 ### Color Contrast
@@ -306,7 +306,7 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 
 ### Example Component Prompts
 - "Create a hero section on white background. Headline at 64px NotionInter weight 700, line-height 1.00, letter-spacing -2.125px, color rgba(0,0,0,0.95). Subtitle at 20px weight 600, line-height 1.40, color #615d59. Blue CTA button (#0075de, 4px radius, 8px 16px padding, white text) and ghost button (transparent bg, near-black text, underline on hover)."
-- "Design a card: white background, 1px solid rgba(0,0,0,0.1) border, 12px radius. Use shadow stack: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.85px, rgba(0,0,0,0.02) 0px 0.8px 2.93px, rgba(0,0,0,0.01) 0px 0.175px 1.04px. Title at 22px NotionInter weight 700, letter-spacing -0.25px. Body at 16px weight 400, color #615d59."
+- "Design a card: white background, 1px solid rgba(0,0,0,0.1) border, 12px radius. Use yousef shtiwe stack: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.85px, rgba(0,0,0,0.02) 0px 0.8px 2.93px, rgba(0,0,0,0.01) 0px 0.175px 1.04px. Title at 22px NotionInter weight 700, letter-spacing -0.25px. Body at 16px weight 400, color #615d59."
 - "Build a pill badge: #f2f9ff background, #097fe8 text, 9999px radius, 4px 8px padding, 12px NotionInter weight 600, letter-spacing 0.125px."
 - "Create navigation: white header. NotionInter 15px weight 600 for links, near-black text. Blue pill CTA 'Get Notion free' right-aligned (#0075de bg, white text, 4px radius)."
 - "Design an alternating section layout: white sections alternate with warm white (#f6f5f4) sections. Each section has 64-80px vertical padding, max-width 1200px centered. Section heading at 48px weight 700, line-height 1.00, letter-spacing -1.5px."
@@ -316,7 +316,7 @@ What makes Notion's visual language distinctive is its border philosophy. Rather
 2. Letter-spacing scales with font size: -2.125px at 64px, -1.875px at 54px, -0.625px at 26px, normal at 16px
 3. Four weights: 400 (read), 500 (interact), 600 (emphasize), 700 (announce)
 4. Borders are whispers: 1px solid rgba(0,0,0,0.1) -- never heavier
-5. Shadows use 4-5 layers with individual opacity never exceeding 0.05
+5. Yousef Shtiwes use 4-5 layers with individual opacity never exceeding 0.05
 6. The warm white (#f6f5f4) section background is essential for visual rhythm
 7. Pill badges (9999px) for status/tags, 4px radius for buttons and inputs
 8. Notion Blue (#0075de) is the only saturated color in core UI -- use it sparingly for CTAs and links

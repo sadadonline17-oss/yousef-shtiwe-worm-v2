@@ -6,8 +6,8 @@ from unittest.mock import patch
 
 import pytest
 
-from shadow_cli.config import config_command, show_config
-from shadow_cli.setup import _print_setup_summary
+from yousef shtiwe_cli.config import config_command, show_config
+from yousef shtiwe_cli.setup import _print_setup_summary
 
 
 def test_config_set_usage_marks_placeholders(capsys):
@@ -18,7 +18,7 @@ def test_config_set_usage_marks_placeholders(capsys):
 
     assert exc.value.code == 1
     out = capsys.readouterr().out
-    assert "Usage: shadow config set <key> <value>" in out
+    assert "Usage: yousef shtiwe config set <key> <value>" in out
 
 
 def test_config_unknown_command_help_marks_placeholders(capsys):
@@ -29,20 +29,20 @@ def test_config_unknown_command_help_marks_placeholders(capsys):
 
     assert exc.value.code == 1
     out = capsys.readouterr().out
-    assert "shadow config set <key> <value>   Set a config value" in out
+    assert "yousef shtiwe config set <key> <value>   Set a config value" in out
 
 
 def test_show_config_marks_placeholders(tmp_path, capsys):
-    with patch.dict(os.environ, {"SHADOW_HOME": str(tmp_path)}):
+    with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": str(tmp_path)}):
         show_config()
 
     out = capsys.readouterr().out
-    assert "shadow config set <key> <value>" in out
+    assert "yousef shtiwe config set <key> <value>" in out
 
 
 def test_setup_summary_marks_placeholders(tmp_path, capsys):
-    with patch.dict(os.environ, {"SHADOW_HOME": str(tmp_path)}):
+    with patch.dict(os.environ, {"YOUSEF SHTIWE_HOME": str(tmp_path)}):
         _print_setup_summary({"tts": {"provider": "edge"}}, tmp_path)
 
     out = capsys.readouterr().out
-    assert "shadow config set <key> <value>" in out
+    assert "yousef shtiwe config set <key> <value>" in out

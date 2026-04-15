@@ -87,9 +87,9 @@ class TestConfigFilePermissions(unittest.TestCase):
 
     def test_save_config_sets_0600(self):
         config_path = Path(self.tmpdir) / "config.yaml"
-        with patch("shadow_cli.config.get_config_path", return_value=config_path), \
-             patch("shadow_cli.config.ensure_shadow_home"):
-            from shadow_cli.config import save_config
+        with patch("yousef shtiwe_cli.config.get_config_path", return_value=config_path), \
+             patch("yousef shtiwe_cli.config.ensure_yousef shtiwe_home"):
+            from yousef shtiwe_cli.config import save_config
             save_config({"model": "test/model"})
 
             file_mode = stat.S_IMODE(os.stat(config_path).st_mode)
@@ -97,19 +97,19 @@ class TestConfigFilePermissions(unittest.TestCase):
 
     def test_save_env_value_sets_0600(self):
         env_path = Path(self.tmpdir) / ".env"
-        with patch("shadow_cli.config.get_env_path", return_value=env_path), \
-             patch("shadow_cli.config.ensure_shadow_home"):
-            from shadow_cli.config import save_env_value
+        with patch("yousef shtiwe_cli.config.get_env_path", return_value=env_path), \
+             patch("yousef shtiwe_cli.config.ensure_yousef shtiwe_home"):
+            from yousef shtiwe_cli.config import save_env_value
             save_env_value("TEST_KEY", "test_value")
 
             file_mode = stat.S_IMODE(os.stat(env_path).st_mode)
             self.assertEqual(file_mode, 0o600)
 
-    def test_ensure_shadow_home_sets_0700(self):
-        home = Path(self.tmpdir) / ".shadow"
-        with patch("shadow_cli.config.get_shadow_home", return_value=home):
-            from shadow_cli.config import ensure_shadow_home
-            ensure_shadow_home()
+    def test_ensure_yousef shtiwe_home_sets_0700(self):
+        home = Path(self.tmpdir) / ".yousef shtiwe"
+        with patch("yousef shtiwe_cli.config.get_yousef shtiwe_home", return_value=home):
+            from yousef shtiwe_cli.config import ensure_yousef shtiwe_home
+            ensure_yousef shtiwe_home()
 
             home_mode = stat.S_IMODE(os.stat(home).st_mode)
             self.assertEqual(home_mode, 0o700)

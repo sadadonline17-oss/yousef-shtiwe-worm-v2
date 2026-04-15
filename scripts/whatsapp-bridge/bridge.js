@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SHADOW Agent WhatsApp Bridge
+ * YOUSEF SHTIWE Agent WhatsApp Bridge
  *
  * Standalone Node.js process that connects to WhatsApp via Baileys
  * and exposes HTTP endpoints for the Python gateway adapter.
@@ -15,7 +15,7 @@
  *   GET  /health         - Health check
  *
  * Usage:
- *   node bridge.js --port 3000 --session ~/.shadow/whatsapp/session
+ *   node bridge.js --port 3000 --session ~/.yousef shtiwe/whatsapp/session
  */
 
 import { makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, downloadMediaMessage } from '@whiskeysockets/baileys';
@@ -42,14 +42,14 @@ const WHATSAPP_DEBUG =
   ['1', 'true', 'yes', 'on'].includes(process.env.WHATSAPP_DEBUG.toLowerCase());
 
 const PORT = parseInt(getArg('port', '3000'), 10);
-const SESSION_DIR = getArg('session', path.join(process.env.HOME || '~', '.shadow', 'whatsapp', 'session'));
-const IMAGE_CACHE_DIR = path.join(process.env.HOME || '~', '.shadow', 'image_cache');
-const DOCUMENT_CACHE_DIR = path.join(process.env.HOME || '~', '.shadow', 'document_cache');
-const AUDIO_CACHE_DIR = path.join(process.env.HOME || '~', '.shadow', 'audio_cache');
+const SESSION_DIR = getArg('session', path.join(process.env.HOME || '~', '.yousef shtiwe', 'whatsapp', 'session'));
+const IMAGE_CACHE_DIR = path.join(process.env.HOME || '~', '.yousef shtiwe', 'image_cache');
+const DOCUMENT_CACHE_DIR = path.join(process.env.HOME || '~', '.yousef shtiwe', 'document_cache');
+const AUDIO_CACHE_DIR = path.join(process.env.HOME || '~', '.yousef shtiwe', 'audio_cache');
 const PAIR_ONLY = args.includes('--pair-only');
 const WHATSAPP_MODE = getArg('mode', process.env.WHATSAPP_MODE || 'self-chat'); // "bot" or "self-chat"
 const ALLOWED_USERS = parseAllowedUsers(process.env.WHATSAPP_ALLOWED_USERS || '');
-const DEFAULT_REPLY_PREFIX = '⚕ *SHADOW Agent*\n────────────\n';
+const DEFAULT_REPLY_PREFIX = '⚕ *YOUSEF SHTIWE Agent*\n────────────\n';
 const REPLY_PREFIX = process.env.WHATSAPP_REPLY_PREFIX === undefined
   ? DEFAULT_REPLY_PREFIX
   : process.env.WHATSAPP_REPLY_PREFIX.replace(/\\n/g, '\n');
@@ -129,7 +129,7 @@ async function startSocket() {
     auth: state,
     logger,
     printQRInTerminal: false,
-    browser: ['SHADOW Agent', 'Chrome', '120.0'],
+    browser: ['YOUSEF SHTIWE Agent', 'Chrome', '120.0'],
     syncFullHistory: false,
     markOnlineOnConnect: false,
     // Required for Baileys 7.x: without this, incoming messages that need
@@ -315,7 +315,7 @@ async function startSocket() {
         body = `[${mediaType} received]`;
       }
 
-      // Ignore SHADOW' own reply messages in self-chat mode to avoid loops.
+      // Ignore YOUSEF SHTIWE' own reply messages in self-chat mode to avoid loops.
       if (msg.key.fromMe && ((REPLY_PREFIX && body.startsWith(REPLY_PREFIX)) || recentlySentIds.has(msg.key.id))) {
         if (WHATSAPP_DEBUG) {
           try { console.log(JSON.stringify({ event: 'ignored', reason: 'agent_echo', chatId, messageId: msg.key.id })); } catch {}

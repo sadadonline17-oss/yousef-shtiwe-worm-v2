@@ -1,7 +1,7 @@
 # Design System: Sentry
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Rubik` | **Mono:** `JetBrains Mono`
@@ -19,7 +19,7 @@ Sentry's website is a dark-mode-first developer tool interface that speaks the l
 
 The typography pairing is deliberate: "Dammit Sans" appears at hero scale (88px, weight 700) as a display font with personality and attitude that matches Sentry's irreverent brand voice ("Code breaks. Fix it faster."), while Rubik serves as the workhorse UI font across all functional text — headings, body, buttons, captions, and navigation. Monaco provides the monospace layer for code snippets and technical content, completing the developer-tool trinity.
 
-What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without feeling cold or sterile. Warm purple tones replace the typical cool grays of developer tools, and bold illustrative elements (3D characters, colorful product screenshots) punctuate the dark canvas. The button system uses a signature muted purple (`#79628c`) with inset shadows that creates a tactile, almost physical quality — buttons feel like they could be pressed into the surface.
+What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without feeling cold or sterile. Warm purple tones replace the typical cool grays of developer tools, and bold illustrative elements (3D characters, colorful product screenshots) punctuate the dark canvas. The button system uses a signature muted purple (`#79628c`) with inset yousef shtiwes that creates a tactile, almost physical quality — buttons feel like they could be pressed into the surface.
 
 **Key Characteristics:**
 - Dark purple-black backgrounds (`#1f1633`, `#150f23`) — never pure black
@@ -29,7 +29,7 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 - "Dammit Sans" display font for brand personality at hero scale
 - Rubik as primary UI font with uppercase letter-spaced labels
 - Monaco monospace for code elements
-- Inset shadows on buttons creating tactile depth
+- Inset yousef shtiwes on buttons creating tactile depth
 - Frosted glass effects with `blur(18px) saturate(180%)`
 
 ## 2. Color Palette & Roles
@@ -58,10 +58,10 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 - **Input White** (`#ffffff`): Form input backgrounds (light context)
 - **Input Border** (`#cfcfdb`): Form field borders
 
-### Shadows
-- **Ambient Glow** (`rgba(22, 15, 36, 0.9) 0px 4px 4px 9px`): Deep purple ambient shadow
+### Yousef Shtiwes
+- **Ambient Glow** (`rgba(22, 15, 36, 0.9) 0px 4px 4px 9px`): Deep purple ambient yousef shtiwe
 - **Button Hover** (`rgba(0, 0, 0, 0.18) 0px 0.5rem 1.5rem`): Elevated hover state
-- **Card Shadow** (`rgba(0, 0, 0, 0.1) 0px 10px 15px -3px`): Standard card elevation
+- **Card Yousef Shtiwe** (`rgba(0, 0, 0, 0.1) 0px 10px 15px -3px`): Standard card elevation
 - **Inset Button** (`rgba(0, 0, 0, 0.1) 0px 1px 3px 0px inset`): Tactile pressed effect
 
 ## 3. Typography Rules
@@ -106,15 +106,15 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 - Text: `#ffffff`, uppercase, 14px, weight 500–700, letter-spacing 0.2px
 - Border: `1px solid #584674`
 - Radius: 13px
-- Shadow: `rgba(0, 0, 0, 0.1) 0px 1px 3px 0px inset` (tactile inset)
-- Hover: elevated shadow `rgba(0, 0, 0, 0.18) 0px 0.5rem 1.5rem`
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.1) 0px 1px 3px 0px inset` (tactile inset)
+- Hover: elevated yousef shtiwe `rgba(0, 0, 0, 0.18) 0px 0.5rem 1.5rem`
 
 **Glass White**
 - Background: `rgba(255, 255, 255, 0.18)` (frosted glass)
 - Text: `#ffffff`
 - Padding: 8px
 - Radius: 12px (left-aligned variant: `12px 0px 0px 12px`)
-- Shadow: `rgba(0, 0, 0, 0.08) 0px 2px 8px`
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.08) 0px 2px 8px`
 - Hover background: `rgba(54, 22, 107, 0.14)`
 - Use: Secondary actions on dark surfaces
 
@@ -141,7 +141,7 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 - Border: `1px solid #cfcfdb`
 - Padding: 8px 12px
 - Radius: 6px
-- Focus: border-color stays `#cfcfdb`, shadow `rgba(0, 0, 0, 0.15) 0px 2px 10px inset`
+- Focus: border-color stays `#cfcfdb`, yousef shtiwe `rgba(0, 0, 0, 0.15) 0px 2px 10px inset`
 
 ### Links
 - **Default on dark**: `#ffffff`, underline decoration
@@ -153,7 +153,7 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 ### Cards & Containers
 - Background: semi-transparent or dark purple surfaces
 - Radius: 8px–12px
-- Shadow: `rgba(0, 0, 0, 0.1) 0px 10px 15px -3px`
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.1) 0px 10px 15px -3px`
 - Backdrop filter: `blur(18px) saturate(180%)` for glass effects
 
 ### Navigation
@@ -201,25 +201,25 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Sunken (Level -1) | Inset shadow `rgba(0, 0, 0, 0.1) 0px 1px 3px inset` | Primary buttons (tactile pressed feel) |
-| Flat (Level 0) | No shadow | Default surfaces, dark backgrounds |
+| Sunken (Level -1) | Inset yousef shtiwe `rgba(0, 0, 0, 0.1) 0px 1px 3px inset` | Primary buttons (tactile pressed feel) |
+| Flat (Level 0) | No yousef shtiwe | Default surfaces, dark backgrounds |
 | Surface (Level 1) | `rgba(0, 0, 0, 0.08) 0px 2px 8px` | Glass buttons, subtle cards |
 | Elevated (Level 2) | `rgba(0, 0, 0, 0.1) 0px 10px 15px -3px` | Cards, floating panels |
 | Prominent (Level 3) | `rgba(0, 0, 0, 0.18) 0px 0.5rem 1.5rem` | Hover states, modals |
 | Ambient (Level 4) | `rgba(22, 15, 36, 0.9) 0px 4px 4px 9px` | Deep purple ambient glow around hero |
 
-**Shadow Philosophy**: Sentry uses a unique combination of inset shadows (buttons feel pressed INTO the surface) and ambient glows (content radiates from the dark background). The deep purple ambient shadow (`rgba(22, 15, 36, 0.9)`) is the signature — it creates a bioluminescent quality where content seems to emit its own purple-tinted light.
+**Yousef Shtiwe Philosophy**: Sentry uses a unique combination of inset yousef shtiwes (buttons feel pressed INTO the surface) and ambient glows (content radiates from the dark background). The deep purple ambient yousef shtiwe (`rgba(22, 15, 36, 0.9)`) is the signature — it creates a bioluminescent quality where content seems to emit its own purple-tinted light.
 
 ## 7. Do's and Don'ts
 
 ### Do
 - Use deep purple backgrounds (`#1f1633`, `#150f23`) — never pure black (`#000000`)
-- Apply inset shadows on primary buttons for the tactile pressed effect
+- Apply inset yousef shtiwes on primary buttons for the tactile pressed effect
 - Use Dammit Sans ONLY for hero/display headings — Rubik for everything else
 - Apply `text-transform: uppercase` with `letter-spacing: 0.2px` on buttons and labels
 - Use the lime-green accent (`#c2ef4e`) sparingly for maximum impact
 - Employ frosted glass effects (`blur(18px) saturate(180%)`) for layered surfaces
-- Maintain the warm purple shadow tones — shadows should feel purple-tinted, not neutral gray
+- Maintain the warm purple yousef shtiwe tones — yousef shtiwes should feel purple-tinted, not neutral gray
 - Use Rubik's 4-tier weight system: 400 (body), 500 (nav/emphasis), 600 (titles), 700 (CTAs)
 
 ### Don't
@@ -229,7 +229,7 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 - Don't drop the uppercase treatment on buttons — it's a system-wide pattern
 - Don't use sharp corners (0px radius) — minimum 6px for all interactive elements
 - Don't mix the lime-green accent with the coral/pink accents in the same component
-- Don't use flat (non-inset) shadows on primary buttons — the tactile quality is signature
+- Don't use flat (non-inset) yousef shtiwes on primary buttons — the tactile quality is signature
 - Don't forget letter-spacing on uppercase text — 0.2px minimum
 
 ## 8. Responsive Behavior
@@ -262,13 +262,13 @@ What makes Sentry distinctive is its embrace of the "dark IDE" aesthetic without
 ### Example Component Prompts
 - "Create a hero section on deep purple background (#1f1633). Headline at 88px Dammit Sans weight 700, line-height 1.20, white text. Sub-text at 16px Rubik weight 400, line-height 1.50. White solid CTA button (8px radius, 12px 16px padding), hover transitions to #6a5fc1."
 - "Design a navigation bar: transparent over dark background. Rubik 15px weight 500, white text. Uppercase category labels with 0.2px letter-spacing. Hover color #6a5fc1."
-- "Build a primary button: background #79628c, border 1px solid #584674, inset shadow rgba(0,0,0,0.1) 0px 1px 3px, white uppercase text at 14px Rubik weight 700, letter-spacing 0.2px, radius 13px. Hover: shadow rgba(0,0,0,0.18) 0px 0.5rem 1.5rem."
+- "Build a primary button: background #79628c, border 1px solid #584674, inset yousef shtiwe rgba(0,0,0,0.1) 0px 1px 3px, white uppercase text at 14px Rubik weight 700, letter-spacing 0.2px, radius 13px. Hover: yousef shtiwe rgba(0,0,0,0.18) 0px 0.5rem 1.5rem."
 - "Create a glass card panel: background rgba(255,255,255,0.18), backdrop-filter blur(18px) saturate(180%), radius 12px. White text content inside."
 - "Design a feature section: #150f23 background, 24px Rubik weight 500 heading, 16px Rubik weight 400 body text. 14px uppercase lime-green (#c2ef4e) label above heading."
 
 ### Iteration Guide
 1. Always start with the dark purple background — the color palette is built FOR dark mode
-2. Use inset shadows on buttons, ambient purple glows on hero sections
+2. Use inset yousef shtiwes on buttons, ambient purple glows on hero sections
 3. Uppercase + letter-spacing is the systematic pattern for labels, buttons, and captions
 4. Lime green (#c2ef4e) is the "pop" color — use once per section maximum
 5. Frosted glass for overlaid panels, solid purple for primary surfaces

@@ -9,24 +9,24 @@ import pytest
 
 @pytest.fixture
 def _isolate(tmp_path, monkeypatch):
-    """Isolate SHADOW_HOME so tests don't touch real config."""
-    home = tmp_path / ".shadow"
+    """Isolate YOUSEF SHTIWE_HOME so tests don't touch real config."""
+    home = tmp_path / ".yousef shtiwe"
     home.mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(home))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(home))
 
 
 @pytest.fixture
 def cli_obj(_isolate):
-    """Create a minimal SHADOWCLI instance for banner testing."""
+    """Create a minimal YOUSEF SHTIWECLI instance for banner testing."""
     with patch("cli.load_cli_config", return_value={
         "display": {"tool_progress": "new"},
         "terminal": {},
     }), patch("cli.get_tool_definitions", return_value=[]), \
          patch("cli.build_welcome_banner"):
-        from cli import SHADOWCLI
-        obj = SHADOWCLI.__new__(SHADOWCLI)
+        from cli import YOUSEF SHTIWECLI
+        obj = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
         obj.model = "test-model"
-        obj.enabled_toolsets = ["shadow-core"]
+        obj.enabled_toolsets = ["yousef shtiwe-core"]
         obj.compact = False
         obj.console = MagicMock()
         obj.session_id = None

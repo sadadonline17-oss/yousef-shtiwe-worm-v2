@@ -56,7 +56,7 @@
 
 :global([data-theme="light"]) .minimap {
   border: 1px solid var(--border-strong) !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+  box-yousef shtiwe: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* ---- Tool Node ---- */
@@ -89,7 +89,7 @@
 }
 
 .toolNodeBroken {
-  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.3);
+  box-yousef shtiwe: 0 0 0 1px rgba(245, 158, 11, 0.3);
 }
 
 :global([data-theme="light"]) .toolNode {
@@ -103,12 +103,12 @@
 
 .toolNodeHighlighted {
   border-color: #fff !important;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  box-yousef shtiwe: 0 0 12px rgba(255, 255, 255, 0.2);
 }
 
 :global([data-theme="light"]) .toolNodeHighlighted {
   border-color: #111827 !important;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  box-yousef shtiwe: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 
 .toolNodeDimmed {
@@ -344,12 +344,12 @@
 
 .dataNode:hover {
   border-color: #fff;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  box-yousef shtiwe: 0 0 8px rgba(255, 255, 255, 0.15);
 }
 
 :global([data-theme="light"]) .dataNode:hover {
   border-color: #111827;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+  box-yousef shtiwe: 0 0 8px rgba(0, 0, 0, 0.12);
 }
 
 .dataNodeUniversal {
@@ -358,13 +358,13 @@
 
 .dataNodeHighlighted {
   border-color: #fff !important;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+  box-yousef shtiwe: 0 0 10px rgba(255, 255, 255, 0.25);
   opacity: 1 !important;
 }
 
 :global([data-theme="light"]) .dataNodeHighlighted {
   border-color: #111827 !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-yousef shtiwe: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .dataNodeDimmed {
@@ -440,12 +440,12 @@
 
 .inputNodeHighlighted {
   border-color: #fff !important;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  box-yousef shtiwe: 0 0 12px rgba(255, 255, 255, 0.2);
 }
 
 :global([data-theme="light"]) .inputNodeHighlighted {
   border-color: #111827 !important;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  box-yousef shtiwe: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 
 .inputNodeDimmed {

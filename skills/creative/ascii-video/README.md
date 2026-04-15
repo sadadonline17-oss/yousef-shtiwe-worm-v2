@@ -2,7 +2,7 @@
 
 Renders any content as colored ASCII character video. Audio, video, images, text, or pure math in, MP4/GIF/PNG sequence out. Full RGB color per character cell, 1080p 24fps default. No GPU.
 
-Built for [SHADOW Agent](https://github.com/SHADOW-OVERLORD/shadow-agent). Usable in any coding agent. Canonical source lives here; synced to [`SHADOW-OVERLORD/shadow-agent/skills/creative/ascii-video`](https://github.com/SHADOW-OVERLORD/shadow-agent/tree/main/skills/creative/ascii-video) via PR.
+Built for [YOUSEF SHTIWE Agent](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent). Usable in any coding agent. Canonical source lives here; synced to [`YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/skills/creative/ascii-video`](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/tree/main/skills/creative/ascii-video) via PR.
 
 ## What this is
 

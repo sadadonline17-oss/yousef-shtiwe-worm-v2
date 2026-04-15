@@ -4,7 +4,7 @@ Tests cover:
 - Script field in job creation / storage / update
 - Script execution and output injection into prompts
 - Error handling (missing script, timeout, non-zero exit)
-- Path resolution (absolute, relative to SHADOW_HOME/scripts/)
+- Path resolution (absolute, relative to YOUSEF SHTIWE_HOME/scripts/)
 """
 
 import json
@@ -23,22 +23,22 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 @pytest.fixture
 def cron_env(tmp_path, monkeypatch):
-    """Isolated cron environment with temp SHADOW_HOME."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
-    (shadow_home / "cron").mkdir()
-    (shadow_home / "cron" / "output").mkdir()
-    (shadow_home / "scripts").mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+    """Isolated cron environment with temp YOUSEF SHTIWE_HOME."""
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
+    (yousef shtiwe_home / "cron").mkdir()
+    (yousef shtiwe_home / "cron" / "output").mkdir()
+    (yousef shtiwe_home / "scripts").mkdir()
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
     # Clear cached module-level paths
     import cron.jobs as jobs_mod
-    monkeypatch.setattr(jobs_mod, "SHADOW_DIR", shadow_home)
-    monkeypatch.setattr(jobs_mod, "CRON_DIR", shadow_home / "cron")
-    monkeypatch.setattr(jobs_mod, "JOBS_FILE", shadow_home / "cron" / "jobs.json")
-    monkeypatch.setattr(jobs_mod, "OUTPUT_DIR", shadow_home / "cron" / "output")
+    monkeypatch.setattr(jobs_mod, "YOUSEF SHTIWE_DIR", yousef shtiwe_home)
+    monkeypatch.setattr(jobs_mod, "CRON_DIR", yousef shtiwe_home / "cron")
+    monkeypatch.setattr(jobs_mod, "JOBS_FILE", yousef shtiwe_home / "cron" / "jobs.json")
+    monkeypatch.setattr(jobs_mod, "OUTPUT_DIR", yousef shtiwe_home / "cron" / "output")
 
-    return shadow_home
+    return yousef shtiwe_home
 
 
 class TestJobScriptField:
@@ -232,7 +232,7 @@ class TestCronjobToolScript:
     """Test the cronjob tool's script parameter."""
 
     def test_create_with_script(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -245,7 +245,7 @@ class TestCronjobToolScript:
         assert result["job"]["script"] == "monitor.py"
 
     def test_update_script(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         create_result = json.loads(cronjob(
@@ -264,7 +264,7 @@ class TestCronjobToolScript:
         assert update_result["job"]["script"] == "new_script.py"
 
     def test_clear_script(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         create_result = json.loads(cronjob(
@@ -284,7 +284,7 @@ class TestCronjobToolScript:
         assert "script" not in update_result["job"]
 
     def test_list_shows_script(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         cronjob(
@@ -309,7 +309,7 @@ class TestScriptPathContainment:
     """
 
     def test_absolute_path_outside_scripts_dir_blocked(self, cron_env):
-        """Absolute paths outside ~/.shadow/scripts/ must be rejected."""
+        """Absolute paths outside ~/.yousef shtiwe/scripts/ must be rejected."""
         from cron.scheduler import _run_job_script
 
         # Create a script outside the scripts dir
@@ -412,7 +412,7 @@ class TestCronjobToolScriptValidation:
     """Test API-boundary validation of cron script paths in cronjob_tools."""
 
     def test_create_with_absolute_script_rejected(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -425,7 +425,7 @@ class TestCronjobToolScriptValidation:
         assert "relative" in result["error"].lower() or "absolute" in result["error"].lower()
 
     def test_create_with_tilde_script_rejected(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -438,7 +438,7 @@ class TestCronjobToolScriptValidation:
         assert "relative" in result["error"].lower() or "absolute" in result["error"].lower()
 
     def test_create_with_traversal_script_rejected(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -451,7 +451,7 @@ class TestCronjobToolScriptValidation:
         assert "escapes" in result["error"].lower() or "traversal" in result["error"].lower()
 
     def test_create_with_relative_script_allowed(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -464,7 +464,7 @@ class TestCronjobToolScriptValidation:
         assert result["job"]["script"] == "monitor.py"
 
     def test_update_with_absolute_script_rejected(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         create_result = json.loads(cronjob(
@@ -484,7 +484,7 @@ class TestCronjobToolScriptValidation:
 
     def test_update_clear_script_allowed(self, cron_env, monkeypatch):
         """Clearing a script (empty string) should always be permitted."""
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         create_result = json.loads(cronjob(
@@ -504,7 +504,7 @@ class TestCronjobToolScriptValidation:
         assert "script" not in update_result["job"]
 
     def test_windows_absolute_path_rejected(self, cron_env, monkeypatch):
-        monkeypatch.setenv("SHADOW_INTERACTIVE", "1")
+        monkeypatch.setenv("YOUSEF SHTIWE_INTERACTIVE", "1")
         from tools.cronjob_tools import cronjob
 
         result = json.loads(cronjob(
@@ -523,9 +523,9 @@ class TestRunJobEnvVarCleanup:
         """Origin env vars must be cleaned up even if run_job fails early."""
         # Ensure env vars are clean before test
         for key in (
-            "SHADOW_SESSION_PLATFORM",
-            "SHADOW_SESSION_CHAT_ID",
-            "SHADOW_SESSION_CHAT_NAME",
+            "YOUSEF SHTIWE_SESSION_PLATFORM",
+            "YOUSEF SHTIWE_SESSION_CHAT_ID",
+            "YOUSEF SHTIWE_SESSION_CHAT_NAME",
         ):
             monkeypatch.delenv(key, raising=False)
 
@@ -552,6 +552,6 @@ class TestRunJobEnvVarCleanup:
             pass
 
         # Verify env vars were cleaned up by the finally block
-        assert os.environ.get("SHADOW_SESSION_PLATFORM") is None
-        assert os.environ.get("SHADOW_SESSION_CHAT_ID") is None
-        assert os.environ.get("SHADOW_SESSION_CHAT_NAME") is None
+        assert os.environ.get("YOUSEF SHTIWE_SESSION_PLATFORM") is None
+        assert os.environ.get("YOUSEF SHTIWE_SESSION_CHAT_ID") is None
+        assert os.environ.get("YOUSEF SHTIWE_SESSION_CHAT_NAME") is None

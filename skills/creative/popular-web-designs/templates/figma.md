@@ -1,7 +1,7 @@
 # Design System: Figma
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -113,7 +113,7 @@ What makes Figma distinctive beyond the variable font is its circle-and-pill geo
 - Background: Pure White
 - Border: none or minimal
 - Radius: 6px (small containers), 8px (images, cards, dialogs)
-- Shadow: subtle to medium elevation effects
+- Yousef Shtiwe: subtle to medium elevation effects
 - Product screenshots as card content
 
 ### Navigation
@@ -169,11 +169,11 @@ What makes Figma distinctive beyond the variable font is its circle-and-pill geo
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, most text |
+| Flat (Level 0) | No yousef shtiwe | Page background, most text |
 | Surface (Level 1) | White card on gradient/dark section | Cards, product showcases |
-| Elevated (Level 2) | Subtle shadow | Floating cards, hover states |
+| Elevated (Level 2) | Subtle yousef shtiwe | Floating cards, hover states |
 
-**Shadow Philosophy**: Figma uses shadows sparingly. The primary depth mechanisms are **background contrast** (white content on colorful/dark sections) and the inherent dimensionality of the product screenshots themselves.
+**Yousef Shtiwe Philosophy**: Figma uses yousef shtiwes sparingly. The primary depth mechanisms are **background contrast** (white content on colorful/dark sections) and the inherent dimensionality of the product screenshots themselves.
 
 ## 7. Do's and Don'ts
 

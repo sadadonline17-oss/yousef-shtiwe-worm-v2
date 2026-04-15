@@ -1,7 +1,7 @@
 {
-  "name": "shadow-whatsapp-bridge",
+  "name": "yousef shtiwe-whatsapp-bridge",
   "version": "1.0.0",
-  "description": "WhatsApp bridge for SHADOW Agent using Baileys",
+  "description": "WhatsApp bridge for YOUSEF SHTIWE Agent using Baileys",
   "private": true,
   "type": "module",
   "scripts": {

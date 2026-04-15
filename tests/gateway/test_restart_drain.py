@@ -79,8 +79,8 @@ async def test_draining_rejects_new_session_messages():
 
 
 def test_load_busy_input_mode_prefers_env_then_config_then_default(tmp_path, monkeypatch):
-    monkeypatch.setattr(gateway_run, "_shadow_home", tmp_path)
-    monkeypatch.delenv("SHADOW_GATEWAY_BUSY_INPUT_MODE", raising=False)
+    monkeypatch.setattr(gateway_run, "_yousef shtiwe_home", tmp_path)
+    monkeypatch.delenv("YOUSEF SHTIWE_GATEWAY_BUSY_INPUT_MODE", raising=False)
 
     assert gateway_run.GatewayRunner._load_busy_input_mode() == "interrupt"
 
@@ -89,15 +89,15 @@ def test_load_busy_input_mode_prefers_env_then_config_then_default(tmp_path, mon
     )
     assert gateway_run.GatewayRunner._load_busy_input_mode() == "queue"
 
-    monkeypatch.setenv("SHADOW_GATEWAY_BUSY_INPUT_MODE", "interrupt")
+    monkeypatch.setenv("YOUSEF SHTIWE_GATEWAY_BUSY_INPUT_MODE", "interrupt")
     assert gateway_run.GatewayRunner._load_busy_input_mode() == "interrupt"
 
 
 def test_load_restart_drain_timeout_prefers_env_then_config_then_default(
     tmp_path, monkeypatch, caplog
 ):
-    monkeypatch.setattr(gateway_run, "_shadow_home", tmp_path)
-    monkeypatch.delenv("SHADOW_RESTART_DRAIN_TIMEOUT", raising=False)
+    monkeypatch.setattr(gateway_run, "_yousef shtiwe_home", tmp_path)
+    monkeypatch.delenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", raising=False)
 
     assert (
         gateway_run.GatewayRunner._load_restart_drain_timeout()
@@ -109,10 +109,10 @@ def test_load_restart_drain_timeout_prefers_env_then_config_then_default(
     )
     assert gateway_run.GatewayRunner._load_restart_drain_timeout() == 12.0
 
-    monkeypatch.setenv("SHADOW_RESTART_DRAIN_TIMEOUT", "7")
+    monkeypatch.setenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", "7")
     assert gateway_run.GatewayRunner._load_restart_drain_timeout() == 7.0
 
-    monkeypatch.setenv("SHADOW_RESTART_DRAIN_TIMEOUT", "invalid")
+    monkeypatch.setenv("YOUSEF SHTIWE_RESTART_DRAIN_TIMEOUT", "invalid")
     assert (
         gateway_run.GatewayRunner._load_restart_drain_timeout()
         == DEFAULT_GATEWAY_RESTART_DRAIN_TIMEOUT
@@ -141,7 +141,7 @@ async def test_launch_detached_restart_command_uses_setsid(monkeypatch):
     runner, _adapter = make_restart_runner()
     popen_calls = []
 
-    monkeypatch.setattr(gateway_run, "_resolve_shadow_bin", lambda: ["/usr/bin/shadow"])
+    monkeypatch.setattr(gateway_run, "_resolve_yousef shtiwe_bin", lambda: ["/usr/bin/yousef shtiwe"])
     monkeypatch.setattr(gateway_run.os, "getpid", lambda: 321)
     monkeypatch.setattr(shutil, "which", lambda cmd: "/usr/bin/setsid" if cmd == "setsid" else None)
 

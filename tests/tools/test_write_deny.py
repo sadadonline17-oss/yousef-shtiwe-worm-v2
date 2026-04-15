@@ -8,8 +8,8 @@ from tools.file_operations import _is_write_denied
 
 
 class TestWriteDenyExactPaths:
-    def test_etc_shadow(self):
-        assert _is_write_denied("/etc/shadow") is True
+    def test_etc_yousef shtiwe(self):
+        assert _is_write_denied("/etc/yousef shtiwe") is True
 
     def test_etc_passwd(self):
         assert _is_write_denied("/etc/passwd") is True
@@ -32,8 +32,8 @@ class TestWriteDenyExactPaths:
         path = os.path.join(str(Path.home()), ".netrc")
         assert _is_write_denied(path) is True
 
-    def test_shadow_env(self):
-        path = os.path.join(str(Path.home()), ".shadow", ".env")
+    def test_yousef shtiwe_env(self):
+        path = os.path.join(str(Path.home()), ".yousef shtiwe", ".env")
         assert _is_write_denied(path) is True
 
     def test_shell_profiles(self):
@@ -78,6 +78,6 @@ class TestWriteAllowed:
     def test_project_file(self):
         assert _is_write_denied("/home/user/project/main.py") is False
 
-    def test_shadow_config_not_env(self):
-        path = os.path.join(str(Path.home()), ".shadow", "config.yaml")
+    def test_yousef shtiwe_config_not_env(self):
+        path = os.path.join(str(Path.home()), ".yousef shtiwe", "config.yaml")
         assert _is_write_denied(path) is False

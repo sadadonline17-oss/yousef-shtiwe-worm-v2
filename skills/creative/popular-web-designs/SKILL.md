@@ -6,7 +6,7 @@ description: >
   Vercel, Notion, Airbnb, and more. Each template includes colors, typography, components,
   layout rules, and ready-to-use CSS values.
 version: 1.0.0
-author: SHADOW Agent + Teknium (design systems sourced from VoltAgent/awesome-design-md)
+author: YOUSEF SHTIWE Agent + Teknium (design systems sourced from VoltAgent/awesome-design-md)
 license: MIT
 tags: [design, css, html, ui, web-development, design-systems, templates]
 triggers:
@@ -25,7 +25,7 @@ triggers:
 
 54 real-world design systems ready for use when generating HTML/CSS. Each template captures a
 site's complete visual language: color palette, typography hierarchy, component styles, spacing
-system, shadows, responsive behavior, and practical agent prompts with exact CSS values.
+system, yousef shtiwes, responsive behavior, and practical agent prompts with exact CSS values.
 
 ## How to Use
 
@@ -34,7 +34,7 @@ system, shadows, responsive behavior, and practical agent prompts with exact CSS
 3. Use the design tokens and component specs when generating HTML
 4. Pair with the `generative-widgets` skill to serve the result via cloudflared tunnel
 
-Each template includes a **SHADOW Implementation Notes** block at the top with:
+Each template includes a **YOUSEF SHTIWE Implementation Notes** block at the top with:
 - CDN font substitute and Google Fonts `<link>` tag (ready to paste)
 - CSS font-family stacks for primary and monospace
 - Reminders to use `write_file` for HTML creation and `browser_vision` for verification
@@ -48,7 +48,7 @@ Each template includes a **SHADOW Implementation Notes** block at the top with:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Title</title>
-  <!-- Paste the Google Fonts <link> from the template's SHADOW notes -->
+  <!-- Paste the Google Fonts <link> from the template's YOUSEF SHTIWE notes -->
   <link href="https://fonts.googleapis.com/css2?family=..." rel="stylesheet">
   <style>
     /* Apply the template's color palette as CSS custom properties */
@@ -66,7 +66,7 @@ Each template includes a **SHADOW Implementation Notes** block at the top with:
     }
     /* Apply component styles from template Section 4 */
     /* Apply layout from template Section 5 */
-    /* Apply shadows from template Section 6 */
+    /* Apply yousef shtiwes from template Section 6 */
   </style>
 </head>
 <body>

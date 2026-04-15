@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: "Architecture"
-description: "SHADOW Agent internals — major subsystems, execution paths, data flow, and where to read next"
+description: "YOUSEF SHTIWE Agent internals — major subsystems, execution paths, data flow, and where to read next"
 ---
 
 # Architecture
 
-This page is the top-level map of SHADOW Agent internals. Use it to orient yourself in the codebase, then dive into subsystem-specific docs for implementation details.
+This page is the top-level map of YOUSEF SHTIWE Agent internals. Use it to orient yourself in the codebase, then dive into subsystem-specific docs for implementation details.
 
 ## System Overview
 
@@ -41,7 +41,7 @@ This page is the top-level map of SHADOW Agent internals. Use it to orient yours
 ┌───────────────────┐              ┌──────────────────────┐
 │ Session Storage   │              │ Tool Backends         │
 │ (SQLite + FTS5)   │              │ Terminal (6 backends) │
-│ shadow_state.py   │              │ Browser (5 backends)  │
+│ yousef shtiwe_state.py   │              │ Browser (5 backends)  │
 │ gateway/session.py│              │ Web (4 backends)      │
 └───────────────────┘              │ MCP (dynamic)         │
                                    │ File, Vision, etc.    │
@@ -51,13 +51,13 @@ This page is the top-level map of SHADOW Agent internals. Use it to orient yours
 ## Directory Structure
 
 ```text
-shadow-agent/
+yousef shtiwe-agent/
 ├── run_agent.py              # AIAgent — core conversation loop (~10,700 lines)
-├── cli.py                    # SHADOWCLI — interactive terminal UI (~10,000 lines)
+├── cli.py                    # YOUSEF SHTIWECLI — interactive terminal UI (~10,000 lines)
 ├── model_tools.py            # Tool discovery, schema collection, dispatch
 ├── toolsets.py               # Tool groupings and platform presets
-├── shadow_state.py           # SQLite session/state database with FTS5
-├── shadow_constants.py       # SHADOW_HOME, profile-aware paths
+├── yousef shtiwe_state.py           # SQLite session/state database with FTS5
+├── yousef shtiwe_constants.py       # YOUSEF SHTIWE_HOME, profile-aware paths
 ├── batch_runner.py           # Batch trajectory generation
 │
 ├── agent/                    # Agent internals
@@ -75,8 +75,8 @@ shadow-agent/
 │   ├── memory_provider.py   # Memory provider ABC
 │   └── trajectory.py         # Trajectory saving helpers
 │
-├── shadow_cli/               # CLI subcommands and setup
-│   ├── main.py               # Entry point — all `shadow` subcommands (~6,000 lines)
+├── yousef shtiwe_cli/               # CLI subcommands and setup
+│   ├── main.py               # Entry point — all `yousef shtiwe` subcommands (~6,000 lines)
 │   ├── config.py             # DEFAULT_CONFIG, OPTIONAL_ENV_VARS, migration
 │   ├── commands.py           # COMMAND_REGISTRY — central slash command definitions
 │   ├── auth.py               # PROVIDER_REGISTRY, credential resolution
@@ -85,12 +85,12 @@ shadow-agent/
 │   ├── model_switch.py       # /model command logic (CLI + gateway shared)
 │   ├── setup.py              # Interactive setup wizard (~3,100 lines)
 │   ├── skin_engine.py        # CLI theming engine
-│   ├── skills_config.py      # shadow skills — enable/disable per platform
+│   ├── skills_config.py      # yousef shtiwe skills — enable/disable per platform
 │   ├── skills_hub.py         # /skills slash command
-│   ├── tools_config.py       # shadow tools — enable/disable per platform
+│   ├── tools_config.py       # yousef shtiwe tools — enable/disable per platform
 │   ├── plugins.py            # PluginManager — discovery, loading, hooks
 │   ├── callbacks.py          # Terminal callbacks (clarify, sudo, approval)
-│   └── gateway.py            # shadow gateway start/stop
+│   └── gateway.py            # yousef shtiwe gateway start/stop
 │
 ├── tools/                    # Tool implementations (one file per tool)
 │   ├── registry.py           # Central tool registry
@@ -138,7 +138,7 @@ shadow-agent/
 ### CLI Session
 
 ```text
-User input → SHADOWCLI.process_input()
+User input → YOUSEF SHTIWECLI.process_input()
   → AIAgent.run_conversation()
     → prompt_builder.build_system_prompt()
     → runtime_provider.resolve_runtime_provider()
@@ -190,7 +190,7 @@ If you are new to the codebase:
 
 ### Agent Loop
 
-The synchroshadow orchestration engine (`AIAgent` in `run_agent.py`). Handles provider selection, prompt construction, tool execution, retries, fallback, callbacks, compression, and persistence. Supports three API modes for different provider backends.
+The synchroyousef shtiwe orchestration engine (`AIAgent` in `run_agent.py`). Handles provider selection, prompt construction, tool execution, retries, fallback, callbacks, compression, and persistence. Supports three API modes for different provider backends.
 
 → [Agent Loop Internals](./agent-loop.md)
 
@@ -198,7 +198,7 @@ The synchroshadow orchestration engine (`AIAgent` in `run_agent.py`). Handles pr
 
 Prompt construction and maintenance across the conversation lifecycle:
 
-- **`prompt_builder.py`** — Assembles the system prompt from: personality (SOUL.md), memory (MEMORY.md, USER.md), skills, context files (AGENTS.md, .shadow.md), tool-use guidance, and model-specific instructions
+- **`prompt_builder.py`** — Assembles the system prompt from: personality (SOUL.md), memory (MEMORY.md, USER.md), skills, context files (AGENTS.md, .yousef shtiwe.md), tool-use guidance, and model-specific instructions
 - **`prompt_caching.py`** — Applies Anthropic cache breakpoints for prefix caching
 - **`context_compressor.py`** — Summarizes middle conversation turns when context exceeds thresholds
 
@@ -230,9 +230,9 @@ Long-running process with 18 platform adapters, unified session routing, user au
 
 ### Plugin System
 
-Three discovery sources: `~/.shadow/plugins/` (user), `.shadow/plugins/` (project), and pip entry points. Plugins register tools, hooks, and CLI commands through a context API. Two specialized plugin types exist: memory providers (`plugins/memory/`) and context engines (`plugins/context_engine/`). Both are single-select — only one of each can be active at a time, configured via `shadow plugins` or `config.yaml`.
+Three discovery sources: `~/.yousef shtiwe/plugins/` (user), `.yousef shtiwe/plugins/` (project), and pip entry points. Plugins register tools, hooks, and CLI commands through a context API. Two specialized plugin types exist: memory providers (`plugins/memory/`) and context engines (`plugins/context_engine/`). Both are single-select — only one of each can be active at a time, configured via `yousef shtiwe plugins` or `config.yaml`.
 
-→ [Plugin Guide](/docs/guides/build-a-shadow-plugin), [Memory Provider Plugin](./memory-provider-plugin.md)
+→ [Plugin Guide](/docs/guides/build-a-yousef shtiwe-plugin), [Memory Provider Plugin](./memory-provider-plugin.md)
 
 ### Cron
 
@@ -242,7 +242,7 @@ First-class agent tasks (not shell tasks). Jobs store in JSON, support multiple 
 
 ### ACP Integration
 
-Exposes SHADOW as an editor-native agent over stdio/JSON-RPC for VS Code, Zed, and JetBrains.
+Exposes YOUSEF SHTIWE as an editor-native agent over stdio/JSON-RPC for VS Code, Zed, and JetBrains.
 
 → [ACP Internals](./acp-internals.md)
 
@@ -261,7 +261,7 @@ Full environment framework for evaluation and RL training. Integrates with Atrop
 | **Interruptible** | API calls and tool execution can be cancelled mid-flight by user input or signals. |
 | **Platform-agnostic core** | One AIAgent class serves CLI, gateway, ACP, batch, and API server. Platform differences live in the entry point, not the agent. |
 | **Loose coupling** | Optional subsystems (MCP, plugins, memory providers, RL environments) use registry patterns and check_fn gating, not hard dependencies. |
-| **Profile isolation** | Each profile (`shadow -p <name>`) gets its own SHADOW_HOME, config, memory, sessions, and gateway PID. Multiple profiles run concurrently. |
+| **Profile isolation** | Each profile (`yousef shtiwe -p <name>`) gets its own YOUSEF SHTIWE_HOME, config, memory, sessions, and gateway PID. Multiple profiles run concurrently. |
 
 ## File Dependency Chain
 

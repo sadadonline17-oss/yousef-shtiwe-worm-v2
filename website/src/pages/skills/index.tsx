@@ -208,7 +208,7 @@ function SkillCard({
               </div>
             )}
             <div className={styles.installHint}>
-              <code>shadow skills install {skill.name}</code>
+              <code>yousef shtiwe skills install {skill.name}</code>
             </div>
           </div>
         )}
@@ -334,13 +334,13 @@ export default function SkillsDashboard() {
   return (
     <Layout
       title="Skills Hub"
-      description="Browse all skills and plugins available for SHADOW Agent"
+      description="Browse all skills and plugins available for YOUSEF SHTIWE Agent"
     >
       <div className={styles.page}>
         <header className={styles.hero}>
           <div className={styles.heroGlow} />
           <div className={styles.heroContent}>
-            <p className={styles.heroEyebrow}>SHADOW Agent</p>
+            <p className={styles.heroEyebrow}>YOUSEF SHTIWE Agent</p>
             <h1 className={styles.heroTitle}>Skills Hub</h1>
             <p className={styles.heroSub}>
               Discover, search, and install from{" "}

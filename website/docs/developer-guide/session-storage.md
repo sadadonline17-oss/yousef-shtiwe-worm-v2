@@ -1,16 +1,16 @@
 # Session Storage
 
-SHADOW Agent uses a SQLite database (`~/.shadow/state.db`) to persist session
+YOUSEF SHTIWE Agent uses a SQLite database (`~/.yousef shtiwe/state.db`) to persist session
 metadata, full message history, and model configuration across CLI and gateway
 sessions. This replaces the earlier per-session JSONL file approach.
 
-Source file: `shadow_state.py`
+Source file: `yousef shtiwe_state.py`
 
 
 ## Architecture Overview
 
 ```
-~/.shadow/state.db (SQLite, WAL mode)
+~/.yousef shtiwe/state.db (SQLite, WAL mode)
 ├── sessions          — Session metadata, token counts, billing
 ├── messages          — Full message history per session
 ├── messages_fts      — FTS5 virtual table for full-text search
@@ -149,7 +149,7 @@ each successful migration block.
 
 ## Write Contention Handling
 
-Multiple shadow processes (gateway + CLI sessions + worktree agents) share one
+Multiple yousef shtiwe processes (gateway + CLI sessions + worktree agents) share one
 `state.db`. The `SessionDB` class handles write contention with:
 
 - **Short SQLite timeout** (1 second) instead of the default 30s
@@ -173,9 +173,9 @@ _CHECKPOINT_EVERY_N_WRITES = 50
 ### Initialize
 
 ```python
-from shadow_state import SessionDB
+from yousef shtiwe_state import SessionDB
 
-db = SessionDB()                           # Default: ~/.shadow/state.db
+db = SessionDB()                           # Default: ~/.yousef shtiwe/state.db
 db = SessionDB(db_path=Path("/tmp/test.db"))  # Custom path
 ```
 
@@ -379,10 +379,10 @@ db.delete_session("sess_abc123")
 
 ## Database Location
 
-Default path: `~/.shadow/state.db`
+Default path: `~/.yousef shtiwe/state.db`
 
-This is derived from `shadow_constants.get_shadow_home()` which resolves to
-`~/.shadow/` by default, or the value of `SHADOW_HOME` environment variable.
+This is derived from `yousef shtiwe_constants.get_yousef shtiwe_home()` which resolves to
+`~/.yousef shtiwe/` by default, or the value of `YOUSEF SHTIWE_HOME` environment variable.
 
 The database file, WAL file (`state.db-wal`), and shared-memory file
 (`state.db-shm`) are all created in the same directory.

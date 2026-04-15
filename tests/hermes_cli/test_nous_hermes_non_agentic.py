@@ -1,55 +1,55 @@
-"""Tests for the Shadow-SHADOW-3/4 non-agentic warning detector.
+"""Tests for the Yousef Shtiwe-YOUSEF SHTIWE-3/4 non-agentic warning detector.
 
 Prior to this check, the warning fired on any model whose name contained
-``"shadow"`` anywhere (case-insensitive). That false-positived on unrelated
-local Modelfiles such as ``shadow-brain:qwen3-14b-ctx16k`` — a tool-capable
-Qwen3 wrapper that happens to live under the "shadow" tag namespace.
+``"yousef shtiwe"`` anywhere (case-insensitive). That false-positived on unrelated
+local Modelfiles such as ``yousef shtiwe-brain:qwen3-14b-ctx16k`` — a tool-capable
+Qwen3 wrapper that happens to live under the "yousef shtiwe" tag namespace.
 
-``is_shadow_shadow_non_agentic`` should only match the actual SHADOW-OVERLORD
-SHADOW-3 / SHADOW-4 chat family.
+``is_yousef shtiwe_yousef shtiwe_non_agentic`` should only match the actual YOUSEF SHTIWE-OVERLORD
+YOUSEF SHTIWE-3 / YOUSEF SHTIWE-4 chat family.
 """
 
 from __future__ import annotations
 
 import pytest
 
-from shadow_cli.model_switch import (
-    _SHADOW_MODEL_WARNING,
-    _check_shadow_model_warning,
-    is_shadow_shadow_non_agentic,
+from yousef shtiwe_cli.model_switch import (
+    _YOUSEF SHTIWE_MODEL_WARNING,
+    _check_yousef shtiwe_model_warning,
+    is_yousef shtiwe_yousef shtiwe_non_agentic,
 )
 
 
 @pytest.mark.parametrize(
     "model_name",
     [
-        "SHADOW-OVERLORD/SHADOW-3-Llama-3.1-70B",
-        "SHADOW-OVERLORD/SHADOW-3-Llama-3.1-405B",
-        "shadow-3",
-        "SHADOW-3",
-        "shadow-4",
-        "shadow-4-405b",
-        "shadow_4_70b",
-        "openrouter/shadow3:70b",
-        "openrouter/shadow-overlord/shadow-4-405b",
-        "SHADOW-OVERLORD/SHADOW3",
-        "shadow-3.1",
+        "YOUSEF SHTIWE-OVERLORD/YOUSEF SHTIWE-3-Llama-3.1-70B",
+        "YOUSEF SHTIWE-OVERLORD/YOUSEF SHTIWE-3-Llama-3.1-405B",
+        "yousef shtiwe-3",
+        "YOUSEF SHTIWE-3",
+        "yousef shtiwe-4",
+        "yousef shtiwe-4-405b",
+        "yousef shtiwe_4_70b",
+        "openrouter/yousef shtiwe3:70b",
+        "openrouter/yousef shtiwe-overlord/yousef shtiwe-4-405b",
+        "YOUSEF SHTIWE-OVERLORD/YOUSEF SHTIWE3",
+        "yousef shtiwe-3.1",
     ],
 )
-def test_matches_real_shadow_shadow_chat_models(model_name: str) -> None:
-    assert is_shadow_shadow_non_agentic(model_name), (
-        f"expected {model_name!r} to be flagged as Shadow SHADOW 3/4"
+def test_matches_real_yousef shtiwe_yousef shtiwe_chat_models(model_name: str) -> None:
+    assert is_yousef shtiwe_yousef shtiwe_non_agentic(model_name), (
+        f"expected {model_name!r} to be flagged as Yousef Shtiwe YOUSEF SHTIWE 3/4"
     )
-    assert _check_shadow_model_warning(model_name) == _SHADOW_MODEL_WARNING
+    assert _check_yousef shtiwe_model_warning(model_name) == _YOUSEF SHTIWE_MODEL_WARNING
 
 
 @pytest.mark.parametrize(
     "model_name",
     [
         # Kyle's local Modelfile — qwen3:14b under a custom tag
-        "shadow-brain:qwen3-14b-ctx16k",
-        "shadow-brain:qwen3-14b-ctx32k",
-        "shadow-honcho:qwen3-8b-ctx8k",
+        "yousef shtiwe-brain:qwen3-14b-ctx16k",
+        "yousef shtiwe-brain:qwen3-14b-ctx32k",
+        "yousef shtiwe-honcho:qwen3-8b-ctx8k",
         # Plain unrelated models
         "qwen3:14b",
         "qwen3-coder:30b",
@@ -60,25 +60,25 @@ def test_matches_real_shadow_shadow_chat_models(model_name: str) -> None:
         "openai/gpt-4o",
         "google/gemini-2.5-flash",
         "deepseek-chat",
-        # Non-chat SHADOW models we don't warn about
-        "shadow-llm-2",
-        "shadow2-pro",
-        "shadow-shadow-2-mistral",
+        # Non-chat YOUSEF SHTIWE models we don't warn about
+        "yousef shtiwe-llm-2",
+        "yousef shtiwe2-pro",
+        "yousef shtiwe-yousef shtiwe-2-mistral",
         # Edge cases
         "",
-        "shadow",  # bare "shadow" isn't the 3/4 family
-        "shadow-brain",
-        "brain-shadow-3-impostor",  # "3" not preceded by /: boundary
+        "yousef shtiwe",  # bare "yousef shtiwe" isn't the 3/4 family
+        "yousef shtiwe-brain",
+        "brain-yousef shtiwe-3-impostor",  # "3" not preceded by /: boundary
     ],
 )
 def test_does_not_match_unrelated_models(model_name: str) -> None:
-    assert not is_shadow_shadow_non_agentic(model_name), (
-        f"expected {model_name!r} NOT to be flagged as Shadow SHADOW 3/4"
+    assert not is_yousef shtiwe_yousef shtiwe_non_agentic(model_name), (
+        f"expected {model_name!r} NOT to be flagged as Yousef Shtiwe YOUSEF SHTIWE 3/4"
     )
-    assert _check_shadow_model_warning(model_name) == ""
+    assert _check_yousef shtiwe_model_warning(model_name) == ""
 
 
 def test_none_like_inputs_are_safe() -> None:
-    assert is_shadow_shadow_non_agentic("") is False
+    assert is_yousef shtiwe_yousef shtiwe_non_agentic("") is False
     # Defensive: the helper shouldn't crash on None-ish falsy input either.
-    assert _check_shadow_model_warning("") == ""
+    assert _check_yousef shtiwe_model_warning("") == ""

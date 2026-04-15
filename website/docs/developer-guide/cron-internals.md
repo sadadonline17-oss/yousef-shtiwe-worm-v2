@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
 title: "Cron Internals"
-description: "How SHADOW stores, schedules, edits, pauses, skill-loads, and delivers cron jobs"
+description: "How YOUSEF SHTIWE stores, schedules, edits, pauses, skill-loads, and delivers cron jobs"
 ---
 
 # Cron Internals
@@ -16,7 +16,7 @@ The cron subsystem provides scheduled task execution — from simple one-shot de
 | `cron/scheduler.py` | Scheduler loop — due-job detection, execution, repeat tracking |
 | `tools/cronjob_tools.py` | Model-facing `cronjob` tool registration and handler |
 | `gateway/run.py` | Gateway integration — cron ticking in the long-running loop |
-| `shadow_cli/cron.py` | CLI `shadow cron` subcommands |
+| `yousef shtiwe_cli/cron.py` | CLI `yousef shtiwe cron` subcommands |
 
 ## Scheduling Model
 
@@ -33,7 +33,7 @@ The model-facing surface is a single `cronjob` tool with action-style operations
 
 ## Job Storage
 
-Jobs are stored in `~/.shadow/cron/jobs.json` with atomic write semantics (write to temp file, then rename). Each job record contains:
+Jobs are stored in `~/.yousef shtiwe/cron/jobs.json` with atomic write semantics (write to temp file, then rename). Each job record contains:
 
 ```json
 {
@@ -104,7 +104,7 @@ tick()
 
 In gateway mode, the scheduler tick is integrated into the gateway's main event loop. The gateway calls `scheduler.tick()` on its periodic maintenance cycle, which runs alongside message handling.
 
-In CLI mode, cron jobs only fire when `shadow cron` commands are run or during active CLI sessions.
+In CLI mode, cron jobs only fire when `yousef shtiwe cron` commands are run or during active CLI sessions.
 
 ### Fresh Session Isolation
 
@@ -135,7 +135,7 @@ Create a daily funding report → attach "ai-funding-daily-report" skill
 Jobs can also attach a Python script via the `script` field. The script runs *before* each agent turn, and its stdout is injected into the prompt as context. This enables data collection and change detection patterns:
 
 ```python
-# ~/.shadow/scripts/check_competitors.py
+# ~/.yousef shtiwe/scripts/check_competitors.py
 import requests, json
 # Fetch competitor release notes, diff against last run
 # Print summary to stdout — agent analyzes and reports
@@ -144,7 +144,7 @@ import requests, json
 The script timeout defaults to 120 seconds. `_get_script_timeout()` resolves the limit through a three-layer chain:
 
 1. **Module-level override** — `_SCRIPT_TIMEOUT` (for tests/monkeypatching). Only used when it differs from the default.
-2. **Environment variable** — `SHADOW_CRON_SCRIPT_TIMEOUT`
+2. **Environment variable** — `YOUSEF SHTIWE_CRON_SCRIPT_TIMEOUT`
 3. **Config** — `cron.script_timeout_seconds` in `config.yaml` (read via `load_config()`)
 4. **Default** — 120 seconds
 
@@ -164,7 +164,7 @@ Cron job results can be delivered to any supported platform:
 | Target | Syntax | Example |
 |--------|--------|---------|
 | Origin chat | `origin` | Deliver to the chat where the job was created |
-| Local file | `local` | Save to `~/.shadow/cron/output/` |
+| Local file | `local` | Save to `~/.yousef shtiwe/cron/output/` |
 | Telegram | `telegram` or `telegram:<chat_id>` | `telegram:-1001234567890` |
 | Discord | `discord` or `discord:#channel` | `discord:#engineering` |
 | Slack | `slack` | Deliver to Slack home channel |
@@ -209,16 +209,16 @@ The scheduler uses file-based locking to prevent overlapping ticks from executin
 
 ## CLI Interface
 
-The `shadow cron` CLI provides direct job management:
+The `yousef shtiwe cron` CLI provides direct job management:
 
 ```bash
-shadow cron list                    # Show all jobs
-shadow cron create                  # Interactive job creation (alias: add)
-shadow cron edit <job_id>           # Edit job configuration
-shadow cron pause <job_id>          # Pause a running job
-shadow cron resume <job_id>         # Resume a paused job
-shadow cron run <job_id>            # Trigger immediate execution
-shadow cron remove <job_id>         # Delete a job
+yousef shtiwe cron list                    # Show all jobs
+yousef shtiwe cron create                  # Interactive job creation (alias: add)
+yousef shtiwe cron edit <job_id>           # Edit job configuration
+yousef shtiwe cron pause <job_id>          # Pause a running job
+yousef shtiwe cron resume <job_id>         # Resume a paused job
+yousef shtiwe cron run <job_id>            # Trigger immediate execution
+yousef shtiwe cron remove <job_id>         # Delete a job
 ```
 
 ## Related Docs

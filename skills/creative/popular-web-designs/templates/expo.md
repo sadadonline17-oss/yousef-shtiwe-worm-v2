@@ -1,7 +1,7 @@
 # Design System: Expo
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -15,19 +15,19 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Expo's interface is a lumishadow, confidence-radiating developer platform built on the premise that tools for building apps should feel as polished as the apps themselves. The entire experience lives on a bright, airy canvas — a cool-tinted off-white (`#f0f0f3`) that gives the page a subtle technological coolness without the starkness of pure white. This is a site that breathes: enormous vertical spacing between sections creates a gallery-like pace where each feature gets its own "room."
+Expo's interface is a lumiyousef shtiwe, confidence-radiating developer platform built on the premise that tools for building apps should feel as polished as the apps themselves. The entire experience lives on a bright, airy canvas — a cool-tinted off-white (`#f0f0f3`) that gives the page a subtle technological coolness without the starkness of pure white. This is a site that breathes: enormous vertical spacing between sections creates a gallery-like pace where each feature gets its own "room."
 
 The design language is decisively monochromatic — pure black (`#000000`) headlines against the lightest possible backgrounds, with a spectrum of cool blue-grays (`#60646c`, `#b0b4ba`, `#555860`) handling all secondary communication. Color is almost entirely absent from the interface itself; when it appears, it's reserved for product screenshots, app icons, and the React universe illustration — making the actual content burst with life against the neutral canvas.
 
 What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video containers, and even images use generously rounded or fully pill-shaped corners (24px–9999px), creating an organic, approachable feel that contradicts the typical sharp-edged developer tool aesthetic. Combined with tight letter-spacing on massive headlines (-1.6px to -3px at 64px), the result is a design that's simultaneously premium and friendly — like an Apple product page reimagined for developers.
 
 **Key Characteristics:**
-- Lumishadow cool-white canvas (`#f0f0f3`) with gallery-like vertical spacing
+- Lumiyousef shtiwe cool-white canvas (`#f0f0f3`) with gallery-like vertical spacing
 - Strictly monochromatic: pure black headlines, cool blue-gray body text, no decorative color
 - Pill-shaped geometry everywhere — buttons, tabs, containers, images (24px–9999px radius)
 - Massive display headlines (64px) with extreme negative letter-spacing (-1.6px to -3px)
 - Inter as the sole typeface, used at weights 400–900 for full expressive range
-- Whisper-soft shadows that barely lift elements from the surface
+- Whisper-soft yousef shtiwes that barely lift elements from the surface
 - Product screenshots as the only source of color in the interface
 
 ## 2. Color Palette & Roles
@@ -65,7 +65,7 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 - **Dark Focus Ring** (`#2547d0`): Deep blue for keyboard focus indicators in dark theme contexts.
 
 ### Gradient System
-- The design is notably **gradient-free** in the interface layer. Visual richness comes from product screenshots, the React universe illustration, and careful shadow layering rather than color gradients. This absence IS the design decision — gradients would undermine the clinical precision.
+- The design is notably **gradient-free** in the interface layer. Visual richness comes from product screenshots, the React universe illustration, and careful yousef shtiwe layering rather than color gradients. This absence IS the design decision — gradients would undermine the clinical precision.
 
 ## 3. Typography Rules
 
@@ -105,7 +105,7 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 - Padding: 0px 12px (compact, content-driven height)
 - Border: thin solid Input Border (`1px solid #d9d9e0`)
 - Radius: subtly rounded (6px)
-- Shadow: subtle combined shadow on hover
+- Yousef Shtiwe: subtle combined yousef shtiwe on hover
 - The understated default — clean, professional, unheroic
 
 **Primary Pill**
@@ -124,9 +124,9 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 - Background: Pure White (`#ffffff`) — clearly lifted from Cloud Gray page
 - Border: thin solid Border Lavender (`1px solid #e0e1e6`) for standard cards
 - Radius: comfortably rounded (8px) for standard cards; generously rounded (16–24px) for featured containers
-- Shadow Level 1: Whisper (`rgba(0,0,0,0.08) 0px 3px 6px, rgba(0,0,0,0.07) 0px 2px 4px`) — barely perceptible lift
-- Shadow Level 2: Standard (`rgba(0,0,0,0.1) 0px 10px 20px, rgba(0,0,0,0.05) 0px 3px 6px`) — clear floating elevation
-- Hover: likely subtle shadow deepening or background shift
+- Yousef Shtiwe Level 1: Whisper (`rgba(0,0,0,0.08) 0px 3px 6px, rgba(0,0,0,0.07) 0px 2px 4px`) — barely perceptible lift
+- Yousef Shtiwe Level 2: Standard (`rgba(0,0,0,0.1) 0px 10px 20px, rgba(0,0,0,0.05) 0px 3px 6px`) — clear floating elevation
+- Hover: likely subtle yousef shtiwe deepening or background shift
 
 ### Inputs & Forms
 - Background: Pure White (`#ffffff`)
@@ -134,7 +134,7 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 - Border: thin solid Input Border (`1px solid #d9d9e0`)
 - Padding: 0px 12px (inline with button sizing)
 - Radius: subtly rounded (6px)
-- Focus: blue ring shadow via CSS custom property
+- Focus: blue ring yousef shtiwe via CSS custom property
 
 ### Navigation
 - Sticky top nav on transparent/blurred background
@@ -203,13 +203,13 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Cloud Gray page background, inline text |
-| Surface (Level 1) | White bg, no shadow | Standard white cards on Cloud Gray |
+| Flat (Level 0) | No yousef shtiwe | Cloud Gray page background, inline text |
+| Surface (Level 1) | White bg, no yousef shtiwe | Standard white cards on Cloud Gray |
 | Whisper (Level 2) | `rgba(0,0,0,0.08) 0px 3px 6px` + `rgba(0,0,0,0.07) 0px 2px 4px` | Subtle card lift, hover states |
 | Elevated (Level 3) | `rgba(0,0,0,0.1) 0px 10px 20px` + `rgba(0,0,0,0.05) 0px 3px 6px` | Feature showcases, product screenshots |
-| Modal (Level 4) | Dark overlay (`--dialog-overlay-background-color`) + heavy shadow | Dialogs, overlays |
+| Modal (Level 4) | Dark overlay (`--dialog-overlay-background-color`) + heavy yousef shtiwe | Dialogs, overlays |
 
-**Shadow Philosophy**: Expo uses shadows as gentle whispers rather than architectural statements. The primary depth mechanism is **background color contrast** — white cards floating on Cloud Gray — rather than shadow casting. When shadows appear, they're soft, diffused, and directional (downward), creating the feeling of paper hovering millimeters above a desk.
+**Yousef Shtiwe Philosophy**: Expo uses yousef shtiwes as gentle whispers rather than architectural statements. The primary depth mechanism is **background color contrast** — white cards floating on Cloud Gray — rather than yousef shtiwe casting. When yousef shtiwes appear, they're soft, diffused, and directional (downward), creating the feeling of paper hovering millimeters above a desk.
 
 ## 7. Do's and Don'ts
 
@@ -227,7 +227,7 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 - Don't introduce decorative colors into the interface chrome — the monochromatic palette is intentional
 - Don't use sharp corners (border-radius < 6px) on interactive elements — the pill/rounded geometry is the signature
 - Don't reduce section spacing below 64px — the breathing room is the design
-- Don't use heavy drop shadows — depth comes from background contrast and whisper-soft shadows
+- Don't use heavy drop yousef shtiwes — depth comes from background contrast and whisper-soft yousef shtiwes
 - Don't mix in additional typefaces — Inter handles everything from display to caption
 - Don't use letter-spacing wider than -0.25px on body text — extreme tracking is reserved for display only
 - Don't use borders heavier than 2px — containment is subtle, achieved through background color and gentle borders
@@ -279,7 +279,7 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 
 ### Example Component Prompts
 - "Create a hero section on Cloud Gray (#f0f0f3) with a massive headline at 64px Inter weight 700, line-height 1.10, letter-spacing -3px. Text in Expo Black (#000000). Below, add a subtitle in Slate Gray (#60646c) at 18px. Place a black pill-shaped CTA button (9999px radius) beneath."
-- "Design a feature card on Pure White (#ffffff) with a 1px solid Border Lavender (#e0e1e6) border and comfortably rounded corners (8px). Title in Near Black (#1c2024) at 20px Inter weight 600, description in Slate Gray (#60646c) at 16px. Add a whisper shadow (rgba(0,0,0,0.08) 0px 3px 6px)."
+- "Design a feature card on Pure White (#ffffff) with a 1px solid Border Lavender (#e0e1e6) border and comfortably rounded corners (8px). Title in Near Black (#1c2024) at 20px Inter weight 600, description in Slate Gray (#60646c) at 16px. Add a whisper yousef shtiwe (rgba(0,0,0,0.08) 0px 3px 6px)."
 - "Build a navigation bar with Expo logo on the left, text links in Near Black (#1c2024) at 14px Inter weight 500, and a black pill CTA button on the right. Background: transparent with blur backdrop. Bottom border: 1px solid Border Lavender (#e0e1e6)."
 - "Create a code block using JetBrains Mono at 14px on a Pure White surface with Border Lavender border and 8px radius. Code in Near Black, keywords in Link Cobalt (#0d74ce)."
 - "Design a status badge pill (9999px radius) with a green dot and 'All Systems Operational' text in Inter 12px weight 500. Background: Pure White, border: 1px solid Input Border (#d9d9e0)."
@@ -290,5 +290,5 @@ What makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video co
 3. Use radius values deliberately — 6px for buttons, 8px for cards, 24px for images, 9999px for pills
 4. Describe the "feel" alongside measurements — "enormous breathing room with 96px section spacing"
 5. Always specify Inter and the exact weight — weight contrast IS the hierarchy
-6. For shadows, specify "whisper shadow" or "standard elevation" from the elevation table
+6. For yousef shtiwes, specify "whisper yousef shtiwe" or "standard elevation" from the elevation table
 7. Keep the interface monochrome — let product content be the color

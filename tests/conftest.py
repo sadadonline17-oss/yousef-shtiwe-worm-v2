@@ -1,4 +1,4 @@
-"""Shared fixtures for the shadow-agent test suite."""
+"""Shared fixtures for the yousef shtiwe-agent test suite."""
 
 import asyncio
 import os
@@ -17,27 +17,27 @@ if str(PROJECT_ROOT) not in sys.path:
 
 
 @pytest.fixture(autouse=True)
-def _isolate_shadow_home(tmp_path, monkeypatch):
-    """Redirect SHADOW_HOME to a temp dir so tests never write to ~/.shadow/."""
-    fake_home = tmp_path / "shadow_test"
+def _isolate_yousef shtiwe_home(tmp_path, monkeypatch):
+    """Redirect YOUSEF SHTIWE_HOME to a temp dir so tests never write to ~/.yousef shtiwe/."""
+    fake_home = tmp_path / "yousef shtiwe_test"
     fake_home.mkdir()
     (fake_home / "sessions").mkdir()
     (fake_home / "cron").mkdir()
     (fake_home / "memories").mkdir()
     (fake_home / "skills").mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(fake_home))
-    # Reset plugin singleton so tests don't leak plugins from ~/.shadow/plugins/
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(fake_home))
+    # Reset plugin singleton so tests don't leak plugins from ~/.yousef shtiwe/plugins/
     try:
-        import shadow_cli.plugins as _plugins_mod
+        import yousef shtiwe_cli.plugins as _plugins_mod
         monkeypatch.setattr(_plugins_mod, "_plugin_manager", None)
     except Exception:
         pass
     # Tests should not inherit the agent's current gateway/messaging surface.
     # Individual tests that need gateway behavior set these explicitly.
-    monkeypatch.delenv("SHADOW_SESSION_PLATFORM", raising=False)
-    monkeypatch.delenv("SHADOW_SESSION_CHAT_ID", raising=False)
-    monkeypatch.delenv("SHADOW_SESSION_CHAT_NAME", raising=False)
-    monkeypatch.delenv("SHADOW_GATEWAY_SESSION", raising=False)
+    monkeypatch.delenv("YOUSEF SHTIWE_SESSION_PLATFORM", raising=False)
+    monkeypatch.delenv("YOUSEF SHTIWE_SESSION_CHAT_ID", raising=False)
+    monkeypatch.delenv("YOUSEF SHTIWE_SESSION_CHAT_NAME", raising=False)
+    monkeypatch.delenv("YOUSEF SHTIWE_GATEWAY_SESSION", raising=False)
     # Avoid making real calls during tests if this key is set in the env files
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
 
@@ -50,7 +50,7 @@ def tmp_dir(tmp_path):
 
 @pytest.fixture()
 def mock_config():
-    """Return a minimal shadow config dict suitable for unit tests."""
+    """Return a minimal yousef shtiwe config dict suitable for unit tests."""
     return {
         "model": "test/mock-model",
         "toolsets": ["terminal", "file"],
@@ -78,7 +78,7 @@ def _timeout_handler(signum, frame):
 def _ensure_current_event_loop(request):
     """Provide a default event loop for sync tests that call get_event_loop().
 
-    Python 3.11+ no longer guarantees a current loop for plain synchroshadow tests.
+    Python 3.11+ no longer guarantees a current loop for plain synchroyousef shtiwe tests.
     A number of gateway tests still use asyncio.get_event_loop().run_until_complete(...).
     Ensure they always have a usable loop without interfering with pytest-asyncio's
     own loop management for @pytest.mark.asyncio tests.

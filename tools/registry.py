@@ -1,4 +1,4 @@
-"""Central registry for all shadow-agent tools.
+"""Central registry for all yousef shtiwe-agent tools.
 
 Each tool file calls ``registry.register()`` at module level to declare its
 schema, handler, toolset membership, and availability check.  ``model_tools.py``
@@ -129,11 +129,11 @@ class ToolRegistry:
                         name, toolset, existing.toolset,
                     )
                 else:
-                    # Reject shadowing — prevent plugins/MCP from overwriting
+                    # Reject yousef shtiweing — prevent plugins/MCP from overwriting
                     # built-in tools or vice versa.
                     logger.error(
                         "Tool registration REJECTED: '%s' (toolset '%s') would "
-                        "shadow existing tool from toolset '%s'. Deregister the "
+                        "yousef shtiwe existing tool from toolset '%s'. Deregister the "
                         "existing tool first if this is intentional.",
                         name, toolset, existing.toolset,
                     )

@@ -15,7 +15,7 @@ import uuid
 from typing import Optional
 
 from tools.environments.base import BaseEnvironment, _popen_bash
-from tools.environments.local import _SHADOW_PROVIDER_ENV_BLOCKLIST
+from tools.environments.local import _YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST
 
 logger = logging.getLogger(__name__)
 
@@ -88,10 +88,10 @@ def _normalize_env_dict(env: dict | None) -> dict[str, str]:
     return normalized
 
 
-def _load_shadow_env_vars() -> dict[str, str]:
-    """Load ~/.shadow/.env values without failing Docker command execution."""
+def _load_yousef shtiwe_env_vars() -> dict[str, str]:
+    """Load ~/.yousef shtiwe/.env values without failing Docker command execution."""
     try:
-        from shadow_cli.config import load_env
+        from yousef shtiwe_cli.config import load_env
 
         return load_env() or {}
     except Exception:
@@ -278,7 +278,7 @@ class DockerEnvironment(BaseEnvironment):
             resource_args.append("--network=none")
 
         # Persistent workspace via bind mounts from a configurable host directory
-        # (TERMINAL_SANDBOX_DIR, default ~/.shadow/sandboxes/). Non-persistent
+        # (TERMINAL_SANDBOX_DIR, default ~/.yousef shtiwe/sandboxes/). Non-persistent
         # mode uses tmpfs (ephemeral, fast, gone on cleanup).
         from tools.environments.base import get_sandbox_dir
 
@@ -406,7 +406,7 @@ class DockerEnvironment(BaseEnvironment):
         self._docker_exe = find_docker() or "docker"
 
         # Start the container directly via `docker run -d`.
-        container_name = f"shadow-{uuid.uuid4().hex[:8]}"
+        container_name = f"yousef shtiwe-{uuid.uuid4().hex[:8]}"
         run_cmd = [
             self._docker_exe, "run", "-d",
             "--init",           # tini/catatonit as PID 1 — reaps zombie children
@@ -451,14 +451,14 @@ class DockerEnvironment(BaseEnvironment):
         except Exception:
             pass
         # Explicit docker_forward_env entries are an intentional opt-in and must
-        # win over the generic SHADOW secret blocklist. Only implicit passthrough
+        # win over the generic YOUSEF SHTIWE secret blocklist. Only implicit passthrough
         # keys are filtered.
-        forward_keys = explicit_forward_keys | (passthrough_keys - _SHADOW_PROVIDER_ENV_BLOCKLIST)
-        shadow_env = _load_shadow_env_vars() if forward_keys else {}
+        forward_keys = explicit_forward_keys | (passthrough_keys - _YOUSEF SHTIWE_PROVIDER_ENV_BLOCKLIST)
+        yousef shtiwe_env = _load_yousef shtiwe_env_vars() if forward_keys else {}
         for key in sorted(forward_keys):
             value = os.getenv(key)
             if value is None:
-                value = shadow_env.get(key)
+                value = yousef shtiwe_env.get(key)
             if value is not None:
                 exec_env[key] = value
 

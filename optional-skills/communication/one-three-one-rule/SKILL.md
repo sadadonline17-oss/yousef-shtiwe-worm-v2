@@ -13,7 +13,7 @@ author: Willard Moore
 license: MIT
 category: communication
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [communication, decision-making, proposals, trade-offs]
 ---
 

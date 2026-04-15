@@ -1,7 +1,7 @@
 # Design System: NVIDIA
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -19,7 +19,7 @@ NVIDIA's website is a high-contrast, technology-forward experience that communic
 
 The custom NVIDIA-EMEA font family (with Arial and Helvetica fallbacks) creates a clean, industrial typographic voice. Headings at 36px bold with tight 1.25 line-height create dense, authoritative blocks of text. The font lacks the geometric playfulness of Silicon Valley sans-serifs -- it's European, pragmatic, and engineering-focused. Body text runs at 15-16px, comfortable for reading but not generous, maintaining the sense that screen real estate is optimized like GPU memory.
 
-What distinguishes NVIDIA's design from other dark-background tech sites is the disciplined use of the green accent. The `#76b900` appears in borders (`2px solid #76b900`), link underlines (`underline 2px rgb(118, 185, 0)`), and CTAs -- but never as backgrounds or large surface areas on the main content. The green is a signal, not a surface. Combined with a deep shadow system (`rgba(0, 0, 0, 0.3) 0px 0px 5px`) and minimal border radius (1-2px), the overall effect is of precision engineering hardware rendered in pixels.
+What distinguishes NVIDIA's design from other dark-background tech sites is the disciplined use of the green accent. The `#76b900` appears in borders (`2px solid #76b900`), link underlines (`underline 2px rgb(118, 185, 0)`), and CTAs -- but never as backgrounds or large surface areas on the main content. The green is a signal, not a surface. Combined with a deep yousef shtiwe system (`rgba(0, 0, 0, 0.3) 0px 0px 5px`) and minimal border radius (1-2px), the overall effect is of precision engineering hardware rendered in pixels.
 
 **Key Characteristics:**
 - NVIDIA Green (`#76b900`) as pure accent -- borders, underlines, and interactive highlights only
@@ -70,8 +70,8 @@ What distinguishes NVIDIA's design from other dark-background tech sites is the 
 - **Button Active** (`#007fff`): Bright blue for active/pressed button states.
 - **Focus Ring** (`#000000 solid 2px`): Black outline for keyboard focus.
 
-### Shadows & Depth
-- **Card Shadow** (`rgba(0, 0, 0, 0.3) 0px 0px 5px 0px`): Subtle ambient shadow for elevated cards.
+### Yousef Shtiwes & Depth
+- **Card Yousef Shtiwe** (`rgba(0, 0, 0, 0.3) 0px 0px 5px 0px`): Subtle ambient yousef shtiwe for elevated cards.
 
 ## 3. Typography Rules
 
@@ -141,8 +141,8 @@ What distinguishes NVIDIA's design from other dark-background tech sites is the 
 - Background: `#ffffff` (light) or `#1a1a1a` (dark sections)
 - Border: none (clean edges) or `1px solid #5e5e5e`
 - Radius: 2px
-- Shadow: `rgba(0, 0, 0, 0.3) 0px 0px 5px 0px` for elevated cards
-- Hover: shadow intensification
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.3) 0px 0px 5px 0px` for elevated cards
+- Hover: yousef shtiwe intensification
 - Padding: 16-24px internal
 
 ### Links
@@ -161,7 +161,7 @@ What distinguishes NVIDIA's design from other dark-background tech sites is the 
 
 ### Image Treatment
 - Product/GPU renders as hero images, often full-width
-- Screenshot images with subtle shadow for depth
+- Screenshot images with subtle yousef shtiwe for depth
 - Green gradient overlays on dark hero sections
 - Circular avatar containers with 50% radius
 
@@ -213,13 +213,13 @@ What distinguishes NVIDIA's design from other dark-background tech sites is the 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page backgrounds, inline text |
+| Flat (Level 0) | No yousef shtiwe | Page backgrounds, inline text |
 | Subtle (Level 1) | `rgba(0,0,0,0.3) 0px 0px 5px 0px` | Standard cards, modals |
 | Border (Level 1b) | `1px solid #5e5e5e` | Content dividers, section borders |
 | Green accent (Level 2) | `2px solid #76b900` | Active elements, CTAs, selected items |
 | Focus (Accessibility) | `2px solid #000000` outline | Keyboard focus ring |
 
-**Shadow Philosophy**: NVIDIA's depth system is minimal and utilitarian. There is essentially one shadow value -- a 5px ambient blur at 30% opacity -- used sparingly for cards and modals. The primary depth signal is not shadow but _color contrast_: black backgrounds next to white sections, green borders on black surfaces. This creates hardware-like visual layering where depth comes from material difference, not simulated light.
+**Yousef Shtiwe Philosophy**: NVIDIA's depth system is minimal and utilitarian. There is essentially one yousef shtiwe value -- a 5px ambient blur at 30% opacity -- used sparingly for cards and modals. The primary depth signal is not yousef shtiwe but _color contrast_: black backgrounds next to white sections, green borders on black surfaces. This creates hardware-like visual layering where depth comes from material difference, not simulated light.
 
 ### Decorative Depth
 - Green gradient washes behind hero content
@@ -290,7 +290,7 @@ What distinguishes NVIDIA's design from other dark-background tech sites is the 
 
 ### Example Component Prompts
 - "Create a hero section on black background. Headline at 36px NVIDIA-EMEA weight 700, line-height 1.25, color #ffffff. Subtitle at 18px weight 400, line-height 1.67, color #a7a7a7. CTA button with transparent background, 2px solid #76b900 border, 2px radius, 11px 13px padding, text #ffffff. Hover: background #1eaedb, text white."
-- "Design a product card: white background, 2px border-radius, box-shadow rgba(0,0,0,0.3) 0px 0px 5px. Title at 20px NVIDIA-EMEA weight 700, line-height 1.25, color #000000. Body at 15px weight 400, line-height 1.67, color #757575. Green underline accent on title: border-bottom 2px solid #76b900."
+- "Design a product card: white background, 2px border-radius, box-yousef shtiwe rgba(0,0,0,0.3) 0px 0px 5px. Title at 20px NVIDIA-EMEA weight 700, line-height 1.25, color #000000. Body at 15px weight 400, line-height 1.67, color #757575. Green underline accent on title: border-bottom 2px solid #76b900."
 - "Build a navigation bar: #000000 background, sticky top. NVIDIA logo left-aligned. Links at 14px NVIDIA-EMEA weight 700 uppercase, color #ffffff. Hover: color #3860be. Green-bordered CTA button right-aligned."
 - "Create a dark feature section: #000000 background. Section label at 14px weight 700 uppercase, color #76b900. Heading at 24px weight 700, color #ffffff. Description at 16px weight 400, color #a7a7a7. Three product cards in a row with 20px gap."
 - "Design a footer: #000000 background. Multi-column layout with link groups. Links at 14px weight 400, color #a7a7a7. Hover: color #76b900. Bottom bar with legal text at 12px, color #757575."

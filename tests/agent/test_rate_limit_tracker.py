@@ -14,9 +14,9 @@ from agent.rate_limit_tracker import (
 )
 
 
-# ── Sample headers from Shadow inference API ──────────────────────────────
+# ── Sample headers from Yousef Shtiwe inference API ──────────────────────────────
 
-Shadow_HEADERS = {
+Yousef Shtiwe_HEADERS = {
     "x-ratelimit-limit-requests": "800",
     "x-ratelimit-limit-requests-1h": "33600",
     "x-ratelimit-limit-tokens": "8000000",
@@ -34,9 +34,9 @@ Shadow_HEADERS = {
 
 class TestParseHeaders:
     def test_basic_parsing(self):
-        state = parse_rate_limit_headers(Shadow_HEADERS, provider="shadow")
+        state = parse_rate_limit_headers(Yousef Shtiwe_HEADERS, provider="yousef shtiwe")
         assert state is not None
-        assert state.provider == "shadow"
+        assert state.provider == "yousef shtiwe"
         assert state.has_data
 
         assert state.requests_min.limit == 800
@@ -151,9 +151,9 @@ class TestFormatting:
         assert "No rate limit data" in result
 
     def test_format_display_with_data(self):
-        state = parse_rate_limit_headers(Shadow_HEADERS, provider="shadow")
+        state = parse_rate_limit_headers(Yousef Shtiwe_HEADERS, provider="yousef shtiwe")
         result = format_rate_limit_display(state)
-        assert "Shadow" in result
+        assert "Yousef Shtiwe" in result
         assert "Requests/min" in result
         assert "Requests/hr" in result
         assert "Tokens/min" in result
@@ -162,7 +162,7 @@ class TestFormatting:
 
     def test_format_display_warning_on_high_usage(self):
         headers = {
-            **Shadow_HEADERS,
+            **Yousef Shtiwe_HEADERS,
             "x-ratelimit-remaining-requests": "50",  # 750/800 used = 93.75%
         }
         state = parse_rate_limit_headers(headers)
@@ -170,7 +170,7 @@ class TestFormatting:
         assert "⚠" in result
 
     def test_format_compact(self):
-        state = parse_rate_limit_headers(Shadow_HEADERS, provider="shadow")
+        state = parse_rate_limit_headers(Yousef Shtiwe_HEADERS, provider="yousef shtiwe")
         result = format_rate_limit_compact(state)
         assert "RPM:" in result
         assert "RPH:" in result
@@ -193,13 +193,13 @@ class TestAgentIntegration:
         import os
         # Use a mock httpx-like response
         class MockResponse:
-            headers = Shadow_HEADERS
+            headers = Yousef Shtiwe_HEADERS
 
         # Import AIAgent minimally
         from unittest.mock import MagicMock, patch
 
         # Test the parsing directly
-        state = parse_rate_limit_headers(MockResponse.headers, provider="shadow")
+        state = parse_rate_limit_headers(MockResponse.headers, provider="yousef shtiwe")
         assert state is not None
         assert state.requests_min.limit == 800
         assert state.tokens_hour.limit == 336000000

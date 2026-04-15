@@ -21,11 +21,11 @@ def test_no_duplicate_skills_subparser():
     import sys
 
     # Remove cached module if present
-    if 'shadow_cli.main' in sys.modules:
-        del sys.modules['shadow_cli.main']
+    if 'yousef shtiwe_cli.main' in sys.modules:
+        del sys.modules['yousef shtiwe_cli.main']
 
     try:
-        import shadow_cli.main  # noqa: F401
+        import yousef shtiwe_cli.main  # noqa: F401
     except argparse.ArgumentError as e:
         if "conflicting subparser" in str(e):
             raise AssertionError(

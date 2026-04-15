@@ -2,20 +2,20 @@ import os
 import import_lib
 from typing import Dict, Any
 
-class ShadowSkillManager:
-    """Manages SHADOW's offensive toolsets and auto-discovered skills."""
+class Yousef ShtiweSkillManager:
+    """Manages YOUSEF SHTIWE's offensive toolsets and auto-discovered skills."""
     def __init__(self):
         self.registry = {}
         self._load_core_skills()
 
     def _load_core_skills(self):
-        # Shadow-style tool registration
-        from tools.devops.shadow_void_walker import shadow_recon_subdomains, shadow_loot_file, shadow_ghost_wipe
+        # Yousef Shtiwe-style tool registration
+        from tools.devops.yousef shtiwe_void_walker import yousef shtiwe_recon_subdomains, yousef shtiwe_loot_file, yousef shtiwe_ghost_wipe
         from tools.devops.probing import probe_service
         
-        self.register("recon", shadow_recon_subdomains)
-        self.register("exfiltrate", shadow_loot_file)
-        self.register("neutralize", shadow_ghost_wipe)
+        self.register("recon", yousef shtiwe_recon_subdomains)
+        self.register("exfiltrate", yousef shtiwe_loot_file)
+        self.register("neutralize", yousef shtiwe_ghost_wipe)
         self.register("probe", probe_service)
 
     def register(self, name, func):
@@ -43,4 +43,4 @@ class ShadowSkillManager:
     def invoke(self, name, args):
         if name in self.registry:
             return self.registry[name](**args)
-        return {"error": f"Skill {name} not found in Shadow Core."}
+        return {"error": f"Skill {name} not found in Yousef Shtiwe Core."}

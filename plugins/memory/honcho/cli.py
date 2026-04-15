@@ -1,6 +1,6 @@
 """CLI commands for Honcho integration management.
 
-Handles: shadow honcho setup | status | sessions | map | peer
+Handles: yousef shtiwe honcho setup | status | sessions | map | peer
 """
 
 from __future__ import annotations
@@ -10,7 +10,7 @@ import os
 import sys
 from pathlib import Path
 
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 from plugins.memory.honcho.client import resolve_active_host, resolve_config_path, HOST
 
 
@@ -95,7 +95,7 @@ def cmd_enable(args) -> None:
     """Enable Honcho for the active profile."""
     cfg = _read_config()
     host = _host_key()
-    label = f"[{host}] " if host != "shadow" else ""
+    label = f"[{host}] " if host != "yousef shtiwe" else ""
     block = cfg.setdefault("hosts", {}).setdefault(host, {})
 
     if block.get("enabled") is True:
@@ -138,7 +138,7 @@ def cmd_disable(args) -> None:
     """Disable Honcho for the active profile."""
     cfg = _read_config()
     host = _host_key()
-    label = f"[{host}] " if host != "shadow" else ""
+    label = f"[{host}] " if host != "yousef shtiwe" else ""
     block = cfg.get("hosts", {}).get(host, {})
 
     if not block or block.get("enabled") is False:
@@ -154,11 +154,11 @@ def cmd_disable(args) -> None:
 def cmd_sync(args) -> None:
     """Sync Honcho config to all existing profiles.
 
-    Scans all SHADOW profiles and creates host blocks for any that don't
+    Scans all YOUSEF SHTIWE profiles and creates host blocks for any that don't
     have one yet. Inherits settings from the default host block.
     """
     try:
-        from shadow_cli.profiles import list_profiles
+        from yousef shtiwe_cli.profiles import list_profiles
         profiles = list_profiles()
     except Exception as e:
         print(f"  Could not list profiles: {e}\n")
@@ -166,7 +166,7 @@ def cmd_sync(args) -> None:
 
     cfg = _read_config()
     if not cfg:
-        print("  No Honcho config found. Run 'shadow honcho setup' first.\n")
+        print("  No Honcho config found. Run 'yousef shtiwe honcho setup' first.\n")
         return
 
     hosts = cfg.get("hosts", {})
@@ -174,7 +174,7 @@ def cmd_sync(args) -> None:
     has_key = bool(cfg.get("apiKey") or os.environ.get("HONCHO_API_KEY"))
 
     if not default_block and not has_key:
-        print("  Honcho not configured on default profile. Run 'shadow honcho setup' first.\n")
+        print("  Honcho not configured on default profile. Run 'yousef shtiwe honcho setup' first.\n")
         return
 
     created = 0
@@ -183,7 +183,7 @@ def cmd_sync(args) -> None:
         if p.name == "default":
             continue
         if clone_honcho_for_profile(p.name):
-            print(f"  + {p.name} -> shadow.{p.name}")
+            print(f"  + {p.name} -> yousef shtiwe.{p.name}")
             created += 1
         else:
             skipped += 1
@@ -200,10 +200,10 @@ def cmd_sync(args) -> None:
 def sync_honcho_profiles_quiet() -> int:
     """Sync Honcho host blocks for all profiles. Returns count of newly created blocks.
 
-    Called from `shadow update` -- no output, no exceptions.
+    Called from `yousef shtiwe update` -- no output, no exceptions.
     """
     try:
-        from shadow_cli.profiles import list_profiles
+        from yousef shtiwe_cli.profiles import list_profiles
         profiles = list_profiles()
     except Exception:
         return 0
@@ -230,7 +230,7 @@ _profile_override: str | None = None
 
 
 def _host_key() -> str:
-    """Return the active Honcho host key, derived from the current SHADOW profile."""
+    """Return the active Honcho host key, derived from the current YOUSEF SHTIWE profile."""
     if _profile_override:
         if _profile_override in ("default", "custom"):
             return HOST
@@ -246,11 +246,11 @@ def _config_path() -> Path:
 def _local_config_path() -> Path:
     """Return the instance-local Honcho config path for writing.
 
-    Always returns $SHADOW_HOME/honcho.json so each profile/instance gets
+    Always returns $YOUSEF SHTIWE_HOME/honcho.json so each profile/instance gets
     its own config file.  The global ~/.honcho/config.json is only used as
     a read fallback (via resolve_config_path) for cross-app interop.
     """
-    return get_shadow_home() / "honcho.json"
+    return get_yousef shtiwe_home() / "honcho.json"
 
 
 def _read_config() -> dict:
@@ -331,7 +331,7 @@ def cmd_setup(args) -> None:
     write_path = _local_config_path()
     read_path = _config_path()
     print("\nHoncho memory setup\n" + "─" * 40)
-    print("  Honcho gives SHADOW persistent cross-session memory.")
+    print("  Honcho gives YOUSEF SHTIWE persistent cross-session memory.")
     print(f"  Config: {write_path}")
     if read_path != write_path and read_path.exists():
         print(f"  (seeding from existing config at {read_path})")
@@ -341,7 +341,7 @@ def cmd_setup(args) -> None:
         return
 
     hosts = cfg.setdefault("hosts", {})
-    shadow_host = hosts.setdefault(_host_key(), {})
+    yousef shtiwe_host = hosts.setdefault(_host_key(), {})
 
     # --- 1. Cloud or local? ---
     print("  Deployment:")
@@ -386,38 +386,38 @@ def cmd_setup(args) -> None:
 
         if not cfg.get("apiKey"):
             print("\n  No API key configured. Get yours at https://app.honcho.dev")
-            print("  Run 'shadow honcho setup' again once you have a key.\n")
+            print("  Run 'yousef shtiwe honcho setup' again once you have a key.\n")
             return
 
     # --- 3. Identity ---
-    current_peer = shadow_host.get("peerName") or cfg.get("peerName", "")
+    current_peer = yousef shtiwe_host.get("peerName") or cfg.get("peerName", "")
     new_peer = _prompt("Your name (user peer)", default=current_peer or os.getenv("USER", "user"))
     if new_peer:
-        shadow_host["peerName"] = new_peer
+        yousef shtiwe_host["peerName"] = new_peer
 
-    current_ai = shadow_host.get("aiPeer") or cfg.get("aiPeer", "shadow")
+    current_ai = yousef shtiwe_host.get("aiPeer") or cfg.get("aiPeer", "yousef shtiwe")
     new_ai = _prompt("AI peer name", default=current_ai)
     if new_ai:
-        shadow_host["aiPeer"] = new_ai
+        yousef shtiwe_host["aiPeer"] = new_ai
 
-    current_workspace = shadow_host.get("workspace") or cfg.get("workspace", "shadow")
+    current_workspace = yousef shtiwe_host.get("workspace") or cfg.get("workspace", "yousef shtiwe")
     new_workspace = _prompt("Workspace ID", default=current_workspace)
     if new_workspace:
-        shadow_host["workspace"] = new_workspace
+        yousef shtiwe_host["workspace"] = new_workspace
 
     # --- 4. Observation mode ---
-    current_obs = shadow_host.get("observationMode") or cfg.get("observationMode", "directional")
+    current_obs = yousef shtiwe_host.get("observationMode") or cfg.get("observationMode", "directional")
     print("\n  Observation mode:")
     print("    directional  -- all observations on, each AI peer builds its own view (default)")
     print("    unified      -- shared pool, user observes self, AI observes others only")
     new_obs = _prompt("Observation mode", default=current_obs)
     if new_obs in ("unified", "directional"):
-        shadow_host["observationMode"] = new_obs
+        yousef shtiwe_host["observationMode"] = new_obs
     else:
-        shadow_host["observationMode"] = "directional"
+        yousef shtiwe_host["observationMode"] = "directional"
 
     # --- 5. Write frequency ---
-    current_wf = str(shadow_host.get("writeFrequency") or cfg.get("writeFrequency", "async"))
+    current_wf = str(yousef shtiwe_host.get("writeFrequency") or cfg.get("writeFrequency", "async"))
     print("\n  Write frequency:")
     print("    async   -- background thread, no token cost (recommended)")
     print("    turn    -- sync write after every turn")
@@ -425,12 +425,12 @@ def cmd_setup(args) -> None:
     print("    N       -- write every N turns (e.g. 5)")
     new_wf = _prompt("Write frequency", default=current_wf)
     try:
-        shadow_host["writeFrequency"] = int(new_wf)
+        yousef shtiwe_host["writeFrequency"] = int(new_wf)
     except (ValueError, TypeError):
-        shadow_host["writeFrequency"] = new_wf if new_wf in ("async", "turn", "session") else "async"
+        yousef shtiwe_host["writeFrequency"] = new_wf if new_wf in ("async", "turn", "session") else "async"
 
     # --- 6. Recall mode ---
-    _raw_recall = shadow_host.get("recallMode") or cfg.get("recallMode", "hybrid")
+    _raw_recall = yousef shtiwe_host.get("recallMode") or cfg.get("recallMode", "hybrid")
     current_recall = "hybrid" if _raw_recall not in ("hybrid", "context", "tools") else _raw_recall
     print("\n  Recall mode:")
     print("    hybrid  -- auto-injected context + Honcho tools available (default)")
@@ -438,10 +438,10 @@ def cmd_setup(args) -> None:
     print("    tools   -- Honcho tools only, no auto-injected context")
     new_recall = _prompt("Recall mode", default=current_recall)
     if new_recall in ("hybrid", "context", "tools"):
-        shadow_host["recallMode"] = new_recall
+        yousef shtiwe_host["recallMode"] = new_recall
 
     # --- 7. Session strategy ---
-    current_strat = shadow_host.get("sessionStrategy") or cfg.get("sessionStrategy", "per-directory")
+    current_strat = yousef shtiwe_host.get("sessionStrategy") or cfg.get("sessionStrategy", "per-directory")
     print("\n  Session strategy:")
     print("    per-directory -- one session per working directory (default)")
     print("    per-session   -- new Honcho session each run")
@@ -449,24 +449,24 @@ def cmd_setup(args) -> None:
     print("    global        -- single session across all directories")
     new_strat = _prompt("Session strategy", default=current_strat)
     if new_strat in ("per-session", "per-repo", "per-directory", "global"):
-        shadow_host["sessionStrategy"] = new_strat
+        yousef shtiwe_host["sessionStrategy"] = new_strat
 
-    shadow_host["enabled"] = True
-    shadow_host.setdefault("saveMessages", True)
+    yousef shtiwe_host["enabled"] = True
+    yousef shtiwe_host.setdefault("saveMessages", True)
 
     _write_config(cfg)
     print(f"\n  Config written to {write_path}")
 
     # --- Auto-enable Honcho as memory provider in config.yaml ---
     try:
-        from shadow_cli.config import load_config, save_config
-        shadow_config = load_config()
-        shadow_config.setdefault("memory", {})["provider"] = "honcho"
-        save_config(shadow_config)
+        from yousef shtiwe_cli.config import load_config, save_config
+        yousef shtiwe_config = load_config()
+        yousef shtiwe_config.setdefault("memory", {})["provider"] = "honcho"
+        save_config(yousef shtiwe_config)
         print("  Memory provider set to 'honcho' in config.yaml")
     except Exception as e:
         print(f"  Could not auto-enable in config.yaml: {e}")
-        print("  Run: shadow config set memory.provider honcho")
+        print("  Run: yousef shtiwe config set memory.provider honcho")
 
     # --- Test connection ---
     print("  Testing connection... ", end="", flush=True)
@@ -495,19 +495,19 @@ def cmd_setup(args) -> None:
     print("    honcho_profile   -- peer card, key facts (no LLM)")
     print("    honcho_conclude  -- persist a user fact to memory (no LLM)")
     print("\n  Other commands:")
-    print("    shadow honcho status     -- show full config")
-    print("    shadow honcho mode       -- change recall/observation mode")
-    print("    shadow honcho tokens     -- tune context and dialectic budgets")
-    print("    shadow honcho peer       -- update peer names")
-    print("    shadow honcho map <name> -- map this directory to a session name\n")
+    print("    yousef shtiwe honcho status     -- show full config")
+    print("    yousef shtiwe honcho mode       -- change recall/observation mode")
+    print("    yousef shtiwe honcho tokens     -- tune context and dialectic budgets")
+    print("    yousef shtiwe honcho peer       -- update peer names")
+    print("    yousef shtiwe honcho map <name> -- map this directory to a session name\n")
 
 
 def _active_profile_name() -> str:
-    """Return the active SHADOW profile name (respects --target-profile override)."""
+    """Return the active YOUSEF SHTIWE profile name (respects --target-profile override)."""
     if _profile_override:
         return _profile_override
     try:
-        from shadow_cli.profiles import get_active_profile_name
+        from yousef shtiwe_cli.profiles import get_active_profile_name
         return get_active_profile_name()
     except Exception:
         return "default"
@@ -519,7 +519,7 @@ def _all_profile_host_configs() -> list[tuple[str, str, dict]]:
     Reads honcho.json once and maps each profile to its host block.
     """
     try:
-        from shadow_cli.profiles import list_profiles
+        from yousef shtiwe_cli.profiles import list_profiles
         profiles = list_profiles()
     except Exception:
         return [(_active_profile_name(), _host_key(), {})]
@@ -552,7 +552,7 @@ def cmd_status(args) -> None:
     try:
         import honcho  # noqa: F401
     except ImportError:
-        print("  honcho-ai is not installed. Run: shadow honcho setup\n")
+        print("  honcho-ai is not installed. Run: yousef shtiwe honcho setup\n")
         return
 
     cfg = _read_config()
@@ -562,7 +562,7 @@ def cmd_status(args) -> None:
 
     if not cfg:
         print(f"  No Honcho config found at {active_path}")
-        print("  Run 'shadow honcho setup' to configure.\n")
+        print("  Run 'yousef shtiwe honcho setup' to configure.\n")
         return
 
     try:
@@ -697,7 +697,7 @@ def cmd_sessions(args) -> None:
 
     if not sessions:
         print("  No session mappings configured.\n")
-        print("  Add one with: shadow honcho map <session-name>")
+        print("  Add one with: yousef shtiwe honcho map <session-name>")
         print(f"  Or edit {_config_path()} directly.\n")
         return
 
@@ -748,16 +748,16 @@ def cmd_peer(args) -> None:
     if user_name is None and ai_name is None and reasoning is None:
         # Show current values
         hosts = cfg.get("hosts", {})
-        shadow = hosts.get(_host_key(), {})
-        user = shadow.get('peerName') or cfg.get('peerName') or '(not set)'
-        ai = shadow.get('aiPeer') or cfg.get('aiPeer') or _host_key()
-        lvl = shadow.get("dialecticReasoningLevel") or cfg.get("dialecticReasoningLevel") or "low"
-        max_chars = shadow.get("dialecticMaxChars") or cfg.get("dialecticMaxChars") or 600
+        yousef shtiwe = hosts.get(_host_key(), {})
+        user = yousef shtiwe.get('peerName') or cfg.get('peerName') or '(not set)'
+        ai = yousef shtiwe.get('aiPeer') or cfg.get('aiPeer') or _host_key()
+        lvl = yousef shtiwe.get("dialecticReasoningLevel") or cfg.get("dialecticReasoningLevel") or "low"
+        max_chars = yousef shtiwe.get("dialecticMaxChars") or cfg.get("dialecticMaxChars") or 600
         print("\nHoncho peers\n" + "─" * 40)
         print(f"  User peer:   {user}")
         print("    Your identity in Honcho. Messages you send build this peer's card.")
         print(f"  AI peer:     {ai}")
-        print("    SHADOW' identity in Honcho. Seed with 'shadow honcho identity <file>'.")
+        print("    YOUSEF SHTIWE' identity in Honcho. Seed with 'yousef shtiwe honcho identity <file>'.")
         print("    Dialectic calls ask this peer questions to warm session context.")
         print()
         print(f"  Dialectic reasoning:  {lvl}  ({', '.join(REASONING_LEVELS)})")
@@ -765,7 +765,7 @@ def cmd_peer(args) -> None:
         return
 
     host = _host_key()
-    label = f"[{host}] " if host != "shadow" else ""
+    label = f"[{host}] " if host != "yousef shtiwe" else ""
 
     if user_name is not None:
         cfg.setdefault("hosts", {}).setdefault(host, {})["peerName"] = user_name.strip()
@@ -810,7 +810,7 @@ def cmd_mode(args) -> None:
         for m, desc in MODES.items():
             marker = " <-" if m == current else ""
             print(f"  {m:<10}  {desc}{marker}")
-        print(f"\n  Set with: shadow honcho mode [hybrid|context|tools]\n")
+        print(f"\n  Set with: yousef shtiwe honcho mode [hybrid|context|tools]\n")
         return
 
     if mode_arg not in MODES:
@@ -818,7 +818,7 @@ def cmd_mode(args) -> None:
         return
 
     host = _host_key()
-    label = f"[{host}] " if host != "shadow" else ""
+    label = f"[{host}] " if host != "yousef shtiwe" else ""
     cfg.setdefault("hosts", {}).setdefault(host, {})["recallMode"] = mode_arg
     _write_config(cfg)
     print(f"  {label}Recall mode -> {mode_arg}  ({MODES[mode_arg]})\n")
@@ -828,15 +828,15 @@ def cmd_tokens(args) -> None:
     """Show or set token budget settings."""
     cfg = _read_config()
     hosts = cfg.get("hosts", {})
-    shadow = hosts.get(_host_key(), {})
+    yousef shtiwe = hosts.get(_host_key(), {})
 
     context = getattr(args, "context", None)
     dialectic = getattr(args, "dialectic", None)
 
     if context is None and dialectic is None:
-        ctx_tokens = shadow.get("contextTokens") or cfg.get("contextTokens") or "(Honcho default)"
-        d_chars = shadow.get("dialecticMaxChars") or cfg.get("dialecticMaxChars") or 600
-        d_level = shadow.get("dialecticReasoningLevel") or cfg.get("dialecticReasoningLevel") or "low"
+        ctx_tokens = yousef shtiwe.get("contextTokens") or cfg.get("contextTokens") or "(Honcho default)"
+        d_chars = yousef shtiwe.get("dialecticMaxChars") or cfg.get("dialecticMaxChars") or 600
+        d_level = yousef shtiwe.get("dialecticReasoningLevel") or cfg.get("dialecticReasoningLevel") or "low"
         print("\nHoncho budgets\n" + "─" * 40)
         print()
         print(f"  Context     {ctx_tokens} tokens")
@@ -844,15 +844,15 @@ def cmd_tokens(args) -> None:
         print("    the user and session, injected directly into the system prompt.")
         print()
         print(f"  Dialectic   {d_chars} chars, reasoning: {d_level}")
-        print("    AI-to-AI inference. SHADOW asks Honcho's AI peer a question")
+        print("    AI-to-AI inference. YOUSEF SHTIWE asks Honcho's AI peer a question")
         print("    (e.g. \"what were we working on?\") and Honcho runs its own model")
         print("    to synthesize an answer. Used for first-turn session continuity.")
         print("    Level controls how much reasoning Honcho spends on the answer.")
-        print("\n  Set with: shadow honcho tokens [--context N] [--dialectic N]\n")
+        print("\n  Set with: yousef shtiwe honcho tokens [--context N] [--dialectic N]\n")
         return
 
     host = _host_key()
-    label = f"[{host}] " if host != "shadow" else ""
+    label = f"[{host}] " if host != "yousef shtiwe" else ""
     changed = False
     if context is not None:
         cfg.setdefault("hosts", {}).setdefault(host, {})["contextTokens"] = context
@@ -872,7 +872,7 @@ def cmd_identity(args) -> None:
     """Seed AI peer identity or show both peer representations."""
     cfg = _read_config()
     if not _resolve_api_key(cfg):
-        print("  No API key configured. Run 'shadow honcho setup' first.\n")
+        print("  No API key configured. Run 'yousef shtiwe honcho setup' first.\n")
         return
 
     file_path = getattr(args, "file", None)
@@ -909,7 +909,7 @@ def cmd_identity(args) -> None:
             print(ai_rep["card"])
         else:
             print("  No representation built yet.")
-            print("  Run 'shadow honcho identity <file>' to seed one.")
+            print("  Run 'yousef shtiwe honcho identity <file>' to seed one.")
         print()
         return
 
@@ -918,8 +918,8 @@ def cmd_identity(args) -> None:
         print(f"  User peer: {hcfg.peer_name or 'not set'}")
         print(f"  AI peer:   {hcfg.ai_peer}")
         print()
-        print("    shadow honcho identity --show        — show both peer representations")
-        print("    shadow honcho identity <file>        — seed AI peer from SOUL.md or any .md/.txt\n")
+        print("    yousef shtiwe honcho identity --show        — show both peer representations")
+        print("    yousef shtiwe honcho identity <file>        — seed AI peer from SOUL.md or any .md/.txt\n")
         return
 
     from pathlib import Path
@@ -943,7 +943,7 @@ def cmd_identity(args) -> None:
 
 
 def cmd_migrate(args) -> None:
-    """Step-by-step migration guide: OpenClaw native memory → SHADOW + Honcho."""
+    """Step-by-step migration guide: OpenClaw native memory → YOUSEF SHTIWE + Honcho."""
     from pathlib import Path
 
     # ── Detect OpenClaw native memory files ──────────────────────────────────
@@ -971,7 +971,7 @@ def cmd_migrate(args) -> None:
     cfg = _read_config()
     has_key = bool(_resolve_api_key(cfg))
 
-    print("\nHoncho migration: OpenClaw native memory → SHADOW\n" + "─" * 50)
+    print("\nHoncho migration: OpenClaw native memory → YOUSEF SHTIWE\n" + "─" * 50)
     print()
     print("  OpenClaw's native memory stores context in local markdown files")
     print("  (USER.md, MEMORY.md, SOUL.md, ...) and injects them via QMD search.")
@@ -988,21 +988,21 @@ def cmd_migrate(args) -> None:
         print(f"  Honcho API key already configured: {masked}")
         print("  Skip to Step 2.")
     else:
-        print("  Honcho is a cloud memory service that gives SHADOW persistent memory")
+        print("  Honcho is a cloud memory service that gives YOUSEF SHTIWE persistent memory")
         print("  across sessions. You need an API key to use it.")
         print()
         print("  1. Get your API key at https://app.honcho.dev")
-        print("  2. Run:  shadow honcho setup")
+        print("  2. Run:  yousef shtiwe honcho setup")
         print("     Paste the key when prompted.")
         print()
-        answer = _prompt("  Run 'shadow honcho setup' now?", default="y")
+        answer = _prompt("  Run 'yousef shtiwe honcho setup' now?", default="y")
         if answer.lower() in ("y", "yes"):
             cmd_setup(args)
             cfg = _read_config()
             has_key = bool(cfg.get("apiKey", ""))
         else:
             print()
-            print("  Run 'shadow honcho setup' when ready, then re-run this walkthrough.")
+            print("  Run 'yousef shtiwe honcho setup' when ready, then re-run this walkthrough.")
 
     # ── Step 2: Detected files ────────────────────────────────────────────────
     print()
@@ -1020,7 +1020,7 @@ def cmd_migrate(args) -> None:
     else:
         print("  No OpenClaw native memory files found in cwd or ~/.openclaw/.")
         print("  If your files are elsewhere, copy them here before continuing,")
-        print("  or seed them manually:  shadow honcho identity <path/to/file>")
+        print("  or seed them manually:  yousef shtiwe honcho identity <path/to/file>")
 
     # ── Step 3: Migrate user memory ───────────────────────────────────────────
     print()
@@ -1033,13 +1033,13 @@ def cmd_migrate(args) -> None:
     if user_files:
         print(f"  Found: {', '.join(f.name for f in user_files)}")
         print()
-        print("  These are picked up automatically the first time you run 'shadow'")
+        print("  These are picked up automatically the first time you run 'yousef shtiwe'")
         print("  with Honcho configured and no prior session history.")
-        print("  (SHADOW calls migrate_memory_files() on first session init.)")
+        print("  (YOUSEF SHTIWE calls migrate_memory_files() on first session init.)")
         print()
         print("  If you want to migrate them now without starting a session:")
         for f in user_files:
-            print("    shadow honcho migrate  — this step handles it interactively")
+            print("    yousef shtiwe honcho migrate  — this step handles it interactively")
         if has_key:
             answer = _prompt("  Upload user memory files to Honcho now?", default="y")
             if answer.lower() in ("y", "yes"):
@@ -1070,7 +1070,7 @@ def cmd_migrate(args) -> None:
                 except Exception as e:
                     print(f"  Failed: {e}")
         else:
-            print("  Run 'shadow honcho setup' first, then re-run this step.")
+            print("  Run 'yousef shtiwe honcho setup' first, then re-run this step.")
     else:
         print("  No user memory files detected. Nothing to migrate here.")
 
@@ -1082,7 +1082,7 @@ def cmd_migrate(args) -> None:
     print("  agent's character, capabilities, and behavioral rules. In OpenClaw")
     print("  these are injected via file search at prompt-build time.")
     print()
-    print("  In SHADOW, they are seeded once into Honcho's AI peer through the")
+    print("  In YOUSEF SHTIWE, they are seeded once into Honcho's AI peer through the")
     print("  observation pipeline. Honcho builds a representation from them and")
     print("  from every subsequent assistant message (observe_me=True). Over time")
     print("  the representation reflects actual behavior, not just declaration.")
@@ -1116,12 +1116,12 @@ def cmd_migrate(args) -> None:
                 except Exception as e:
                     print(f"  Failed: {e}")
         else:
-            print("  Run 'shadow honcho setup' first, then seed manually:")
+            print("  Run 'yousef shtiwe honcho setup' first, then seed manually:")
             for f in agent_files:
-                print(f"    shadow honcho identity {f}")
+                print(f"    yousef shtiwe honcho identity {f}")
     else:
         print("  No agent identity files detected.")
-        print("  To seed manually:  shadow honcho identity <path/to/SOUL.md>")
+        print("  To seed manually:  yousef shtiwe honcho identity <path/to/SOUL.md>")
 
     # ── Step 5: What changes ──────────────────────────────────────────────────
     print()
@@ -1129,17 +1129,17 @@ def cmd_migrate(args) -> None:
     print()
     print("  Storage")
     print("    OpenClaw: markdown files on disk, searched via QMD at prompt-build time.")
-    print("    SHADOW:   cloud-backed Honcho peers. Files can stay on disk as source")
+    print("    YOUSEF SHTIWE:   cloud-backed Honcho peers. Files can stay on disk as source")
     print("              of truth; Honcho holds the live representation.")
     print()
     print("  Context injection")
-    print("    OpenClaw: file excerpts injected synchroshadowly before each LLM call.")
-    print("    SHADOW:   Honcho context fetched async at turn end, injected next turn.")
+    print("    OpenClaw: file excerpts injected synchroyousef shtiwely before each LLM call.")
+    print("    YOUSEF SHTIWE:   Honcho context fetched async at turn end, injected next turn.")
     print("              First turn has no Honcho context; subsequent turns are loaded.")
     print()
     print("  Memory growth")
     print("    OpenClaw: you edit files manually to update memory.")
-    print("    SHADOW:   Honcho observes every message and updates representations")
+    print("    YOUSEF SHTIWE:   Honcho observes every message and updates representations")
     print("              automatically. Files become the seed, not the live store.")
     print()
     print("  Honcho tools (available to the agent during conversation)")
@@ -1150,23 +1150,23 @@ def cmd_migrate(args) -> None:
     print()
     print("  Session naming")
     print("    OpenClaw: no persistent session concept — files are global.")
-    print("    SHADOW:   per-session by default — each run gets its own session")
-    print("              Map a custom name:  shadow honcho map <session-name>")
+    print("    YOUSEF SHTIWE:   per-session by default — each run gets its own session")
+    print("              Map a custom name:  yousef shtiwe honcho map <session-name>")
 
     # ── Step 6: Next steps ────────────────────────────────────────────────────
     print()
     print("Step 6  Next steps")
     print()
     if not has_key:
-        print("  1. shadow honcho setup              — configure API key (required)")
-        print("  2. shadow honcho migrate            — re-run this walkthrough")
+        print("  1. yousef shtiwe honcho setup              — configure API key (required)")
+        print("  2. yousef shtiwe honcho migrate            — re-run this walkthrough")
     else:
-        print("  1. shadow honcho status             — verify Honcho connection")
-        print("  2. shadow                           — start a session")
+        print("  1. yousef shtiwe honcho status             — verify Honcho connection")
+        print("  2. yousef shtiwe                           — start a session")
         print("     (user memory files auto-uploaded on first turn if not done above)")
-        print("  3. shadow honcho identity --show    — verify AI peer representation")
-        print("  4. shadow honcho tokens             — tune context and dialectic budgets")
-        print("  5. shadow honcho mode               — view or change memory mode")
+        print("  3. yousef shtiwe honcho identity --show    — verify AI peer representation")
+        print("  4. yousef shtiwe honcho tokens             — tune context and dialectic budgets")
+        print("  5. yousef shtiwe honcho mode               — view or change memory mode")
     print()
 
 
@@ -1179,8 +1179,8 @@ def honcho_command(args) -> None:
     if sub == "setup":
         # Redirect to memory setup — honcho setup goes through the unified path
         print("\n  Honcho is configured via the memory provider system.")
-        print("  Running 'shadow memory setup'...\n")
-        from shadow_cli.memory_setup import cmd_setup_provider
+        print("  Running 'yousef shtiwe memory setup'...\n")
+        from yousef shtiwe_cli.memory_setup import cmd_setup_provider
         cmd_setup_provider("honcho")
         return
     elif sub is None:
@@ -1215,10 +1215,10 @@ def honcho_command(args) -> None:
 
 
 def register_cli(subparser) -> None:
-    """Build the ``shadow honcho`` argparse subcommand tree.
+    """Build the ``yousef shtiwe honcho`` argparse subcommand tree.
 
     Called by the plugin CLI registration system during argparse setup.
-    The *subparser* is the parser for ``shadow honcho``.
+    The *subparser* is the parser for ``yousef shtiwe honcho``.
     """
 
     subparser.add_argument(
@@ -1229,7 +1229,7 @@ def register_cli(subparser) -> None:
 
     subs.add_parser(
         "setup",
-        help="Initial Honcho setup (redirects to shadow memory setup)",
+        help="Initial Honcho setup (redirects to yousef shtiwe memory setup)",
     )
 
     status_parser = subs.add_parser(
@@ -1296,7 +1296,7 @@ def register_cli(subparser) -> None:
 
     subs.add_parser(
         "migrate",
-        help="Step-by-step migration guide from openclaw-honcho to SHADOW Honcho",
+        help="Step-by-step migration guide from openclaw-honcho to YOUSEF SHTIWE Honcho",
     )
     subs.add_parser("enable", help="Enable Honcho for the active profile")
     subs.add_parser("disable", help="Disable Honcho for the active profile")

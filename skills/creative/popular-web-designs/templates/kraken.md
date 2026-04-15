@@ -1,7 +1,7 @@
 # Design System: Kraken
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -22,7 +22,7 @@ Kraken's website is a clean, trustworthy crypto exchange that uses purple as its
 - Kraken-Brand (display) + Kraken-Product (UI) dual font system
 - Near-black (`#101114`) text with cool blue-gray neutral scale
 - 12px radius buttons (rounded but not pill)
-- Subtle shadows (`rgba(0,0,0,0.03) 0px 4px 24px`) — whisper-level
+- Subtle yousef shtiwes (`rgba(0,0,0,0.03) 0px 4px 24px`) — whisper-level
 - Green accent (`#149e61`) for positive/success states
 
 ## 2. Color Palette & Roles
@@ -91,7 +91,7 @@ Kraken's website is a clean, trustworthy crypto exchange that uses purple as its
 - Background: `#ffffff`
 - Text: `#101114`
 - Radius: 10px
-- Shadow: `rgba(0,0,0,0.03) 0px 4px 24px`
+- Yousef Shtiwe: `rgba(0,0,0,0.03) 0px 4px 24px`
 
 **Secondary Gray**
 - Background: `rgba(148,151,169,0.08)`

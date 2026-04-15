@@ -4,7 +4,7 @@ from argparse import Namespace
 from unittest.mock import MagicMock, patch
 
 import pytest
-from shadow_cli.config import DEFAULT_CONFIG, load_config, save_config
+from yousef shtiwe_cli.config import DEFAULT_CONFIG, load_config, save_config
 
 
 def _make_setup_args(**overrides):
@@ -37,12 +37,12 @@ class TestNonInteractiveSetup:
 
     def test_cmd_setup_allows_noninteractive_flag_without_tty(self):
         """The CLI entrypoint should not block --non-interactive before setup.py handles it."""
-        from shadow_cli.main import cmd_setup
+        from yousef shtiwe_cli.main import cmd_setup
 
         args = _make_setup_args(non_interactive=True)
 
         with (
-            patch("shadow_cli.setup.run_setup_wizard") as mock_run_setup,
+            patch("yousef shtiwe_cli.setup.run_setup_wizard") as mock_run_setup,
             patch("sys.stdin") as mock_stdin,
         ):
             mock_stdin.isatty.return_value = False
@@ -51,13 +51,13 @@ class TestNonInteractiveSetup:
         mock_run_setup.assert_called_once_with(args)
 
     def test_cmd_setup_defers_no_tty_handling_to_setup_wizard(self):
-        """Bare `shadow setup` should reach setup.py, which prints headless guidance."""
-        from shadow_cli.main import cmd_setup
+        """Bare `yousef shtiwe setup` should reach setup.py, which prints headless guidance."""
+        from yousef shtiwe_cli.main import cmd_setup
 
         args = _make_setup_args(non_interactive=False)
 
         with (
-            patch("shadow_cli.setup.run_setup_wizard") as mock_run_setup,
+            patch("yousef shtiwe_cli.setup.run_setup_wizard") as mock_run_setup,
             patch("sys.stdin") as mock_stdin,
         ):
             mock_stdin.isatty.return_value = False
@@ -67,33 +67,33 @@ class TestNonInteractiveSetup:
 
     def test_non_interactive_flag_skips_wizard(self, capsys):
         """--non-interactive should print guidance and not enter the wizard."""
-        from shadow_cli.setup import run_setup_wizard
+        from yousef shtiwe_cli.setup import run_setup_wizard
 
         args = _make_setup_args(non_interactive=True)
 
         with (
-            patch("shadow_cli.setup.ensure_shadow_home"),
-            patch("shadow_cli.setup.load_config", return_value={}),
-            patch("shadow_cli.setup.get_shadow_home", return_value="/tmp/.shadow"),
-            patch("shadow_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),
+            patch("yousef shtiwe_cli.setup.ensure_yousef shtiwe_home"),
+            patch("yousef shtiwe_cli.setup.load_config", return_value={}),
+            patch("yousef shtiwe_cli.setup.get_yousef shtiwe_home", return_value="/tmp/.yousef shtiwe"),
+            patch("yousef shtiwe_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),
             patch("builtins.input", side_effect=AssertionError("input should not be called")),
         ):
             run_setup_wizard(args)
 
         out = capsys.readouterr().out
-        assert "shadow config set model.provider custom" in out
+        assert "yousef shtiwe config set model.provider custom" in out
 
     def test_no_tty_skips_wizard(self, capsys):
         """When stdin has no TTY, the setup wizard should print guidance and return."""
-        from shadow_cli.setup import run_setup_wizard
+        from yousef shtiwe_cli.setup import run_setup_wizard
 
         args = _make_setup_args(non_interactive=False)
 
         with (
-            patch("shadow_cli.setup.ensure_shadow_home"),
-            patch("shadow_cli.setup.load_config", return_value={}),
-            patch("shadow_cli.setup.get_shadow_home", return_value="/tmp/.shadow"),
-            patch("shadow_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),
+            patch("yousef shtiwe_cli.setup.ensure_yousef shtiwe_home"),
+            patch("yousef shtiwe_cli.setup.load_config", return_value={}),
+            patch("yousef shtiwe_cli.setup.get_yousef shtiwe_home", return_value="/tmp/.yousef shtiwe"),
+            patch("yousef shtiwe_cli.auth.get_active_provider", side_effect=AssertionError("wizard continued")),
             patch("sys.stdin") as mock_stdin,
             patch("builtins.input", side_effect=AssertionError("input should not be called")),
         ):
@@ -101,13 +101,13 @@ class TestNonInteractiveSetup:
             run_setup_wizard(args)
 
         out = capsys.readouterr().out
-        assert "shadow config set model.provider custom" in out
+        assert "yousef shtiwe config set model.provider custom" in out
 
     def test_reset_flag_rewrites_config_before_noninteractive_exit(self, tmp_path, monkeypatch, capsys):
         """--reset should rewrite config.yaml even when the wizard cannot run interactively."""
-        from shadow_cli.setup import run_setup_wizard
+        from yousef shtiwe_cli.setup import run_setup_wizard
 
-        monkeypatch.setenv("SHADOW_HOME", str(tmp_path))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path))
         cfg = load_config()
         cfg["model"] = {"provider": "custom", "base_url": "http://localhost:8080/v1", "default": "llama3"}
         cfg["agent"]["max_turns"] = 12
@@ -124,14 +124,14 @@ class TestNonInteractiveSetup:
         assert "Configuration reset to defaults." in out
 
     def test_chat_first_run_headless_skips_setup_prompt(self, capsys):
-        """Bare `shadow` should not prompt for input when no provider exists and stdin is headless."""
-        from shadow_cli.main import cmd_chat
+        """Bare `yousef shtiwe` should not prompt for input when no provider exists and stdin is headless."""
+        from yousef shtiwe_cli.main import cmd_chat
 
         args = _make_chat_args()
 
         with (
-            patch("shadow_cli.main._has_any_provider_configured", return_value=False),
-            patch("shadow_cli.main.cmd_setup") as mock_setup,
+            patch("yousef shtiwe_cli.main._has_any_provider_configured", return_value=False),
+            patch("yousef shtiwe_cli.main.cmd_setup") as mock_setup,
             patch("sys.stdin") as mock_stdin,
             patch("builtins.input", side_effect=AssertionError("input should not be called")),
         ):
@@ -142,11 +142,11 @@ class TestNonInteractiveSetup:
         assert exc.value.code == 1
         mock_setup.assert_not_called()
         out = capsys.readouterr().out
-        assert "shadow config set model.provider custom" in out
+        assert "yousef shtiwe config set model.provider custom" in out
 
     def test_returning_user_terminal_menu_choice_dispatches_terminal_section(self, tmp_path):
         """Returning-user menu should map Terminal Backend to the terminal setup, not TTS."""
-        from shadow_cli import setup as setup_mod
+        from yousef shtiwe_cli import setup as setup_mod
 
         args = _make_setup_args()
         config = {}
@@ -158,16 +158,16 @@ class TestNonInteractiveSetup:
         agent_section = MagicMock()
 
         with (
-            patch.object(setup_mod, "ensure_shadow_home"),
+            patch.object(setup_mod, "ensure_yousef shtiwe_home"),
             patch.object(setup_mod, "load_config", return_value=config),
-            patch.object(setup_mod, "get_shadow_home", return_value=tmp_path),
+            patch.object(setup_mod, "get_yousef shtiwe_home", return_value=tmp_path),
             patch.object(setup_mod, "is_interactive_stdin", return_value=True),
             patch.object(
                 setup_mod,
                 "get_env_value",
                 side_effect=lambda key: "sk-test" if key == "OPENROUTER_API_KEY" else "",
             ),
-            patch("shadow_cli.auth.get_active_provider", return_value=None),
+            patch("yousef shtiwe_cli.auth.get_active_provider", return_value=None),
             patch.object(setup_mod, "prompt_choice", return_value=3),
             patch.object(
                 setup_mod,
@@ -191,7 +191,7 @@ class TestNonInteractiveSetup:
 
     def test_returning_user_menu_does_not_show_separator_rows(self, tmp_path):
         """Returning-user menu should only show selectable actions."""
-        from shadow_cli import setup as setup_mod
+        from yousef shtiwe_cli import setup as setup_mod
 
         args = _make_setup_args()
         captured = {}
@@ -202,16 +202,16 @@ class TestNonInteractiveSetup:
             return len(choices) - 1
 
         with (
-            patch.object(setup_mod, "ensure_shadow_home"),
+            patch.object(setup_mod, "ensure_yousef shtiwe_home"),
             patch.object(setup_mod, "load_config", return_value={}),
-            patch.object(setup_mod, "get_shadow_home", return_value=tmp_path),
+            patch.object(setup_mod, "get_yousef shtiwe_home", return_value=tmp_path),
             patch.object(setup_mod, "is_interactive_stdin", return_value=True),
             patch.object(
                 setup_mod,
                 "get_env_value",
                 side_effect=lambda key: "sk-test" if key == "OPENROUTER_API_KEY" else "",
             ),
-            patch("shadow_cli.auth.get_active_provider", return_value=None),
+            patch("yousef shtiwe_cli.auth.get_active_provider", return_value=None),
             patch.object(setup_mod, "prompt_choice", side_effect=fake_prompt_choice),
         ):
             setup_mod.run_setup_wizard(args)
@@ -230,8 +230,8 @@ class TestNonInteractiveSetup:
         ]
 
     def test_main_accepts_tts_setup_section(self, monkeypatch):
-        """`shadow setup tts` should parse and dispatch like other setup sections."""
-        from shadow_cli import main as main_mod
+        """`yousef shtiwe setup tts` should parse and dispatch like other setup sections."""
+        from yousef shtiwe_cli import main as main_mod
 
         received = {}
 
@@ -239,7 +239,7 @@ class TestNonInteractiveSetup:
             received["section"] = args.section
 
         monkeypatch.setattr(main_mod, "cmd_setup", fake_cmd_setup)
-        monkeypatch.setattr("sys.argv", ["shadow", "setup", "tts"])
+        monkeypatch.setattr("sys.argv", ["yousef shtiwe", "setup", "tts"])
 
         main_mod.main()
 

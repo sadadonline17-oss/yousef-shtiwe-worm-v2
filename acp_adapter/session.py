@@ -1,6 +1,6 @@
-"""ACP session manager — maps ACP sessions to SHADOW AIAgent instances.
+"""ACP session manager — maps ACP sessions to YOUSEF SHTIWE AIAgent instances.
 
-Sessions are persisted to the shared SessionDB (``~/.shadow/state.db``) so they
+Sessions are persisted to the shared SessionDB (``~/.yousef shtiwe/state.db``) so they
 survive process restarts and appear in ``session_search``.  When the editor
 reconnects after idle/restart, the ``load_session`` / ``resume_session`` calls
 find the persisted session in the database and restore the full conversation
@@ -8,7 +8,7 @@ history.
 """
 from __future__ import annotations
 
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 
 import copy
 import json
@@ -57,7 +57,7 @@ def _clear_task_cwd(task_id: str) -> None:
 
 @dataclass
 class SessionState:
-    """Tracks per-session state for an ACP-managed SHADOW agent."""
+    """Tracks per-session state for an ACP-managed YOUSEF SHTIWE agent."""
 
     session_id: str
     agent: Any  # AIAgent instance
@@ -68,7 +68,7 @@ class SessionState:
 
 
 class SessionManager:
-    """Thread-safe manager for ACP sessions backed by SHADOW AIAgent instances.
+    """Thread-safe manager for ACP sessions backed by YOUSEF SHTIWE AIAgent instances.
 
     Sessions are held in-memory for fast access **and** persisted to the
     shared SessionDB so they survive process restarts and are searchable
@@ -80,9 +80,9 @@ class SessionManager:
         Args:
             agent_factory: Optional callable that creates an AIAgent-like object.
                            Used by tests. When omitted, a real AIAgent is created
-                           using the current SHADOW runtime provider configuration.
+                           using the current YOUSEF SHTIWE runtime provider configuration.
             db:            Optional SessionDB instance. When omitted, the default
-                           SessionDB (``~/.shadow/state.db``) is lazily created.
+                           SessionDB (``~/.yousef shtiwe/state.db``) is lazily created.
         """
         self._sessions: Dict[str, SessionState] = {}
         self._lock = Lock()
@@ -254,17 +254,17 @@ class SessionManager:
         Returns ``None`` if the DB is unavailable (e.g. import error in a
         minimal test environment).
 
-        Note: we resolve ``SHADOW_HOME`` dynamically rather than relying on
+        Note: we resolve ``YOUSEF SHTIWE_HOME`` dynamically rather than relying on
         the module-level ``DEFAULT_DB_PATH`` constant, because that constant
         is evaluated at import time and won't reflect env-var changes made
-        later (e.g. by the test fixture ``_isolate_shadow_home``).
+        later (e.g. by the test fixture ``_isolate_yousef shtiwe_home``).
         """
         if self._db_instance is not None:
             return self._db_instance
         try:
-            from shadow_state import SessionDB
-            shadow_home = get_shadow_home()
-            self._db_instance = SessionDB(db_path=shadow_home / "state.db")
+            from yousef shtiwe_state import SessionDB
+            yousef shtiwe_home = get_yousef shtiwe_home()
+            self._db_instance = SessionDB(db_path=yousef shtiwe_home / "state.db")
             return self._db_instance
         except Exception:
             logger.debug("SessionDB unavailable for ACP persistence", exc_info=True)
@@ -431,8 +431,8 @@ class SessionManager:
             return self._agent_factory()
 
         from run_agent import AIAgent
-        from shadow_cli.config import load_config
-        from shadow_cli.runtime_provider import resolve_runtime_provider
+        from yousef shtiwe_cli.config import load_config
+        from yousef shtiwe_cli.runtime_provider import resolve_runtime_provider
 
         config = load_config()
         model_cfg = config.get("model")
@@ -446,7 +446,7 @@ class SessionManager:
 
         kwargs = {
             "platform": "acp",
-            "enabled_toolsets": ["shadow-acp"],
+            "enabled_toolsets": ["yousef shtiwe-acp"],
             "quiet_mode": True,
             "session_id": session_id,
             "model": model or default_model,

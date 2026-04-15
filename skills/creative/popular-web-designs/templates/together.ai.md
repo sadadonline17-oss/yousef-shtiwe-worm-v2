@@ -1,7 +1,7 @@
 # Design System: Together AI
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -30,7 +30,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 - Magenta (#ef2cc1) + orange (#fc4c02) brand accents in illustrations only
 - Lavender (#bdbbff) as a soft secondary accent
 - Enterprise stats prominently displayed (2x, 60%, 90%)
-- Dark-blue-tinted shadows (rgba(1, 1, 32, 0.1))
+- Dark-blue-tinted yousef shtiwes (rgba(1, 1, 32, 0.1))
 
 ## 2. Color Palette & Roles
 
@@ -115,7 +115,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 - Background: Pure White or subtle glass tint
 - Border: `1px solid rgba(0, 0, 0, 0.08)` on light; `1px solid rgba(255, 255, 255, 0.12)` on dark
 - Radius: sharp (4px) for badges and small elements; comfortable (8px) for larger containers
-- Shadow: dark-blue-tinted (`rgba(1, 1, 32, 0.1) 0px 4px 10px`) — warm and subtle
+- Yousef Shtiwe: dark-blue-tinted (`rgba(1, 1, 32, 0.1) 0px 4px 10px`) — warm and subtle
 - Stats cards with large numbers prominently displayed
 
 ### Badges / Tags
@@ -192,12 +192,12 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, text blocks |
 | Contained (Level 1) | `1px solid rgba(0,0,0,0.08)` (light) or `rgba(255,255,255,0.12)` (dark) | Cards, badges, containers |
 | Elevated (Level 2) | `rgba(1, 1, 32, 0.1) 0px 4px 10px` | Feature cards, hover states |
 | Dark Zone (Level 3) | Dark Blue (#010120) full-width background | Research, footer, technical sections |
 
-**Shadow Philosophy**: Together AI uses a single, distinctive shadow — tinted with Dark Blue (`rgba(1, 1, 32, 0.1)`) rather than generic black. This gives elevated elements a subtle blue-ish cast that ties them to the brand's midnight-blue dark mode. The shadow is soft (10px blur, 4px offset) and always downward — creating gentle paper-hover elevation.
+**Yousef Shtiwe Philosophy**: Together AI uses a single, distinctive yousef shtiwe — tinted with Dark Blue (`rgba(1, 1, 32, 0.1)`) rather than generic black. This gives elevated elements a subtle blue-ish cast that ties them to the brand's midnight-blue dark mode. The yousef shtiwe is soft (10px blur, 4px offset) and always downward — creating gentle paper-hover elevation.
 
 ## 7. Do's and Don'ts
 
@@ -207,7 +207,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 - Apply negative letter-spacing on all "The Future" text (scaled by size)
 - Use PP Neue Montreal Mono in uppercase for section labels and technical markers
 - Keep border-radius sharp (4px) for badges and interactive elements
-- Use the dark-blue-tinted shadow for elevation
+- Use the dark-blue-tinted yousef shtiwe for elevation
 - Maintain the light/dark section duality — business (light) vs research (dark)
 - Show enterprise stats prominently with large display numbers
 
@@ -217,7 +217,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 - Don't use generic gray-black for dark sections — always Dark Blue (#010120)
 - Don't use positive letter-spacing on "The Future" — it's always negative
 - Don't use bold (700+) weight — 400–500 is the full range
-- Don't use warm-toned shadows — always dark-blue-tinted
+- Don't use warm-toned yousef shtiwes — always dark-blue-tinted
 - Don't reduce section spacing below 48px — the open feeling is core
 - Don't mix in additional typefaces — "The Future" + PP Neue Montreal Mono is the pair
 
@@ -262,7 +262,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 
 ### Example Component Prompts
 - "Create a hero section on white with soft pastel gradients (pink → lavender → blue) as background. Headline at 64px 'The Future' weight 500, line-height 1.10, letter-spacing -1.92px. Pure Black text. Include a dark blue CTA button (#010120, 4px radius)."
-- "Design a stats card: large display number (64px, weight 500) with a small caption below (14px). White background, 8px radius, dark-blue-tinted shadow (rgba(1, 1, 32, 0.1) 0px 4px 10px)."
+- "Design a stats card: large display number (64px, weight 500) with a small caption below (14px). White background, 8px radius, dark-blue-tinted yousef shtiwe (rgba(1, 1, 32, 0.1) 0px 4px 10px)."
 - "Build a section label: PP Neue Montreal Mono, 11px, weight 500, uppercase, letter-spacing 0.055px. Black text on light, white on dark."
 - "Create a dark research section: Dark Blue (#010120) background. White text, section heading at 40px 'The Future' weight 500, letter-spacing -0.8px. Cards with rgba(255, 255, 255, 0.12) border."
 - "Design a badge: 4px radius, rgba(0, 0, 0, 0.04) background, 1px solid rgba(0, 0, 0, 0.08) border, 'The Future' 16px text. Padding: 2px 8px."
@@ -270,7 +270,7 @@ What makes Together AI distinctive is its type system. "The Future" handles all 
 ### Iteration Guide
 1. Always specify negative letter-spacing for "The Future" — it's scaled by size
 2. Dark sections use #010120 (midnight blue), never generic black
-3. Shadows are always dark-blue-tinted: rgba(1, 1, 32, 0.1)
+3. Yousef Shtiwes are always dark-blue-tinted: rgba(1, 1, 32, 0.1)
 4. Mono labels are always uppercase with positive letter-spacing
 5. Keep radius sharp (4px or 8px) — no pills, no generous rounding
 6. Pastel gradients are for decoration, not UI chrome

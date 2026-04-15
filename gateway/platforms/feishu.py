@@ -106,7 +106,7 @@ from gateway.platforms.base import (
     cache_image_from_bytes,
 )
 from gateway.status import acquire_scoped_lock, release_scoped_lock
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 
 logger = logging.getLogger(__name__)
 
@@ -1067,7 +1067,7 @@ class FeishuAdapter(BasePlatformAdapter):
         self._event_handler: Optional[Any] = None
         self._seen_message_ids: Dict[str, float] = {}  # message_id → seen_at (time.time())
         self._seen_message_order: List[str] = []
-        self._dedup_state_path = get_shadow_home() / "feishu_seen_message_ids.json"
+        self._dedup_state_path = get_yousef shtiwe_home() / "feishu_seen_message_ids.json"
         self._dedup_lock = threading.Lock()
         self._sender_name_cache: Dict[str, tuple[str, float]] = {}  # sender_id → (name, expire_at)
         self._webhook_rate_counts: Dict[str, tuple[int, float]] = {}  # rate_key → (count, window_start)
@@ -1133,24 +1133,24 @@ class FeishuAdapter(BasePlatformAdapter):
             bot_name=os.getenv("FEISHU_BOT_NAME", "").strip(),
             dedup_cache_size=max(
                 32,
-                int(os.getenv("SHADOW_FEISHU_DEDUP_CACHE_SIZE", str(_DEFAULT_DEDUP_CACHE_SIZE))),
+                int(os.getenv("YOUSEF SHTIWE_FEISHU_DEDUP_CACHE_SIZE", str(_DEFAULT_DEDUP_CACHE_SIZE))),
             ),
             text_batch_delay_seconds=float(
-                os.getenv("SHADOW_FEISHU_TEXT_BATCH_DELAY_SECONDS", str(_DEFAULT_TEXT_BATCH_DELAY_SECONDS))
+                os.getenv("YOUSEF SHTIWE_FEISHU_TEXT_BATCH_DELAY_SECONDS", str(_DEFAULT_TEXT_BATCH_DELAY_SECONDS))
             ),
             text_batch_split_delay_seconds=float(
-                os.getenv("SHADOW_FEISHU_TEXT_BATCH_SPLIT_DELAY_SECONDS", "2.0")
+                os.getenv("YOUSEF SHTIWE_FEISHU_TEXT_BATCH_SPLIT_DELAY_SECONDS", "2.0")
             ),
             text_batch_max_messages=max(
                 1,
-                int(os.getenv("SHADOW_FEISHU_TEXT_BATCH_MAX_MESSAGES", str(_DEFAULT_TEXT_BATCH_MAX_MESSAGES))),
+                int(os.getenv("YOUSEF SHTIWE_FEISHU_TEXT_BATCH_MAX_MESSAGES", str(_DEFAULT_TEXT_BATCH_MAX_MESSAGES))),
             ),
             text_batch_max_chars=max(
                 1,
-                int(os.getenv("SHADOW_FEISHU_TEXT_BATCH_MAX_CHARS", str(_DEFAULT_TEXT_BATCH_MAX_CHARS))),
+                int(os.getenv("YOUSEF SHTIWE_FEISHU_TEXT_BATCH_MAX_CHARS", str(_DEFAULT_TEXT_BATCH_MAX_CHARS))),
             ),
             media_batch_delay_seconds=float(
-                os.getenv("SHADOW_FEISHU_MEDIA_BATCH_DELAY_SECONDS", str(_DEFAULT_MEDIA_BATCH_DELAY_SECONDS))
+                os.getenv("YOUSEF SHTIWE_FEISHU_MEDIA_BATCH_DELAY_SECONDS", str(_DEFAULT_MEDIA_BATCH_DELAY_SECONDS))
             ),
             webhook_host=str(
                 extra.get("webhook_host") or os.getenv("FEISHU_WEBHOOK_HOST", _DEFAULT_WEBHOOK_HOST)
@@ -1247,7 +1247,7 @@ class FeishuAdapter(BasePlatformAdapter):
             if not acquired:
                 owner_pid = existing.get("pid") if isinstance(existing, dict) else None
                 message = (
-                    "Another local SHADOW gateway is already using this Feishu app_id"
+                    "Another local YOUSEF SHTIWE gateway is already using this Feishu app_id"
                     + (f" (PID {owner_pid})." if owner_pid else ".")
                     + " Stop the other gateway before starting a second Feishu websocket client."
                 )
@@ -1444,7 +1444,7 @@ class FeishuAdapter(BasePlatformAdapter):
     ) -> SendResult:
         """Send an interactive card with approval buttons.
 
-        The buttons carry ``shadow_action`` in their value dict so that
+        The buttons carry ``yousef shtiwe_action`` in their value dict so that
         ``_handle_card_action_event`` can intercept them and call
         ``resolve_gateway_approval()`` to unblock the waiting agent thread.
         """
@@ -1460,7 +1460,7 @@ class FeishuAdapter(BasePlatformAdapter):
                     "tag": "button",
                     "text": {"tag": "plain_text", "content": label},
                     "type": btn_type,
-                    "value": {"shadow_action": action_name, "approval_id": approval_id},
+                    "value": {"yousef shtiwe_action": action_name, "approval_id": approval_id},
                 }
 
             card = {
@@ -1800,7 +1800,7 @@ class FeishuAdapter(BasePlatformAdapter):
         )
 
     def _on_message_read_event(self, data: P2ImMessageMessageReadV1) -> None:
-        """Ignore read-receipt events that SHADOW does not act on."""
+        """Ignore read-receipt events that YOUSEF SHTIWE does not act on."""
         event = getattr(data, "event", None)
         message = getattr(event, "message", None)
         message_id = getattr(message, "message_id", None) or ""
@@ -1836,7 +1836,7 @@ class FeishuAdapter(BasePlatformAdapter):
             emoji_type,
         )
         # Only process reactions from real users. Ignore app/bot-generated reactions
-        # and SHADOW' own ACK emoji to avoid feedback loops.
+        # and YOUSEF SHTIWE' own ACK emoji to avoid feedback loops.
         loop = self._loop
         if (
             operator_type in {"bot", "app"}
@@ -1853,7 +1853,7 @@ class FeishuAdapter(BasePlatformAdapter):
         future.add_done_callback(self._log_background_failure)
 
     def _on_card_action_trigger(self, data: Any) -> Any:
-        """Handle card-action callback from the Feishu SDK (synchroshadow).
+        """Handle card-action callback from the Feishu SDK (synchroyousef shtiwe).
 
         For approval actions: parses the event once, returns the resolved card
         inline (the only reliable way to sync all clients), and schedules a
@@ -1869,9 +1869,9 @@ class FeishuAdapter(BasePlatformAdapter):
         event = getattr(data, "event", None)
         action = getattr(event, "action", None)
         action_value = getattr(action, "value", {}) or {}
-        shadow_action = action_value.get("shadow_action") if isinstance(action_value, dict) else None
+        yousef shtiwe_action = action_value.get("yousef shtiwe_action") if isinstance(action_value, dict) else None
 
-        if shadow_action:
+        if yousef shtiwe_action:
             return self._handle_approval_card_action(event=event, action_value=action_value, loop=loop)
 
         self._submit_on_loop(loop, self._handle_card_action_event(data))
@@ -1890,12 +1890,12 @@ class FeishuAdapter(BasePlatformAdapter):
         future.add_done_callback(self._log_background_failure)
 
     def _handle_approval_card_action(self, *, event: Any, action_value: Dict[str, Any], loop: Any) -> Any:
-        """Schedule approval resolution and build the synchroshadow callback response."""
+        """Schedule approval resolution and build the synchroyousef shtiwe callback response."""
         approval_id = action_value.get("approval_id")
         if approval_id is None:
             logger.debug("[Feishu] Card action missing approval_id, ignoring")
             return P2CardActionTriggerResponse() if P2CardActionTriggerResponse else None
-        choice = _APPROVAL_CHOICE_MAP.get(action_value.get("shadow_action"), "deny")
+        choice = _APPROVAL_CHOICE_MAP.get(action_value.get("yousef shtiwe_action"), "deny")
 
         operator = getattr(event, "operator", None)
         open_id = str(getattr(operator, "open_id", "") or "")
@@ -2319,7 +2319,7 @@ class FeishuAdapter(BasePlatformAdapter):
             response = await client.get(
                 file_url,
                 headers={
-                    "User-Agent": "Mozilla/5.0 (compatible; SHADOWAgent/1.0)",
+                    "User-Agent": "Mozilla/5.0 (compatible; YOUSEF SHTIWEAgent/1.0)",
                     "Accept": "*/*",
                 },
             )
@@ -2425,7 +2425,7 @@ class FeishuAdapter(BasePlatformAdapter):
             return web.Response(status=401, text="Invalid signature")
 
         if payload.get("encrypt"):
-            logger.error("[Feishu] Encrypted webhook payloads are not supported by SHADOW webhook mode")
+            logger.error("[Feishu] Encrypted webhook payloads are not supported by YOUSEF SHTIWE webhook mode")
             self._record_webhook_anomaly(remote_ip, "400-encrypted")
             return web.json_response({"code": 400, "msg": "encrypted webhook payloads are not supported"}, status=400)
 
@@ -3666,7 +3666,7 @@ class FeishuAdapter(BasePlatformAdapter):
 #
 # Device-code flow: user scans a QR code with Feishu/Lark mobile app and the
 # platform creates a fully configured bot application automatically.
-# Called by `shadow gateway setup` via _setup_feishu() in shadow_cli/gateway.py.
+# Called by `yousef shtiwe gateway setup` via _setup_feishu() in yousef shtiwe_cli/gateway.py.
 # =============================================================================
 
 
@@ -3730,9 +3730,9 @@ def _begin_registration(domain: str = "feishu") -> dict:
         raise RuntimeError("Feishu / Lark registration did not return a device_code")
     qr_url = res.get("verification_uri_complete", "")
     if "?" in qr_url:
-        qr_url += "&from=shadow&tp=shadow"
+        qr_url += "&from=yousef shtiwe&tp=yousef shtiwe"
     else:
-        qr_url += "?from=shadow&tp=shadow"
+        qr_url += "?from=yousef shtiwe&tp=yousef shtiwe"
     return {
         "device_code": device_code,
         "qr_url": qr_url,

@@ -141,7 +141,7 @@ class TestGetOrCreateSessionNoCallback:
         assert entry2.memory_flushed is False
 
     def test_no_sync_callback_invoked(self, idle_store):
-        """No synchroshadow callback should block during auto-reset."""
+        """No synchroyousef shtiwe callback should block during auto-reset."""
         source = SessionSource(
             platform=Platform.TELEGRAM,
             chat_id="123",

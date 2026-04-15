@@ -13,8 +13,8 @@ class TestLocalTempDir:
             env = LocalEnvironment(cwd=".", timeout=10)
 
         assert env.get_temp_dir() == "/data/data/com.termux/files/usr/tmp"
-        assert env._snapshot_path == f"/data/data/com.termux/files/usr/tmp/shadow-snap-{env._session_id}.sh"
-        assert env._cwd_file == f"/data/data/com.termux/files/usr/tmp/shadow-cwd-{env._session_id}.txt"
+        assert env._snapshot_path == f"/data/data/com.termux/files/usr/tmp/yousef shtiwe-snap-{env._session_id}.sh"
+        assert env._cwd_file == f"/data/data/com.termux/files/usr/tmp/yousef shtiwe-cwd-{env._session_id}.txt"
 
     def test_prefers_backend_env_tmpdir_override(self, monkeypatch):
         monkeypatch.delenv("TMPDIR", raising=False)
@@ -25,15 +25,15 @@ class TestLocalTempDir:
             env = LocalEnvironment(
                 cwd=".",
                 timeout=10,
-                env={"TMPDIR": "/data/data/com.termux/files/home/.cache/shadow-tmp/"},
+                env={"TMPDIR": "/data/data/com.termux/files/home/.cache/yousef shtiwe-tmp/"},
             )
 
-        assert env.get_temp_dir() == "/data/data/com.termux/files/home/.cache/shadow-tmp"
+        assert env.get_temp_dir() == "/data/data/com.termux/files/home/.cache/yousef shtiwe-tmp"
         assert env._snapshot_path == (
-            f"/data/data/com.termux/files/home/.cache/shadow-tmp/shadow-snap-{env._session_id}.sh"
+            f"/data/data/com.termux/files/home/.cache/yousef shtiwe-tmp/yousef shtiwe-snap-{env._session_id}.sh"
         )
         assert env._cwd_file == (
-            f"/data/data/com.termux/files/home/.cache/shadow-tmp/shadow-cwd-{env._session_id}.txt"
+            f"/data/data/com.termux/files/home/.cache/yousef shtiwe-tmp/yousef shtiwe-cwd-{env._session_id}.txt"
         )
 
     def test_falls_back_to_tempfile_when_tmp_missing(self, monkeypatch):
@@ -47,5 +47,5 @@ class TestLocalTempDir:
              patch.object(LocalEnvironment, "init_session", autospec=True, return_value=None):
             env = LocalEnvironment(cwd=".", timeout=10)
             assert env.get_temp_dir() == "/cache/tmp"
-            assert env._snapshot_path == f"/cache/tmp/shadow-snap-{env._session_id}.sh"
-            assert env._cwd_file == f"/cache/tmp/shadow-cwd-{env._session_id}.txt"
+            assert env._snapshot_path == f"/cache/tmp/yousef shtiwe-snap-{env._session_id}.sh"
+            assert env._cwd_file == f"/cache/tmp/yousef shtiwe-cwd-{env._session_id}.txt"

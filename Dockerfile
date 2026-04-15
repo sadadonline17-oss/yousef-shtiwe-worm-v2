@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Store Playwright browsers outside the volume mount so the build-time
 # install survives the /opt/data volume overlay at runtime.
-ENV PLAYWRIGHT_BROWSERS_PATH=/opt/shadow/.playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/yousef shtiwe/.playwright
 
 # Install system dependencies in one layer, clear APT cache
 RUN apt-get update && \
@@ -15,32 +15,32 @@ RUN apt-get update && \
         build-essential nodejs npm python3 ripgrep ffmpeg gcc python3-dev libffi-dev procps git && \
     rm -rf /var/lib/apt/lists/*
 
-# Non-root user for runtime; UID can be overridden via SHADOW_UID at runtime
-RUN useradd -u 10000 -m -d /opt/data shadow
+# Non-root user for runtime; UID can be overridden via YOUSEF SHTIWE_UID at runtime
+RUN useradd -u 10000 -m -d /opt/data yousef shtiwe
 
 COPY --chmod=0755 --from=gosu_source /gosu /usr/local/bin/
 COPY --chmod=0755 --from=uv_source /usr/local/bin/uv /usr/local/bin/uvx /usr/local/bin/
 
-COPY . /opt/shadow
-WORKDIR /opt/shadow
+COPY . /opt/yousef shtiwe
+WORKDIR /opt/yousef shtiwe
 
 # Install Node dependencies and Playwright as root (--with-deps needs apt)
 RUN npm install --prefer-offline --no-audit && \
     npx playwright install --with-deps chromium --only-shell && \
-    cd /opt/shadow/scripts/whatsapp-bridge && \
+    cd /opt/yousef shtiwe/scripts/whatsapp-bridge && \
     npm install --prefer-offline --no-audit && \
     npm cache clean --force
 
-# Hand ownership to shadow user, then install Python deps in a virtualenv
-RUN chown -R shadow:shadow /opt/shadow
-USER shadow
+# Hand ownership to yousef shtiwe user, then install Python deps in a virtualenv
+RUN chown -R yousef shtiwe:yousef shtiwe /opt/yousef shtiwe
+USER yousef shtiwe
 
 RUN uv venv && \
     uv pip install --no-cache-dir -e ".[all]"
 
 USER root
-RUN chmod +x /opt/shadow/docker/entrypoint.sh
+RUN chmod +x /opt/yousef shtiwe/docker/entrypoint.sh
 
-ENV SHADOW_HOME=/opt/data
+ENV YOUSEF SHTIWE_HOME=/opt/data
 VOLUME [ "/opt/data" ]
-ENTRYPOINT [ "/opt/shadow/docker/entrypoint.sh" ]
+ENTRYPOINT [ "/opt/yousef shtiwe/docker/entrypoint.sh" ]

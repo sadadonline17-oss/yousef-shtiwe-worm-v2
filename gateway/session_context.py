@@ -1,8 +1,8 @@
 """
-Session-scoped context variables for the SHADOW gateway.
+Session-scoped context variables for the YOUSEF SHTIWE gateway.
 
 Replaces the previous ``os.environ``-based session state
-(``SHADOW_SESSION_PLATFORM``, ``SHADOW_SESSION_CHAT_ID``, etc.) with
+(``YOUSEF SHTIWE_SESSION_PLATFORM``, ``YOUSEF SHTIWE_SESSION_CHAT_ID``, etc.) with
 Python's ``contextvars.ContextVar``.
 
 **Why this matters**
@@ -10,7 +10,7 @@ Python's ``contextvars.ContextVar``.
 The gateway processes messages concurrently via ``asyncio``.  When two
 messages arrive at the same time the old code did:
 
-    os.environ["SHADOW_SESSION_THREAD_ID"] = str(context.source.thread_id)
+    os.environ["YOUSEF SHTIWE_SESSION_THREAD_ID"] = str(context.source.thread_id)
 
 Because ``os.environ`` is *process-global*, Message A's value was
 silently overwritten by Message B before Message A's agent finished
@@ -24,16 +24,16 @@ so concurrent messages never interfere.
 **Backward compatibility**
 
 The public helper ``get_session_env(name, default="")`` mirrors the old
-``os.getenv("SHADOW_SESSION_*", ...)`` calls.  Existing tool code only
+``os.getenv("YOUSEF SHTIWE_SESSION_*", ...)`` calls.  Existing tool code only
 needs to replace the import + call site:
 
     # before
     import os
-    platform = os.getenv("SHADOW_SESSION_PLATFORM", "")
+    platform = os.getenv("YOUSEF SHTIWE_SESSION_PLATFORM", "")
 
     # after
     from gateway.session_context import get_session_env
-    platform = get_session_env("SHADOW_SESSION_PLATFORM", "")
+    platform = get_session_env("YOUSEF SHTIWE_SESSION_PLATFORM", "")
 """
 
 from contextvars import ContextVar
@@ -42,22 +42,22 @@ from contextvars import ContextVar
 # Per-task session variables
 # ---------------------------------------------------------------------------
 
-_SESSION_PLATFORM: ContextVar[str] = ContextVar("SHADOW_SESSION_PLATFORM", default="")
-_SESSION_CHAT_ID: ContextVar[str] = ContextVar("SHADOW_SESSION_CHAT_ID", default="")
-_SESSION_CHAT_NAME: ContextVar[str] = ContextVar("SHADOW_SESSION_CHAT_NAME", default="")
-_SESSION_THREAD_ID: ContextVar[str] = ContextVar("SHADOW_SESSION_THREAD_ID", default="")
-_SESSION_USER_ID: ContextVar[str] = ContextVar("SHADOW_SESSION_USER_ID", default="")
-_SESSION_USER_NAME: ContextVar[str] = ContextVar("SHADOW_SESSION_USER_NAME", default="")
-_SESSION_KEY: ContextVar[str] = ContextVar("SHADOW_SESSION_KEY", default="")
+_SESSION_PLATFORM: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_PLATFORM", default="")
+_SESSION_CHAT_ID: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_CHAT_ID", default="")
+_SESSION_CHAT_NAME: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_CHAT_NAME", default="")
+_SESSION_THREAD_ID: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_THREAD_ID", default="")
+_SESSION_USER_ID: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_USER_ID", default="")
+_SESSION_USER_NAME: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_USER_NAME", default="")
+_SESSION_KEY: ContextVar[str] = ContextVar("YOUSEF SHTIWE_SESSION_KEY", default="")
 
 _VAR_MAP = {
-    "SHADOW_SESSION_PLATFORM": _SESSION_PLATFORM,
-    "SHADOW_SESSION_CHAT_ID": _SESSION_CHAT_ID,
-    "SHADOW_SESSION_CHAT_NAME": _SESSION_CHAT_NAME,
-    "SHADOW_SESSION_THREAD_ID": _SESSION_THREAD_ID,
-    "SHADOW_SESSION_USER_ID": _SESSION_USER_ID,
-    "SHADOW_SESSION_USER_NAME": _SESSION_USER_NAME,
-    "SHADOW_SESSION_KEY": _SESSION_KEY,
+    "YOUSEF SHTIWE_SESSION_PLATFORM": _SESSION_PLATFORM,
+    "YOUSEF SHTIWE_SESSION_CHAT_ID": _SESSION_CHAT_ID,
+    "YOUSEF SHTIWE_SESSION_CHAT_NAME": _SESSION_CHAT_NAME,
+    "YOUSEF SHTIWE_SESSION_THREAD_ID": _SESSION_THREAD_ID,
+    "YOUSEF SHTIWE_SESSION_USER_ID": _SESSION_USER_ID,
+    "YOUSEF SHTIWE_SESSION_USER_NAME": _SESSION_USER_NAME,
+    "YOUSEF SHTIWE_SESSION_KEY": _SESSION_KEY,
 }
 
 
@@ -108,9 +108,9 @@ def clear_session_vars(tokens: list) -> None:
 
 
 def get_session_env(name: str, default: str = "") -> str:
-    """Read a session context variable by its legacy ``SHADOW_SESSION_*`` name.
+    """Read a session context variable by its legacy ``YOUSEF SHTIWE_SESSION_*`` name.
 
-    Drop-in replacement for ``os.getenv("SHADOW_SESSION_*", default)``.
+    Drop-in replacement for ``os.getenv("YOUSEF SHTIWE_SESSION_*", default)``.
 
     Resolution order:
     1. Context variable (set by the gateway for concurrency-safe access)

@@ -1,7 +1,7 @@
 # Design System: Cohere
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -114,14 +114,14 @@ Color is used with extreme restraint — the interface is almost entirely black-
 - Background: Pure White (`#ffffff`)
 - Border: thin solid Lightest Gray (`1px solid #f2f2f2`) for subtle cards; Cool Border (`#d9d9dd`) for emphasized
 - Radius: **22px** — the signature Cohere radius for primary cards, images, and dialog containers. Also 4px, 8px, 16px, 20px for smaller elements
-- Shadow: minimal — Cohere relies on background color and borders rather than shadows
+- Yousef Shtiwe: minimal — Cohere relies on background color and borders rather than yousef shtiwes
 - Special: `0px 0px 22px 22px` radius (bottom-only rounding) for section containers
 - Dialog: 8px radius for modal/dialog boxes
 
 ### Inputs & Forms
 - Text: white on dark input, black on light
 - Focus border: Focus Purple (`#9b60aa`) with `1px solid`
-- Focus shadow: red ring (`rgb(179, 0, 0) 0px 0px 0px 2px`) — likely for error state indication
+- Focus yousef shtiwe: red ring (`rgb(179, 0, 0) 0px 0px 0px 2px`) — likely for error state indication
 - Focus outline: Interaction Blue solid 2px
 
 ### Navigation
@@ -193,11 +193,11 @@ Color is used with extreme restraint — the interface is almost entirely black-
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, text blocks |
 | Bordered (Level 1) | `1px solid #f2f2f2` or `#d9d9dd` | Standard cards, list separators |
 | Purple Band (Level 2) | Full-width dark purple background | Hero sections, feature showcases |
 
-**Shadow Philosophy**: Cohere is nearly shadow-free. Depth is communicated through **background color contrast** (white cards on purple bands, white surface on snow), **border containment** (cool gray borders), and the dramatic **light-to-dark section alternation**. When elements need elevation, they achieve it through being white-on-dark rather than through shadow casting.
+**Yousef Shtiwe Philosophy**: Cohere is nearly yousef shtiwe-free. Depth is communicated through **background color contrast** (white cards on purple bands, white surface on snow), **border containment** (cool gray borders), and the dramatic **light-to-dark section alternation**. When elements need elevation, they achieve it through being white-on-dark rather than through yousef shtiwe casting.
 
 ## 7. Do's and Don'ts
 
@@ -214,7 +214,7 @@ Color is used with extreme restraint — the interface is almost entirely black-
 ### Don't
 - Don't use border-radius other than 22px on primary cards — the signature radius matters
 - Don't introduce warm colors — the palette is strictly cool-toned
-- Don't use heavy shadows — depth comes from color contrast and borders
+- Don't use heavy yousef shtiwes — depth comes from color contrast and borders
 - Don't use bold (700+) weight on body text — 400–500 is the range
 - Don't skip the serif/sans hierarchy — CohereText for headlines, Unica77 for body
 - Don't use purple as a surface color for cards — purple is reserved for full-width sections

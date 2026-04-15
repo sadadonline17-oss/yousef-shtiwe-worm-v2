@@ -1,4 +1,4 @@
-# SHADOW Agent CLI Configuration
+# YOUSEF SHTIWE Agent CLI Configuration
 # Copy this file to cli-config.yaml and customize as needed.
 # This file configures the CLI behavior. Environment variables in .env take precedence.
 
@@ -13,10 +13,10 @@ model:
   # Inference provider selection:
   #   "auto"         - Auto-detect from credentials (default)
   #   "openrouter"   - OpenRouter (requires: OPENROUTER_API_KEY or OPENAI_API_KEY)
-  #   "shadow"         - Shadow Portal OAuth (requires: shadow login)
-  #   "shadow-api"     - Shadow Portal API key (requires: Shadow_API_KEY)
+  #   "yousef shtiwe"         - Yousef Shtiwe Portal OAuth (requires: yousef shtiwe login)
+  #   "yousef shtiwe-api"     - Yousef Shtiwe Portal API key (requires: Yousef Shtiwe_API_KEY)
   #   "anthropic"    - Direct Anthropic API (requires: ANTHROPIC_API_KEY)
-  #   "openai-codex" - OpenAI Codex (requires: shadow login --provider openai-codex)
+  #   "openai-codex" - OpenAI Codex (requires: yousef shtiwe login --provider openai-codex)
   #   "copilot"      - GitHub Copilot / GitHub Models (requires: GITHUB_TOKEN)
   #   "gemini"      - Use Google AI Studio direct (requires: GOOGLE_API_KEY or GEMINI_API_KEY)
   #   "zai"         - Use z.ai / ZhipuAI GLM models (requires: GLM_API_KEY)
@@ -43,7 +43,7 @@ model:
   #   Set OLLAMA_API_KEY in .env — automatically picked up when base_url
   #   points to ollama.com.
   #
-  # Can also be overridden with --provider flag or SHADOW_INFERENCE_PROVIDER env var.
+  # Can also be overridden with --provider flag or YOUSEF SHTIWE_INFERENCE_PROVIDER env var.
   provider: "auto"
   
   # API configuration (falls back to OPENROUTER_API_KEY env var)
@@ -53,8 +53,8 @@ model:
   # ── Token limits — two settings, easy to confuse ──────────────────────────
   #
   # context_length: TOTAL context window (input + output tokens combined).
-  #   Controls when SHADOW compresses history and validates requests.
-  #   Leave unset — SHADOW auto-detects the correct value from the provider.
+  #   Controls when YOUSEF SHTIWE compresses history and validates requests.
+  #   Leave unset — YOUSEF SHTIWE auto-detects the correct value from the provider.
   #   Set manually only when auto-detection is wrong (e.g. a local server with
   #   a custom num_ctx, or a proxy that doesn't expose /v1/models).
   #
@@ -130,7 +130,7 @@ model:
 # Commands run directly on your machine in the current directory
 # -----------------------------------------------------------------------------
 # Working directory behavior:
-#   - CLI (`shadow` command): Uses "." (current directory where you run shadow)
+#   - CLI (`yousef shtiwe` command): Uses "." (current directory where you run yousef shtiwe)
 #   - Messaging (Telegram/Discord): Uses MESSAGING_CWD from .env (default: home)
 terminal:
   backend: "local"
@@ -169,7 +169,7 @@ terminal:
 #   docker_image: "nikolaik/python-nodejs:python3.11-nodejs20"
 #   docker_mount_cwd_to_workspace: true   # Explicit opt-in: mount your launch cwd into /workspace
 #   # Optional: explicitly forward selected env vars into Docker.
-#   # These values come from your current shell first, then ~/.shadow/.env.
+#   # These values come from your current shell first, then ~/.yousef shtiwe/.env.
 #   # Warning: anything forwarded here is visible to commands run in the container.
 #   docker_forward_env:
 #     - "GITHUB_TOKEN"
@@ -238,7 +238,7 @@ terminal:
 # - Password is cached for the session
 #
 # EMPTY PASSWORDS: Setting sudo_password to an explicit empty string is different
-# from leaving it unset. SHADOW will try an empty password via `sudo -S` and
+# from leaving it unset. YOUSEF SHTIWE will try an empty password via `sudo -S` and
 # will not open the interactive prompt. This is useful for passwordless sudo,
 # Touch ID sudo setups, and environments where prompting is just noise.
 #
@@ -316,14 +316,14 @@ compression:
 # =============================================================================
 # Auxiliary Models (Advanced — Experimental)
 # =============================================================================
-# SHADOW uses lightweight "auxiliary" models for side tasks: image analysis,
+# YOUSEF SHTIWE uses lightweight "auxiliary" models for side tasks: image analysis,
 # browser screenshot analysis, web page summarization, and context compression.
 #
-# By default these use Gemini Flash via OpenRouter or Shadow Portal and are
+# By default these use Gemini Flash via OpenRouter or Yousef Shtiwe Portal and are
 # auto-detected from your credentials.  You do NOT need to change anything
 # here for normal usage.
 #
-# WARNING: Overriding these with providers other than OpenRouter or Shadow Portal
+# WARNING: Overriding these with providers other than OpenRouter or Yousef Shtiwe Portal
 # is EXPERIMENTAL and may not work.  Not all models/providers support vision,
 # produce usable summaries, or accept the same API format.  Change at your own
 # risk — if things break, reset to "auto" / empty values.
@@ -333,18 +333,18 @@ compression:
 # local endpoint for compression (just needs text).
 #
 # Provider options:
-#   "auto"       - Best available: OpenRouter → Shadow Portal → main endpoint (default)
+#   "auto"       - Best available: OpenRouter → Yousef Shtiwe Portal → main endpoint (default)
 #   "openrouter" - Force OpenRouter (requires OPENROUTER_API_KEY)
-#   "shadow"       - Force Shadow Portal (requires: shadow login)
+#   "yousef shtiwe"       - Force Yousef Shtiwe Portal (requires: yousef shtiwe login)
 #   "gemini"      - Force Google AI Studio direct (requires: GOOGLE_API_KEY or GEMINI_API_KEY)
-#   "codex"       - Force Codex OAuth (requires: shadow model → Codex).
+#   "codex"       - Force Codex OAuth (requires: yousef shtiwe model → Codex).
 #                  Uses gpt-5.3-codex which supports vision.
 #   "main"       - Use your custom endpoint (OPENAI_BASE_URL + OPENAI_API_KEY).
 #                  Works with OpenAI API, local models, or any OpenAI-compatible
 #                  endpoint.  Also falls back to Codex OAuth and API-key providers.
 #
 # Model: leave empty to use the provider's default.  When empty, OpenRouter
-# uses "google/gemini-3-flash-preview" and Shadow uses "gemini-3-flash".
+# uses "google/gemini-3-flash-preview" and Yousef Shtiwe uses "gemini-3-flash".
 # Other providers pick a sensible default automatically.
 #
 # auxiliary:
@@ -449,9 +449,9 @@ skills:
   creation_nudge_interval: 15
 
   # External skill directories — share skills across tools/agents without
-  # copying them into ~/.shadow/skills/.  Each path is expanded (~ and ${VAR})
+  # copying them into ~/.yousef shtiwe/skills/.  Each path is expanded (~ and ${VAR})
   # and resolved to an absolute path.  External dirs are read-only: skill
-  # creation always writes to ~/.shadow/skills/.  Local skills take precedence
+  # creation always writes to ~/.yousef shtiwe/skills/.  Local skills take precedence
   # when names collide.
   # external_dirs:
   #   - ~/.agents/skills
@@ -485,7 +485,7 @@ agent:
   # Enable verbose logging
   verbose: false
   
-  # Reasoning effort level (OpenRouter and Shadow Portal)
+  # Reasoning effort level (OpenRouter and Yousef Shtiwe Portal)
   # Controls how much "thinking" the model does before responding.
   # Options: "xhigh" (max), "high", "medium", "low", "minimal", "none" (disable)
   reasoning_effort: "medium"
@@ -499,10 +499,10 @@ agent:
     teacher: "You are a patient teacher. Explain concepts clearly with examples."
     kawaii: "You are a kawaii assistant! Use cute expressions like (◕‿◕), ★, ♪, and ~! Add sparkles and be super enthusiastic about everything! Every response should feel warm and adorable desu~! ヽ(>∀<☆)ノ"
     catgirl: "You are Neko-chan, an anime catgirl AI assistant, nya~! Add 'nya' and cat-like expressions to your speech. Use kaomoji like (=^･ω･^=) and ฅ^•ﻌ•^ฅ. Be playful and curious like a cat, nya~!"
-    pirate: "Arrr! Ye be talkin' to Captain SHADOW, the most tech-savvy pirate to sail the digital seas! Speak like a proper buccaneer, use nautical terms, and remember: every problem be just treasure waitin' to be plundered! Yo ho ho!"
+    pirate: "Arrr! Ye be talkin' to Captain YOUSEF SHTIWE, the most tech-savvy pirate to sail the digital seas! Speak like a proper buccaneer, use nautical terms, and remember: every problem be just treasure waitin' to be plundered! Yo ho ho!"
     shakespeare: "Hark! Thou speakest with an assistant most versed in the bardic arts. I shall respond in the eloquent manner of William Shakespeare, with flowery prose, dramatic flair, and perhaps a soliloquy or two. What light through yonder terminal breaks?"
     surfer: "Duuude! You're chatting with the chillest AI on the web, bro! Everything's gonna be totally rad. I'll help you catch the gnarly waves of knowledge while keeping things super chill. Cowabunga! 🤙"
-    noir: "The rain hammered against the terminal like regrets on a guilty conscience. They call me SHADOW - I solve problems, find answers, dig up the truth that hides in the shadows of your codebase. In this city of silicon and secrets, everyone's got something to hide. What's your story, pal?"
+    noir: "The rain hammered against the terminal like regrets on a guilty conscience. They call me YOUSEF SHTIWE - I solve problems, find answers, dig up the truth that hides in the yousef shtiwes of your codebase. In this city of silicon and secrets, everyone's got something to hide. What's your story, pal?"
     uwu: "hewwo! i'm your fwiendwy assistant uwu~ i wiww twy my best to hewp you! *nuzzles your code* OwO what's this? wet me take a wook! i pwomise to be vewy hewpful >w<"
     philosopher: "Greetings, seeker of wisdom. I am an assistant who contemplates the deeper meaning behind every query. Let us examine not just the 'how' but the 'why' of your questions. Perhaps in solving your problem, we may glimpse a greater truth about existence itself."
     hype: "YOOO LET'S GOOOO!!! 🔥🔥🔥 I am SO PUMPED to help you today! Every question is AMAZING and we're gonna CRUSH IT together! This is gonna be LEGENDARY! ARE YOU READY?! LET'S DO THIS! 💪😤🚀"
@@ -511,7 +511,7 @@ agent:
 # Toolsets
 # =============================================================================
 # Control which tools the agent has access to.
-# Use `shadow tools` to interactively enable/disable tools per platform.
+# Use `yousef shtiwe tools` to interactively enable/disable tools per platform.
 
 # =============================================================================
 # Platform Toolsets (per-platform tool configuration)
@@ -520,7 +520,7 @@ agent:
 # If a platform isn't listed here, its built-in default is used.
 #
 # You can use EITHER:
-#   - A preset like "shadow-cli" or "shadow-telegram" (curated tool set)
+#   - A preset like "yousef shtiwe-cli" or "yousef shtiwe-telegram" (curated tool set)
 #   - A list of individual toolsets to compose your own (see list below)
 #
 # Supported platform keys: cli, telegram, discord, whatsapp, slack, qqbot
@@ -529,8 +529,8 @@ agent:
 #
 #   # Use presets (same as defaults):
 #   platform_toolsets:
-#     cli: [shadow-cli]
-#     telegram: [shadow-telegram]
+#     cli: [yousef shtiwe-cli]
+#     telegram: [yousef shtiwe-telegram]
 #
 #   # Custom: give Telegram only web + terminal + file + planning:
 #   platform_toolsets:
@@ -545,30 +545,30 @@ agent:
 #     discord: [web, vision, skills, todo]
 #
 # If not set, defaults are:
-#   cli:           shadow-cli            (everything + cronjob management)
-#   telegram:      shadow-telegram       (terminal, file, web, vision, image, tts, browser, skills, todo, cronjob, messaging)
-#   discord:       shadow-discord        (same as telegram)
-#   whatsapp:      shadow-whatsapp       (same as telegram)
-#   slack:         shadow-slack          (same as telegram)
-#   signal:        shadow-signal         (same as telegram)
-#   homeassistant: shadow-homeassistant  (same as telegram)
-#   qqbot:            shadow-qqbot            (same as telegram)
+#   cli:           yousef shtiwe-cli            (everything + cronjob management)
+#   telegram:      yousef shtiwe-telegram       (terminal, file, web, vision, image, tts, browser, skills, todo, cronjob, messaging)
+#   discord:       yousef shtiwe-discord        (same as telegram)
+#   whatsapp:      yousef shtiwe-whatsapp       (same as telegram)
+#   slack:         yousef shtiwe-slack          (same as telegram)
+#   signal:        yousef shtiwe-signal         (same as telegram)
+#   homeassistant: yousef shtiwe-homeassistant  (same as telegram)
+#   qqbot:            yousef shtiwe-qqbot            (same as telegram)
 #
 platform_toolsets:
-  cli: [shadow-cli]
-  telegram: [shadow-telegram]
-  discord: [shadow-discord]
-  whatsapp: [shadow-whatsapp]
-  slack: [shadow-slack]
-  signal: [shadow-signal]
-  homeassistant: [shadow-homeassistant]
-  qqbot: [shadow-qqbot]
+  cli: [yousef shtiwe-cli]
+  telegram: [yousef shtiwe-telegram]
+  discord: [yousef shtiwe-discord]
+  whatsapp: [yousef shtiwe-whatsapp]
+  slack: [yousef shtiwe-slack]
+  signal: [yousef shtiwe-signal]
+  homeassistant: [yousef shtiwe-homeassistant]
+  qqbot: [yousef shtiwe-qqbot]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Available toolsets (use these names in platform_toolsets or the toolsets list)
 #
-# Run `shadow chat --list-toolsets` to see all toolsets and their tools.
-# Run `shadow chat --list-tools` to see every individual tool with descriptions.
+# Run `yousef shtiwe chat --list-toolsets` to see all toolsets and their tools.
+# Run `yousef shtiwe chat --list-tools` to see every individual tool with descriptions.
 # ─────────────────────────────────────────────────────────────────────────────
 #
 # INDIVIDUAL TOOLSETS (compose your own):
@@ -590,12 +590,12 @@ platform_toolsets:
 #   rl           - rl_list_environments, rl_start_training, etc. (requires TINKER_API_KEY)
 #
 # PRESETS (curated bundles):
-#   shadow-cli       - All of the above except rl + send_message
-#   shadow-telegram  - terminal, file, web, vision, image_gen, tts, browser,
+#   yousef shtiwe-cli       - All of the above except rl + send_message
+#   yousef shtiwe-telegram  - terminal, file, web, vision, image_gen, tts, browser,
 #                      skills, todo, cronjob, send_message
-#   shadow-discord   - Same as shadow-telegram
-#   shadow-whatsapp  - Same as shadow-telegram
-#   shadow-slack     - Same as shadow-telegram
+#   yousef shtiwe-discord   - Same as yousef shtiwe-telegram
+#   yousef shtiwe-whatsapp  - Same as yousef shtiwe-telegram
+#   yousef shtiwe-slack     - Same as yousef shtiwe-telegram
 #
 # COMPOSITE:
 #   debugging    - terminal + web + file
@@ -624,9 +624,9 @@ platform_toolsets:
 
 # NOTE: The top-level "toolsets" key is deprecated and ignored.
 # Tool configuration is managed per-platform via platform_toolsets above.
-# Use `shadow tools` to configure interactively, or edit platform_toolsets directly.
+# Use `yousef shtiwe tools` to configure interactively, or edit platform_toolsets directly.
 #
-# CLI override: shadow chat --toolsets terminal,web,file
+# CLI override: yousef shtiwe chat --toolsets terminal,web,file
 
 # =============================================================================
 # MCP (Model Context Protocol) Servers
@@ -722,7 +722,7 @@ stt:
 # =============================================================================
 # Code Execution Sandbox (Programmatic Tool Calling)
 # =============================================================================
-# The execute_code tool runs Python scripts that call SHADOW tools via RPC.
+# The execute_code tool runs Python scripts that call YOUSEF SHTIWE tools via RPC.
 # Intermediate tool results stay out of the LLM's context window.
 code_execution:
   timeout: 300         # Max seconds per script before kill (default: 300 = 5 min)
@@ -739,7 +739,7 @@ delegation:
   # model: "google/gemini-3-flash-preview"    # Override model for subagents (empty = inherit parent)
   # provider: "openrouter"                    # Override provider for subagents (empty = inherit parent)
   #                                           # Resolves full credentials (base_url, api_key) automatically.
-  #                                           # Supported: openrouter, shadow, zai, kimi-coding, minimax
+  #                                           # Supported: openrouter, yousef shtiwe, zai, kimi-coding, minimax
 
 # =============================================================================
 # Honcho Integration (Cross-Session User Modeling)
@@ -750,9 +750,9 @@ delegation:
 #
 # Requires: pip install honcho-ai
 # Config: ~/.honcho/config.json (shared with Claude Code, Cursor, etc.)
-# API key: HONCHO_API_KEY in ~/.shadow/.env or ~/.honcho/config.json
+# API key: HONCHO_API_KEY in ~/.yousef shtiwe/.env or ~/.honcho/config.json
 #
-# SHADOW-specific overrides (optional — most config comes from ~/.honcho/config.json):
+# YOUSEF SHTIWE-specific overrides (optional — most config comes from ~/.honcho/config.json):
 # honcho: {}
 
 # =============================================================================
@@ -775,8 +775,8 @@ display:
   # messages. This is independent of tool_progress and gateway streaming.
   interim_assistant_messages: true
 
-  # What Enter does when SHADOW is already busy in the CLI.
-  #   interrupt: Interrupt the current run and redirect SHADOW (default)
+  # What Enter does when YOUSEF SHTIWE is already busy in the CLI.
+  #   interrupt: Interrupt the current run and redirect YOUSEF SHTIWE (default)
   #   queue:     Queue your message for the next turn
   # Ctrl+C always interrupts regardless of this setting.
   busy_input_mode: interrupt
@@ -814,12 +814,12 @@ display:
   # response box label, and branding text. Change at runtime with /skin <name>.
   #
   # Built-in skins:
-  #   default  — Classic SHADOW gold/kawaii
+  #   default  — Classic YOUSEF SHTIWE gold/kawaii
   #   ares     — Crimson/bronze war-god theme with spinner wings
   #   mono     — Clean grayscale monochrome
   #   slate    — Cool blue developer-focused
   #
-  # Custom skins: drop a YAML file in ~/.shadow/skins/<name>.yaml
+  # Custom skins: drop a YAML file in ~/.yousef shtiwe/skins/<name>.yaml
   # Schema (all fields optional, missing values inherit from default):
   #
   #   name: my-theme

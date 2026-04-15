@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: "Updating & Uninstalling"
-description: "How to update SHADOW Agent to the latest version or uninstall it"
+description: "How to update YOUSEF SHTIWE Agent to the latest version or uninstall it"
 ---
 
 # Updating & Uninstalling
@@ -11,18 +11,18 @@ description: "How to update SHADOW Agent to the latest version or uninstall it"
 Update to the latest version with a single command:
 
 ```bash
-shadow update
+yousef shtiwe update
 ```
 
 This pulls the latest code, updates dependencies, and prompts you to configure any new options that were added since your last update.
 
 :::tip
-`shadow update` automatically detects new configuration options and prompts you to add them. If you skipped that prompt, you can manually run `shadow config check` to see missing options, then `shadow config migrate` to interactively add them.
+`yousef shtiwe update` automatically detects new configuration options and prompts you to add them. If you skipped that prompt, you can manually run `yousef shtiwe config check` to see missing options, then `yousef shtiwe config migrate` to interactively add them.
 :::
 
 ### What happens during an update
 
-When you run `shadow update`, the following steps occur:
+When you run `yousef shtiwe update`, the following steps occur:
 
 1. **Git pull** — pulls the latest code from the `main` branch and updates submodules
 2. **Dependency install** — runs `uv pip install -e ".[all]"` to pick up new or changed dependencies
@@ -32,8 +32,8 @@ When you run `shadow update`, the following steps occur:
 Expected output looks like:
 
 ```
-$ shadow update
-Updating SHADOW Agent...
+$ yousef shtiwe update
+Updating YOUSEF SHTIWE Agent...
 📥 Pulling latest code...
 Already up to date.  (or: Updating abc1234..def5678)
 📦 Updating dependencies...
@@ -42,33 +42,33 @@ Already up to date.  (or: Updating abc1234..def5678)
 ✅ Config is up to date  (or: Found 2 new options — running migration...)
 🔄 Restarting gateway service...
 ✅ Gateway restarted
-✅ SHADOW Agent updated successfully!
+✅ YOUSEF SHTIWE Agent updated successfully!
 ```
 
 ### Recommended Post-Update Validation
 
-`shadow update` handles the main update path, but a quick validation confirms everything landed cleanly:
+`yousef shtiwe update` handles the main update path, but a quick validation confirms everything landed cleanly:
 
 1. `git status --short` — if the tree is unexpectedly dirty, inspect before continuing
-2. `shadow doctor` — checks config, dependencies, and service health
-3. `shadow --version` — confirm the version bumped as expected
-4. If you use the gateway: `shadow gateway status`
+2. `yousef shtiwe doctor` — checks config, dependencies, and service health
+3. `yousef shtiwe --version` — confirm the version bumped as expected
+4. If you use the gateway: `yousef shtiwe gateway status`
 5. If `doctor` reports npm audit issues: run `npm audit fix` in the flagged directory
 
 :::warning Dirty working tree after update
-If `git status --short` shows unexpected changes after `shadow update`, stop and inspect them before continuing. This usually means local modifications were reapplied on top of the updated code, or a dependency step refreshed lockfiles.
+If `git status --short` shows unexpected changes after `yousef shtiwe update`, stop and inspect them before continuing. This usually means local modifications were reapplied on top of the updated code, or a dependency step refreshed lockfiles.
 :::
 
 ### Checking your current version
 
 ```bash
-shadow version
+yousef shtiwe version
 ```
 
-Compare against the latest release at the [GitHub releases page](https://github.com/SHADOW-OVERLORD/shadow-agent/releases) or check for available updates:
+Compare against the latest release at the [GitHub releases page](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/releases) or check for available updates:
 
 ```bash
-shadow update --check
+yousef shtiwe update --check
 ```
 
 ### Updating from Messaging Platforms
@@ -86,7 +86,7 @@ This pulls the latest code, updates dependencies, and restarts the gateway. The 
 If you installed manually (not via the quick installer):
 
 ```bash
-cd /path/to/shadow-agent
+cd /path/to/yousef shtiwe-agent
 export VIRTUAL_ENV="$(pwd)/venv"
 
 # Pull latest code and submodules
@@ -98,8 +98,8 @@ uv pip install -e ".[all]"
 uv pip install -e "./tinker-atropos"
 
 # Check for new config options
-shadow config check
-shadow config migrate   # Interactively add any missing options
+yousef shtiwe config check
+yousef shtiwe config migrate   # Interactively add any missing options
 ```
 
 ### Rollback instructions
@@ -107,7 +107,7 @@ shadow config migrate   # Interactively add any missing options
 If an update introduces a problem, you can roll back to a previous version:
 
 ```bash
-cd /path/to/shadow-agent
+cd /path/to/yousef shtiwe-agent
 
 # List recent versions
 git log --oneline -10
@@ -118,7 +118,7 @@ git submodule update --init --recursive
 uv pip install -e ".[all]"
 
 # Restart the gateway if running
-shadow gateway restart
+yousef shtiwe gateway restart
 ```
 
 To roll back to a specific release tag:
@@ -130,7 +130,7 @@ uv pip install -e ".[all]"
 ```
 
 :::warning
-Rolling back may cause config incompatibilities if new options were added. Run `shadow config check` after rolling back and remove any unrecognized options from `config.yaml` if you encounter errors.
+Rolling back may cause config incompatibilities if new options were added. Run `yousef shtiwe config check` after rolling back and remove any unrecognized options from `config.yaml` if you encounter errors.
 :::
 
 ### Note for Nix users
@@ -139,10 +139,10 @@ If you installed via Nix flake, updates are managed through the Nix package mana
 
 ```bash
 # Update the flake input
-nix flake update shadow-agent
+nix flake update yousef shtiwe-agent
 
 # Or rebuild with the latest
-nix profile upgrade shadow-agent
+nix profile upgrade yousef shtiwe-agent
 ```
 
 Nix installations are immutable — rollback is handled by Nix's generation system:
@@ -158,24 +158,24 @@ See [Nix Setup](./nix-setup.md) for more details.
 ## Uninstalling
 
 ```bash
-shadow uninstall
+yousef shtiwe uninstall
 ```
 
-The uninstaller gives you the option to keep your configuration files (`~/.shadow/`) for a future reinstall.
+The uninstaller gives you the option to keep your configuration files (`~/.yousef shtiwe/`) for a future reinstall.
 
 ### Manual Uninstall
 
 ```bash
-rm -f ~/.local/bin/shadow
-rm -rf /path/to/shadow-agent
-rm -rf ~/.shadow            # Optional — keep if you plan to reinstall
+rm -f ~/.local/bin/yousef shtiwe
+rm -rf /path/to/yousef shtiwe-agent
+rm -rf ~/.yousef shtiwe            # Optional — keep if you plan to reinstall
 ```
 
 :::info
 If you installed the gateway as a system service, stop and disable it first:
 ```bash
-shadow gateway stop
-# Linux: systemctl --user disable shadow-gateway
-# macOS: launchctl remove ai.shadow.gateway
+yousef shtiwe gateway stop
+# Linux: systemctl --user disable yousef shtiwe-gateway
+# macOS: launchctl remove ai.yousef shtiwe.gateway
 ```
 :::

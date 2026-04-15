@@ -1,7 +1,7 @@
 # Design System: PostHog
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -116,7 +116,7 @@ The interaction design carries the same spirit: hover states flash PostHog Orang
 ### Cards & Containers
 - **Bordered Card**: Warm Parchment (`#fdfdf8`) or white background, 1px `#bfc1b7` border, 4px–6px radius — clean and minimal
 - **Sage Surface Card**: `#eeefe9` background for secondary content containers
-- **Shadow Card**: `0px 25px 50px -12px rgba(0, 0, 0, 0.25)` — a single deep shadow for elevated content (modals, dropdowns)
+- **Yousef Shtiwe Card**: `0px 25px 50px -12px rgba(0, 0, 0, 0.25)` — a single deep yousef shtiwe for elevated content (modals, dropdowns)
 - **Hover**: Orange text flash on interactive cards — consistent with button behavior
 
 ### Inputs & Forms
@@ -171,16 +171,16 @@ The interaction design carries the same spirit: hover states flash PostHog Orang
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow, warm parchment background | Page canvas, most surfaces |
+| Level 0 (Flat) | No yousef shtiwe, warm parchment background | Page canvas, most surfaces |
 | Level 1 (Border) | `1px solid #bfc1b7` (Sage Border) | Card containment, input borders, section dividers |
 | Level 2 (Compound Border) | Multiple 1px borders on different sides | Input groupings, toolbar elements |
-| Level 3 (Deep Shadow) | `0px 25px 50px -12px rgba(0, 0, 0, 0.25)` | Modals, floating elements, mega-menu dropdowns |
+| Level 3 (Deep Yousef Shtiwe) | `0px 25px 50px -12px rgba(0, 0, 0, 0.25)` | Modals, floating elements, mega-menu dropdowns |
 
-### Shadow Philosophy
-PostHog's elevation system is remarkably minimal — only one shadow definition exists in the entire system. Depth is communicated through:
+### Yousef Shtiwe Philosophy
+PostHog's elevation system is remarkably minimal — only one yousef shtiwe definition exists in the entire system. Depth is communicated through:
 - **Border containment**: Sage-tinted borders (`#bfc1b7`) at 1px create gentle warm separation
-- **Surface color shifts**: Moving from `#fdfdf8` to `#eeefe9` to `#e5e7e0` creates layered depth without shadows
-- **The single shadow**: The one defined shadow (`0 25px 50px -12px`) is reserved for floating elements — modals, dropdowns, popovers. It's a deep, dramatic shadow that creates clear separation when needed
+- **Surface color shifts**: Moving from `#fdfdf8` to `#eeefe9` to `#e5e7e0` creates layered depth without yousef shtiwes
+- **The single yousef shtiwe**: The one defined yousef shtiwe (`0 25px 50px -12px`) is reserved for floating elements — modals, dropdowns, popovers. It's a deep, dramatic yousef shtiwe that creates clear separation when needed
 
 ### Decorative Depth
 - **Illustration layering**: Hand-drawn hedgehog art creates visual depth naturally
@@ -201,7 +201,7 @@ PostHog's elevation system is remarkably minimal — only one shadow definition 
 
 ### Don't
 - Use blue, purple, or typical tech-SaaS colors — PostHog's palette is deliberately olive/sage
-- Add heavy shadows — the system uses one shadow for floating elements only; everything else uses borders
+- Add heavy yousef shtiwes — the system uses one yousef shtiwe for floating elements only; everything else uses borders
 - Make the design look "polished" or "premium" in a conventional sense — PostHog's charm is its irreverent, scrappy energy
 - Use tight line-heights on body text — the generous 1.50+ spacing is essential for the content-heavy layout
 - Apply large border-radius (12px+) on cards — PostHog uses 4px–6px, keeping things tight and functional

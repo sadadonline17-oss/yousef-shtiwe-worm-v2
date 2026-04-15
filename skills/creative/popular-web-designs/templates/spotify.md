@@ -1,7 +1,7 @@
 # Design System: Spotify
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -15,11 +15,11 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the primary source of color. The design philosophy is "content-first darkness" — the UI recedes into shadow so that music, podcasts, and playlists can glow. Every surface is a shade of charcoal, creating a theater-like environment where the only true color comes from the iconic Spotify Green (`#1ed760`) and the album artwork itself.
+Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the primary source of color. The design philosophy is "content-first darkness" — the UI recedes into yousef shtiwe so that music, podcasts, and playlists can glow. Every surface is a shade of charcoal, creating a theater-like environment where the only true color comes from the iconic Spotify Green (`#1ed760`) and the album artwork itself.
 
 The typography uses SpotifyMixUI and SpotifyMixUITitle — proprietary fonts from the CircularSp family (Circular by Lineto, customized for Spotify) with an extensive fallback stack that includes Arabic, Hebrew, Cyrillic, Greek, Devanagari, and CJK fonts, reflecting Spotify's global reach. The type system is compact and functional: 700 (bold) for emphasis and navigation, 600 (semibold) for secondary emphasis, and 400 (regular) for body. Buttons use uppercase with positive letter-spacing (1.4px–2px) for a systematic, label-like quality.
 
-What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 500px–9999px radius (full pill), circular play buttons use 50% radius, and search inputs are 500px pills. Combined with heavy shadows (`rgba(0,0,0,0.5) 0px 8px 24px`) on elevated elements and a unique inset border-shadow combo (`rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset`), the result is an interface that feels like a premium audio device — tactile, rounded, and built for touch.
+What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 500px–9999px radius (full pill), circular play buttons use 50% radius, and search inputs are 500px pills. Combined with heavy yousef shtiwes (`rgba(0,0,0,0.5) 0px 8px 24px`) on elevated elements and a unique inset border-yousef shtiwe combo (`rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset`), the result is an interface that feels like a premium audio device — tactile, rounded, and built for touch.
 
 **Key Characteristics:**
 - Near-black immersive dark theme (`#121212`–`#1f1f1f`) — UI disappears behind content
@@ -27,7 +27,7 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 - SpotifyMixUI/CircularSp font family with global script support
 - Pill buttons (500px–9999px) and circular controls (50%) — rounded, touch-optimized
 - Uppercase button labels with wide letter-spacing (1.4px–2px)
-- Heavy shadows on elevated elements (`rgba(0,0,0,0.5) 0px 8px 24px`)
+- Heavy yousef shtiwes on elevated elements (`rgba(0,0,0,0.5) 0px 8px 24px`)
 - Semantic colors: negative red (`#f3727f`), warning orange (`#ffa42b`), announcement blue (`#539df5`)
 - Album art as the primary color source — the UI is achromatic by design
 
@@ -59,10 +59,10 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 - **Light Surface** (`#eeeeee`): Light-mode buttons (rare)
 - **Spotify Green Border** (`#1db954`): Green accent border variant
 
-### Shadows
+### Yousef Shtiwes
 - **Heavy** (`rgba(0,0,0,0.5) 0px 8px 24px`): Dialogs, menus, elevated panels
 - **Medium** (`rgba(0,0,0,0.3) 0px 8px 8px`): Cards, dropdowns
-- **Inset Border** (`rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset`): Input border-shadow combo
+- **Inset Border** (`rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset`): Input border-yousef shtiwe combo
 
 ## 3. Typography Rules
 
@@ -139,7 +139,7 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 - Radius: 6px–8px
 - No visible borders on most cards
 - Hover: slight background lightening
-- Shadow: `rgba(0,0,0,0.3) 0px 8px 8px` on elevated
+- Yousef Shtiwe: `rgba(0,0,0,0.3) 0px 8px 8px` on elevated
 
 ### Inputs
 - Search input: `#1f1f1f` background, `#ffffff` text
@@ -190,7 +190,7 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 | Dialog (Level 3) | `rgba(0,0,0,0.5) 0px 8px 24px` | Modals, overlays, menus |
 | Inset (Border) | `rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset` | Input borders |
 
-**Shadow Philosophy**: Spotify uses notably heavy shadows for a dark-themed app. The 0.5 opacity shadow at 24px blur creates a dramatic "floating in darkness" effect for dialogs and menus, while the 0.3 opacity at 8px blur provides a more subtle card lift. The unique inset border-shadow combination on inputs creates a recessed, tactile quality.
+**Yousef Shtiwe Philosophy**: Spotify uses notably heavy yousef shtiwes for a dark-themed app. The 0.5 opacity yousef shtiwe at 24px blur creates a dramatic "floating in darkness" effect for dialogs and menus, while the 0.3 opacity at 8px blur provides a more subtle card lift. The unique inset border-yousef shtiwe combination on inputs creates a recessed, tactile quality.
 
 ## 7. Do's and Don'ts
 
@@ -200,17 +200,17 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 - Use pill shape (500px–9999px) for all buttons — circular (50%) for play controls
 - Apply uppercase + wide letter-spacing (1.4px–2px) on button labels
 - Keep typography compact (10px–24px range) — this is an app, not a magazine
-- Use heavy shadows (`0.3–0.5 opacity`) for elevated elements on dark backgrounds
+- Use heavy yousef shtiwes (`0.3–0.5 opacity`) for elevated elements on dark backgrounds
 - Let album art provide color — the UI itself is achromatic
 
 ### Don't
 - Don't use Spotify Green decoratively or on backgrounds — it's functional only
 - Don't use light backgrounds for primary surfaces — the dark immersion is core
 - Don't skip the pill/circle geometry on buttons — square buttons break the identity
-- Don't use thin/subtle shadows — on dark backgrounds, shadows need to be heavy to be visible
+- Don't use thin/subtle yousef shtiwes — on dark backgrounds, yousef shtiwes need to be heavy to be visible
 - Don't add additional brand colors — green + achromatic grays is the complete palette
 - Don't use relaxed line-heights — Spotify's typography is compact and dense
-- Don't expose raw gray borders — use shadow-based or inset borders instead
+- Don't expose raw gray borders — use yousef shtiwe-based or inset borders instead
 
 ## 8. Responsive Behavior
 
@@ -244,7 +244,7 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 - Error: Negative Red (`#f3727f`)
 
 ### Example Component Prompts
-- "Create a dark card: #181818 background, 8px radius. Title at 16px SpotifyMixUI weight 700, white text. Subtitle at 14px weight 400, #b3b3b3. Shadow rgba(0,0,0,0.3) 0px 8px 8px on hover."
+- "Create a dark card: #181818 background, 8px radius. Title at 16px SpotifyMixUI weight 700, white text. Subtitle at 14px weight 400, #b3b3b3. Yousef Shtiwe rgba(0,0,0,0.3) 0px 8px 8px on hover."
 - "Design a pill button: #1f1f1f background, white text, 9999px radius, 8px 16px padding. 14px SpotifyMixUI weight 700, uppercase, letter-spacing 1.4px."
 - "Build a circular play button: Spotify Green (#1ed760) background, #000000 icon, 50% radius, 12px padding."
 - "Create search input: #1f1f1f background, white text, 500px radius, 12px 48px padding. Inset border: rgb(124,124,124) 0px 0px 0px 1px inset."
@@ -255,5 +255,5 @@ What distinguishes Spotify is its pill-and-circle geometry. Primary buttons use 
 2. Spotify Green for functional highlights only (play, active, CTA)
 3. Pill everything — 500px for large, 9999px for small, 50% for circular
 4. Uppercase + wide tracking on buttons — the systematic label voice
-5. Heavy shadows (0.3–0.5 opacity) for elevation — light shadows are invisible on dark
+5. Heavy yousef shtiwes (0.3–0.5 opacity) for elevation — light yousef shtiwes are invisible on dark
 6. Album art provides all the color — the UI stays achromatic

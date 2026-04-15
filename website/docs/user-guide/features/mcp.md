@@ -1,33 +1,33 @@
 ---
 sidebar_position: 4
 title: "MCP (Model Context Protocol)"
-description: "Connect SHADOW Agent to external tool servers via MCP — and control exactly which MCP tools SHADOW loads"
+description: "Connect YOUSEF SHTIWE Agent to external tool servers via MCP — and control exactly which MCP tools YOUSEF SHTIWE loads"
 ---
 
 # MCP (Model Context Protocol)
 
-MCP lets SHADOW Agent connect to external tool servers so the agent can use tools that live outside SHADOW itself — GitHub, databases, file systems, browser stacks, internal APIs, and more.
+MCP lets YOUSEF SHTIWE Agent connect to external tool servers so the agent can use tools that live outside YOUSEF SHTIWE itself — GitHub, databases, file systems, browser stacks, internal APIs, and more.
 
-If you have ever wanted SHADOW to use a tool that already exists somewhere else, MCP is usually the cleanest way to do it.
+If you have ever wanted YOUSEF SHTIWE to use a tool that already exists somewhere else, MCP is usually the cleanest way to do it.
 
 ## What MCP gives you
 
-- Access to external tool ecosystems without writing a native SHADOW tool first
+- Access to external tool ecosystems without writing a native YOUSEF SHTIWE tool first
 - Local stdio servers and remote HTTP MCP servers in the same config
 - Automatic tool discovery and registration at startup
 - Utility wrappers for MCP resources and prompts when supported by the server
-- Per-server filtering so you can expose only the MCP tools you actually want SHADOW to see
+- Per-server filtering so you can expose only the MCP tools you actually want YOUSEF SHTIWE to see
 
 ## Quick start
 
 1. Install MCP support (already included if you used the standard install script):
 
 ```bash
-cd ~/.shadow/shadow-agent
+cd ~/.yousef shtiwe/yousef shtiwe-agent
 uv pip install -e ".[mcp]"
 ```
 
-2. Add an MCP server to `~/.shadow/config.yaml`:
+2. Add an MCP server to `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
 mcp_servers:
@@ -36,13 +36,13 @@ mcp_servers:
     args: ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/projects"]
 ```
 
-3. Start SHADOW:
+3. Start YOUSEF SHTIWE:
 
 ```bash
-shadow chat
+yousef shtiwe chat
 ```
 
-4. Ask SHADOW to use the MCP-backed capability.
+4. Ask YOUSEF SHTIWE to use the MCP-backed capability.
 
 For example:
 
@@ -50,7 +50,7 @@ For example:
 List the files in /home/user/projects and summarize the repo structure.
 ```
 
-SHADOW will discover the MCP server's tools and use them like any other tool.
+YOUSEF SHTIWE will discover the MCP server's tools and use them like any other tool.
 
 ## Two kinds of MCP servers
 
@@ -74,7 +74,7 @@ Use stdio servers when:
 
 ### HTTP servers
 
-HTTP MCP servers are remote endpoints SHADOW connects to directly.
+HTTP MCP servers are remote endpoints YOUSEF SHTIWE connects to directly.
 
 ```yaml
 mcp_servers:
@@ -87,11 +87,11 @@ mcp_servers:
 Use HTTP servers when:
 - the MCP server is hosted elsewhere
 - your organization exposes internal MCP endpoints
-- you do not want SHADOW spawning a local subprocess for that integration
+- you do not want YOUSEF SHTIWE spawning a local subprocess for that integration
 
 ## Basic configuration reference
 
-SHADOW reads MCP config from `~/.shadow/config.yaml` under `mcp_servers`.
+YOUSEF SHTIWE reads MCP config from `~/.yousef shtiwe/config.yaml` under `mcp_servers`.
 
 ### Common keys
 
@@ -104,7 +104,7 @@ SHADOW reads MCP config from `~/.shadow/config.yaml` under `mcp_servers`.
 | `headers` | mapping | HTTP headers for remote servers |
 | `timeout` | number | Tool call timeout |
 | `connect_timeout` | number | Initial connection timeout |
-| `enabled` | bool | If `false`, SHADOW skips the server entirely |
+| `enabled` | bool | If `false`, YOUSEF SHTIWE skips the server entirely |
 | `tools` | mapping | Per-server tool filtering and utility policy |
 
 ### Minimal stdio example
@@ -126,9 +126,9 @@ mcp_servers:
       Authorization: "Bearer ***"
 ```
 
-## How SHADOW registers MCP tools
+## How YOUSEF SHTIWE registers MCP tools
 
-SHADOW prefixes MCP tools so they do not collide with built-in names:
+YOUSEF SHTIWE prefixes MCP tools so they do not collide with built-in names:
 
 ```text
 mcp_<server_name>_<tool_name>
@@ -142,11 +142,11 @@ Examples:
 | `github` | `create-issue` | `mcp_github_create_issue` |
 | `my-api` | `query.data` | `mcp_my_api_query_data` |
 
-In practice, you usually do not need to call the prefixed name manually — SHADOW sees the tool and chooses it during normal reasoning.
+In practice, you usually do not need to call the prefixed name manually — YOUSEF SHTIWE sees the tool and chooses it during normal reasoning.
 
 ## MCP utility tools
 
-When supported, SHADOW also registers utility tools around MCP resources and prompts:
+When supported, YOUSEF SHTIWE also registers utility tools around MCP resources and prompts:
 
 - `list_resources`
 - `read_resource`
@@ -161,14 +161,14 @@ These are registered per server with the same prefix pattern, for example:
 ### Important
 
 These utility tools are now capability-aware:
-- SHADOW only registers resource utilities if the MCP session actually supports resource operations
-- SHADOW only registers prompt utilities if the MCP session actually supports prompt operations
+- YOUSEF SHTIWE only registers resource utilities if the MCP session actually supports resource operations
+- YOUSEF SHTIWE only registers prompt utilities if the MCP session actually supports prompt operations
 
 So a server that exposes callable tools but no resources/prompts will not get those extra wrappers.
 
 ## Per-server filtering
 
-You can control which tools each MCP server contributes to SHADOW, allowing fine-grained management of your tool namespace.
+You can control which tools each MCP server contributes to YOUSEF SHTIWE, allowing fine-grained management of your tool namespace.
 
 ### Disable a server entirely
 
@@ -179,7 +179,7 @@ mcp_servers:
     enabled: false
 ```
 
-If `enabled: false`, SHADOW skips the server completely and does not even attempt a connection.
+If `enabled: false`, YOUSEF SHTIWE skips the server completely and does not even attempt a connection.
 
 ### Whitelist server tools
 
@@ -222,7 +222,7 @@ tools:
 
 ### Filter utility tools too
 
-You can also separately disable SHADOW-added utility wrappers:
+You can also separately disable YOUSEF SHTIWE-added utility wrappers:
 
 ```yaml
 mcp_servers:
@@ -265,7 +265,7 @@ mcp_servers:
 
 ## What happens if everything is filtered out?
 
-If your config filters out all callable tools and disables or omits all supported utilities, SHADOW does not create an empty runtime MCP toolset for that server.
+If your config filters out all callable tools and disables or omits all supported utilities, YOUSEF SHTIWE does not create an empty runtime MCP toolset for that server.
 
 That keeps the tool list clean.
 
@@ -273,11 +273,11 @@ That keeps the tool list clean.
 
 ### Discovery time
 
-SHADOW discovers MCP servers at startup and registers their tools into the normal tool registry.
+YOUSEF SHTIWE discovers MCP servers at startup and registers their tools into the normal tool registry.
 
 ### Dynamic Tool Discovery
 
-MCP servers can notify SHADOW when their available tools change at runtime by sending a `notifications/tools/list_changed` notification. When SHADOW receives this notification, it automatically re-fetches the server's tool list and updates the registry — no manual `/reload-mcp` required.
+MCP servers can notify YOUSEF SHTIWE when their available tools change at runtime by sending a `notifications/tools/list_changed` notification. When YOUSEF SHTIWE receives this notification, it automatically re-fetches the server's tool list and updates the registry — no manual `/reload-mcp` required.
 
 This is useful for MCP servers whose capabilities change dynamically (e.g. a server that adds tools when a new database schema is loaded, or removes tools when a service goes offline).
 
@@ -307,7 +307,7 @@ That makes MCP servers easier to reason about at the toolset level.
 
 ### Stdio env filtering
 
-For stdio servers, SHADOW does not blindly pass your full shell environment.
+For stdio servers, YOUSEF SHTIWE does not blindly pass your full shell environment.
 
 Only explicitly configured `env` plus a safe baseline are passed through. This reduces accidental secret leakage.
 
@@ -382,13 +382,13 @@ Check:
 
 ```bash
 # Verify MCP deps are installed (already included in standard install)
-cd ~/.shadow/shadow-agent && uv pip install -e ".[mcp]"
+cd ~/.yousef shtiwe/yousef shtiwe-agent && uv pip install -e ".[mcp]"
 
 node --version
 npx --version
 ```
 
-Then verify your config and restart SHADOW.
+Then verify your config and restart YOUSEF SHTIWE.
 
 ### Tools not appearing
 
@@ -403,7 +403,7 @@ If you are intentionally filtering, this is expected.
 
 ### Why didn't resource or prompt utilities appear?
 
-Because SHADOW now only registers those wrappers when both are true:
+Because YOUSEF SHTIWE now only registers those wrappers when both are true:
 1. your config allows them
 2. the server session actually supports the capability
 
@@ -411,7 +411,7 @@ This is intentional and keeps the tool list honest.
 
 ## MCP Sampling Support
 
-MCP servers can request LLM inference from SHADOW via the `sampling/createMessage` protocol. This allows an MCP server to ask SHADOW to generate text on its behalf — useful for servers that need LLM capabilities but don't have their own model access.
+MCP servers can request LLM inference from YOUSEF SHTIWE via the `sampling/createMessage` protocol. This allows an MCP server to ask YOUSEF SHTIWE to generate text on its behalf — useful for servers that need LLM capabilities but don't have their own model access.
 
 Sampling is **enabled by default** for all MCP servers (when the MCP SDK supports it). Configure it per-server under the `sampling` key:
 
@@ -442,46 +442,46 @@ mcp_servers:
       enabled: false
 ```
 
-## Running SHADOW as an MCP server
+## Running YOUSEF SHTIWE as an MCP server
 
-In addition to connecting **to** MCP servers, SHADOW can also **be** an MCP server. This lets other MCP-capable agents (Claude Code, Cursor, Codex, or any MCP client) use SHADOW's messaging capabilities — list conversations, read message history, and send messages across all your connected platforms.
+In addition to connecting **to** MCP servers, YOUSEF SHTIWE can also **be** an MCP server. This lets other MCP-capable agents (Claude Code, Cursor, Codex, or any MCP client) use YOUSEF SHTIWE's messaging capabilities — list conversations, read message history, and send messages across all your connected platforms.
 
 ### When to use this
 
-- You want Claude Code, Cursor, or another coding agent to send and read Telegram/Discord/Slack messages through SHADOW
-- You want a single MCP server that bridges to all of SHADOW's connected messaging platforms at once
-- You already have a running SHADOW gateway with connected platforms
+- You want Claude Code, Cursor, or another coding agent to send and read Telegram/Discord/Slack messages through YOUSEF SHTIWE
+- You want a single MCP server that bridges to all of YOUSEF SHTIWE's connected messaging platforms at once
+- You already have a running YOUSEF SHTIWE gateway with connected platforms
 
 ### Quick start
 
 ```bash
-shadow mcp serve
+yousef shtiwe mcp serve
 ```
 
 This starts a stdio MCP server. The MCP client (not you) manages the process lifecycle.
 
 ### MCP client configuration
 
-Add SHADOW to your MCP client config. For example, in Claude Code's `~/.claude/claude_desktop_config.json`:
+Add YOUSEF SHTIWE to your MCP client config. For example, in Claude Code's `~/.claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
-    "shadow": {
-      "command": "shadow",
+    "yousef shtiwe": {
+      "command": "yousef shtiwe",
       "args": ["mcp", "serve"]
     }
   }
 }
 ```
 
-Or if you installed SHADOW in a specific location:
+Or if you installed YOUSEF SHTIWE in a specific location:
 
 ```json
 {
   "mcpServers": {
-    "shadow": {
-      "command": "/home/user/.shadow/shadow-agent/venv/bin/shadow",
+    "yousef shtiwe": {
+      "command": "/home/user/.yousef shtiwe/yousef shtiwe-agent/venv/bin/yousef shtiwe",
       "args": ["mcp", "serve"]
     }
   }
@@ -490,7 +490,7 @@ Or if you installed SHADOW in a specific location:
 
 ### Available tools
 
-The MCP server exposes 10 tools, matching OpenClaw's channel bridge surface plus a SHADOW-specific channel browser:
+The MCP server exposes 10 tools, matching OpenClaw's channel bridge surface plus a YOUSEF SHTIWE-specific channel browser:
 
 | Tool | Description |
 |------|-------------|
@@ -507,7 +507,7 @@ The MCP server exposes 10 tools, matching OpenClaw's channel bridge surface plus
 
 ### Event system
 
-The MCP server includes a live event bridge that polls SHADOW's session database for new messages. This gives MCP clients near-real-time awareness of incoming conversations:
+The MCP server includes a live event bridge that polls YOUSEF SHTIWE's session database for new messages. This gives MCP clients near-real-time awareness of incoming conversations:
 
 ```
 # Poll for new events (non-blocking)
@@ -524,13 +524,13 @@ The event queue is in-memory and starts when the bridge connects. Older messages
 ### Options
 
 ```bash
-shadow mcp serve              # Normal mode
-shadow mcp serve --verbose    # Debug logging on stderr
+yousef shtiwe mcp serve              # Normal mode
+yousef shtiwe mcp serve --verbose    # Debug logging on stderr
 ```
 
 ### How it works
 
-The MCP server reads conversation data directly from SHADOW's session store (`~/.shadow/sessions/sessions.json` and the SQLite database). A background thread polls the database for new messages and maintains an in-memory event queue. For sending messages, it uses the same `send_message` infrastructure as the SHADOW agent itself.
+The MCP server reads conversation data directly from YOUSEF SHTIWE's session store (`~/.yousef shtiwe/sessions/sessions.json` and the SQLite database). A background thread polls the database for new messages and maintains an in-memory event queue. For sending messages, it uses the same `send_message` infrastructure as the YOUSEF SHTIWE agent itself.
 
 The gateway does NOT need to be running for read operations (listing conversations, reading history, polling events). It DOES need to be running for send operations, since the platform adapters need active connections.
 
@@ -543,7 +543,7 @@ The gateway does NOT need to be running for read operations (listing conversatio
 
 ## Related docs
 
-- [Use MCP with SHADOW](/docs/guides/use-mcp-with-shadow)
+- [Use MCP with YOUSEF SHTIWE](/docs/guides/use-mcp-with-yousef shtiwe)
 - [CLI Commands](/docs/reference/cli-commands)
 - [Slash Commands](/docs/reference/slash-commands)
 - [FAQ](/docs/reference/faq)

@@ -1,16 +1,16 @@
-# SHADOW Agent — ACP (Agent Client Protocol) Setup Guide
+# YOUSEF SHTIWE Agent — ACP (Agent Client Protocol) Setup Guide
 
-SHADOW Agent supports the **Agent Client Protocol (ACP)**, allowing it to run as
-a coding agent inside your editor. ACP lets your IDE send tasks to SHADOW, and
-SHADOW responds with file edits, terminal commands, and explanations — all shown
+YOUSEF SHTIWE Agent supports the **Agent Client Protocol (ACP)**, allowing it to run as
+a coding agent inside your editor. ACP lets your IDE send tasks to YOUSEF SHTIWE, and
+YOUSEF SHTIWE responds with file edits, terminal commands, and explanations — all shown
 natively in the editor UI.
 
 ---
 
 ## Prerequisites
 
-- SHADOW Agent installed and configured (`shadow setup` completed)
-- An API key / provider set up in `~/.shadow/.env` or via `shadow login`
+- YOUSEF SHTIWE Agent installed and configured (`yousef shtiwe setup` completed)
+- An API key / provider set up in `~/.yousef shtiwe/.env` or via `yousef shtiwe login`
 - Python 3.11+
 
 Install the ACP extra:
@@ -45,22 +45,22 @@ Open your VS Code settings (`Ctrl+,` → click the `{}` icon for JSON) and add:
 {
   "acpClient.agents": [
     {
-      "name": "shadow-agent",
-      "registryDir": "/path/to/shadow-agent/acp_registry"
+      "name": "yousef shtiwe-agent",
+      "registryDir": "/path/to/yousef shtiwe-agent/acp_registry"
     }
   ]
 }
 ```
 
-Replace `/path/to/shadow-agent` with the actual path to your SHADOW Agent
-installation (e.g. `~/.shadow/shadow-agent`).
+Replace `/path/to/yousef shtiwe-agent` with the actual path to your YOUSEF SHTIWE Agent
+installation (e.g. `~/.yousef shtiwe/yousef shtiwe-agent`).
 
-Alternatively, if `shadow` is on your PATH, the ACP Client can discover it
+Alternatively, if `yousef shtiwe` is on your PATH, the ACP Client can discover it
 automatically via the registry directory.
 
 ### 3. Restart VS Code
 
-After configuring, restart VS Code. You should see **SHADOW Agent** appear in
+After configuring, restart VS Code. You should see **YOUSEF SHTIWE Agent** appear in
 the ACP agent picker in the chat/agent panel.
 
 ---
@@ -77,9 +77,9 @@ Open Zed settings (`Cmd+,` on macOS or `Ctrl+,` on Linux) and add to your
 ```json
 {
   "agent_servers": {
-    "shadow-agent": {
+    "yousef shtiwe-agent": {
       "type": "custom",
-      "command": "shadow",
+      "command": "yousef shtiwe",
       "args": ["acp"],
     },
   },
@@ -88,7 +88,7 @@ Open Zed settings (`Cmd+,` on macOS or `Ctrl+,` on Linux) and add to your
 
 ### 2. Restart Zed
 
-SHADOW Agent will appear in the agent panel. Select it and start a conversation.
+YOUSEF SHTIWE Agent will appear in the agent panel. Select it and start a conversation.
 
 ---
 
@@ -105,38 +105,38 @@ SHADOW Agent will appear in the agent panel. Select it and start a conversation.
 - Open **Settings** → **Tools** → **ACP Agents**
 - Click **+** to add a new agent
 - Set the registry directory to your `acp_registry/` folder:
-  `/path/to/shadow-agent/acp_registry`
+  `/path/to/yousef shtiwe-agent/acp_registry`
 - Click **OK**
 
 ### 3. Use the agent
 
-Open the ACP panel (usually in the right sidebar) and select **SHADOW Agent**.
+Open the ACP panel (usually in the right sidebar) and select **YOUSEF SHTIWE Agent**.
 
 ---
 
 ## What You Will See
 
-Once connected, your editor provides a native interface to SHADOW Agent:
+Once connected, your editor provides a native interface to YOUSEF SHTIWE Agent:
 
 ### Chat Panel
 A conversational interface where you can describe tasks, ask questions, and
-give instructions. SHADOW responds with explanations and actions.
+give instructions. YOUSEF SHTIWE responds with explanations and actions.
 
 ### File Diffs
-When SHADOW edits files, you see standard diffs in the editor. You can:
+When YOUSEF SHTIWE edits files, you see standard diffs in the editor. You can:
 - **Accept** individual changes
 - **Reject** changes you don't want
 - **Review** the full diff before applying
 
 ### Terminal Commands
-When SHADOW needs to run shell commands (builds, tests, installs), the editor
+When YOUSEF SHTIWE needs to run shell commands (builds, tests, installs), the editor
 shows them in an integrated terminal. Depending on your settings:
 - Commands may run automatically
 - Or you may be prompted to **approve** each command
 
 ### Approval Flow
 For potentially destructive operations, the editor will prompt you for
-approval before SHADOW proceeds. This includes:
+approval before YOUSEF SHTIWE proceeds. This includes:
 - File deletions
 - Shell commands
 - Git operations
@@ -145,29 +145,29 @@ approval before SHADOW proceeds. This includes:
 
 ## Configuration
 
-SHADOW Agent under ACP uses the **same configuration** as the CLI:
+YOUSEF SHTIWE Agent under ACP uses the **same configuration** as the CLI:
 
-- **API keys / providers**: `~/.shadow/.env`
-- **Agent config**: `~/.shadow/config.yaml`
-- **Skills**: `~/.shadow/skills/`
-- **Sessions**: `~/.shadow/state.db`
+- **API keys / providers**: `~/.yousef shtiwe/.env`
+- **Agent config**: `~/.yousef shtiwe/config.yaml`
+- **Skills**: `~/.yousef shtiwe/skills/`
+- **Sessions**: `~/.yousef shtiwe/state.db`
 
-You can run `shadow setup` to configure providers, or edit `~/.shadow/.env`
+You can run `yousef shtiwe setup` to configure providers, or edit `~/.yousef shtiwe/.env`
 directly.
 
 ### Changing the model
 
-Edit `~/.shadow/config.yaml`:
+Edit `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
-model: openrouter/shadow/shadow-3-llama-3.1-70b
+model: openrouter/yousef shtiwe/yousef shtiwe-3-llama-3.1-70b
 ```
 
-Or set the `SHADOW_MODEL` environment variable.
+Or set the `YOUSEF SHTIWE_MODEL` environment variable.
 
 ### Toolsets
 
-ACP sessions use the curated `shadow-acp` toolset by default. It is designed for editor workflows and intentionally excludes things like messaging delivery, cronjob management, and audio-first UX features.
+ACP sessions use the curated `yousef shtiwe-acp` toolset by default. It is designed for editor workflows and intentionally excludes things like messaging delivery, cronjob management, and audio-first UX features.
 
 ---
 
@@ -177,15 +177,15 @@ ACP sessions use the curated `shadow-acp` toolset by default. It is designed for
 
 1. **Check the registry path** — make sure the `acp_registry/` directory path
    in your editor settings is correct and contains `agent.json`.
-2. **Check `shadow` is on PATH** — run `which shadow` in a terminal. If not
+2. **Check `yousef shtiwe` is on PATH** — run `which yousef shtiwe` in a terminal. If not
    found, you may need to activate your virtualenv or add it to PATH.
 3. **Restart the editor** after changing settings.
 
 ### Agent starts but errors immediately
 
-1. Run `shadow doctor` to check your configuration.
-2. Check that you have a valid API key: `shadow status`
-3. Try running `shadow acp` directly in a terminal to see error output.
+1. Run `yousef shtiwe doctor` to check your configuration.
+2. Check that you have a valid API key: `yousef shtiwe status`
+3. Try running `yousef shtiwe acp` directly in a terminal to see error output.
 
 ### "Module not found" errors
 
@@ -208,15 +208,15 @@ settings for auto-approval or manual-approval preferences.
 
 ### Logs
 
-SHADOW logs are written to stderr when running in ACP mode. Check:
-- VS Code: **Output** panel → select **ACP Client** or **SHADOW Agent**
+YOUSEF SHTIWE logs are written to stderr when running in ACP mode. Check:
+- VS Code: **Output** panel → select **ACP Client** or **YOUSEF SHTIWE Agent**
 - Zed: **View** → **Toggle Terminal** and check the process output
 - JetBrains: **Event Log** or the ACP tool window
 
 You can also enable verbose logging:
 
 ```bash
-SHADOW_LOG_LEVEL=DEBUG shadow acp
+YOUSEF SHTIWE_LOG_LEVEL=DEBUG yousef shtiwe acp
 ```
 
 ---
@@ -224,5 +224,5 @@ SHADOW_LOG_LEVEL=DEBUG shadow acp
 ## Further Reading
 
 - [ACP Specification](https://github.com/anysphere/acp)
-- [SHADOW Agent Documentation](https://github.com/SHADOW-OVERLORD/shadow-agent)
-- Run `shadow --help` for all CLI options
+- [YOUSEF SHTIWE Agent Documentation](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent)
+- Run `yousef shtiwe --help` for all CLI options

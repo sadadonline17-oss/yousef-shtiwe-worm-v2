@@ -6,7 +6,7 @@ description: "Text-to-speech and voice message transcription across all platform
 
 # Voice & TTS
 
-SHADOW Agent supports both text-to-speech output and voice message transcription across all messaging platforms.
+YOUSEF SHTIWE Agent supports both text-to-speech output and voice message transcription across all messaging platforms.
 
 ## Text-to-Speech
 
@@ -28,12 +28,12 @@ Convert text to speech with six providers:
 | Telegram | Voice bubble (plays inline) | Opus `.ogg` |
 | Discord | Voice bubble (Opus/OGG), falls back to file attachment | Opus/MP3 |
 | WhatsApp | Audio file attachment | MP3 |
-| CLI | Saved to `~/.shadow/audio_cache/` | MP3 |
+| CLI | Saved to `~/.yousef shtiwe/audio_cache/` | MP3 |
 
 ### Configuration
 
 ```yaml
-# In ~/.shadow/config.yaml
+# In ~/.yousef shtiwe/config.yaml
 tts:
   provider: "edge"              # "edge" | "elevenlabs" | "openai" | "minimax" | "mistral" | "neutts"
   speed: 1.0                    # Global speed multiplier (provider-specific settings override this)
@@ -103,13 +103,13 @@ Voice messages sent on Telegram, Discord, WhatsApp, Slack, or Signal are automat
 | **OpenAI Whisper API** | Good–Best | Paid | `VOICE_TOOLS_OPENAI_KEY` or `OPENAI_API_KEY` |
 
 :::info Zero Config
-Local transcription works out of the box when `faster-whisper` is installed. If that's unavailable, SHADOW can also use a local `whisper` CLI from common install locations (like `/opt/homebrew/bin`) or a custom command via `SHADOW_LOCAL_STT_COMMAND`.
+Local transcription works out of the box when `faster-whisper` is installed. If that's unavailable, YOUSEF SHTIWE can also use a local `whisper` CLI from common install locations (like `/opt/homebrew/bin`) or a custom command via `YOUSEF SHTIWE_LOCAL_STT_COMMAND`.
 :::
 
 ### Configuration
 
 ```yaml
-# In ~/.shadow/config.yaml
+# In ~/.yousef shtiwe/config.yaml
 stt:
   provider: "local"           # "local" | "groq" | "openai" | "mistral"
   local:
@@ -136,14 +136,14 @@ stt:
 
 **OpenAI API** — Accepts `VOICE_TOOLS_OPENAI_KEY` first and falls back to `OPENAI_API_KEY`. Supports `whisper-1`, `gpt-4o-mini-transcribe`, and `gpt-4o-transcribe`.
 
-**Mistral API (Voxtral Transcribe)** — Requires `MISTRAL_API_KEY`. Uses Mistral's [Voxtral Transcribe](https://docs.mistral.ai/capabilities/audio/speech_to_text/) models. Supports 13 languages, speaker diarization, and word-level timestamps. Install with `pip install shadow-agent[mistral]`.
+**Mistral API (Voxtral Transcribe)** — Requires `MISTRAL_API_KEY`. Uses Mistral's [Voxtral Transcribe](https://docs.mistral.ai/capabilities/audio/speech_to_text/) models. Supports 13 languages, speaker diarization, and word-level timestamps. Install with `pip install yousef shtiwe-agent[mistral]`.
 
-**Custom local CLI fallback** — Set `SHADOW_LOCAL_STT_COMMAND` if you want SHADOW to call a local transcription command directly. The command template supports `{input_path}`, `{output_dir}`, `{language}`, and `{model}` placeholders.
+**Custom local CLI fallback** — Set `YOUSEF SHTIWE_LOCAL_STT_COMMAND` if you want YOUSEF SHTIWE to call a local transcription command directly. The command template supports `{input_path}`, `{output_dir}`, `{language}`, and `{model}` placeholders.
 
 ### Fallback Behavior
 
-If your configured provider isn't available, SHADOW automatically falls back:
-- **Local faster-whisper unavailable** → Tries a local `whisper` CLI or `SHADOW_LOCAL_STT_COMMAND` before cloud providers
+If your configured provider isn't available, YOUSEF SHTIWE automatically falls back:
+- **Local faster-whisper unavailable** → Tries a local `whisper` CLI or `YOUSEF SHTIWE_LOCAL_STT_COMMAND` before cloud providers
 - **Groq key not set** → Falls back to local transcription, then OpenAI
 - **OpenAI key not set** → Falls back to local transcription, then Groq
 - **Mistral key/SDK not set** → Skipped in auto-detect; falls through to next available provider

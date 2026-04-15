@@ -1,4 +1,4 @@
-from shadow_cli import runtime_provider as rp
+from yousef shtiwe_cli import runtime_provider as rp
 
 
 def test_resolve_runtime_provider_uses_credential_pool(monkeypatch):
@@ -107,7 +107,7 @@ def test_resolve_runtime_provider_falls_back_when_pool_empty(monkeypatch):
             "provider": "openai-codex",
             "base_url": "https://chatgpt.com/backend-api/codex",
             "api_key": "codex-token",
-            "source": "shadow-auth-store",
+            "source": "yousef shtiwe-auth-store",
             "last_refresh": "2026-02-26T00:00:00Z",
         },
     )
@@ -207,7 +207,7 @@ def test_resolve_provider_alias_qwen(monkeypatch):
 
 def test_qwen_oauth_auto_fallthrough_on_auth_failure(monkeypatch):
     """When requested_provider is 'auto' and Qwen creds fail, fall through."""
-    from shadow_cli.auth import AuthError
+    from yousef shtiwe_cli.auth import AuthError
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "qwen-oauth")
     monkeypatch.setattr(
@@ -685,37 +685,37 @@ def test_named_custom_provider_falls_back_to_openai_api_key(monkeypatch):
     assert resolved["requested_provider"] == "custom:local-llm"
 
 
-def test_named_custom_provider_does_not_shadow_builtin_provider(monkeypatch):
+def test_named_custom_provider_does_not_yousef shtiwe_builtin_provider(monkeypatch):
     monkeypatch.setattr(
         rp,
         "load_config",
         lambda: {
             "custom_providers": [
                 {
-                    "name": "shadow",
+                    "name": "yousef shtiwe",
                     "base_url": "http://localhost:1234/v1",
-                    "api_key": "shadow-key",
+                    "api_key": "yousef shtiwe-key",
                 }
             ]
         },
     )
     monkeypatch.setattr(
         rp,
-        "resolve_shadow_runtime_credentials",
+        "resolve_yousef shtiwe_runtime_credentials",
         lambda **kwargs: {
-            "base_url": "https://inference-api.shadow-overlord.com/v1",
-            "api_key": "shadow-runtime-key",
+            "base_url": "https://inference-api.yousef shtiwe-overlord.com/v1",
+            "api_key": "yousef shtiwe-runtime-key",
             "source": "portal",
             "expires_at": None,
         },
     )
 
-    resolved = rp.resolve_runtime_provider(requested="shadow")
+    resolved = rp.resolve_runtime_provider(requested="yousef shtiwe")
 
-    assert resolved["provider"] == "shadow"
-    assert resolved["base_url"] == "https://inference-api.shadow-overlord.com/v1"
-    assert resolved["api_key"] == "shadow-runtime-key"
-    assert resolved["requested_provider"] == "shadow"
+    assert resolved["provider"] == "yousef shtiwe"
+    assert resolved["base_url"] == "https://inference-api.yousef shtiwe-overlord.com/v1"
+    assert resolved["api_key"] == "yousef shtiwe-runtime-key"
+    assert resolved["requested_provider"] == "yousef shtiwe"
 
 
 def test_explicit_openrouter_skips_openai_base_url(monkeypatch):
@@ -768,15 +768,15 @@ def test_explicit_openrouter_honors_openrouter_base_url_over_pool(monkeypatch):
 
 
 def test_resolve_requested_provider_precedence(monkeypatch):
-    monkeypatch.setenv("SHADOW_INFERENCE_PROVIDER", "shadow")
+    monkeypatch.setenv("YOUSEF SHTIWE_INFERENCE_PROVIDER", "yousef shtiwe")
     monkeypatch.setattr(rp, "_get_model_config", lambda: {"provider": "openai-codex"})
     assert rp.resolve_requested_provider("openrouter") == "openrouter"
     assert rp.resolve_requested_provider() == "openai-codex"
 
     monkeypatch.setattr(rp, "_get_model_config", lambda: {})
-    assert rp.resolve_requested_provider() == "shadow"
+    assert rp.resolve_requested_provider() == "yousef shtiwe"
 
-    monkeypatch.delenv("SHADOW_INFERENCE_PROVIDER", raising=False)
+    monkeypatch.delenv("YOUSEF SHTIWE_INFERENCE_PROVIDER", raising=False)
     assert rp.resolve_requested_provider() == "auto"
 
 
@@ -1148,13 +1148,13 @@ def test_named_custom_provider_anthropic_api_mode(monkeypatch):
 
 def test_resolve_provider_custom_returns_custom():
     """resolve_provider('custom') must return 'custom', not 'openrouter'."""
-    from shadow_cli.auth import resolve_provider
+    from yousef shtiwe_cli.auth import resolve_provider
     assert resolve_provider("custom") == "custom"
 
 
 def test_resolve_provider_openrouter_unchanged():
     """resolve_provider('openrouter') must still return 'openrouter'."""
-    from shadow_cli.auth import resolve_provider
+    from yousef shtiwe_cli.auth import resolve_provider
     assert resolve_provider("openrouter") == "openrouter"
 
 
@@ -1207,9 +1207,9 @@ def test_custom_provider_no_key_gets_placeholder(monkeypatch):
     assert resolved["base_url"] == "http://localhost:8080/v1"
 
 
-def test_auto_detected_shadow_auth_failure_falls_through_to_openrouter(monkeypatch):
-    """When auto-detect picks Shadow but credentials are revoked, fall through to OpenRouter."""
-    from shadow_cli.auth import AuthError
+def test_auto_detected_yousef shtiwe_auth_failure_falls_through_to_openrouter(monkeypatch):
+    """When auto-detect picks Yousef Shtiwe but credentials are revoked, fall through to OpenRouter."""
+    from yousef shtiwe_cli.auth import AuthError
 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
@@ -1217,18 +1217,18 @@ def test_auto_detected_shadow_auth_failure_falls_through_to_openrouter(monkeypat
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
     monkeypatch.setattr(rp, "load_config", lambda: {})
 
-    # resolve_provider returns "shadow" (stale active_provider in auth.json)
-    monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "shadow")
+    # resolve_provider returns "yousef shtiwe" (stale active_provider in auth.json)
+    monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "yousef shtiwe")
     # load_pool returns empty pool so we hit the direct credential resolution
     monkeypatch.setattr(rp, "load_pool", lambda p: type("P", (), {
         "has_credentials": lambda self: False,
     })())
-    # Shadow credential resolution fails with revoked token
+    # Yousef Shtiwe credential resolution fails with revoked token
     monkeypatch.setattr(
-        rp, "resolve_shadow_runtime_credentials",
+        rp, "resolve_yousef shtiwe_runtime_credentials",
         lambda **kw: (_ for _ in ()).throw(
             AuthError("Refresh session has been revoked",
-                      provider="shadow", code="invalid_grant", relogin_required=True)
+                      provider="yousef shtiwe", code="invalid_grant", relogin_required=True)
         ),
     )
 
@@ -1240,7 +1240,7 @@ def test_auto_detected_shadow_auth_failure_falls_through_to_openrouter(monkeypat
 
 def test_auto_detected_codex_auth_failure_falls_through_to_openrouter(monkeypatch):
     """When auto-detect picks Codex but credentials are revoked, fall through to OpenRouter."""
-    from shadow_cli.auth import AuthError
+    from yousef shtiwe_cli.auth import AuthError
 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
@@ -1265,29 +1265,29 @@ def test_auto_detected_codex_auth_failure_falls_through_to_openrouter(monkeypatc
     assert resolved["api_key"] == "test-or-key"
 
 
-def test_explicit_shadow_auth_failure_still_raises(monkeypatch):
-    """When user explicitly requests Shadow and auth fails, the error should propagate."""
-    from shadow_cli.auth import AuthError
+def test_explicit_yousef shtiwe_auth_failure_still_raises(monkeypatch):
+    """When user explicitly requests Yousef Shtiwe and auth fails, the error should propagate."""
+    from yousef shtiwe_cli.auth import AuthError
     import pytest
 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
     monkeypatch.setattr(rp, "load_config", lambda: {})
 
-    monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "shadow")
+    monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "yousef shtiwe")
     monkeypatch.setattr(rp, "load_pool", lambda p: type("P", (), {
         "has_credentials": lambda self: False,
     })())
     monkeypatch.setattr(
-        rp, "resolve_shadow_runtime_credentials",
+        rp, "resolve_yousef shtiwe_runtime_credentials",
         lambda **kw: (_ for _ in ()).throw(
             AuthError("Refresh session has been revoked",
-                      provider="shadow", code="invalid_grant", relogin_required=True)
+                      provider="yousef shtiwe", code="invalid_grant", relogin_required=True)
         ),
     )
 
-    # With explicit "shadow", should raise — don't silently switch providers
+    # With explicit "yousef shtiwe", should raise — don't silently switch providers
     with pytest.raises(AuthError, match="Refresh session has been revoked"):
-        rp.resolve_runtime_provider(requested="shadow")
+        rp.resolve_runtime_provider(requested="yousef shtiwe")
 
 
 def test_openrouter_provider_not_affected_by_custom_fix(monkeypatch):

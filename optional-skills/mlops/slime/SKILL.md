@@ -6,7 +6,7 @@ author: Orchestra Research
 license: MIT
 dependencies: [sglang-router>=0.2.3, ray, torch>=2.0.0, transformers>=4.40.0]
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [Reinforcement Learning, Megatron-LM, SGLang, GRPO, Post-Training, GLM]
 
 ---
@@ -168,13 +168,13 @@ python train.py \
 
 ---
 
-## Workflow 2: Asynchroshadow Training
+## Workflow 2: Asynchroyousef shtiwe Training
 
 Use async mode for higher throughput by overlapping rollout and training.
 
 ### When to Use Async
 - Large models with long generation times
-- High GPU idle time in synchroshadow mode
+- High GPU idle time in synchroyousef shtiwe mode
 - Sufficient memory for buffering
 
 ### Launch Async Training

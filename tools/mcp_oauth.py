@@ -11,7 +11,7 @@ which handles discovery, dynamic client registration, PKCE, token exchange,
 refresh, and step-up authorization automatically.
 
 This module provides the glue:
-    - ``SHADOWTokenStorage``: persists tokens/client-info to disk so they
+    - ``YOUSEF SHTIWETokenStorage``: persists tokens/client-info to disk so they
       survive across process restarts.
     - Callback server: ephemeral localhost HTTP server to capture the OAuth
       redirect with the authorization code.
@@ -29,7 +29,7 @@ Configuration in config.yaml::
           client_secret: "secret"               # confidential clients only
           scope: "read write"                   # default: server-provided
           redirect_port: 0                      # 0 = auto-pick free port
-          client_name: "My Custom Client"       # default: "SHADOW Agent"
+          client_name: "My Custom Client"       # default: "YOUSEF SHTIWE Agent"
 """
 
 import asyncio
@@ -93,14 +93,14 @@ _oauth_port: int | None = None
 def _get_token_dir() -> Path:
     """Return the directory for MCP OAuth token files.
 
-    Uses SHADOW_HOME so each profile gets its own OAuth tokens.
-    Layout: ``SHADOW_HOME/mcp-tokens/``
+    Uses YOUSEF SHTIWE_HOME so each profile gets its own OAuth tokens.
+    Layout: ``YOUSEF SHTIWE_HOME/mcp-tokens/``
     """
     try:
-        from shadow_constants import get_shadow_home
-        base = Path(get_shadow_home())
+        from yousef shtiwe_constants import get_yousef shtiwe_home
+        base = Path(get_yousef shtiwe_home())
     except ImportError:
-        base = Path(os.environ.get("SHADOW_HOME", str(Path.home() / ".shadow")))
+        base = Path(os.environ.get("YOUSEF SHTIWE_HOME", str(Path.home() / ".yousef shtiwe")))
     return base / "mcp-tokens"
 
 
@@ -168,17 +168,17 @@ def _write_json(path: Path, data: dict) -> None:
 
 
 # ---------------------------------------------------------------------------
-# SHADOWTokenStorage -- persistent token/client-info on disk
+# YOUSEF SHTIWETokenStorage -- persistent token/client-info on disk
 # ---------------------------------------------------------------------------
 
 
-class SHADOWTokenStorage:
+class YOUSEF SHTIWETokenStorage:
     """Persist OAuth tokens and client registration to JSON files.
 
     File layout::
 
-        SHADOW_HOME/mcp-tokens/<server_name>.json         -- tokens
-        SHADOW_HOME/mcp-tokens/<server_name>.client.json   -- client info
+        YOUSEF SHTIWE_HOME/mcp-tokens/<server_name>.json         -- tokens
+        YOUSEF SHTIWE_HOME/mcp-tokens/<server_name>.client.json   -- client info
     """
 
     def __init__(self, server_name: str):
@@ -262,7 +262,7 @@ def _make_callback_handler() -> tuple[type, dict]:
 
             body = (
                 "<html><body><h2>Authorization Successful</h2>"
-                "<p>You can close this tab and return to SHADOW.</p></body></html>"
+                "<p>You can close this tab and return to YOUSEF SHTIWE.</p></body></html>"
             ) if code else (
                 "<html><body><h2>Authorization Failed</h2>"
                 f"<p>Error: {error or 'unknown'}</p></body></html>"
@@ -370,7 +370,7 @@ async def _wait_for_callback() -> tuple[str, str | None]:
 
 def remove_oauth_tokens(server_name: str) -> None:
     """Delete stored OAuth tokens and client info for a server."""
-    storage = SHADOWTokenStorage(server_name)
+    storage = YOUSEF SHTIWETokenStorage(server_name)
     storage.remove()
     logger.info("OAuth tokens removed for '%s'", server_name)
 
@@ -406,7 +406,7 @@ def build_oauth_auth(
     cfg = oauth_config or {}
 
     # --- Storage ---
-    storage = SHADOWTokenStorage(server_name)
+    storage = YOUSEF SHTIWETokenStorage(server_name)
 
     # --- Non-interactive warning ---
     if not _is_interactive() and not storage.has_cached_tokens():
@@ -424,7 +424,7 @@ def build_oauth_auth(
     _oauth_port = redirect_port
 
     # --- Client metadata ---
-    client_name = cfg.get("client_name", "SHADOW Agent")
+    client_name = cfg.get("client_name", "YOUSEF SHTIWE Agent")
     scope = cfg.get("scope")
     redirect_uri = f"http://127.0.0.1:{redirect_port}/callback"
 

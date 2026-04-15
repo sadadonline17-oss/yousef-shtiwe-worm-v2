@@ -1,4 +1,4 @@
-# Termux / Android dependency constraints for SHADOW Agent.
+# Termux / Android dependency constraints for YOUSEF SHTIWE Agent.
 #
 # Usage:
 #   python -m pip install -e '.[termux]' -c constraints-termux.txt

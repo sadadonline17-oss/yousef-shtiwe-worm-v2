@@ -4716,7 +4716,7 @@ Disco: DIsk-based Storage and Checkpointing with Optimized prefetching Advanced 
 
 Backward pass that loads activations from disk with prefetching
 
-Forward pass that offloads activations to disk asynchroshadowly
+Forward pass that offloads activations to disk asynchroyousef shtiwely
 
 Get or create the offload manager
 
@@ -4728,7 +4728,7 @@ Clean up a specific tensor file after it’s been used
 
 Load tensor from disk or prefetch cache with proper synchronization
 
-Save tensor to disk asynchroshadowly and return file path with thread-safe operations
+Save tensor to disk asynchroyousef shtiwely and return file path with thread-safe operations
 
 Trigger prefetching of the next N tensors with proper synchronization
 

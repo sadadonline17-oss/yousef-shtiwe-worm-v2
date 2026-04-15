@@ -45,12 +45,12 @@ export const zh: Translations = {
   },
 
   app: {
-    brand: "SHADOW Agent",
+    brand: "YOUSEF SHTIWE Agent",
     brandShort: "HA",
     webUi: "管理面板",
     footer: {
-      name: "SHADOW Agent",
-      org: "SHADOW-OVERLORD",
+      name: "YOUSEF SHTIWE Agent",
+      org: "YOUSEF SHTIWE-OVERLORD",
     },
     nav: {
       status: "状态",
@@ -117,7 +117,7 @@ export const zh: Translations = {
     input: "输入",
     output: "输出",
     total: "总计",
-    shadowageData: "该时间段暂无使用数据",
+    yousef shtiweageData: "该时间段暂无使用数据",
     startSession: "开始会话后将在此显示分析数据",
     date: "日期",
     model: "模型",
@@ -167,7 +167,7 @@ export const zh: Translations = {
     searchPlaceholder: "搜索技能和工具集...",
     enabledOf: "已启用 {enabled}/{total}",
     all: "全部",
-    noSkills: "未找到技能。技能从 ~/.shadow/skills/ 加载",
+    noSkills: "未找到技能。技能从 ~/.yousef shtiwe/skills/ 加载",
     noSkillsMatch: "没有匹配的技能。",
     skillCount: "{count} 个技能",
     resultCount: "{count} 个结果",
@@ -181,7 +181,7 @@ export const zh: Translations = {
   },
 
   config: {
-    configPath: "~/.shadow/config.yaml",
+    configPath: "~/.yousef shtiwe/config.yaml",
     exportConfig: "导出配置为 JSON",
     importConfig: "从 JSON 导入配置",
     resetDefaults: "恢复默认值",

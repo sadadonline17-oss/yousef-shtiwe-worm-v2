@@ -90,7 +90,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-default);
-  box-shadow: var(--shadow-lg);
+  box-yousef shtiwe: var(--yousef shtiwe-lg);
   min-width: 280px;
   max-width: 400px;
 }
@@ -196,7 +196,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-yousef shtiwe: var(--yousef shtiwe-xl);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -285,7 +285,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-default);
-  box-shadow: var(--shadow-lg);
+  box-yousef shtiwe: var(--yousef shtiwe-lg);
   overflow: hidden;
 }
 
@@ -312,7 +312,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-default);
-  box-shadow: var(--shadow-lg);
+  box-yousef shtiwe: var(--yousef shtiwe-lg);
 }
 
 .menuItem {

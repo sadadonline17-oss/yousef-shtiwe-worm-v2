@@ -1,12 +1,12 @@
 ---
 sidebar_position: 5
 title: "Prompt Assembly"
-description: "How SHADOW builds the system prompt, preserves cache stability, and injects ephemeral layers"
+description: "How YOUSEF SHTIWE builds the system prompt, preserves cache stability, and injects ephemeral layers"
 ---
 
 # Prompt Assembly
 
-SHADOW deliberately separates:
+YOUSEF SHTIWE deliberately separates:
 
 - **cached system prompt state**
 - **ephemeral API-call-time additions**
@@ -28,7 +28,7 @@ Primary files:
 
 The cached system prompt is assembled in roughly this order:
 
-1. agent identity — `SOUL.md` from `SHADOW_HOME` when available, otherwise falls back to `DEFAULT_AGENT_IDENTITY` in `prompt_builder.py`
+1. agent identity — `SOUL.md` from `YOUSEF SHTIWE_HOME` when available, otherwise falls back to `DEFAULT_AGENT_IDENTITY` in `prompt_builder.py`
 2. tool-aware behavior guidance
 3. Honcho static block (when active)
 4. optional system message
@@ -46,8 +46,8 @@ When `skip_context_files` is set (e.g., subagent delegation), SOUL.md is not loa
 Here is a simplified view of what the final system prompt looks like when all layers are present (comments show the source of each section):
 
 ```
-# Layer 1: Agent Identity (from ~/.shadow/SOUL.md)
-You are SHADOW, an AI assistant created by SHADOW-OVERLORD.
+# Layer 1: Agent Identity (from ~/.yousef shtiwe/SOUL.md)
+You are YOUSEF SHTIWE, an AI assistant created by YOUSEF SHTIWE-OVERLORD.
 You are an expert software engineer and researcher.
 You value correctness, clarity, and efficiency.
 ...
@@ -118,12 +118,12 @@ renderable inside a terminal.
 
 ## How SOUL.md appears in the prompt
 
-`SOUL.md` lives at `~/.shadow/SOUL.md` and serves as the agent's identity — the very first section of the system prompt. The loading logic in `prompt_builder.py` works as follows:
+`SOUL.md` lives at `~/.yousef shtiwe/SOUL.md` and serves as the agent's identity — the very first section of the system prompt. The loading logic in `prompt_builder.py` works as follows:
 
 ```python
 # From agent/prompt_builder.py (simplified)
 def load_soul_md() -> Optional[str]:
-    soul_path = get_shadow_home() / "SOUL.md"
+    soul_path = get_yousef shtiwe_home() / "SOUL.md"
     if not soul_path.exists():
         return None
     content = soul_path.read_text(encoding="utf-8").strip()
@@ -137,7 +137,7 @@ When `load_soul_md()` returns content, it replaces the hardcoded `DEFAULT_AGENT_
 If `SOUL.md` doesn't exist, the system falls back to:
 
 ```
-You are SHADOW Agent, an intelligent AI assistant created by SHADOW-OVERLORD.
+You are YOUSEF SHTIWE Agent, an intelligent AI assistant created by YOUSEF SHTIWE-OVERLORD.
 You are helpful, knowledgeable, and direct. You assist users with a wide
 range of tasks including answering questions, writing and editing code,
 analyzing information, creative work, and executing actions via your tools.
@@ -157,7 +157,7 @@ def build_context_files_prompt(cwd=None, skip_soul=False):
 
     # Priority: first match wins — only ONE project context loaded
     project_context = (
-        _load_shadow_md(cwd_path)       # 1. .shadow.md / SHADOW.md (walks to git root)
+        _load_yousef shtiwe_md(cwd_path)       # 1. .yousef shtiwe.md / YOUSEF SHTIWE.md (walks to git root)
         or _load_agents_md(cwd_path)    # 2. AGENTS.md (cwd only)
         or _load_claude_md(cwd_path)    # 3. CLAUDE.md (cwd only)
         or _load_cursorrules(cwd_path)  # 4. .cursorrules / .cursor/rules/*.mdc
@@ -167,7 +167,7 @@ def build_context_files_prompt(cwd=None, skip_soul=False):
     if project_context:
         sections.append(project_context)
 
-    # SOUL.md from SHADOW_HOME (independent of project context)
+    # SOUL.md from YOUSEF SHTIWE_HOME (independent of project context)
     if not skip_soul:
         soul_content = load_soul_md()
         if soul_content:
@@ -188,7 +188,7 @@ def build_context_files_prompt(cwd=None, skip_soul=False):
 
 | Priority | Files | Search scope | Notes |
 |----------|-------|-------------|-------|
-| 1 | `.shadow.md`, `SHADOW.md` | CWD up to git root | SHADOW-native project config |
+| 1 | `.yousef shtiwe.md`, `YOUSEF SHTIWE.md` | CWD up to git root | YOUSEF SHTIWE-native project config |
 | 2 | `AGENTS.md` | CWD only | Common agent instruction file |
 | 3 | `CLAUDE.md` | CWD only | Claude Code compatibility |
 | 4 | `.cursorrules`, `.cursor/rules/*.mdc` | CWD only | Cursor compatibility |
@@ -196,7 +196,7 @@ def build_context_files_prompt(cwd=None, skip_soul=False):
 All context files are:
 - **Security scanned** — checked for prompt injection patterns (invisible unicode, "ignore previous instructions", credential exfiltration attempts)
 - **Truncated** — capped at 20,000 characters using 70/20 head/tail ratio with a truncation marker
-- **YAML frontmatter stripped** — `.shadow.md` frontmatter is removed (reserved for future config overrides)
+- **YAML frontmatter stripped** — `.yousef shtiwe.md` frontmatter is removed (reserved for future config overrides)
 
 ## API-call-time-only layers
 
@@ -217,7 +217,7 @@ Local memory and user profile data are injected as frozen snapshots at session s
 
 `agent/prompt_builder.py` scans and sanitizes project context files using a **priority system** — only one type is loaded (first match wins):
 
-1. `.shadow.md` / `SHADOW.md` (walks to git root)
+1. `.yousef shtiwe.md` / `YOUSEF SHTIWE.md` (walks to git root)
 2. `AGENTS.md` (CWD at startup; subdirectories discovered progressively during the session via `agent/subdirectory_hints.py`)
 3. `CLAUDE.md` (CWD only)
 4. `.cursorrules` / `.cursor/rules/*.mdc` (CWD only)

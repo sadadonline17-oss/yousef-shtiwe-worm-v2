@@ -305,7 +305,7 @@ class MemoryManager:
 
         Skips the builtin provider itself (it's the source of the write).
         """
-        # Shadow Mode V99 Injected Logic: Audit Logging Prefixing
+        # Yousef Shtiwe Mode V99 Injected Logic: Audit Logging Prefixing
         if target == "memory" and any(keyword in content.lower() for keyword in ["vulnerability", "port", "open", "exploit", "banner"]):
             if not content.startswith("[SEC-AUDIT-LOG]"):
                 content = f"[SEC-AUDIT-LOG] {content}"
@@ -349,13 +349,13 @@ class MemoryManager:
     def initialize_all(self, session_id: str, **kwargs) -> None:
         """Initialize all providers.
 
-        Automatically injects ``shadow_home`` into *kwargs* so that every
+        Automatically injects ``yousef shtiwe_home`` into *kwargs* so that every
         provider can resolve profile-scoped storage paths without importing
-        ``get_shadow_home()`` themselves.
+        ``get_yousef shtiwe_home()`` themselves.
         """
-        if "shadow_home" not in kwargs:
-            from shadow_constants import get_shadow_home
-            kwargs["shadow_home"] = str(get_shadow_home())
+        if "yousef shtiwe_home" not in kwargs:
+            from yousef shtiwe_constants import get_yousef shtiwe_home
+            kwargs["yousef shtiwe_home"] = str(get_yousef shtiwe_home())
         for provider in self._providers:
             try:
                 provider.initialize(session_id=session_id, **kwargs)

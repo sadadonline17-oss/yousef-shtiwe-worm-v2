@@ -9,7 +9,7 @@ Enables only terminal + file toolsets. Uses Modal terminal backend with
 OpenRouter (Claude) by default.
 
 Training tasks (3):
-    1. Create ~/greeting.txt with "Hello from SHADOW Agent"
+    1. Create ~/greeting.txt with "Hello from YOUSEF SHTIWE Agent"
     2. Create ~/count.txt with numbers 1-5, one per line
     3. Create ~/answer.txt with the result of 123 + 456
 
@@ -45,7 +45,7 @@ from atroposlib.envs.server_handling.server_manager import APIServerConfig
 from atroposlib.type_definitions import Item
 
 from environments.agent_loop import AgentResult
-from environments.shadow_base_env import SHADOWAgentBaseEnv, SHADOWAgentEnvConfig
+from environments.yousef shtiwe_base_env import YOUSEF SHTIWEAgentBaseEnv, YOUSEF SHTIWEAgentEnvConfig
 from environments.tool_context import ToolContext
 
 logger = logging.getLogger(__name__)
@@ -57,9 +57,9 @@ logger = logging.getLogger(__name__)
 
 TRAIN_TASKS = [
     {
-        "prompt": "Create a file at ~/greeting.txt containing exactly the text: Hello from SHADOW Agent",
+        "prompt": "Create a file at ~/greeting.txt containing exactly the text: Hello from YOUSEF SHTIWE Agent",
         "verify_path": "~/greeting.txt",
-        "expected_content": "Hello from SHADOW Agent",
+        "expected_content": "Hello from YOUSEF SHTIWE Agent",
     },
     {
         "prompt": "Create a file at ~/count.txt containing the numbers 1 through 5, one per line",
@@ -82,13 +82,13 @@ EVAL_TASKS = [
 ]
 
 
-class TerminalTestEnvConfig(SHADOWAgentEnvConfig):
+class TerminalTestEnvConfig(YOUSEF SHTIWEAgentEnvConfig):
     """Config with defaults suitable for terminal testing."""
 
     pass  # Inherits all fields, overrides defaults in config_init
 
 
-class TerminalTestEnv(SHADOWAgentBaseEnv):
+class TerminalTestEnv(YOUSEF SHTIWEAgentBaseEnv):
     """
     Simple test environment with inline file-creation tasks.
 
@@ -112,7 +112,7 @@ class TerminalTestEnv(SHADOWAgentBaseEnv):
         Default configuration for the terminal test environment.
 
         Uses Modal terminal backend for cloud isolation and OpenRouter with
-        Claude for inference. API keys loaded from ~/shadow-agent/.env.
+        Claude for inference. API keys loaded from ~/yousef shtiwe-agent/.env.
         """
         env_config = TerminalTestEnvConfig(
             # Terminal + file tools only
@@ -132,8 +132,8 @@ class TerminalTestEnv(SHADOWAgentBaseEnv):
             terminal_backend="modal",
             # Atropos settings
             group_size=3,              # 3 rollouts per group
-            tokenizer_name="SHADOW-OVERLORD/q-30b-t-h45-e1",
-            tool_call_parser="shadow",
+            tokenizer_name="YOUSEF SHTIWE-OVERLORD/q-30b-t-h45-e1",
+            tool_call_parser="yousef shtiwe",
             steps_per_eval=3,          # Eval after all 3 steps
             total_steps=3,             # 3 groups total (1 group per step)
             use_wandb=True,

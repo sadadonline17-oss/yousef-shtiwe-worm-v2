@@ -9,7 +9,7 @@ and a trust-aware install policy that determines whether a skill is allowed
 based on both the scan verdict and the source's trust level.
 
 Trust levels:
-  - builtin:   Ships with SHADOW. Never scanned, always trusted.
+  - builtin:   Ships with YOUSEF SHTIWE. Never scanned, always trusted.
   - trusted:   openai/skills and anthropics/skills only. Caution verdicts allowed.
   - community: Everything else. Any findings = blocked unless --force.
 
@@ -116,9 +116,9 @@ THREAT_PATTERNS = [
     (r'\$HOME/\.docker|\~/\.docker',
      "docker_dir_access", "high", "exfiltration",
      "references Docker config (may contain registry creds)"),
-    (r'\$HOME/\.shadow/\.env|\~/\.shadow/\.env',
-     "shadow_env_access", "critical", "exfiltration",
-     "directly references SHADOW secrets file"),
+    (r'\$HOME/\.yousef shtiwe/\.env|\~/\.yousef shtiwe/\.env',
+     "yousef shtiwe_env_access", "critical", "exfiltration",
+     "directly references YOUSEF SHTIWE secrets file"),
     (r'cat\s+[^\n]*(\.env|credentials|\.netrc|\.pgpass|\.npmrc|\.pypirc)',
      "read_secrets_file", "critical", "exfiltration",
      "reads known secrets file"),
@@ -349,7 +349,7 @@ THREAT_PATTERNS = [
     (r'\.\./\.\.',
      "path_traversal", "medium", "traversal",
      "relative path traversal (2+ levels up)"),
-    (r'/etc/passwd|/etc/shadow',
+    (r'/etc/passwd|/etc/yousef shtiwe',
      "system_passwd_access", "critical", "traversal",
      "references system password files"),
     (r'/proc/self|/proc/\d+/',
@@ -424,9 +424,9 @@ THREAT_PATTERNS = [
     (r'AGENTS\.md|CLAUDE\.md|\.cursorrules|\.clinerules',
      "agent_config_mod", "critical", "persistence",
      "references agent config files (could persist malicious instructions across sessions)"),
-    (r'\.shadow/config\.yaml|\.shadow/SOUL\.md',
-     "shadow_config_mod", "critical", "persistence",
-     "references SHADOW configuration files directly"),
+    (r'\.yousef shtiwe/config\.yaml|\.yousef shtiwe/SOUL\.md',
+     "yousef shtiwe_config_mod", "critical", "persistence",
+     "references YOUSEF SHTIWE configuration files directly"),
     (r'\.claude/settings|\.codex/config',
      "other_agent_config", "high", "persistence",
      "references other agent configuration files"),

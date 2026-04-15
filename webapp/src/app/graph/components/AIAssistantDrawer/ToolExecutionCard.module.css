@@ -21,7 +21,7 @@
 
 .card:hover {
   border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1);
+  box-yousef shtiwe: 0 4px 12px rgba(245, 158, 11, 0.1);
 }
 
 .statusSuccess {
@@ -31,7 +31,7 @@
 
 .statusSuccess:hover {
   border-color: rgba(34, 197, 94, 0.4);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+  box-yousef shtiwe: 0 4px 12px rgba(34, 197, 94, 0.1);
 }
 
 .statusError {
@@ -41,7 +41,7 @@
 
 .statusError:hover {
   border-color: rgba(239, 68, 68, 0.4);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+  box-yousef shtiwe: 0 4px 12px rgba(239, 68, 68, 0.1);
 }
 
 /* Pending approval state */
@@ -52,7 +52,7 @@
 
 .statusPendingApproval:hover {
   border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+  box-yousef shtiwe: 0 4px 12px rgba(139, 92, 246, 0.1);
 }
 
 .cardHeaderWrapper {

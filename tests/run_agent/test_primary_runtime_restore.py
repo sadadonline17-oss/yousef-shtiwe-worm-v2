@@ -5,7 +5,7 @@ Verifies that:
 2. The fallback chain index resets so all fallbacks are available again
 3. Context compressor state is restored alongside the runtime
 4. Transient transport errors get one recovery cycle before fallback
-5. Recovery is skipped for aggregator providers (OpenRouter, Shadow)
+5. Recovery is skipped for aggregator providers (OpenRouter, Yousef Shtiwe)
 6. Non-transport errors don't trigger recovery
 """
 
@@ -315,8 +315,8 @@ class TestTryRecoverPrimaryTransport:
         )
         assert result is False
 
-    def test_skipped_for_shadow_provider(self):
-        agent = _make_agent(provider="shadow", base_url="https://inference.shadow.shadow-overlord.com/v1")
+    def test_skipped_for_yousef shtiwe_provider(self):
+        agent = _make_agent(provider="yousef shtiwe", base_url="https://inference.yousef shtiwe.yousef shtiwe-overlord.com/v1")
         error = _make_transport_error("ReadTimeout")
 
         result = agent._try_recover_primary_transport(

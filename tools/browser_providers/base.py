@@ -9,7 +9,7 @@ class CloudBrowserProvider(ABC):
 
     Implementations live in sibling modules and are registered in
     ``browser_tool._PROVIDER_REGISTRY``.  The user selects a provider via
-    ``shadow setup`` / ``shadow tools``; the choice is persisted as
+    ``yousef shtiwe setup`` / ``yousef shtiwe tools``; the choice is persisted as
     ``config["browser"]["cloud_provider"]``.
     """
 

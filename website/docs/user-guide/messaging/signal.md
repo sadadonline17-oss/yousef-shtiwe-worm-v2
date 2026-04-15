@@ -1,17 +1,17 @@
 ---
 sidebar_position: 6
 title: "Signal"
-description: "Set up SHADOW Agent as a Signal messenger bot via signal-cli daemon"
+description: "Set up YOUSEF SHTIWE Agent as a Signal messenger bot via signal-cli daemon"
 ---
 
 # Signal Setup
 
-SHADOW connects to Signal through the [signal-cli](https://github.com/AsamK/signal-cli) daemon running in HTTP mode. The adapter streams messages in real-time via SSE (Server-Sent Events) and sends responses via JSON-RPC.
+YOUSEF SHTIWE connects to Signal through the [signal-cli](https://github.com/AsamK/signal-cli) daemon running in HTTP mode. The adapter streams messages in real-time via SSE (Server-Sent Events) and sends responses via JSON-RPC.
 
 Signal is the most privacy-focused mainstream messenger — end-to-end encrypted by default, open-source protocol, minimal metadata collection. This makes it ideal for security-sensitive agent workflows.
 
 :::info No New Python Dependencies
-The Signal adapter uses `httpx` (already a core SHADOW dependency) for all communication. No additional Python packages are required. You just need signal-cli installed externally.
+The Signal adapter uses `httpx` (already a core YOUSEF SHTIWE dependency) for all communication. No additional Python packages are required. You just need signal-cli installed externally.
 :::
 
 ---
@@ -48,7 +48,7 @@ Signal-cli works as a **linked device** — like WhatsApp Web, but for Signal. Y
 
 ```bash
 # Generate a linking URI (displays a QR code or link)
-signal-cli link -n "SHADOWAgent"
+signal-cli link -n "YOUSEF SHTIWEAgent"
 ```
 
 1. Open **Signal** on your phone
@@ -78,12 +78,12 @@ curl http://127.0.0.1:8080/api/v1/check
 
 ---
 
-## Step 3: Configure SHADOW
+## Step 3: Configure YOUSEF SHTIWE
 
 The easiest way:
 
 ```bash
-shadow gateway setup
+yousef shtiwe gateway setup
 ```
 
 Select **Signal** from the platform menu. The wizard will:
@@ -96,7 +96,7 @@ Select **Signal** from the platform menu. The wizard will:
 
 ### Manual Configuration
 
-Add to `~/.shadow/.env`:
+Add to `~/.yousef shtiwe/.env`:
 
 ```bash
 # Required
@@ -114,9 +114,9 @@ SIGNAL_HOME_CHANNEL=+1234567890                  # Default delivery target for c
 Then start the gateway:
 
 ```bash
-shadow gateway              # Foreground
-shadow gateway install      # Install as a user service
-sudo shadow gateway install --system   # Linux only: boot-time system service
+yousef shtiwe gateway              # Foreground
+yousef shtiwe gateway install      # Install as a user service
+sudo yousef shtiwe gateway install --system   # Linux only: boot-time system service
 ```
 
 ---
@@ -125,10 +125,10 @@ sudo shadow gateway install --system   # Linux only: boot-time system service
 
 ### DM Access
 
-DM access follows the same pattern as all other SHADOW platforms:
+DM access follows the same pattern as all other YOUSEF SHTIWE platforms:
 
 1. **`SIGNAL_ALLOWED_USERS` set** → only those users can message
-2. **No allowlist set** → unknown users get a DM pairing code (approve via `shadow pairing approve signal CODE`)
+2. **No allowlist set** → unknown users get a DM pairing code (approve via `yousef shtiwe pairing approve signal CODE`)
 3. **`SIGNAL_ALLOW_ALL_USERS=true`** → anyone can message (use with caution)
 
 ### Group Access
@@ -176,13 +176,13 @@ The bot sends typing indicators while processing messages, refreshing every 8 se
 
 All phone numbers are automatically redacted in logs:
 - `+15551234567` → `+155****4567`
-- This applies to both SHADOW gateway logs and the global redaction system
+- This applies to both YOUSEF SHTIWE gateway logs and the global redaction system
 
 ### Note to Self (Single-Number Setup)
 
-If you run signal-cli as a **linked secondary device** on your own phone number (rather than a separate bot number), you can interact with SHADOW through Signal's "Note to Self" feature.
+If you run signal-cli as a **linked secondary device** on your own phone number (rather than a separate bot number), you can interact with YOUSEF SHTIWE through Signal's "Note to Self" feature.
 
-Just send a message to yourself from your phone — signal-cli picks it up and SHADOW responds in the same conversation.
+Just send a message to yourself from your phone — signal-cli picks it up and YOUSEF SHTIWE responds in the same conversation.
 
 **How it works:**
 - "Note to Self" messages arrive as `syncMessage.sentMessage` envelopes

@@ -1,11 +1,11 @@
 # ============================================================================
-# SHADOW Agent Installer for Windows
+# YOUSEF SHTIWE Agent Installer for Windows
 # ============================================================================
 # Installation script for Windows (PowerShell).
 # Uses uv for fast Python provisioning and package management.
 #
 # Usage:
-#   irm https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.ps1 | iex
 #
 # Or download and run with options:
 #   .\install.ps1 -NoVenv -SkipSetup
@@ -16,8 +16,8 @@ param(
     [switch]$NoVenv,
     [switch]$SkipSetup,
     [string]$Branch = "main",
-    [string]$SHADOWHome = "$env:LOCALAPPDATA\shadow",
-    [string]$InstallDir = "$env:LOCALAPPDATA\shadow\shadow-agent"
+    [string]$YOUSEF SHTIWEHome = "$env:LOCALAPPDATA\yousef shtiwe",
+    [string]$InstallDir = "$env:LOCALAPPDATA\yousef shtiwe\yousef shtiwe-agent"
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,8 +26,8 @@ $ErrorActionPreference = "Stop"
 # Configuration
 # ============================================================================
 
-$RepoUrlSsh = "git@github.com:SHADOW-OVERLORD/shadow-agent.git"
-$RepoUrlHttps = "https://github.com/SHADOW-OVERLORD/shadow-agent.git"
+$RepoUrlSsh = "git@github.com:YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git"
+$RepoUrlHttps = "https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git"
 $PythonVersion = "3.11"
 $NodeVersion = "22"
 
@@ -38,9 +38,9 @@ $NodeVersion = "22"
 function Write-Banner {
     Write-Host ""
     Write-Host "┌─────────────────────────────────────────────────────────┐" -ForegroundColor Magenta
-    Write-Host "│             ⚕ SHADOW Agent Installer                    │" -ForegroundColor Magenta
+    Write-Host "│             ⚕ YOUSEF SHTIWE Agent Installer                    │" -ForegroundColor Magenta
     Write-Host "├─────────────────────────────────────────────────────────┤" -ForegroundColor Magenta
-    Write-Host "│  An open source AI agent by SHADOW-OVERLORD.              │" -ForegroundColor Magenta
+    Write-Host "│  An open source AI agent by YOUSEF SHTIWE-OVERLORD.              │" -ForegroundColor Magenta
     Write-Host "└─────────────────────────────────────────────────────────┘" -ForegroundColor Magenta
     Write-Host ""
 }
@@ -217,11 +217,11 @@ function Test-Node {
     }
 
     # Check our own managed install from a previous run
-    $managedNode = "$SHADOWHome\node\node.exe"
+    $managedNode = "$YOUSEF SHTIWEHome\node\node.exe"
     if (Test-Path $managedNode) {
         $version = & $managedNode --version
-        $env:Path = "$SHADOWHome\node;$env:Path"
-        Write-Success "Node.js $version found (SHADOW-managed)"
+        $env:Path = "$YOUSEF SHTIWEHome\node;$env:Path"
+        Write-Success "Node.js $version found (YOUSEF SHTIWE-managed)"
         $script:HasNode = $true
         return $true
     }
@@ -244,7 +244,7 @@ function Test-Node {
         } catch { }
     }
 
-    # Fallback: download binary zip to ~/.shadow/node/
+    # Fallback: download binary zip to ~/.yousef shtiwe/node/
     Write-Info "Downloading Node.js $NodeVersion binary..."
     try {
         $arch = if ([Environment]::Is64BitOperatingSystem) { "x64" } else { "x86" }
@@ -255,7 +255,7 @@ function Test-Node {
         if ($zipName) {
             $downloadUrl = "${indexUrl}${zipName}"
             $tmpZip = "$env:TEMP\$zipName"
-            $tmpDir = "$env:TEMP\shadow-node-extract"
+            $tmpDir = "$env:TEMP\yousef shtiwe-node-extract"
 
             Invoke-WebRequest -Uri $downloadUrl -OutFile $tmpZip -UseBasicParsing
             if (Test-Path $tmpDir) { Remove-Item -Recurse -Force $tmpDir }
@@ -263,12 +263,12 @@ function Test-Node {
 
             $extractedDir = Get-ChildItem $tmpDir -Directory | Select-Object -First 1
             if ($extractedDir) {
-                if (Test-Path "$SHADOWHome\node") { Remove-Item -Recurse -Force "$SHADOWHome\node" }
-                Move-Item $extractedDir.FullName "$SHADOWHome\node"
-                $env:Path = "$SHADOWHome\node;$env:Path"
+                if (Test-Path "$YOUSEF SHTIWEHome\node") { Remove-Item -Recurse -Force "$YOUSEF SHTIWEHome\node" }
+                Move-Item $extractedDir.FullName "$YOUSEF SHTIWEHome\node"
+                $env:Path = "$YOUSEF SHTIWEHome\node;$env:Path"
 
-                $version = & "$SHADOWHome\node\node.exe" --version
-                Write-Success "Node.js $version installed to ~/.shadow/node/"
+                $version = & "$YOUSEF SHTIWEHome\node\node.exe" --version
+                Write-Success "Node.js $version installed to ~/.yousef shtiwe/node/"
                 $script:HasNode = $true
 
                 Remove-Item -Force $tmpZip -ErrorAction SilentlyContinue
@@ -461,9 +461,9 @@ function Install-Repository {
             if (Test-Path $InstallDir) { Remove-Item -Recurse -Force $InstallDir -ErrorAction SilentlyContinue }
             Write-Warn "Git clone failed — downloading ZIP archive instead..."
             try {
-                $zipUrl = "https://github.com/SHADOW-OVERLORD/shadow-agent/archive/refs/heads/$Branch.zip"
-                $zipPath = "$env:TEMP\shadow-agent-$Branch.zip"
-                $extractPath = "$env:TEMP\shadow-agent-extract"
+                $zipUrl = "https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/archive/refs/heads/$Branch.zip"
+                $zipPath = "$env:TEMP\yousef shtiwe-agent-$Branch.zip"
+                $extractPath = "$env:TEMP\yousef shtiwe-agent-extract"
                 
                 Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath -UseBasicParsing
                 if (Test-Path $extractPath) { Remove-Item -Recurse -Force $extractPath }
@@ -578,97 +578,97 @@ function Install-Dependencies {
 }
 
 function Set-PathVariable {
-    Write-Info "Setting up shadow command..."
+    Write-Info "Setting up yousef shtiwe command..."
     
     if ($NoVenv) {
-        $shadowBin = "$InstallDir"
+        $yousef shtiweBin = "$InstallDir"
     } else {
-        $shadowBin = "$InstallDir\venv\Scripts"
+        $yousef shtiweBin = "$InstallDir\venv\Scripts"
     }
     
-    # Add the venv Scripts dir to user PATH so shadow is globally available
-    # On Windows, the shadow.exe in venv\Scripts\ has the venv Python baked in
+    # Add the venv Scripts dir to user PATH so yousef shtiwe is globally available
+    # On Windows, the yousef shtiwe.exe in venv\Scripts\ has the venv Python baked in
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
     
-    if ($currentPath -notlike "*$shadowBin*") {
+    if ($currentPath -notlike "*$yousef shtiweBin*") {
         [Environment]::SetEnvironmentVariable(
             "Path",
-            "$shadowBin;$currentPath",
+            "$yousef shtiweBin;$currentPath",
             "User"
         )
-        Write-Success "Added to user PATH: $shadowBin"
+        Write-Success "Added to user PATH: $yousef shtiweBin"
     } else {
         Write-Info "PATH already configured"
     }
     
-    # Set SHADOW_HOME so the Python code finds config/data in the right place.
-    # Only needed on Windows where we install to %LOCALAPPDATA%\shadow instead
-    # of the Unix default ~/.shadow
-    $currentSHADOWHome = [Environment]::GetEnvironmentVariable("SHADOW_HOME", "User")
-    if (-not $currentSHADOWHome -or $currentSHADOWHome -ne $SHADOWHome) {
-        [Environment]::SetEnvironmentVariable("SHADOW_HOME", $SHADOWHome, "User")
-        Write-Success "Set SHADOW_HOME=$SHADOWHome"
+    # Set YOUSEF SHTIWE_HOME so the Python code finds config/data in the right place.
+    # Only needed on Windows where we install to %LOCALAPPDATA%\yousef shtiwe instead
+    # of the Unix default ~/.yousef shtiwe
+    $currentYOUSEF SHTIWEHome = [Environment]::GetEnvironmentVariable("YOUSEF SHTIWE_HOME", "User")
+    if (-not $currentYOUSEF SHTIWEHome -or $currentYOUSEF SHTIWEHome -ne $YOUSEF SHTIWEHome) {
+        [Environment]::SetEnvironmentVariable("YOUSEF SHTIWE_HOME", $YOUSEF SHTIWEHome, "User")
+        Write-Success "Set YOUSEF SHTIWE_HOME=$YOUSEF SHTIWEHome"
     }
-    $env:SHADOW_HOME = $SHADOWHome
+    $env:YOUSEF SHTIWE_HOME = $YOUSEF SHTIWEHome
     
     # Update current session
-    $env:Path = "$shadowBin;$env:Path"
+    $env:Path = "$yousef shtiweBin;$env:Path"
     
-    Write-Success "shadow command ready"
+    Write-Success "yousef shtiwe command ready"
 }
 
 function Copy-ConfigTemplates {
     Write-Info "Setting up configuration files..."
     
-    # Create ~/.shadow directory structure
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\cron" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\sessions" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\logs" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\pairing" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\hooks" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\image_cache" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\audio_cache" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\memories" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\skills" | Out-Null
-    New-Item -ItemType Directory -Force -Path "$SHADOWHome\whatsapp\session" | Out-Null
+    # Create ~/.yousef shtiwe directory structure
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\cron" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\sessions" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\logs" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\pairing" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\hooks" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\image_cache" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\audio_cache" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\memories" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\skills" | Out-Null
+    New-Item -ItemType Directory -Force -Path "$YOUSEF SHTIWEHome\whatsapp\session" | Out-Null
     
     # Create .env
-    $envPath = "$SHADOWHome\.env"
+    $envPath = "$YOUSEF SHTIWEHome\.env"
     if (-not (Test-Path $envPath)) {
         $examplePath = "$InstallDir\.env.example"
         if (Test-Path $examplePath) {
             Copy-Item $examplePath $envPath
-            Write-Success "Created ~/.shadow/.env from template"
+            Write-Success "Created ~/.yousef shtiwe/.env from template"
         } else {
             New-Item -ItemType File -Force -Path $envPath | Out-Null
-            Write-Success "Created ~/.shadow/.env"
+            Write-Success "Created ~/.yousef shtiwe/.env"
         }
     } else {
-        Write-Info "~/.shadow/.env already exists, keeping it"
+        Write-Info "~/.yousef shtiwe/.env already exists, keeping it"
     }
     
     # Create config.yaml
-    $configPath = "$SHADOWHome\config.yaml"
+    $configPath = "$YOUSEF SHTIWEHome\config.yaml"
     if (-not (Test-Path $configPath)) {
         $examplePath = "$InstallDir\cli-config.yaml.example"
         if (Test-Path $examplePath) {
             Copy-Item $examplePath $configPath
-            Write-Success "Created ~/.shadow/config.yaml from template"
+            Write-Success "Created ~/.yousef shtiwe/config.yaml from template"
         }
     } else {
-        Write-Info "~/.shadow/config.yaml already exists, keeping it"
+        Write-Info "~/.yousef shtiwe/config.yaml already exists, keeping it"
     }
     
     # Create SOUL.md if it doesn't exist (global persona file)
-    $soulPath = "$SHADOWHome\SOUL.md"
+    $soulPath = "$YOUSEF SHTIWEHome\SOUL.md"
     if (-not (Test-Path $soulPath)) {
         @"
-# SHADOW Agent Persona
+# YOUSEF SHTIWE Agent Persona
 
 <!-- 
 This file defines the agent's personality and tone.
 The agent will embody whatever you write here.
-Edit this to customize how SHADOW communicates with you.
+Edit this to customize how YOUSEF SHTIWE communicates with you.
 
 Examples:
   - "You are a warm, playful assistant who uses kaomoji occasionally."
@@ -679,25 +679,25 @@ This file is loaded fresh each message -- no restart needed.
 Delete the contents (or this file) to use the default personality.
 -->
 "@ | Set-Content -Path $soulPath -Encoding UTF8
-        Write-Success "Created ~/.shadow/SOUL.md (edit to customize personality)"
+        Write-Success "Created ~/.yousef shtiwe/SOUL.md (edit to customize personality)"
     }
     
-    Write-Success "Configuration directory ready: ~/.shadow/"
+    Write-Success "Configuration directory ready: ~/.yousef shtiwe/"
     
-    # Seed bundled skills into ~/.shadow/skills/ (manifest-based, one-time per skill)
-    Write-Info "Syncing bundled skills to ~/.shadow/skills/ ..."
+    # Seed bundled skills into ~/.yousef shtiwe/skills/ (manifest-based, one-time per skill)
+    Write-Info "Syncing bundled skills to ~/.yousef shtiwe/skills/ ..."
     $pythonExe = "$InstallDir\venv\Scripts\python.exe"
     if (Test-Path $pythonExe) {
         try {
             & $pythonExe "$InstallDir\tools\skills_sync.py" 2>$null
-            Write-Success "Skills synced to ~/.shadow/skills/"
+            Write-Success "Skills synced to ~/.yousef shtiwe/skills/"
         } catch {
             # Fallback: simple directory copy
             $bundledSkills = "$InstallDir\skills"
-            $userSkills = "$SHADOWHome\skills"
+            $userSkills = "$YOUSEF SHTIWEHome\skills"
             if ((Test-Path $bundledSkills) -and -not (Get-ChildItem $userSkills -Exclude '.bundled_manifest' -ErrorAction SilentlyContinue)) {
                 Copy-Item -Path "$bundledSkills\*" -Destination $userSkills -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Success "Skills copied to ~/.shadow/skills/"
+                Write-Success "Skills copied to ~/.yousef shtiwe/skills/"
             }
         }
     }
@@ -750,18 +750,18 @@ function Invoke-SetupWizard {
     
     Push-Location $InstallDir
     
-    # Run shadow setup using the venv Python directly (no activation needed)
+    # Run yousef shtiwe setup using the venv Python directly (no activation needed)
     if (-not $NoVenv) {
-        & ".\venv\Scripts\python.exe" -m shadow_cli.main setup
+        & ".\venv\Scripts\python.exe" -m yousef shtiwe_cli.main setup
     } else {
-        python -m shadow_cli.main setup
+        python -m yousef shtiwe_cli.main setup
     }
     
     Pop-Location
 }
 
 function Start-GatewayIfConfigured {
-    $envPath = "$SHADOWHome\.env"
+    $envPath = "$YOUSEF SHTIWEHome\.env"
     if (-not (Test-Path $envPath)) { return }
 
     $hasMessaging = $false
@@ -773,23 +773,23 @@ function Start-GatewayIfConfigured {
 
     if (-not $hasMessaging) { return }
 
-    $shadowCmd = "$InstallDir\venv\Scripts\shadow.exe"
-    if (-not (Test-Path $shadowCmd)) {
-        $shadowCmd = "shadow"
+    $yousef shtiweCmd = "$InstallDir\venv\Scripts\yousef shtiwe.exe"
+    if (-not (Test-Path $yousef shtiweCmd)) {
+        $yousef shtiweCmd = "yousef shtiwe"
     }
 
     # If WhatsApp is enabled but not yet paired, run foreground for QR scan
     $whatsappEnabled = $content | Where-Object { $_ -match "^WHATSAPP_ENABLED=true" }
-    $whatsappSession = "$SHADOWHome\whatsapp\session\creds.json"
+    $whatsappSession = "$YOUSEF SHTIWEHome\whatsapp\session\creds.json"
     if ($whatsappEnabled -and -not (Test-Path $whatsappSession)) {
         Write-Host ""
         Write-Info "WhatsApp is enabled but not yet paired."
-        Write-Info "Running 'shadow whatsapp' to pair via QR code..."
+        Write-Info "Running 'yousef shtiwe whatsapp' to pair via QR code..."
         Write-Host ""
         $response = Read-Host "Pair WhatsApp now? [Y/n]"
         if ($response -eq "" -or $response -match "^[Yy]") {
             try {
-                & $shadowCmd whatsapp
+                & $yousef shtiweCmd whatsapp
             } catch {
                 # Expected after pairing completes
             }
@@ -805,19 +805,19 @@ function Start-GatewayIfConfigured {
     if ($response -eq "" -or $response -match "^[Yy]") {
         Write-Info "Starting gateway in background..."
         try {
-            $logFile = "$SHADOWHome\logs\gateway.log"
-            Start-Process -FilePath $shadowCmd -ArgumentList "gateway" `
+            $logFile = "$YOUSEF SHTIWEHome\logs\gateway.log"
+            Start-Process -FilePath $yousef shtiweCmd -ArgumentList "gateway" `
                 -RedirectStandardOutput $logFile `
-                -RedirectStandardError "$SHADOWHome\logs\gateway-error.log" `
+                -RedirectStandardError "$YOUSEF SHTIWEHome\logs\gateway-error.log" `
                 -WindowStyle Hidden
             Write-Success "Gateway started! Your bot is now online."
             Write-Info "Logs: $logFile"
             Write-Info "To stop: close the gateway process from Task Manager"
         } catch {
-            Write-Warn "Failed to start gateway. Run manually: shadow gateway"
+            Write-Warn "Failed to start gateway. Run manually: yousef shtiwe gateway"
         }
     } else {
-        Write-Info "Skipped. Start the gateway later with: shadow gateway"
+        Write-Info "Skipped. Start the gateway later with: yousef shtiwe gateway"
     }
 }
 
@@ -832,30 +832,30 @@ function Write-Completion {
     Write-Host "📁 Your files:" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "   Config:    " -NoNewline -ForegroundColor Yellow
-    Write-Host "$SHADOWHome\config.yaml"
+    Write-Host "$YOUSEF SHTIWEHome\config.yaml"
     Write-Host "   API Keys:  " -NoNewline -ForegroundColor Yellow
-    Write-Host "$SHADOWHome\.env"
+    Write-Host "$YOUSEF SHTIWEHome\.env"
     Write-Host "   Data:      " -NoNewline -ForegroundColor Yellow
-    Write-Host "$SHADOWHome\cron\, sessions\, logs\"
+    Write-Host "$YOUSEF SHTIWEHome\cron\, sessions\, logs\"
     Write-Host "   Code:      " -NoNewline -ForegroundColor Yellow
-    Write-Host "$SHADOWHome\shadow-agent\"
+    Write-Host "$YOUSEF SHTIWEHome\yousef shtiwe-agent\"
     Write-Host ""
     
     Write-Host "─────────────────────────────────────────────────────────" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "🚀 Commands:" -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "   shadow              " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe              " -NoNewline -ForegroundColor Green
     Write-Host "Start chatting"
-    Write-Host "   shadow setup        " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe setup        " -NoNewline -ForegroundColor Green
     Write-Host "Configure API keys & settings"
-    Write-Host "   shadow config       " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe config       " -NoNewline -ForegroundColor Green
     Write-Host "View/edit configuration"
-    Write-Host "   shadow config edit  " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe config edit  " -NoNewline -ForegroundColor Green
     Write-Host "Open config in editor"
-    Write-Host "   shadow gateway      " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe gateway      " -NoNewline -ForegroundColor Green
     Write-Host "Start messaging gateway (Telegram, Discord, etc.)"
-    Write-Host "   shadow update       " -NoNewline -ForegroundColor Green
+    Write-Host "   yousef shtiwe update       " -NoNewline -ForegroundColor Green
     Write-Host "Update to latest version"
     Write-Host ""
     
@@ -913,7 +913,7 @@ try {
     Write-Err "Installation failed: $_"
     Write-Host ""
     Write-Info "If the error is unclear, try downloading and running the script directly:"
-    Write-Host "  Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/SHADOW-OVERLORD/shadow-agent/main/scripts/install.ps1' -OutFile install.ps1" -ForegroundColor Yellow
+    Write-Host "  Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/main/scripts/install.ps1' -OutFile install.ps1" -ForegroundColor Yellow
     Write-Host "  .\install.ps1" -ForegroundColor Yellow
     Write-Host ""
 }

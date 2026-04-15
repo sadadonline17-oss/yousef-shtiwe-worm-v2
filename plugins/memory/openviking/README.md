@@ -11,13 +11,13 @@ Context database by Volcengine (ByteDance) with filesystem-style knowledge hiera
 ## Setup
 
 ```bash
-shadow memory setup    # select "openviking"
+yousef shtiwe memory setup    # select "openviking"
 ```
 
 Or manually:
 ```bash
-shadow config set memory.provider openviking
-echo "OPENVIKING_ENDPOINT=http://localhost:1933" >> ~/.shadow/.env
+yousef shtiwe config set memory.provider openviking
+echo "OPENVIKING_ENDPOINT=http://localhost:1933" >> ~/.yousef shtiwe/.env
 ```
 
 ## Config

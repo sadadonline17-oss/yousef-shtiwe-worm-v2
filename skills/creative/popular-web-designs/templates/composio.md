@@ -1,7 +1,7 @@
 # Design System: Composio
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `JetBrains Mono`
@@ -17,16 +17,16 @@
 
 Composio's interface is a nocturnal command center — a dense, developer-focused darkness punctuated by electric cyan and deep cobalt signals. The entire experience is built on an almost-pure-black canvas (`#0f0f0f`) where content floats within barely-visible containment borders, creating the feeling of a high-tech control panel rather than a traditional marketing page. It's a site that whispers authority to developers who live in dark terminals.
 
-The visual language leans heavily into the aesthetic of code editors and terminal windows. JetBrains Mono appears alongside the geometric precision of abcDiatype, reinforcing the message that this is a tool built *by* developers *for* developers. Decorative elements are restrained but impactful — subtle cyan-blue gradient glows emanate from cards and sections like bioluminescent organisms in deep water, while hard-offset shadows (`4px 4px`) on select elements add a raw, brutalist edge that prevents the design from feeling sterile.
+The visual language leans heavily into the aesthetic of code editors and terminal windows. JetBrains Mono appears alongside the geometric precision of abcDiatype, reinforcing the message that this is a tool built *by* developers *for* developers. Decorative elements are restrained but impactful — subtle cyan-blue gradient glows emanate from cards and sections like bioluminescent organisms in deep water, while hard-offset yousef shtiwes (`4px 4px`) on select elements add a raw, brutalist edge that prevents the design from feeling sterile.
 
-What makes Composio distinctive is its tension between extreme minimalism and strategic bursts of lumishadow color. The site never shouts — headings use tight line-heights (0.87) that compress text into dense, authoritative blocks. Color is rationed like a rare resource: white text for primary content, semi-transparent white (`rgba(255,255,255,0.5-0.6)`) for secondary, and brand blue (`#0007cd`) or electric cyan (`#00ffff`) reserved exclusively for interactive moments and accent glows.
+What makes Composio distinctive is its tension between extreme minimalism and strategic bursts of lumiyousef shtiwe color. The site never shouts — headings use tight line-heights (0.87) that compress text into dense, authoritative blocks. Color is rationed like a rare resource: white text for primary content, semi-transparent white (`rgba(255,255,255,0.5-0.6)`) for secondary, and brand blue (`#0007cd`) or electric cyan (`#00ffff`) reserved exclusively for interactive moments and accent glows.
 
 **Key Characteristics:**
 - Pitch-black canvas with near-invisible white-border containment (4-12% opacity)
 - Dual-font identity: geometric sans-serif (abcDiatype) for content, monospace (JetBrains Mono) for technical credibility
 - Ultra-tight heading line-heights (0.87-1.0) creating compressed, impactful text blocks
 - Bioluminescent accent strategy — cyan and blue glows that feel like they're emitting light from within
-- Hard-offset brutalist shadows (`4px 4px`) on select interactive elements
+- Hard-offset brutalist yousef shtiwes (`4px 4px`) on select interactive elements
 - Monochrome hierarchy with color used only at the highest-signal moments
 - Developer-terminal aesthetic that bridges marketing and documentation
 
@@ -147,8 +147,8 @@ What makes Composio distinctive is its tension between extreme minimalism and st
 - Background: Pure Black (`#000000`) or transparent
 - Border: white at very low opacity, ranging from Border Mist 04 (`rgba(255,255,255,0.04)`) to Border Mist 12 (`rgba(255,255,255,0.12)`) depending on prominence
 - Radius: barely rounded corners (2px for inline elements, 4px for content cards)
-- Shadow: select cards use the hard-offset brutalist shadow (`rgba(0,0,0,0.15) 4px 4px 0px 0px`) — a distinctive design choice that adds raw depth
-- Elevation shadow: deeper containers use soft diffuse shadow (`rgba(0,0,0,0.5) 0px 8px 32px`)
+- Yousef Shtiwe: select cards use the hard-offset brutalist yousef shtiwe (`rgba(0,0,0,0.15) 4px 4px 0px 0px`) — a distinctive design choice that adds raw depth
+- Elevation yousef shtiwe: deeper containers use soft diffuse yousef shtiwe (`rgba(0,0,0,0.5) 0px 8px 32px`)
 - Hover behavior: likely subtle border opacity increase or faint glow effect
 
 ### Inputs & Forms
@@ -224,13 +224,13 @@ What makes Composio distinctive is its tension between extreme minimalism and st
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, inline text |
-| Contained (Level 1) | Border Mist 04-08, no shadow | Background groupings, subtle sections |
-| Card (Level 2) | Border Mist 10-12, no shadow | Standard content cards, code blocks |
-| Brutalist (Level 3) | Hard offset shadow (`4px 4px`, 15% black) | Select interactive cards, distinctive feature highlights |
-| Floating (Level 4) | Soft diffuse shadow (`0px 8px 32px`, 50% black) | Modals, overlays, deeply elevated content |
+| Flat (Level 0) | No yousef shtiwe, no border | Page background, inline text |
+| Contained (Level 1) | Border Mist 04-08, no yousef shtiwe | Background groupings, subtle sections |
+| Card (Level 2) | Border Mist 10-12, no yousef shtiwe | Standard content cards, code blocks |
+| Brutalist (Level 3) | Hard offset yousef shtiwe (`4px 4px`, 15% black) | Select interactive cards, distinctive feature highlights |
+| Floating (Level 4) | Soft diffuse yousef shtiwe (`0px 8px 32px`, 50% black) | Modals, overlays, deeply elevated content |
 
-**Shadow Philosophy**: Composio uses shadows sparingly and with deliberate contrast. The hard-offset brutalist shadow is the signature — it breaks the sleek darkness with a raw, almost retro-computing feel. The soft diffuse shadow is reserved for truly floating elements. Most depth is communicated through border opacity gradations rather than shadows.
+**Yousef Shtiwe Philosophy**: Composio uses yousef shtiwes sparingly and with deliberate contrast. The hard-offset brutalist yousef shtiwe is the signature — it breaks the sleek darkness with a raw, almost retro-computing feel. The soft diffuse yousef shtiwe is reserved for truly floating elements. Most depth is communicated through border opacity gradations rather than yousef shtiwes.
 
 ### Decorative Depth
 - **Cyan Glow Halos**: Radial gradient halos using Electric Cyan at low opacity behind feature cards and images. Creates a "screen glow" effect as if the UI elements are emitting light.
@@ -242,17 +242,17 @@ What makes Composio distinctive is its tension between extreme minimalism and st
 ### Do
 - Use Void Black (`#0f0f0f`) as the primary page background — never pure white for main surfaces
 - Keep heading line-heights ultra-tight (0.87-1.0) for compressed, authoritative text blocks
-- Use white-opacity borders (4-12%) for containment — they're more important than shadows here
+- Use white-opacity borders (4-12%) for containment — they're more important than yousef shtiwes here
 - Reserve Electric Cyan (`#00ffff`) for high-signal moments only — CTAs, glows, interactive accents
 - Pair abcDiatype with JetBrains Mono to reinforce the developer-tool identity
-- Use the hard-offset shadow (`4px 4px`) intentionally on select elements for brutalist personality
+- Use the hard-offset yousef shtiwe (`4px 4px`) intentionally on select elements for brutalist personality
 - Keep button text dark (`oklch(0.145 0 0)`) even on the darkest backgrounds — buttons carry their own surface
-- Layer opacity-based borders to create subtle depth without shadows
+- Layer opacity-based borders to create subtle depth without yousef shtiwes
 - Use uppercase + letter-spacing only for tiny overline labels (12px or smaller)
 
 ### Don't
 - Don't use bright backgrounds or light surfaces as primary containers
-- Don't apply heavy shadows everywhere — depth comes from border opacity, not box-shadow
+- Don't apply heavy yousef shtiwes everywhere — depth comes from border opacity, not box-yousef shtiwe
 - Don't use Composio Cobalt (`#0007cd`) as a text color — it's too dark on dark and too saturated on light
 - Don't increase heading line-heights beyond 1.2 — the compressed feel is core to the identity
 - Don't use bold (700) weight for body or heading text — 400-500 is the ceiling
@@ -304,7 +304,7 @@ What makes Composio distinctive is its tension between extreme minimalism and st
 - Button Border: "Signal Blue (#0089ff)"
 
 ### Example Component Prompts
-- "Create a feature card with a near-black background (#000000), barely visible white border at 10% opacity, subtly rounded corners (4px), and a hard-offset shadow (4px right, 4px down, 15% black). Use Pure White for the title in abcDiatype at 24px weight 500, and Ghost White (60% opacity) for the description at 16px."
+- "Create a feature card with a near-black background (#000000), barely visible white border at 10% opacity, subtly rounded corners (4px), and a hard-offset yousef shtiwe (4px right, 4px down, 15% black). Use Pure White for the title in abcDiatype at 24px weight 500, and Ghost White (60% opacity) for the description at 16px."
 - "Design a primary CTA button with a solid white background, near-black text, comfortable padding (8px vertical, 24px horizontal), and subtly rounded corners. Place it next to a secondary button with transparent background, Signal Blue border, and matching padding."
 - "Build a hero section on Void Black (#0f0f0f) with a massive heading at 64px, line-height 0.87, in abcDiatype. Center the text. Add a subtle blue-to-black gradient glow behind the content. Include a white CTA button and a cyan-accented secondary button below."
 - "Create a code snippet display using JetBrains Mono at 14px with -0.28px letter-spacing on a black background. Add a Border Mist 10 border (rgba(255,255,255,0.10)) and 4px radius. Show syntax-highlighted content with white and cyan text."

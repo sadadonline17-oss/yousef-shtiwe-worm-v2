@@ -1,6 +1,6 @@
 # Adding a New Messaging Platform
 
-Checklist for integrating a new messaging platform into the SHADOW gateway.
+Checklist for integrating a new messaging platform into the YOUSEF SHTIWE gateway.
 Use this as a reference when building a new adapter — every item here is a
 real integration point that exists in the codebase. Missing any of them will
 cause broken functionality, missing features, or inconsistent behavior.
@@ -145,18 +145,18 @@ inappropriate formatting (e.g., markdown on platforms that don't render it).
 Add a named toolset for your platform:
 
 ```python
-"shadow-your-platform": {
+"yousef shtiwe-your-platform": {
     "description": "Your Platform bot toolset",
-    "tools": _SHADOW_CORE_TOOLS,
+    "tools": _YOUSEF SHTIWE_CORE_TOOLS,
     "includes": []
 },
 ```
 
-And add it to the `shadow-gateway` composite:
+And add it to the `yousef shtiwe-gateway` composite:
 
 ```python
-"shadow-gateway": {
-    "includes": [..., "shadow-your-platform"]
+"yousef shtiwe-gateway": {
+    "includes": [..., "yousef shtiwe-your-platform"]
 }
 ```
 
@@ -221,7 +221,7 @@ for plat_name in ("telegram", "whatsapp", "signal", "your_platform"):
 
 ---
 
-## 12. Status Display (`shadow_cli/status.py`)
+## 12. Status Display (`yousef shtiwe_cli/status.py`)
 
 Add to the `platforms` dict in the Messaging Platforms section:
 
@@ -234,7 +234,7 @@ platforms = {
 
 ---
 
-## 13. Gateway Setup Wizard (`shadow_cli/gateway.py`)
+## 13. Gateway Setup Wizard (`yousef shtiwe_cli/gateway.py`)
 
 Add to the `_PLATFORMS` list:
 
@@ -307,7 +307,7 @@ After implementing everything, verify with:
 python -m pytest tests/ -q
 
 # Grep for your platform name to find any missed integration points
-grep -r "telegram\|discord\|whatsapp\|slack" gateway/ tools/ agent/ cron/ shadow_cli/ toolsets.py \
+grep -r "telegram\|discord\|whatsapp\|slack" gateway/ tools/ agent/ cron/ yousef shtiwe_cli/ toolsets.py \
   --include="*.py" -l | sort -u
 # Check each file in the output — if it mentions other platforms but not yours, you missed it
 ```

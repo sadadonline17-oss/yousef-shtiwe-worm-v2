@@ -14,11 +14,11 @@ import logging
 from datetime import datetime
 from typing import Optional
 
-from shadow_cli.config import get_shadow_home
+from yousef shtiwe_cli.config import get_yousef shtiwe_home
 
 logger = logging.getLogger(__name__)
 
-_SESSIONS_DIR = get_shadow_home() / "sessions"
+_SESSIONS_DIR = get_yousef shtiwe_home() / "sessions"
 _SESSIONS_INDEX = _SESSIONS_DIR / "sessions.json"
 
 
@@ -118,7 +118,7 @@ def _append_to_sqlite(session_id: str, message: dict) -> None:
     """Append a message to the SQLite session database."""
     db = None
     try:
-        from shadow_state import SessionDB
+        from yousef shtiwe_state import SessionDB
         db = SessionDB()
         db.append_message(
             session_id=session_id,

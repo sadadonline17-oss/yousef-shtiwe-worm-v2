@@ -28,7 +28,7 @@ from typing import List, Dict, Any, Set, Optional
 
 # Shared tool list for CLI and all messaging platform toolsets.
 # Edit this once to update all platforms simultaneously.
-_SHADOW_CORE_TOOLS = [
+_YOUSEF SHTIWE_CORE_TOOLS = [
     # Web
     "web_search", "web_extract",
     # Terminal + process management
@@ -219,13 +219,13 @@ TOOLSETS = {
     },
     
     # ==========================================================================
-    # Full SHADOW toolsets (CLI + messaging platforms)
+    # Full YOUSEF SHTIWE toolsets (CLI + messaging platforms)
     #
     # All platforms share the same core tools (including send_message,
     # which is gated on gateway running via its check_fn).
     # ==========================================================================
 
-    "shadow-acp": {
+    "yousef shtiwe-acp": {
         "description": "Editor integration (VS Code, Zed, JetBrains) — coding-focused tools without messaging, audio, or clarify UI",
         "tools": [
             "web_search", "web_extract",
@@ -244,7 +244,7 @@ TOOLSETS = {
         "includes": []
     },
 
-    "shadow-api-server": {
+    "yousef shtiwe-api-server": {
         "description": "OpenAI-compatible API server — full agent tools accessible via HTTP (no interactive UI tools like clarify or send_message)",
         "tools": [
             # Web
@@ -277,124 +277,124 @@ TOOLSETS = {
         "includes": []
     },
     
-    "shadow-cli": {
+    "yousef shtiwe-cli": {
         "description": "Full interactive CLI toolset - all default tools plus cronjob management",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
     
-    "shadow-telegram": {
+    "yousef shtiwe-telegram": {
         "description": "Telegram bot toolset - full access for personal use (terminal has safety checks)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
     
-    "shadow-discord": {
+    "yousef shtiwe-discord": {
         "description": "Discord bot toolset - full access (terminal has safety checks via dangerous command approval)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
     
-    "shadow-whatsapp": {
+    "yousef shtiwe-whatsapp": {
         "description": "WhatsApp bot toolset - similar to Telegram (personal messaging, more trusted)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
     
-    "shadow-slack": {
+    "yousef shtiwe-slack": {
         "description": "Slack bot toolset - full access for workspace use (terminal has safety checks)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
     
-    "shadow-signal": {
+    "yousef shtiwe-signal": {
         "description": "Signal bot toolset - encrypted messaging platform (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-bluebubbles": {
+    "yousef shtiwe-bluebubbles": {
         "description": "BlueBubbles iMessage bot toolset - Apple iMessage via local BlueBubbles server",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-homeassistant": {
+    "yousef shtiwe-homeassistant": {
         "description": "Home Assistant bot toolset - smart home event monitoring and control",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-email": {
-        "description": "Email bot toolset - interact with SHADOW via email (IMAP/SMTP)",
-        "tools": _SHADOW_CORE_TOOLS,
+    "yousef shtiwe-email": {
+        "description": "Email bot toolset - interact with YOUSEF SHTIWE via email (IMAP/SMTP)",
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-mattermost": {
+    "yousef shtiwe-mattermost": {
         "description": "Mattermost bot toolset - self-hosted team messaging (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-matrix": {
+    "yousef shtiwe-matrix": {
         "description": "Matrix bot toolset - decentralized encrypted messaging (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-dingtalk": {
+    "yousef shtiwe-dingtalk": {
         "description": "DingTalk bot toolset - enterprise messaging platform (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-feishu": {
+    "yousef shtiwe-feishu": {
         "description": "Feishu/Lark bot toolset - enterprise messaging via Feishu/Lark (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-weixin": {
+    "yousef shtiwe-weixin": {
         "description": "Weixin bot toolset - personal WeChat messaging via iLink (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-qqbot": {
+    "yousef shtiwe-qqbot": {
         "description": "QQBot toolset - QQ messaging via Official Bot API v2 (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-wecom": {
+    "yousef shtiwe-wecom": {
         "description": "WeCom bot toolset - enterprise WeChat messaging (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-wecom-callback": {
+    "yousef shtiwe-wecom-callback": {
         "description": "WeCom callback toolset - enterprise self-built app messaging (full access)",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-sms": {
-        "description": "SMS bot toolset - interact with SHADOW via SMS (Twilio)",
-        "tools": _SHADOW_CORE_TOOLS,
+    "yousef shtiwe-sms": {
+        "description": "SMS bot toolset - interact with YOUSEF SHTIWE via SMS (Twilio)",
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-webhook": {
+    "yousef shtiwe-webhook": {
         "description": "Webhook toolset - receive and process external webhook events",
-        "tools": _SHADOW_CORE_TOOLS,
+        "tools": _YOUSEF SHTIWE_CORE_TOOLS,
         "includes": []
     },
 
-    "shadow-gateway": {
+    "yousef shtiwe-gateway": {
         "description": "Gateway toolset - union of all messaging platform tools",
         "tools": [],
-        "includes": ["shadow-telegram", "shadow-discord", "shadow-whatsapp", "shadow-slack", "shadow-signal", "shadow-bluebubbles", "shadow-homeassistant", "shadow-email", "shadow-sms", "shadow-mattermost", "shadow-matrix", "shadow-dingtalk", "shadow-feishu", "shadow-wecom", "shadow-wecom-callback", "shadow-weixin", "shadow-qqbot", "shadow-webhook"]
+        "includes": ["yousef shtiwe-telegram", "yousef shtiwe-discord", "yousef shtiwe-whatsapp", "yousef shtiwe-slack", "yousef shtiwe-signal", "yousef shtiwe-bluebubbles", "yousef shtiwe-homeassistant", "yousef shtiwe-email", "yousef shtiwe-sms", "yousef shtiwe-mattermost", "yousef shtiwe-matrix", "yousef shtiwe-dingtalk", "yousef shtiwe-feishu", "yousef shtiwe-wecom", "yousef shtiwe-wecom-callback", "yousef shtiwe-weixin", "yousef shtiwe-qqbot", "yousef shtiwe-webhook"]
     }
 }
 

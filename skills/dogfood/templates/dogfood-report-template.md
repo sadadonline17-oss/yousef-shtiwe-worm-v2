@@ -3,7 +3,7 @@
 **Target:** {target_url}
 **Date:** {date}
 **Scope:** {scope_description}
-**Tester:** SHADOW Agent (automated exploratory QA)
+**Tester:** YOUSEF SHTIWE Agent (automated exploratory QA)
 
 ---
 

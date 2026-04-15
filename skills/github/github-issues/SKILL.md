@@ -2,10 +2,10 @@
 name: github-issues
 description: Create, manage, triage, and close GitHub issues. Search existing issues, add labels, assign people, and link to PRs. Works with gh CLI or falls back to git + GitHub REST API via curl.
 version: 1.1.0
-author: SHADOW Agent
+author: YOUSEF SHTIWE Agent
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [GitHub, Issues, Project-Management, Bug-Tracking, Triage]
     related_skills: [github-auth, github-pr-workflow]
 ---
@@ -27,8 +27,8 @@ if command -v gh &>/dev/null && gh auth status &>/dev/null; then
 else
   AUTH="git"
   if [ -z "$GITHUB_TOKEN" ]; then
-    if [ -f ~/.shadow/.env ] && grep -q "^GITHUB_TOKEN=" ~/.shadow/.env; then
-      GITHUB_TOKEN=$(grep "^GITHUB_TOKEN=" ~/.shadow/.env | head -1 | cut -d= -f2 | tr -d '\n\r')
+    if [ -f ~/.yousef shtiwe/.env ] && grep -q "^GITHUB_TOKEN=" ~/.yousef shtiwe/.env; then
+      GITHUB_TOKEN=$(grep "^GITHUB_TOKEN=" ~/.yousef shtiwe/.env | head -1 | cut -d= -f2 | tr -d '\n\r')
     elif grep -q "github.com" ~/.git-credentials 2>/dev/null; then
       GITHUB_TOKEN=$(grep "github.com" ~/.git-credentials 2>/dev/null | head -1 | sed 's|https://[^:]*:\([^@]*\)@.*|\1|')
     fi

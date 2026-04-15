@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from shadow_cli.main import cmd_update, PROJECT_ROOT
+from yousef shtiwe_cli.main import cmd_update, PROJECT_ROOT
 
 
 def _make_run_side_effect(branch="main", verify_ok=True, commit_count="0"):
@@ -111,10 +111,10 @@ class TestCmdUpdateBranchFallback:
         with patch("shutil.which", return_value=None), patch(
             "subprocess.run"
         ) as mock_run, patch("builtins.input") as mock_input, patch(
-            "shadow_cli.config.get_missing_env_vars", return_value=["MISSING_KEY"]
-        ), patch("shadow_cli.config.get_missing_config_fields", return_value=[]), patch(
-            "shadow_cli.config.check_config_version", return_value=(1, 2)
-        ), patch("shadow_cli.main.sys") as mock_sys:
+            "yousef shtiwe_cli.config.get_missing_env_vars", return_value=["MISSING_KEY"]
+        ), patch("yousef shtiwe_cli.config.get_missing_config_fields", return_value=[]), patch(
+            "yousef shtiwe_cli.config.check_config_version", return_value=(1, 2)
+        ), patch("yousef shtiwe_cli.main.sys") as mock_sys:
             mock_sys.stdin.isatty.return_value = False
             mock_sys.stdout.isatty.return_value = False
             mock_run.side_effect = _make_run_side_effect(

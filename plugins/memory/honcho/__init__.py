@@ -8,7 +8,7 @@ The 4 tools (profile, search, context, conclude) are exposed through
 the MemoryProvider interface.
 
 Config: Uses the existing Honcho config chain:
-  1. $SHADOW_HOME/honcho.json (profile-scoped)
+  1. $YOUSEF SHTIWE_HOME/honcho.json (profile-scoped)
   2. ~/.honcho/config.json (legacy global)
   3. Environment variables
 """
@@ -166,11 +166,11 @@ class HonchoMemoryProvider(MemoryProvider):
         except Exception:
             return False
 
-    def save_config(self, values, shadow_home):
-        """Write config to $SHADOW_HOME/honcho.json (Honcho SDK native format)."""
+    def save_config(self, values, yousef shtiwe_home):
+        """Write config to $YOUSEF SHTIWE_HOME/honcho.json (Honcho SDK native format)."""
         import json
         from pathlib import Path
-        config_path = Path(shadow_home) / "honcho.json"
+        config_path = Path(yousef shtiwe_home) / "honcho.json"
         existing = {}
         if config_path.exists():
             try:
@@ -186,7 +186,7 @@ class HonchoMemoryProvider(MemoryProvider):
             {"key": "baseUrl", "description": "Honcho base URL (for self-hosted)"},
         ]
 
-    def post_setup(self, shadow_home: str, config: dict) -> None:
+    def post_setup(self, yousef shtiwe_home: str, config: dict) -> None:
         """Run the full Honcho setup wizard after provider selection."""
         import types
         from plugins.memory.honcho.cli import cmd_setup
@@ -290,7 +290,7 @@ class HonchoMemoryProvider(MemoryProvider):
         self._session_key = (
             cfg.resolve_session_name(session_title=session_title, session_id=session_id)
             or session_id
-            or "shadow-default"
+            or "yousef shtiwe-default"
         )
         logger.debug("Honcho session key resolved: %s", self._session_key)
 
@@ -301,8 +301,8 @@ class HonchoMemoryProvider(MemoryProvider):
         # ----- B6: Memory file migration (one-time, for new sessions) -----
         try:
             if not session.messages:
-                from shadow_constants import get_shadow_home
-                mem_dir = str(get_shadow_home() / "memories")
+                from yousef shtiwe_constants import get_yousef shtiwe_home
+                mem_dir = str(get_yousef shtiwe_home() / "memories")
                 self._manager.migrate_memory_files(self._session_key, mem_dir)
                 logger.debug("Honcho memory file migration attempted for new session: %s", self._session_key)
         except Exception as e:
@@ -332,7 +332,7 @@ class HonchoMemoryProvider(MemoryProvider):
         try:
             self._do_session_init(
                 self._config,
-                self._lazy_init_session_id or "shadow-default",
+                self._lazy_init_session_id or "yousef shtiwe-default",
                 **self._lazy_init_kwargs,
             )
             # Clear lazy refs

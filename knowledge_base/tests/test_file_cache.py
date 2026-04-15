@@ -122,7 +122,7 @@ class TestSafeRelativePath:
         assert safe_relative_path("OSBinaries/../../../etc/passwd", base) is None
 
     def test_relative_escape_deep(self, base):
-        assert safe_relative_path("../../../../../../etc/shadow", base) is None
+        assert safe_relative_path("../../../../../../etc/yousef shtiwe", base) is None
 
     def test_dotdot_in_middle(self, base):
         assert safe_relative_path("foo/../bar", base) is None

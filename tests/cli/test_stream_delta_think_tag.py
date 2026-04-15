@@ -7,10 +7,10 @@ import pytest
 
 
 def _make_cli_stub():
-    """Create a minimal SHADOWCLI-like object with stream state."""
-    from cli import SHADOWCLI
+    """Create a minimal YOUSEF SHTIWECLI-like object with stream state."""
+    from cli import YOUSEF SHTIWECLI
 
-    cli = SHADOWCLI.__new__(SHADOWCLI)
+    cli = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
     cli.show_reasoning = False
     cli._stream_buf = ""
     cli._stream_started = False

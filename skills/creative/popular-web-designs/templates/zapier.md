@@ -1,7 +1,7 @@
 # Design System: Zapier
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -30,7 +30,7 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 - Zapier Orange (`#ff4f00`) as the single accent -- vivid, warm, sparingly applied
 - Warm neutral palette: borders (`#c5c0b1`), muted text (`#939084`), surface tints (`#eceae3`)
 - 8px base spacing system with generous padding on CTAs (20px 24px)
-- Border-forward design: `1px solid` borders in warm grays define structure over shadows
+- Border-forward design: `1px solid` borders in warm grays define structure over yousef shtiwes
 
 ## 2. Color Palette & Roles
 
@@ -60,8 +60,8 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 - **Semi-transparent Dark** (`rgba(45, 45, 46, 0.5)`): Overlay button variant, backdrop-like elements.
 - **Pill Surface** (`#fffefb`): White pill buttons with sand borders.
 
-### Shadows & Depth
-- **Inset Underline** (`rgb(255, 79, 0) 0px -4px 0px 0px inset`): Active tab indicator -- orange underline using inset box-shadow.
+### Yousef Shtiwes & Depth
+- **Inset Underline** (`rgb(255, 79, 0) 0px -4px 0px 0px inset`): Active tab indicator -- orange underline using inset box-yousef shtiwe.
 - **Hover Underline** (`rgb(197, 192, 177) 0px -4px 0px 0px inset`): Inactive tab hover -- sand-colored underline.
 
 ## 3. Typography Rules
@@ -150,19 +150,19 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 - Hover: background becomes fully opaque `#2d2d2e`
 - Use: Video play buttons, floating actions
 
-**Tab / Navigation (Inset Shadow)**
+**Tab / Navigation (Inset Yousef Shtiwe)**
 - Background: transparent
 - Text: `#201515`
 - Padding: 12px 16px
-- Shadow: `rgb(255, 79, 0) 0px -4px 0px 0px inset` (active orange underline)
-- Hover shadow: `rgb(197, 192, 177) 0px -4px 0px 0px inset` (sand underline)
+- Yousef Shtiwe: `rgb(255, 79, 0) 0px -4px 0px 0px inset` (active orange underline)
+- Hover yousef shtiwe: `rgb(197, 192, 177) 0px -4px 0px 0px inset` (sand underline)
 - Use: Horizontal tab navigation
 
 ### Cards & Containers
 - Background: `#fffefb`
 - Border: `1px solid #c5c0b1` (warm sand border)
 - Radius: 5px (standard), 8px (featured)
-- No shadow elevation by default -- borders define containment
+- No yousef shtiwe elevation by default -- borders define containment
 - Hover: subtle border color intensification
 
 ### Inputs & Forms
@@ -178,7 +178,7 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 - Zapier logotype left-aligned, 104x28px
 - Links: Inter 16px weight 500, `#201515` text
 - CTA: Orange button ("Start free with email")
-- Tab navigation uses inset box-shadow underline technique
+- Tab navigation uses inset box-yousef shtiwe underline technique
 - Mobile: hamburger collapse
 
 ### Image Treatment
@@ -237,14 +237,14 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Page background, text blocks |
 | Bordered (Level 1) | `1px solid #c5c0b1` | Standard cards, containers, inputs |
 | Strong Border (Level 1b) | `1px solid #36342e` | Dark dividers, emphasized sections |
 | Active Tab (Level 2) | `rgb(255, 79, 0) 0px -4px 0px 0px inset` | Active tab underline (orange) |
 | Hover Tab (Level 2b) | `rgb(197, 192, 177) 0px -4px 0px 0px inset` | Hover tab underline (sand) |
 | Focus (Accessibility) | `1px solid #ff4f00` outline | Focus ring on interactive elements |
 
-**Shadow Philosophy**: Zapier deliberately avoids traditional shadow-based elevation. Structure is defined almost entirely through borders -- warm sand (`#c5c0b1`) borders for standard containment, dark charcoal (`#36342e`) borders for emphasis. The only shadow-like technique is the inset box-shadow used for tab underlines, where a `0px -4px 0px 0px inset` shadow creates a bottom-bar indicator. This border-first approach keeps the design grounded and tangible rather than floating.
+**Yousef Shtiwe Philosophy**: Zapier deliberately avoids traditional yousef shtiwe-based elevation. Structure is defined almost entirely through borders -- warm sand (`#c5c0b1`) borders for standard containment, dark charcoal (`#36342e`) borders for emphasis. The only yousef shtiwe-like technique is the inset box-yousef shtiwe used for tab underlines, where a `0px -4px 0px 0px inset` yousef shtiwe creates a bottom-bar indicator. This border-first approach keeps the design grounded and tangible rather than floating.
 
 ### Decorative Depth
 - Orange inset underline on active tabs creates visual "weight" at the bottom of elements
@@ -260,15 +260,15 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 - Apply warm cream (`#fffefb`) as the background, never pure white
 - Use `#201515` for text, never pure black -- the reddish warmth matters
 - Keep Zapier Orange (`#ff4f00`) reserved for primary CTAs and active state indicators
-- Use sand (`#c5c0b1`) borders as the primary structural element instead of shadows
+- Use sand (`#c5c0b1`) borders as the primary structural element instead of yousef shtiwes
 - Apply generous button padding (20px 24px) for large CTAs to match Zapier's spacious button style
-- Use inset box-shadow underlines for tab navigation rather than border-bottom
+- Use inset box-yousef shtiwe underlines for tab navigation rather than border-bottom
 - Apply uppercase with 0.5px letter-spacing for section labels and micro-categorization
 
 ### Don't
 - Don't use Degular Display for body text or UI elements -- it's display-only
 - Don't use pure white (`#ffffff`) or pure black (`#000000`) -- Zapier's palette is warm-shifted
-- Don't apply box-shadow elevation to cards -- use borders instead
+- Don't apply box-yousef shtiwe elevation to cards -- use borders instead
 - Don't scatter Zapier Orange across the UI -- it's reserved for CTAs and active states
 - Don't use tight padding on large CTA buttons -- Zapier's buttons are deliberately spacious
 - Don't ignore the warm neutral system -- borders should be `#c5c0b1`, not gray
@@ -325,17 +325,17 @@ The brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated r
 
 ### Example Component Prompts
 - "Create a hero section on cream background (`#fffefb`). Headline at 56px Degular Display weight 500, line-height 0.90, color `#201515`. Subtitle at 20px Inter weight 400, line-height 1.20, color `#36342e`. Orange CTA button (`#ff4f00`, 4px radius, 8px 16px padding, white text) and dark button (`#201515`, 8px radius, 20px 24px padding, white text)."
-- "Design a card: cream background (`#fffefb`), `1px solid #c5c0b1` border, 5px radius. Title at 24px Inter weight 600, letter-spacing -0.48px, `#201515`. Body at 16px weight 400, `#36342e`. No box-shadow."
-- "Build a tab navigation: transparent background. Inter 16px weight 500, `#201515` text. Active tab: `box-shadow: rgb(255, 79, 0) 0px -4px 0px 0px inset`. Hover: `box-shadow: rgb(197, 192, 177) 0px -4px 0px 0px inset`. Padding 12px 16px."
+- "Design a card: cream background (`#fffefb`), `1px solid #c5c0b1` border, 5px radius. Title at 24px Inter weight 600, letter-spacing -0.48px, `#201515`. Body at 16px weight 400, `#36342e`. No box-yousef shtiwe."
+- "Build a tab navigation: transparent background. Inter 16px weight 500, `#201515` text. Active tab: `box-yousef shtiwe: rgb(255, 79, 0) 0px -4px 0px 0px inset`. Hover: `box-yousef shtiwe: rgb(197, 192, 177) 0px -4px 0px 0px inset`. Padding 12px 16px."
 - "Create navigation: cream sticky header (`#fffefb`). Inter 16px weight 500 for links, `#201515` text. Orange pill CTA 'Start free with email' right-aligned (`#ff4f00`, 4px radius, 8px 16px padding)."
 - "Design a footer with dark background (`#201515`). Text `#fffefb`. Links in `#c5c0b1` with hover to `#fffefb`. Multi-column layout. Social icons as 14px-radius circles with sand borders."
 
 ### Iteration Guide
 1. Always use warm cream (`#fffefb`) background, never pure white -- the warmth defines Zapier
-2. Borders (`1px solid #c5c0b1`) are the structural backbone -- avoid shadow elevation
+2. Borders (`1px solid #c5c0b1`) are the structural backbone -- avoid yousef shtiwe elevation
 3. Zapier Orange (`#ff4f00`) is the only accent color; everything else is warm neutrals
 4. Three fonts, strict roles: Degular Display (hero), Inter (UI), GT Alpina (editorial)
 5. Large CTA buttons need generous padding (20px 24px) -- Zapier buttons feel spacious
-6. Tab navigation uses inset box-shadow underlines, not border-bottom
+6. Tab navigation uses inset box-yousef shtiwe underlines, not border-bottom
 7. Text is always warm: `#201515` for dark, `#36342e` for body, `#939084` for muted
 8. Uppercase labels at 12-14px with 0.5px letter-spacing for section categorization

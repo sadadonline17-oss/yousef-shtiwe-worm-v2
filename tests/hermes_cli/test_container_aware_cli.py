@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from shadow_cli.config import (
+from yousef shtiwe_cli.config import (
     get_container_exec_info,
 )
 
@@ -23,38 +23,38 @@ from shadow_cli.config import (
 
 @pytest.fixture
 def container_env(tmp_path, monkeypatch):
-    """Set up a fake SHADOW_HOME with .container-mode file."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
-    monkeypatch.delenv("SHADOW_DEV", raising=False)
+    """Set up a fake YOUSEF SHTIWE_HOME with .container-mode file."""
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
+    monkeypatch.delenv("YOUSEF SHTIWE_DEV", raising=False)
 
-    container_mode = shadow_home / ".container-mode"
+    container_mode = yousef shtiwe_home / ".container-mode"
     container_mode.write_text(
         "# Written by NixOS activation script. Do not edit manually.\n"
         "backend=podman\n"
-        "container_name=shadow-agent\n"
-        "exec_user=shadow\n"
-        "shadow_bin=/data/current-package/bin/shadow\n"
+        "container_name=yousef shtiwe-agent\n"
+        "exec_user=yousef shtiwe\n"
+        "yousef shtiwe_bin=/data/current-package/bin/yousef shtiwe\n"
     )
-    return shadow_home
+    return yousef shtiwe_home
 
 
 def test_get_container_exec_info_returns_metadata(container_env):
     """Reads .container-mode and returns all fields including exec_user."""
-    with patch("shadow_constants.is_container", return_value=False):
+    with patch("yousef shtiwe_constants.is_container", return_value=False):
         info = get_container_exec_info()
 
     assert info is not None
     assert info["backend"] == "podman"
-    assert info["container_name"] == "shadow-agent"
-    assert info["exec_user"] == "shadow"
-    assert info["shadow_bin"] == "/data/current-package/bin/shadow"
+    assert info["container_name"] == "yousef shtiwe-agent"
+    assert info["exec_user"] == "yousef shtiwe"
+    assert info["yousef shtiwe_bin"] == "/data/current-package/bin/yousef shtiwe"
 
 
 def test_get_container_exec_info_none_inside_container(container_env):
     """Returns None when we're already inside a container."""
-    with patch("shadow_constants.is_container", return_value=True):
+    with patch("yousef shtiwe_constants.is_container", return_value=True):
         info = get_container_exec_info()
 
     assert info is None
@@ -62,32 +62,32 @@ def test_get_container_exec_info_none_inside_container(container_env):
 
 def test_get_container_exec_info_none_without_file(tmp_path, monkeypatch):
     """Returns None when .container-mode doesn't exist (native mode)."""
-    shadow_home = tmp_path / ".shadow"
-    shadow_home.mkdir()
-    monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
-    monkeypatch.delenv("SHADOW_DEV", raising=False)
+    yousef shtiwe_home = tmp_path / ".yousef shtiwe"
+    yousef shtiwe_home.mkdir()
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
+    monkeypatch.delenv("YOUSEF SHTIWE_DEV", raising=False)
 
-    with patch("shadow_constants.is_container", return_value=False):
+    with patch("yousef shtiwe_constants.is_container", return_value=False):
         info = get_container_exec_info()
 
     assert info is None
 
 
-def test_get_container_exec_info_skipped_when_shadow_dev(container_env, monkeypatch):
-    """Returns None when SHADOW_DEV=1 is set (dev mode bypass)."""
-    monkeypatch.setenv("SHADOW_DEV", "1")
+def test_get_container_exec_info_skipped_when_yousef shtiwe_dev(container_env, monkeypatch):
+    """Returns None when YOUSEF SHTIWE_DEV=1 is set (dev mode bypass)."""
+    monkeypatch.setenv("YOUSEF SHTIWE_DEV", "1")
 
-    with patch("shadow_constants.is_container", return_value=False):
+    with patch("yousef shtiwe_constants.is_container", return_value=False):
         info = get_container_exec_info()
 
     assert info is None
 
 
-def test_get_container_exec_info_not_skipped_when_shadow_dev_zero(container_env, monkeypatch):
-    """SHADOW_DEV=0 does NOT trigger bypass — only '1' does."""
-    monkeypatch.setenv("SHADOW_DEV", "0")
+def test_get_container_exec_info_not_skipped_when_yousef shtiwe_dev_zero(container_env, monkeypatch):
+    """YOUSEF SHTIWE_DEV=0 does NOT trigger bypass — only '1' does."""
+    monkeypatch.setenv("YOUSEF SHTIWE_DEV", "0")
 
-    with patch("shadow_constants.is_container", return_value=False):
+    with patch("yousef shtiwe_constants.is_container", return_value=False):
         info = get_container_exec_info()
 
     assert info is not None
@@ -98,46 +98,46 @@ def test_get_container_exec_info_defaults():
     import tempfile
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        shadow_home = Path(tmpdir) / ".shadow"
-        shadow_home.mkdir()
-        (shadow_home / ".container-mode").write_text(
+        yousef shtiwe_home = Path(tmpdir) / ".yousef shtiwe"
+        yousef shtiwe_home.mkdir()
+        (yousef shtiwe_home / ".container-mode").write_text(
             "# minimal file with no keys\n"
         )
 
-        with patch("shadow_constants.is_container", return_value=False), \
-             patch("shadow_cli.config.get_shadow_home", return_value=shadow_home), \
+        with patch("yousef shtiwe_constants.is_container", return_value=False), \
+             patch("yousef shtiwe_cli.config.get_yousef shtiwe_home", return_value=yousef shtiwe_home), \
              patch.dict(os.environ, {}, clear=False):
-            os.environ.pop("SHADOW_DEV", None)
+            os.environ.pop("YOUSEF SHTIWE_DEV", None)
             info = get_container_exec_info()
 
         assert info is not None
         assert info["backend"] == "docker"
-        assert info["container_name"] == "shadow-agent"
-        assert info["exec_user"] == "shadow"
-        assert info["shadow_bin"] == "/data/current-package/bin/shadow"
+        assert info["container_name"] == "yousef shtiwe-agent"
+        assert info["exec_user"] == "yousef shtiwe"
+        assert info["yousef shtiwe_bin"] == "/data/current-package/bin/yousef shtiwe"
 
 
 def test_get_container_exec_info_docker_backend(container_env):
     """Correctly reads docker backend with custom exec_user."""
     (container_env / ".container-mode").write_text(
         "backend=docker\n"
-        "container_name=shadow-custom\n"
+        "container_name=yousef shtiwe-custom\n"
         "exec_user=myuser\n"
-        "shadow_bin=/opt/shadow/bin/shadow\n"
+        "yousef shtiwe_bin=/opt/yousef shtiwe/bin/yousef shtiwe\n"
     )
 
-    with patch("shadow_constants.is_container", return_value=False):
+    with patch("yousef shtiwe_constants.is_container", return_value=False):
         info = get_container_exec_info()
 
     assert info["backend"] == "docker"
-    assert info["container_name"] == "shadow-custom"
+    assert info["container_name"] == "yousef shtiwe-custom"
     assert info["exec_user"] == "myuser"
-    assert info["shadow_bin"] == "/opt/shadow/bin/shadow"
+    assert info["yousef shtiwe_bin"] == "/opt/yousef shtiwe/bin/yousef shtiwe"
 
 
 def test_get_container_exec_info_crashes_on_permission_error(container_env):
     """PermissionError propagates instead of being silently swallowed."""
-    with patch("shadow_constants.is_container", return_value=False), \
+    with patch("yousef shtiwe_constants.is_container", return_value=False), \
          patch("builtins.open", side_effect=PermissionError("permission denied")):
         with pytest.raises(PermissionError):
             get_container_exec_info()
@@ -152,9 +152,9 @@ def test_get_container_exec_info_crashes_on_permission_error(container_env):
 def docker_container_info():
     return {
         "backend": "docker",
-        "container_name": "shadow-agent",
-        "exec_user": "shadow",
-        "shadow_bin": "/data/current-package/bin/shadow",
+        "container_name": "yousef shtiwe-agent",
+        "exec_user": "yousef shtiwe",
+        "yousef shtiwe_bin": "/data/current-package/bin/yousef shtiwe",
     }
 
 
@@ -162,16 +162,16 @@ def docker_container_info():
 def podman_container_info():
     return {
         "backend": "podman",
-        "container_name": "shadow-agent",
-        "exec_user": "shadow",
-        "shadow_bin": "/data/current-package/bin/shadow",
+        "container_name": "yousef shtiwe-agent",
+        "exec_user": "yousef shtiwe",
+        "yousef shtiwe_bin": "/data/current-package/bin/yousef shtiwe",
     }
 
 
 def test_exec_in_container_calls_execvp(docker_container_info):
     """Verifies os.execvp is called with correct args: runtime, tty flags,
     user, env vars, container name, binary, and CLI args."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     with patch("shutil.which", return_value="/usr/bin/docker"), \
          patch("subprocess.run") as mock_run, \
@@ -190,19 +190,19 @@ def test_exec_in_container_calls_execvp(docker_container_info):
     assert cmd[1] == "exec"
     assert "-it" in cmd
     idx_u = cmd.index("-u")
-    assert cmd[idx_u + 1] == "shadow"
+    assert cmd[idx_u + 1] == "yousef shtiwe"
     e_indices = [i for i, v in enumerate(cmd) if v == "-e"]
     e_values = [cmd[i + 1] for i in e_indices]
     assert "TERM=xterm-256color" in e_values
     assert "LANG=en_US.UTF-8" in e_values
-    assert "shadow-agent" in cmd
-    assert "/data/current-package/bin/shadow" in cmd
+    assert "yousef shtiwe-agent" in cmd
+    assert "/data/current-package/bin/yousef shtiwe" in cmd
     assert "chat" in cmd
 
 
 def test_exec_in_container_non_tty_uses_i_only(docker_container_info):
     """Non-TTY mode uses -i instead of -it."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     with patch("shutil.which", return_value="/usr/bin/docker"), \
          patch("subprocess.run") as mock_run, \
@@ -220,7 +220,7 @@ def test_exec_in_container_non_tty_uses_i_only(docker_container_info):
 
 def test_exec_in_container_no_runtime_hard_fails(podman_container_info):
     """Hard fails when runtime not found (no fallback)."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     with patch("shutil.which", return_value=None), \
          patch("subprocess.run") as mock_run, \
@@ -236,7 +236,7 @@ def test_exec_in_container_no_runtime_hard_fails(podman_container_info):
 def test_exec_in_container_sudo_probe_sets_prefix(podman_container_info):
     """When first probe fails and sudo probe succeeds, execvp is called
     with sudo -n prefix."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     def which_side_effect(name):
         if name == "podman":
@@ -268,7 +268,7 @@ def test_exec_in_container_sudo_probe_sets_prefix(podman_container_info):
 def test_exec_in_container_probe_timeout_prints_message(docker_container_info):
     """TimeoutExpired from probe produces a human-readable error, not a
     raw traceback."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     with patch("shutil.which", return_value="/usr/bin/docker"), \
          patch("subprocess.run", side_effect=subprocess.TimeoutExpired(
@@ -284,7 +284,7 @@ def test_exec_in_container_probe_timeout_prints_message(docker_container_info):
 def test_exec_in_container_container_not_running_no_sudo(docker_container_info):
     """When runtime exists but container not found and no sudo available,
     prints helpful error about root containers."""
-    from shadow_cli.main import _exec_in_container
+    from yousef shtiwe_cli.main import _exec_in_container
 
     def which_side_effect(name):
         if name == "docker":

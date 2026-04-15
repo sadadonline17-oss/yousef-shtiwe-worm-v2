@@ -14,7 +14,7 @@
 
 ## 🚩 Indicators of Compromise (IOCs)
 - **Malicious URL(s)**: 
-- **Exfiltrated Data Types**: [Environment variables, ~/.ssh/id_rsa, /etc/shadow, etc.]
+- **Exfiltrated Data Types**: [Environment variables, ~/.ssh/id_rsa, /etc/yousef shtiwe, etc.]
 - **Exfiltration Method**: [DNS tunneling, HTTP POST to C2, etc.]
 - **C2 IP/Domain**: 
 

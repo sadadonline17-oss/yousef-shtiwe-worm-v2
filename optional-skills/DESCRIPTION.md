@@ -1,15 +1,15 @@
 # Optional Skills
 
-Official skills maintained by SHADOW-OVERLORD that are **not activated by default**.
+Official skills maintained by YOUSEF SHTIWE-OVERLORD that are **not activated by default**.
 
-These skills ship with the shadow-agent repository but are not copied to
-`~/.shadow/skills/` during setup. They are discoverable via the Skills Hub:
+These skills ship with the yousef shtiwe-agent repository but are not copied to
+`~/.yousef shtiwe/skills/` during setup. They are discoverable via the Skills Hub:
 
 ```bash
-shadow skills browse               # browse all skills, official shown first
-shadow skills browse --source official  # browse only official optional skills
-shadow skills search <query>       # finds optional skills labeled "official"
-shadow skills install <identifier> # copies to ~/.shadow/skills/ and activates
+yousef shtiwe skills browse               # browse all skills, official shown first
+yousef shtiwe skills browse --source official  # browse only official optional skills
+yousef shtiwe skills search <query>       # finds optional skills labeled "official"
+yousef shtiwe skills install <identifier> # copies to ~/.yousef shtiwe/skills/ and activates
 ```
 
 ## Why optional?

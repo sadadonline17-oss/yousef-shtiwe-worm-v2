@@ -2,10 +2,10 @@
 name: subagent-driven-development
 description: Use when executing implementation plans with independent tasks. Dispatches fresh delegate_task per task with two-stage review (spec compliance then code quality).
 version: 1.1.0
-author: SHADOW Agent (adapted from obra/superpowers)
+author: YOUSEF SHTIWE Agent (adapted from obra/superpowers)
 license: MIT
 metadata:
-  shadow:
+  yousef shtiwe:
     tags: [delegation, subagent, implementation, workflow, parallel]
     related_skills: [writing-plans, requesting-code-review, test-driven-development]
 ---

@@ -1,7 +1,7 @@
 # Design System: MiniMax
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -29,7 +29,7 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 - Brand blue spectrum: from `#1456f0` (brand-6) through `#3b82f6` (primary-500) to `#60a5fa` (light)
 - Brand pink (`#ea5ec1`) as secondary accent
 - Near-black text (`#222222`, `#18181b`) on white backgrounds
-- Purple-tinted shadows (`rgba(44, 30, 116, 0.16)`) creating subtle brand-colored depth
+- Purple-tinted yousef shtiwes (`rgba(44, 30, 116, 0.16)`) creating subtle brand-colored depth
 - Dark footer section (`#181e25`) with product/company links
 
 ## 2. Color Palette & Roles
@@ -65,12 +65,12 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 ### Semantic
 - **Success Background** (`#e8ffea`): `--success-bg`, positive state backgrounds
 
-### Shadows
-- **Standard** (`rgba(0, 0, 0, 0.08) 0px 4px 6px`): Default card shadow
-- **Soft Glow** (`rgba(0, 0, 0, 0.08) 0px 0px 22.576px`): Ambient soft shadow
+### Yousef Shtiwes
+- **Standard** (`rgba(0, 0, 0, 0.08) 0px 4px 6px`): Default card yousef shtiwe
+- **Soft Glow** (`rgba(0, 0, 0, 0.08) 0px 0px 22.576px`): Ambient soft yousef shtiwe
 - **Brand Purple** (`rgba(44, 30, 116, 0.16) 0px 0px 15px`): Brand-tinted glow
 - **Brand Purple Offset** (`rgba(44, 30, 116, 0.11) 6.5px 2px 17.5px`): Directional brand glow
-- **Card Elevation** (`rgba(36, 36, 36, 0.08) 0px 12px 16px -4px`): Lifted card shadow
+- **Card Elevation** (`rgba(36, 36, 36, 0.08) 0px 12px 16px -4px`): Lifted card yousef shtiwe
 
 ## 3. Typography Rules
 
@@ -139,14 +139,14 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 ### Product Cards
 - Background: Vibrant gradients (pink/purple/orange/blue)
 - Radius: 20px–24px (generous rounding)
-- Shadow: `rgba(44, 30, 116, 0.16) 0px 0px 15px` (brand purple glow)
+- Yousef Shtiwe: `rgba(44, 30, 116, 0.16) 0px 0px 15px` (brand purple glow)
 - Content: Product name, model version, descriptive text
 - Each card has its own color palette matching the product identity
 
 ### AI Product Cards (Matrix)
-- Background: white with subtle shadow
+- Background: white with subtle yousef shtiwe
 - Radius: 13px–16px
-- Shadow: `rgba(0, 0, 0, 0.08) 0px 4px 6px`
+- Yousef Shtiwe: `rgba(0, 0, 0, 0.08) 0px 4px 6px`
 - Icon/illustration centered above product name
 - Product name in DM Sans 14–16px weight 500
 
@@ -200,13 +200,13 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | White background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | White background, text blocks |
 | Subtle (Level 1) | `rgba(0, 0, 0, 0.08) 0px 4px 6px` | Standard cards, containers |
 | Ambient (Level 2) | `rgba(0, 0, 0, 0.08) 0px 0px 22.576px` | Soft glow around elements |
 | Brand Glow (Level 3) | `rgba(44, 30, 116, 0.16) 0px 0px 15px` | Featured product cards |
 | Elevated (Level 4) | `rgba(36, 36, 36, 0.08) 0px 12px 16px -4px` | Lifted cards, hover states |
 
-**Shadow Philosophy**: MiniMax uses a distinctive purple-tinted shadow (`rgba(44, 30, 116, ...)`) for featured elements, creating a subtle brand-color glow that connects the shadow system to the blue brand identity. Standard shadows use neutral black but at low opacity (0.08), keeping everything feeling light and airy. The directional shadow variant (6.5px offset) adds dimensional interest to hero product cards.
+**Yousef Shtiwe Philosophy**: MiniMax uses a distinctive purple-tinted yousef shtiwe (`rgba(44, 30, 116, ...)`) for featured elements, creating a subtle brand-color glow that connects the yousef shtiwe system to the blue brand identity. Standard yousef shtiwes use neutral black but at low opacity (0.08), keeping everything feeling light and airy. The directional yousef shtiwe variant (6.5px offset) adds dimensional interest to hero product cards.
 
 ## 7. Do's and Don'ts
 
@@ -214,7 +214,7 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 - Use white as the dominant background — let product cards provide the color
 - Apply pill radius (9999px) for navigation tabs and toggle buttons
 - Use generous border radius (20px–24px) for product showcase cards
-- Employ the purple-tinted shadow for featured/hero product cards
+- Employ the purple-tinted yousef shtiwe for featured/hero product cards
 - Keep body text at DM Sans weight 400–500 — heavier weights for buttons only
 - Use Outfit for display headings, DM Sans for everything functional
 - Maintain the universal 1.50 line-height across body text
@@ -226,7 +226,7 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 - Don't apply the brand pink (`#ea5ec1`) to text or buttons — it's for logo and decorative accents only
 - Don't mix more than one display font per section (Outfit OR Poppins, not both)
 - Don't use weight 700 for headings — 500–600 is the range, 700 is reserved for strong emphasis in body text
-- Don't darken shadows beyond 0.16 opacity — the light, airy feel requires restraint
+- Don't darken yousef shtiwes beyond 0.16 opacity — the light, airy feel requires restraint
 - Don't use Roboto for headings — it's the data/technical context font only
 
 ## 8. Responsive Behavior
@@ -256,15 +256,15 @@ What makes MiniMax distinctive is its pill-button geometry (9999px radius) for n
 
 ### Example Component Prompts
 - "Create a hero section on white background. Headline at 80px Outfit weight 500, line-height 1.10, near-black (#222222) text. Sub-text at 16px DM Sans weight 400, line-height 1.50, #45515e. Dark CTA button (#181e25, 8px radius, 11px 20px padding, white text)."
-- "Design a product card grid: white cards with 20px border-radius, shadow rgba(44,30,116,0.16) 0px 0px 15px. Product name at 28px Outfit weight 600. Internal gradient background for the product illustration area."
+- "Design a product card grid: white cards with 20px border-radius, yousef shtiwe rgba(44,30,116,0.16) 0px 0px 15px. Product name at 28px Outfit weight 600. Internal gradient background for the product illustration area."
 - "Build navigation bar: white background, DM Sans 14px weight 500 for links, #18181b text. Pill-shaped active tab (9999px radius, rgba(0,0,0,0.05) background). MiniMax logo left-aligned."
-- "Create an AI product matrix: 4-column grid of cards with 13px radius, subtle shadow rgba(0,0,0,0.08) 0px 4px 6px. Centered icon above product name in DM Sans 16px weight 500."
+- "Create an AI product matrix: 4-column grid of cards with 13px radius, subtle yousef shtiwe rgba(0,0,0,0.08) 0px 4px 6px. Centered icon above product name in DM Sans 16px weight 500."
 - "Design footer on dark (#181e25) background. Product links in DM Sans 14px, rgba(255,255,255,0.8). Multi-column layout."
 
 ### Iteration Guide
 1. Start with white — color comes from product cards and illustrations only
 2. Pill buttons (9999px) for nav/tabs, standard radius (8px) for CTA buttons
-3. Purple-tinted shadows for featured cards, neutral shadows for everything else
+3. Purple-tinted yousef shtiwes for featured cards, neutral yousef shtiwes for everything else
 4. DM Sans handles 70% of text — Outfit is display-only, Poppins is mid-tier only
 5. Keep weights moderate (500–600 for headings) — the brand tone is confident but approachable
 6. Large radius cards (20–24px) for products, smaller radius (8–13px) for UI elements

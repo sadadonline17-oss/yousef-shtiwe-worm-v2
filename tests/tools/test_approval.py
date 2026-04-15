@@ -18,11 +18,11 @@ from tools.approval import (
 
 class TestApprovalModeParsing:
     def test_unquoted_yaml_off_boolean_false_maps_to_off(self):
-        with mock_patch("shadow_cli.config.load_config", return_value={"approvals": {"mode": False}}):
+        with mock_patch("yousef shtiwe_cli.config.load_config", return_value={"approvals": {"mode": False}}):
             assert _get_approval_mode() == "off"
 
     def test_string_off_still_maps_to_off(self):
-        with mock_patch("shadow_cli.config.load_config", return_value={"approvals": {"mode": "off"}}):
+        with mock_patch("yousef shtiwe_cli.config.load_config", return_value={"approvals": {"mode": "off"}}):
             assert _get_approval_mode() == "off"
 
 
@@ -130,7 +130,7 @@ class TestSessionKeyContext:
     def test_context_session_key_overrides_process_env(self):
         token = approval_module.set_current_session_key("alice")
         try:
-            with mock_patch.dict("os.environ", {"SHADOW_SESSION_KEY": "bob"}, clear=False):
+            with mock_patch.dict("os.environ", {"YOUSEF SHTIWE_SESSION_KEY": "bob"}, clear=False):
                 assert approval_module.get_current_session_key() == "alice"
         finally:
             approval_module.reset_current_session_key(token)
@@ -344,18 +344,18 @@ class TestTeePattern:
         assert dangerous is True
         assert key is not None
 
-    def test_tee_shadow_env(self):
-        dangerous, key, desc = detect_dangerous_command("echo x | tee ~/.shadow/.env")
+    def test_tee_yousef shtiwe_env(self):
+        dangerous, key, desc = detect_dangerous_command("echo x | tee ~/.yousef shtiwe/.env")
         assert dangerous is True
         assert key is not None
 
-    def test_tee_custom_shadow_home_env(self):
-        dangerous, key, desc = detect_dangerous_command("echo x | tee $SHADOW_HOME/.env")
+    def test_tee_custom_yousef shtiwe_home_env(self):
+        dangerous, key, desc = detect_dangerous_command("echo x | tee $YOUSEF SHTIWE_HOME/.env")
         assert dangerous is True
         assert key is not None
 
-    def test_tee_quoted_custom_shadow_home_env(self):
-        dangerous, key, desc = detect_dangerous_command('echo x | tee "$SHADOW_HOME/.env"')
+    def test_tee_quoted_custom_yousef shtiwe_home_env(self):
+        dangerous, key, desc = detect_dangerous_command('echo x | tee "$YOUSEF SHTIWE_HOME/.env"')
         assert dangerous is True
         assert key is not None
 
@@ -397,8 +397,8 @@ class TestFindExecFullPathRm:
 class TestSensitiveRedirectPattern:
     """Detect shell redirection writes to sensitive user-managed paths."""
 
-    def test_redirect_to_custom_shadow_home_env(self):
-        dangerous, key, desc = detect_dangerous_command("echo x > $SHADOW_HOME/.env")
+    def test_redirect_to_custom_yousef shtiwe_home_env(self):
+        dangerous, key, desc = detect_dangerous_command("echo x > $YOUSEF SHTIWE_HOME/.env")
         assert dangerous is True
         assert key is not None
 
@@ -524,47 +524,47 @@ class TestGatewayProtection:
     """Prevent agents from starting the gateway outside systemd management."""
 
     def test_gateway_run_with_disown_detected(self):
-        cmd = "kill 1605 && cd ~/.shadow/shadow-agent && source venv/bin/activate && python -m shadow_cli.main gateway run --replace &disown; echo done"
+        cmd = "kill 1605 && cd ~/.yousef shtiwe/yousef shtiwe-agent && source venv/bin/activate && python -m yousef shtiwe_cli.main gateway run --replace &disown; echo done"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
         assert "systemctl" in desc
 
     def test_gateway_run_with_ampersand_detected(self):
-        cmd = "python -m shadow_cli.main gateway run --replace &"
+        cmd = "python -m yousef shtiwe_cli.main gateway run --replace &"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
 
     def test_gateway_run_with_nohup_detected(self):
-        cmd = "nohup python -m shadow_cli.main gateway run --replace"
+        cmd = "nohup python -m yousef shtiwe_cli.main gateway run --replace"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
 
     def test_gateway_run_with_setsid_detected(self):
-        cmd = "shadow_cli.main gateway run --replace &disown"
+        cmd = "yousef shtiwe_cli.main gateway run --replace &disown"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
 
     def test_gateway_run_foreground_not_flagged(self):
         """Normal foreground gateway run (as in systemd ExecStart) is fine."""
-        cmd = "python -m shadow_cli.main gateway run --replace"
+        cmd = "python -m yousef shtiwe_cli.main gateway run --replace"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is False
 
     def test_systemctl_restart_not_flagged(self):
         """Using systemctl to manage the gateway is the correct approach."""
-        cmd = "systemctl --user restart shadow-gateway"
+        cmd = "systemctl --user restart yousef shtiwe-gateway"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is False
 
-    def test_pkill_shadow_detected(self):
-        """pkill targeting shadow/gateway processes must be caught."""
+    def test_pkill_yousef shtiwe_detected(self):
+        """pkill targeting yousef shtiwe/gateway processes must be caught."""
         cmd = 'pkill -f "cli.py --gateway"'
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
         assert "self-termination" in desc
 
-    def test_killall_shadow_detected(self):
-        cmd = "killall shadow"
+    def test_killall_yousef shtiwe_detected(self):
+        cmd = "killall yousef shtiwe"
         dangerous, key, desc = detect_dangerous_command(cmd)
         assert dangerous is True
         assert "self-termination" in desc
@@ -700,20 +700,20 @@ class TestHeredocScriptExecution:
 
 
 class TestPgrepKillExpansion:
-    """kill -9 $(pgrep shadow) bypasses the pkill/killall name-matching
+    """kill -9 $(pgrep yousef shtiwe) bypasses the pkill/killall name-matching
     pattern because the command substitution is opaque to regex.
 
     See security audit Test 7.
     """
 
     def test_kill_dollar_pgrep_detected(self):
-        cmd = 'kill -9 $(pgrep -f "shadow.*gateway")'
+        cmd = 'kill -9 $(pgrep -f "yousef shtiwe.*gateway")'
         dangerous, _, desc = detect_dangerous_command(cmd)
         assert dangerous is True
         assert "pgrep" in desc.lower()
 
     def test_kill_backtick_pgrep_detected(self):
-        cmd = "kill -9 `pgrep shadow`"
+        cmd = "kill -9 `pgrep yousef shtiwe`"
         dangerous, _, desc = detect_dangerous_command(cmd)
         assert dangerous is True
 
@@ -722,9 +722,9 @@ class TestPgrepKillExpansion:
         dangerous, _, _ = detect_dangerous_command(cmd)
         assert dangerous is True
 
-    def test_pkill_shadow_still_detected(self):
+    def test_pkill_yousef shtiwe_still_detected(self):
         """Existing pkill pattern must not regress."""
-        cmd = "pkill -9 shadow"
+        cmd = "pkill -9 yousef shtiwe"
         dangerous, _, _ = detect_dangerous_command(cmd)
         assert dangerous is True
 

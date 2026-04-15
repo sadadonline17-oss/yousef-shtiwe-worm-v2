@@ -1,7 +1,7 @@
 # Design System: ElevenLabs
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -15,20 +15,20 @@
 
 ## 1. Visual Theme & Atmosphere
 
-ElevenLabs' website is a study in restrained elegance — a near-white canvas (`#ffffff`, `#f5f5f5`) where typography and subtle shadows do all the heavy lifting. The design feels like a premium audio product brochure: clean, spacious, and confident enough to let the content speak (literally, given ElevenLabs makes voice AI). There's an almost Apple-like quality to the whitespace strategy, but warmer — the occasional warm stone tint (`#f5f2ef`, `#777169`) prevents the purity from feeling clinical.
+ElevenLabs' website is a study in restrained elegance — a near-white canvas (`#ffffff`, `#f5f5f5`) where typography and subtle yousef shtiwes do all the heavy lifting. The design feels like a premium audio product brochure: clean, spacious, and confident enough to let the content speak (literally, given ElevenLabs makes voice AI). There's an almost Apple-like quality to the whitespace strategy, but warmer — the occasional warm stone tint (`#f5f2ef`, `#777169`) prevents the purity from feeling clinical.
 
 The typography system is built on a fascinating duality: Waldenburg at weight 300 (light) for display headings creates ethereal, whisper-thin titles that feel like sound waves rendered in type — delicate, precise, and surprisingly impactful at large sizes. This light-weight display approach is the design's signature — where most sites use bold headings to grab attention, ElevenLabs uses lightness to create intrigue. Inter handles all body and UI text with workmanlike reliability, using slight positive letter-spacing (0.14px–0.18px) that gives body text an airy, well-spaced quality. WaldenburgFH appears as a bold uppercase variant for specific button labels.
 
-What makes ElevenLabs distinctive is its multi-layered shadow system. Rather than simple box-shadows, elements use complex stacks: inset border-shadows (`rgba(0,0,0,0.075) 0px 0px 0px 0.5px inset`), outline shadows (`rgba(0,0,0,0.06) 0px 0px 0px 1px`), and soft elevation shadows (`rgba(0,0,0,0.04) 0px 4px 4px`) — all at remarkably low opacities. The result is a design where surfaces seem to barely exist, floating just above the page with the lightest possible touch. Pill-shaped buttons (9999px) with warm-tinted backgrounds (`rgba(245,242,239,0.8)`) and warm shadows (`rgba(78,50,23,0.04)`) add a tactile, physical quality.
+What makes ElevenLabs distinctive is its multi-layered yousef shtiwe system. Rather than simple box-yousef shtiwes, elements use complex stacks: inset border-yousef shtiwes (`rgba(0,0,0,0.075) 0px 0px 0px 0.5px inset`), outline yousef shtiwes (`rgba(0,0,0,0.06) 0px 0px 0px 1px`), and soft elevation yousef shtiwes (`rgba(0,0,0,0.04) 0px 4px 4px`) — all at remarkably low opacities. The result is a design where surfaces seem to barely exist, floating just above the page with the lightest possible touch. Pill-shaped buttons (9999px) with warm-tinted backgrounds (`rgba(245,242,239,0.8)`) and warm yousef shtiwes (`rgba(78,50,23,0.04)`) add a tactile, physical quality.
 
 **Key Characteristics:**
 - Near-white canvas with warm undertones (`#f5f5f5`, `#f5f2ef`)
 - Waldenburg weight 300 (light) for display — ethereal, whisper-thin headings
 - Inter with positive letter-spacing (0.14–0.18px) for body — airy readability
-- Multi-layered shadow stacks at sub-0.1 opacity — surfaces barely exist
+- Multi-layered yousef shtiwe stacks at sub-0.1 opacity — surfaces barely exist
 - Pill buttons (9999px) with warm stone-tinted backgrounds
 - WaldenburgFH bold uppercase for specific CTA labels
-- Warm shadow tints: `rgba(78, 50, 23, 0.04)` — shadows have color, not just darkness
+- Warm yousef shtiwe tints: `rgba(78, 50, 23, 0.04)` — yousef shtiwes have color, not just darkness
 - Geist Mono / ui-monospace for code snippets
 
 ## 2. Color Palette & Roles
@@ -50,14 +50,14 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 - **Border Light** (`#e5e5e5`): Explicit borders
 - **Border Subtle** (`rgba(0, 0, 0, 0.05)`): Ultra-subtle bottom borders
 
-### Shadows
+### Yousef Shtiwes
 - **Inset Border** (`rgba(0,0,0,0.075) 0px 0px 0px 0.5px inset`): Internal edge definition
 - **Inset Dark** (`rgba(0,0,0,0.1) 0px 0px 0px 0.5px inset`): Stronger inset variant
-- **Outline Ring** (`rgba(0,0,0,0.06) 0px 0px 0px 1px`): Shadow-as-border
+- **Outline Ring** (`rgba(0,0,0,0.06) 0px 0px 0px 1px`): Yousef Shtiwe-as-border
 - **Soft Elevation** (`rgba(0,0,0,0.04) 0px 4px 4px`): Gentle lift
-- **Card Shadow** (`rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px`): Button/card elevation
-- **Warm Shadow** (`rgba(78,50,23,0.04) 0px 6px 16px`): Warm-tinted button shadow
-- **Edge Shadow** (`rgba(0,0,0,0.08) 0px 0px 0px 0.5px`): Subtle edge definition
+- **Card Yousef Shtiwe** (`rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px`): Button/card elevation
+- **Warm Yousef Shtiwe** (`rgba(78,50,23,0.04) 0px 6px 16px`): Warm-tinted button yousef shtiwe
+- **Edge Yousef Shtiwe** (`rgba(0,0,0,0.08) 0px 0px 0px 0.5px`): Subtle edge definition
 - **Inset Ring** (`rgba(0,0,0,0.1) 0px 0px 0px 1px inset`): Strong inset border
 
 ## 3. Typography Rules
@@ -105,11 +105,11 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 - Radius: 9999px (full pill)
 - Use: Primary CTA
 
-**White Pill (Shadow-bordered)**
+**White Pill (Yousef Shtiwe-bordered)**
 - Background: `#ffffff`
 - Text: `#000000`
 - Radius: 9999px
-- Shadow: `rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px`
+- Yousef Shtiwe: `rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px`
 - Use: Secondary CTA on white
 
 **Warm Stone Pill**
@@ -117,7 +117,7 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 - Text: `#000000`
 - Padding: 12px 20px 12px 14px (asymmetric)
 - Radius: 30px
-- Shadow: `rgba(78, 50, 23, 0.04) 0px 6px 16px` (warm-tinted)
+- Yousef Shtiwe: `rgba(78, 50, 23, 0.04) 0px 6px 16px` (warm-tinted)
 - Use: Featured CTA, hero action — the signature warm button
 
 **Uppercase Waldenburg Button**
@@ -128,16 +128,16 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 
 ### Cards & Containers
 - Background: `#ffffff`
-- Border: `1px solid #e5e5e5` or shadow-as-border
+- Border: `1px solid #e5e5e5` or yousef shtiwe-as-border
 - Radius: 16px–24px
-- Shadow: multi-layer stack (inset + outline + elevation)
+- Yousef Shtiwe: multi-layer stack (inset + outline + elevation)
 - Content: product screenshots, code examples, audio waveform previews
 
 ### Inputs & Forms
 - Textarea: padding 12px 20px, transparent text at default
 - Select: white background, standard styling
 - Radio: standard with tw-ring focus
-- Focus: `var(--tw-ring-offset-shadow)` ring system
+- Focus: `var(--tw-ring-offset-yousef shtiwe)` ring system
 
 ### Navigation
 - Clean white sticky header
@@ -159,7 +159,7 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 - Screenshots of the ElevenLabs product interface
 
 **Warm Stone CTA Block**
-- `rgba(245,242,239,0.8)` background with warm shadow
+- `rgba(245,242,239,0.8)` background with warm yousef shtiwe
 - Asymmetric padding (more right padding)
 - Creates a physical, tactile quality unique to ElevenLabs
 
@@ -177,7 +177,7 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 
 ### Whitespace Philosophy
 - **Apple-like generosity**: Massive vertical spacing between sections creates a premium, unhurried pace. Each section is an exhibit.
-- **Warm emptiness**: The whitespace isn't cold — the warm stone undertones and warm shadows give empty space a tactile, physical quality.
+- **Warm emptiness**: The whitespace isn't cold — the warm stone undertones and warm yousef shtiwes give empty space a tactile, physical quality.
 - **Typography-led rhythm**: The light-weight Waldenburg headings create visual "whispers" that draw the eye through vast white space.
 
 ### Border Radius Scale
@@ -195,32 +195,32 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow | Page background, text blocks |
+| Flat (Level 0) | No yousef shtiwe | Page background, text blocks |
 | Inset Edge (Level 0.5) | `rgba(0,0,0,0.075) 0px 0px 0px 0.5px inset, #fff 0px 0px 0px 0px inset` | Internal border definition |
-| Outline Ring (Level 1) | `rgba(0,0,0,0.06) 0px 0px 0px 1px` + `rgba(0,0,0,0.04) 0px 1px 2px` + `rgba(0,0,0,0.04) 0px 2px 4px` | Shadow-as-border for cards |
+| Outline Ring (Level 1) | `rgba(0,0,0,0.06) 0px 0px 0px 1px` + `rgba(0,0,0,0.04) 0px 1px 2px` + `rgba(0,0,0,0.04) 0px 2px 4px` | Yousef Shtiwe-as-border for cards |
 | Card (Level 2) | `rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px` | Button elevation, prominent cards |
 | Warm Lift (Level 3) | `rgba(78,50,23,0.04) 0px 6px 16px` | Featured CTAs — warm-tinted |
-| Focus (Accessibility) | `var(--tw-ring-offset-shadow)` blue ring | Keyboard focus |
+| Focus (Accessibility) | `var(--tw-ring-offset-yousef shtiwe)` blue ring | Keyboard focus |
 
-**Shadow Philosophy**: ElevenLabs uses the most refined shadow system of any design system analyzed. Every shadow is at sub-0.1 opacity, many include both outward cast AND inward inset components, and the warm CTA shadows use an actual warm color (`rgba(78,50,23,...)`) rather than neutral black. The inset half-pixel borders (`0px 0px 0px 0.5px inset`) create edges so subtle they're felt rather than seen — surfaces define themselves through the lightest possible touch.
+**Yousef Shtiwe Philosophy**: ElevenLabs uses the most refined yousef shtiwe system of any design system analyzed. Every yousef shtiwe is at sub-0.1 opacity, many include both outward cast AND inward inset components, and the warm CTA yousef shtiwes use an actual warm color (`rgba(78,50,23,...)`) rather than neutral black. The inset half-pixel borders (`0px 0px 0px 0.5px inset`) create edges so subtle they're felt rather than seen — surfaces define themselves through the lightest possible touch.
 
 ## 7. Do's and Don'ts
 
 ### Do
 - Use Waldenburg weight 300 for all display headings — the lightness IS the brand
-- Apply multi-layer shadows (inset + outline + elevation) at sub-0.1 opacity
+- Apply multi-layer yousef shtiwes (inset + outline + elevation) at sub-0.1 opacity
 - Use warm stone tints (`#f5f2ef`, `rgba(245,242,239,0.8)`) for featured elements
 - Apply positive letter-spacing (+0.14px to +0.18px) on Inter body text
 - Use 9999px radius for primary buttons — pill shape is standard
-- Use warm-tinted shadows (`rgba(78,50,23,0.04)`) on featured CTAs
+- Use warm-tinted yousef shtiwes (`rgba(78,50,23,0.04)`) on featured CTAs
 - Keep the page predominantly white with subtle gray section differentiation
 - Use WaldenburgFH bold uppercase ONLY for specific CTA button labels
 
 ### Don't
 - Don't use bold (700) Waldenburg for headings — weight 300 is non-negotiable
-- Don't use heavy shadows (>0.1 opacity) — the ethereal quality requires whisper-level depth
+- Don't use heavy yousef shtiwes (>0.1 opacity) — the ethereal quality requires whisper-level depth
 - Don't use cool gray borders — the system is warm-tinted throughout
-- Don't skip the inset shadow component — half-pixel inset borders define edges
+- Don't skip the inset yousef shtiwe component — half-pixel inset borders define edges
 - Don't apply negative letter-spacing to body text — Inter uses positive tracking
 - Don't use sharp corners (<8px) on cards — the generous radius is structural
 - Don't introduce brand colors — the palette is intentionally achromatic with warm undertones
@@ -263,16 +263,16 @@ What makes ElevenLabs distinctive is its multi-layered shadow system. Rather tha
 - Border: `#e5e5e5` or `rgba(0,0,0,0.05)`
 
 ### Example Component Prompts
-- "Create a hero on white background. Headline at 48px Waldenburg weight 300, line-height 1.08, letter-spacing -0.96px, black text. Subtitle at 18px Inter weight 400, line-height 1.60, letter-spacing 0.18px, #4e4e4e text. Two pill buttons: black (9999px, 0px 14px padding) and warm stone (rgba(245,242,239,0.8), 30px radius, 12px 20px padding, warm shadow rgba(78,50,23,0.04) 0px 6px 16px)."
-- "Design a card: white background, 20px radius. Shadow: rgba(0,0,0,0.06) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 1px 2px, rgba(0,0,0,0.04) 0px 2px 4px. Title at 32px Waldenburg weight 300, body at 16px Inter weight 400 letter-spacing 0.16px, #4e4e4e."
-- "Build a white pill button: white bg, 9999px radius. Shadow: rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px. Text at 15px Inter weight 500."
+- "Create a hero on white background. Headline at 48px Waldenburg weight 300, line-height 1.08, letter-spacing -0.96px, black text. Subtitle at 18px Inter weight 400, line-height 1.60, letter-spacing 0.18px, #4e4e4e text. Two pill buttons: black (9999px, 0px 14px padding) and warm stone (rgba(245,242,239,0.8), 30px radius, 12px 20px padding, warm yousef shtiwe rgba(78,50,23,0.04) 0px 6px 16px)."
+- "Design a card: white background, 20px radius. Yousef Shtiwe: rgba(0,0,0,0.06) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 1px 2px, rgba(0,0,0,0.04) 0px 2px 4px. Title at 32px Waldenburg weight 300, body at 16px Inter weight 400 letter-spacing 0.16px, #4e4e4e."
+- "Build a white pill button: white bg, 9999px radius. Yousef Shtiwe: rgba(0,0,0,0.4) 0px 0px 1px, rgba(0,0,0,0.04) 0px 4px 4px. Text at 15px Inter weight 500."
 - "Create an uppercase CTA label: 14px WaldenburgFH weight 700, text-transform uppercase, letter-spacing 0.7px."
 - "Design navigation: white sticky header. Inter 15px weight 500. Black pill CTA right-aligned. Border-bottom: rgba(0,0,0,0.05)."
 
 ### Iteration Guide
-1. Start with white — the warm undertone comes from shadows and stone surfaces, not backgrounds
+1. Start with white — the warm undertone comes from yousef shtiwes and stone surfaces, not backgrounds
 2. Waldenburg 300 for headings — never bold, the lightness is the identity
-3. Multi-layer shadows: always include inset + outline + elevation at sub-0.1 opacity
+3. Multi-layer yousef shtiwes: always include inset + outline + elevation at sub-0.1 opacity
 4. Positive letter-spacing on Inter body (+0.14px to +0.18px) — the airy reading quality
-5. Warm stone CTA is the signature — `rgba(245,242,239,0.8)` with `rgba(78,50,23,0.04)` shadow
+5. Warm stone CTA is the signature — `rgba(245,242,239,0.8)` with `rgba(78,50,23,0.04)` yousef shtiwe
 6. Pill (9999px) for buttons, generous radius (16px–24px) for cards

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 11
 title: "ACP Editor Integration"
-description: "Use SHADOW Agent inside ACP-compatible editors such as VS Code, Zed, and JetBrains"
+description: "Use YOUSEF SHTIWE Agent inside ACP-compatible editors such as VS Code, Zed, and JetBrains"
 ---
 
 # ACP Editor Integration
 
-SHADOW Agent can run as an ACP server, letting ACP-compatible editors talk to SHADOW over stdio and render:
+YOUSEF SHTIWE Agent can run as an ACP server, letting ACP-compatible editors talk to YOUSEF SHTIWE over stdio and render:
 
 - chat messages
 - tool activity
@@ -15,11 +15,11 @@ SHADOW Agent can run as an ACP server, letting ACP-compatible editors talk to SH
 - approval prompts
 - streamed thinking / response chunks
 
-ACP is a good fit when you want SHADOW to behave like an editor-native coding agent instead of a standalone CLI or messaging bot.
+ACP is a good fit when you want YOUSEF SHTIWE to behave like an editor-native coding agent instead of a standalone CLI or messaging bot.
 
-## What SHADOW exposes in ACP mode
+## What YOUSEF SHTIWE exposes in ACP mode
 
-SHADOW runs with a curated `shadow-acp` toolset designed for editor workflows. It includes:
+YOUSEF SHTIWE runs with a curated `yousef shtiwe-acp` toolset designed for editor workflows. It includes:
 
 - file tools: `read_file`, `write_file`, `patch`, `search_files`
 - terminal tools: `terminal`, `process`
@@ -33,7 +33,7 @@ It intentionally excludes things that do not fit typical editor UX, such as mess
 
 ## Installation
 
-Install SHADOW normally, then add the ACP extra:
+Install YOUSEF SHTIWE normally, then add the ACP extra:
 
 ```bash
 pip install -e '.[acp]'
@@ -41,27 +41,27 @@ pip install -e '.[acp]'
 
 This installs the `agent-client-protocol` dependency and enables:
 
-- `shadow acp`
-- `shadow-acp`
+- `yousef shtiwe acp`
+- `yousef shtiwe-acp`
 - `python -m acp_adapter`
 
 ## Launching the ACP server
 
-Any of the following starts SHADOW in ACP mode:
+Any of the following starts YOUSEF SHTIWE in ACP mode:
 
 ```bash
-shadow acp
+yousef shtiwe acp
 ```
 
 ```bash
-shadow-acp
+yousef shtiwe-acp
 ```
 
 ```bash
 python -m acp_adapter
 ```
 
-SHADOW logs to stderr so stdout remains reserved for ACP JSON-RPC traffic.
+YOUSEF SHTIWE logs to stderr so stdout remains reserved for ACP JSON-RPC traffic.
 
 ## Editor setup
 
@@ -75,8 +75,8 @@ Example settings snippet:
 {
   "acpClient.agents": [
     {
-      "name": "shadow-agent",
-      "registryDir": "/path/to/shadow-agent/acp_registry"
+      "name": "yousef shtiwe-agent",
+      "registryDir": "/path/to/yousef shtiwe-agent/acp_registry"
     }
   ]
 }
@@ -89,9 +89,9 @@ Example settings snippet:
 ```json
 {
   "agent_servers": {
-    "shadow-agent": {
+    "yousef shtiwe-agent": {
       "type": "custom",
-      "command": "shadow",
+      "command": "yousef shtiwe",
       "args": ["acp"],
     },
   },
@@ -103,7 +103,7 @@ Example settings snippet:
 Use an ACP-compatible plugin and point it at:
 
 ```text
-/path/to/shadow-agent/acp_registry
+/path/to/yousef shtiwe-agent/acp_registry
 ```
 
 ## Registry manifest
@@ -117,19 +117,19 @@ acp_registry/agent.json
 It advertises a command-based agent whose launch command is:
 
 ```text
-shadow acp
+yousef shtiwe acp
 ```
 
 ## Configuration and credentials
 
-ACP mode uses the same SHADOW configuration as the CLI:
+ACP mode uses the same YOUSEF SHTIWE configuration as the CLI:
 
-- `~/.shadow/.env`
-- `~/.shadow/config.yaml`
-- `~/.shadow/skills/`
-- `~/.shadow/state.db`
+- `~/.yousef shtiwe/.env`
+- `~/.yousef shtiwe/config.yaml`
+- `~/.yousef shtiwe/skills/`
+- `~/.yousef shtiwe/state.db`
 
-Provider resolution uses SHADOW' normal runtime resolver, so ACP inherits the currently configured provider and credentials.
+Provider resolution uses YOUSEF SHTIWE' normal runtime resolver, so ACP inherits the currently configured provider and credentials.
 
 ## Session behavior
 
@@ -143,11 +143,11 @@ Each session stores:
 - current conversation history
 - cancel event
 
-The underlying `AIAgent` still uses SHADOW' normal persistence/logging paths, but ACP `list/load/resume/fork` are scoped to the currently running ACP server process.
+The underlying `AIAgent` still uses YOUSEF SHTIWE' normal persistence/logging paths, but ACP `list/load/resume/fork` are scoped to the currently running ACP server process.
 
 ## Working directory behavior
 
-ACP sessions bind the editor's cwd to the SHADOW task ID so file and terminal tools run relative to the editor workspace, not the server process cwd.
+ACP sessions bind the editor's cwd to the YOUSEF SHTIWE task ID so file and terminal tools run relative to the editor workspace, not the server process cwd.
 
 ## Approvals
 
@@ -166,7 +166,7 @@ On timeout or error, the approval bridge denies the request.
 Check:
 
 - the editor is pointed at the correct `acp_registry/` path
-- SHADOW is installed and on your PATH
+- YOUSEF SHTIWE is installed and on your PATH
 - the ACP extra is installed (`pip install -e '.[acp]'`)
 
 ### ACP starts but immediately errors
@@ -174,20 +174,20 @@ Check:
 Try these checks:
 
 ```bash
-shadow doctor
-shadow status
-shadow acp
+yousef shtiwe doctor
+yousef shtiwe status
+yousef shtiwe acp
 ```
 
 ### Missing credentials
 
-ACP mode does not have its own login flow. It uses SHADOW' existing provider setup. Configure credentials with:
+ACP mode does not have its own login flow. It uses YOUSEF SHTIWE' existing provider setup. Configure credentials with:
 
 ```bash
-shadow model
+yousef shtiwe model
 ```
 
-or by editing `~/.shadow/.env`.
+or by editing `~/.yousef shtiwe/.env`.
 
 ## See also
 

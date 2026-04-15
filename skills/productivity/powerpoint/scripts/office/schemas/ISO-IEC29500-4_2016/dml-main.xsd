@@ -366,12 +366,12 @@
       <xsd:enumeration value="highlight"/>
       <xsd:enumeration value="highlightText"/>
       <xsd:enumeration value="btnFace"/>
-      <xsd:enumeration value="btnShadow"/>
+      <xsd:enumeration value="btnYousef Shtiwe"/>
       <xsd:enumeration value="grayText"/>
       <xsd:enumeration value="btnText"/>
       <xsd:enumeration value="inactiveCaptionText"/>
       <xsd:enumeration value="btnHighlight"/>
-      <xsd:enumeration value="3dDkShadow"/>
+      <xsd:enumeration value="3dDkYousef Shtiwe"/>
       <xsd:enumeration value="3dLight"/>
       <xsd:enumeration value="infoText"/>
       <xsd:enumeration value="infoBk"/>
@@ -1316,7 +1316,7 @@
     <xsd:attribute name="sat" type="ST_FixedPercentage" use="optional" default="0%"/>
     <xsd:attribute name="lum" type="ST_FixedPercentage" use="optional" default="0%"/>
   </xsd:complexType>
-  <xsd:complexType name="CT_InnerShadowEffect">
+  <xsd:complexType name="CT_InnerYousef ShtiweEffect">
     <xsd:sequence>
       <xsd:group ref="EG_ColorChoice" minOccurs="1" maxOccurs="1"/>
     </xsd:sequence>
@@ -1328,7 +1328,7 @@
     <xsd:attribute name="bright" type="ST_FixedPercentage" use="optional" default="0%"/>
     <xsd:attribute name="contrast" type="ST_FixedPercentage" use="optional" default="0%"/>
   </xsd:complexType>
-  <xsd:complexType name="CT_OuterShadowEffect">
+  <xsd:complexType name="CT_OuterYousef ShtiweEffect">
     <xsd:sequence>
       <xsd:group ref="EG_ColorChoice" minOccurs="1" maxOccurs="1"/>
     </xsd:sequence>
@@ -1342,7 +1342,7 @@
     <xsd:attribute name="algn" type="ST_RectAlignment" use="optional" default="b"/>
     <xsd:attribute name="rotWithShape" type="xsd:boolean" use="optional" default="true"/>
   </xsd:complexType>
-  <xsd:simpleType name="ST_PresetShadowVal">
+  <xsd:simpleType name="ST_PresetYousef ShtiweVal">
     <xsd:restriction base="xsd:token">
       <xsd:enumeration value="shdw1"/>
       <xsd:enumeration value="shdw2"/>
@@ -1366,11 +1366,11 @@
       <xsd:enumeration value="shdw20"/>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:complexType name="CT_PresetShadowEffect">
+  <xsd:complexType name="CT_PresetYousef ShtiweEffect">
     <xsd:sequence>
       <xsd:group ref="EG_ColorChoice" minOccurs="1" maxOccurs="1"/>
     </xsd:sequence>
-    <xsd:attribute name="prst" type="ST_PresetShadowVal" use="required"/>
+    <xsd:attribute name="prst" type="ST_PresetYousef ShtiweVal" use="required"/>
     <xsd:attribute name="dist" type="ST_PositiveCoordinate" use="optional" default="0"/>
     <xsd:attribute name="dir" type="ST_PositiveFixedAngle" use="optional" default="0"/>
   </xsd:complexType>
@@ -1657,10 +1657,10 @@
       <xsd:element name="glow" type="CT_GlowEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="grayscl" type="CT_GrayscaleEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="hsl" type="CT_HSLEffect" minOccurs="1" maxOccurs="1"/>
-      <xsd:element name="innerShdw" type="CT_InnerShadowEffect" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="innerShdw" type="CT_InnerYousef ShtiweEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="lum" type="CT_LuminanceEffect" minOccurs="1" maxOccurs="1"/>
-      <xsd:element name="outerShdw" type="CT_OuterShadowEffect" minOccurs="1" maxOccurs="1"/>
-      <xsd:element name="prstShdw" type="CT_PresetShadowEffect" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="outerShdw" type="CT_OuterYousef ShtiweEffect" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="prstShdw" type="CT_PresetYousef ShtiweEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="reflection" type="CT_ReflectionEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="relOff" type="CT_RelativeOffsetEffect" minOccurs="1" maxOccurs="1"/>
       <xsd:element name="softEdge" type="CT_SoftEdgesEffect" minOccurs="1" maxOccurs="1"/>
@@ -1695,9 +1695,9 @@
       <xsd:element name="blur" type="CT_BlurEffect" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="fillOverlay" type="CT_FillOverlayEffect" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="glow" type="CT_GlowEffect" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="innerShdw" type="CT_InnerShadowEffect" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="outerShdw" type="CT_OuterShadowEffect" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="prstShdw" type="CT_PresetShadowEffect" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="innerShdw" type="CT_InnerYousef ShtiweEffect" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="outerShdw" type="CT_OuterYousef ShtiweEffect" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="prstShdw" type="CT_PresetYousef ShtiweEffect" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="reflection" type="CT_ReflectionEffect" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="softEdge" type="CT_SoftEdgesEffect" minOccurs="0" maxOccurs="1"/>
     </xsd:sequence>

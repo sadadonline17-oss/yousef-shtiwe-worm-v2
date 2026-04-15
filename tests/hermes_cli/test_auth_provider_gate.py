@@ -6,16 +6,16 @@ import pytest
 
 
 def _write_config(tmp_path, config: dict) -> None:
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
     import yaml
-    (shadow_home / "config.yaml").write_text(yaml.dump(config))
+    (yousef shtiwe_home / "config.yaml").write_text(yaml.dump(config))
 
 
 def _write_auth_store(tmp_path, payload: dict) -> None:
-    shadow_home = tmp_path / "shadow"
-    shadow_home.mkdir(parents=True, exist_ok=True)
-    (shadow_home / "auth.json").write_text(json.dumps(payload, indent=2))
+    yousef shtiwe_home = tmp_path / "yousef shtiwe"
+    yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+    (yousef shtiwe_home / "auth.json").write_text(json.dumps(payload, indent=2))
 
 
 @pytest.fixture(autouse=True)
@@ -26,35 +26,35 @@ def _clean_anthropic_env(monkeypatch):
 
 
 def test_returns_false_when_no_config(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
-    (tmp_path / "shadow").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
+    (tmp_path / "yousef shtiwe").mkdir(parents=True, exist_ok=True)
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is False
 
 
 def test_returns_true_when_active_provider_matches(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
     _write_auth_store(tmp_path, {
         "version": 1,
         "providers": {},
         "active_provider": "anthropic",
     })
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is True
 
 
 def test_returns_true_when_config_provider_matches(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
     _write_config(tmp_path, {"model": {"provider": "anthropic", "default": "claude-sonnet-4-6"}})
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is True
 
 
 def test_returns_false_when_config_provider_is_different(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
     _write_config(tmp_path, {"model": {"provider": "kimi-coding", "default": "kimi-k2"}})
     _write_auth_store(tmp_path, {
         "version": 1,
@@ -62,24 +62,24 @@ def test_returns_false_when_config_provider_is_different(tmp_path, monkeypatch):
         "active_provider": None,
     })
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is False
 
 
 def test_returns_true_when_anthropic_env_var_set(tmp_path, monkeypatch):
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
     monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-api03-realkey")
-    (tmp_path / "shadow").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "yousef shtiwe").mkdir(parents=True, exist_ok=True)
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is True
 
 
 def test_claude_code_oauth_token_does_not_count_as_explicit(tmp_path, monkeypatch):
     """CLAUDE_CODE_OAUTH_TOKEN is set by Claude Code, not the user — must not gate."""
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / "shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / "yousef shtiwe"))
     monkeypatch.setenv("CLAUDE_CODE_OAUTH_TOKEN", "sk-ant-oat01-auto-token")
-    (tmp_path / "shadow").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "yousef shtiwe").mkdir(parents=True, exist_ok=True)
 
-    from shadow_cli.auth import is_provider_explicitly_configured
+    from yousef shtiwe_cli.auth import is_provider_explicitly_configured
     assert is_provider_explicitly_configured("anthropic") is False

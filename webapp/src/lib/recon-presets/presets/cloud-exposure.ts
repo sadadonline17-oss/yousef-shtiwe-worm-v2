@@ -7,7 +7,7 @@ export const CLOUD_EXPOSURE: ReconPreset = {
   image: '/preset-cloud-lock.svg',
   shortDescription: 'Cloud-focused security assessment. OSINT providers for cloud-exposed services, httpx with ASN/CDN/TLS probes, security checks for cloud misconfigs, Nuclei with cloud templates.',
   fullDescription: `### Pipeline Goal
-Identify cloud-exposed services, misconfigurations, and shadow infrastructure across your external attack surface. This preset combines all OSINT providers for maximum cloud asset discovery, httpx with full fingerprinting including ASN and CDN detection, port scanning focused on cloud-common ports (Kubernetes API, databases, admin panels), Nuclei with cloud/misconfig templates, and all security checks for infrastructure exposure.
+Identify cloud-exposed services, misconfigurations, and yousef shtiwe infrastructure across your external attack surface. This preset combines all OSINT providers for maximum cloud asset discovery, httpx with full fingerprinting including ASN and CDN detection, port scanning focused on cloud-common ports (Kubernetes API, databases, admin panels), Nuclei with cloud/misconfig templates, and all security checks for infrastructure exposure.
 
 ### Who is this for?
 Cloud security engineers, red teams targeting cloud-hosted organizations, and security teams auditing their external cloud footprint. Ideal when you suspect services are exposed through misconfigured cloud environments -- Kubernetes dashboards, open databases, unprotected admin panels, or forgotten development instances.

@@ -51,7 +51,7 @@ def process_command(cmd_input):
     args = parts[1:]
 
     if base_cmd in ["exit", "quit", "void"]:
-        print(f"{RED}👹 [VOID] Returning to the shadows...{RESET}")
+        print(f"{RED}👹 [VOID] Returning to the yousef shtiwes...{RESET}")
         return False
     
     if base_cmd in ["help", "--help", "-h"]:

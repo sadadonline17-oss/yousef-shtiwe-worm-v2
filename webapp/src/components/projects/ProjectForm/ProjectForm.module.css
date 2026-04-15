@@ -692,7 +692,7 @@
 
 .modelSelectorInputFocused {
   border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 2px var(--border-focus);
+  box-yousef shtiwe: 0 0 0 2px var(--border-focus);
 }
 
 .modelSearchInput {
@@ -739,7 +739,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-default);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-yousef shtiwe: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 50;
 }
 
@@ -863,7 +863,7 @@
   align-items: center;
   text-align: center;
   gap: var(--space-3, 12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 80, 80, 0.1);
+  box-yousef shtiwe: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 80, 80, 0.1);
   animation: guardrailSlideIn 0.25s ease-out;
 }
 

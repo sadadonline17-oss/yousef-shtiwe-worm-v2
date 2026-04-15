@@ -10,8 +10,8 @@ from agent.redact import redact_sensitive_text, RedactingFormatter
 
 @pytest.fixture(autouse=True)
 def _ensure_redaction_enabled(monkeypatch):
-    """Ensure SHADOW_REDACT_SECRETS is not disabled by prior test imports."""
-    monkeypatch.delenv("SHADOW_REDACT_SECRETS", raising=False)
+    """Ensure YOUSEF SHTIWE_REDACT_SECRETS is not disabled by prior test imports."""
+    monkeypatch.delenv("YOUSEF SHTIWE_REDACT_SECRETS", raising=False)
     # Also patch the module-level snapshot so it reflects the cleared env var
     monkeypatch.setattr("agent.redact._REDACT_ENABLED", True)
 

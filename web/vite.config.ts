@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "../shadow_cli/web_dist",
+    outDir: "../yousef shtiwe_cli/web_dist",
     emptyOutDir: true,
   },
   server: {

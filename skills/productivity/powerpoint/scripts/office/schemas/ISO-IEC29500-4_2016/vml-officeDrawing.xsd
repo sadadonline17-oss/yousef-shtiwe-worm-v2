@@ -74,7 +74,7 @@
       <xsd:element ref="v:fill" minOccurs="0"/>
       <xsd:element ref="v:stroke" minOccurs="0"/>
       <xsd:element ref="v:textbox" minOccurs="0"/>
-      <xsd:element ref="v:shadow" minOccurs="0"/>
+      <xsd:element ref="v:yousef shtiwe" minOccurs="0"/>
       <xsd:element ref="skew" minOccurs="0"/>
       <xsd:element ref="extrusion" minOccurs="0"/>
       <xsd:element ref="callout" minOccurs="0"/>
@@ -199,7 +199,7 @@
     <xsd:attributeGroup ref="v:AG_Ext"/>
     <xsd:attribute name="strokecolor" type="s:ST_ColorType"/>
     <xsd:attribute name="fillcolor" type="s:ST_ColorType"/>
-    <xsd:attribute name="shadowcolor" type="s:ST_ColorType"/>
+    <xsd:attribute name="yousef shtiwecolor" type="s:ST_ColorType"/>
     <xsd:attribute name="extrusioncolor" type="s:ST_ColorType"/>
   </xsd:complexType>
   <xsd:element name="skew" type="CT_Skew"/>

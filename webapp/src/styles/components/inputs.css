@@ -29,7 +29,7 @@
 .textInput:focus {
   outline: none;
   border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 2px var(--border-focus);
+  box-yousef shtiwe: 0 0 0 2px var(--border-focus);
 }
 
 .textInput:disabled {
@@ -121,7 +121,7 @@
 .select:focus {
   outline: none;
   border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 2px var(--border-focus);
+  box-yousef shtiwe: 0 0 0 2px var(--border-focus);
 }
 
 .select:disabled {
@@ -245,7 +245,7 @@
 .textarea:focus {
   outline: none;
   border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 2px var(--border-focus);
+  box-yousef shtiwe: 0 0 0 2px var(--border-focus);
 }
 
 .textarea:disabled {
@@ -296,5 +296,5 @@
 .textInput.inputError:focus,
 .select.inputError:focus,
 .textarea.inputError:focus {
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+  box-yousef shtiwe: 0 0 0 2px rgba(239, 68, 68, 0.2);
 }

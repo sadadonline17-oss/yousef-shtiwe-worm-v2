@@ -10,7 +10,7 @@ import requests
 
 from tools.browser_providers.base import CloudBrowserProvider
 from tools.managed_tool_gateway import resolve_managed_tool_gateway
-from tools.tool_backend_helpers import managed_shadow_tools_enabled
+from tools.tool_backend_helpers import managed_yousef shtiwe_tools_enabled
 
 logger = logging.getLogger(__name__)
 _pending_create_keys: Dict[str, str] = {}
@@ -70,7 +70,7 @@ class BrowserUseProvider(CloudBrowserProvider):
         return self._get_config_or_none() is not None
 
     # ------------------------------------------------------------------
-    # Config resolution (direct API key OR managed Shadow gateway)
+    # Config resolution (direct API key OR managed Yousef Shtiwe gateway)
     # ------------------------------------------------------------------
 
     def _get_config_or_none(self) -> Optional[Dict[str, Any]]:
@@ -87,7 +87,7 @@ class BrowserUseProvider(CloudBrowserProvider):
             return None
 
         return {
-            "api_key": managed.shadow_user_token,
+            "api_key": managed.yousef shtiwe_user_token,
             "base_url": managed.gateway_origin.rstrip("/"),
             "managed_mode": True,
         }
@@ -98,7 +98,7 @@ class BrowserUseProvider(CloudBrowserProvider):
             message = (
                 "Browser Use requires a direct BROWSER_USE_API_KEY credential."
             )
-            if managed_shadow_tools_enabled():
+            if managed_yousef shtiwe_tools_enabled():
                 message = (
                     "Browser Use requires either a direct BROWSER_USE_API_KEY "
                     "credential or a managed Browser Use gateway configuration."
@@ -126,7 +126,7 @@ class BrowserUseProvider(CloudBrowserProvider):
             headers["X-Idempotency-Key"] = _get_or_create_pending_create_key(task_id)
 
         # Keep gateway-backed sessions short so billing authorization does not
-        # default to a long Browser-Use timeout when SHADOW only needs a task-
+        # default to a long Browser-Use timeout when YOUSEF SHTIWE only needs a task-
         # scoped ephemeral browser.
         payload = (
             {
@@ -155,7 +155,7 @@ class BrowserUseProvider(CloudBrowserProvider):
         session_data = response.json()
         if managed_mode:
             _clear_pending_create_key(task_id)
-        session_name = f"shadow_{task_id}_{uuid.uuid4().hex[:8]}"
+        session_name = f"yousef shtiwe_{task_id}_{uuid.uuid4().hex[:8]}"
         external_call_id = response.headers.get("x-external-call-id") if managed_mode else None
 
         logger.info("Created Browser Use session %s", session_name)

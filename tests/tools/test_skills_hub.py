@@ -55,9 +55,9 @@ class TestParseFrontmatterQuick:
         assert fm == {}
 
     def test_nested_yaml(self):
-        content = "---\nname: test\nmetadata:\n  shadow:\n    tags: [a, b]\n---\n\nBody.\n"
+        content = "---\nname: test\nmetadata:\n  yousef shtiwe:\n    tags: [a, b]\n---\n\nBody.\n"
         fm = GitHubSource._parse_frontmatter_quick(content)
-        assert fm["metadata"]["shadow"]["tags"] == ["a", "b"]
+        assert fm["metadata"]["yousef shtiwe"]["tags"] == ["a", "b"]
 
     def test_invalid_yaml_returns_empty(self):
         content = "---\n: : : invalid{{\n---\n\nBody.\n"

@@ -1,26 +1,26 @@
 ---
 sidebar_position: 9
 title: "Matrix"
-description: "Set up SHADOW Agent as a Matrix bot"
+description: "Set up YOUSEF SHTIWE Agent as a Matrix bot"
 ---
 
 # Matrix Setup
 
-SHADOW Agent integrates with Matrix, the open, federated messaging protocol. Matrix lets you run your own homeserver or use a public one like matrix.org — either way, you keep control of your communications. The bot connects via the `mautrix` Python SDK, processes messages through the SHADOW Agent pipeline (including tool use, memory, and reasoning), and responds in real time. It supports text, file attachments, images, audio, video, and optional end-to-end encryption (E2EE).
+YOUSEF SHTIWE Agent integrates with Matrix, the open, federated messaging protocol. Matrix lets you run your own homeserver or use a public one like matrix.org — either way, you keep control of your communications. The bot connects via the `mautrix` Python SDK, processes messages through the YOUSEF SHTIWE Agent pipeline (including tool use, memory, and reasoning), and responds in real time. It supports text, file attachments, images, audio, video, and optional end-to-end encryption (E2EE).
 
-SHADOW works with any Matrix homeserver — Synapse, Conduit, Dendrite, or matrix.org.
+YOUSEF SHTIWE works with any Matrix homeserver — Synapse, Conduit, Dendrite, or matrix.org.
 
-Before setup, here's the part most people want to know: how SHADOW behaves once it's connected.
+Before setup, here's the part most people want to know: how YOUSEF SHTIWE behaves once it's connected.
 
-## How SHADOW Behaves
+## How YOUSEF SHTIWE Behaves
 
 | Context | Behavior |
 |---------|----------|
-| **DMs** | SHADOW responds to every message. No `@mention` needed. Each DM has its own session. Set `MATRIX_DM_MENTION_THREADS=true` to start a thread when the bot is `@mentioned` in a DM. |
-| **Rooms** | By default, SHADOW requires an `@mention` to respond. Set `MATRIX_REQUIRE_MENTION=false` or add room IDs to `MATRIX_FREE_RESPONSE_ROOMS` for free-response rooms. Room invites are auto-accepted. |
-| **Threads** | SHADOW supports Matrix threads (MSC3440). If you reply in a thread, SHADOW keeps the thread context isolated from the main room timeline. Threads where the bot has already participated do not require a mention. |
-| **Auto-threading** | By default, SHADOW auto-creates a thread for each message it responds to in a room. This keeps conversations isolated. Set `MATRIX_AUTO_THREAD=false` to disable. |
-| **Shared rooms with multiple users** | By default, SHADOW isolates session history per user inside the room. Two people talking in the same room do not share one transcript unless you explicitly disable that. |
+| **DMs** | YOUSEF SHTIWE responds to every message. No `@mention` needed. Each DM has its own session. Set `MATRIX_DM_MENTION_THREADS=true` to start a thread when the bot is `@mentioned` in a DM. |
+| **Rooms** | By default, YOUSEF SHTIWE requires an `@mention` to respond. Set `MATRIX_REQUIRE_MENTION=false` or add room IDs to `MATRIX_FREE_RESPONSE_ROOMS` for free-response rooms. Room invites are auto-accepted. |
+| **Threads** | YOUSEF SHTIWE supports Matrix threads (MSC3440). If you reply in a thread, YOUSEF SHTIWE keeps the thread context isolated from the main room timeline. Threads where the bot has already participated do not require a mention. |
+| **Auto-threading** | By default, YOUSEF SHTIWE auto-creates a thread for each message it responds to in a room. This keeps conversations isolated. Set `MATRIX_AUTO_THREAD=false` to disable. |
+| **Shared rooms with multiple users** | By default, YOUSEF SHTIWE isolates session history per user inside the room. Two people talking in the same room do not share one transcript unless you explicitly disable that. |
 
 :::tip
 The bot automatically joins rooms when invited. Just invite the bot's Matrix user to any room and it will join and start responding.
@@ -95,20 +95,20 @@ If you run your own homeserver (Synapse, Conduit, Dendrite):
 register_new_matrix_user -c /etc/synapse/homeserver.yaml http://localhost:8008
 ```
 
-2. Choose a username like `shadow` — the full user ID will be `@shadow:your-server.org`.
+2. Choose a username like `yousef shtiwe` — the full user ID will be `@yousef shtiwe:your-server.org`.
 
 ### Option B: Use matrix.org or Another Public Homeserver
 
 1. Go to [Element Web](https://app.element.io) and create a new account.
-2. Pick a username for your bot (e.g., `shadow-bot`).
+2. Pick a username for your bot (e.g., `yousef shtiwe-bot`).
 
 ### Option C: Use Your Own Account
 
-You can also run SHADOW as your own user. This means the bot posts as you — useful for personal assistants.
+You can also run YOUSEF SHTIWE as your own user. This means the bot posts as you — useful for personal assistants.
 
 ## Step 2: Get an Access Token
 
-SHADOW needs an access token to authenticate with the homeserver. You have two options:
+YOUSEF SHTIWE needs an access token to authenticate with the homeserver. You have two options:
 
 ### Option A: Access Token (Recommended)
 
@@ -127,7 +127,7 @@ curl -X POST https://your-server/_matrix/client/v3/login \
   -H "Content-Type: application/json" \
   -d '{
     "type": "m.login.password",
-    "user": "@shadow:your-server.org",
+    "user": "@yousef shtiwe:your-server.org",
     "password": "your-password"
   }'
 ```
@@ -140,16 +140,16 @@ The access token gives full access to the bot's Matrix account. Never share it p
 
 ### Option B: Password Login
 
-Instead of providing an access token, you can give SHADOW the bot's user ID and password. SHADOW will log in automatically on startup. This is simpler but means the password is stored in your `.env` file.
+Instead of providing an access token, you can give YOUSEF SHTIWE the bot's user ID and password. YOUSEF SHTIWE will log in automatically on startup. This is simpler but means the password is stored in your `.env` file.
 
 ```bash
-MATRIX_USER_ID=@shadow:your-server.org
+MATRIX_USER_ID=@yousef shtiwe:your-server.org
 MATRIX_PASSWORD=your-password
 ```
 
 ## Step 3: Find Your Matrix User ID
 
-SHADOW Agent uses your Matrix User ID to control who can interact with the bot. Matrix User IDs follow the format `@username:server`.
+YOUSEF SHTIWE Agent uses your Matrix User ID to control who can interact with the bot. Matrix User IDs follow the format `@username:server`.
 
 To find yours:
 
@@ -161,21 +161,21 @@ To find yours:
 Matrix User IDs always start with `@` and contain a `:` followed by the server name. For example: `@alice:matrix.org`, `@bob:your-server.com`.
 :::
 
-## Step 4: Configure SHADOW Agent
+## Step 4: Configure YOUSEF SHTIWE Agent
 
 ### Option A: Interactive Setup (Recommended)
 
 Run the guided setup command:
 
 ```bash
-shadow gateway setup
+yousef shtiwe gateway setup
 ```
 
 Select **Matrix** when prompted, then provide your homeserver URL, access token (or user ID + password), and allowed user IDs when asked.
 
 ### Option B: Manual Configuration
 
-Add the following to your `~/.shadow/.env` file:
+Add the following to your `~/.yousef shtiwe/.env` file:
 
 **Using an access token:**
 
@@ -185,7 +185,7 @@ MATRIX_HOMESERVER=https://matrix.example.org
 MATRIX_ACCESS_TOKEN=***
 
 # Optional: user ID (auto-detected from token if omitted)
-# MATRIX_USER_ID=@shadow:matrix.example.org
+# MATRIX_USER_ID=@yousef shtiwe:matrix.example.org
 
 # Security: restrict who can interact with the bot
 MATRIX_ALLOWED_USERS=@alice:matrix.example.org
@@ -199,14 +199,14 @@ MATRIX_ALLOWED_USERS=@alice:matrix.example.org
 ```bash
 # Required
 MATRIX_HOMESERVER=https://matrix.example.org
-MATRIX_USER_ID=@shadow:matrix.example.org
+MATRIX_USER_ID=@yousef shtiwe:matrix.example.org
 MATRIX_PASSWORD=***
 
 # Security
 MATRIX_ALLOWED_USERS=@alice:matrix.example.org
 ```
 
-Optional behavior settings in `~/.shadow/config.yaml`:
+Optional behavior settings in `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
 group_sessions_per_user: true
@@ -219,18 +219,18 @@ group_sessions_per_user: true
 Once configured, start the Matrix gateway:
 
 ```bash
-shadow gateway
+yousef shtiwe gateway
 ```
 
 The bot should connect to your homeserver and start syncing within a few seconds. Send it a message — either a DM or in a room it has joined — to test.
 
 :::tip
-You can run `shadow gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
+You can run `yousef shtiwe gateway` in the background or as a systemd service for persistent operation. See the deployment docs for details.
 :::
 
 ## End-to-End Encryption (E2EE)
 
-SHADOW supports Matrix end-to-end encryption, so you can chat with your bot in encrypted rooms.
+YOUSEF SHTIWE supports Matrix end-to-end encryption, so you can chat with your bot in encrypted rooms.
 
 ### Requirements
 
@@ -240,8 +240,8 @@ E2EE requires the `mautrix` library with encryption extras and the `libolm` C li
 # Install mautrix with E2EE support
 pip install 'mautrix[encryption]'
 
-# Or install with shadow extras
-pip install 'shadow-agent[matrix]'
+# Or install with yousef shtiwe extras
+pip install 'yousef shtiwe-agent[matrix]'
 ```
 
 You also need `libolm` installed on your system:
@@ -259,15 +259,15 @@ sudo dnf install libolm-devel
 
 ### Enable E2EE
 
-Add to your `~/.shadow/.env`:
+Add to your `~/.yousef shtiwe/.env`:
 
 ```bash
 MATRIX_ENCRYPTION=true
 ```
 
-When E2EE is enabled, SHADOW:
+When E2EE is enabled, YOUSEF SHTIWE:
 
-- Stores encryption keys in `~/.shadow/platforms/matrix/store/` (legacy installs: `~/.shadow/matrix/store/`)
+- Stores encryption keys in `~/.yousef shtiwe/platforms/matrix/store/` (legacy installs: `~/.yousef shtiwe/matrix/store/`)
 - Uploads device keys on first connection
 - Decrypts incoming messages and encrypts outgoing messages automatically
 - Auto-joins encrypted rooms when invited
@@ -282,10 +282,10 @@ MATRIX_RECOVERY_KEY=EsT... your recovery key here
 
 **Where to find it:** In Element, go to **Settings** → **Security & Privacy** → **Encryption** → your recovery key (also called the "Security Key"). This is the key you were asked to save when you first set up cross-signing.
 
-On each startup, if `MATRIX_RECOVERY_KEY` is set, SHADOW imports cross-signing keys from the homeserver's secure secret storage and signs the current device. This is idempotent and safe to leave enabled permanently.
+On each startup, if `MATRIX_RECOVERY_KEY` is set, YOUSEF SHTIWE imports cross-signing keys from the homeserver's secure secret storage and signs the current device. This is idempotent and safe to leave enabled permanently.
 
 :::warning
-If you delete the `~/.shadow/platforms/matrix/store/` directory, the bot loses its encryption keys. You'll need to verify the device again in your Matrix client. Back up this directory if you want to preserve encrypted sessions.
+If you delete the `~/.yousef shtiwe/platforms/matrix/store/` directory, the bot loses its encryption keys. You'll need to verify the device again in your Matrix client. Back up this directory if you want to preserve encrypted sessions.
 :::
 
 :::info
@@ -302,7 +302,7 @@ Type `/sethome` in any Matrix room where the bot is present. That room becomes t
 
 ### Manual Configuration
 
-Add this to your `~/.shadow/.env`:
+Add this to your `~/.yousef shtiwe/.env`:
 
 ```bash
 MATRIX_HOME_ROOM=!abc123def456:matrix.example.org
@@ -343,10 +343,10 @@ If this returns your user info, the token is valid. If it returns an error, gene
 pip install 'mautrix[encryption]'
 ```
 
-Or with SHADOW extras:
+Or with YOUSEF SHTIWE extras:
 
 ```bash
-pip install 'shadow-agent[matrix]'
+pip install 'yousef shtiwe-agent[matrix]'
 ```
 
 ### Encryption errors / "could not decrypt event"
@@ -361,7 +361,7 @@ pip install 'shadow-agent[matrix]'
 
 ### Upgrading from a previous version with E2EE
 
-If you previously used SHADOW with `MATRIX_ENCRYPTION=true` and are upgrading to
+If you previously used YOUSEF SHTIWE with `MATRIX_ENCRYPTION=true` and are upgrading to
 a version that uses the new SQLite-based crypto store, the bot's encryption
 identity has changed. Your Matrix client (Element) may cache the old device keys
 and refuse to share encryption sessions with the bot.
@@ -385,22 +385,22 @@ changed identity keys for the same device as suspicious.
      -H "Content-Type: application/json" \
      -d '{
        "type": "m.login.password",
-       "identifier": {"type": "m.id.user", "user": "@shadow:your-server.org"},
+       "identifier": {"type": "m.id.user", "user": "@yousef shtiwe:your-server.org"},
        "password": "***",
-       "initial_device_display_name": "SHADOW Agent"
+       "initial_device_display_name": "YOUSEF SHTIWE Agent"
      }'
    ```
 
-   Copy the new `access_token` and update `MATRIX_ACCESS_TOKEN` in `~/.shadow/.env`.
+   Copy the new `access_token` and update `MATRIX_ACCESS_TOKEN` in `~/.yousef shtiwe/.env`.
 
 2. **Delete old encryption state**:
 
    ```bash
-   rm -f ~/.shadow/platforms/matrix/store/crypto.db
-   rm -f ~/.shadow/platforms/matrix/store/crypto_store.*
+   rm -f ~/.yousef shtiwe/platforms/matrix/store/crypto.db
+   rm -f ~/.yousef shtiwe/platforms/matrix/store/crypto_store.*
    ```
 
-3. **Set your recovery key** (if you use cross-signing — most Element users do). Add to `~/.shadow/.env`:
+3. **Set your recovery key** (if you use cross-signing — most Element users do). Add to `~/.yousef shtiwe/.env`:
 
    ```bash
    MATRIX_RECOVERY_KEY=EsT... your recovery key here
@@ -415,7 +415,7 @@ changed identity keys for the same device as suspicious.
 5. **Restart the gateway**:
 
    ```bash
-   shadow gateway run
+   yousef shtiwe gateway run
    ```
 
    If `MATRIX_RECOVERY_KEY` is set, you should see `Matrix: cross-signing verified via recovery key` in the logs.
@@ -430,7 +430,7 @@ normally.
 
 :::tip
 **New installations are not affected.** This migration is only needed if you had
-a working E2EE setup with a previous version of SHADOW and are upgrading.
+a working E2EE setup with a previous version of YOUSEF SHTIWE and are upgrading.
 
 **Why a new access token?** Each Matrix access token is bound to a specific device
 ID. Reusing the same device ID with new encryption keys causes other Matrix
@@ -441,20 +441,20 @@ history, so other clients trust it immediately.
 
 ## Proxy Mode (E2EE on macOS)
 
-Matrix E2EE requires `libolm`, which doesn't compile on macOS ARM64 (Apple Silicon). The `shadow-agent[matrix]` extra is gated to Linux only. If you're on macOS, proxy mode lets you run E2EE in a Docker container on a Linux VM while the actual agent runs natively on macOS with full access to your local files, memory, and skills.
+Matrix E2EE requires `libolm`, which doesn't compile on macOS ARM64 (Apple Silicon). The `yousef shtiwe-agent[matrix]` extra is gated to Linux only. If you're on macOS, proxy mode lets you run E2EE in a Docker container on a Linux VM while the actual agent runs natively on macOS with full access to your local files, memory, and skills.
 
 ### How It Works
 
 ```
 macOS (Host):
-  └─ shadow gateway
+  └─ yousef shtiwe gateway
        ├─ api_server adapter ← listens on 0.0.0.0:8642
        ├─ AIAgent ← single source of truth
        ├─ Sessions, memory, skills
        └─ Local file access (Obsidian, projects, etc.)
 
 Linux VM (Docker):
-  └─ shadow gateway (proxy mode)
+  └─ yousef shtiwe gateway (proxy mode)
        ├─ Matrix adapter ← E2EE decryption/encryption
        └─ HTTP forward → macOS:8642/v1/chat/completions
            (no LLM API keys, no agent, no inference)
@@ -466,7 +466,7 @@ The Docker container only handles Matrix protocol + E2EE. When a message arrives
 
 Enable the API server so the host accepts incoming requests from the Docker container.
 
-Add to `~/.shadow/.env`:
+Add to `~/.yousef shtiwe/.env`:
 
 ```bash
 API_SERVER_ENABLED=true
@@ -481,7 +481,7 @@ API_SERVER_HOST=0.0.0.0
 Start the gateway:
 
 ```bash
-shadow gateway
+yousef shtiwe gateway
 ```
 
 You should see the API server start alongside any other platforms you have configured. Verify it's reachable from the VM:
@@ -499,7 +499,7 @@ The container needs Matrix credentials and the proxy URL. It does NOT need LLM A
 
 ```yaml
 services:
-  shadow-matrix:
+  yousef shtiwe-matrix:
     build: .
     environment:
       # Matrix credentials
@@ -507,13 +507,13 @@ services:
       MATRIX_ACCESS_TOKEN: "syt_..."
       MATRIX_ALLOWED_USERS: "@you:matrix.example.org"
       MATRIX_ENCRYPTION: "true"
-      MATRIX_DEVICE_ID: "SHADOW_BOT"
+      MATRIX_DEVICE_ID: "YOUSEF SHTIWE_BOT"
 
       # Proxy mode — forward to host agent
       GATEWAY_PROXY_URL: "http://192.168.1.100:8642"
       GATEWAY_PROXY_KEY: "your-secret-key-here"
     volumes:
-      - ./matrix-store:/root/.shadow/platforms/matrix/store
+      - ./matrix-store:/root/.yousef shtiwe/platforms/matrix/store
 ```
 
 **`Dockerfile`:**
@@ -522,9 +522,9 @@ services:
 FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y libolm-dev && rm -rf /var/lib/apt/lists/*
-RUN pip install 'shadow-agent[matrix]'
+RUN pip install 'yousef shtiwe-agent[matrix]'
 
-CMD ["shadow", "gateway"]
+CMD ["yousef shtiwe", "gateway"]
 ```
 
 That's the entire container. No API keys for OpenRouter, Anthropic, or any inference provider.
@@ -533,7 +533,7 @@ That's the entire container. No API keys for OpenRouter, Anthropic, or any infer
 
 1. Start the host gateway first:
    ```bash
-   shadow gateway
+   yousef shtiwe gateway
    ```
 
 2. Start the Docker container:
@@ -549,7 +549,7 @@ Proxy mode is configured on the **container side** (the thin gateway):
 
 | Setting | Description |
 |---------|-------------|
-| `GATEWAY_PROXY_URL` | URL of the remote SHADOW API server (e.g., `http://192.168.1.100:8642`) |
+| `GATEWAY_PROXY_URL` | URL of the remote YOUSEF SHTIWE API server (e.g., `http://192.168.1.100:8642`) |
 | `GATEWAY_PROXY_KEY` | Bearer token for authentication (must match `API_SERVER_KEY` on the host) |
 | `gateway.proxy_url` | Same as `GATEWAY_PROXY_URL` but in `config.yaml` |
 
@@ -567,7 +567,7 @@ The host side needs:
 Proxy mode is not limited to Matrix. Any platform adapter can use it — set `GATEWAY_PROXY_URL` on any gateway instance and it will forward to the remote agent instead of running one locally. This is useful for any deployment where the platform adapter needs to run in a different environment from the agent (network isolation, E2EE requirements, resource constraints).
 
 :::tip
-Session continuity is maintained via the `X-SHADOW-Session-Id` header. The host's API server tracks sessions by this ID, so conversations persist across messages just like they would with a local agent.
+Session continuity is maintained via the `X-YOUSEF SHTIWE-Session-Id` header. The host's API server tracks sessions by this ID, so conversations persist across messages just like they would with a local agent.
 :::
 
 :::note
@@ -578,19 +578,19 @@ Session continuity is maintained via the `X-SHADOW-Session-Id` header. The host'
 
 **Cause**: Long-running tool executions can delay the sync loop, or the homeserver is slow.
 
-**Fix**: The sync loop automatically retries every 5 seconds on error. Check the SHADOW logs for sync-related warnings. If the bot consistently falls behind, ensure your homeserver has adequate resources.
+**Fix**: The sync loop automatically retries every 5 seconds on error. Check the YOUSEF SHTIWE logs for sync-related warnings. If the bot consistently falls behind, ensure your homeserver has adequate resources.
 
 ### Bot is offline
 
-**Cause**: The SHADOW gateway isn't running, or it failed to connect.
+**Cause**: The YOUSEF SHTIWE gateway isn't running, or it failed to connect.
 
-**Fix**: Check that `shadow gateway` is running. Look at the terminal output for error messages. Common issues: wrong homeserver URL, expired access token, homeserver unreachable.
+**Fix**: Check that `yousef shtiwe gateway` is running. Look at the terminal output for error messages. Common issues: wrong homeserver URL, expired access token, homeserver unreachable.
 
 ### "User not allowed" / Bot ignores you
 
 **Cause**: Your User ID isn't in `MATRIX_ALLOWED_USERS`.
 
-**Fix**: Add your User ID to `MATRIX_ALLOWED_USERS` in `~/.shadow/.env` and restart the gateway. Use the full `@user:server` format.
+**Fix**: Add your User ID to `MATRIX_ALLOWED_USERS` in `~/.yousef shtiwe/.env` and restart the gateway. Use the full `@user:server` format.
 
 ## Security
 
@@ -598,12 +598,12 @@ Session continuity is maintained via the `X-SHADOW-Session-Id` header. The host'
 Always set `MATRIX_ALLOWED_USERS` to restrict who can interact with the bot. Without it, the gateway denies all users by default as a safety measure. Only add User IDs of people you trust — authorized users have full access to the agent's capabilities, including tool use and system access.
 :::
 
-For more information on securing your SHADOW Agent deployment, see the [Security Guide](../security.md).
+For more information on securing your YOUSEF SHTIWE Agent deployment, see the [Security Guide](../security.md).
 
 ## Notes
 
 - **Any homeserver**: Works with Synapse, Conduit, Dendrite, matrix.org, or any spec-compliant Matrix homeserver. No specific homeserver software required.
 - **Federation**: If you're on a federated homeserver, the bot can communicate with users from other servers — just add their full `@user:server` IDs to `MATRIX_ALLOWED_USERS`.
 - **Auto-join**: The bot automatically accepts room invites and joins. It starts responding immediately after joining.
-- **Media support**: SHADOW can send and receive images, audio, video, and file attachments. Media is uploaded to your homeserver using the Matrix content repository API.
+- **Media support**: YOUSEF SHTIWE can send and receive images, audio, video, and file attachments. Media is uploaded to your homeserver using the Matrix content repository API.
 - **Native voice messages (MSC3245)**: The Matrix adapter automatically tags outgoing voice messages with the `org.matrix.msc3245.voice` flag. This means TTS responses and voice audio are rendered as **native voice bubbles** in Element and other clients that support MSC3245, rather than as generic audio file attachments. Incoming voice messages with the MSC3245 flag are also correctly identified and routed to speech-to-text transcription. No configuration is needed — this works automatically.

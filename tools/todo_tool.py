@@ -8,7 +8,7 @@ class TodoStore:
     Replaces the in-memory simulation with a SQLite-backed task manager.
     Ensures long-running mission steps are preserved across agent cycles.
     """
-    def __init__(self, db_path: str = "data/memory/shadow_tasks.db"):
+    def __init__(self, db_path: str = "data/memory/yousef shtiwe_tasks.db"):
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row

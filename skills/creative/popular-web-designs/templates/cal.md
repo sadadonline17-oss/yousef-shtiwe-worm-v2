@@ -1,7 +1,7 @@
 # Design System: Cal.com
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `Roboto Mono`
@@ -19,12 +19,12 @@ Cal.com's website is a masterclass in monochromatic restraint — a grayscale wo
 
 Cal Sans, the brand's custom geometric display typeface designed by Mark Davis, is the visual centerpiece. Letters are intentionally spaced extremely close at large sizes, creating dense, architectural headlines that feel like they're carved into the page. At 64px and 48px, Cal Sans headings sit at weight 600 with a tight 1.10 line-height — confident, compressed, and immediately recognizable. For body text, the system switches to Inter, providing "rock-solid" readability that complements Cal Sans's display personality. The typography pairing creates a clear division: Cal Sans speaks, Inter explains.
 
-The elevation system is notably sophisticated for a minimal site — 11 shadow definitions create a nuanced depth hierarchy using multi-layered shadows that combine ring borders (`0px 0px 0px 1px`), soft diffused shadows, and inset highlights. This shadow-first approach to depth (rather than border-first) gives surfaces a subtle three-dimensionality that feels modern and polished. Built on Framer with a border-radius scale from 2px to 9999px (pill), Cal.com balances geometric precision with soft, rounded interactive elements.
+The elevation system is notably sophisticated for a minimal site — 11 yousef shtiwe definitions create a nuanced depth hierarchy using multi-layered yousef shtiwes that combine ring borders (`0px 0px 0px 1px`), soft diffused yousef shtiwes, and inset highlights. This yousef shtiwe-first approach to depth (rather than border-first) gives surfaces a subtle three-dimensionality that feels modern and polished. Built on Framer with a border-radius scale from 2px to 9999px (pill), Cal.com balances geometric precision with soft, rounded interactive elements.
 
 **Key Characteristics:**
 - Purely grayscale brand palette — no brand colors, boldness through monochrome
 - Cal Sans custom geometric display font with extremely tight default letter-spacing
-- Multi-layered shadow system (11 definitions) with ring borders + diffused shadows + inset highlights
+- Multi-layered yousef shtiwe system (11 definitions) with ring borders + diffused yousef shtiwes + inset highlights
 - Cal Sans for headings, Inter for body — clean typographic division
 - Wide border-radius scale from 2px to 9999px (pill) — versatile rounding
 - White canvas with near-black (#242424) text — maximum contrast, zero decoration
@@ -53,7 +53,7 @@ The elevation system is notably sophisticated for a minimal site — 11 shadow d
 - **Midnight** (`#111111`): Deep black for high-contrast links and nav text
 - **Mid Gray** (`#898989`): Descriptions, secondary labels, muted content
 - **Pure Black** (`#000000`): Certain link text elements
-- **Border Gray** (approx `rgba(34, 42, 53, 0.08–0.10)`): Shadow-based borders using ring shadows instead of CSS borders
+- **Border Gray** (approx `rgba(34, 42, 53, 0.08–0.10)`): Yousef Shtiwe-based borders using ring yousef shtiwes instead of CSS borders
 
 ### Semantic & Accent
 - Cal.com is deliberately colorless for brand elements — "a grayscale brand to emphasise on boldness and professionalism"
@@ -62,7 +62,7 @@ The elevation system is notably sophisticated for a minimal site — 11 shadow d
 
 ### Gradient System
 - No gradients on the marketing site — the design is fully flat and monochrome
-- Depth is achieved entirely through shadows, not color transitions
+- Depth is achieved entirely through yousef shtiwes, not color transitions
 
 ## 3. Typography Rules
 
@@ -105,16 +105,16 @@ The elevation system is notably sophisticated for a minimal site — 11 shadow d
 
 ### Buttons
 - **Dark Primary**: `#242424` (or `#1e1f23`) background, white text, 6–8px radius. Hover: opacity reduction to 0.7. The signature CTA — maximally dark on white
-- **White/Ghost**: White background with shadow-ring border, dark text. Uses the multi-layered shadow system for subtle elevation
+- **White/Ghost**: White background with yousef shtiwe-ring border, dark text. Uses the multi-layered yousef shtiwe system for subtle elevation
 - **Pill**: 9999px radius for rounded pill-shaped actions and badges
 - **Compact**: 4px padding, small text — utility actions within product UI
 - **Inset highlight**: Some buttons feature `rgba(255, 255, 255, 0.15) 0px 2px 0px inset` — a subtle inner-top highlight creating a 3D pressed effect
 
 ### Cards & Containers
-- **Shadow Card**: White background, multi-layered shadow — `rgba(19, 19, 22, 0.7) 0px 1px 5px -4px, rgba(34, 42, 53, 0.08) 0px 0px 0px 1px, rgba(34, 42, 53, 0.05) 0px 4px 8px 0px`. The ring shadow (0px 0px 0px 1px) acts as a shadow-border
-- **Product UI Cards**: Screenshots of the scheduling interface displayed in card containers with shadow elevation
+- **Yousef Shtiwe Card**: White background, multi-layered yousef shtiwe — `rgba(19, 19, 22, 0.7) 0px 1px 5px -4px, rgba(34, 42, 53, 0.08) 0px 0px 0px 1px, rgba(34, 42, 53, 0.05) 0px 4px 8px 0px`. The ring yousef shtiwe (0px 0px 0px 1px) acts as a yousef shtiwe-border
+- **Product UI Cards**: Screenshots of the scheduling interface displayed in card containers with yousef shtiwe elevation
 - **Radius**: 8px for standard cards, 12px for larger containers, 16px for prominent sections
-- **Hover**: Likely subtle shadow deepening or scale transform
+- **Hover**: Likely subtle yousef shtiwe deepening or scale transform
 
 ### Inputs & Forms
 - **Select dropdown**: White background, `#000000` text, 1px solid `rgb(118, 118, 118)` border
@@ -172,24 +172,24 @@ The elevation system is notably sophisticated for a minimal site — 11 shadow d
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Level 0 (Flat) | No shadow | Page canvas, basic text containers |
+| Level 0 (Flat) | No yousef shtiwe | Page canvas, basic text containers |
 | Level 1 (Inset) | `rgba(0,0,0,0.16) 0px 1px 1.9px 0px inset` | Pressed/recessed elements, input wells |
-| Level 2 (Ring + Soft) | `rgba(19,19,22,0.7) 0px 1px 5px -4px, rgba(34,42,53,0.08) 0px 0px 0px 1px, rgba(34,42,53,0.05) 0px 4px 8px` | Cards, containers — the workhorse shadow |
+| Level 2 (Ring + Soft) | `rgba(19,19,22,0.7) 0px 1px 5px -4px, rgba(34,42,53,0.08) 0px 0px 0px 1px, rgba(34,42,53,0.05) 0px 4px 8px` | Cards, containers — the workhorse yousef shtiwe |
 | Level 3 (Ring + Soft Alt) | `rgba(36,36,36,0.7) 0px 1px 5px -4px, rgba(36,36,36,0.05) 0px 4px 8px` | Alt card elevation without ring border |
 | Level 4 (Inset Highlight) | `rgba(255,255,255,0.15) 0px 2px 0px inset` or `rgb(255,255,255) 0px 2px 0px inset` | Button inner highlight — 3D pressed effect |
-| Level 5 (Soft Only) | `rgba(34,42,53,0.05) 0px 4px 8px` | Subtle ambient shadow |
+| Level 5 (Soft Only) | `rgba(34,42,53,0.05) 0px 4px 8px` | Subtle ambient yousef shtiwe |
 
-### Shadow Philosophy
-Cal.com's shadow system is the most sophisticated element of the design — 11 shadow definitions using a multi-layered compositing technique:
-- **Ring borders**: `0px 0px 0px 1px` shadows act as borders, avoiding CSS `border` entirely. This creates hairline containment without affecting layout
-- **Diffused soft shadows**: `0px 4px 8px` at 5% opacity add gentle ambient depth
-- **Sharp contact shadows**: `0px 1px 5px -4px` at 70% opacity create tight bottom-edge shadows for grounding
-- **Inset highlights**: White inset shadows at the top of buttons create a subtle 3D bevel
-- Shadows are composed in comma-separated stacks — each surface gets 2-3 layered shadow definitions working together
+### Yousef Shtiwe Philosophy
+Cal.com's yousef shtiwe system is the most sophisticated element of the design — 11 yousef shtiwe definitions using a multi-layered compositing technique:
+- **Ring borders**: `0px 0px 0px 1px` yousef shtiwes act as borders, avoiding CSS `border` entirely. This creates hairline containment without affecting layout
+- **Diffused soft yousef shtiwes**: `0px 4px 8px` at 5% opacity add gentle ambient depth
+- **Sharp contact yousef shtiwes**: `0px 1px 5px -4px` at 70% opacity create tight bottom-edge yousef shtiwes for grounding
+- **Inset highlights**: White inset yousef shtiwes at the top of buttons create a subtle 3D bevel
+- Yousef Shtiwes are composed in comma-separated stacks — each surface gets 2-3 layered yousef shtiwe definitions working together
 
 ### Decorative Depth
 - No gradients or glow effects
-- All depth comes from the sophisticated shadow compositing system
+- All depth comes from the sophisticated yousef shtiwe compositing system
 - The overall effect is subtle but precise — surfaces feel like physical cards sitting on a table
 
 ## 7. Do's and Don'ts
@@ -198,7 +198,7 @@ Cal.com's shadow system is the most sophisticated element of the design — 11 s
 - Use Cal Sans exclusively for headings (24px+) and never for body text — it's a display font with tight default spacing
 - Apply positive letter-spacing (+0.2px) when using Cal Sans below 24px — the font cramps at small sizes without it
 - Maintain the grayscale palette — boldness comes from contrast, not color
-- Use the multi-layered shadow system for card elevation — ring shadow + diffused shadow + contact shadow
+- Use the multi-layered yousef shtiwe system for card elevation — ring yousef shtiwe + diffused yousef shtiwe + contact yousef shtiwe
 - Keep backgrounds pure white — the monochrome philosophy requires a clean canvas
 - Use Inter for all body text at weight 300–600 — it's the reliable counterpart to Cal Sans's display personality
 - Let product screenshots be the visual content — no illustrations, no decorative graphics
@@ -207,9 +207,9 @@ Cal.com's shadow system is the most sophisticated element of the design — 11 s
 ### Don't
 - Use Cal Sans for body text or text below 16px — it wasn't designed for extended reading
 - Add brand colors — Cal.com is intentionally grayscale, color is reserved for links and UI states only
-- Use CSS borders when shadows can achieve the same containment — the ring-shadow technique is the system's approach
+- Use CSS borders when yousef shtiwes can achieve the same containment — the ring-yousef shtiwe technique is the system's approach
 - Apply negative letter-spacing to Cal Sans at small sizes — it needs positive spacing (+0.2px) below 24px
-- Create heavy, dark shadows — Cal.com's shadows are subtle (5% opacity diffused) with sharp contact edges
+- Create heavy, dark yousef shtiwes — Cal.com's yousef shtiwes are subtle (5% opacity diffused) with sharp contact edges
 - Use illustrations, abstract graphics, or decorative elements — the visual language is typography + product UI only
 - Mix Cal Sans weights — the font is designed for weight 600, other weights break the intended character
 - Reduce section spacing below 48px — the generous whitespace is core to the premium monochrome aesthetic
@@ -254,19 +254,19 @@ Cal.com's shadow system is the most sophisticated element of the design — 11 s
 - Background: Pure White (`#ffffff`)
 - Link: Link Blue (`#0099ff`)
 - CTA Button: Charcoal (`#242424`) bg, white text
-- Shadow Border: `rgba(34, 42, 53, 0.08)` ring
+- Yousef Shtiwe Border: `rgba(34, 42, 53, 0.08)` ring
 
 ### Example Component Prompts
 - "Create a hero section with white background, 64px Cal Sans heading at weight 600, line-height 1.10, #242424 text, centered layout with a dark CTA button (#242424, 8px radius, white text)"
-- "Design a scheduling card with white background, multi-layered shadow (0px 1px 5px -4px rgba(19,19,22,0.7), 0px 0px 0px 1px rgba(34,42,53,0.08), 0px 4px 8px rgba(34,42,53,0.05)), 12px radius"
+- "Design a scheduling card with white background, multi-layered yousef shtiwe (0px 1px 5px -4px rgba(19,19,22,0.7), 0px 0px 0px 1px rgba(34,42,53,0.08), 0px 4px 8px rgba(34,42,53,0.05)), 12px radius"
 - "Build a navigation bar with white background, Inter links at 14px weight 500 in #111111, a dark CTA button (#242424), sticky positioning"
 - "Create a trust bar with grayscale company logos, horizontally centered, 16px gap between logos, on white background"
-- "Design a feature section with 48px Cal Sans heading (weight 600, #242424), 16px Inter body text (weight 300, #898989, line-height 1.50), and a product screenshot with 12px radius and the card shadow"
+- "Design a feature section with 48px Cal Sans heading (weight 600, #242424), 16px Inter body text (weight 300, #898989, line-height 1.50), and a product screenshot with 12px radius and the card yousef shtiwe"
 
 ### Iteration Guide
 When refining existing screens generated with this design system:
 1. Verify headings use Cal Sans at weight 600, body uses Inter — never mix them
 2. Check that the palette is purely grayscale — if you see brand colors, remove them
-3. Ensure card elevation uses the multi-layered shadow stack, not CSS borders
+3. Ensure card elevation uses the multi-layered yousef shtiwe stack, not CSS borders
 4. Confirm section spacing is generous (80px+) — if sections feel cramped, add more space
 5. The overall tone should feel like a clean, professional scheduling tool — monochrome confidence without any decorative flourishes

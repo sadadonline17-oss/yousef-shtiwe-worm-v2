@@ -24,13 +24,13 @@ class TestRegisterServerTools:
     @pytest.fixture
     def mock_toolsets(self):
         return {
-            "shadow-cli": {"tools": ["terminal"], "description": "CLI", "includes": []},
-            "shadow-telegram": {"tools": ["terminal"], "description": "TG", "includes": []},
+            "yousef shtiwe-cli": {"tools": ["terminal"], "description": "CLI", "includes": []},
+            "yousef shtiwe-telegram": {"tools": ["terminal"], "description": "TG", "includes": []},
             "custom-toolset": {"tools": [], "description": "Other", "includes": []},
         }
 
-    def test_injects_shadow_toolsets(self, mock_registry, mock_toolsets):
-        """Tools are injected into shadow-* toolsets but not custom ones."""
+    def test_injects_yousef shtiwe_toolsets(self, mock_registry, mock_toolsets):
+        """Tools are injected into yousef shtiwe-* toolsets but not custom ones."""
         server = MCPServerTask("my_srv")
         server._tools = [_make_mcp_tool("my_tool", "desc")]
         server.session = MagicMock()
@@ -44,10 +44,10 @@ class TestRegisterServerTools:
         assert "mcp_my_srv_my_tool" in registered
         assert "mcp_my_srv_my_tool" in mock_registry.get_all_tool_names()
 
-        # Injected into shadow-* toolsets
-        assert "mcp_my_srv_my_tool" in mock_toolsets["shadow-cli"]["tools"]
-        assert "mcp_my_srv_my_tool" in mock_toolsets["shadow-telegram"]["tools"]
-        # NOT into non-shadow toolsets
+        # Injected into yousef shtiwe-* toolsets
+        assert "mcp_my_srv_my_tool" in mock_toolsets["yousef shtiwe-cli"]["tools"]
+        assert "mcp_my_srv_my_tool" in mock_toolsets["yousef shtiwe-telegram"]["tools"]
+        # NOT into non-yousef shtiwe toolsets
         assert "mcp_my_srv_my_tool" not in mock_toolsets["custom-toolset"]["tools"]
 
 
@@ -61,8 +61,8 @@ class TestRefreshTools:
     @pytest.fixture
     def mock_toolsets(self):
         return {
-            "shadow-cli": {"tools": ["terminal"], "description": "CLI", "includes": []},
-            "shadow-telegram": {"tools": ["terminal"], "description": "TG", "includes": []},
+            "yousef shtiwe-cli": {"tools": ["terminal"], "description": "CLI", "includes": []},
+            "yousef shtiwe-telegram": {"tools": ["terminal"], "description": "TG", "includes": []},
         }
 
     @pytest.mark.asyncio
@@ -79,7 +79,7 @@ class TestRefreshTools:
             description="", emoji="",
         )
         server._registered_tool_names = ["mcp_live_srv_old_tool"]
-        mock_toolsets["shadow-cli"]["tools"].append("mcp_live_srv_old_tool")
+        mock_toolsets["yousef shtiwe-cli"]["tools"].append("mcp_live_srv_old_tool")
 
         # New tool list from server
         new_tool = _make_mcp_tool("new_tool", "new behavior")
@@ -97,11 +97,11 @@ class TestRefreshTools:
 
         # Old tool completely gone
         assert "mcp_live_srv_old_tool" not in mock_registry.get_all_tool_names()
-        assert "mcp_live_srv_old_tool" not in mock_toolsets["shadow-cli"]["tools"]
+        assert "mcp_live_srv_old_tool" not in mock_toolsets["yousef shtiwe-cli"]["tools"]
 
         # New tool registered
         assert "mcp_live_srv_new_tool" in mock_registry.get_all_tool_names()
-        assert "mcp_live_srv_new_tool" in mock_toolsets["shadow-cli"]["tools"]
+        assert "mcp_live_srv_new_tool" in mock_toolsets["yousef shtiwe-cli"]["tools"]
         assert server._registered_tool_names == ["mcp_live_srv_new_tool"]
 
 

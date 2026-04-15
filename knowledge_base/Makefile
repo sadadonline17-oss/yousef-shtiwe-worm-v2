@@ -229,7 +229,7 @@ kb-update-tools: _kb_ensure_deps ## On-demand: update tool docs from agentic/ski
 
 # Target-specific NVD_DAYS defaults mirror the kb-build-* targets so the
 # rebuild flavors don't accidentally fall through to the global NVD_DAYS
-# default (which would shadow the intent of --profile lite/standard/full).
+# default (which would yousef shtiwe the intent of --profile lite/standard/full).
 # Command-line `make kb-rebuild-* NVD_DAYS=N` still wins — GNU Make's
 # precedence puts command-line above target-specific.
 # NVD_DAYS intentionally omitted — the lite profile doesn't include NVD,

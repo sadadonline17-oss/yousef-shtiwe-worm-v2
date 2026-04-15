@@ -55,9 +55,9 @@ def check_sms_requirements() -> bool:
 
 class SmsAdapter(BasePlatformAdapter):
     """
-    Twilio SMS <-> SHADOW gateway adapter.
+    Twilio SMS <-> YOUSEF SHTIWE gateway adapter.
 
-    Each inbound phone number gets its own SHADOW session (multi-tenant).
+    Each inbound phone number gets its own YOUSEF SHTIWE session (multi-tenant).
     Replies are always sent from the configured TWILIO_PHONE_NUMBER.
     """
 

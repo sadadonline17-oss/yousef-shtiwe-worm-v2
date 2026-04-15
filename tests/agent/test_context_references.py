@@ -23,7 +23,7 @@ def sample_repo(tmp_path: Path) -> Path:
     repo = tmp_path / "repo"
     repo.mkdir()
     _git(repo, "init")
-    _git(repo, "config", "user.name", "SHADOW Tests")
+    _git(repo, "config", "user.name", "YOUSEF SHTIWE Tests")
     _git(repo, "config", "user.email", "tests@example.com")
 
     (repo / "src").mkdir()
@@ -283,22 +283,22 @@ def test_defaults_allowed_root_to_cwd(tmp_path: Path):
 
 
 @pytest.mark.asyncio
-async def test_blocks_sensitive_home_and_shadow_paths(tmp_path: Path, monkeypatch):
+async def test_blocks_sensitive_home_and_yousef shtiwe_paths(tmp_path: Path, monkeypatch):
     from agent.context_references import preprocess_context_references_async
 
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.setenv("SHADOW_HOME", str(tmp_path / ".shadow"))
+    monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(tmp_path / ".yousef shtiwe"))
 
-    shadow_env = tmp_path / ".shadow" / ".env"
-    shadow_env.parent.mkdir(parents=True)
-    shadow_env.write_text("API_KEY=super-secret\n", encoding="utf-8")
+    yousef shtiwe_env = tmp_path / ".yousef shtiwe" / ".env"
+    yousef shtiwe_env.parent.mkdir(parents=True)
+    yousef shtiwe_env.write_text("API_KEY=super-secret\n", encoding="utf-8")
 
     ssh_key = tmp_path / ".ssh" / "id_rsa"
     ssh_key.parent.mkdir(parents=True)
     ssh_key.write_text("PRIVATE-KEY\n", encoding="utf-8")
 
     result = await preprocess_context_references_async(
-        "read @file:.shadow/.env and @file:.ssh/id_rsa",
+        "read @file:.yousef shtiwe/.env and @file:.ssh/id_rsa",
         cwd=tmp_path,
         allowed_root=tmp_path,
         context_length=100_000,

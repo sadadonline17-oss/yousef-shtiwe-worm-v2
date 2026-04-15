@@ -1,4 +1,4 @@
-"""ACP agent server — exposes SHADOW Agent via the Agent Client Protocol."""
+"""ACP agent server — exposes YOUSEF SHTIWE Agent via the Agent Client Protocol."""
 
 from __future__ import annotations
 
@@ -62,11 +62,11 @@ from acp_adapter.session import SessionManager, SessionState
 logger = logging.getLogger(__name__)
 
 try:
-    from shadow_cli import __version__ as SHADOW_VERSION
+    from yousef shtiwe_cli import __version__ as YOUSEF SHTIWE_VERSION
 except Exception:
-    SHADOW_VERSION = "0.0.0"
+    YOUSEF SHTIWE_VERSION = "0.0.0"
 
-# Thread pool for running AIAgent (synchroshadow) in parallel.
+# Thread pool for running AIAgent (synchroyousef shtiwe) in parallel.
 _executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="acp-agent")
 
 
@@ -90,8 +90,8 @@ def _extract_text(
     return "\n".join(parts)
 
 
-class SHADOWACPAgent(acp.Agent):
-    """ACP Agent implementation wrapping SHADOW AIAgent."""
+class YOUSEF SHTIWEACPAgent(acp.Agent):
+    """ACP Agent implementation wrapping YOUSEF SHTIWE AIAgent."""
 
     _SLASH_COMMANDS = {
         "help": "Show available commands",
@@ -100,7 +100,7 @@ class SHADOWACPAgent(acp.Agent):
         "context": "Show conversation context info",
         "reset": "Clear conversation history",
         "compact": "Compress conversation context",
-        "version": "Show SHADOW version",
+        "version": "Show YOUSEF SHTIWE version",
     }
 
     _ADVERTISED_COMMANDS = (
@@ -131,7 +131,7 @@ class SHADOWACPAgent(acp.Agent):
         },
         {
             "name": "version",
-            "description": "Show SHADOW version",
+            "description": "Show YOUSEF SHTIWE version",
         },
     )
 
@@ -187,7 +187,7 @@ class SHADOWACPAgent(acp.Agent):
         try:
             from model_tools import get_tool_definitions
 
-            enabled_toolsets = getattr(state.agent, "enabled_toolsets", None) or ["shadow-acp"]
+            enabled_toolsets = getattr(state.agent, "enabled_toolsets", None) or ["yousef shtiwe-acp"]
             disabled_toolsets = getattr(state.agent, "disabled_toolsets", None)
             state.agent.tools = get_tool_definitions(
                 enabled_toolsets=enabled_toolsets,
@@ -231,7 +231,7 @@ class SHADOWACPAgent(acp.Agent):
                 AuthMethodAgent(
                     id=provider,
                     name=f"{provider} runtime credentials",
-                    description=f"Authenticate SHADOW using the currently configured {provider} runtime credentials.",
+                    description=f"Authenticate YOUSEF SHTIWE using the currently configured {provider} runtime credentials.",
                 )
             ]
 
@@ -244,7 +244,7 @@ class SHADOWACPAgent(acp.Agent):
 
         return InitializeResponse(
             protocol_version=acp.PROTOCOL_VERSION,
-            agent_info=Implementation(name="shadow-agent", version=SHADOW_VERSION),
+            agent_info=Implementation(name="yousef shtiwe-agent", version=YOUSEF SHTIWE_VERSION),
             agent_capabilities=AgentCapabilities(
                 load_session=True,
                 session_capabilities=SessionCapabilities(
@@ -361,7 +361,7 @@ class SHADOWACPAgent(acp.Agent):
         session_id: str,
         **kwargs: Any,
     ) -> PromptResponse:
-        """Run SHADOW on the user's prompt and stream events back to the editor."""
+        """Run YOUSEF SHTIWE on the user's prompt and stream events back to the editor."""
         state = self.session_manager.get_session(session_id)
         if state is None:
             logger.error("prompt: session %s not found", session_id)
@@ -562,7 +562,7 @@ class SHADOWACPAgent(acp.Agent):
 
         # Auto-detect provider for the requested model
         try:
-            from shadow_cli.models import parse_model_input, detect_provider_for_model
+            from yousef shtiwe_cli.models import parse_model_input, detect_provider_for_model
             target_provider, new_model = parse_model_input(new_model, current_provider)
             if target_provider == current_provider:
                 detected = detect_provider_for_model(new_model, current_provider)
@@ -586,7 +586,7 @@ class SHADOWACPAgent(acp.Agent):
     def _cmd_tools(self, args: str, state: SessionState) -> str:
         try:
             from model_tools import get_tool_definitions
-            toolsets = getattr(state.agent, "enabled_toolsets", None) or ["shadow-acp"]
+            toolsets = getattr(state.agent, "enabled_toolsets", None) or ["yousef shtiwe-acp"]
             tools = get_tool_definitions(enabled_toolsets=toolsets, quiet_mode=True)
             if not tools:
                 return "No tools available."
@@ -668,7 +668,7 @@ class SHADOWACPAgent(acp.Agent):
             return f"Compression failed: {e}"
 
     def _cmd_version(self, args: str, state: SessionState) -> str:
-        return f"SHADOW Agent v{SHADOW_VERSION}"
+        return f"YOUSEF SHTIWE Agent v{YOUSEF SHTIWE_VERSION}"
 
     # ---- Model switching (ACP protocol method) -------------------------------
 
@@ -712,7 +712,7 @@ class SHADOWACPAgent(acp.Agent):
     async def set_config_option(
         self, config_id: str, session_id: str, value: str, **kwargs: Any
     ) -> SetSessionConfigOptionResponse | None:
-        """Accept ACP config option updates even when SHADOW has no typed ACP config surface yet."""
+        """Accept ACP config option updates even when YOUSEF SHTIWE has no typed ACP config surface yet."""
         state = self.session_manager.get_session(session_id)
         if state is None:
             logger.warning("Session %s: config update requested for missing session", session_id)

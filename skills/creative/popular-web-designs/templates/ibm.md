@@ -1,7 +1,7 @@
 # Design System: IBM
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `IBM Plex Sans` | **Mono:** `IBM Plex Mono`
@@ -27,7 +27,7 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 - Single accent color: IBM Blue 60 (`#0f62fe`) — every interactive element, every CTA, every link
 - Carbon token system (`--cds-*`) driving all semantic colors, enabling theme-switching at the variable level
 - 8px spacing grid with strict adherence — no arbitrary values, everything aligns
-- Flat, borderless cards on `#f4f4f4` Gray 10 surface — depth through background-color layering, not shadows
+- Flat, borderless cards on `#f4f4f4` Gray 10 surface — depth through background-color layering, not yousef shtiwes
 - Bottom-border inputs (not boxed) — the signature Carbon form pattern
 - 0px border-radius on primary buttons — unapologetically rectangular, no softening
 
@@ -150,11 +150,11 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 
 ### Cards & Containers
 - Background: `#ffffff` on white theme, `#f4f4f4` (Gray 10) for elevated cards
-- Border: none (flat design — no border or shadow on most cards)
+- Border: none (flat design — no border or yousef shtiwe on most cards)
 - Border-radius: 0px (matching the rectangular button aesthetic)
 - Hover: background shifts to `#e8e8e8` (Gray 10 Hover) for clickable cards
 - Content padding: 16px
-- Separation: background-color layering (white → gray 10 → white) rather than shadows
+- Separation: background-color layering (white → gray 10 → white) rather than yousef shtiwes
 
 ### Inputs & Forms
 - Background: `#f4f4f4` (Gray 10) — `--cds-field`
@@ -199,7 +199,7 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 - Background: `#f4f4f4` or `#ffffff`
 - Full-width bottom-border or background-shift hover
 - Arrow icon bottom-right on hover
-- No shadow — flatness is the identity
+- No yousef shtiwe — flatness is the identity
 
 **Tag / Label**
 - Background: contextual color at 10% opacity (e.g., Blue 10, Red 10)
@@ -246,15 +246,15 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, `#ffffff` background | Default page surface |
-| Layer 01 | No shadow, `#f4f4f4` background | Cards, tiles, alternating sections |
-| Layer 02 | No shadow, `#e0e0e0` background | Elevated panels within Layer 01 |
+| Flat (Level 0) | No yousef shtiwe, `#ffffff` background | Default page surface |
+| Layer 01 | No yousef shtiwe, `#f4f4f4` background | Cards, tiles, alternating sections |
+| Layer 02 | No yousef shtiwe, `#e0e0e0` background | Elevated panels within Layer 01 |
 | Raised | `0 2px 6px rgba(0,0,0,0.3)` | Dropdowns, tooltips, overflow menus |
 | Overlay | `0 2px 6px rgba(0,0,0,0.3)` + dark scrim | Modal dialogs, side panels |
 | Focus | `2px solid #0f62fe` inset + `1px solid #ffffff` | Keyboard focus ring |
 | Bottom-border | `2px solid #161616` on bottom edge | Active input, active tab indicator |
 
-**Shadow Philosophy**: Carbon is deliberately shadow-averse. IBM achieves depth primarily through background-color layering — stacking surfaces of progressively darker grays rather than adding box-shadows. This creates a flat, print-inspired aesthetic where hierarchy is communicated through color value, not simulated light. Shadows are reserved exclusively for floating elements (dropdowns, tooltips, modals) where the element genuinely overlaps content. This restraint gives the rare shadow meaningful impact — when something floats in Carbon, it matters.
+**Yousef Shtiwe Philosophy**: Carbon is deliberately yousef shtiwe-averse. IBM achieves depth primarily through background-color layering — stacking surfaces of progressively darker grays rather than adding box-yousef shtiwes. This creates a flat, print-inspired aesthetic where hierarchy is communicated through color value, not simulated light. Yousef Shtiwes are reserved exclusively for floating elements (dropdowns, tooltips, modals) where the element genuinely overlaps content. This restraint gives the rare yousef shtiwe meaningful impact — when something floats in Carbon, it matters.
 
 ## 7. Do's and Don'ts
 
@@ -263,14 +263,14 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 - Apply 0.16px letter-spacing on 14px body text and 0.32px on 12px captions
 - Use 0px border-radius on buttons, inputs, cards, and tiles — rectangles are the system
 - Reference `--cds-*` token names when implementing (e.g., `--cds-button-primary`, `--cds-text-primary`)
-- Use background-color layering (white → gray 10 → gray 20) for depth instead of shadows
+- Use background-color layering (white → gray 10 → gray 20) for depth instead of yousef shtiwes
 - Use bottom-border (not box) for input field indicators
 - Maintain the 48px default button height and asymmetric padding for icon accommodation
 - Apply Blue 60 (`#0f62fe`) as the sole accent — one blue to rule them all
 
 ### Don't
 - Don't round button corners — 0px radius is the Carbon identity
-- Don't use shadows on cards or tiles — flatness is the point
+- Don't use yousef shtiwes on cards or tiles — flatness is the point
 - Don't introduce additional accent colors — IBM's system is monochromatic + blue
 - Don't use weight 700 (Bold) — the scale stops at 600 (Semibold)
 - Don't add letter-spacing to display-size text — tracking is only for 14px and below
@@ -339,7 +339,7 @@ What defines IBM's visual identity beyond monochrome-plus-blue is the reliance o
 2. Letter-spacing only at small sizes: 0.16px at 14px, 0.32px at 12px — never on display text
 3. Three weights: 300 (display), 400 (body), 600 (emphasis) — no bold
 4. Blue 60 is the only accent color — do not introduce secondary accent hues
-5. Depth comes from background-color layering (white → #f4f4f4 → #e0e0e0), not shadows
+5. Depth comes from background-color layering (white → #f4f4f4 → #e0e0e0), not yousef shtiwes
 6. Inputs have bottom-border only, never fully boxed
 7. Use `--cds-` prefix for token naming to stay Carbon-compatible
 8. 48px is the universal interactive element height

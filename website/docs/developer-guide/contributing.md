@@ -1,12 +1,12 @@
 ---
 sidebar_position: 4
 title: "Contributing"
-description: "How to contribute to SHADOW Agent — dev setup, code style, PR process"
+description: "How to contribute to YOUSEF SHTIWE Agent — dev setup, code style, PR process"
 ---
 
 # Contributing
 
-Thank you for contributing to SHADOW Agent! This guide covers setting up your dev environment, understanding the codebase, and getting your PR merged.
+Thank you for contributing to YOUSEF SHTIWE Agent! This guide covers setting up your dev environment, understanding the codebase, and getting your PR merged.
 
 ## Contribution Priorities
 
@@ -40,8 +40,8 @@ We value contributions in this order:
 ### Clone and Install
 
 ```bash
-git clone --recurse-submodules https://github.com/SHADOW-OVERLORD/shadow-agent.git
-cd shadow-agent
+git clone --recurse-submodules https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent.git
+cd yousef shtiwe-agent
 
 # Create venv with Python 3.11
 uv venv venv --python 3.11
@@ -58,12 +58,12 @@ npm install
 ### Configure for Development
 
 ```bash
-mkdir -p ~/.shadow/{cron,sessions,logs,memories,skills}
-cp cli-config.yaml.example ~/.shadow/config.yaml
-touch ~/.shadow/.env
+mkdir -p ~/.yousef shtiwe/{cron,sessions,logs,memories,skills}
+cp cli-config.yaml.example ~/.yousef shtiwe/config.yaml
+touch ~/.yousef shtiwe/.env
 
 # Add at minimum an LLM provider key:
-echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.shadow/.env
+echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.yousef shtiwe/.env
 ```
 
 ### Run
@@ -71,11 +71,11 @@ echo 'OPENROUTER_API_KEY=sk-or-v1-your-key' >> ~/.shadow/.env
 ```bash
 # Symlink for global access
 mkdir -p ~/.local/bin
-ln -sf "$(pwd)/venv/bin/shadow" ~/.local/bin/shadow
+ln -sf "$(pwd)/venv/bin/yousef shtiwe" ~/.local/bin/yousef shtiwe
 
 # Verify
-shadow doctor
-shadow chat -q "Hello"
+yousef shtiwe doctor
+yousef shtiwe chat -q "Hello"
 ```
 
 ### Run Tests
@@ -90,11 +90,11 @@ pytest tests/ -v
 - **Comments**: Only when explaining non-obvious intent, trade-offs, or API quirks
 - **Error handling**: Catch specific exceptions. Use `logger.warning()`/`logger.error()` with `exc_info=True` for unexpected errors
 - **Cross-platform**: Never assume Unix (see below)
-- **Profile-safe paths**: Never hardcode `~/.shadow` — use `get_shadow_home()` from `shadow_constants` for code paths and `display_shadow_home()` for user-facing messages. See [AGENTS.md](https://github.com/SHADOW-OVERLORD/shadow-agent/blob/main/AGENTS.md#profiles-multi-instance-support) for full rules.
+- **Profile-safe paths**: Never hardcode `~/.yousef shtiwe` — use `get_yousef shtiwe_home()` from `yousef shtiwe_constants` for code paths and `display_yousef shtiwe_home()` for user-facing messages. See [AGENTS.md](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/blob/main/AGENTS.md#profiles-multi-instance-support) for full rules.
 
 ## Cross-Platform Compatibility
 
-SHADOW officially supports Linux, macOS, and WSL2. Native Windows is **not supported**, but the codebase includes some defensive coding patterns to avoid hard crashes in edge cases. Key rules:
+YOUSEF SHTIWE officially supports Linux, macOS, and WSL2. Native Windows is **not supported**, but the codebase includes some defensive coding patterns to avoid hard crashes in edge cases. Key rules:
 
 ### 1. `termios` and `fcntl` are Unix-only
 
@@ -139,7 +139,7 @@ Use `pathlib.Path` instead of string concatenation with `/`.
 
 ## Security Considerations
 
-SHADOW has terminal access. Security matters.
+YOUSEF SHTIWE has terminal access. Security matters.
 
 ### Existing Protections
 
@@ -176,7 +176,7 @@ refactor/description   # Code restructuring
 ### Before Submitting
 
 1. **Run tests**: `pytest tests/ -v`
-2. **Test manually**: Run `shadow` and exercise the code path you changed
+2. **Test manually**: Run `yousef shtiwe` and exercise the code path you changed
 3. **Check cross-platform impact**: Consider macOS and different Linux distros
 4. **Keep PRs focused**: One logical change per PR
 
@@ -216,18 +216,18 @@ fix(security): prevent shell injection in sudo password piping
 
 ## Reporting Issues
 
-- Use [GitHub Issues](https://github.com/SHADOW-OVERLORD/shadow-agent/issues)
-- Include: OS, Python version, SHADOW version (`shadow version`), full error traceback
+- Use [GitHub Issues](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/issues)
+- Include: OS, Python version, YOUSEF SHTIWE version (`yousef shtiwe version`), full error traceback
 - Include steps to reproduce
 - Check existing issues before creating duplicates
 - For security vulnerabilities, please report privately
 
 ## Community
 
-- **Discord**: [discord.gg/SHADOW-OVERLORD](https://discord.gg/SHADOW-OVERLORD)
+- **Discord**: [discord.gg/YOUSEF SHTIWE-OVERLORD](https://discord.gg/YOUSEF SHTIWE-OVERLORD)
 - **GitHub Discussions**: For design proposals and architecture discussions
 - **Skills Hub**: Upload specialized skills and share with the community
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/SHADOW-OVERLORD/shadow-agent/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the [MIT License](https://github.com/YOUSEF SHTIWE-OVERLORD/yousef shtiwe-agent/blob/main/LICENSE).

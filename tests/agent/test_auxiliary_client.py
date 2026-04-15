@@ -29,7 +29,7 @@ def _clean_env(monkeypatch):
     """Strip provider env vars so each test starts clean."""
     for key in (
         "OPENROUTER_API_KEY", "OPENAI_BASE_URL", "OPENAI_API_KEY",
-        "OPENAI_MODEL", "LLM_MODEL", "Shadow_INFERENCE_BASE_URL",
+        "OPENAI_MODEL", "LLM_MODEL", "Yousef Shtiwe_INFERENCE_BASE_URL",
         "ANTHROPIC_API_KEY", "ANTHROPIC_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN",
     ):
         monkeypatch.delenv(key, raising=False)
@@ -56,9 +56,9 @@ def codex_auth_dir(tmp_path, monkeypatch):
 
 class TestReadCodexAccessToken:
     def test_valid_auth_store(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -66,18 +66,18 @@ class TestReadCodexAccessToken:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result == "tok-123"
 
     def test_pool_without_selected_entry_falls_back_to_auth_store(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         valid_jwt = "eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjk5OTk5OTk5OTl9.sig"
         with patch("agent.auxiliary_client._select_pool_entry", return_value=(True, None)), \
-             patch("shadow_cli.auth._read_codex_tokens", return_value={
+             patch("yousef shtiwe_cli.auth._read_codex_tokens", return_value={
                  "tokens": {"access_token": valid_jwt, "refresh_token": "refresh"}
              }):
             result = _read_codex_access_token()
@@ -85,17 +85,17 @@ class TestReadCodexAccessToken:
         assert result == valid_jwt
 
     def test_missing_returns_none(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({"version": 1, "providers": {}}))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result is None
 
     def test_empty_token_returns_none(self, tmp_path, monkeypatch):
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -103,7 +103,7 @@ class TestReadCodexAccessToken:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result is None
 
@@ -135,9 +135,9 @@ class TestReadCodexAccessToken:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         expired_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -145,7 +145,7 @@ class TestReadCodexAccessToken:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result is None, "Expired JWT should return None"
 
@@ -159,9 +159,9 @@ class TestReadCodexAccessToken:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         valid_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -169,15 +169,15 @@ class TestReadCodexAccessToken:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result == valid_jwt
 
     def test_non_jwt_token_passes_through(self, tmp_path, monkeypatch):
         """Non-JWT tokens (no dots) should be returned as-is."""
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -185,7 +185,7 @@ class TestReadCodexAccessToken:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result == "plain-token-no-jwt"
 
@@ -277,9 +277,9 @@ class TestExpiredCodexFallback:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         expired_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -287,7 +287,7 @@ class TestExpiredCodexFallback:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         # Set up Anthropic as fallback
         monkeypatch.setenv("ANTHROPIC_TOKEN", "sk-ant-oat01-test-fallback")
@@ -309,9 +309,9 @@ class TestExpiredCodexFallback:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         expired_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -319,7 +319,7 @@ class TestExpiredCodexFallback:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         monkeypatch.setenv("OPENROUTER_API_KEY", "or-test-key")
 
         with patch("agent.auxiliary_client.OpenAI") as mock_openai:
@@ -340,9 +340,9 @@ class TestExpiredCodexFallback:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         expired_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -350,7 +350,7 @@ class TestExpiredCodexFallback:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         # Simulate Ollama or custom endpoint
         with patch("agent.auxiliary_client._resolve_custom_runtime",
@@ -362,10 +362,10 @@ class TestExpiredCodexFallback:
                 assert client is not None
 
 
-    def test_shadow_oauth_file_sets_oauth_flag(self, monkeypatch):
+    def test_yousef shtiwe_oauth_file_sets_oauth_flag(self, monkeypatch):
         """OAuth-style tokens should get is_oauth=*** (token is not sk-ant-api-*)."""
         # Mock resolve_anthropic_token to return an OAuth-style token
-        with patch("agent.anthropic_adapter.resolve_anthropic_token", return_value="sk-ant-oat-shadow-token"), \
+        with patch("agent.anthropic_adapter.resolve_anthropic_token", return_value="sk-ant-oat-yousef shtiwe-token"), \
              patch("agent.anthropic_adapter.build_anthropic_client") as mock_build, \
              patch("agent.auxiliary_client._select_pool_entry", return_value=(False, None)):
             mock_build.return_value = MagicMock()
@@ -383,9 +383,9 @@ class TestExpiredCodexFallback:
         payload = base64.urlsafe_b64encode(payload_data).rstrip(b"=").decode()
         no_exp_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -393,7 +393,7 @@ class TestExpiredCodexFallback:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result == no_exp_jwt, "JWT without exp should pass through"
 
@@ -404,9 +404,9 @@ class TestExpiredCodexFallback:
         payload = base64.urlsafe_b64encode(b"not-json-content").rstrip(b"=").decode()
         bad_jwt = f"{header}.{payload}.fakesig"
 
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "auth.json").write_text(json.dumps({
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "auth.json").write_text(json.dumps({
             "version": 1,
             "providers": {
                 "openai-codex": {
@@ -414,7 +414,7 @@ class TestExpiredCodexFallback:
                 },
             },
         }))
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         result = _read_codex_access_token()
         assert result == bad_jwt, "JWT with invalid JSON payload should pass through"
 
@@ -499,7 +499,7 @@ class TestExplicitProviderRouting:
     def test_explicit_google_alias_uses_gemini_credentials(self):
         """provider='google' should route through the gemini API-key provider."""
         with (
-            patch("shadow_cli.auth.resolve_api_key_provider_credentials", return_value={
+            patch("yousef shtiwe_cli.auth.resolve_api_key_provider_credentials", return_value={
                 "api_key": "gemini-key",
                 "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
             }),
@@ -531,10 +531,10 @@ class TestGetTextAuxiliaryClient:
         call_kwargs = mock_openai.call_args
         assert call_kwargs.kwargs["api_key"] == "or-key"
 
-    def test_shadow_takes_priority_over_codex(self, monkeypatch, codex_auth_dir):
-        with patch("agent.auxiliary_client._read_shadow_auth") as mock_shadow, \
+    def test_yousef shtiwe_takes_priority_over_codex(self, monkeypatch, codex_auth_dir):
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth") as mock_yousef shtiwe, \
              patch("agent.auxiliary_client.OpenAI") as mock_openai:
-            mock_shadow.return_value = {"access_token": "shadow-tok"}
+            mock_yousef shtiwe.return_value = {"access_token": "yousef shtiwe-tok"}
             client, model = get_text_auxiliary_client()
         assert model == "google/gemini-3-flash-preview"
 
@@ -547,14 +547,14 @@ class TestGetTextAuxiliaryClient:
             }
         }
         monkeypatch.setenv("OPENAI_API_KEY", "lm-studio-key")
-        monkeypatch.setattr("shadow_cli.config.load_config", lambda: config)
-        monkeypatch.setattr("shadow_cli.runtime_provider.load_config", lambda: config)
+        monkeypatch.setattr("yousef shtiwe_cli.config.load_config", lambda: config)
+        monkeypatch.setattr("yousef shtiwe_cli.runtime_provider.load_config", lambda: config)
         # Override the autouse monkeypatch for codex
         monkeypatch.setattr(
             "agent.auxiliary_client._read_codex_access_token",
             lambda: "codex-test-token-abc123",
         )
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client.OpenAI") as mock_openai:
             client, model = get_text_auxiliary_client()
         assert model == "my-local-model"
@@ -570,10 +570,10 @@ class TestGetTextAuxiliaryClient:
             }
         }
         monkeypatch.setenv("OPENAI_API_KEY", "lm-studio-key")
-        monkeypatch.setattr("shadow_cli.config.load_config", lambda: config)
-        monkeypatch.setattr("shadow_cli.runtime_provider.load_config", lambda: config)
+        monkeypatch.setattr("yousef shtiwe_cli.config.load_config", lambda: config)
+        monkeypatch.setattr("yousef shtiwe_cli.runtime_provider.load_config", lambda: config)
 
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client._read_codex_access_token", return_value=None), \
              patch("agent.auxiliary_client._resolve_api_key_provider", return_value=(None, None)), \
              patch("agent.auxiliary_client.OpenAI") as mock_openai:
@@ -585,7 +585,7 @@ class TestGetTextAuxiliaryClient:
         assert call_kwargs.kwargs["base_url"] == "http://localhost:1234/v1"
 
     def test_codex_fallback_when_nothing_else(self, codex_auth_dir):
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client.OpenAI") as mock_openai:
             client, model = get_text_auxiliary_client()
         assert model == "gpt-5.2-codex"
@@ -608,7 +608,7 @@ class TestGetTextAuxiliaryClient:
         with (
             patch("agent.auxiliary_client.load_pool", return_value=_Pool()),
             patch("agent.auxiliary_client.OpenAI"),
-            patch("shadow_cli.auth._read_codex_tokens", side_effect=AssertionError("legacy codex store should not run")),
+            patch("yousef shtiwe_cli.auth._read_codex_tokens", side_effect=AssertionError("legacy codex store should not run")),
         ):
             from agent.auxiliary_client import _try_codex
 
@@ -623,7 +623,7 @@ class TestGetTextAuxiliaryClient:
         monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client._read_codex_access_token", return_value=None), \
              patch("agent.auxiliary_client._resolve_api_key_provider", return_value=(None, None)):
             client, model = get_text_auxiliary_client()
@@ -651,7 +651,7 @@ class TestVisionClientFallback:
         """Active provider appears in available backends when credentials exist."""
         monkeypatch.setenv("ANTHROPIC_API_KEY", "***")
         with (
-            patch("agent.auxiliary_client._read_shadow_auth", return_value=None),
+            patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None),
             patch("agent.auxiliary_client._read_main_provider", return_value="anthropic"),
             patch("agent.auxiliary_client._read_main_model", return_value="claude-sonnet-4"),
             patch("agent.anthropic_adapter.build_anthropic_client", return_value=MagicMock()),
@@ -664,7 +664,7 @@ class TestVisionClientFallback:
     def test_resolve_provider_client_returns_native_anthropic_wrapper(self, monkeypatch):
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-api03-key")
         with (
-            patch("agent.auxiliary_client._read_shadow_auth", return_value=None),
+            patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None),
             patch("agent.anthropic_adapter.build_anthropic_client", return_value=MagicMock()),
             patch("agent.anthropic_adapter.resolve_anthropic_token", return_value="sk-ant-api03-key"),
         ):
@@ -676,7 +676,7 @@ class TestVisionClientFallback:
 
 
 class TestAuxiliaryPoolAwareness:
-    def test_try_shadow_uses_pool_entry(self):
+    def test_try_yousef shtiwe_uses_pool_entry(self):
         class _Entry:
             access_token = "pooled-access-token"
             agent_key = "pooled-agent-key"
@@ -693,9 +693,9 @@ class TestAuxiliaryPoolAwareness:
             patch("agent.auxiliary_client.load_pool", return_value=_Pool()),
             patch("agent.auxiliary_client.OpenAI") as mock_openai,
         ):
-            from agent.auxiliary_client import _try_shadow
+            from agent.auxiliary_client import _try_yousef shtiwe
 
-            client, model = _try_shadow()
+            client, model = _try_yousef shtiwe()
 
         assert client is not None
         assert model == "gemini-3-flash"
@@ -709,7 +709,7 @@ class TestAuxiliaryPoolAwareness:
 
         with (
             patch(
-                "shadow_cli.auth.resolve_api_key_provider_credentials",
+                "yousef shtiwe_cli.auth.resolve_api_key_provider_credentials",
                 return_value={
                     "provider": "copilot",
                     "api_key": "gh-cli-token",
@@ -735,7 +735,7 @@ class TestAuxiliaryPoolAwareness:
 
         with (
             patch(
-                "shadow_cli.auth.resolve_api_key_provider_credentials",
+                "yousef shtiwe_cli.auth.resolve_api_key_provider_credentials",
                 return_value={
                     "provider": "copilot",
                     "api_key": "test-token",
@@ -758,7 +758,7 @@ class TestAuxiliaryPoolAwareness:
 
         with (
             patch(
-                "shadow_cli.auth.resolve_api_key_provider_credentials",
+                "yousef shtiwe_cli.auth.resolve_api_key_provider_credentials",
                 return_value={
                     "provider": "copilot",
                     "api_key": "test-token",
@@ -777,10 +777,10 @@ class TestAuxiliaryPoolAwareness:
         assert client is mock_openai.return_value
 
     def test_vision_auto_uses_active_provider_as_fallback(self, monkeypatch):
-        """When no OpenRouter/Shadow available, vision auto falls back to active provider."""
+        """When no OpenRouter/Yousef Shtiwe available, vision auto falls back to active provider."""
         monkeypatch.setenv("ANTHROPIC_API_KEY", "***")
         with (
-            patch("agent.auxiliary_client._read_shadow_auth", return_value=None),
+            patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None),
             patch("agent.auxiliary_client._read_main_provider", return_value="anthropic"),
             patch("agent.auxiliary_client._read_main_model", return_value="claude-sonnet-4"),
             patch("agent.anthropic_adapter.build_anthropic_client", return_value=MagicMock()),
@@ -797,7 +797,7 @@ class TestAuxiliaryPoolAwareness:
         monkeypatch.setenv("ANTHROPIC_API_KEY", "***")
 
         with (
-            patch("agent.auxiliary_client._read_shadow_auth", return_value=None),
+            patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None),
             patch("agent.auxiliary_client._read_main_provider", return_value="anthropic"),
             patch("agent.auxiliary_client._read_main_model", return_value="claude-sonnet-4"),
             patch("agent.anthropic_adapter.build_anthropic_client", return_value=MagicMock()),
@@ -812,7 +812,7 @@ class TestAuxiliaryPoolAwareness:
         """Named custom provider works as active provider fallback in vision auto."""
         monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
         monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client._select_pool_entry", return_value=(False, None)), \
              patch("agent.auxiliary_client._read_main_provider", return_value="custom:local"), \
              patch("agent.auxiliary_client._read_main_model", return_value="my-local-model"), \
@@ -831,9 +831,9 @@ class TestAuxiliaryPoolAwareness:
                 }
             }
         }
-        monkeypatch.setattr("shadow_cli.config.load_config", lambda: config)
+        monkeypatch.setattr("yousef shtiwe_cli.config.load_config", lambda: config)
         with (
-            patch("shadow_cli.auth.resolve_api_key_provider_credentials", return_value={
+            patch("yousef shtiwe_cli.auth.resolve_api_key_provider_credentials", return_value={
                 "api_key": "gemini-key",
                 "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
             }),
@@ -853,9 +853,9 @@ class TestTaskSpecificOverrides:
     """Integration tests for per-task provider routing via get_text_auxiliary_client(task=...)."""
 
     def test_task_direct_endpoint_from_config(self, monkeypatch, tmp_path):
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "config.yaml").write_text(
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "config.yaml").write_text(
             """auxiliary:
   web_extract:
     base_url: http://localhost:3456/v1
@@ -863,7 +863,7 @@ class TestTaskSpecificOverrides:
     model: config-model
 """
         )
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
         with patch("agent.auxiliary_client.OpenAI") as mock_openai:
             client, model = get_text_auxiliary_client("web_extract")
         assert model == "config-model"
@@ -879,15 +879,15 @@ class TestTaskSpecificOverrides:
 
     def test_resolve_auto_prefers_live_main_runtime_over_persisted_config(self, monkeypatch, tmp_path):
         """Session-only live model switches should override persisted config for auto routing."""
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "config.yaml").write_text(
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "config.yaml").write_text(
             """model:
   default: glm-5.1
   provider: opencode-go
 """
         )
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         calls = []
 
@@ -912,9 +912,9 @@ class TestTaskSpecificOverrides:
 
     def test_explicit_compression_pin_still_wins_over_live_main_runtime(self, monkeypatch, tmp_path):
         """Task-level compression config should beat a live session override."""
-        shadow_home = tmp_path / "shadow"
-        shadow_home.mkdir(parents=True, exist_ok=True)
-        (shadow_home / "config.yaml").write_text(
+        yousef shtiwe_home = tmp_path / "yousef shtiwe"
+        yousef shtiwe_home.mkdir(parents=True, exist_ok=True)
+        (yousef shtiwe_home / "config.yaml").write_text(
             """auxiliary:
   compression:
     provider: openrouter
@@ -924,7 +924,7 @@ model:
   provider: opencode-go
 """
         )
-        monkeypatch.setenv("SHADOW_HOME", str(shadow_home))
+        monkeypatch.setenv("YOUSEF SHTIWE_HOME", str(yousef shtiwe_home))
 
         with patch("agent.auxiliary_client.resolve_provider_client", return_value=(MagicMock(), "google/gemini-3-flash-preview")) as mock_resolve:
             client, model = get_text_auxiliary_client(
@@ -950,7 +950,7 @@ def test_resolve_provider_client_supports_copilot_acp_external_process():
     with patch("agent.auxiliary_client._read_main_model", return_value="gpt-5.4-mini"), \
          patch("agent.auxiliary_client.CodexAuxiliaryClient", MagicMock()), \
          patch("agent.copilot_acp_client.CopilotACPClient", return_value=fake_client) as mock_acp, \
-         patch("shadow_cli.auth.resolve_external_process_provider_credentials", return_value={
+         patch("yousef shtiwe_cli.auth.resolve_external_process_provider_credentials", return_value={
              "provider": "copilot-acp",
              "api_key": "copilot-acp",
              "base_url": "acp://copilot",
@@ -970,7 +970,7 @@ def test_resolve_provider_client_supports_copilot_acp_external_process():
 def test_resolve_provider_client_copilot_acp_requires_explicit_or_configured_model():
     with patch("agent.auxiliary_client._read_main_model", return_value=""), \
          patch("agent.copilot_acp_client.CopilotACPClient") as mock_acp, \
-         patch("shadow_cli.auth.resolve_external_process_provider_credentials", return_value={
+         patch("yousef shtiwe_cli.auth.resolve_external_process_provider_credentials", return_value={
              "provider": "copilot-acp",
              "api_key": "copilot-acp",
              "base_url": "acp://copilot",
@@ -987,7 +987,7 @@ def test_resolve_provider_client_copilot_acp_requires_explicit_or_configured_mod
 class TestAuxiliaryMaxTokensParam:
     def test_codex_fallback_uses_max_tokens(self, monkeypatch):
         """Codex adapter translates max_tokens internally, so we return max_tokens."""
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client._read_codex_access_token", return_value="tok"):
             result = auxiliary_max_tokens_param(1024)
         assert result == {"max_tokens": 1024}
@@ -998,7 +998,7 @@ class TestAuxiliaryMaxTokensParam:
         assert result == {"max_tokens": 1024}
 
     def test_no_provider_uses_max_tokens(self):
-        with patch("agent.auxiliary_client._read_shadow_auth", return_value=None), \
+        with patch("agent.auxiliary_client._read_yousef shtiwe_auth", return_value=None), \
              patch("agent.auxiliary_client._read_codex_access_token", return_value=None):
             result = auxiliary_max_tokens_param(1024)
         assert result == {"max_tokens": 1024}
@@ -1052,7 +1052,7 @@ class TestGetProviderChain:
         chain = _get_provider_chain()
         assert len(chain) == 5
         labels = [label for label, _ in chain]
-        assert labels == ["openrouter", "shadow", "local/custom", "openai-codex", "api-key"]
+        assert labels == ["openrouter", "yousef shtiwe", "local/custom", "openai-codex", "api-key"]
 
     def test_picks_up_patched_functions(self):
         """Patches on _try_* functions must be visible in the chain."""
@@ -1068,16 +1068,16 @@ class TestTryPaymentFallback:
     def test_skips_failed_provider(self):
         mock_client = MagicMock()
         with patch("agent.auxiliary_client._try_openrouter", return_value=(None, None)), \
-             patch("agent.auxiliary_client._try_shadow", return_value=(mock_client, "shadow-model")), \
+             patch("agent.auxiliary_client._try_yousef shtiwe", return_value=(mock_client, "yousef shtiwe-model")), \
              patch("agent.auxiliary_client._read_main_provider", return_value="openrouter"):
             client, model, label = _try_payment_fallback("openrouter", task="compression")
         assert client is mock_client
-        assert model == "shadow-model"
-        assert label == "shadow"
+        assert model == "yousef shtiwe-model"
+        assert label == "yousef shtiwe"
 
     def test_returns_none_when_no_fallback(self):
         with patch("agent.auxiliary_client._try_openrouter", return_value=(None, None)), \
-             patch("agent.auxiliary_client._try_shadow", return_value=(None, None)), \
+             patch("agent.auxiliary_client._try_yousef shtiwe", return_value=(None, None)), \
              patch("agent.auxiliary_client._try_custom_endpoint", return_value=(None, None)), \
              patch("agent.auxiliary_client._try_codex", return_value=(None, None)), \
              patch("agent.auxiliary_client._resolve_api_key_provider", return_value=(None, None)), \
@@ -1096,10 +1096,10 @@ class TestTryPaymentFallback:
         assert client is mock_client
         assert label == "openrouter"
 
-    def test_skips_to_codex_when_or_and_shadow_fail(self):
+    def test_skips_to_codex_when_or_and_yousef shtiwe_fail(self):
         mock_codex = MagicMock()
         with patch("agent.auxiliary_client._try_openrouter", return_value=(None, None)), \
-             patch("agent.auxiliary_client._try_shadow", return_value=(None, None)), \
+             patch("agent.auxiliary_client._try_yousef shtiwe", return_value=(None, None)), \
              patch("agent.auxiliary_client._try_custom_endpoint", return_value=(None, None)), \
              patch("agent.auxiliary_client._try_codex", return_value=(mock_codex, "gpt-5.2-codex")), \
              patch("agent.auxiliary_client._read_main_provider", return_value="openrouter"):
@@ -1185,7 +1185,7 @@ class TestCallLlmPaymentFallback:
                     return_value=("auto", "model", None, None, None)), \
              patch("agent.auxiliary_client._is_connection_error", return_value=True), \
              patch("agent.auxiliary_client._try_payment_fallback",
-                    return_value=(fallback_client, "fb-model", "shadow")) as mock_fb:
+                    return_value=(fallback_client, "fb-model", "yousef shtiwe")) as mock_fb:
             result = call_llm(
                 task="compression",
                 messages=[{"role": "user", "content": "hello"}],
@@ -1241,7 +1241,7 @@ class TestCallLlmPaymentFallback:
 def test_resolve_api_key_provider_skips_unconfigured_anthropic(monkeypatch):
     """_resolve_api_key_provider must not try anthropic when user never configured it."""
     from collections import OrderedDict
-    from shadow_cli.auth import ProviderConfig
+    from yousef shtiwe_cli.auth import ProviderConfig
 
     # Build a minimal registry with only "anthropic" so the loop is guaranteed
     # to reach it without being short-circuited by earlier providers.
@@ -1262,9 +1262,9 @@ def test_resolve_api_key_provider_skips_unconfigured_anthropic(monkeypatch):
         return None, None
 
     monkeypatch.setattr("agent.auxiliary_client._try_anthropic", mock_try_anthropic)
-    monkeypatch.setattr("shadow_cli.auth.PROVIDER_REGISTRY", fake_registry)
+    monkeypatch.setattr("yousef shtiwe_cli.auth.PROVIDER_REGISTRY", fake_registry)
     monkeypatch.setattr(
-        "shadow_cli.auth.is_provider_explicitly_configured",
+        "yousef shtiwe_cli.auth.is_provider_explicitly_configured",
         lambda pid: False,
     )
 
@@ -1456,7 +1456,7 @@ class TestAsyncCallLlmFallback:
                     return_value=("auto", "model", None, None, None)), \
              patch("agent.auxiliary_client._is_connection_error", return_value=True), \
              patch("agent.auxiliary_client._try_payment_fallback",
-                    return_value=(fb_sync_client, "fb-model", "shadow")) as mock_fb, \
+                    return_value=(fb_sync_client, "fb-model", "yousef shtiwe")) as mock_fb, \
              patch("agent.auxiliary_client._to_async_client",
                     return_value=(fb_async_client, "fb-model")):
             result = await async_call_llm(

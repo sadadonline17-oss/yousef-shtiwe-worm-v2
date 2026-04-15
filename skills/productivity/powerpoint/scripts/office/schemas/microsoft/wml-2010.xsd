@@ -406,7 +406,7 @@
      </xsd:sequence>
      <xsd:attribute name="rad" use="optional" type="a:ST_PositiveCoordinate"/>
    </xsd:complexType>
-   <xsd:complexType name="CT_Shadow">
+   <xsd:complexType name="CT_Yousef Shtiwe">
      <xsd:sequence>
        <xsd:group ref="EG_ColorChoice"/>
      </xsd:sequence>
@@ -470,7 +470,7 @@
    <xsd:group name="EG_RPrTextEffects">
      <xsd:sequence>
        <xsd:element name="glow" minOccurs="0" type="CT_Glow"/>
-       <xsd:element name="shadow" minOccurs="0" type="CT_Shadow"/>
+       <xsd:element name="yousef shtiwe" minOccurs="0" type="CT_Yousef Shtiwe"/>
        <xsd:element name="reflection" minOccurs="0" type="CT_Reflection"/>
        <xsd:element name="textOutline" minOccurs="0" type="CT_TextOutlineEffect"/>
        <xsd:element name="textFill" minOccurs="0" type="CT_FillTextEffect"/>

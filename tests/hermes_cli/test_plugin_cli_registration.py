@@ -16,7 +16,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from shadow_cli.plugins import (
+from yousef shtiwe_cli.plugins import (
     PluginContext,
     PluginManager,
     PluginManifest,
@@ -202,7 +202,7 @@ class TestHonchoRegisterCli:
         assert args.honcho_command == "status"
 
     def test_setup_redirects_to_memory_setup(self):
-        """shadow honcho setup redirects to memory setup."""
+        """yousef shtiwe honcho setup redirects to memory setup."""
         from plugins.memory.honcho.cli import register_cli
 
         parser = argparse.ArgumentParser()

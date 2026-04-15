@@ -29,25 +29,25 @@ def _reset_modules(prefixes: tuple[str, ...]):
 
 @pytest.fixture(autouse=True)
 def _restore_tool_modules():
-    original_shadow_home = os.environ.get("SHADOW_HOME")
+    original_yousef shtiwe_home = os.environ.get("YOUSEF SHTIWE_HOME")
     original_modules = {
         name: module
         for name, module in sys.modules.items()
         if name == "tools"
         or name.startswith("tools.")
-        or name == "shadow_cli"
-        or name.startswith("shadow_cli.")
+        or name == "yousef shtiwe_cli"
+        or name.startswith("yousef shtiwe_cli.")
         or name == "modal"
         or name.startswith("modal.")
     }
     try:
         yield
     finally:
-        if original_shadow_home is None:
-            os.environ.pop("SHADOW_HOME", None)
+        if original_yousef shtiwe_home is None:
+            os.environ.pop("YOUSEF SHTIWE_HOME", None)
         else:
-            os.environ["SHADOW_HOME"] = original_shadow_home
-        _reset_modules(("tools", "shadow_cli", "modal"))
+            os.environ["YOUSEF SHTIWE_HOME"] = original_yousef shtiwe_home
+        _reset_modules(("tools", "yousef shtiwe_cli", "modal"))
         sys.modules.update(original_modules)
 
 
@@ -57,15 +57,15 @@ def _install_modal_test_modules(
     fail_on_snapshot_ids: set[str] | None = None,
     snapshot_id: str = "im-fresh",
 ):
-    _reset_modules(("tools", "shadow_cli", "modal"))
+    _reset_modules(("tools", "yousef shtiwe_cli", "modal"))
 
-    shadow_cli = types.ModuleType("shadow_cli")
-    shadow_cli.__path__ = []  # type: ignore[attr-defined]
-    sys.modules["shadow_cli"] = shadow_cli
-    shadow_home = tmp_path / "shadow-home"
-    os.environ["SHADOW_HOME"] = str(shadow_home)
-    sys.modules["shadow_cli.config"] = types.SimpleNamespace(
-        get_shadow_home=lambda: shadow_home,
+    yousef shtiwe_cli = types.ModuleType("yousef shtiwe_cli")
+    yousef shtiwe_cli.__path__ = []  # type: ignore[attr-defined]
+    sys.modules["yousef shtiwe_cli"] = yousef shtiwe_cli
+    yousef shtiwe_home = tmp_path / "yousef shtiwe-home"
+    os.environ["YOUSEF SHTIWE_HOME"] = str(yousef shtiwe_home)
+    sys.modules["yousef shtiwe_cli.config"] = types.SimpleNamespace(
+        get_yousef shtiwe_home=lambda: yousef shtiwe_home,
     )
 
     tools_package = types.ModuleType("tools")
@@ -144,7 +144,7 @@ def _install_modal_test_modules(
             return {"kind": "registry", "image": image}
 
     async def _lookup_aio(_name: str, create_if_missing: bool = False):
-        return types.SimpleNamespace(name="shadow-agent", create_if_missing=create_if_missing)
+        return types.SimpleNamespace(name="yousef shtiwe-agent", create_if_missing=create_if_missing)
 
     class _FakeSandboxInstance:
         def __init__(self, image):
@@ -190,7 +190,7 @@ def _install_modal_test_modules(
     )
 
     return {
-        "snapshot_store": shadow_home / "modal_snapshots.json",
+        "snapshot_store": yousef shtiwe_home / "modal_snapshots.json",
         "create_calls": create_calls,
         "from_id_calls": from_id_calls,
         "registry_calls": registry_calls,

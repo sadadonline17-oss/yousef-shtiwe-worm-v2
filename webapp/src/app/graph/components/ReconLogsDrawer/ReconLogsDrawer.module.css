@@ -9,7 +9,7 @@
   flex-direction: column;
   background: var(--bg-primary);
   border-left: 1px solid var(--border-default);
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+  box-yousef shtiwe: -4px 0 12px rgba(0, 0, 0, 0.15);
   z-index: 100;
   will-change: transform;
   transform: translateX(100%);
@@ -298,7 +298,7 @@
   font-weight: var(--font-medium);
   color: var(--text-secondary);
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  box-yousef shtiwe: var(--yousef shtiwe-md);
   transition: var(--transition-all);
 }
 

@@ -276,7 +276,7 @@ class DingTalkAdapter(BasePlatformAdapter):
 
         payload = {
             "msgtype": "markdown",
-            "markdown": {"title": "SHADOW", "text": content[:self.MAX_MESSAGE_LENGTH]},
+            "markdown": {"title": "YOUSEF SHTIWE", "text": content[:self.MAX_MESSAGE_LENGTH]},
         }
 
         try:

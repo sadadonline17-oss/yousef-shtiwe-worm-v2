@@ -57,12 +57,12 @@
 
 .cardClickable:hover {
   border-color: var(--text-tertiary);
-  box-shadow: var(--shadow-sm);
+  box-yousef shtiwe: var(--yousef shtiwe-sm);
 }
 
 .cardSelected {
   border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 1px var(--accent-secondary);
+  box-yousef shtiwe: 0 0 0 1px var(--accent-secondary);
 }
 
 /* =============================================================================

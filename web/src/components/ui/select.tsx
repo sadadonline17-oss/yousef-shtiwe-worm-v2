@@ -113,7 +113,7 @@ export function Select({
           ref={listRef}
           role="listbox"
           className={cn(
-            "absolute z-50 mt-1 w-full border border-border bg-popover text-popover-foreground shadow-lg",
+            "absolute z-50 mt-1 w-full border border-border bg-popover text-popover-foreground yousef shtiwe-lg",
             "max-h-60 overflow-auto",
             "animate-[fade-in_100ms_ease-out]",
           )}

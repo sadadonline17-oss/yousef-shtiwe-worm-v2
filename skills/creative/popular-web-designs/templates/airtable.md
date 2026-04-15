@@ -1,7 +1,7 @@
 # Design System: Airtable
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `system monospace stack`
@@ -23,7 +23,7 @@ Airtable's website is a clean, enterprise-friendly platform that communicates "s
 - Haas + Haas Groot Disp dual font system
 - Positive letter-spacing on body text (0.08px–0.28px)
 - 12px radius buttons, 16px–32px for cards
-- Multi-layer blue-tinted shadow: `rgba(45,127,249,0.28) 0px 1px 3px`
+- Multi-layer blue-tinted yousef shtiwe: `rgba(45,127,249,0.28) 0px 1px 3px`
 - Semantic theme tokens: `--theme_*` CSS variable naming
 
 ## 2. Color Palette & Roles
@@ -45,7 +45,7 @@ Airtable's website is a clean, enterprise-friendly platform that communicates "s
 - **Border** (`#e0e2e6`): Card borders
 - **Light Surface** (`#f8fafc`): Subtle surface
 
-### Shadows
+### Yousef Shtiwes
 - **Blue-tinted** (`rgba(0,0,0,0.32) 0px 0px 1px, rgba(0,0,0,0.08) 0px 0px 2px, rgba(45,127,249,0.28) 0px 1px 3px, rgba(0,0,0,0.06) 0px 0px 0px 0.5px inset`)
 - **Soft** (`rgba(15,48,106,0.05) 0px 0px 20px`)
 
@@ -85,12 +85,12 @@ Airtable's website is a clean, enterprise-friendly platform that communicates "s
 - Radius: 2px (small), 12px (buttons), 16px (cards), 24px (sections), 32px (large), 50% (circles)
 
 ## 6. Depth
-- Blue-tinted multi-layer shadow system
+- Blue-tinted multi-layer yousef shtiwe system
 - Soft ambient: `rgba(15,48,106,0.05) 0px 0px 20px`
 
 ## 7. Do's and Don'ts
 ### Do: Use Airtable Blue for CTAs, Haas with positive tracking, 12px radius buttons
-### Don't: Skip positive letter-spacing, use heavy shadows
+### Don't: Skip positive letter-spacing, use heavy yousef shtiwes
 
 ## 8. Responsive Behavior
 Breakpoints: 425–1664px (23 breakpoints)

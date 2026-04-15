@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: "CLI Commands Reference"
-description: "Authoritative reference for SHADOW terminal commands and command families"
+description: "Authoritative reference for YOUSEF SHTIWE terminal commands and command families"
 ---
 
 # CLI Commands Reference
@@ -13,7 +13,7 @@ For in-chat slash commands, see [Slash Commands Reference](./slash-commands.md).
 ## Global entrypoint
 
 ```bash
-shadow [global-options] <command> [subcommand/options]
+yousef shtiwe [global-options] <command> [subcommand/options]
 ```
 
 ### Global options
@@ -21,7 +21,7 @@ shadow [global-options] <command> [subcommand/options]
 | Option | Description |
 |--------|-------------|
 | `--version`, `-V` | Show version and exit. |
-| `--profile <name>`, `-p <name>` | Select which SHADOW profile to use for this invocation. Overrides the sticky default set by `shadow profile use`. |
+| `--profile <name>`, `-p <name>` | Select which YOUSEF SHTIWE profile to use for this invocation. Overrides the sticky default set by `yousef shtiwe profile use`. |
 | `--resume <session>`, `-r <session>` | Resume a previous session by ID or title. |
 | `--continue [name]`, `-c [name]` | Resume the most recent session, or the most recent session matching a title. |
 | `--worktree`, `-w` | Start in an isolated git worktree for parallel-agent workflows. |
@@ -32,48 +32,48 @@ shadow [global-options] <command> [subcommand/options]
 
 | Command | Purpose |
 |---------|---------|
-| `shadow chat` | Interactive or one-shot chat with the agent. |
-| `shadow model` | Interactively choose the default provider and model. |
-| `shadow gateway` | Run or manage the messaging gateway service. |
-| `shadow setup` | Interactive setup wizard for all or part of the configuration. |
-| `shadow whatsapp` | Configure and pair the WhatsApp bridge. |
-| `shadow auth` | Manage credentials — add, list, remove, reset, set strategy. Handles OAuth flows for Codex/Shadow/Anthropic. |
-| `shadow login` / `logout` | **Deprecated** — use `shadow auth` instead. |
-| `shadow status` | Show agent, auth, and platform status. |
-| `shadow cron` | Inspect and tick the cron scheduler. |
-| `shadow webhook` | Manage dynamic webhook subscriptions for event-driven activation. |
-| `shadow doctor` | Diagnose config and dependency issues. |
-| `shadow dump` | Copy-pasteable setup summary for support/debugging. |
-| `shadow debug` | Debug tools — upload logs and system info for support. |
-| `shadow backup` | Back up SHADOW home directory to a zip file. |
-| `shadow import` | Restore a SHADOW backup from a zip file. |
-| `shadow logs` | View, tail, and filter agent/gateway/error log files. |
-| `shadow config` | Show, edit, migrate, and query configuration files. |
-| `shadow pairing` | Approve or revoke messaging pairing codes. |
-| `shadow skills` | Browse, install, publish, audit, and configure skills. |
-| `shadow honcho` | Manage Honcho cross-session memory integration. |
-| `shadow memory` | Configure external memory provider. |
-| `shadow acp` | Run SHADOW as an ACP server for editor integration. |
-| `shadow mcp` | Manage MCP server configurations and run SHADOW as an MCP server. |
-| `shadow plugins` | Manage SHADOW Agent plugins (install, enable, disable, remove). |
-| `shadow tools` | Configure enabled tools per platform. |
-| `shadow sessions` | Browse, export, prune, rename, and delete sessions. |
-| `shadow insights` | Show token/cost/activity analytics. |
-| `shadow claw` | OpenClaw migration helpers. |
-| `shadow dashboard` | Launch the web dashboard for managing config, API keys, and sessions. |
-| `shadow debug` | Debug tools — upload logs and system info for support. |
-| `shadow backup` | Back up SHADOW home directory to a zip file. |
-| `shadow import` | Restore a SHADOW backup from a zip file. |
-| `shadow profile` | Manage profiles — multiple isolated SHADOW instances. |
-| `shadow completion` | Print shell completion scripts (bash/zsh). |
-| `shadow version` | Show version information. |
-| `shadow update` | Pull latest code and reinstall dependencies. |
-| `shadow uninstall` | Remove SHADOW from the system. |
+| `yousef shtiwe chat` | Interactive or one-shot chat with the agent. |
+| `yousef shtiwe model` | Interactively choose the default provider and model. |
+| `yousef shtiwe gateway` | Run or manage the messaging gateway service. |
+| `yousef shtiwe setup` | Interactive setup wizard for all or part of the configuration. |
+| `yousef shtiwe whatsapp` | Configure and pair the WhatsApp bridge. |
+| `yousef shtiwe auth` | Manage credentials — add, list, remove, reset, set strategy. Handles OAuth flows for Codex/Yousef Shtiwe/Anthropic. |
+| `yousef shtiwe login` / `logout` | **Deprecated** — use `yousef shtiwe auth` instead. |
+| `yousef shtiwe status` | Show agent, auth, and platform status. |
+| `yousef shtiwe cron` | Inspect and tick the cron scheduler. |
+| `yousef shtiwe webhook` | Manage dynamic webhook subscriptions for event-driven activation. |
+| `yousef shtiwe doctor` | Diagnose config and dependency issues. |
+| `yousef shtiwe dump` | Copy-pasteable setup summary for support/debugging. |
+| `yousef shtiwe debug` | Debug tools — upload logs and system info for support. |
+| `yousef shtiwe backup` | Back up YOUSEF SHTIWE home directory to a zip file. |
+| `yousef shtiwe import` | Restore a YOUSEF SHTIWE backup from a zip file. |
+| `yousef shtiwe logs` | View, tail, and filter agent/gateway/error log files. |
+| `yousef shtiwe config` | Show, edit, migrate, and query configuration files. |
+| `yousef shtiwe pairing` | Approve or revoke messaging pairing codes. |
+| `yousef shtiwe skills` | Browse, install, publish, audit, and configure skills. |
+| `yousef shtiwe honcho` | Manage Honcho cross-session memory integration. |
+| `yousef shtiwe memory` | Configure external memory provider. |
+| `yousef shtiwe acp` | Run YOUSEF SHTIWE as an ACP server for editor integration. |
+| `yousef shtiwe mcp` | Manage MCP server configurations and run YOUSEF SHTIWE as an MCP server. |
+| `yousef shtiwe plugins` | Manage YOUSEF SHTIWE Agent plugins (install, enable, disable, remove). |
+| `yousef shtiwe tools` | Configure enabled tools per platform. |
+| `yousef shtiwe sessions` | Browse, export, prune, rename, and delete sessions. |
+| `yousef shtiwe insights` | Show token/cost/activity analytics. |
+| `yousef shtiwe claw` | OpenClaw migration helpers. |
+| `yousef shtiwe dashboard` | Launch the web dashboard for managing config, API keys, and sessions. |
+| `yousef shtiwe debug` | Debug tools — upload logs and system info for support. |
+| `yousef shtiwe backup` | Back up YOUSEF SHTIWE home directory to a zip file. |
+| `yousef shtiwe import` | Restore a YOUSEF SHTIWE backup from a zip file. |
+| `yousef shtiwe profile` | Manage profiles — multiple isolated YOUSEF SHTIWE instances. |
+| `yousef shtiwe completion` | Print shell completion scripts (bash/zsh). |
+| `yousef shtiwe version` | Show version information. |
+| `yousef shtiwe update` | Pull latest code and reinstall dependencies. |
+| `yousef shtiwe uninstall` | Remove YOUSEF SHTIWE from the system. |
 
-## `shadow chat`
+## `yousef shtiwe chat`
 
 ```bash
-shadow chat [options]
+yousef shtiwe chat [options]
 ```
 
 Common options:
@@ -83,7 +83,7 @@ Common options:
 | `-q`, `--query "..."` | One-shot, non-interactive prompt. |
 | `-m`, `--model <model>` | Override the model for this run. |
 | `-t`, `--toolsets <csv>` | Enable a comma-separated set of toolsets. |
-| `--provider <provider>` | Force a provider: `auto`, `openrouter`, `shadow`, `openai-codex`, `copilot-acp`, `copilot`, `anthropic`, `gemini`, `huggingface`, `zai`, `kimi-coding`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`. |
+| `--provider <provider>` | Force a provider: `auto`, `openrouter`, `yousef shtiwe`, `openai-codex`, `copilot-acp`, `copilot`, `anthropic`, `gemini`, `huggingface`, `zai`, `kimi-coding`, `minimax`, `minimax-cn`, `kilocode`, `xiaomi`, `arcee`. |
 | `-s`, `--skills <name>` | Preload one or more skills for the session (can be repeated or comma-separated). |
 | `-v`, `--verbose` | Verbose output. |
 | `-Q`, `--quiet` | Programmatic mode: suppress banner/spinner/tool previews. |
@@ -99,20 +99,20 @@ Common options:
 Examples:
 
 ```bash
-shadow
-shadow chat -q "Summarize the latest PRs"
-shadow chat --provider openrouter --model anthropic/claude-sonnet-4.6
-shadow chat --toolsets web,terminal,skills
-shadow chat --quiet -q "Return only JSON"
-shadow chat --worktree -q "Review this repo and open a PR"
+yousef shtiwe
+yousef shtiwe chat -q "Summarize the latest PRs"
+yousef shtiwe chat --provider openrouter --model anthropic/claude-sonnet-4.6
+yousef shtiwe chat --toolsets web,terminal,skills
+yousef shtiwe chat --quiet -q "Return only JSON"
+yousef shtiwe chat --worktree -q "Review this repo and open a PR"
 ```
 
-## `shadow model`
+## `yousef shtiwe model`
 
 Interactive provider + model selector.
 
 ```bash
-shadow model
+yousef shtiwe model
 ```
 
 Use this when you want to:
@@ -138,10 +138,10 @@ Switch models without leaving a session:
 
 Provider and base URL changes are persisted to `config.yaml` automatically. When switching away from a custom endpoint, the stale base URL is cleared to prevent it leaking into other providers.
 
-## `shadow gateway`
+## `yousef shtiwe gateway`
 
 ```bash
-shadow gateway <subcommand>
+yousef shtiwe gateway <subcommand>
 ```
 
 Subcommands:
@@ -158,13 +158,13 @@ Subcommands:
 | `setup` | Interactive messaging-platform setup. |
 
 :::tip WSL users
-Use `shadow gateway run` instead of `shadow gateway start` — WSL's systemd support is unreliable. Wrap it in tmux for persistence: `tmux new -s shadow 'shadow gateway run'`. See [WSL FAQ](/docs/reference/faq#wsl-gateway-keeps-disconnecting-or-shadow-gateway-start-fails) for details.
+Use `yousef shtiwe gateway run` instead of `yousef shtiwe gateway start` — WSL's systemd support is unreliable. Wrap it in tmux for persistence: `tmux new -s yousef shtiwe 'yousef shtiwe gateway run'`. See [WSL FAQ](/docs/reference/faq#wsl-gateway-keeps-disconnecting-or-yousef shtiwe-gateway-start-fails) for details.
 :::
 
-## `shadow setup`
+## `yousef shtiwe setup`
 
 ```bash
-shadow setup [model|tts|terminal|gateway|tools|agent] [--non-interactive] [--reset]
+yousef shtiwe setup [model|tts|terminal|gateway|tools|agent] [--non-interactive] [--reset]
 ```
 
 Use the full wizard or jump into one section:
@@ -184,40 +184,40 @@ Options:
 | `--non-interactive` | Use defaults / environment values without prompts. |
 | `--reset` | Reset configuration to defaults before setup. |
 
-## `shadow whatsapp`
+## `yousef shtiwe whatsapp`
 
 ```bash
-shadow whatsapp
+yousef shtiwe whatsapp
 ```
 
 Runs the WhatsApp pairing/setup flow, including mode selection and QR-code pairing.
 
-## `shadow login` / `shadow logout` *(Deprecated)*
+## `yousef shtiwe login` / `yousef shtiwe logout` *(Deprecated)*
 
 :::caution
-`shadow login` has been removed. Use `shadow auth` to manage OAuth credentials, `shadow model` to select a provider, or `shadow setup` for full interactive setup.
+`yousef shtiwe login` has been removed. Use `yousef shtiwe auth` to manage OAuth credentials, `yousef shtiwe model` to select a provider, or `yousef shtiwe setup` for full interactive setup.
 :::
 
-## `shadow auth`
+## `yousef shtiwe auth`
 
 Manage credential pools for same-provider key rotation. See [Credential Pools](/docs/user-guide/features/credential-pools) for full documentation.
 
 ```bash
-shadow auth                                              # Interactive wizard
-shadow auth list                                         # Show all pools
-shadow auth list openrouter                              # Show specific provider
-shadow auth add openrouter --api-key sk-or-v1-xxx        # Add API key
-shadow auth add anthropic --type oauth                   # Add OAuth credential
-shadow auth remove openrouter 2                          # Remove by index
-shadow auth reset openrouter                             # Clear cooldowns
+yousef shtiwe auth                                              # Interactive wizard
+yousef shtiwe auth list                                         # Show all pools
+yousef shtiwe auth list openrouter                              # Show specific provider
+yousef shtiwe auth add openrouter --api-key sk-or-v1-xxx        # Add API key
+yousef shtiwe auth add anthropic --type oauth                   # Add OAuth credential
+yousef shtiwe auth remove openrouter 2                          # Remove by index
+yousef shtiwe auth reset openrouter                             # Clear cooldowns
 ```
 
 Subcommands: `add`, `list`, `remove`, `reset`. When called with no subcommand, launches the interactive management wizard.
 
-## `shadow status`
+## `yousef shtiwe status`
 
 ```bash
-shadow status [--all] [--deep]
+yousef shtiwe status [--all] [--deep]
 ```
 
 | Option | Description |
@@ -225,10 +225,10 @@ shadow status [--all] [--deep]
 | `--all` | Show all details in a shareable redacted format. |
 | `--deep` | Run deeper checks that may take longer. |
 
-## `shadow cron`
+## `yousef shtiwe cron`
 
 ```bash
-shadow cron <list|create|edit|pause|resume|run|remove|status|tick>
+yousef shtiwe cron <list|create|edit|pause|resume|run|remove|status|tick>
 ```
 
 | Subcommand | Description |
@@ -243,10 +243,10 @@ shadow cron <list|create|edit|pause|resume|run|remove|status|tick>
 | `status` | Check whether the cron scheduler is running. |
 | `tick` | Run due jobs once and exit. |
 
-## `shadow webhook`
+## `yousef shtiwe webhook`
 
 ```bash
-shadow webhook <subscribe|list|remove|test>
+yousef shtiwe webhook <subscribe|list|remove|test>
 ```
 
 Manage dynamic webhook subscriptions for event-driven agent activation. Requires the webhook platform to be enabled in config — if not configured, prints setup instructions.
@@ -258,10 +258,10 @@ Manage dynamic webhook subscriptions for event-driven agent activation. Requires
 | `remove` / `rm` | Delete a dynamic subscription. Static routes from config.yaml are not affected. |
 | `test` | Send a test POST to verify a subscription is working. |
 
-### `shadow webhook subscribe`
+### `yousef shtiwe webhook subscribe`
 
 ```bash
-shadow webhook subscribe <name> [options]
+yousef shtiwe webhook subscribe <name> [options]
 ```
 
 | Option | Description |
@@ -274,25 +274,25 @@ shadow webhook subscribe <name> [options]
 | `--deliver-chat-id` | Target chat/channel ID for cross-platform delivery. |
 | `--secret` | Custom HMAC secret. Auto-generated if omitted. |
 
-Subscriptions persist to `~/.shadow/webhook_subscriptions.json` and are hot-reloaded by the webhook adapter without a gateway restart.
+Subscriptions persist to `~/.yousef shtiwe/webhook_subscriptions.json` and are hot-reloaded by the webhook adapter without a gateway restart.
 
-## `shadow doctor`
+## `yousef shtiwe doctor`
 
 ```bash
-shadow doctor [--fix]
+yousef shtiwe doctor [--fix]
 ```
 
 | Option | Description |
 |--------|-------------|
 | `--fix` | Attempt automatic repairs where possible. |
 
-## `shadow dump`
+## `yousef shtiwe dump`
 
 ```bash
-shadow dump [--show-keys]
+yousef shtiwe dump [--show-keys]
 ```
 
-Outputs a compact, plain-text summary of your entire SHADOW setup. Designed to be copy-pasted into Discord, GitHub issues, or Telegram when asking for support — no ANSI colors, no special formatting, just data.
+Outputs a compact, plain-text summary of your entire YOUSEF SHTIWE setup. Designed to be copy-pasted into Discord, GitHub issues, or Telegram when asking for support — no ANSI colors, no special formatting, just data.
 
 | Option | Description |
 |--------|-------------|
@@ -302,9 +302,9 @@ Outputs a compact, plain-text summary of your entire SHADOW setup. Designed to b
 
 | Section | Details |
 |---------|---------|
-| **Header** | SHADOW version, release date, git commit hash |
+| **Header** | YOUSEF SHTIWE version, release date, git commit hash |
 | **Environment** | OS, Python version, OpenAI SDK version |
-| **Identity** | Active profile name, SHADOW_HOME path |
+| **Identity** | Active profile name, YOUSEF SHTIWE_HOME path |
 | **Model** | Configured default model and provider |
 | **Terminal** | Backend type (local, docker, ssh, etc.) |
 | **API keys** | Presence check for all 22 provider/tool API keys |
@@ -316,13 +316,13 @@ Outputs a compact, plain-text summary of your entire SHADOW setup. Designed to b
 ### Example output
 
 ```
---- shadow dump ---
+--- yousef shtiwe dump ---
 version:          0.8.0 (2026.4.8) [af4abd2f]
 os:               Linux 6.14.0-37-generic x86_64
 python:           3.11.14
 openai_sdk:       2.24.0
 profile:          default
-shadow_home:      ~/.shadow
+yousef shtiwe_home:      ~/.yousef shtiwe
 model:            anthropic/claude-opus-4.6
 provider:         openrouter
 terminal:         local
@@ -331,7 +331,7 @@ api_keys:
   openrouter           set
   openai               not set
   anthropic            set
-  shadow                 not set
+  yousef shtiwe                 not set
   firecrawl            set
   ...
 
@@ -359,13 +359,13 @@ config_overrides:
 - Quick sanity check when something isn't working
 
 :::tip
-`shadow dump` is specifically designed for sharing. For interactive diagnostics, use `shadow doctor`. For a visual overview, use `shadow status`.
+`yousef shtiwe dump` is specifically designed for sharing. For interactive diagnostics, use `yousef shtiwe doctor`. For a visual overview, use `yousef shtiwe status`.
 :::
 
-## `shadow debug`
+## `yousef shtiwe debug`
 
 ```bash
-shadow debug share [options]
+yousef shtiwe debug share [options]
 ```
 
 Upload a debug report (system info + recent logs) to a paste service and get a shareable URL. Useful for quick support requests — includes everything a helper needs to diagnose your issue.
@@ -376,63 +376,63 @@ Upload a debug report (system info + recent logs) to a paste service and get a s
 | `--expire <days>` | Paste expiry in days (default: 7). |
 | `--local` | Print the report locally instead of uploading. |
 
-The report includes system info (OS, Python version, SHADOW version), recent agent and gateway logs (512 KB limit per file), and redacted API key status. Keys are always redacted — no secrets are uploaded.
+The report includes system info (OS, Python version, YOUSEF SHTIWE version), recent agent and gateway logs (512 KB limit per file), and redacted API key status. Keys are always redacted — no secrets are uploaded.
 
 Paste services tried in order: paste.rs, dpaste.com.
 
 ### Examples
 
 ```bash
-shadow debug share              # Upload debug report, print URL
-shadow debug share --lines 500  # Include more log lines
-shadow debug share --expire 30  # Keep paste for 30 days
-shadow debug share --local      # Print report to terminal (no upload)
+yousef shtiwe debug share              # Upload debug report, print URL
+yousef shtiwe debug share --lines 500  # Include more log lines
+yousef shtiwe debug share --expire 30  # Keep paste for 30 days
+yousef shtiwe debug share --local      # Print report to terminal (no upload)
 ```
 
-## `shadow backup`
+## `yousef shtiwe backup`
 
 ```bash
-shadow backup [options]
+yousef shtiwe backup [options]
 ```
 
-Create a zip archive of your SHADOW configuration, skills, sessions, and data. The backup excludes the shadow-agent codebase itself.
+Create a zip archive of your YOUSEF SHTIWE configuration, skills, sessions, and data. The backup excludes the yousef shtiwe-agent codebase itself.
 
 | Option | Description |
 |--------|-------------|
-| `-o`, `--output <path>` | Output path for the zip file (default: `~/shadow-backup-<timestamp>.zip`). |
+| `-o`, `--output <path>` | Output path for the zip file (default: `~/yousef shtiwe-backup-<timestamp>.zip`). |
 | `-q`, `--quick` | Quick snapshot: only critical state files (config.yaml, state.db, .env, auth, cron jobs). Much faster than a full backup. |
 | `-l`, `--label <name>` | Label for the snapshot (only used with `--quick`). |
 
-The backup uses SQLite's `backup()` API for safe copying, so it works correctly even when SHADOW is running (WAL-mode safe).
+The backup uses SQLite's `backup()` API for safe copying, so it works correctly even when YOUSEF SHTIWE is running (WAL-mode safe).
 
 ### Examples
 
 ```bash
-shadow backup                           # Full backup to ~/shadow-backup-*.zip
-shadow backup -o /tmp/shadow.zip        # Full backup to specific path
-shadow backup --quick                   # Quick state-only snapshot
-shadow backup --quick --label "pre-upgrade"  # Quick snapshot with label
+yousef shtiwe backup                           # Full backup to ~/yousef shtiwe-backup-*.zip
+yousef shtiwe backup -o /tmp/yousef shtiwe.zip        # Full backup to specific path
+yousef shtiwe backup --quick                   # Quick state-only snapshot
+yousef shtiwe backup --quick --label "pre-upgrade"  # Quick snapshot with label
 ```
 
-## `shadow import`
+## `yousef shtiwe import`
 
 ```bash
-shadow import <zipfile> [options]
+yousef shtiwe import <zipfile> [options]
 ```
 
-Restore a previously created SHADOW backup into your SHADOW home directory.
+Restore a previously created YOUSEF SHTIWE backup into your YOUSEF SHTIWE home directory.
 
 | Option | Description |
 |--------|-------------|
 | `-f`, `--force` | Overwrite existing files without confirmation. |
 
-## `shadow logs`
+## `yousef shtiwe logs`
 
 ```bash
-shadow logs [log_name] [options]
+yousef shtiwe logs [log_name] [options]
 ```
 
-View, tail, and filter SHADOW log files. All logs are stored in `~/.shadow/logs/` (or `<profile>/logs/` for non-default profiles).
+View, tail, and filter YOUSEF SHTIWE log files. All logs are stored in `~/.yousef shtiwe/logs/` (or `<profile>/logs/` for non-default profiles).
 
 ### Log files
 
@@ -458,25 +458,25 @@ View, tail, and filter SHADOW log files. All logs are stored in `~/.shadow/logs/
 
 ```bash
 # View the last 50 lines of agent.log (default)
-shadow logs
+yousef shtiwe logs
 
 # Follow agent.log in real time
-shadow logs -f
+yousef shtiwe logs -f
 
 # View the last 100 lines of gateway.log
-shadow logs gateway -n 100
+yousef shtiwe logs gateway -n 100
 
 # Show only warnings and errors from the last hour
-shadow logs --level WARNING --since 1h
+yousef shtiwe logs --level WARNING --since 1h
 
 # Filter by a specific session
-shadow logs --session abc123
+yousef shtiwe logs --session abc123
 
 # Follow errors.log, starting from 30 minutes ago
-shadow logs errors --since 30m -f
+yousef shtiwe logs errors --since 30m -f
 
 # List all log files with their sizes
-shadow logs list
+yousef shtiwe logs list
 ```
 
 ### Filtering
@@ -485,19 +485,19 @@ Filters can be combined. When multiple filters are active, a log line must pass 
 
 ```bash
 # WARNING+ lines from the last 2 hours containing session "tg-12345"
-shadow logs --level WARNING --since 2h --session tg-12345
+yousef shtiwe logs --level WARNING --since 2h --session tg-12345
 ```
 
 Lines without a parseable timestamp are included when `--since` is active (they may be continuation lines from a multi-line log entry). Lines without a detectable level are included when `--level` is active.
 
 ### Log rotation
 
-SHADOW uses Python's `RotatingFileHandler`. Old logs are rotated automatically — look for `agent.log.1`, `agent.log.2`, etc. The `shadow logs list` subcommand shows all log files including rotated ones.
+YOUSEF SHTIWE uses Python's `RotatingFileHandler`. Old logs are rotated automatically — look for `agent.log.1`, `agent.log.2`, etc. The `yousef shtiwe logs list` subcommand shows all log files including rotated ones.
 
-## `shadow config`
+## `yousef shtiwe config`
 
 ```bash
-shadow config <subcommand>
+yousef shtiwe config <subcommand>
 ```
 
 Subcommands:
@@ -512,10 +512,10 @@ Subcommands:
 | `check` | Check for missing or stale config. |
 | `migrate` | Add newly introduced options interactively. |
 
-## `shadow pairing`
+## `yousef shtiwe pairing`
 
 ```bash
-shadow pairing <list|approve|revoke|clear-pending>
+yousef shtiwe pairing <list|approve|revoke|clear-pending>
 ```
 
 | Subcommand | Description |
@@ -525,10 +525,10 @@ shadow pairing <list|approve|revoke|clear-pending>
 | `revoke <platform> <user-id>` | Revoke a user's access. |
 | `clear-pending` | Clear pending pairing codes. |
 
-## `shadow skills`
+## `yousef shtiwe skills`
 
 ```bash
-shadow skills <subcommand>
+yousef shtiwe skills <subcommand>
 ```
 
 Subcommands:
@@ -552,29 +552,29 @@ Subcommands:
 Common examples:
 
 ```bash
-shadow skills browse
-shadow skills browse --source official
-shadow skills search react --source skills-sh
-shadow skills search https://mintlify.com/docs --source well-known
-shadow skills inspect official/security/1password
-shadow skills inspect skills-sh/vercel-labs/json-render/json-render-react
-shadow skills install official/migration/openclaw-migration
-shadow skills install skills-sh/anthropics/skills/pdf --force
-shadow skills check
-shadow skills update
-shadow skills config
+yousef shtiwe skills browse
+yousef shtiwe skills browse --source official
+yousef shtiwe skills search react --source skills-sh
+yousef shtiwe skills search https://mintlify.com/docs --source well-known
+yousef shtiwe skills inspect official/security/1password
+yousef shtiwe skills inspect skills-sh/vercel-labs/json-render/json-render-react
+yousef shtiwe skills install official/migration/openclaw-migration
+yousef shtiwe skills install skills-sh/anthropics/skills/pdf --force
+yousef shtiwe skills check
+yousef shtiwe skills update
+yousef shtiwe skills config
 ```
 
 Notes:
 - `--force` can override non-dangerous policy blocks for third-party/community skills.
 - `--force` does not override a `dangerous` scan verdict.
 - `--source skills-sh` searches the public `skills.sh` directory.
-- `--source well-known` lets you point SHADOW at a site exposing `/.well-known/skills/index.json`.
+- `--source well-known` lets you point YOUSEF SHTIWE at a site exposing `/.well-known/skills/index.json`.
 
-## `shadow honcho`
+## `yousef shtiwe honcho`
 
 ```bash
-shadow honcho [--target-profile NAME] <subcommand>
+yousef shtiwe honcho [--target-profile NAME] <subcommand>
 ```
 
 Manage Honcho cross-session memory integration. This command is provided by the Honcho memory provider plugin and is only available when `memory.provider` is set to `honcho` in your config.
@@ -585,7 +585,7 @@ Subcommands:
 
 | Subcommand | Description |
 |------------|-------------|
-| `setup` | Redirects to `shadow memory setup` (unified setup path). |
+| `setup` | Redirects to `yousef shtiwe memory setup` (unified setup path). |
 | `status [--all]` | Show current Honcho config and connection status. `--all` shows a cross-profile overview. |
 | `peers` | Show peer identities across all profiles. |
 | `sessions` | List known Honcho session mappings. |
@@ -597,12 +597,12 @@ Subcommands:
 | `enable` | Enable Honcho for the active profile. |
 | `disable` | Disable Honcho for the active profile. |
 | `sync` | Sync Honcho config to all existing profiles (creates missing host blocks). |
-| `migrate` | Step-by-step migration guide from openclaw-honcho to SHADOW Honcho. |
+| `migrate` | Step-by-step migration guide from openclaw-honcho to YOUSEF SHTIWE Honcho. |
 
-## `shadow memory`
+## `yousef shtiwe memory`
 
 ```bash
-shadow memory <subcommand>
+yousef shtiwe memory <subcommand>
 ```
 
 Set up and manage external memory provider plugins. Available providers: honcho, openviking, mem0, hindsight, holographic, retaindb, byterover, supermemory. Only one external provider can be active at a time. Built-in memory (MEMORY.md/USER.md) is always active.
@@ -615,18 +615,18 @@ Subcommands:
 | `status` | Show current memory provider config. |
 | `off` | Disable external provider (built-in only). |
 
-## `shadow acp`
+## `yousef shtiwe acp`
 
 ```bash
-shadow acp
+yousef shtiwe acp
 ```
 
-Starts SHADOW as an ACP (Agent Client Protocol) stdio server for editor integration.
+Starts YOUSEF SHTIWE as an ACP (Agent Client Protocol) stdio server for editor integration.
 
 Related entrypoints:
 
 ```bash
-shadow-acp
+yousef shtiwe-acp
 python -m acp_adapter
 ```
 
@@ -638,32 +638,32 @@ pip install -e '.[acp]'
 
 See [ACP Editor Integration](../user-guide/features/acp.md) and [ACP Internals](../developer-guide/acp-internals.md).
 
-## `shadow mcp`
+## `yousef shtiwe mcp`
 
 ```bash
-shadow mcp <subcommand>
+yousef shtiwe mcp <subcommand>
 ```
 
-Manage MCP (Model Context Protocol) server configurations and run SHADOW as an MCP server.
+Manage MCP (Model Context Protocol) server configurations and run YOUSEF SHTIWE as an MCP server.
 
 | Subcommand | Description |
 |------------|-------------|
-| `serve [-v\|--verbose]` | Run SHADOW as an MCP server — expose conversations to other agents. |
+| `serve [-v\|--verbose]` | Run YOUSEF SHTIWE as an MCP server — expose conversations to other agents. |
 | `add <name> [--url URL] [--command CMD] [--args ...] [--auth oauth\|header]` | Add an MCP server with automatic tool discovery. |
 | `remove <name>` (alias: `rm`) | Remove an MCP server from config. |
 | `list` (alias: `ls`) | List configured MCP servers. |
 | `test <name>` | Test connection to an MCP server. |
 | `configure <name>` (alias: `config`) | Toggle tool selection for a server. |
 
-See [MCP Config Reference](./mcp-config-reference.md), [Use MCP with SHADOW](../guides/use-mcp-with-shadow.md), and [MCP Server Mode](../user-guide/features/mcp.md#running-shadow-as-an-mcp-server).
+See [MCP Config Reference](./mcp-config-reference.md), [Use MCP with YOUSEF SHTIWE](../guides/use-mcp-with-yousef shtiwe.md), and [MCP Server Mode](../user-guide/features/mcp.md#running-yousef shtiwe-as-an-mcp-server).
 
-## `shadow plugins`
+## `yousef shtiwe plugins`
 
 ```bash
-shadow plugins [subcommand]
+yousef shtiwe plugins [subcommand]
 ```
 
-Unified plugin management — general plugins, memory providers, and context engines in one place. Running `shadow plugins` with no subcommand opens a composite interactive screen with two sections:
+Unified plugin management — general plugins, memory providers, and context engines in one place. Running `yousef shtiwe plugins` with no subcommand opens a composite interactive screen with two sections:
 
 - **General Plugins** — multi-select checkboxes to enable/disable installed plugins
 - **Provider Plugins** — single-select configuration for Memory Provider and Context Engine. Press ENTER on a category to open a radio picker.
@@ -684,12 +684,12 @@ Provider plugin selections are saved to `config.yaml`:
 
 General plugin disabled list is stored in `config.yaml` under `plugins.disabled`.
 
-See [Plugins](../user-guide/features/plugins.md) and [Build a SHADOW Plugin](../guides/build-a-shadow-plugin.md).
+See [Plugins](../user-guide/features/plugins.md) and [Build a YOUSEF SHTIWE Plugin](../guides/build-a-yousef shtiwe-plugin.md).
 
-## `shadow tools`
+## `yousef shtiwe tools`
 
 ```bash
-shadow tools [--summary]
+yousef shtiwe tools [--summary]
 ```
 
 | Option | Description |
@@ -698,10 +698,10 @@ shadow tools [--summary]
 
 Without `--summary`, this launches the interactive per-platform tool configuration UI.
 
-## `shadow sessions`
+## `yousef shtiwe sessions`
 
 ```bash
-shadow sessions <subcommand>
+yousef shtiwe sessions <subcommand>
 ```
 
 Subcommands:
@@ -716,10 +716,10 @@ Subcommands:
 | `stats` | Show session-store statistics. |
 | `rename <session-id> <title>` | Set or change a session title. |
 
-## `shadow insights`
+## `yousef shtiwe insights`
 
 ```bash
-shadow insights [--days N] [--source platform]
+yousef shtiwe insights [--days N] [--source platform]
 ```
 
 | Option | Description |
@@ -727,19 +727,19 @@ shadow insights [--days N] [--source platform]
 | `--days <n>` | Analyze the last `n` days (default: 30). |
 | `--source <platform>` | Filter by source such as `cli`, `telegram`, or `discord`. |
 
-## `shadow claw`
+## `yousef shtiwe claw`
 
 ```bash
-shadow claw migrate [options]
+yousef shtiwe claw migrate [options]
 ```
 
-Migrate your OpenClaw setup to SHADOW. Reads from `~/.openclaw` (or a custom path) and writes to `~/.shadow`. Automatically detects legacy directory names (`~/.clawdbot`, `~/.moltbot`) and config filenames (`clawdbot.json`, `moltbot.json`).
+Migrate your OpenClaw setup to YOUSEF SHTIWE. Reads from `~/.openclaw` (or a custom path) and writes to `~/.yousef shtiwe`. Automatically detects legacy directory names (`~/.clawdbot`, `~/.moltbot`) and config filenames (`clawdbot.json`, `moltbot.json`).
 
 | Option | Description |
 |--------|-------------|
 | `--dry-run` | Preview what would be migrated without writing anything. |
 | `--preset <name>` | Migration preset: `full` (default, includes secrets) or `user-data` (excludes API keys). |
-| `--overwrite` | Overwrite existing SHADOW files on conflicts (default: skip). |
+| `--overwrite` | Overwrite existing YOUSEF SHTIWE files on conflicts (default: skip). |
 | `--migrate-secrets` | Include API keys in migration (enabled by default with `--preset full`). |
 | `--source <path>` | Custom OpenClaw directory (default: `~/.openclaw`). |
 | `--workspace-target <path>` | Target directory for workspace instructions (AGENTS.md). |
@@ -748,7 +748,7 @@ Migrate your OpenClaw setup to SHADOW. Reads from `~/.openclaw` (or a custom pat
 
 ### What gets migrated
 
-The migration covers 30+ categories across persona, memory, skills, model providers, messaging platforms, agent behavior, session policies, MCP servers, TTS, and more. Items are either **directly imported** into SHADOW equivalents or **archived** for manual review.
+The migration covers 30+ categories across persona, memory, skills, model providers, messaging platforms, agent behavior, session policies, MCP servers, TTS, and more. Items are either **directly imported** into YOUSEF SHTIWE equivalents or **archived** for manual review.
 
 **Directly imported:** SOUL.md, MEMORY.md, USER.md, AGENTS.md, skills (4 source directories), default model, custom providers, MCP servers, messaging platform tokens and allowlists (Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Mattermost), agent defaults (reasoning effort, compression, human delay, timezone, sandbox), session reset policies, approval rules, TTS config, browser settings, tool settings, exec timeout, command allowlist, gateway config, and API keys from 3 sources.
 
@@ -762,25 +762,25 @@ For the complete config key mapping, SecretRef handling details, and post-migrat
 
 ```bash
 # Preview what would be migrated
-shadow claw migrate --dry-run
+yousef shtiwe claw migrate --dry-run
 
 # Full migration including API keys
-shadow claw migrate --preset full
+yousef shtiwe claw migrate --preset full
 
 # Migrate user data only (no secrets), overwrite conflicts
-shadow claw migrate --preset user-data --overwrite
+yousef shtiwe claw migrate --preset user-data --overwrite
 
 # Migrate from a custom OpenClaw path
-shadow claw migrate --source /home/user/old-openclaw
+yousef shtiwe claw migrate --source /home/user/old-openclaw
 ```
 
-## `shadow dashboard`
+## `yousef shtiwe dashboard`
 
 ```bash
-shadow dashboard [options]
+yousef shtiwe dashboard [options]
 ```
 
-Launch the web dashboard — a browser-based UI for managing configuration, API keys, and monitoring sessions. Requires `pip install shadow-agent[web]` (FastAPI + Uvicorn). See [Web Dashboard](/docs/user-guide/features/web-dashboard) for full documentation.
+Launch the web dashboard — a browser-based UI for managing configuration, API keys, and monitoring sessions. Requires `pip install yousef shtiwe-agent[web]` (FastAPI + Uvicorn). See [Web Dashboard](/docs/user-guide/features/web-dashboard) for full documentation.
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -790,19 +790,19 @@ Launch the web dashboard — a browser-based UI for managing configuration, API 
 
 ```bash
 # Default — opens browser to http://127.0.0.1:9119
-shadow dashboard
+yousef shtiwe dashboard
 
 # Custom port, no browser
-shadow dashboard --port 8080 --no-open
+yousef shtiwe dashboard --port 8080 --no-open
 ```
 
-## `shadow profile`
+## `yousef shtiwe profile`
 
 ```bash
-shadow profile <subcommand>
+yousef shtiwe profile <subcommand>
 ```
 
-Manage profiles — multiple isolated SHADOW instances, each with its own config, sessions, skills, and home directory.
+Manage profiles — multiple isolated YOUSEF SHTIWE instances, each with its own config, sessions, skills, and home directory.
 
 | Subcommand | Description |
 |------------|-------------|
@@ -819,40 +819,40 @@ Manage profiles — multiple isolated SHADOW instances, each with its own config
 Examples:
 
 ```bash
-shadow profile list
-shadow profile create work --clone
-shadow profile use work
-shadow profile alias work --name h-work
-shadow profile export work -o work-backup.tar.gz
-shadow profile import work-backup.tar.gz --name restored
-shadow -p work chat -q "Hello from work profile"
+yousef shtiwe profile list
+yousef shtiwe profile create work --clone
+yousef shtiwe profile use work
+yousef shtiwe profile alias work --name h-work
+yousef shtiwe profile export work -o work-backup.tar.gz
+yousef shtiwe profile import work-backup.tar.gz --name restored
+yousef shtiwe -p work chat -q "Hello from work profile"
 ```
 
-## `shadow completion`
+## `yousef shtiwe completion`
 
 ```bash
-shadow completion [bash|zsh]
+yousef shtiwe completion [bash|zsh]
 ```
 
-Print a shell completion script to stdout. Source the output in your shell profile for tab-completion of SHADOW commands, subcommands, and profile names.
+Print a shell completion script to stdout. Source the output in your shell profile for tab-completion of YOUSEF SHTIWE commands, subcommands, and profile names.
 
 Examples:
 
 ```bash
 # Bash
-shadow completion bash >> ~/.bashrc
+yousef shtiwe completion bash >> ~/.bashrc
 
 # Zsh
-shadow completion zsh >> ~/.zshrc
+yousef shtiwe completion zsh >> ~/.zshrc
 ```
 
 ## Maintenance commands
 
 | Command | Description |
 |---------|-------------|
-| `shadow version` | Print version information. |
-| `shadow update` | Pull latest changes and reinstall dependencies. |
-| `shadow uninstall [--full] [--yes]` | Remove SHADOW, optionally deleting all config/data. |
+| `yousef shtiwe version` | Print version information. |
+| `yousef shtiwe update` | Pull latest changes and reinstall dependencies. |
+| `yousef shtiwe uninstall [--full] [--yes]` | Remove YOUSEF SHTIWE, optionally deleting all config/data. |
 
 ## See also
 

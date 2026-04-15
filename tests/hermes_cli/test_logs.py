@@ -1,4 +1,4 @@
-"""Tests for shadow_cli.logs — log viewing and filtering."""
+"""Tests for yousef shtiwe_cli.logs — log viewing and filtering."""
 
 import os
 from datetime import datetime, timedelta
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from shadow_cli.logs import (
+from yousef shtiwe_cli.logs import (
     LOG_FILES,
     _extract_level,
     _extract_logger_name,

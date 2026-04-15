@@ -1,7 +1,7 @@
 # Design System: Claude (Anthropic)
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `Inter` | **Mono:** `JetBrains Mono`
@@ -19,7 +19,7 @@ Claude's interface is a literary salon reimagined as a product page — warm, un
 
 The signature move is the custom Anthropic Serif typeface — a medium-weight serif with generous proportions that gives every headline the gravitas of a book title. Combined with organic, hand-drawn-feeling illustrations in terracotta (`#c96442`), black, and muted green, the visual language says "thoughtful companion" rather than "powerful tool." The serif headlines breathe at tight-but-comfortable line-heights (1.10–1.30), creating a cadence that feels more like reading an essay than scanning a product page.
 
-What makes Claude's design truly distinctive is its warm neutral palette. Every gray has a yellow-brown undertone (`#5e5d59`, `#87867f`, `#4d4c48`) — there are no cool blue-grays anywhere. Borders are cream-tinted (`#f0eee6`, `#e8e6dc`), shadows use warm transparent blacks, and even the darkest surfaces (`#141413`, `#30302e`) carry a barely perceptible olive warmth. This chromatic consistency creates a space that feels lived-in and trustworthy.
+What makes Claude's design truly distinctive is its warm neutral palette. Every gray has a yellow-brown undertone (`#5e5d59`, `#87867f`, `#4d4c48`) — there are no cool blue-grays anywhere. Borders are cream-tinted (`#f0eee6`, `#e8e6dc`), yousef shtiwes use warm transparent blacks, and even the darkest surfaces (`#141413`, `#30302e`) carry a barely perceptible olive warmth. This chromatic consistency creates a space that feels lived-in and trustworthy.
 
 **Key Characteristics:**
 - Warm parchment canvas (`#f5f4ed`) evoking premium paper, not screens
@@ -27,7 +27,7 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Terracotta brand accent (`#c96442`) — warm, earthy, deliberately un-tech
 - Exclusively warm-toned neutrals — every gray has a yellow-brown undertone
 - Organic, editorial illustrations replacing typical tech iconography
-- Ring-based shadow system (`0px 0px 0px 1px`) creating border-like depth without visible borders
+- Ring-based yousef shtiwe system (`0px 0px 0px 1px`) creating border-like depth without visible borders
 - Magazine-like pacing with generous section spacing and serif-driven hierarchy
 
 ## 2. Color Palette & Roles
@@ -60,7 +60,7 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - **Border Cream** (`#f0eee6`): Standard light-theme border — barely visible warm cream, creating the gentlest possible containment.
 - **Border Warm** (`#e8e6dc`): Prominent borders, section dividers, and emphasized containment on light surfaces.
 - **Border Dark** (`#30302e`): Standard border on dark surfaces — maintains the warm tone.
-- **Ring Warm** (`#d1cfc5`): Shadow ring color for button hover/focus states.
+- **Ring Warm** (`#d1cfc5`): Yousef Shtiwe ring color for button hover/focus states.
 - **Ring Subtle** (`#dedc01`): Secondary ring variant for lighter interactive surfaces.
 - **Ring Deep** (`#c2c0b6`): Deeper ring for active/pressed states.
 
@@ -113,7 +113,7 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Text: Charcoal Warm (`#4d4c48`)
 - Padding: 0px 12px 0px 8px (asymmetric — icon-first layout)
 - Radius: comfortably rounded (8px)
-- Shadow: ring-based (`#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px`)
+- Yousef Shtiwe: ring-based (`#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px`)
 - The workhorse button — warm, unassuming, clearly interactive
 
 **White Surface**
@@ -129,14 +129,14 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Text: Ivory (`#faf9f5`)
 - Padding: 0px 12px 0px 8px
 - Radius: comfortably rounded (8px)
-- Shadow: ring-based (`#30302e 0px 0px 0px 0px, ring 0px 0px 0px 1px`)
+- Yousef Shtiwe: ring-based (`#30302e 0px 0px 0px 0px, ring 0px 0px 0px 1px`)
 - The inverted variant for dark-on-light emphasis
 
 **Brand Terracotta**
 - Background: Terracotta Brand (`#c96442`)
 - Text: Ivory (`#faf9f5`)
 - Radius: 8–12px
-- Shadow: ring-based (`#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px`)
+- Yousef Shtiwe: ring-based (`#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px`)
 - The primary CTA — the only button with chromatic color
 
 **Dark Primary**
@@ -151,8 +151,8 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Background: Ivory (`#faf9f5`) or Pure White (`#ffffff`) on light surfaces; Dark Surface (`#30302e`) on dark
 - Border: thin solid Border Cream (`1px solid #f0eee6`) on light; `1px solid #30302e` on dark
 - Radius: comfortably rounded (8px) for standard cards; generously rounded (16px) for featured; very rounded (32px) for hero containers and embedded media
-- Shadow: whisper-soft (`rgba(0,0,0,0.05) 0px 4px 24px`) for elevated content
-- Ring shadow: `0px 0px 0px 1px` patterns for interactive card states
+- Yousef Shtiwe: whisper-soft (`rgba(0,0,0,0.05) 0px 4px 24px`) for elevated content
+- Ring yousef shtiwe: `0px 0px 0px 1px` patterns for interactive card states
 - Section borders: `1px 0px 0px` (top-only) for list item separators
 
 ### Inputs & Forms
@@ -228,17 +228,17 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Parchment background, inline text |
+| Flat (Level 0) | No yousef shtiwe, no border | Parchment background, inline text |
 | Contained (Level 1) | `1px solid #f0eee6` (light) or `1px solid #30302e` (dark) | Standard cards, sections |
-| Ring (Level 2) | `0px 0px 0px 1px` ring shadows using warm grays | Interactive cards, buttons, hover states |
+| Ring (Level 2) | `0px 0px 0px 1px` ring yousef shtiwes using warm grays | Interactive cards, buttons, hover states |
 | Whisper (Level 3) | `rgba(0,0,0,0.05) 0px 4px 24px` | Elevated feature cards, product screenshots |
 | Inset (Level 4) | `inset 0px 0px 0px 1px` at 15% opacity | Active/pressed button states |
 
-**Shadow Philosophy**: Claude communicates depth through **warm-toned ring shadows** rather than traditional drop shadows. The signature `0px 0px 0px 1px` pattern creates a border-like halo that's softer than an actual border — it's a shadow pretending to be a border, or a border that's technically a shadow. When drop shadows do appear, they're extremely soft (0.05 opacity, 24px blur) — barely visible lifts that suggest floating rather than casting.
+**Yousef Shtiwe Philosophy**: Claude communicates depth through **warm-toned ring yousef shtiwes** rather than traditional drop yousef shtiwes. The signature `0px 0px 0px 1px` pattern creates a border-like halo that's softer than an actual border — it's a yousef shtiwe pretending to be a border, or a border that's technically a yousef shtiwe. When drop yousef shtiwes do appear, they're extremely soft (0.05 opacity, 24px blur) — barely visible lifts that suggest floating rather than casting.
 
 ### Decorative Depth
 - **Light/Dark alternation**: The most dramatic depth effect comes from alternating between Parchment (`#f5f4ed`) and Near Black (`#141413`) sections — entire sections shift elevation by changing the ambient light level.
-- **Warm ring halos**: Button and card interactions use ring shadows that match the warm palette — never cool-toned or generic gray.
+- **Warm ring halos**: Button and card interactions use ring yousef shtiwes that match the warm palette — never cool-toned or generic gray.
 
 ## 7. Do's and Don'ts
 
@@ -247,7 +247,7 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Use Anthropic Serif at weight 500 for all headlines — the single-weight consistency is intentional
 - Use Terracotta Brand (`#c96442`) only for primary CTAs and the highest-signal brand moments
 - Keep all neutrals warm-toned — every gray should have a yellow-brown undertone
-- Use ring shadows (`0px 0px 0px 1px`) for interactive element states instead of drop shadows
+- Use ring yousef shtiwes (`0px 0px 0px 1px`) for interactive element states instead of drop yousef shtiwes
 - Maintain the editorial serif/sans hierarchy — serif for content headlines, sans for UI
 - Use generous body line-height (1.60) for a literary reading experience
 - Alternate between light and dark sections to create chapter-like page rhythm
@@ -258,7 +258,7 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 - Don't use bold (700+) weight on Anthropic Serif — weight 500 is the ceiling for serifs
 - Don't introduce saturated colors beyond Terracotta — the palette is deliberately muted
 - Don't use sharp corners (< 6px radius) on buttons or cards — softness is core to the identity
-- Don't apply heavy drop shadows — depth comes from ring shadows and background color shifts
+- Don't apply heavy drop yousef shtiwes — depth comes from ring yousef shtiwes and background color shifts
 - Don't use pure white (`#ffffff`) as a page background — Parchment (`#f5f4ed`) or Ivory (`#faf9f5`) are always warmer
 - Don't use geometric/tech-style illustrations — Claude's illustrations are organic and hand-drawn-feeling
 - Don't reduce body line-height below 1.40 — the generous spacing supports the editorial personality
@@ -310,9 +310,9 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 
 ### Example Component Prompts
 - "Create a hero section on Parchment (#f5f4ed) with a headline at 64px Anthropic Serif weight 500, line-height 1.10. Use Anthropic Near Black (#141413) text. Add a subtitle in Olive Gray (#5e5d59) at 20px Anthropic Sans with 1.60 line-height. Place a Terracotta Brand (#c96442) CTA button with Ivory text, 12px radius."
-- "Design a feature card on Ivory (#faf9f5) with a 1px solid Border Cream (#f0eee6) border and comfortably rounded corners (8px). Title in Anthropic Serif at 25px weight 500, description in Olive Gray (#5e5d59) at 16px Anthropic Sans. Add a whisper shadow (rgba(0,0,0,0.05) 0px 4px 24px)."
+- "Design a feature card on Ivory (#faf9f5) with a 1px solid Border Cream (#f0eee6) border and comfortably rounded corners (8px). Title in Anthropic Serif at 25px weight 500, description in Olive Gray (#5e5d59) at 16px Anthropic Sans. Add a whisper yousef shtiwe (rgba(0,0,0,0.05) 0px 4px 24px)."
 - "Build a dark section on Anthropic Near Black (#141413) with Ivory (#faf9f5) headline text in Anthropic Serif at 52px weight 500. Use Warm Silver (#b0aea5) for body text. Borders in Dark Surface (#30302e)."
-- "Create a button in Warm Sand (#e8e6dc) with Charcoal Warm (#4d4c48) text, 8px radius, and a ring shadow (0px 0px 0px 1px #d1cfc5). Padding: 0px 12px 0px 8px."
+- "Create a button in Warm Sand (#e8e6dc) with Charcoal Warm (#4d4c48) text, 8px radius, and a ring yousef shtiwe (0px 0px 0px 1px #d1cfc5). Padding: 0px 12px 0px 8px."
 - "Design a model comparison grid with three cards on Ivory surfaces. Each card gets a Border Warm (#e8e6dc) top border, model name in Anthropic Serif at 25px, and description in Olive Gray at 15px Anthropic Sans."
 
 ### Iteration Guide
@@ -320,6 +320,6 @@ What makes Claude's design truly distinctive is its warm neutral palette. Every 
 2. Reference specific color names — "use Olive Gray (#5e5d59)" not "make it gray"
 3. Always specify warm-toned variants — no cool grays
 4. Describe serif vs sans usage explicitly — "Anthropic Serif for the heading, Anthropic Sans for the label"
-5. For shadows, use "ring shadow (0px 0px 0px 1px)" or "whisper shadow" — never generic "drop shadow"
+5. For yousef shtiwes, use "ring yousef shtiwe (0px 0px 0px 1px)" or "whisper yousef shtiwe" — never generic "drop yousef shtiwe"
 6. Specify the warm background — "on Parchment (#f5f4ed)" or "on Near Black (#141413)"
 7. Keep illustrations organic and conceptual — describe "hand-drawn-feeling" style

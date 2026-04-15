@@ -44,7 +44,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from shadow_constants import get_shadow_home
+from yousef shtiwe_constants import get_yousef shtiwe_home
 
 logger = logging.getLogger(__name__)
 
@@ -52,12 +52,12 @@ logger = logging.getLogger(__name__)
 # Path Configuration
 # ============================================================================
 
-# Path to tinker-atropos submodule (relative to shadow-agent root)
-SHADOW_ROOT = Path(__file__).parent.parent
-TINKER_ATROPOS_ROOT = SHADOW_ROOT / "tinker-atropos"
+# Path to tinker-atropos submodule (relative to yousef shtiwe-agent root)
+YOUSEF SHTIWE_ROOT = Path(__file__).parent.parent
+TINKER_ATROPOS_ROOT = YOUSEF SHTIWE_ROOT / "tinker-atropos"
 ENVIRONMENTS_DIR = TINKER_ATROPOS_ROOT / "tinker_atropos" / "environments"
 CONFIGS_DIR = TINKER_ATROPOS_ROOT / "configs"
-LOGS_DIR = get_shadow_home() / "logs" / "rl_training"
+LOGS_DIR = get_yousef shtiwe_home() / "logs" / "rl_training"
 
 def _ensure_logs_dir():
     """Lazily create logs directory on first use (avoid side effects at import time)."""
@@ -733,7 +733,7 @@ async def rl_start_training() -> str:
     # Check API keys
     if not os.getenv("TINKER_API_KEY"):
         return json.dumps({
-            "error": "TINKER_API_KEY not set. Add it to ~/.shadow/.env",
+            "error": "TINKER_API_KEY not set. Add it to ~/.yousef shtiwe/.env",
         }, indent=2)
     
     # Find environment file
@@ -883,7 +883,7 @@ async def rl_check_status(run_id: str) -> str:
         import wandb
         api = wandb.Api()
         runs = api.runs(
-            f"{os.getenv('WANDB_ENTITY', 'shadow-overlord')}/{run_state.wandb_project}",
+            f"{os.getenv('WANDB_ENTITY', 'yousef shtiwe-overlord')}/{run_state.wandb_project}",
             filters={"display_name": run_state.wandb_run_name}
         )
         if runs:
@@ -963,7 +963,7 @@ async def rl_get_results(run_id: str) -> str:
         import wandb
         api = wandb.Api()
         runs = api.runs(
-            f"{os.getenv('WANDB_ENTITY', 'shadow-overlord')}/{run_state.wandb_project}",
+            f"{os.getenv('WANDB_ENTITY', 'yousef shtiwe-overlord')}/{run_state.wandb_project}",
             filters={"display_name": run_state.wandb_run_name}
         )
         if runs:

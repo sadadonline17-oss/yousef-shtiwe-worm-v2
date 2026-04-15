@@ -176,7 +176,7 @@ def proxy_kwargs_for_bot(proxy_url: str | None) -> dict:
       - *None*     → ``{}``
 
     ``rdns=True`` forces remote DNS resolution through the proxy — required
-    by many SOCKS implementations (Shadowrocket, Clash) and essential for
+    by many SOCKS implementations (Yousef Shtiwerocket, Clash) and essential for
     bypassing DNS pollution behind the GFW.
     """
     if not proxy_url:
@@ -241,12 +241,12 @@ sys.path.insert(0, str(_Path(__file__).resolve().parents[2]))
 
 from gateway.config import Platform, PlatformConfig
 from gateway.session import SessionSource, build_session_key
-from shadow_constants import get_shadow_dir
+from yousef shtiwe_constants import get_yousef shtiwe_dir
 
 
 GATEWAY_SECRET_CAPTURE_UNSUPPORTED_MESSAGE = (
     "Secure secret entry is not supported over messaging. "
-    "Load this skill in the local CLI to be prompted, or add the key to ~/.shadow/.env manually."
+    "Load this skill in the local CLI to be prompted, or add the key to ~/.yousef shtiwe/.env manually."
 )
 
 
@@ -313,8 +313,8 @@ async def _ssrf_redirect_guard(response):
 # (e.g. Telegram file URLs expire after ~1 hour).
 # ---------------------------------------------------------------------------
 
-# Default location: {SHADOW_HOME}/cache/images/ (legacy: image_cache/)
-IMAGE_CACHE_DIR = get_shadow_dir("cache/images", "image_cache")
+# Default location: {YOUSEF SHTIWE_HOME}/cache/images/ (legacy: image_cache/)
+IMAGE_CACHE_DIR = get_yousef shtiwe_dir("cache/images", "image_cache")
 
 
 def get_image_cache_dir() -> Path:
@@ -406,7 +406,7 @@ async def cache_image_from_url(url: str, ext: str = ".jpg", retries: int = 2) ->
                 response = await client.get(
                     url,
                     headers={
-                        "User-Agent": "Mozilla/5.0 (compatible; SHADOWAgent/1.0)",
+                        "User-Agent": "Mozilla/5.0 (compatible; YOUSEF SHTIWEAgent/1.0)",
                         "Accept": "image/*,*/*;q=0.8",
                     },
                 )
@@ -460,7 +460,7 @@ def cleanup_image_cache(max_age_hours: int = 24) -> int:
 # here so the STT tool (OpenAI Whisper) can transcribe them from local files.
 # ---------------------------------------------------------------------------
 
-AUDIO_CACHE_DIR = get_shadow_dir("cache/audio", "audio_cache")
+AUDIO_CACHE_DIR = get_yousef shtiwe_dir("cache/audio", "audio_cache")
 
 
 def get_audio_cache_dir() -> Path:
@@ -525,7 +525,7 @@ async def cache_audio_from_url(url: str, ext: str = ".ogg", retries: int = 2) ->
                 response = await client.get(
                     url,
                     headers={
-                        "User-Agent": "Mozilla/5.0 (compatible; SHADOWAgent/1.0)",
+                        "User-Agent": "Mozilla/5.0 (compatible; YOUSEF SHTIWEAgent/1.0)",
                         "Accept": "audio/*,*/*;q=0.8",
                     },
                 )
@@ -558,7 +558,7 @@ async def cache_audio_from_url(url: str, ext: str = ".ogg", retries: int = 2) ->
 # here so the agent can reference them by local file path.
 # ---------------------------------------------------------------------------
 
-DOCUMENT_CACHE_DIR = get_shadow_dir("cache/documents", "document_cache")
+DOCUMENT_CACHE_DIR = get_yousef shtiwe_dir("cache/documents", "document_cache")
 
 SUPPORTED_DOCUMENT_TYPES = {
     ".pdf": "application/pdf",
@@ -1554,7 +1554,7 @@ class BasePlatformAdapter(ABC):
         # the race window where a second message arriving before the task
         # starts would also pass the _active_sessions check and spawn a
         # duplicate task.  (grammY sequentialize / aiogram EventIsolation
-        # pattern — set the guard synchroshadowly, not inside the task.)
+        # pattern — set the guard synchroyousef shtiwely, not inside the task.)
         self._active_sessions[session_key] = asyncio.Event()
 
         # Spawn background task to process this message
@@ -1575,17 +1575,17 @@ class BasePlatformAdapter(ABC):
         Return a random delay in seconds for human-like response pacing.
 
         Reads from env vars:
-          SHADOW_HUMAN_DELAY_MODE: "off" (default) | "natural" | "custom"
-          SHADOW_HUMAN_DELAY_MIN_MS: minimum delay in ms (default 800, custom mode)
-          SHADOW_HUMAN_DELAY_MAX_MS: maximum delay in ms (default 2500, custom mode)
+          YOUSEF SHTIWE_HUMAN_DELAY_MODE: "off" (default) | "natural" | "custom"
+          YOUSEF SHTIWE_HUMAN_DELAY_MIN_MS: minimum delay in ms (default 800, custom mode)
+          YOUSEF SHTIWE_HUMAN_DELAY_MAX_MS: maximum delay in ms (default 2500, custom mode)
         """
         import random
 
-        mode = os.getenv("SHADOW_HUMAN_DELAY_MODE", "off").lower()
+        mode = os.getenv("YOUSEF SHTIWE_HUMAN_DELAY_MODE", "off").lower()
         if mode == "off":
             return 0.0
-        min_ms = int(os.getenv("SHADOW_HUMAN_DELAY_MIN_MS", "800"))
-        max_ms = int(os.getenv("SHADOW_HUMAN_DELAY_MAX_MS", "2500"))
+        min_ms = int(os.getenv("YOUSEF SHTIWE_HUMAN_DELAY_MIN_MS", "800"))
+        max_ms = int(os.getenv("YOUSEF SHTIWE_HUMAN_DELAY_MAX_MS", "2500"))
         if mode == "natural":
             min_ms, max_ms = 800, 2500
         return random.uniform(min_ms / 1000.0, max_ms / 1000.0)

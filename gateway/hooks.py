@@ -2,7 +2,7 @@
 Event Hook System
 
 A lightweight event-driven system that fires handlers at key lifecycle points.
-Hooks are discovered from ~/.shadow/hooks/ directories, each containing:
+Hooks are discovered from ~/.yousef shtiwe/hooks/ directories, each containing:
   - HOOK.yaml  (metadata: name, description, events list)
   - handler.py (Python handler with async def handle(event_type, context))
 
@@ -25,10 +25,10 @@ from typing import Any, Callable, Dict, List, Optional
 
 import yaml
 
-from shadow_cli.config import get_shadow_home
+from yousef shtiwe_cli.config import get_yousef shtiwe_home
 
 
-HOOKS_DIR = get_shadow_home() / "hooks"
+HOOKS_DIR = get_yousef shtiwe_home() / "hooks"
 
 
 class HookRegistry:
@@ -59,7 +59,7 @@ class HookRegistry:
             self._handlers.setdefault("gateway:startup", []).append(boot_md_handle)
             self._loaded_hooks.append({
                 "name": "boot-md",
-                "description": "Run ~/.shadow/BOOT.md on gateway startup",
+                "description": "Run ~/.yousef shtiwe/BOOT.md on gateway startup",
                 "events": ["gateway:startup"],
                 "path": "(builtin)",
             })
@@ -105,7 +105,7 @@ class HookRegistry:
 
                 # Dynamically load the handler module
                 spec = importlib.util.spec_from_file_location(
-                    f"shadow_hook_{hook_name}", handler_path
+                    f"yousef shtiwe_hook_{hook_name}", handler_path
                 )
                 if spec is None or spec.loader is None:
                     print(f"[hooks] Skipping {hook_name}: could not load handler.py", flush=True)

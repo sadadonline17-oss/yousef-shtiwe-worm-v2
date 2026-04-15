@@ -306,14 +306,14 @@ class TestMatrixConfigLoading:
     def test_matrix_user_id_stored_in_extra(self, monkeypatch):
         monkeypatch.setenv("MATRIX_ACCESS_TOKEN", "syt_abc123")
         monkeypatch.setenv("MATRIX_HOMESERVER", "https://matrix.example.org")
-        monkeypatch.setenv("MATRIX_USER_ID", "@shadow:example.org")
+        monkeypatch.setenv("MATRIX_USER_ID", "@yousef shtiwe:example.org")
 
         from gateway.config import GatewayConfig, _apply_env_overrides
         config = GatewayConfig()
         _apply_env_overrides(config)
 
         mc = config.platforms[Platform.MATRIX]
-        assert mc.extra.get("user_id") == "@shadow:example.org"
+        assert mc.extra.get("user_id") == "@yousef shtiwe:example.org"
 
 
 # ---------------------------------------------------------------------------
@@ -902,11 +902,11 @@ class TestMatrixDeviceId:
             token="syt_test",
             extra={
                 "homeserver": "https://matrix.example.org",
-                "device_id": "SHADOW_BOT_STABLE",
+                "device_id": "YOUSEF SHTIWE_BOT_STABLE",
             },
         )
         adapter = MatrixAdapter(config)
-        assert adapter._device_id == "SHADOW_BOT_STABLE"
+        assert adapter._device_id == "YOUSEF SHTIWE_BOT_STABLE"
 
     def test_device_id_from_env(self, monkeypatch):
         monkeypatch.setenv("MATRIX_DEVICE_ID", "FROM_ENV")
@@ -1057,14 +1057,14 @@ class TestMatrixDeviceIdConfig:
     def test_device_id_in_config_extra(self, monkeypatch):
         monkeypatch.setenv("MATRIX_ACCESS_TOKEN", "syt_abc123")
         monkeypatch.setenv("MATRIX_HOMESERVER", "https://matrix.example.org")
-        monkeypatch.setenv("MATRIX_DEVICE_ID", "SHADOW_BOT")
+        monkeypatch.setenv("MATRIX_DEVICE_ID", "YOUSEF SHTIWE_BOT")
 
         from gateway.config import GatewayConfig, _apply_env_overrides
         config = GatewayConfig()
         _apply_env_overrides(config)
 
         mc = config.platforms[Platform.MATRIX]
-        assert mc.extra.get("device_id") == "SHADOW_BOT"
+        assert mc.extra.get("device_id") == "YOUSEF SHTIWE_BOT"
 
     def test_device_id_not_set_when_env_empty(self, monkeypatch):
         monkeypatch.setenv("MATRIX_ACCESS_TOKEN", "syt_abc123")

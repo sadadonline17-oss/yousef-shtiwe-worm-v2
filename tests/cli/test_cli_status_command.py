@@ -3,12 +3,12 @@ from datetime import datetime
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
-from cli import SHADOWCLI
-from shadow_cli.commands import resolve_command
+from cli import YOUSEF SHTIWECLI
+from yousef shtiwe_cli.commands import resolve_command
 
 
 def _make_cli():
-    cli_obj = SHADOWCLI.__new__(SHADOWCLI)
+    cli_obj = YOUSEF SHTIWECLI.__new__(YOUSEF SHTIWECLI)
     cli_obj.config = {}
     cli_obj.console = MagicMock()
     cli_obj.agent = None
@@ -69,13 +69,13 @@ def test_show_session_status_prints_gateway_style_summary():
         "started_at": 1775791440,
     }
 
-    with patch("cli.display_shadow_home", return_value="~/.shadow"):
+    with patch("cli.display_yousef shtiwe_home", return_value="~/.yousef shtiwe"):
         cli_obj._show_session_status()
 
     printed = "\n".join(str(call.args[0]) for call in cli_obj.console.print.call_args_list)
-    assert "SHADOW CLI Status" in printed
+    assert "YOUSEF SHTIWE CLI Status" in printed
     assert "Session ID: session-123" in printed
-    assert "Path: ~/.shadow" in printed
+    assert "Path: ~/.yousef shtiwe" in printed
     assert "Title: My titled session" in printed
     assert "Model: openai/gpt-5.4 (openai)" in printed
     assert "Tokens: 321" in printed

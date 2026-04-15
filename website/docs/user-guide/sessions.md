@@ -6,14 +6,14 @@ description: "Session persistence, resume, search, management, and per-platform 
 
 # Sessions
 
-SHADOW Agent automatically saves every conversation as a session. Sessions enable conversation resume, cross-session search, and full conversation history management.
+YOUSEF SHTIWE Agent automatically saves every conversation as a session. Sessions enable conversation resume, cross-session search, and full conversation history management.
 
 ## How Sessions Work
 
 Every conversation — whether from the CLI, Telegram, Discord, Slack, WhatsApp, Signal, Matrix, or any other messaging platform — is stored as a session with full message history. Sessions are tracked in two complementary systems:
 
-1. **SQLite database** (`~/.shadow/state.db`) — structured session metadata with FTS5 full-text search
-2. **JSONL transcripts** (`~/.shadow/sessions/`) — raw conversation transcripts including tool calls (gateway)
+1. **SQLite database** (`~/.yousef shtiwe/state.db`) — structured session metadata with FTS5 full-text search
+2. **JSONL transcripts** (`~/.yousef shtiwe/sessions/`) — raw conversation transcripts including tool calls (gateway)
 
 The SQLite database stores:
 - Session ID, source platform, user ID
@@ -31,7 +31,7 @@ Each session is tagged with its source platform:
 
 | Source | Description |
 |--------|-------------|
-| `cli` | Interactive CLI (`shadow` or `shadow chat`) |
+| `cli` | Interactive CLI (`yousef shtiwe` or `yousef shtiwe chat`) |
 | `telegram` | Telegram messenger |
 | `discord` | Discord server/DM |
 | `slack` | Slack workspace |
@@ -62,12 +62,12 @@ Resume previous conversations from the CLI using `--continue` or `--resume`:
 
 ```bash
 # Resume the most recent CLI session
-shadow --continue
-shadow -c
+yousef shtiwe --continue
+yousef shtiwe -c
 
 # Or with the chat subcommand
-shadow chat --continue
-shadow chat -c
+yousef shtiwe chat --continue
+yousef shtiwe chat -c
 ```
 
 This looks up the most recent `cli` session from the SQLite database and loads its full conversation history.
@@ -78,34 +78,34 @@ If you've given a session a title (see [Session Naming](#session-naming) below),
 
 ```bash
 # Resume a named session
-shadow -c "my project"
+yousef shtiwe -c "my project"
 
 # If there are lineage variants (my project, my project #2, my project #3),
 # this automatically resumes the most recent one
-shadow -c "my project"   # → resumes "my project #3"
+yousef shtiwe -c "my project"   # → resumes "my project #3"
 ```
 
 ### Resume Specific Session
 
 ```bash
 # Resume a specific session by ID
-shadow --resume 20250305_091523_a1b2c3d4
-shadow -r 20250305_091523_a1b2c3d4
+yousef shtiwe --resume 20250305_091523_a1b2c3d4
+yousef shtiwe -r 20250305_091523_a1b2c3d4
 
 # Resume by title
-shadow --resume "refactoring auth"
+yousef shtiwe --resume "refactoring auth"
 
 # Or with the chat subcommand
-shadow chat --resume 20250305_091523_a1b2c3d4
+yousef shtiwe chat --resume 20250305_091523_a1b2c3d4
 ```
 
-Session IDs are shown when you exit a CLI session, and can be found with `shadow sessions list`.
+Session IDs are shown when you exit a CLI session, and can be found with `yousef shtiwe sessions list`.
 
 ### Conversation Recap on Resume
 
-When you resume a session, SHADOW displays a compact recap of the previous conversation in a styled panel before the input prompt:
+When you resume a session, YOUSEF SHTIWE displays a compact recap of the previous conversation in a styled panel before the input prompt:
 
-<img className="docs-terminal-figure" src="/img/docs/session-recap.svg" alt="Stylized preview of the Previous Conversation recap panel shown when resuming a SHADOW session." />
+<img className="docs-terminal-figure" src="/img/docs/session-recap.svg" alt="Stylized preview of the Previous Conversation recap panel shown when resuming a YOUSEF SHTIWE session." />
 <p className="docs-figure-caption">Resume mode shows a compact recap panel with recent user and assistant turns before returning you to the live prompt.</p>
 
 The recap:
@@ -116,7 +116,7 @@ The recap:
 - **Caps** at the last 10 exchanges with a "... N earlier messages ..." indicator
 - Uses **dim styling** to distinguish from the active conversation
 
-To disable the recap and keep the minimal one-liner behavior, set in `~/.shadow/config.yaml`:
+To disable the recap and keep the minimal one-liner behavior, set in `~/.yousef shtiwe/config.yaml`:
 
 ```yaml
 display:
@@ -133,7 +133,7 @@ Give sessions human-readable titles so you can find and resume them easily.
 
 ### Auto-Generated Titles
 
-SHADOW automatically generates a short descriptive title (3–7 words) for each session after the first exchange. This runs in a background thread using a fast auxiliary model, so it adds no latency. You'll see auto-generated titles when browsing sessions with `shadow sessions list` or `shadow sessions browse`.
+YOUSEF SHTIWE automatically generates a short descriptive title (3–7 words) for each session after the first exchange. This runs in a background thread using a fast auxiliary model, so it adds no latency. You'll see auto-generated titles when browsing sessions with `yousef shtiwe sessions list` or `yousef shtiwe sessions browse`.
 
 Auto-titling only fires once per session and is skipped if you've already set a title manually.
 
@@ -150,7 +150,7 @@ The title is applied immediately. If the session hasn't been created in the data
 You can also rename existing sessions from the command line:
 
 ```bash
-shadow sessions rename 20250305_091523_a1b2c3d4 "refactoring auth module"
+yousef shtiwe sessions rename 20250305_091523_a1b2c3d4 "refactoring auth module"
 ```
 
 ### Title Rules
@@ -162,13 +162,13 @@ shadow sessions rename 20250305_091523_a1b2c3d4 "refactoring auth module"
 
 ### Auto-Lineage on Compression
 
-When a session's context is compressed (manually via `/compress` or automatically), SHADOW creates a new continuation session. If the original had a title, the new session automatically gets a numbered title:
+When a session's context is compressed (manually via `/compress` or automatically), YOUSEF SHTIWE creates a new continuation session. If the original had a title, the new session automatically gets a numbered title:
 
 ```
 "my project" → "my project #2" → "my project #3"
 ```
 
-When you resume by name (`shadow -c "my project"`), it automatically picks the most recent session in the lineage.
+When you resume by name (`yousef shtiwe -c "my project"`), it automatically picks the most recent session in the lineage.
 
 ### /title in Messaging Platforms
 
@@ -179,19 +179,19 @@ The `/title` command works in all gateway platforms (Telegram, Discord, Slack, W
 
 ## Session Management Commands
 
-SHADOW provides a full set of session management commands via `shadow sessions`:
+YOUSEF SHTIWE provides a full set of session management commands via `yousef shtiwe sessions`:
 
 ### List Sessions
 
 ```bash
 # List recent sessions (default: last 20)
-shadow sessions list
+yousef shtiwe sessions list
 
 # Filter by platform
-shadow sessions list --source telegram
+yousef shtiwe sessions list --source telegram
 
 # Show more sessions
-shadow sessions list --limit 50
+yousef shtiwe sessions list --limit 50
 ```
 
 When sessions have titles, the output shows titles, previews, and relative timestamps:
@@ -217,13 +217,13 @@ What's the weather in Las Vegas?                    3d ago        tele   2025030
 
 ```bash
 # Export all sessions to a JSONL file
-shadow sessions export backup.jsonl
+yousef shtiwe sessions export backup.jsonl
 
 # Export sessions from a specific platform
-shadow sessions export telegram-history.jsonl --source telegram
+yousef shtiwe sessions export telegram-history.jsonl --source telegram
 
 # Export a single session
-shadow sessions export session.jsonl --session-id 20250305_091523_a1b2c3d4
+yousef shtiwe sessions export session.jsonl --session-id 20250305_091523_a1b2c3d4
 ```
 
 Exported files contain one JSON object per line with full session metadata and all messages.
@@ -232,20 +232,20 @@ Exported files contain one JSON object per line with full session metadata and a
 
 ```bash
 # Delete a specific session (with confirmation)
-shadow sessions delete 20250305_091523_a1b2c3d4
+yousef shtiwe sessions delete 20250305_091523_a1b2c3d4
 
 # Delete without confirmation
-shadow sessions delete 20250305_091523_a1b2c3d4 --yes
+yousef shtiwe sessions delete 20250305_091523_a1b2c3d4 --yes
 ```
 
 ### Rename a Session
 
 ```bash
 # Set or change a session's title
-shadow sessions rename 20250305_091523_a1b2c3d4 "debugging auth flow"
+yousef shtiwe sessions rename 20250305_091523_a1b2c3d4 "debugging auth flow"
 
 # Multi-word titles don't need quotes in the CLI
-shadow sessions rename 20250305_091523_a1b2c3d4 debugging auth flow
+yousef shtiwe sessions rename 20250305_091523_a1b2c3d4 debugging auth flow
 ```
 
 If the title is already in use by another session, an error is shown.
@@ -254,16 +254,16 @@ If the title is already in use by another session, an error is shown.
 
 ```bash
 # Delete ended sessions older than 90 days (default)
-shadow sessions prune
+yousef shtiwe sessions prune
 
 # Custom age threshold
-shadow sessions prune --older-than 30
+yousef shtiwe sessions prune --older-than 30
 
 # Only prune sessions from a specific platform
-shadow sessions prune --source telegram --older-than 60
+yousef shtiwe sessions prune --source telegram --older-than 60
 
 # Skip confirmation
-shadow sessions prune --older-than 30 --yes
+yousef shtiwe sessions prune --older-than 30 --yes
 ```
 
 :::info
@@ -273,7 +273,7 @@ Pruning only deletes **ended** sessions (sessions that have been explicitly ende
 ### Session Statistics
 
 ```bash
-shadow sessions stats
+yousef shtiwe sessions stats
 ```
 
 Output:
@@ -287,7 +287,7 @@ Total messages: 3847
 Database size: 12.4 MB
 ```
 
-For deeper analytics — token usage, cost estimates, tool breakdown, and activity patterns — use [`shadow insights`](/docs/reference/cli-commands#shadow-insights).
+For deeper analytics — token usage, cost estimates, tool breakdown, and activity patterns — use [`yousef shtiwe insights`](/docs/reference/cli-commands#yousef shtiwe-insights).
 
 ## Session Search Tool
 
@@ -331,13 +331,13 @@ On messaging platforms, sessions are keyed by a deterministic session key built 
 | Group thread/topic | `agent:main:<platform>:group:<chat_id>:<thread_id>` | Shared session for all thread participants (default). Per-user with `thread_sessions_per_user: true`. |
 | Channel | `agent:main:<platform>:channel:<chat_id>:<user_id>` | Per-user inside the channel when the platform exposes a user ID |
 
-When SHADOW cannot get a participant identifier for a shared chat, it falls back to one shared session for that room.
+When YOUSEF SHTIWE cannot get a participant identifier for a shared chat, it falls back to one shared session for that room.
 
 ### Shared vs Isolated Group Sessions
 
-By default, SHADOW uses `group_sessions_per_user: true` in `config.yaml`. That means:
+By default, YOUSEF SHTIWE uses `group_sessions_per_user: true` in `config.yaml`. That means:
 
-- Alice and Bob can both talk to SHADOW in the same Discord channel without sharing transcript history
+- Alice and Bob can both talk to YOUSEF SHTIWE in the same Discord channel without sharing transcript history
 - one user's long tool-heavy task does not pollute another user's context window
 - interrupt handling also stays per-user because the running-agent key matches the isolated session key
 
@@ -366,9 +366,9 @@ Sessions with **active background processes** are never auto-reset, regardless o
 
 | What | Path | Description |
 |------|------|-------------|
-| SQLite database | `~/.shadow/state.db` | All session metadata + messages with FTS5 |
-| Gateway transcripts | `~/.shadow/sessions/` | JSONL transcripts per session + sessions.json index |
-| Gateway index | `~/.shadow/sessions/sessions.json` | Maps session keys to active session IDs |
+| SQLite database | `~/.yousef shtiwe/state.db` | All session metadata + messages with FTS5 |
+| Gateway transcripts | `~/.yousef shtiwe/sessions/` | JSONL transcripts per session + sessions.json index |
+| Gateway index | `~/.yousef shtiwe/sessions/sessions.json` | Maps session keys to active session IDs |
 
 The SQLite database uses WAL mode for concurrent readers and a single writer, which suits the gateway's multi-platform architecture well.
 
@@ -392,14 +392,14 @@ Key tables in `state.db`:
 
 ```bash
 # Prune sessions older than 90 days
-shadow sessions prune
+yousef shtiwe sessions prune
 
 # Delete a specific session
-shadow sessions delete <session_id>
+yousef shtiwe sessions delete <session_id>
 
 # Export before pruning (backup)
-shadow sessions export backup.jsonl
-shadow sessions prune --older-than 30 --yes
+yousef shtiwe sessions export backup.jsonl
+yousef shtiwe sessions prune --older-than 30 --yes
 ```
 
 :::tip

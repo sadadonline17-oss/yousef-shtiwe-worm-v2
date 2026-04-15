@@ -1,7 +1,7 @@
 # Design System: Coinbase
 
 
-> **SHADOW Agent — Implementation Notes**
+> **YOUSEF SHTIWE Agent — Implementation Notes**
 >
 > The original site uses proprietary fonts. For self-contained HTML output, use these CDN substitutes:
 > - **Primary:** `DM Sans` | **Mono:** `system monospace stack`
@@ -109,7 +109,7 @@ The button system uses a distinctive 56px radius for pill-shaped CTAs with hover
 
 ## 6. Depth & Elevation
 
-Minimal shadow system — depth from color contrast between dark/light sections.
+Minimal yousef shtiwe system — depth from color contrast between dark/light sections.
 
 ## 7. Do's and Don'ts
 

@@ -6,23 +6,23 @@ sidebar_position: 0
 
 # Integrations
 
-SHADOW Agent connects to external systems for AI inference, tool servers, IDE workflows, programmatic access, and more. These integrations extend what SHADOW can do and where it can run.
+YOUSEF SHTIWE Agent connects to external systems for AI inference, tool servers, IDE workflows, programmatic access, and more. These integrations extend what YOUSEF SHTIWE can do and where it can run.
 
 ## AI Providers & Routing
 
-SHADOW supports multiple AI inference providers out of the box. Use `shadow model` to configure interactively, or set them in `config.yaml`.
+YOUSEF SHTIWE supports multiple AI inference providers out of the box. Use `yousef shtiwe model` to configure interactively, or set them in `config.yaml`.
 
-- **[AI Providers](/docs/user-guide/features/provider-routing)** — OpenRouter, Anthropic, OpenAI, Google, and any OpenAI-compatible endpoint. SHADOW auto-detects capabilities like vision, streaming, and tool use per provider.
+- **[AI Providers](/docs/user-guide/features/provider-routing)** — OpenRouter, Anthropic, OpenAI, Google, and any OpenAI-compatible endpoint. YOUSEF SHTIWE auto-detects capabilities like vision, streaming, and tool use per provider.
 - **[Provider Routing](/docs/user-guide/features/provider-routing)** — Fine-grained control over which underlying providers handle your OpenRouter requests. Optimize for cost, speed, or quality with sorting, whitelists, blacklists, and explicit priority ordering.
 - **[Fallback Providers](/docs/user-guide/features/fallback-providers)** — Automatic failover to backup LLM providers when your primary model encounters errors. Includes primary model fallback and independent auxiliary task fallback for vision, compression, and web extraction.
 
 ## Tool Servers (MCP)
 
-- **[MCP Servers](/docs/user-guide/features/mcp)** — Connect SHADOW to external tool servers via Model Context Protocol. Access tools from GitHub, databases, file systems, browser stacks, internal APIs, and more without writing native SHADOW tools. Supports both stdio and SSE transports, per-server tool filtering, and capability-aware resource/prompt registration.
+- **[MCP Servers](/docs/user-guide/features/mcp)** — Connect YOUSEF SHTIWE to external tool servers via Model Context Protocol. Access tools from GitHub, databases, file systems, browser stacks, internal APIs, and more without writing native YOUSEF SHTIWE tools. Supports both stdio and SSE transports, per-server tool filtering, and capability-aware resource/prompt registration.
 
 ## Web Search Backends
 
-The `web_search` and `web_extract` tools support four backend providers, configured via `config.yaml` or `shadow tools`:
+The `web_search` and `web_extract` tools support four backend providers, configured via `config.yaml` or `yousef shtiwe tools`:
 
 | Backend | Env Var | Search | Extract | Crawl |
 |---------|---------|--------|---------|-------|
@@ -42,7 +42,7 @@ If `web.backend` is not set, the backend is auto-detected from whichever API key
 
 ## Browser Automation
 
-SHADOW includes full browser automation with multiple backend options for navigating websites, filling forms, and extracting information:
+YOUSEF SHTIWE includes full browser automation with multiple backend options for navigating websites, filling forms, and extracting information:
 
 - **Browserbase** — Managed cloud browsers with anti-bot tooling, CAPTCHA solving, and residential proxies
 - **Browser Use** — Alternative cloud browser provider
@@ -67,11 +67,11 @@ Speech-to-text supports three providers: local Whisper (free, runs on-device), G
 
 ## IDE & Editor Integration
 
-- **[IDE Integration (ACP)](/docs/user-guide/features/acp)** — Use SHADOW Agent inside ACP-compatible editors such as VS Code, Zed, and JetBrains. SHADOW runs as an ACP server, rendering chat messages, tool activity, file diffs, and terminal commands inside your editor.
+- **[IDE Integration (ACP)](/docs/user-guide/features/acp)** — Use YOUSEF SHTIWE Agent inside ACP-compatible editors such as VS Code, Zed, and JetBrains. YOUSEF SHTIWE runs as an ACP server, rendering chat messages, tool activity, file diffs, and terminal commands inside your editor.
 
 ## Programmatic Access
 
-- **[API Server](/docs/user-guide/features/api-server)** — Expose SHADOW as an OpenAI-compatible HTTP endpoint. Any frontend that speaks the OpenAI format — Open WebUI, LobeChat, LibreChat, NextChat, ChatBox — can connect and use SHADOW as a backend with its full toolset.
+- **[API Server](/docs/user-guide/features/api-server)** — Expose YOUSEF SHTIWE as an OpenAI-compatible HTTP endpoint. Any frontend that speaks the OpenAI format — Open WebUI, LobeChat, LibreChat, NextChat, ChatBox — can connect and use YOUSEF SHTIWE as a backend with its full toolset.
 
 ## Memory & Personalization
 
@@ -80,7 +80,7 @@ Speech-to-text supports three providers: local Whisper (free, runs on-device), G
 
 ## Messaging Platforms
 
-SHADOW runs as a gateway bot on 15+ messaging platforms, all configured through the same `gateway` subsystem:
+YOUSEF SHTIWE runs as a gateway bot on 15+ messaging platforms, all configured through the same `gateway` subsystem:
 
 - **[Telegram](/docs/user-guide/messaging/telegram)**, **[Discord](/docs/user-guide/messaging/discord)**, **[Slack](/docs/user-guide/messaging/slack)**, **[WhatsApp](/docs/user-guide/messaging/whatsapp)**, **[Signal](/docs/user-guide/messaging/signal)**, **[Matrix](/docs/user-guide/messaging/matrix)**, **[Mattermost](/docs/user-guide/messaging/mattermost)**, **[Email](/docs/user-guide/messaging/email)**, **[SMS](/docs/user-guide/messaging/sms)**, **[DingTalk](/docs/user-guide/messaging/dingtalk)**, **[Feishu/Lark](/docs/user-guide/messaging/feishu)**, **[WeCom](/docs/user-guide/messaging/wecom)**, **[WeCom Callback](/docs/user-guide/messaging/wecom-callback)**, **[Weixin](/docs/user-guide/messaging/weixin)**, **[BlueBubbles](/docs/user-guide/messaging/bluebubbles)**, **[QQ Bot](/docs/user-guide/messaging/qqbot)**, **[Home Assistant](/docs/user-guide/messaging/homeassistant)**, **[Webhooks](/docs/user-guide/messaging/webhooks)**
 
@@ -92,8 +92,8 @@ See the [Messaging Gateway overview](/docs/user-guide/messaging) for the platfor
 
 ## Plugins
 
-- **[Plugin System](/docs/user-guide/features/plugins)** — Extend SHADOW with custom tools, lifecycle hooks, and CLI commands without modifying core code. Plugins are discovered from `~/.shadow/plugins/`, project-local `.shadow/plugins/`, and pip-installed entry points.
-- **[Build a Plugin](/docs/guides/build-a-shadow-plugin)** — Step-by-step guide for creating SHADOW plugins with tools, hooks, and CLI commands.
+- **[Plugin System](/docs/user-guide/features/plugins)** — Extend YOUSEF SHTIWE with custom tools, lifecycle hooks, and CLI commands without modifying core code. Plugins are discovered from `~/.yousef shtiwe/plugins/`, project-local `.yousef shtiwe/plugins/`, and pip-installed entry points.
+- **[Build a Plugin](/docs/guides/build-a-yousef shtiwe-plugin)** — Step-by-step guide for creating YOUSEF SHTIWE plugins with tools, hooks, and CLI commands.
 
 ## Training & Evaluation
 
