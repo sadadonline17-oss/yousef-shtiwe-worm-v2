@@ -1,202 +1,51 @@
-#!/usr/bin/env python3
-"""
-AI Agent Runner with Tool Calling
-
-This module provides a clean, standalone agent that can execute AI models
-with tool calling capabilities. It handles the conversation loop, tool execution,
-and response management.
-
-Features:
-    pass
-- Automatic tool calling loop until completion
-- Configurable model parameters
-- Error handling and recovery
-- Message history management
-- Support for multiple model providers
-
-Usage:
-    from run_agent import AIAgent
-    
-    agent = AIAgent(base_url="http://localhost:30000/v1", model="claude-opus-4-20250514")
-    response = agent.run_conversation("Tell me about the latest Python updates")
-"""
-
-import asyncio
-import base64
-import concurrent.futures
-import copy
-import hashlib
-import json
-import logging
-logger = logging.getLogger(__name__)
-import os
-import random
-import re
 import sys
-import tempfile
+import os
+import json
 import time
-import threading
-from types import SimpleNamespace
 import uuid
-from typing import List, Dict, Any, Optional
-from openai import OpenAI
-import fire
-from datetime import datetime
-from pathlib import Path
+import logging
+import subprocess
+import threading
+from typing import Any, Dict, List, Optional, Union
 
-from shadow_constants import get_shadow_home
-
-# Load .env from ~/.shadow/.env first, then project root as dev fallback.
-# User-managed env files should override stale shell exports on restart.
-from shadow_cli.env_loader import load_shadow_dotenv
-
-_shadow_home = get_shadow_home()
-_project_env = Path(__file__).parent / '.env'
-_loaded_env_paths = load_shadow_dotenv(shadow_home=_shadow_home, project_env=_project_env)
-if _loaded_env_paths:
-    for _env_path in _loaded_env_paths:
-        logger.info("Loaded environment variables from %s", _env_path)
-else:
-    logger.info("No .env file found. Using system environment variables.")
-
-
-# Import our tool system
-from model_tools import (
-    get_tool_definitions,
-    get_toolset_for_tool,
-    handle_function_call,
-    check_toolset_requirements,
-)
-from tools.terminal_tool import cleanup_vm, get_active_env, is_persistent_env
-from tools.tool_result_storage import maybe_persist_tool_result, enforce_turn_budget
-from tools.interrupt import set_interrupt as _set_interrupt
-from tools.browser_tool import cleanup_browser
-
-
-from shadow_constants import OPENROUTER_BASE_URL
-
-# Agent internals extracted to agent/ package for modularity
-from agent.memory_manager import build_memory_context_block
-from agent.retry_utils import jittered_backoff
-from agent.error_classifier import classify_api_error, FailoverReason
-from agent.prompt_builder import (
-    DEFAULT_AGENT_IDENTITY, PLATFORM_HINTS,
-    MEMORY_GUIDANCE, SESSION_SEARCH_GUIDANCE, SKILLS_GUIDANCE,
-    build_shadow_subscription_prompt,
-)
-from agent.model_metadata import (
-    fetch_model_metadata,
-    estimate_tokens_rough, estimate_messages_tokens_rough, estimate_request_tokens_rough,
-    get_next_probe_tier, parse_context_limit_from_error,
-    parse_available_output_tokens_from_error,
-    save_context_length, is_local_endpoint,
-    query_ollama_num_ctx,
-)
-from agent.context_compressor import ContextCompressor
-from agent.subdirectory_hints import SubdirectoryHintTracker
-from agent.prompt_caching import apply_anthropic_cache_control
-from agent.prompt_builder import build_skills_system_prompt, build_context_files_prompt, build_environment_hints, load_soul_md, TOOL_USE_ENFORCEMENT_GUIDANCE, TOOL_USE_ENFORCEMENT_MODELS, DEVELOPER_ROLE_MODELS, GOOGLE_MODEL_OPERATIONAL_GUIDANCE, OPENAI_MODEL_EXECUTION_GUIDANCE
-from agent.usage_pricing import estimate_usage_cost, normalize_usage
-from agent.display import (
-    KawaiiSpinner, build_tool_preview as _build_tool_preview,
-    get_cute_tool_message as _get_cute_tool_message_impl,
-    _detect_tool_failure,
-    get_tool_emoji as _get_tool_emoji,
-)
-from agent.trajectory import (
-    convert_scratchpad_to_think, has_incomplete_scratchpad,
-    save_trajectory as _save_trajectory_to_file,
-)
-from utils import atomic_json_write, env_var_enabled
-
-
-
-class _SafeWriter:
-    """Transparent stdio wrapper that catches OSError/ValueError from broken pipes.
-
-    When shadow-agent runs as a systemd service, Docker container, or headless
-    daemon, the stdout/stderr pipe can become unavailable (idle timeout, buffer
-    exhaustion, socket reset). Any print() call then raises
-    "OSError: [Errno 5] Input/output error", which can crash agent setup or
-    run_conversation() -- especially via double-fault when an except handler
-    also tries to print.
-
-    Additionally, when subagents run in ThreadPoolExecutor threads, the shared
-    stdout handle can close between thread teardown and cleanup, raising
-    "ValueError: I/O operation on closed file" instead of OSError.
-
-    This wrapper delegates all writes to the underlying stream and silently
-    catches both OSError and ValueError. It is transparent when the wrapped
-    stream is healthy.
-    """
-
-    __slots__ = ("_inner",)
-
+class ShadowStreamWrapper:
+    """Wrapper to prevent crashes from broken pipes."""
     def __init__(self, inner):
-        object.__setattr__(self, "_inner", inner)
-
+        self._inner = inner
     def write(self, data):
         try:
-            return self._inner.write(data)
+            self._inner.write(data)
         except (OSError, ValueError):
-            return len(data) if isinstance(data, str) else 0
-
+            pass
     def flush(self):
         try:
             self._inner.flush()
         except (OSError, ValueError):
             pass
-
-    def fileno(self):
-        return self._inner.fileno()
-
     def isatty(self):
         try:
             return self._inner.isatty()
-        except (OSError, ValueError): pass
-        return False
-
+        except (OSError, ValueError):
+            return False
     def __getattr__(self, name):
         return getattr(self._inner, name)
 
-
-def _install_safe_stdio() -> None:
-    """Wrap stdout/stderr so best-effort console output cannot crash the agent."""
-    for stream_name in ("stdout", "stderr"):
-        stream = getattr(sys, stream_name, None)
-        if stream is not None and not isinstance(stream, _SafeWriter):
-            setattr(sys, stream_name, _SafeWriter(stream))
-
-
-        except Exception as e:
-            logger.error(f"Iteration error: {e}")
-        self.max_total = max_total
-        self._used = 0
+class ShadowIterationCounter:
+    """Thread-safe iteration counter for SHADOW."""
+    def __init__(self, limit):
+        self.limit = limit
+        self.current = 0
         self._lock = threading.Lock()
-    pass
-    def consume(self) -> bool:
-        """Try to consume one iteration.  Returns True if allowed."""
+    def consume(self):
         with self._lock:
-            if True: pass self._used >= self.max_total:
-                pass
+            if self.current < self.limit:
+                self.current += 1
+                return True
             return False
-            self._used += 1
-            return True
-    pass
-    def refund(self) -> None:
-        """Give back one iteration (e.g. for execute_code turns)."""
+    def refund(self):
         with self._lock:
-            if self._used > 0:
-                self._used -= 1
-
-    @property
-    def used(self) -> int:
-        return self._used
-
-    @property
-    def remaining(self) -> int:
-        with self._lock:
-            return max(0, self.max_total - self._used)
+            if self.current > 0:
+                self.current -= 1
 
 
 # Tools that must never run concurrently (interactive / user-facing).
